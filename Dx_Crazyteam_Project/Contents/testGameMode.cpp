@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "TestGameMode.h"
 #include "Village.h"
+#include <EngineCore/EngineEditorGUI.h>
+#include "MapDebugGUI.h"
 
 ATestGameMode::ATestGameMode()
 {
@@ -27,11 +29,25 @@ void ATestGameMode::BeginPlay()
 void ATestGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+#ifdef _DEBUG
+	FVector MousePos = GetWorld()->GetMainCamera()->ScreenPosToWorldPos(GEngine->EngineWindow.GetScreenMousePos());
+	std::string Msgs = std::format("Mouse Position : {}", MousePos.ToString());
+	UMapDebugGUI::PushMsg(Msgs);
+#endif // _DEBUG
 }
 
 void ATestGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
+
+#ifdef _DEBUG
+	if (nullptr == MapDebugWindow)
+	{
+		MapDebugWindow = UEngineEditorGUI::CreateEditorWindow<UMapDebugGUI>("MapObject");
+	}
+	MapDebugWindow->On();
+#endif // _DEBUG
 }
 
 void ATestGameMode::LevelEnd(ULevel* _NextLevel)

@@ -46,6 +46,9 @@
     <Filter Include="Level\PlayertestLevel\Actor">
       <UniqueIdentifier>{bf2180e4-bb01-45f4-8efb-298acaf5722a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Map\Debug">
+      <UniqueIdentifier>{32d5609f-fb42-44be-a167-7333da739bcc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -120,6 +123,9 @@
     <ClInclude Include="WaterBomb.h">
       <Filter>MapObject</Filter>
     </ClInclude>
+    <ClInclude Include="MapDebugGUI.h">
+      <Filter>Map\Debug</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -193,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="WaterBomb.cpp">
       <Filter>MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="MapDebugGUI.cpp">
+      <Filter>Map\Debug</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
