@@ -7,6 +7,7 @@
 
 #include "Player.h"
 
+class UMapDebugGUI;
 class ATestGameMode : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
@@ -27,6 +28,7 @@ protected:
 	void LevelStart(ULevel* _PrevLevel);
 	void LevelEnd(ULevel* _NextLevel);
 private:
+	std::shared_ptr<UMapDebugGUI> MapDebugWindow;
 	std::shared_ptr<APlayer> Player1 = nullptr;
 };
 

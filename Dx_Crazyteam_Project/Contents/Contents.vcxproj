@@ -37,6 +37,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="MapDebugGUI.h" />
     <ClInclude Include="MapObject.h">
       <SubType>
       </SubType>
@@ -117,6 +118,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="MapDebugGUI.cpp" />
     <ClCompile Include="MapObject.cpp">
       <SubType>
       </SubType>
