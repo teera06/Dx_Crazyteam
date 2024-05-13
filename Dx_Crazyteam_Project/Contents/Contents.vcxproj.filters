@@ -31,6 +31,9 @@
     <Filter Include="Level\UItestLevel">
       <UniqueIdentifier>{9937a63d-b3e3-492c-86b6-40eb30b86bd1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Map">
+      <UniqueIdentifier>{e05e44d8-db11-43e8-a653-959cb251aecf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -66,6 +69,9 @@
     <ClInclude Include="UitestMonde.h">
       <Filter>Level\UItestLevel</Filter>
     </ClInclude>
+    <ClInclude Include="BaseMap.h">
+      <Filter>Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -98,6 +104,9 @@
     </ClCompile>
     <ClCompile Include="UitestMonde.cpp">
       <Filter>Level\UItestLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseMap.cpp">
+      <Filter>Map</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

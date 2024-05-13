@@ -19,6 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseMap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game_Core.h">
       <SubType>
       </SubType>
@@ -59,6 +63,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseMap.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Game_Core.cpp">
       <SubType>
       </SubType>
