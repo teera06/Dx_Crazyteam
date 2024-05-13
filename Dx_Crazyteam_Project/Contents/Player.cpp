@@ -8,6 +8,7 @@ APlayer::APlayer()
 
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
+	Renderer->SetOrder(5);
 
 	Info = new PlayerInfo();
 }
