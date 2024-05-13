@@ -44,9 +44,10 @@ private:
 	//void Attack(float _DeltaTime);
 	//void Die(float _DeltaTime);
 
-	FVector Dir = FVector::Zero;
-
 	std::string GetAnimationName(std::string_view _StateName);
+
+	FVector Dir = FVector::Down;
+	float AnimationInter = 0.1f;
 };
 
 

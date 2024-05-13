@@ -7,10 +7,15 @@ void APlayer::StateInit()
 	InputOn();
 
 	// CreateAnimation
-	Renderer->CreateAnimation("Move_Left", "Bazzi_1.bmp", 0.2f ,true, 0, 5);
-	Renderer->CreateAnimation("Move_Right", "Bazzi_1.bmp", 0.2f, true, 6, 11);
-	Renderer->CreateAnimation("Move_Up", "Bazzi_1.bmp", 0.2f, true, 12, 19);
-	Renderer->CreateAnimation("Move_Down", "Bazzi_1.bmp", 0.2f, true, 20, 27);
+	Renderer->CreateAnimation("Idle_Left", "Bazzi_1.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Idle_Right", "Bazzi_1.png", AnimationInter, true, 6, 6);
+	Renderer->CreateAnimation("Idle_Up", "Bazzi_1.png", AnimationInter, true, 12, 12);
+	Renderer->CreateAnimation("Idle_Down", "Bazzi_1.png", AnimationInter, true, 20, 20);
+
+	Renderer->CreateAnimation("Move_Left", "Bazzi_1.png", AnimationInter,true, 0, 5);
+	Renderer->CreateAnimation("Move_Right", "Bazzi_1.png", AnimationInter, true, 6, 11);
+	Renderer->CreateAnimation("Move_Up", "Bazzi_1.png", AnimationInter, true, 12, 19);
+	Renderer->CreateAnimation("Move_Down", "Bazzi_1.png", AnimationInter, true, 20, 27);
 
 	// CreateState
 	State.CreateState("Idle");
@@ -26,13 +31,13 @@ void APlayer::StateInit()
 	State.SetUpdateFunction("Idle", std::bind(&APlayer::Idle, this, std::placeholders::_1));
 	State.SetUpdateFunction("Move", std::bind(&APlayer::Move, this, std::placeholders::_1));
 
-	// ChangeState
+	// Init
 	State.ChangeState("Idle");
 }
 
 void APlayer::IdleStart()
 {
-	//Renderer->ChangeAnimation("Idle");
+	Renderer->ChangeAnimation(GetAnimationName("Idle"));
 }
 
 void  APlayer::Idle(float _DeltaTime)
@@ -51,6 +56,12 @@ void APlayer::MoveStart()
 
 void APlayer::Move(float _DeltaTime)
 {
+	if (true == IsFree(VK_UP) && true == IsFree(VK_DOWN) && true == IsFree(VK_RIGHT) && true == IsFree(VK_LEFT))
+	{
+		State.ChangeState("Idle");
+		return;
+	}
+
 	FVector MovePos = FVector::Zero;
 	FVector NextPos = FVector::Zero;
 
@@ -77,9 +88,10 @@ void APlayer::Move(float _DeltaTime)
 
 	NextPos = GetActorLocation() + MovePos + Dir * 10.f;
 
+	Renderer->ChangeAnimation(GetAnimationName("Move"));
 	if (true == ABaseMap::IsMove(NextPos))
 	{
-		Renderer->ChangeAnimation(GetAnimationName("Move"));
 		AddActorLocation(MovePos);
+		return;
 	}
 }
