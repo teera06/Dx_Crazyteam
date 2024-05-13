@@ -23,6 +23,6 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-
+	UImage* PlayerInfoUI = nullptr;
 };
 

@@ -102,6 +102,9 @@
     <ClInclude Include="StageUI.h">
       <Filter>Level\UItestLevel</Filter>
     </ClInclude>
+    <ClInclude Include="PlayLobby.h">
+      <Filter>Level\UItestLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -156,6 +159,9 @@
       <Filter>Level\UItestLevel</Filter>
     </ClCompile>
     <ClCompile Include="StageUI.cpp">
+      <Filter>Level\UItestLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayLobby.cpp">
       <Filter>Level\UItestLevel</Filter>
     </ClCompile>
   </ItemGroup>
