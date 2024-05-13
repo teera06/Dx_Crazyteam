@@ -44,7 +44,7 @@ private:
 	//void Attack(float _DeltaTime);
 	//void Die(float _DeltaTime);
 
-
+	FVector Dir = FVector::Zero;
 };
 
 
