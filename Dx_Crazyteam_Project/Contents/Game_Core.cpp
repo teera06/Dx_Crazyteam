@@ -31,7 +31,7 @@ void UGame_Core::Initialize()
 	GEngine->CreateLevel<AUitestMonde>("UitestMonde");
 	GEngine->ChangeLevel("UitestMonde");
 
-	UEngineEditorGUI::CreateEditorWindow<UContentsDebugWindow>("CupheadHelpMe");
+	UEngineEditorGUI::CreateEditorWindow<UContentsDebugWindow>("contentsHelpMe");
 
 }
 
@@ -49,6 +49,12 @@ void UGame_Core::MainLoad()
 			}
 		}
 	}
+
+	UEngineSprite::CreateCutting("Bazzi_1.bmp", 5, 18);
+	UEngineSprite::CreateCutting("Bazzi_1a.bmp", 5, 18);
+	UEngineSprite::CreateCutting("Bazzi_2.bmp", 5, 2);
+	UEngineSprite::CreateCutting("Bazzi_3.bmp", 5, 4);
+
 
 
 }
