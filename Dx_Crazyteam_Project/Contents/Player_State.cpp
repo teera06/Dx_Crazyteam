@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Player.h"
+#include "BaseMap.h"
 
 void APlayer::StateInit()
 {
@@ -47,20 +48,30 @@ void APlayer::MoveStart()
 
 void APlayer::Move(float _DeltaTime)
 {
+	FVector MovePos = FVector::Zero;
+	FVector NextPos = FVector::Zero;
+
 	if (true == IsPress(VK_UP))
 	{
-		AddActorLocation(FVector::Up * Info->MoveSpeed * _DeltaTime);
+		MovePos = FVector::Up * Info->MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_DOWN))
 	{
-		AddActorLocation(FVector::Down * Info->MoveSpeed * _DeltaTime);
+		MovePos = FVector::Down * Info->MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_RIGHT))
 	{
-		AddActorLocation(FVector::Right * Info->MoveSpeed * _DeltaTime);
+		MovePos = FVector::Right * Info->MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_LEFT))
 	{
-		AddActorLocation(FVector::Left * Info->MoveSpeed * _DeltaTime);
+		MovePos = FVector::Left * Info->MoveSpeed * _DeltaTime;
+	}
+
+	NextPos = GetActorLocation() + MovePos;
+
+	if (true == ABaseMap::IsMove(NextPos))
+	{
+		AddActorLocation(MovePos);
 	}
 }

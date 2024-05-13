@@ -1,36 +1,37 @@
 #include "PreCompile.h"
 #include "PlayertestMode.h"
 
-APlayertestMode::APlayertestMode()
+APlayerTestMode::APlayerTestMode()
 {
 }
 
-APlayertestMode::~APlayertestMode()
+APlayerTestMode::~APlayerTestMode()
 {
 }
 
-void APlayertestMode::BeginPlay()
+void APlayerTestMode::BeginPlay()
 {
 	Super::BeginPlay();
 
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -200.0f));
 
+	Village = GetWorld()->SpawnActor<AVillage>("Village");
+
 	Player1 = GetWorld()->SpawnActor<APlayer>("Player1", 0);
-	Player1->SetActorScale3D(FVector(100, 100, 1));
 }
 
-void APlayertestMode::Tick(float _DeltaTime)
+void APlayerTestMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }
 
-void APlayertestMode::LevelStart(ULevel* _PrevLevel)
+void APlayerTestMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 }
 
-void APlayertestMode::LevelEnd(ULevel* _NextLevel)
+void APlayerTestMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
 }

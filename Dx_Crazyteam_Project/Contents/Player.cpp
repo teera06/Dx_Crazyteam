@@ -21,6 +21,7 @@ void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
+	SetActorScale3D(FVector(20, 20, 1));
 	StateInit();
 }
 

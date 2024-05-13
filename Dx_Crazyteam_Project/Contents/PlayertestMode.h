@@ -5,21 +5,23 @@
 #include <EngineCore/EngineNetWindow.h>
 #include <EngineBase/EngineDispatcher.h>
 
+
+#include "Village.h"
 #include "Player.h"
 
-class APlayertestMode : public AGameMode
+class APlayerTestMode : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
 public:
 	// constrcuter destructer
-	APlayertestMode(); // 디폴트 생성자
-	~APlayertestMode(); // 디폴트 소멸자
+	APlayerTestMode(); // 디폴트 생성자
+	~APlayerTestMode(); // 디폴트 소멸자
 
 	// delete Function
-	APlayertestMode(const APlayertestMode& _Other) = delete; // 디폴트 복사 생성자
-	APlayertestMode(APlayertestMode&& _Other) noexcept = delete; 
-	APlayertestMode& operator=(const APlayertestMode& _Other) = delete; // 디폴트 대입 연산자
-	APlayertestMode& operator=(APlayertestMode&& _Other) noexcept = delete;
+	APlayerTestMode(const APlayerTestMode& _Other) = delete; // 디폴트 복사 생성자
+	APlayerTestMode(APlayerTestMode&& _Other) noexcept = delete; 
+	APlayerTestMode& operator=(const APlayerTestMode& _Other) = delete; // 디폴트 대입 연산자
+	APlayerTestMode& operator=(APlayerTestMode&& _Other) noexcept = delete;
 
 protected:
 	void BeginPlay() override;
@@ -27,6 +29,7 @@ protected:
 	void LevelStart(ULevel* _PrevLevel);
 	void LevelEnd(ULevel* _NextLevel);
 private:
+	std::shared_ptr<AVillage> Village = nullptr;
 	std::shared_ptr<APlayer> Player1 = nullptr;
 };
 
