@@ -4,10 +4,13 @@
 
 void APlayer::StateInit()
 {
-	//여기서 랜더러 CreateAnimation 등 해줘야함.
-
 	InputOn();
 
+	// CreateAnimation
+	Renderer->CreateAnimation("Move_Left", "Bazzi_1.bmp", 0.2f ,true, 0, 5);
+	Renderer->CreateAnimation("Move_Right", "Bazzi_1.bmp", 0.2f, true, 6, 11);
+	Renderer->CreateAnimation("Move_Up", "Bazzi_1.bmp", 0.2f, true, 12, 19);
+	Renderer->CreateAnimation("Move_Down", "Bazzi_1.bmp", 0.2f, true, 20, 27);
 
 	// CreateState
 	State.CreateState("Idle");
@@ -43,7 +46,7 @@ void  APlayer::Idle(float _DeltaTime)
 
 void APlayer::MoveStart()
 {
-	//Renderer->ChangeAnimation("Move");
+	
 }
 
 void APlayer::Move(float _DeltaTime)
@@ -76,6 +79,7 @@ void APlayer::Move(float _DeltaTime)
 
 	if (true == ABaseMap::IsMove(NextPos))
 	{
+		Renderer->ChangeAnimation(GetAnimationName("Move"));
 		AddActorLocation(MovePos);
 	}
 }
