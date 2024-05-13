@@ -53,22 +53,26 @@ void APlayer::Move(float _DeltaTime)
 
 	if (true == IsPress(VK_UP))
 	{
+		Dir = FVector::Up;
 		MovePos = FVector::Up * Info->MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_DOWN))
 	{
+		Dir = FVector::Down;
 		MovePos = FVector::Down * Info->MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_RIGHT))
 	{
+		Dir = FVector::Right;
 		MovePos = FVector::Right * Info->MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_LEFT))
 	{
+		Dir = FVector::Left;
 		MovePos = FVector::Left * Info->MoveSpeed * _DeltaTime;
 	}
 
-	NextPos = GetActorLocation() + MovePos;
+	NextPos = GetActorLocation() + MovePos + Dir * 10.f;
 
 	if (true == ABaseMap::IsMove(NextPos))
 	{
