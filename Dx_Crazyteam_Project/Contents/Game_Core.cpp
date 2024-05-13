@@ -70,4 +70,9 @@ void UGame_Core::MainLoad()
 
 
 	UEngineSprite::CreateCutting("Bazzi_1.png", 5, 18);
+
+	UEngineSprite::CreateCutting("bazzi_right.png", 6, 1);
+	UEngineSprite::CreateCutting("bazzi_left.png", 6, 1);
+	UEngineSprite::CreateCutting("bazzi_down.png", 8, 1);
+	UEngineSprite::CreateCutting("bazzi_up.png", 8, 1);
 }
