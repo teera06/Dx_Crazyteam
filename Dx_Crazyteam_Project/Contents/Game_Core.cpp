@@ -54,7 +54,19 @@ void UGame_Core::MainLoad()
 	UEngineSprite::CreateCutting("Bazzi_1a.bmp", 5, 18);
 	UEngineSprite::CreateCutting("Bazzi_2.bmp", 5, 2);
 	UEngineSprite::CreateCutting("Bazzi_3.bmp", 5, 4);
-
+	UEngineSprite::CreateCutting("Bazzi_4.bmp", 5, 7);
+	UEngineSprite::CreateCutting("Dao_1.bmp", 5, 12);
+	UEngineSprite::CreateCutting("Dao_2.bmp", 5, 2);
+	UEngineSprite::CreateCutting("Dao_3.bmp", 5, 4);
+	UEngineSprite::CreateCutting("Dao_4.bmp", 5, 4);
+	UEngineSprite::CreateCutting("Dao_5.bmp", 5, 6);
+	UEngineSprite::CreateCutting("Effect_Shield.bmp", 5, 2);
+	UEngineSprite::CreateCutting("luxMarid_1.bmp", 5, 12);
+	UEngineSprite::CreateCutting("luxMarid_2.bmp", 5, 2);
+	UEngineSprite::CreateCutting("luxMarid_3.bmp", 5, 4);
+	UEngineSprite::CreateCutting("luxMarid_4.bmp", 5, 4);
+	UEngineSprite::CreateCutting("luxMarid_5.bmp", 5, 6);
+	UEngineSprite::CreateCutting("Player_Devil.bmp", 5, 18);
 
 
 }
