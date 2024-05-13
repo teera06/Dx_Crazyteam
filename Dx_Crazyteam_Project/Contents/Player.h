@@ -45,6 +45,8 @@ private:
 	//void Die(float _DeltaTime);
 
 	FVector Dir = FVector::Zero;
+
+	std::string GetAnimationName(std::string_view _StateName);
 };
 
 

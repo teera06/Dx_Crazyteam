@@ -18,7 +18,7 @@ void APlayLobby::BeginPlay()
 
 	PlayLobbyUI = CreateWidget<UImage>(GetWorld(), "TitleBackGround");
 	PlayLobbyUI->AddToViewPort(1);
-	PlayLobbyUI->SetSprite("map_pang_object5.png");
+	PlayLobbyUI->SetSprite("map_village_object5.png");
 	PlayLobbyUI->SetScale({ 1280, 720 });
 	PlayLobbyUI->SetActive(false);
 }
