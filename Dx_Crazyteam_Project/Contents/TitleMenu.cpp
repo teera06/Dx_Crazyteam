@@ -2,25 +2,26 @@
 #include "TitleMenu.h"
 #include "EngineCore/Image.h"
 
-TitleMenu::TitleMenu()
+ATitleMenu::ATitleMenu()
 {
 }
 
-TitleMenu::~TitleMenu()
+ATitleMenu::~ATitleMenu()
 {
 }
 
-void TitleMenu::BeginPlay()
+void ATitleMenu::BeginPlay()
 {
 	Super::BeginPlay();
+
 	UImage* TitleBackGround = CreateWidget<UImage>(GetWorld(), "TitleBackGround");
 	TitleBackGround->AddToViewPort(1);
-	TitleBackGround->SetSprite("login_scene_bg_LYS.png");
+	TitleBackGround->SetSprite("Logo.png");
 	TitleBackGround->SetScale({ 1280, 720 });
 
 }
 
-void TitleMenu::Tick(float _DeltaTime)
+void ATitleMenu::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }

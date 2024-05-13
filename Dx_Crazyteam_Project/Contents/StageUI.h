@@ -1,6 +1,12 @@
 #pragma once
-class StageUI
+#include <EngineCore/Actor.h>
+#include <EngineBase/NetObject.h>
+
+class UIamge;
+class StageUI : public AActor, public UNetObject
 {
+	GENERATED_BODY(AActor)
+
 public:
 	// constrcuter destructer
 	StageUI();
@@ -13,6 +19,8 @@ public:
 	StageUI& operator=(StageUI&& _Other) noexcept = delete;
 
 protected:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 
 private:
 

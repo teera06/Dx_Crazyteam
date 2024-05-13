@@ -3,20 +3,20 @@
 #include <EngineBase/NetObject.h>
 
 class UImage;
-class TitleMenu : public AActor, public UNetObject
+class ATitleMenu : public AActor, public UNetObject
 {
 	GENERATED_BODY(AActor)
 
 public:
 	// constrcuter destructer
-	TitleMenu();
-	~TitleMenu();
+	ATitleMenu();
+	~ATitleMenu();
 
 	// delete Function
-	TitleMenu(const TitleMenu& _Other) = delete;
-	TitleMenu(TitleMenu&& _Other) noexcept = delete;
-	TitleMenu& operator=(const TitleMenu& _Other) = delete;
-	TitleMenu& operator=(TitleMenu&& _Other) noexcept = delete;
+	ATitleMenu(const ATitleMenu& _Other) = delete;
+	ATitleMenu(ATitleMenu&& _Other) noexcept = delete;
+	ATitleMenu& operator=(const ATitleMenu& _Other) = delete;
+	ATitleMenu& operator=(ATitleMenu&& _Other) noexcept = delete;
 
 protected:
 	void BeginPlay() override;
