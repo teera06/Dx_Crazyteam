@@ -5,19 +5,19 @@
 #include <EngineCore/EngineNetWindow.h>
 #include <EngineBase/EngineDispatcher.h>
 
-class AtestGameMode : public AGameMode
+class ATestGameMode : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
 public:
 	// constrcuter destructer
-	AtestGameMode(); // 디폴트 생성자
-	~AtestGameMode(); // 디폴트 소멸자
+	ATestGameMode(); // 디폴트 생성자
+	~ATestGameMode(); // 디폴트 소멸자
 
 	// delete Function
-	AtestGameMode(const AtestGameMode& _Other) = delete; // 디폴트 복사 생성자
-	AtestGameMode(AtestGameMode&& _Other) noexcept = delete; 
-	AtestGameMode& operator=(const AtestGameMode& _Other) = delete; // 디폴트 대입 연산자
-	AtestGameMode& operator=(AtestGameMode&& _Other) noexcept = delete;
+	ATestGameMode(const ATestGameMode& _Other) = delete; // 디폴트 복사 생성자
+	ATestGameMode(ATestGameMode&& _Other) noexcept = delete; 
+	ATestGameMode& operator=(const ATestGameMode& _Other) = delete; // 디폴트 대입 연산자
+	ATestGameMode& operator=(ATestGameMode&& _Other) noexcept = delete;
 
 protected:
 	void BeginPlay() override;

@@ -19,8 +19,11 @@
     <Filter Include="Protocol">
       <UniqueIdentifier>{d0df054d-24fa-44d8-80bb-06c7c7bdefde}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\testLevel">
+    <Filter Include="Level\TestLevel">
       <UniqueIdentifier>{ad9f5a44-a1f3-4c33-b2f2-6408edce1ca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\TestLevel\TestActor">
+      <UniqueIdentifier>{c213add4-7f51-46d6-aac2-7606d4c3e8a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,8 +48,11 @@
     <ClInclude Include="Game_Core.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="testGameMode.h">
-      <Filter>Level\testLevel</Filter>
+    <ClInclude Include="TestGameMode.h">
+      <Filter>Level\TestLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Level\TestLevel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -68,8 +74,11 @@
     <ClCompile Include="Game_Core.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="testGameMode.cpp">
-      <Filter>Level\testLevel</Filter>
+    <ClCompile Include="TestGameMode.cpp">
+      <Filter>Level\TestLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Level\TestLevel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

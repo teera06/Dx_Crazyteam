@@ -15,7 +15,7 @@ UGame_Core::~UGame_Core()
 
 void UGame_Core::Initialize()
 {
-	GEngine->CreateLevel<AtestGameMode>("testGameMode");
+	GEngine->CreateLevel<ATestGameMode>("testGameMode");
 	GEngine->ChangeLevel("testGameMode");
 
 }

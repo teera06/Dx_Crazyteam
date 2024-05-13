@@ -32,6 +32,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
+    <ClInclude Include="Player.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PreCompile.h">
       <SubType>
       </SubType>
@@ -41,7 +45,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="testGameMode.h">
+    <ClInclude Include="TestGameMode.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -59,6 +63,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PreCompile.cpp">
       <SubType>
       </SubType>
@@ -72,7 +80,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="testGameMode.cpp">
+    <ClCompile Include="TestGameMode.cpp">
       <SubType>
       </SubType>
     </ClCompile>
