@@ -39,10 +39,10 @@ void UGame_Core::MainLoad()
 {
 	{
 		UEngineDirectory Dir;
-		Dir.MoveToSearchChild("OriginalResources");
+		Dir.MoveToSearchChild("GameResource");
 		Dir.Move("Image");
 		{
-			std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png"}, true);
+			std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png",".bmp" }, true);
 			for (UEngineFile& File : Files)
 			{
 				UEngineSprite::Load(File.GetFullPath());
