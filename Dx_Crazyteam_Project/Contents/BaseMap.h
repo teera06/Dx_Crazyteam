@@ -19,6 +19,8 @@ public:
 	ABaseMap& operator=(const ABaseMap& _Other) = delete;
 	ABaseMap& operator=(ABaseMap&& _Other) noexcept = delete;
 
+	bool IsMove(FVector _PlayerPos);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -29,8 +31,10 @@ protected:
 
 	std::vector<std::vector<AMapObject*>> MapStatus;
 
-	int TileY = 18;
-	int TileX = 20;
+	const FVector TileSize = FVector(20.f, 20.f, 10.f);
+
+	const int TileY = 18;
+	const int TileX = 20;
 private:
 
 };
