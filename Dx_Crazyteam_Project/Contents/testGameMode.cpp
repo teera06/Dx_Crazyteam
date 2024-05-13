@@ -1,7 +1,6 @@
 #include "PreCompile.h"
 #include "TestGameMode.h"
-
-#include "Player.h"
+#include "Village.h"
 
 ATestGameMode::ATestGameMode()
 {
@@ -18,8 +17,7 @@ void ATestGameMode::BeginPlay()
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -200.0f));
 
-	std::shared_ptr<APlayer> TestPlayer = GetWorld()->SpawnActor<APlayer>("TestPlayer");
-	TestPlayer->AddActorScale3D(FVector(100, 100, 1));
+	std::shared_ptr<AVillage> Village = GetWorld()->SpawnActor<AVillage>("Village");
 }
 
 void ATestGameMode::Tick(float _DeltaTime)

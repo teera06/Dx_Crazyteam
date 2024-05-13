@@ -25,7 +25,7 @@ void AVillage::BeginPlay()
 	BackMap->AddPosition(FVector(-80.f, 20.f, 0.f));
 	//BackMap->SetScale(FVector(500.f, 500.f, 10.f));
 
-	ColMap->SetSprite("ColMapDefault.bmp");
+	ColMap->SetSprite("ColMapDefault.png");
 	ColMap->SetAutoSize(1.f, true);
 
 }

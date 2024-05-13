@@ -40,6 +40,12 @@
     <Filter Include="ContentsGUI">
       <UniqueIdentifier>{ac74c9ac-ebcf-4bad-9eee-79fb3e2cdfb6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MapObject">
+      <UniqueIdentifier>{3cc13eae-3888-4ffd-8171-5eb9f54abaa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\PlayertestLevel\Actor">
+      <UniqueIdentifier>{bf2180e4-bb01-45f4-8efb-298acaf5722a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -66,9 +72,6 @@
     <ClInclude Include="TestGameMode.h">
       <Filter>Level\TestLevel</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Level\TestLevel</Filter>
-    </ClInclude>
     <ClInclude Include="PlayertestMode.h">
       <Filter>Level\PlayertestLevel</Filter>
     </ClInclude>
@@ -83,6 +86,12 @@
     </ClInclude>
     <ClInclude Include="ContentsDebugWindow.h">
       <Filter>ContentsGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObject.h">
+      <Filter>MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Level\PlayertestLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -107,10 +116,6 @@
     <ClCompile Include="TestGameMode.cpp">
       <Filter>Level\TestLevel</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Level\TestLevel</Filter>
-    </ClCompile>
-    <ClCompile Include="Player_State.cpp" />
     <ClCompile Include="PlayertestMode.cpp">
       <Filter>Level\PlayertestLevel</Filter>
     </ClCompile>
@@ -125,6 +130,15 @@
     </ClCompile>
     <ClCompile Include="ContentsDebugWindow.cpp">
       <Filter>ContentsGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObject.cpp">
+      <Filter>MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Level\PlayertestLevel\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_State.cpp">
+      <Filter>Level\PlayertestLevel\Actor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

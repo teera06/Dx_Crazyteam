@@ -8,6 +8,8 @@ APlayer::APlayer()
 
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
+
+	Info = new PlayerInfo();
 }
 
 APlayer::~APlayer()
@@ -24,4 +26,6 @@ void APlayer::BeginPlay()
 void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	State.Update(_DeltaTime);
 }
