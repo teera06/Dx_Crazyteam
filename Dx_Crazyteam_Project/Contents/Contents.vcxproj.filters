@@ -108,6 +108,9 @@
     <ClInclude Include="Block.h">
       <Filter>MapObject</Filter>
     </ClInclude>
+    <ClInclude Include="BrokenBlock.h">
+      <Filter>MapObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -168,6 +171,9 @@
       <Filter>Level\UItestLevel</Filter>
     </ClCompile>
     <ClCompile Include="Block.cpp">
+      <Filter>MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BrokenBlock.cpp">
       <Filter>MapObject</Filter>
     </ClCompile>
   </ItemGroup>

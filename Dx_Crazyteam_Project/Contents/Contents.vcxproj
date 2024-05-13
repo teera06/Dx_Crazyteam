@@ -27,6 +27,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BrokenBlock.h" />
     <ClInclude Include="ContentsDebugWindow.h" />
     <ClInclude Include="Game_Core.h">
       <SubType>
@@ -100,6 +101,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="BrokenBlock.cpp" />
     <ClCompile Include="ContentsDebugWindow.cpp" />
     <ClCompile Include="Game_Core.cpp">
       <SubType>
