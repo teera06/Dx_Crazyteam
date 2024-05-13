@@ -4,8 +4,8 @@
 
 const FVector ABaseMap::TileSize = FVector(40.f, 40.f, 10.f);
 
-const int ABaseMap::TileY = 18;
-const int ABaseMap::TileX = 20;
+const int ABaseMap::TileY = 13;
+const int ABaseMap::TileX = 15;
 
 
 ABaseMap::ABaseMap()
@@ -21,14 +21,14 @@ ABaseMap::~ABaseMap()
 
 bool ABaseMap::IsMove(FVector _PlayerPos)
 {
-	if (_PlayerPos.X > TileSize.X / 2.f * TileX ||
-		_PlayerPos.X < TileSize.X / 2.f * (-TileX))
+	if (_PlayerPos.X > - 80.f + TileSize.X / 2.f * TileX ||
+		_PlayerPos.X < -80.f + TileSize.X / 2.f * (-TileX))
 	{
 		return false;
 	}
 
-	if (_PlayerPos.Y > TileSize.Y / 2.f * TileX ||
-		_PlayerPos.Y < TileSize.Y / 2.f * (-TileX))
+	if (_PlayerPos.Y > TileSize.Y / 2.f * TileY ||
+		_PlayerPos.Y < TileSize.Y / 2.f * (-TileY))
 	{
 		return false;
 	}
