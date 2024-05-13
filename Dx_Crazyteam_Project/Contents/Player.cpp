@@ -17,6 +17,8 @@ APlayer::~APlayer()
 void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
+
+	StateInit();
 }
 
 void APlayer::Tick(float _DeltaTime)
