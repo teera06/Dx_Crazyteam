@@ -36,6 +36,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="PlayertestMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PreCompile.h">
       <SubType>
       </SubType>
@@ -46,6 +50,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="TestGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="UitestMonde.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -67,6 +75,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayertestMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Player_State.cpp" />
     <ClCompile Include="PreCompile.cpp">
       <SubType>
@@ -82,6 +94,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="TestGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="UitestMonde.cpp">
       <SubType>
       </SubType>
     </ClCompile>

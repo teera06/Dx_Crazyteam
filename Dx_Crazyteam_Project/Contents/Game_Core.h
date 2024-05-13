@@ -20,7 +20,12 @@ public:
 	static std::shared_ptr<UEngineNet> Net;
 protected:
 
-protected:
 	void Initialize() override;
+
+private:
+
+	std::atomic_int MainLoadCount = -1;
+
+	void MainLoad();
 };
 
