@@ -2,26 +2,29 @@
 #include <EngineCore/Actor.h>
 #include <EngineBase/NetObject.h>
 
-class PlayLobby : public AActor, public UNetObject
+class UImage;
+class APlayLobby : public AActor, public UNetObject
 {
 	GENERATED_BODY(AActor)
 
 public:
 	// constrcuter destructer
-	PlayLobby();
-	~PlayLobby();
+	APlayLobby();
+	~APlayLobby();
 
 	// delete Function
-	PlayLobby(const PlayLobby& _Other) = delete;
-	PlayLobby(PlayLobby&& _Other) noexcept = delete;
-	PlayLobby& operator=(const PlayLobby& _Other) = delete;
-	PlayLobby& operator=(PlayLobby&& _Other) noexcept = delete;
+	APlayLobby(const APlayLobby& _Other) = delete;
+	APlayLobby(APlayLobby&& _Other) noexcept = delete;
+	APlayLobby& operator=(const APlayLobby& _Other) = delete;
+	APlayLobby& operator=(APlayLobby&& _Other) noexcept = delete;
+
+	void SetIsActive(bool _Active);
 
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 private:
-
+	UImage* PlayLobbyUI = nullptr;
 };
 
