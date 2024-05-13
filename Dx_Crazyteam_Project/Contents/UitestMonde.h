@@ -5,6 +5,7 @@
 #include <EngineCore/EngineNetWindow.h>
 #include <EngineBase/EngineDispatcher.h>
 
+class APlayLobby;
 class AUitestMonde : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
@@ -19,11 +20,17 @@ public:
 	AUitestMonde& operator=(const AUitestMonde& _Other) = delete; // 디폴트 대입 연산자
 	AUitestMonde& operator=(AUitestMonde&& _Other) noexcept = delete;
 
+	std::shared_ptr<APlayLobby> GetPlayLobby()
+	{
+		return PlayLobby;
+	}
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void LevelStart(ULevel* _PrevLevel);
 	void LevelEnd(ULevel* _NextLevel);
+
 private:
+	std::shared_ptr<APlayLobby> PlayLobby = nullptr;
 };
 

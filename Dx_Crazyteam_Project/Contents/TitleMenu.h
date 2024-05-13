@@ -2,6 +2,7 @@
 #include <EngineCore/Actor.h>
 #include <EngineBase/NetObject.h>
 
+class AUitestMonde;
 class UImage;
 class ATitleMenu : public AActor, public UNetObject
 {
@@ -23,6 +24,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	AUitestMonde* UIGameMode = nullptr;
 
 };
 

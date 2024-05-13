@@ -1,9 +1,13 @@
 #include "PreCompile.h"
 #include "TitleMenu.h"
+#include "UitestMonde.h"
+#include "PlayLobby.h"
+
 #include "EngineCore/Image.h"
 
 ATitleMenu::ATitleMenu()
 {
+
 }
 
 ATitleMenu::~ATitleMenu()
@@ -13,6 +17,8 @@ ATitleMenu::~ATitleMenu()
 void ATitleMenu::BeginPlay()
 {
 	Super::BeginPlay();
+	InputOn();
+	UIGameMode = dynamic_cast<AUitestMonde*>(GetWorld()->GetGameMode().get());
 
 	UImage* TitleBackGround = CreateWidget<UImage>(GetWorld(), "TitleBackGround");
 	TitleBackGround->AddToViewPort(1);
@@ -23,6 +29,16 @@ void ATitleMenu::BeginPlay()
 	GameStartButton->AddToViewPort(1);
 	GameStartButton->SetSprite("map_village_object5.png");
 	GameStartButton->SetScale({ 150, 150 });
+
+	GameStartButton->SetHover([=]
+		{
+			if (IsDown(VK_LBUTTON))
+			{
+				TitleBackGround->SetActive(false);
+				GameStartButton->SetActive(false);
+				UIGameMode->GetPlayLobby()->SetIsActive(true);
+			}
+		});
 
 }
 
