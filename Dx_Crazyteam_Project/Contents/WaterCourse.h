@@ -16,6 +16,16 @@ public :
 	AWaterCourse(AWaterCourse&& _Other) noexcept = delete;
 	AWaterCourse& operator=(const AWaterCourse& _Other) = delete;
 	AWaterCourse& operator=(AWaterCourse&& _Other) noexcept = delete;
+	
+	inline void SetTheEnd(bool _Val)
+	{
+		b_TheEnd = _Val;
+	}
+
+	inline void SetWaterCourseDir(EEngineDir _Dir)
+	{
+		Dir = _Dir;
+	}
 
 	inline void CreateWaterCourse()
 	{
@@ -30,6 +40,7 @@ protected:
 private :
 	void StateInit();
 	void CreateAnimation();
+	void ChangeAnimation(std::string_view _AniName ,bool _Val);
 
 	void NoneBegin();
 	void NoneTick(float _DeltaTime);
@@ -40,8 +51,10 @@ private :
 	void DeleteTick(float _DeltaTime);
 	void DeleteExit();
 
+	bool b_TheEnd = false;
 	UStateManager State;
 	USpriteRenderer* WaterCourseRender = nullptr;
+	EEngineDir Dir = EEngineDir::MAX;
 	float LifeTime = 0.0f;
 };
 

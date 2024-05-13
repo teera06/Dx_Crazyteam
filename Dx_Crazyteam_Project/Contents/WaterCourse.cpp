@@ -57,12 +57,19 @@ void AWaterCourse::StateInit()
 
 void AWaterCourse::CreateAnimation()
 {
-	WaterCourseRender->CreateAnimation("", "", 0.125f, true);
-	WaterCourseRender->CreateAnimation("", "", 0.125f, true);
+	WaterCourseRender->CreateAnimation("", "", 0.125f, true); // 醞
+	WaterCourseRender->CreateAnimation("", "", 0.125f, true); // 鼻
+	WaterCourseRender->CreateAnimation("", "", 0.125f, true); // ж
+	WaterCourseRender->CreateAnimation("", "", 0.125f, true); // 謝
+	WaterCourseRender->CreateAnimation("", "", 0.125f, true); // 辦
+	WaterCourseRender->CreateAnimation("", "", 0.125f, true); // 部 鼻
+	WaterCourseRender->CreateAnimation("", "", 0.125f, true); // 部 ж
+	WaterCourseRender->CreateAnimation("", "", 0.125f, true); // 部 謝
+	WaterCourseRender->CreateAnimation("", "", 0.125f, true); // 部 辦
+
 
 	WaterCourseRender->ChangeAnimation("");
 }
-
 
 
 void AWaterCourse::NoneBegin()
@@ -76,9 +83,49 @@ void AWaterCourse::NoneTick(float _DeltaTime)
 void AWaterCourse::CreateBegin()
 {
 	// change Animation
+	switch (Dir)
+	{
+	case EEngineDir::Right :
+	{
+		ChangeAnimation("Right", b_TheEnd);
+		break;
+	}
+	case EEngineDir::Left :
+	{
+		ChangeAnimation("Left", b_TheEnd);
+		break;
+	}
+	case EEngineDir::Up :
+	{
+		ChangeAnimation("Up", b_TheEnd);
+		break;
+	}
+	case EEngineDir::Down :
+	{
+		ChangeAnimation("Down", b_TheEnd);
+		break;
+	}
+	default :
+		break;
+	}
 
 	WaterCourseRender->SetActive(true);
 	LifeTime = 0.0f;
+}
+
+void AWaterCourse::ChangeAnimation(std::string_view _AniName, bool _Val)
+{
+	std::string AniName = "";
+	AniName += _AniName;
+
+	if (true == _Val)
+	{
+		WaterCourseRender->ChangeAnimation(AniName);
+	}
+	else
+	{
+		WaterCourseRender->ChangeAnimation(AniName);
+	}
 }
 
 void AWaterCourse::CreateTick(float _DeltaTime)
