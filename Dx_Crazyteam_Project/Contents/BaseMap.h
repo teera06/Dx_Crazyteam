@@ -34,7 +34,7 @@ public:
 	
 	void AddMapObject(int _Y, int _X, EMapObjectType _MapObjectType);
 
-	static std::pair<int,int> PlayerPosToPoint(FVector _PlayerPos);
+	static POINT PlayerPosToPoint(FVector _PlayerPos);
 
 protected:
 	void BeginPlay() override;
@@ -43,7 +43,7 @@ protected:
 	USpriteRenderer* BackMap = nullptr;
 	UDefaultSceneComponent* Root = nullptr;
 
-	std::vector<std::vector<std::shared_ptr<AMapObject>>> MapStatus;
+	static std::vector<std::vector<std::shared_ptr<AMapObject>>> MapStatus;
 private:
 
 };

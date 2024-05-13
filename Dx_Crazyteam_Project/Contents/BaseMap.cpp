@@ -9,6 +9,8 @@ const FVector ABaseMap::TileSize = FVector(40.f, 40.f, 10.f);
 const int ABaseMap::TileY = 13;
 const int ABaseMap::TileX = 15;
 
+std::vector<std::vector<std::shared_ptr<AMapObject>>> ABaseMap::MapStatus;
+
 
 ABaseMap::ABaseMap()
 {
@@ -47,8 +49,10 @@ void ABaseMap::BeginPlay()
 
 	FVector FirstPos = FVector::Zero;
 
-	FirstPos.X = TileSize.X * (TileX / 2);
-	FirstPos.Y = TileSize.Y * (TileY / 2);
+	int a = TileY / 2;
+	FirstPos.X = -TileSize.X * static_cast<float>((TileX / 2));
+	FirstPos.Y = TileSize.Y * static_cast<float>((TileY / 2));
+
 
 	for (int y = 0; y < TileY; y++)
 	{
@@ -59,17 +63,14 @@ void ABaseMap::BeginPlay()
 			std::shared_ptr<AMapObject> Default = GetWorld()->SpawnActor<AMapObject>("Block");
 			FVector PushPos = FVector::Zero;
 			PushPos.X = FirstPos.X + TileSize.X * x;
-			PushPos.Y = FirstPos.Y - TileSize.Y * y;
+			PushPos.Y = FirstPos.Y - TileSize.Y * y - TileSize.hY();
 
-			Default->SetPos(PushPos);
-			Default->SetScale(TileSize);
+			Default->SetActorLocation(PushPos);
+			Default->SetActorScale3D(TileSize);
 
 			MapStatus[y].push_back(Default);
 		}
 	}
-
-	AddMapObject(0, 0, EMapObjectType::Block);
-
 }
 
 void ABaseMap::Tick(float _DeltaTime)
@@ -99,24 +100,35 @@ void ABaseMap::AddMapObject(int _Y, int _X, EMapObjectType _MapObjectType)
 		break;
 	}
 
-	MapObj->SetActorLocation(MapStatus[_Y][_X]->GetPos());
+	MapObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
 	MapObj->SetActorScale3D(TileSize);
-	MapObj->SetOrder(100);
 
 	MapStatus[_Y][_X]->Destroy();
 	MapStatus[_Y][_X] = MapObj;
 }
 
-std::pair<int,int> ABaseMap::PlayerPosToPoint(FVector _PlayerPos)
+POINT ABaseMap::PlayerPosToPoint(FVector _PlayerPos)
 {
 	float MinDistance = 999999;
-	std::pair<int, int> Result;
+	POINT Result;
+
+	FVector PlayerPos = _PlayerPos;
+	PlayerPos.Z = 0.f;
 
 	for (int y = 0; y < TileY - 1; y++)
 	{
 		for (int x = 0; x < TileX - 1; x++)
 		{
-			
+			FVector TileLocation = MapStatus[y][x]->GetActorLocation();
+			TileLocation.Z = 0.f;
+
+			float Distance = (PlayerPos - TileLocation).Size3D();
+
+			if (Distance < MinDistance)
+			{
+				MinDistance = min(Distance, MinDistance);
+				Result = { y,x };
+			}
 		}
 	}
 
