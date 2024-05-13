@@ -1,19 +1,21 @@
 #include "PreCompile.h"
 #include "Block.h"
 
-Block::Block() 
+ABlock::ABlock() 
 {
 }
 
-Block::~Block() 
+ABlock::~ABlock() 
 {
 }
 
-void Block::BeginPlay()
+void ABlock::BeginPlay()
 {
+	Super::BeginPlay();
 }
 
-void Block::Tick(float _DeltaTime)
+void ABlock::Tick(float _DeltaTime)
 {
+	Super::Tick(_DeltaTime);
 }
 

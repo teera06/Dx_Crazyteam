@@ -23,11 +23,12 @@ protected:
 
 	USpriteRenderer* FrontRenderer = nullptr;
 	USpriteRenderer* BackRenderer = nullptr;
+	UCollision* Collision = nullptr;
 
 	UDefaultSceneComponent* Root = nullptr;
 
 	FVector Pos = FVector::Zero;
-	//FVector Scale = 
+	FVector Scale = FVector::Zero;
 
 private:
 

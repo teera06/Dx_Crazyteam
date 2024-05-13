@@ -2,23 +2,24 @@
 #include "MapObject.h"
 
 // Ό³Έν :
-class Block : public AMapObject
+class ABlock : public AMapObject
 {
 	GENERATED_BODY(AMapObject)
 public:
 	// constructor destructor
-	Block();
-	~Block();
+	ABlock();
+	~ABlock();
 
 	// delete Function
-	Block(const Block& _Other) = delete;
-	Block(Block&& _Other) noexcept = delete;
-	Block& operator=(const Block& _Other) = delete;
-	Block& operator=(Block&& _Other) noexcept = delete;
+	ABlock(const ABlock& _Other) = delete;
+	ABlock(ABlock&& _Other) noexcept = delete;
+	ABlock& operator=(const ABlock& _Other) = delete;
+	ABlock& operator=(ABlock&& _Other) noexcept = delete;
 
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
+
 private:
 
 };

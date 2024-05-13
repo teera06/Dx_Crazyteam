@@ -102,6 +102,9 @@
     <ClInclude Include="StageUI.h">
       <Filter>Level\UItestLevel</Filter>
     </ClInclude>
+    <ClInclude Include="PlayLobby.h">
+      <Filter>Level\UItestLevel</Filter>
+    </ClInclude>
     <ClInclude Include="Block.h">
       <Filter>MapObject</Filter>
     </ClInclude>
@@ -159,6 +162,9 @@
       <Filter>Level\UItestLevel</Filter>
     </ClCompile>
     <ClCompile Include="StageUI.cpp">
+      <Filter>Level\UItestLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayLobby.cpp">
       <Filter>Level\UItestLevel</Filter>
     </ClCompile>
     <ClCompile Include="Block.cpp">

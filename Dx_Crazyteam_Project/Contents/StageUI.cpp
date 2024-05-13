@@ -14,10 +14,10 @@ void StageUI::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UImage* TitleBackGround = CreateWidget<UImage>(GetWorld(), "TitleBackGround");
-	TitleBackGround->AddToViewPort(1);
-	TitleBackGround->SetSprite("Logo.png");
-	TitleBackGround->SetScale({ 1280, 720 });
+	PlayerInfoUI = CreateWidget<UImage>(GetWorld(), "TitleBackGround");
+	PlayerInfoUI->AddToViewPort(1);
+	PlayerInfoUI->SetSprite("Logo.png");
+	PlayerInfoUI->SetScale({ 1280, 720 });
 }
 
 void StageUI::Tick(float _DeltaTime)
