@@ -2,12 +2,13 @@
 #include <EngineCore/Actor.h>
 #include <EngineCore/DefaultSceneComponent.h>
 
+class APlayer;
 class PlayerInfo
 {
 	friend APlayer;
 
 public:
-	float MoveSpeed = 30.f;
+	float MoveSpeed = 100.f;
 };
 
 class APlayer : public AActor
