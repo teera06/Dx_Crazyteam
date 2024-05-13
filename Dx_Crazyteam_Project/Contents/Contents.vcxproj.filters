@@ -87,6 +87,15 @@
     <ClInclude Include="Player.h">
       <Filter>Level\PlayertestLevel\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="TitleMenu.h">
+      <Filter>Level\UItestLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Intro.h">
+      <Filter>Level\UItestLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="StageUI.h">
+      <Filter>Level\UItestLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -130,6 +139,15 @@
     </ClCompile>
     <ClCompile Include="Player_State.cpp">
       <Filter>Level\PlayertestLevel\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleMenu.cpp">
+      <Filter>Level\UItestLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Intro.cpp">
+      <Filter>Level\UItestLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="StageUI.cpp">
+      <Filter>Level\UItestLevel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
