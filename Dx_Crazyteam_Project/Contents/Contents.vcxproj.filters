@@ -37,6 +37,9 @@
     <Filter Include="Map\Village">
       <UniqueIdentifier>{f0750db5-0603-4514-a0c1-8bd966b03073}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MapObject">
+      <UniqueIdentifier>{3cc13eae-3888-4ffd-8171-5eb9f54abaa2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -78,6 +81,9 @@
     <ClInclude Include="Village.h">
       <Filter>Map\Village</Filter>
     </ClInclude>
+    <ClInclude Include="MapObject.h">
+      <Filter>MapObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -116,6 +122,9 @@
     </ClCompile>
     <ClCompile Include="Village.cpp">
       <Filter>Map\Village</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObject.cpp">
+      <Filter>MapObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
