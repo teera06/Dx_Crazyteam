@@ -23,6 +23,11 @@ public:
 		return;
 	}
 
+	inline bool IsBomb() const
+	{
+		return b_Bomb;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -43,5 +48,6 @@ private :
 	UStateManager State;
 	USpriteRenderer* WaterCourseRender = nullptr;
 	float LifeTime = 0.0f;
+	bool b_Bomb = false;
 };
 

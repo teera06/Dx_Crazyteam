@@ -63,11 +63,20 @@ void AWaterBomb::CreateAnimation()
 
 void AWaterBomb::NoneBegin()
 {
+	b_Bomb = false;
+}
+
+void AWaterBomb::NoneTick(float _DeltaTime)
+{
+}
+
+void AWaterBomb::CreateBegin()
+{
 	WaterCourseRender->SetActive(true);
 	LifeTime = 0.0f;
 }
 
-void AWaterBomb::NoneTick(float _DeltaTime)
+void AWaterBomb::CreateTick(float _DeltaTime)
 {
 	LifeTime += _DeltaTime;
 	if (2.0f <= LifeTime)
@@ -77,26 +86,19 @@ void AWaterBomb::NoneTick(float _DeltaTime)
 	}
 }
 
-void AWaterBomb::CreateBegin()
+void AWaterBomb::CreateExit()
 {
 	LifeTime = 0.0f;
 }
 
-void AWaterBomb::CreateTick(float _DeltaTime)
-{
-}
-
-void AWaterBomb::CreateExit()
-{
-}
-
 void AWaterBomb::BombBegin()
 {
+	b_Bomb = true;
 }
 
 void AWaterBomb::BombTick(float _DeltaTime)
 {
-
+	// 애니메이션이 끝나면 Destroy();
 }
 
 void AWaterBomb::BombExit()
