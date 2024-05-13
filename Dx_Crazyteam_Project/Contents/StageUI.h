@@ -2,7 +2,7 @@
 #include <EngineCore/Actor.h>
 #include <EngineBase/NetObject.h>
 
-class UIamge;
+class UImage;
 class StageUI : public AActor, public UNetObject
 {
 	GENERATED_BODY(AActor)

@@ -19,6 +19,11 @@ void ATitleMenu::BeginPlay()
 	TitleBackGround->SetSprite("Logo.png");
 	TitleBackGround->SetScale({ 1280, 720 });
 
+	UImage* GameStartButton = CreateWidget<UImage>(GetWorld(), "TitleBackGround");
+	GameStartButton->AddToViewPort(1);
+	GameStartButton->SetSprite("map_village_object5.png");
+	GameStartButton->SetScale({ 150, 150 });
+
 }
 
 void ATitleMenu::Tick(float _DeltaTime)

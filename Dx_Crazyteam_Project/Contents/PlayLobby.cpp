@@ -1,3 +1,4 @@
+#include "PreCompile.h"
 #include "PlayLobby.h"
 
 PlayLobby::PlayLobby()

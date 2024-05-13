@@ -14,7 +14,7 @@ void StageUI::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PlayerInfoUI = CreateWidget<UImage>(GetWorld(), "TitleBackGround");
+	PlayerInfoUI = CreateWidget<UImage>(GetWorld(), "PlayerInfoUI");
 	PlayerInfoUI->AddToViewPort(1);
 	PlayerInfoUI->SetSprite("Logo.png");
 	PlayerInfoUI->SetScale({ 1280, 720 });
