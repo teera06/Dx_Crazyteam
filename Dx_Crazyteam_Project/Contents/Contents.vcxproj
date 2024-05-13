@@ -19,7 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseMap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game_Core.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="MapObject.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -57,9 +65,21 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Village.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseMap.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Game_Core.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="MapObject.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -98,6 +118,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="UitestMonde.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Village.cpp">
       <SubType>
       </SubType>
     </ClCompile>
