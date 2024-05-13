@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{db72b46a-f30f-40c4-88ea-1e330246dd7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PreCompile">
+      <UniqueIdentifier>{a2c3a0c9-1fbe-4ae0-a7ba-b3f70d0a5b3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level">
+      <UniqueIdentifier>{595c9141-15f1-4e68-b1df-531274511814}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Option">
+      <UniqueIdentifier>{0a1e54c0-faf8-4c3f-9539-10411c69114a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\ServerLevel">
+      <UniqueIdentifier>{fd9a87db-12e7-4d75-bc20-b94b6e189b49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Protocol">
+      <UniqueIdentifier>{d0df054d-24fa-44d8-80bb-06c7c7bdefde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\testLevel">
+      <UniqueIdentifier>{ad9f5a44-a1f3-4c33-b2f2-6408edce1ca0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PreCompile.h">
+      <Filter>PreCompile</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentsEnum.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerGameMode.h">
+      <Filter>Level\ServerLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerPlayer.h">
+      <Filter>Level\ServerLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Packets.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherPlayer.h">
+      <Filter>Level\ServerLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Game_Core.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="testGameMode.h">
+      <Filter>Level\testLevel</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PreCompile.cpp">
+      <Filter>PreCompile</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerGameMode.cpp">
+      <Filter>Level\ServerLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerPlayer.cpp">
+      <Filter>Level\ServerLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Packets.cpp">
+      <Filter>Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherPlayer.cpp">
+      <Filter>Level\ServerLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_Core.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="testGameMode.cpp">
+      <Filter>Level\testLevel</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
