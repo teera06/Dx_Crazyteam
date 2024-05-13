@@ -1,21 +1,32 @@
 #pragma once
+#include <EngineCore/Actor.h>
 
 // Ό³Έν :
-class BaseMap
+class UEngineTexture;
+class UDefaultSceneComponent;
+class ABaseMap : public AActor
 {
+	GENERATED_BODY(AActor)
 public:
 	// constructor destructor
-	BaseMap();
-	~BaseMap();
+	ABaseMap();
+	~ABaseMap();
 
 	// delete Function
-	BaseMap(const BaseMap& _Other) = delete;
-	BaseMap(BaseMap&& _Other) noexcept = delete;
-	BaseMap& operator=(const BaseMap& _Other) = delete;
-	BaseMap& operator=(BaseMap&& _Other) noexcept = delete;
+	ABaseMap(const ABaseMap& _Other) = delete;
+	ABaseMap(ABaseMap&& _Other) noexcept = delete;
+	ABaseMap& operator=(const ABaseMap& _Other) = delete;
+	ABaseMap& operator=(ABaseMap&& _Other) noexcept = delete;
 
 protected:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 
+	USpriteRenderer* BackMap = nullptr;
+	USpriteRenderer* ColMap = nullptr;
+	UDefaultSceneComponent* Root = nullptr;
+
+	//std::vector<std::vector<TileObject>>
 private:
 
 };

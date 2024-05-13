@@ -1,10 +1,24 @@
+#include "PreCompile.h"
 #include "BaseMap.h"
+#include <EngineCore/DefaultSceneComponent.h>
 
-BaseMap::BaseMap() 
+ABaseMap::ABaseMap()
+{
+	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
+
+	SetRoot(Root);
+}
+
+ABaseMap::~ABaseMap()
 {
 }
 
-BaseMap::~BaseMap() 
+void ABaseMap::BeginPlay()
 {
+	Super::BeginPlay();
 }
 
+void ABaseMap::Tick(float _DeltaTime)
+{
+	Super::Tick(_DeltaTime);
+}

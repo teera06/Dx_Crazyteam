@@ -61,6 +61,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Village.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseMap.cpp">
@@ -106,6 +110,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="UitestMonde.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Village.cpp">
       <SubType>
       </SubType>
     </ClCompile>
