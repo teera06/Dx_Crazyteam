@@ -2,6 +2,12 @@
 #include "BaseMap.h"
 #include <EngineCore/DefaultSceneComponent.h>
 
+const FVector ABaseMap::TileSize = FVector(20.f, 20.f, 10.f);
+
+const int ABaseMap::TileY = 18;
+const int ABaseMap::TileX = 20;
+
+
 ABaseMap::ABaseMap()
 {
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
@@ -26,6 +32,8 @@ bool ABaseMap::IsMove(FVector _PlayerPos)
 	{
 		return false;
 	}
+
+
 
 
 	return true;

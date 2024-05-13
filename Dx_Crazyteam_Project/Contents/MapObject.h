@@ -27,6 +27,7 @@ protected:
 	UDefaultSceneComponent* Root = nullptr;
 
 	FVector Pos = FVector::Zero;
+	//FVector Scale = 
 
 private:
 
