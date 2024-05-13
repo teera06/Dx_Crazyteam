@@ -29,7 +29,6 @@ public:
 
 	static bool IsMove(FVector _PlayerPos);
 	static const FVector TileSize;
-	static const FVector CenterPos;
 	static const int TileY;
 	static const int TileX;
 	

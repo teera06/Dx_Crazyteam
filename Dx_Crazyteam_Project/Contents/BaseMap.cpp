@@ -4,7 +4,6 @@
 #include <EngineCore/DefaultSceneComponent.h>
 #include <algorithm>
 
-const FVector ABaseMap::CenterPos = FVector(-80.f,0.f,0.f);
 const FVector ABaseMap::TileSize = FVector(40.f, 40.f, 10.f);
 
 const int ABaseMap::TileY = 13;
@@ -24,8 +23,8 @@ ABaseMap::~ABaseMap()
 
 bool ABaseMap::IsMove(FVector _PlayerPos)
 {
-	if (_PlayerPos.X > - 80.f + TileSize.X / 2.f * TileX ||
-		_PlayerPos.X < -80.f + TileSize.X / 2.f * (-TileX))
+	if (_PlayerPos.X > TileSize.X / 2.f * TileX ||
+		_PlayerPos.X < TileSize.X / 2.f * (-TileX))
 	{
 		return false;
 	}
@@ -48,8 +47,8 @@ void ABaseMap::BeginPlay()
 
 	FVector FirstPos = FVector::Zero;
 
-	FirstPos.X = CenterPos.X - TileSize.X * TileX / 2;
-	FirstPos.Y = CenterPos.Y + TileSize.Y * TileY / 2;
+	FirstPos.X = TileSize.X * (TileX / 2);
+	FirstPos.Y = TileSize.Y * (TileY / 2);
 
 	for (int y = 0; y < TileY; y++)
 	{
@@ -59,8 +58,8 @@ void ABaseMap::BeginPlay()
 		{
 			std::shared_ptr<AMapObject> Default = GetWorld()->SpawnActor<AMapObject>("Block");
 			FVector PushPos = FVector::Zero;
-			PushPos.X = FirstPos.X + TileSize.X * x + TileSize.X/2;
-			PushPos.Y = FirstPos.Y - TileSize.Y * y - TileSize.Y/2;
+			PushPos.X = FirstPos.X + TileSize.X * x;
+			PushPos.Y = FirstPos.Y - TileSize.Y * y;
 
 			Default->SetPos(PushPos);
 			Default->SetScale(TileSize);

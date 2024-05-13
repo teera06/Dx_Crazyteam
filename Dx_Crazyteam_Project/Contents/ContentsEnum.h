@@ -2,8 +2,14 @@
 
 enum class EObjectOrder
 {
+	None,
+	Background,
+	Map,
+	BlockFront,
 	Player,
-	Monster,
+	BlockBack,
+	WaterBomb,
+	UI,
 };
 
 enum class ECollisionOrder

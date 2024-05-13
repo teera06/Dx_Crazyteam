@@ -28,7 +28,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="BrokenBlock.h" />
-    <ClInclude Include="CAEnumClass.h" />
     <ClInclude Include="ContentsDebugWindow.h" />
     <ClInclude Include="Game_Core.h">
       <SubType>

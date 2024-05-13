@@ -19,6 +19,9 @@ AMapSpriteObject::~AMapSpriteObject()
 void AMapSpriteObject::BeginPlay()
 {
 	Super::BeginPlay();
+
+	FrontRenderer->SetOrder(EObjectOrder::);
+	BackRenderer->SetOrder(7);
 }
 
 void AMapSpriteObject::Tick(float _DeltaTime)
