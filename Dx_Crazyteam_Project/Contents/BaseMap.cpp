@@ -59,3 +59,17 @@ void ABaseMap::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }
+
+
+//1.
+// Plaery가 물풍선을 설치할 때,
+// Power값을 물풍선에 주고,
+// Map은 물풍선에 있는 Power값을 가져와 물줄기를 표시한다.
+//2.
+// Player가 물풍선을 설치할 때,
+// Power값을 Map에 주고.
+// Map은 그 값으로 물줄기를 표시한다.
+void ABaseMap::GetWaterWavePoint()
+{
+
+}

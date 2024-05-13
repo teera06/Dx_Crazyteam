@@ -45,5 +45,6 @@ protected:
 	static const int TileX;
 private:
 
+	void GetWaterWavePoint();
 };
 

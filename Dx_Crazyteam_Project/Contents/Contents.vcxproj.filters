@@ -117,6 +117,9 @@
     <ClInclude Include="WaterCourse.h">
       <Filter>MapObject</Filter>
     </ClInclude>
+    <ClInclude Include="WaterBomb.h">
+      <Filter>MapObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -183,6 +186,9 @@
       <Filter>MapObject</Filter>
     </ClCompile>
     <ClCompile Include="WaterCourse.cpp">
+      <Filter>MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="WaterBomb.cpp">
       <Filter>MapObject</Filter>
     </ClCompile>
   </ItemGroup>
