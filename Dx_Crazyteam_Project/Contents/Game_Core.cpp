@@ -23,7 +23,7 @@ void UGame_Core::Initialize()
 	GEngine->CreateLevel<ATestGameMode>("testGameMode");
 	GEngine->CreateLevel<APlayertestMode>("PlayertestMode");
 	GEngine->CreateLevel<AUitestMonde>("UitestMonde");
-	GEngine->ChangeLevel("testGameMode");
+	GEngine->ChangeLevel("PlayertestMode");
 
 
 }
