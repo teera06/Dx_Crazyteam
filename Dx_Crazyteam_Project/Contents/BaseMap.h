@@ -46,5 +46,6 @@ protected:
 	static std::vector<std::vector<std::shared_ptr<AMapObject>>> MapStatus;
 private:
 
+	void GetWaterWavePoint();
 };
 

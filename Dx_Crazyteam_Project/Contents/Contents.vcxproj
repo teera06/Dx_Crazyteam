@@ -95,6 +95,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="WaterBomb.h" />
     <ClInclude Include="WaterCourse.h" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +179,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="WaterBomb.cpp" />
     <ClCompile Include="WaterCourse.cpp" />
   </ItemGroup>
   <ItemGroup>
