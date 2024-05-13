@@ -5,16 +5,6 @@
 AMapObject::AMapObject()
 {
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
-
-	FrontRenderer = CreateDefaultSubObject<USpriteRenderer>("Front");
-	FrontRenderer->SetupAttachment(Root);
-
-	BackRenderer = CreateDefaultSubObject<USpriteRenderer>("Back");
-	BackRenderer->SetupAttachment(Root);
-
-	Collision = CreateDefaultSubObject<UCollision>("Collision");
-	Collision->SetupAttachment(Root);
-
 	SetRoot(Root);
 }
 

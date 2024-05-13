@@ -1,10 +1,10 @@
 #pragma once
-#include "MapObject.h"
+#include "MapSpriteObject.h"
 
 // Ό³Έν :
-class ABlock : public AMapObject
+class ABlock : public AMapSpriteObject
 {
-	GENERATED_BODY(AMapObject)
+	GENERATED_BODY(AMapSpriteObject)
 public:
 	// constructor destructor
 	ABlock();
