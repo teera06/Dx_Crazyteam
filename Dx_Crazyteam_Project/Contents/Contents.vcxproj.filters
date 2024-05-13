@@ -108,6 +108,9 @@
     <ClInclude Include="Block.h">
       <Filter>MapObject</Filter>
     </ClInclude>
+    <ClInclude Include="CAEnumClass.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">

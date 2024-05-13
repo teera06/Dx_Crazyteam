@@ -27,6 +27,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="CAEnumClass.h" />
     <ClInclude Include="ContentsDebugWindow.h" />
     <ClInclude Include="Game_Core.h">
       <SubType>
