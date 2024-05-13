@@ -23,6 +23,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ContentsDebugWindow.h" />
     <ClInclude Include="Game_Core.h">
       <SubType>
       </SubType>
@@ -75,6 +76,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ContentsDebugWindow.cpp" />
     <ClCompile Include="Game_Core.cpp">
       <SubType>
       </SubType>
