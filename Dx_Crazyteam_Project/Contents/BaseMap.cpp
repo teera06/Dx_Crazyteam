@@ -2,7 +2,7 @@
 #include "BaseMap.h"
 #include <EngineCore/DefaultSceneComponent.h>
 
-const FVector ABaseMap::TileSize = FVector(20.f, 20.f, 10.f);
+const FVector ABaseMap::TileSize = FVector(40.f, 40.f, 10.f);
 
 const int ABaseMap::TileY = 18;
 const int ABaseMap::TileX = 20;
