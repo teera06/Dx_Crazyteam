@@ -12,6 +12,9 @@ AMapObject::AMapObject()
 	BackRenderer = CreateDefaultSubObject<USpriteRenderer>("Back");
 	BackRenderer->SetupAttachment(Root);
 
+	Collision = CreateDefaultSubObject<UCollision>("Collision");
+	Collision->SetupAttachment(Root);
+
 	SetRoot(Root);
 }
 

@@ -2,8 +2,8 @@
 #include <EngineCore/Actor.h>
 
 enum class EBlockType {
-	StaticBlock,   //움직이지도 부서지지도 않는 블록
-	NormalBlock,   //부서지는 블록
+	Block,   //움직이지도 부서지지도 않는 블록
+	BrakableBlock,   //부서지는 블록
 	MoveBlock,     //움직이는 블록
 	Bush,          //부시
 	WaterBalloon,  //물풍선
