@@ -6,7 +6,7 @@
 
 const FVector ABaseMap::TileSize = FVector(40.f, 40.f, 10.f);
 
-const int ABaseMap::TileY = 13;
+const int ABaseMap::TileY = 14;
 const int ABaseMap::TileX = 15;
 
 std::vector<std::vector<std::shared_ptr<AMapObject>>> ABaseMap::MapStatus;
@@ -31,13 +31,13 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 		return false;
 	}
 
-	if (_CheckPos.Y > TileSize.Y / 2.f * TileY ||
-		_CheckPos.Y < TileSize.Y / 2.f * (-TileY))
+	if (_CheckPos.Y > TileSize.Y / 2.f * (TileY-1) ||
+		_CheckPos.Y < TileSize.Y / 2.f * (-TileY-1))
 	{
 		return false;
 	}
 
-	for (int y = 0; y < TileY; y++)
+	for (int y = 0; y < TileY-1; y++)
 	{
 		for (int x = 0 ; x < TileX; x++)
 		{
@@ -50,7 +50,15 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 			case EMapObjectType::MoveBlock:
 			case EMapObjectType::WaterBalloon:
 			{
-				
+				FVector TilePosition = MapStatus[y][x]->GetActorLocation();
+
+				if (TilePosition.X + TileSize.X / 2.f > _CheckPos.X &&
+					TilePosition.X - TileSize.X / 2.f < _CheckPos.X &&
+					TilePosition.Y + TileSize.Y / 2.f > _CheckPos.Y &&
+					TilePosition.Y - TileSize.Y / 2.f < _CheckPos.Y)
+				{
+					return false;
+				}
 			}
 			break;
 			}
@@ -67,14 +75,14 @@ void ABaseMap::BeginPlay()
 {
 	Super::BeginPlay();
 
+	AddActorLocation(FVector(0.f, TileSize.Y / 2.f, 0.f));
+
 	FVector FirstPos = FVector::Zero;
 
-	int a = TileY / 2;
 	FirstPos.X = -TileSize.X * static_cast<float>((TileX / 2));
-	FirstPos.Y = TileSize.Y * static_cast<float>((TileY / 2));
-
-
-	for (int y = 0; y < TileY; y++)
+	FirstPos.Y = TileSize.Y * static_cast<float>((TileY-1) / 2);
+	
+	for (int y = 0; y < TileY-1; y++)
 	{
 		std::vector<std::shared_ptr<AMapObject>> Temp;
 		MapStatus.push_back(Temp);
@@ -83,7 +91,7 @@ void ABaseMap::BeginPlay()
 			std::shared_ptr<AMapObject> Default = GetWorld()->SpawnActor<AMapObject>("Block");
 			FVector PushPos = FVector::Zero;
 			PushPos.X = FirstPos.X + TileSize.X * x;
-			PushPos.Y = FirstPos.Y - TileSize.Y * y - TileSize.hY();
+			PushPos.Y = FirstPos.Y - TileSize.Y * y;
 
 			Default->SetActorLocation(PushPos);
 			Default->SetActorScale3D(TileSize);
@@ -139,7 +147,7 @@ POINT ABaseMap::PlayerPosToPoint(FVector _PlayerPos)
 			if (Distance < MinDistance)
 			{
 				MinDistance = min(Distance, MinDistance);
-				Result = { y,x };
+				Result = { x,y };
 			}
 		}
 	}

@@ -34,6 +34,8 @@ void ATestGameMode::Tick(float _DeltaTime)
 	FVector MousePos = GetWorld()->GetMainCamera()->ScreenPosToWorldPos(GEngine->EngineWindow.GetScreenMousePos());
 	std::string Msgs = std::format("Mouse Position : {}", MousePos.ToString());
 	UMapDebugGUI::PushMsg(Msgs);
+	Msgs = std::format("y : {}, x : {}", AVillage::PlayerPosToPoint(MousePos).y, AVillage::PlayerPosToPoint(MousePos).x);
+	UMapDebugGUI::PushMsg(Msgs);
 #endif // _DEBUG
 }
 
