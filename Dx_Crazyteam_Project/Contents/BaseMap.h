@@ -4,6 +4,7 @@
 // Ό³Έν :
 class UEngineTexture;
 class UDefaultSceneComponent;
+class AMapObject;
 class ABaseMap : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -26,7 +27,10 @@ protected:
 	USpriteRenderer* ColMap = nullptr;
 	UDefaultSceneComponent* Root = nullptr;
 
-	//std::vector<std::vector<TileObject>>
+	std::vector<std::vector<AMapObject*>> MapStatus;
+
+	int TileY = 18;
+	int TileX = 20;
 private:
 
 };

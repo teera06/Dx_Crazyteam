@@ -5,6 +5,8 @@
 #include <EngineCore/EngineNetWindow.h>
 #include <EngineBase/EngineDispatcher.h>
 
+#include "Player.h"
+
 class APlayertestMode : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
@@ -25,5 +27,6 @@ protected:
 	void LevelStart(ULevel* _PrevLevel);
 	void LevelEnd(ULevel* _NextLevel);
 private:
+	std::shared_ptr<APlayer> Player1 = nullptr;
 };
 

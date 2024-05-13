@@ -6,6 +6,12 @@
 #include "PlayertestMode.h"
 
 
+
+#include "ContentsDebugWindow.h"
+
+#include <EngineCore/EngineDebugMsgWindow.h>
+#include <EngineCore/EngineEditorGUI.h>
+
 std::shared_ptr<UEngineNet> UGame_Core::Net = nullptr;
 
 UGame_Core::UGame_Core()
@@ -23,8 +29,9 @@ void UGame_Core::Initialize()
 	GEngine->CreateLevel<ATestGameMode>("testGameMode");
 	GEngine->CreateLevel<APlayertestMode>("PlayertestMode");
 	GEngine->CreateLevel<AUitestMonde>("UitestMonde");
-	GEngine->ChangeLevel("PlayertestMode");
+	GEngine->ChangeLevel("UitestMonde");
 
+	UEngineEditorGUI::CreateEditorWindow<UContentsDebugWindow>("CupheadHelpMe");
 
 }
 
@@ -42,4 +49,6 @@ void UGame_Core::MainLoad()
 			}
 		}
 	}
+
+
 }

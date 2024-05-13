@@ -2,23 +2,29 @@
 #include <EngineCore/Actor.h>
 
 // Ό³Έν :
-class MapObject : public AActor
+class UDefaultSceneComponent;
+class AMapObject : public AActor
 {
 	GENERATED_BODY(AActor)
 public:
 	// constructor destructor
-	MapObject();
-	~MapObject();
+	AMapObject();
+	~AMapObject();
 
 	// delete Function
-	MapObject(const MapObject& _Other) = delete;
-	MapObject(MapObject&& _Other) noexcept = delete;
-	MapObject& operator=(const MapObject& _Other) = delete;
-	MapObject& operator=(MapObject&& _Other) noexcept = delete;
+	AMapObject(const AMapObject& _Other) = delete;
+	AMapObject(AMapObject&& _Other) noexcept = delete;
+	AMapObject& operator=(const AMapObject& _Other) = delete;
+	AMapObject& operator=(AMapObject&& _Other) noexcept = delete;
 
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
+
+	USpriteRenderer* FrontRenderer = nullptr;
+	USpriteRenderer* BackRenderer = nullptr;
+
+	UDefaultSceneComponent* Root = nullptr;
 
 private:
 

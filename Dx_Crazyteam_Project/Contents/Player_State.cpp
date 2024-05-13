@@ -43,13 +43,24 @@ void  APlayer::Idle(float _DeltaTime)
 void APlayer::MoveStart()
 {
 	//Renderer->ChangeAnimation("Move");
-	int a = 0;
 }
 
 void APlayer::Move(float _DeltaTime)
 {
 	if (true == IsPress(VK_UP))
 	{
-		//AddActorLocation()
+		AddActorLocation(FVector::Up * Info->MoveSpeed * _DeltaTime);
+	}
+	if (true == IsPress(VK_DOWN))
+	{
+		AddActorLocation(FVector::Down * Info->MoveSpeed * _DeltaTime);
+	}
+	if (true == IsPress(VK_RIGHT))
+	{
+		AddActorLocation(FVector::Right * Info->MoveSpeed * _DeltaTime);
+	}
+	if (true == IsPress(VK_LEFT))
+	{
+		AddActorLocation(FVector::Left * Info->MoveSpeed * _DeltaTime);
 	}
 }
