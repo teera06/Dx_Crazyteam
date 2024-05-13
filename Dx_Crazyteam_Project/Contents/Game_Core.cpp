@@ -69,4 +69,5 @@ void UGame_Core::MainLoad()
 	UEngineSprite::CreateCutting("Player_Devil.bmp", 5, 18);
 
 
+	UEngineSprite::CreateCutting("Bazzi_1.png", 5, 18);
 }
