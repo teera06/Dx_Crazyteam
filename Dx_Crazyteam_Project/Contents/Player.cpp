@@ -12,7 +12,7 @@ APlayer::APlayer()
 
 	Renderer->SetScale(FVector(5, 5));
 
-	std::shared_ptr<PlayerInfo> Info = std::make_shared<PlayerInfo>();
+	Info = std::make_shared<PlayerInfo>();
 }
 
 APlayer::~APlayer()

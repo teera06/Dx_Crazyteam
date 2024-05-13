@@ -24,7 +24,7 @@ public:
 	APlayer& operator=(APlayer&& _Other) noexcept = delete;
 	
 protected:
-	PlayerInfo* Info = nullptr;
+	std::shared_ptr<PlayerInfo> Info = nullptr;
 	UStateManager State;
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
