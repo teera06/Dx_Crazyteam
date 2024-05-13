@@ -12,6 +12,8 @@ ABlock::~ABlock()
 void ABlock::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Type = EMapObjectType::Block;
 }
 
 void ABlock::Tick(float _DeltaTime)

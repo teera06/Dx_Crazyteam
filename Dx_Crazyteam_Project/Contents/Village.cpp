@@ -19,8 +19,9 @@ void AVillage::BeginPlay()
 
 	BackMap->SetSprite("BossStage_Back.png");
 	BackMap->SetAutoSize(1.f, true);
+	BackMap->SetOrder(EObjectOrder::Map);
 
-	AddMapObject(0, 0, EMapObjectType::Block);
+	AddMapObject(0, 0, EMapObject::NormalBlock);
 }
 
 void AVillage::Tick(float _DeltaTime)

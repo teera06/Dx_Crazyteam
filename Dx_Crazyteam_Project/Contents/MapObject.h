@@ -17,12 +17,18 @@ public:
 	AMapObject& operator=(const AMapObject& _Other) = delete;
 	AMapObject& operator=(AMapObject&& _Other) noexcept = delete;
 
+	EMapObjectType GetType()
+	{
+		return Type;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 	UDefaultSceneComponent* Root = nullptr;
 
+	EMapObjectType Type = EMapObjectType::None;
 private:
 
 };

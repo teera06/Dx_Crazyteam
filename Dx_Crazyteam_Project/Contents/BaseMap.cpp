@@ -23,18 +23,38 @@ ABaseMap::~ABaseMap()
 {
 }
 
-bool ABaseMap::IsMove(FVector _PlayerPos)
+bool ABaseMap::IsMove(FVector _CheckPos)
 {
-	if (_PlayerPos.X > TileSize.X / 2.f * TileX ||
-		_PlayerPos.X < TileSize.X / 2.f * (-TileX))
+	if (_CheckPos.X > TileSize.X / 2.f * TileX ||
+		_CheckPos.X < TileSize.X / 2.f * (-TileX))
 	{
 		return false;
 	}
 
-	if (_PlayerPos.Y > TileSize.Y / 2.f * TileY ||
-		_PlayerPos.Y < TileSize.Y / 2.f * (-TileY))
+	if (_CheckPos.Y > TileSize.Y / 2.f * TileY ||
+		_CheckPos.Y < TileSize.Y / 2.f * (-TileY))
 	{
 		return false;
+	}
+
+	for (int y = 0; y < TileY; y++)
+	{
+		for (int x = 0 ; x < TileX; x++)
+		{
+			switch (MapStatus[y][x]->GetType())
+			{
+			case EMapObjectType::None:
+				continue;
+			case EMapObjectType::Block:
+			case EMapObjectType::BrakableBlock:
+			case EMapObjectType::MoveBlock:
+			case EMapObjectType::WaterBalloon:
+			{
+				
+			}
+			break;
+			}
+		}
 	}
 
 
@@ -79,22 +99,14 @@ void ABaseMap::Tick(float _DeltaTime)
 }
 
 
-void ABaseMap::AddMapObject(int _Y, int _X, EMapObjectType _MapObjectType)
+void ABaseMap::AddMapObject(int _Y, int _X, EMapObject _MapObjectType)
 {
 	std::shared_ptr<AMapObject> MapObj = nullptr;
 
 	switch (_MapObjectType)
 	{
-	case EMapObjectType::Block:
+	case EMapObject::NormalBlock:
 		MapObj = GetWorld()->SpawnActor<ABlock>("Block");
-		break;
-	case EMapObjectType::BrakableBlock:
-		break;
-	case EMapObjectType::MoveBlock:
-		break;
-	case EMapObjectType::Bush:
-		break;
-	case EMapObjectType::WaterBalloon:
 		break;
 	default:
 		break;

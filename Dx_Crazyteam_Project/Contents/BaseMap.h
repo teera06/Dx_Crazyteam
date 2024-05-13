@@ -1,14 +1,6 @@
 #pragma once
 #include <EngineCore/Actor.h>
 
-enum class EMapObjectType {
-	Block,   //움직이지도 부서지지도 않는 블록
-	BrakableBlock,   //부서지는 블록
-	MoveBlock,     //움직이는 블록
-	Bush,          //부시
-	WaterBalloon,  //물풍선
-};
-
 // 설명 :
 class UEngineTexture;
 class UDefaultSceneComponent;
@@ -32,7 +24,7 @@ public:
 	static const int TileY;
 	static const int TileX;
 	
-	void AddMapObject(int _Y, int _X, EMapObjectType _MapObjectType);
+	void AddMapObject(int _Y, int _X, EMapObject _MapObjectType);
 
 	static POINT PlayerPosToPoint(FVector _PlayerPos);
 
