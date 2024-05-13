@@ -7,15 +7,15 @@ void APlayer::StateInit()
 	InputOn();
 
 	// CreateAnimation
-	Renderer->CreateAnimation("Idle_Left", "Bazzi_1.png", AnimationInter, false, 0, 0);
-	Renderer->CreateAnimation("Idle_Right", "Bazzi_1.png", AnimationInter, true, 6, 6);
-	Renderer->CreateAnimation("Idle_Up", "Bazzi_1.png", AnimationInter, true, 12, 12);
-	Renderer->CreateAnimation("Idle_Down", "Bazzi_1.png", AnimationInter, true, 20, 20);
+	Renderer->CreateAnimation("Idle_Left", "bazzi_left.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Idle_Right", "bazzi_right.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Idle_Up", "bazzi_up.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Idle_Down", "bazzi_down.png", AnimationInter, false, 0, 0);
 
-	Renderer->CreateAnimation("Move_Left", "Bazzi_1.png", AnimationInter,true, 0, 5);
-	Renderer->CreateAnimation("Move_Right", "Bazzi_1.png", AnimationInter, true, 6, 11);
-	Renderer->CreateAnimation("Move_Up", "Bazzi_1.png", AnimationInter, true, 12, 19);
-	Renderer->CreateAnimation("Move_Down", "Bazzi_1.png", AnimationInter, true, 20, 27);
+	Renderer->CreateAnimation("Move_Left", "bazzi_left.png", AnimationInter,true, 0, 5);
+	Renderer->CreateAnimation("Move_Right", "bazzi_right.png", AnimationInter, true, 0, 5);
+	Renderer->CreateAnimation("Move_Up", "bazzi_up.png", AnimationInter, true, 0, 7);
+	Renderer->CreateAnimation("Move_Down", "bazzi_down.png", AnimationInter, true, 0, 7);
 
 	// CreateState
 	State.CreateState("Idle");

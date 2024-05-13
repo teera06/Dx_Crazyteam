@@ -9,9 +9,7 @@ APlayer::APlayer()
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
 	Renderer->SetOrder(5);
-
-	Renderer->SetScale(FVector(5, 5));
-
+	Renderer->SetAutoSize(0.05f, true);
 	Info = std::make_shared<PlayerInfo>();
 }
 

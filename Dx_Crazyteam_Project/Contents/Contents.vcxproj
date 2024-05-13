@@ -27,6 +27,8 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BrokenBlock.h" />
+    <ClInclude Include="CAEnumClass.h" />
     <ClInclude Include="ContentsDebugWindow.h" />
     <ClInclude Include="Game_Core.h">
       <SubType>
@@ -94,6 +96,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="WaterCourse.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseMap.cpp">
@@ -104,6 +107,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="BrokenBlock.cpp" />
     <ClCompile Include="ContentsDebugWindow.cpp" />
     <ClCompile Include="Game_Core.cpp">
       <SubType>
@@ -175,6 +179,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="WaterCourse.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EngineBase\EngineBase.vcxproj">

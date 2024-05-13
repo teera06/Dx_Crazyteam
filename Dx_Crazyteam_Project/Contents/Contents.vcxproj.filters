@@ -111,6 +111,15 @@
     <ClInclude Include="MapSpriteObject.h">
       <Filter>MapObject</Filter>
     </ClInclude>
+    <ClInclude Include="CAEnumClass.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="BrokenBlock.h">
+      <Filter>MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="WaterCourse.h">
+      <Filter>MapObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -174,6 +183,12 @@
       <Filter>MapObject</Filter>
     </ClCompile>
     <ClCompile Include="MapSpriteObject.cpp">
+      <Filter>MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BrokenBlock.cpp">
+      <Filter>MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="WaterCourse.cpp">
       <Filter>MapObject</Filter>
     </ClCompile>
   </ItemGroup>
