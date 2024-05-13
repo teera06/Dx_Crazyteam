@@ -1,6 +1,14 @@
 #pragma once
 #include <EngineCore/Actor.h>
 
+enum class EBlockType {
+	StaticBlock,   //움직이지도 부서지지도 않는 블록
+	NormalBlock,   //부서지는 블록
+	MoveBlock,     //움직이는 블록
+	Bush,          //부시
+	WaterBalloon,  //물풍선
+};
+
 // 설명 :
 class UEngineTexture;
 class UDefaultSceneComponent;
@@ -19,6 +27,8 @@ public:
 	ABaseMap& operator=(const ABaseMap& _Other) = delete;
 	ABaseMap& operator=(ABaseMap&& _Other) noexcept = delete;
 
+	static bool IsMove(FVector _PlayerPos);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -29,8 +39,10 @@ protected:
 
 	std::vector<std::vector<AMapObject*>> MapStatus;
 
-	int TileY = 18;
-	int TileX = 20;
+	static const FVector TileSize;
+
+	static const int TileY;
+	static const int TileX;
 private:
 
 };

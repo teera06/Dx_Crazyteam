@@ -105,6 +105,9 @@
     <ClInclude Include="PlayLobby.h">
       <Filter>Level\UItestLevel</Filter>
     </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>MapObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -163,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="PlayLobby.cpp">
       <Filter>Level\UItestLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>MapObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
