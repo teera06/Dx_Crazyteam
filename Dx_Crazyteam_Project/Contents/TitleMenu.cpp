@@ -45,7 +45,7 @@ void ATitleMenu::BeginPlay()
 				//UIGameMode->GetPlayLobby()->SetIsActive(true);
 				ServerGameMode->GetPlayLobby()->SetIsActive(true);
 
-				if (nullptr != Function)
+				if (nullptr == Function)
 				{
 					return;
 				}
