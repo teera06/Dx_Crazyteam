@@ -4,8 +4,9 @@
 #include "testGameMode.h"
 #include "UitestMonde.h"
 #include "PlayertestMode.h"
-
-
+#include "ServerGameMode.h"
+#include "MainGameMode.h"
+#include "SubServerLevel.h"
 
 #include "ContentsDebugWindow.h"
 
@@ -21,7 +22,6 @@ UGame_Core::UGame_Core()
 UGame_Core::~UGame_Core()
 {
 }
-
 void UGame_Core::Initialize()
 {
 	MainLoad();
@@ -29,7 +29,10 @@ void UGame_Core::Initialize()
 	GEngine->CreateLevel<ATestGameMode>("testGameMode");
 	GEngine->CreateLevel<APlayerTestMode>("PlayertestMode");
 	GEngine->CreateLevel<AUitestMonde>("UitestMonde");
-	GEngine->ChangeLevel("UitestMonde");
+	GEngine->CreateLevel<AMainGameMode>("MainGameMode");
+	GEngine->CreateLevel<AServerGameMode>("ServerGameMode");
+	GEngine->CreateLevel<ASubServerLevel>("SubServerLevel");
+	GEngine->ChangeLevel("MainGameMode");
 
 	UEngineEditorGUI::CreateEditorWindow<UContentsDebugWindow>("contentsHelpMe");
 

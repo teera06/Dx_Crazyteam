@@ -17,6 +17,21 @@ void UContentsDebugWindow::Init()
 
 void UContentsDebugWindow::OnGui(ULevel* Level, float _Delta)
 {
+	if (true == ImGui::Button("MainGameMode"))
+	{
+		GEngine->ChangeLevel("MainGameMode");
+	}
+
+	if (true == ImGui::Button("ServerGameMode"))
+	{
+		GEngine->ChangeLevel("ServerGameMode");
+	}
+
+	if (true == ImGui::Button("SubServerLevel"))
+	{
+		GEngine->ChangeLevel("SubServerLevel");
+	}
+	
 	if (true == ImGui::Button("UitestMode"))
 	{
 		GEngine->ChangeLevel("UitestMonde");
