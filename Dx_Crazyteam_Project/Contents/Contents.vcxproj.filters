@@ -13,6 +13,9 @@
     <Filter Include="Option">
       <UniqueIdentifier>{0a1e54c0-faf8-4c3f-9539-10411c69114a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\ServerLevel">
+      <UniqueIdentifier>{fd9a87db-12e7-4d75-bc20-b94b6e189b49}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Protocol">
       <UniqueIdentifier>{d0df054d-24fa-44d8-80bb-06c7c7bdefde}</UniqueIdentifier>
     </Filter>
@@ -52,38 +55,11 @@
     <Filter Include="Level\MainLevel">
       <UniqueIdentifier>{0cfefc0a-afca-477a-b165-c5fe30c8c993}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object">
-      <UniqueIdentifier>{338152c8-a708-484e-bde0-4313c8ebba67}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\Suver">
-      <UniqueIdentifier>{5b3b2d14-0427-4823-bb65-1e154c1f3d7e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\Suver\SubServerLevel">
+    <Filter Include="Level\SubServerLevel">
       <UniqueIdentifier>{8c31784e-4ac2-4a50-b20e-6953ad591546}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\Suver\ServerLevel">
-      <UniqueIdentifier>{fd9a87db-12e7-4d75-bc20-b94b6e189b49}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\Suver\PublicOBJ">
-      <UniqueIdentifier>{5c3efb8e-2f64-4c9e-9dd2-b715b1b1d056}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MapObject\Block">
-      <UniqueIdentifier>{437f5415-8d39-4782-83b3-00225467a750}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MapObject\MoveBlock">
-      <UniqueIdentifier>{82eddbd3-8ea2-409f-8d2d-c4e6f60796aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MapObject\Block\CampBlock">
-      <UniqueIdentifier>{1145bd0a-29b7-4e09-a16e-4954f44a19a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MapObject\MoveBlock\CampMoveBlock">
-      <UniqueIdentifier>{6f4636d5-c4e8-4088-a3fc-23fdb34859f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MapObject\Item">
-      <UniqueIdentifier>{a62c0951-a00b-4530-ae3e-97248b0fe3a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\ServerLevel\Test">
-      <UniqueIdentifier>{99371aa4-b2d2-4f4c-aa56-f2ea777b40df}</UniqueIdentifier>
+    <Filter Include="Object">
+      <UniqueIdentifier>{338152c8-a708-484e-bde0-4313c8ebba67}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -94,12 +70,16 @@
       <Filter>Option</Filter>
     </ClInclude>
     <ClInclude Include="ServerGameMode.h">
-      <Filter>Level\Suver\ServerLevel</Filter>
+      <Filter>Level\ServerLevel</Filter>
+    </ClInclude>
     <ClInclude Include="ServerPlayer.h">
       <Filter>Level\ServerLevel</Filter>
     </ClInclude>
     <ClInclude Include="Packets.h">
       <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherPlayer.h">
+      <Filter>Level\ServerLevel</Filter>
     </ClInclude>
     <ClInclude Include="Game_Core.h">
       <Filter>Core</Filter>
@@ -140,6 +120,9 @@
     <ClInclude Include="PlayLobby.h">
       <Filter>Level\UItestLevel</Filter>
     </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>MapObject</Filter>
+    </ClInclude>
     <ClInclude Include="MapSpriteObject.h">
       <Filter>MapObject</Filter>
     </ClInclude>
@@ -158,11 +141,14 @@
     <ClInclude Include="Camp.h">
       <Filter>Map\Camp</Filter>
     </ClInclude>
+    <ClInclude Include="CampBlock.h">
+      <Filter>MapObject</Filter>
+    </ClInclude>
     <ClInclude Include="MainGameMode.h">
       <Filter>Level\MainLevel</Filter>
     </ClInclude>
     <ClInclude Include="SubServerLevel.h">
-      <Filter>Level\Suver\SubServerLevel</Filter>
+      <Filter>Level\SubServerLevel</Filter>
     </ClInclude>
     <ClInclude Include="CAGameMode.h">
       <Filter>Level</Filter>
@@ -173,47 +159,14 @@
     <ClInclude Include="CAObject.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="NetInterface.h">
+      <Filter>Level\ServerLevel</Filter>
+    </ClInclude>
     <ClInclude Include="Player_Shadow.h">
       <Filter>Level\PlayertestLevel\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="Block.h">
-      <Filter>MapObject\Block</Filter>
-    </ClInclude>
     <ClInclude Include="MoveBlock.h">
-      <Filter>MapObject\MoveBlock</Filter>
-    </ClInclude>
-    <ClInclude Include="CampBlock.h">
-      <Filter>MapObject\Block\CampBlock</Filter>
-    </ClInclude>
-    <ClInclude Include="CampMoveBlock.h">
-      <Filter>MapObject\MoveBlock\CampMoveBlock</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>MapObject\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemBubble.h">
-      <Filter>MapObject\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="TestLobbyMode.h">
-      <Filter>Level\ServerLevel\Test</Filter>
-    </ClInclude>
-    <ClInclude Include="ServerGameMode.h">
-      <Filter>Level\ServerLevel\Test</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemRoller.h">
-      <Filter>MapObject\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="OtherPlayer.h">
-      <Filter>Level\Suver\PublicOBJ</Filter>
-    </ClInclude>
-    <ClInclude Include="NetInterface.h">
-      <Filter>Level\Suver\PublicOBJ</Filter>
-    </ClInclude>
-    <ClInclude Include="ServerPlayer.h">
-      <Filter>Level\Suver\PublicOBJ</Filter>
-    </ClInclude>
-    <ClInclude Include="OtherBomb.h">
-      <Filter>Level\Suver\PublicOBJ</Filter>
+      <Filter>MapObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -228,6 +181,9 @@
     </ClCompile>
     <ClCompile Include="Packets.cpp">
       <Filter>Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherPlayer.cpp">
+      <Filter>Level\ServerLevel</Filter>
     </ClCompile>
     <ClCompile Include="Game_Core.cpp">
       <Filter>Core</Filter>
@@ -271,6 +227,9 @@
     <ClCompile Include="PlayLobby.cpp">
       <Filter>Level\UItestLevel</Filter>
     </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>MapObject</Filter>
+    </ClCompile>
     <ClCompile Include="MapSpriteObject.cpp">
       <Filter>MapObject</Filter>
     </ClCompile>
@@ -289,17 +248,23 @@
     <ClCompile Include="Camp.cpp">
       <Filter>Map\Camp</Filter>
     </ClCompile>
+    <ClCompile Include="CampBlock.cpp">
+      <Filter>MapObject</Filter>
+    </ClCompile>
     <ClCompile Include="MainGameMode.cpp">
       <Filter>Level\MainLevel</Filter>
     </ClCompile>
     <ClCompile Include="SubServerLevel.cpp">
-      <Filter>Level\Suver\SubServerLevel</Filter>
+      <Filter>Level\SubServerLevel</Filter>
     </ClCompile>
     <ClCompile Include="CAGameMode.cpp">
       <Filter>Level</Filter>
     </ClCompile>
     <ClCompile Include="ConstValue.cpp">
       <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="NetInterface.cpp">
+      <Filter>Level\ServerLevel</Filter>
     </ClCompile>
     <ClCompile Include="CAObject.cpp" />
     <ClCompile Include="NetInterface.cpp" />
@@ -309,47 +274,8 @@
     <ClCompile Include="CAObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="Block.cpp">
-      <Filter>MapObject\Block</Filter>
-    </ClCompile>
     <ClCompile Include="MoveBlock.cpp">
-      <Filter>MapObject\MoveBlock</Filter>
-    </ClCompile>
-    <ClCompile Include="CampBlock.cpp">
-      <Filter>MapObject\Block\CampBlock</Filter>
-    </ClCompile>
-    <ClCompile Include="CampMoveBlock.cpp">
-      <Filter>MapObject\MoveBlock\CampMoveBlock</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>MapObject\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemBubble.cpp">
-      <Filter>MapObject\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="TestLobbyMode.cpp">
-      <Filter>Level\ServerLevel\Test</Filter>
-    </ClCompile>
-    <ClCompile Include="NetInterface.cpp">
-      <Filter>Level\ServerLevel</Filter>
-    </ClCompile>
-    <ClCompile Include="ServerGameMode.cpp">
-      <Filter>Level\ServerLevel\Test</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemRoller.cpp">
-      <Filter>MapObject\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="OtherPlayer.cpp">
-      <Filter>Level\Suver\PublicOBJ</Filter>
-    </ClCompile>
-    <ClCompile Include="ServerPlayer.cpp">
-      <Filter>Level\Suver\PublicOBJ</Filter>
-    </ClCompile>
-    <ClCompile Include="NetInterface.cpp">
-      <Filter>Level\Suver\PublicOBJ</Filter>
-    </ClCompile>
-    <ClCompile Include="OtherBomb.cpp">
-      <Filter>Level\Suver\PublicOBJ</Filter>
+      <Filter>MapObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
