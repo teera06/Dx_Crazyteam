@@ -27,5 +27,6 @@ protected:
 private:
 	UImage* MapPlayUI = nullptr;
 	UImage* PlayerItemUI = nullptr;
+	std::vector<UImage*> PlayerUI;
 };
 

@@ -16,6 +16,8 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Bazzi_Move_Right", "bazzi_right.png", AnimationInter, true, 0, 3);
 	Renderer->CreateAnimation("Bazzi_Move_Up", "bazzi_up.png", AnimationInter, true, 0, 3);
 	Renderer->CreateAnimation("Bazzi_Move_Down", "bazzi_down.png", AnimationInter, true, 0, 3);
+	Renderer->CreateAnimation("Bazzi_Trap", "bazzi_trap.png", AnimationInter * 2, false, 0, 3);
+	Renderer->CreateAnimation("Bazzi_Rescue", "bazzi_rescue.png", 0.1f, false, 0, 2);
 
 	Renderer->CreateAnimation("Dao_Idle_Up", "dao_idle.png", AnimationInter, false, 0, 0);
 	Renderer->CreateAnimation("Dao_Idle_Down", "dao_idle.png", AnimationInter, false, 1, 1);
@@ -25,20 +27,26 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Dao_Move_Right", "dao_right.png", AnimationInter, true, 0, 3);
 	Renderer->CreateAnimation("Dao_Move_Up", "dao_up.png", AnimationInter, true, 0, 3);
 	Renderer->CreateAnimation("Dao_Move_Down", "dao_down.png", AnimationInter, true, 0, 3);
+	Renderer->CreateAnimation("Dao_Trap", "dao_trap.png", AnimationInter * 2, false, 0, 3);
+	Renderer->CreateAnimation("Dao_Rescue", "dao_rescue.png", 0.1f, false, 0, 2);
 
 	// CreateState
 	State.CreateState("Idle");
 	State.CreateState("Move");
-	//State.CreateState("Attack");
-	//State.CreateState("Die");
+	State.CreateState("Trap");
+	State.CreateState("Rescue");
 
 	// StartFunction
 	State.SetStartFunction("Idle", std::bind(&APlayer::IdleStart, this));
 	State.SetStartFunction("Move", std::bind(&APlayer::MoveStart, this));
+	State.SetStartFunction("Trap", std::bind(&APlayer::TrapStart, this));
+	State.SetStartFunction("Rescue", std::bind(&APlayer::RescueStart, this));
 
 	// UpdateFunction
 	State.SetUpdateFunction("Idle", std::bind(&APlayer::Idle, this, std::placeholders::_1));
 	State.SetUpdateFunction("Move", std::bind(&APlayer::Move, this, std::placeholders::_1));
+	State.SetUpdateFunction("Trap", std::bind(&APlayer::Trap, this, std::placeholders::_1));
+	State.SetUpdateFunction("Rescue", std::bind(&APlayer::Rescue, this, std::placeholders::_1));
 
 	// Init
 	State.ChangeState("Idle");
@@ -113,6 +121,40 @@ void APlayer::Move(float _DeltaTime)
 	if (true == GetGameMode()->GetCurMap()->IsMove(NextPos1) && true == GetGameMode()->GetCurMap()->IsMove(NextPos2) && true == GetGameMode()->GetCurMap()->IsMove(NextPos3))
 	{
 		AddActorLocation(MovePos);
+		return;
+	}
+}
+
+void APlayer::TrapStart()
+{
+	Renderer->ChangeAnimation(GetAnimationName("Trap"));
+}
+
+void APlayer::Trap(float _DeltaTime)
+{
+	if (true == IsDown(VK_F2))
+	{
+		State.ChangeState("Rescue");
+		return;
+	}
+
+	if (true == Renderer->IsCurAnimationEnd())
+	{
+		// 둥둥 떠있는 모습 구현하기.
+
+	}
+}
+
+void APlayer::RescueStart()
+{
+	Renderer->ChangeAnimation(GetAnimationName("Rescue"));
+}
+
+void APlayer::Rescue(float _DeltaTime)
+{
+	if (true == Renderer->IsCurAnimationEnd())
+	{
+		State.ChangeState("Idle");
 		return;
 	}
 }

@@ -33,6 +33,10 @@ public:
 	//	return b_Bomb;
 	//}
 
+	/// <summary>
+	/// 물줄기에 닿으면,
+	/// </summary>
+	/// <param name="_Val"></param>
 	inline void SetWaterToBomg(bool _Val)
 	{
 		b_WaterToBomb = _Val;
@@ -61,5 +65,6 @@ private :
 	size_t Power = 1;
 	//bool b_Bomb = false;
 	bool b_WaterToBomb = false;
+	bool b_ServerBomb = false;
 };
 

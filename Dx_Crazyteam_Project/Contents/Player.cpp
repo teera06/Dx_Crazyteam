@@ -46,11 +46,17 @@ void APlayer::Tick(float _DeltaTime)
 	{
 		GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation());
 	}
+
+	if (true == IsDown(VK_F1))
+	{
+		State.ChangeState("Trap");
+		return;
+	}
 }
 
 std::string APlayer::GetAnimationName(std::string_view _StateName)
 {
-	std::string _AniName = _StateName.data() + std::string("_");
+	std::string _AniName = _StateName.data();
 
 	switch (Info->MyType)
 	{
@@ -64,21 +70,26 @@ std::string APlayer::GetAnimationName(std::string_view _StateName)
 		break;
 	}
 
+	if (_StateName == "Trap" || _StateName == "Rescue")
+	{
+		return _AniName;
+	}
+
 	if (Dir.iX() == FVector::Up.iX() && Dir.iY() == FVector::Up.iY())
 	{
-		return _AniName + "Up";
+		return _AniName + "_Up";
 	}
 	else if (Dir.iX() == FVector::Down.iX() && Dir.iY() == FVector::Down.iY())
 	{
-		return _AniName + "Down";
+		return _AniName + "_Down";
 	}
 	else if (Dir.iX() == FVector::Right.iX() && Dir.iY() == FVector::Right.iY())
 	{
-		return _AniName + "Right";
+		return _AniName + "_Right";
 	}
 	else if (Dir.iX() == FVector::Left.iX() && Dir.iY() == FVector::Left.iY())
 	{
-		return _AniName + "Left";
+		return _AniName + "_Left";
 	}
 	else 
 	{

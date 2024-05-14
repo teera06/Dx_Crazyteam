@@ -58,6 +58,18 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Item.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ItemBubble.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ItemRoller.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="MainGameMode.h">
       <SubType>
       </SubType>
@@ -76,6 +88,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="NetInterface.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="OtherBomb.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -122,6 +138,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="TestGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TestLobbyMode.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -179,6 +199,18 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemBubble.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemRoller.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="MainGameMode.cpp">
       <SubType>
       </SubType>
@@ -197,6 +229,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="NetInterface.cpp" />
+    <ClCompile Include="OtherBomb.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="OtherPlayer.cpp">
       <SubType>
       </SubType>
@@ -244,6 +280,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="TestGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TestLobbyMode.cpp">
       <SubType>
       </SubType>
     </ClCompile>
