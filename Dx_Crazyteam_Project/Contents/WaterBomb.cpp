@@ -111,6 +111,7 @@ void AWaterBomb::BombBegin()
 	//Course->CreateWaterCenter();
 
 	GetGameMode()->GetCurMap()->AddMapObject(CurPos.y, CurPos.x, EMapObject::Water);
+	b_ServerBomb = true;
 }
 
 void AWaterBomb::BombTick(float _DeltaTime)
