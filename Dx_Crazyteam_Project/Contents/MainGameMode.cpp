@@ -41,19 +41,6 @@ void AMainGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-#ifdef _DEBUG
-	FVector MousePos = GetWorld()->GetMainCamera()->ScreenPosToWorldPos(GEngine->EngineWindow.GetScreenMousePos());
-	std::string Msgs = std::format("Mouse Position : {}", MousePos.ToString());
-	UMapDebugGUI::PushMsg(Msgs);
-	Msgs = std::format("y : {}, x : {}", GetCurMap()->PlayerPosToPoint(MousePos).y, GetCurMap()->PlayerPosToPoint(MousePos).x);
-	UMapDebugGUI::PushMsg(Msgs);
-
-	if (true == IsDown('N'))
-	{
-		std::shared_ptr<AWaterCourse> Water = GetWorld()->SpawnActor<AWaterCourse>("Water", EMapObjectType::WaterBalloon);
-
-	}
-#endif // _DEBUG
 }
 
 void AMainGameMode::LevelStart(ULevel* _PrevLevel)
