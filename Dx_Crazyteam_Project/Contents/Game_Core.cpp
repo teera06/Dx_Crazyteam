@@ -111,6 +111,12 @@ void UGame_Core::CuttingAni()
 	{
 		//Item
 		UEngineSprite::CreateCutting("Bubble(1).png", 6, 1);
+		UEngineSprite::CreateCutting("Roller.png", 6, 1);
+		UEngineSprite::CreateCutting("Fluid.png", 6, 1);
+
+		//Item Shadow
+		//UEngineSprite::CreateCutting("ItemShadow.png", 6, 1);
+
 	}
 
 
