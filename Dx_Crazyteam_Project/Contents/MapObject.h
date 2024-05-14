@@ -22,6 +22,11 @@ public:
 		return Type;
 	}
 
+	void SetCurPos(POINT _Pos)
+	{
+		CurPos = _Pos;
+	}
+
 	std::function<void()> PlayerInteract;
 	std::function<void()> WaterInteract;
 
@@ -30,6 +35,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 	EMapObjectType Type = EMapObjectType::None;
+	POINT CurPos = { 0,0 };
 
 	USpriteRenderer* FrontRenderer = nullptr;
 	USpriteRenderer* BackRenderer = nullptr;

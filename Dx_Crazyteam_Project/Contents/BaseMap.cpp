@@ -109,6 +109,7 @@ void ABaseMap::BeginPlay()
 			PushPos.Y = FirstPos.Y - ConstValue::TileSize.Y * y;
 
 			Default->SetActorLocation(PushPos);
+			Default->SetCurPos(POINT(x, y));
 
 			MapStatus[y].push_back(Default);
 		}
@@ -126,6 +127,11 @@ void ABaseMap::AddMapObject(int _Y, int _X, EMapObject _MapObjectType)
 	std::shared_ptr<AMapObject> MapObj = nullptr;
 	switch (_MapObjectType)
 	{
+	case EMapObject::Default:
+	{
+		MapObj = GetWorld()->SpawnActor<AMapObject>("Default");
+		break;
+	}
 	case EMapObject::NormalBlock:
 	{
 		std::shared_ptr<ABlock> TempObj = GetWorld()->SpawnActor<ABlock>("Block");
@@ -151,6 +157,7 @@ void ABaseMap::AddMapObject(int _Y, int _X, EMapObject _MapObjectType)
 	}
 
 	MapObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
+	MapObj->SetCurPos(POINT(_X, _Y));
 	MapObj->SetCurGameMode(GetGameMode());
 
 	MapStatus[_Y][_X]->Destroy();
@@ -171,15 +178,7 @@ void ABaseMap::SpawnWaterBomb(int _Y, int _X)
 
 void ABaseMap::DestroyMapObject(int _Y, int _X)
 {
-
-	std::shared_ptr<AMapObject> MapObj = GetWorld()->SpawnActor<AMapObject>("MapObject");
-	MapObj->SetCurGameMode(GetGameMode());
-
-	MapObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
-	MapObj->SetCurGameMode(GetGameMode());
-
-	MapStatus[_Y][_X]->Destroy();
-	MapStatus[_Y][_X] = MapObj;
+	AddMapObject(_Y, _X, EMapObject::Default);
 }
 
 POINT ABaseMap::PlayerPosToPoint(FVector _PlayerPos)

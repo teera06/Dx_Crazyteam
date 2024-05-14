@@ -25,7 +25,7 @@ void AUitestMonde::BeginPlay()
 	std::shared_ptr<ATitleMenu> TitleMenu = GetWorld()->SpawnActor<ATitleMenu>("TitleMenu");
 	PlayLobby = GetWorld()->SpawnActor<APlayLobby>("PlayLobby");
 	MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
-
+	Intro = GetWorld()->SpawnActor <AIntro> ("Intro");
 }
 
 void AUitestMonde::Tick(float _DeltaTime)

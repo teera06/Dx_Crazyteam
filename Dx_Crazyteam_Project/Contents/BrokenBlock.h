@@ -42,5 +42,15 @@ private:
 	void EndExit();
 
 	UStateManager State;
+
+	bool IsBreak = false;
+
+	float BreakBlockTime = 0.25f;
+	float AccTime = 0.f;
+
+	bool BlinkOn = false;
+
+	float BlinkTime = 0.05f;
+	float AccBlinkTime = 0.f;
 };
 

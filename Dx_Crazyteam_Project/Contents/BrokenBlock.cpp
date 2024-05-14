@@ -4,11 +4,7 @@
 
 ABrokenBlock::ABrokenBlock()
 {
-	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
-	SetRoot(Root);
-	
-	FrontRenderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	FrontRenderer->SetupAttachment(Root);
+
 }
 
 ABrokenBlock::~ABrokenBlock()
@@ -20,6 +16,11 @@ void ABrokenBlock::BeginPlay()
 	Super::BeginPlay();
 	StateInit();
 	CreateAnimation();
+	Type = EMapObjectType::BrakableBlock;
+
+	WaterInteract = [&]() {
+		IsBreak = true;
+		};
 }
 
 void ABrokenBlock::Tick(float _DeltaTime)
@@ -51,12 +52,12 @@ void ABrokenBlock::StateInit()
 		std::bind(&ABrokenBlock::EndTick, this, std::placeholders::_1),
 		std::bind(&ABrokenBlock::EndExit, this));
 
-	State.ChangeState("None");
+	State.ChangeState("Idle");
 }
 
 void ABrokenBlock::CreateAnimation()
 {
-	//FrontRenderer->CreateAnimation("Idle", )
+
 }
 
 // None
@@ -76,6 +77,11 @@ void ABrokenBlock::IdleBegin()
 
 void ABrokenBlock::IdleTick(float _DeltaTime)
 {
+	if (IsBreak)
+	{
+		State.ChangeState("Break");
+		return;
+	}
 }
 
 void ABrokenBlock::IdleExit()
@@ -87,11 +93,33 @@ void ABrokenBlock::IdleExit()
 #pragma region Break
 void ABrokenBlock::BreakBegin()
 {
+	AccTime = 0.f;
 }
 
 
 void ABrokenBlock::BreakTick(float _DeltaTime)
 {
+	AccTime += _DeltaTime;
+	if (AccTime > BreakBlockTime)
+	{
+		State.ChangeState("End");
+		return;
+	}
+
+	AccBlinkTime += _DeltaTime;
+	if (AccBlinkTime > BlinkTime)
+	{
+		if (BlinkOn)
+		{
+			FrontRenderer->SetActive(false);
+			BackRenderer->SetActive(false);
+		}
+		else
+		{
+			FrontRenderer->SetActive(true);
+			BackRenderer->SetActive(true);
+		}
+	}
 }
 
 void ABrokenBlock::BreakExit()
@@ -102,6 +130,7 @@ void ABrokenBlock::BreakExit()
 #pragma region End
 void ABrokenBlock::EndBegin()
 {
+	
 }
 
 void ABrokenBlock::EndTick(float _DeltaTime)

@@ -5,6 +5,7 @@
 #include <EngineCore/EngineNetWindow.h>
 #include <EngineBase/EngineDispatcher.h>
 
+class AIntro;
 class APlayLobby;
 class AMapUI;
 class AUitestMonde : public AGameMode
@@ -32,6 +33,8 @@ public:
 		return MapUI;
 	}
 
+
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -41,5 +44,6 @@ protected:
 private:
 	std::shared_ptr<APlayLobby> PlayLobby = nullptr;
 	std::shared_ptr<AMapUI> MapUI = nullptr;
+	std::shared_ptr<AIntro> Intro = nullptr;
 };
 

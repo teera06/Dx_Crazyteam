@@ -30,6 +30,7 @@ void UGame_Core::Initialize()
 	MainLoad();
 	CuttingAni();
 	SoundLoad();
+	ForderLoadAni();
 
 	GEngine->CreateLevel<ATestGameMode>("testGameMode");
 	GEngine->CreateLevel<APlayerTestMode>("PlayertestMode");

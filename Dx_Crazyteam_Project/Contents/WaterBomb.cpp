@@ -1,11 +1,12 @@
 #include "PreCompile.h"
 #include "WaterBomb.h"
 #include <EngineCore/DefaultSceneComponent.h>
+#include "WaterCourse.h"
 
 AWaterBomb::AWaterBomb()
 {
-	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
-	SetRoot(Root);
+	//UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
+	//SetRoot(Root);
 
 	WaterCourseRender = CreateDefaultSubObject<USpriteRenderer>("Render");
 	WaterCourseRender->SetupAttachment(Root);
@@ -21,7 +22,7 @@ void AWaterBomb::BeginPlay()
 	StateInit();
 	CreateAnimation();
 
-	WaterCourseRender->SetAutoSize(1.0f, true);
+	WaterCourseRender->SetAutoSize(5.0f, true);
 	WaterCourseRender->SetActive(false);
 }
 
@@ -54,16 +55,16 @@ void AWaterBomb::StateInit()
 
 void AWaterBomb::CreateAnimation()
 {
-	WaterCourseRender->CreateAnimation("", "", 0.125f, true);
-	WaterCourseRender->CreateAnimation("", "", 0.125f, true);
+	//WaterCourseRender->CreateAnimation("Create", "bomb.png", 0.125f, true);
+	WaterCourseRender->CreateAnimation("Create", "bomb.png", { 0.125f, 0.125f, 0.125f, 0.125f }, {0, 1, 2, 1}, true);
 
-	WaterCourseRender->ChangeAnimation("");
+	WaterCourseRender->ChangeAnimation("Create");
 }
 
 
 void AWaterBomb::NoneBegin()
 {
-	b_Bomb = false;
+	//b_Bomb = false;
 }
 
 void AWaterBomb::NoneTick(float _DeltaTime)
@@ -79,7 +80,7 @@ void AWaterBomb::CreateBegin()
 void AWaterBomb::CreateTick(float _DeltaTime)
 {
 	LifeTime += _DeltaTime;
-	if (2.0f <= LifeTime)
+	if (2.0f <= LifeTime || true == b_WaterToBomb)
 	{
 		State.ChangeState("Bomb");
 		return;
@@ -89,16 +90,21 @@ void AWaterBomb::CreateTick(float _DeltaTime)
 void AWaterBomb::CreateExit()
 {
 	LifeTime = 0.0f;
+	WaterCourseRender->SetActive(false);
 }
 
 void AWaterBomb::BombBegin()
 {
-	b_Bomb = true;
+	std::shared_ptr<AWaterCourse> Course = GetWorld()->SpawnActor<AWaterCourse>("WaterCourse");
+	Course->SetPowerValue(Power);
+	//Course->SetPowerValue(5);
+	//Course->SetBombPoint(CurPos);
+	Course->CreateWaterCenter();
 }
 
 void AWaterBomb::BombTick(float _DeltaTime)
 {
-	// 애니메이션이 끝나면 Destroy();
+	Destroy();
 }
 
 void AWaterBomb::BombExit()

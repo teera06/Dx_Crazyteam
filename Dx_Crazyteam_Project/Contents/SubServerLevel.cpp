@@ -13,6 +13,7 @@
 #include "Player.h"
 #include "OtherPlayer.h"
 #include "Village.h"
+#include "Camp.h"
 
 ASubServerLevel::ASubServerLevel()
 {
@@ -34,8 +35,13 @@ void ASubServerLevel::BeginPlay()
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 
-	Village = GetWorld()->SpawnActor<AVillage>("Village");
-	SetCurMap(Village);
+	//Village = GetWorld()->SpawnActor<AVillage>("Village");
+	//SetCurMap(Village);
+
+	std::shared_ptr<ACamp> Camp = GetWorld()->SpawnActor<ACamp>("Camp");
+	SetCurMap(Camp);
+	Camp->SetCurGameMode(this);
+
 
 	MainPlayer = GetWorld()->SpawnActor<APlayer>("Player");
 	MainPlayer->SetCurGameMode(this);

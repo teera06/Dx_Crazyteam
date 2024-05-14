@@ -24,33 +24,6 @@ AOtherPlayer::~AOtherPlayer()
 
 void AOtherPlayer::BeginPlay()
 {
-	Renderer->CreateAnimation("Idle_Left", "bazzi_left.png", 0.1f, false, 0, 0);
-	Renderer->CreateAnimation("Idle_Right", "bazzi_right.png", 0.1f, false, 0, 0);
-	Renderer->CreateAnimation("Idle_Up", "bazzi_up.png", 0.1f, false, 0, 0);
-	Renderer->CreateAnimation("Idle_Down", "bazzi_down.png", 0.1f, false, 0, 0);
-
-	Renderer->CreateAnimation("Move_Left", "bazzi_left.png", 0.1f, true, 0, 5);
-	Renderer->CreateAnimation("Move_Right", "bazzi_right.png", 0.1f, true, 0, 5);
-	Renderer->CreateAnimation("Move_Up", "bazzi_up.png", 0.1f, true, 0, 7);
-	Renderer->CreateAnimation("Move_Down", "bazzi_down.png", 0.1f, true, 0, 7);
-
-
-	// CreateState
-	State.CreateState("Idle");
-	State.CreateState("Move");
-	//State.CreateState("Attack");
-	//State.CreateState("Die");
-
-	// StartFunction
-	State.SetStartFunction("Idle", std::bind(&AOtherPlayer::IdleStart, this));
-	State.SetStartFunction("Move", std::bind(&AOtherPlayer::MoveStart, this));
-
-	// UpdateFunction
-	State.SetUpdateFunction("Idle", std::bind(&AOtherPlayer::Idle, this, std::placeholders::_1));
-	State.SetUpdateFunction("Move", std::bind(&AOtherPlayer::Move, this, std::placeholders::_1));
-
-
-
 	AActor::BeginPlay();
 }
 
@@ -84,12 +57,12 @@ void AOtherPlayer::Tick(float _DeltaTime)
 
 			std::string SpriteNames = ActorUpdatePacket->SpriteName;
 
+			int AnimationInFO = ActorUpdatePacket->AnimationInfo;
+
 			if (SpriteNames != "")
 			{
-				Renderer->ChangeAnimation(SpriteNames);
-				//State.ChangeState(SpriteNames);
+				Renderer->SetSprite(SpriteNames, AnimationInFO);
 			}
-
 			int a = 0;
 			break;
 		}
