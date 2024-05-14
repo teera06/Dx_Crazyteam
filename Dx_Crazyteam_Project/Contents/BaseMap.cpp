@@ -143,6 +143,19 @@ void ABaseMap::SpawnWaterBomb(FVector _SpawnPos)
 	AddMapObject(BombPoint.y, BombPoint.x, EMapObject::WaterBomb);
 }
 
+void ABaseMap::DestroyMapObject(int _Y, int _X)
+{
+
+	std::shared_ptr<AMapObject> MapObj = GetWorld()->SpawnActor<AMapObject>("MapObject");
+	MapObj->SetCurGameMode(GetGameMode());
+
+	MapObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
+	MapObj->SetCurGameMode(GetGameMode());
+
+	MapStatus[_Y][_X]->Destroy();
+	MapStatus[_Y][_X] = MapObj;
+}
+
 POINT ABaseMap::PlayerPosToPoint(FVector _PlayerPos)
 {
 	float MinDistance = 999999;

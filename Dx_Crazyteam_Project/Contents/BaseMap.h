@@ -21,7 +21,13 @@ public:
 
 	bool IsMove(FVector _PlayerPos);
 	void AddMapObject(int _Y, int _X, EMapObject _MapObjectType);
+	std::shared_ptr<AMapObject> GetMapObject(int _Y, int _X)
+	{
+		return MapStatus[_Y][_X];
+	}
 	void SpawnWaterBomb(FVector _SpawnPos);
+	void DestroyMapObject(int _Y, int _X);
+
 	POINT PlayerPosToPoint(FVector _PlayerPos);
 
 protected:
