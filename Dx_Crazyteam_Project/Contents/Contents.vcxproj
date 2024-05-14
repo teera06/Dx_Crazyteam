@@ -101,7 +101,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="StageUI.h">
+    <ClInclude Include="MapUI.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -214,7 +214,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="StageUI.cpp">
+    <ClCompile Include="MapUI.cpp">
       <SubType>
       </SubType>
     </ClCompile>

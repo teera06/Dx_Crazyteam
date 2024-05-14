@@ -5,6 +5,7 @@
 #include <EngineCore/EngineEditorGUI.h>
 #include "MapDebugGUI.h"
 #include "Player.h"
+#include "WaterCourse.h"
 
 ATestGameMode::ATestGameMode()
 {
@@ -23,10 +24,15 @@ void ATestGameMode::BeginPlay()
 
 	std::shared_ptr<ACamp> Camp = GetWorld()->SpawnActor<ACamp>("Camp");
 	SetCurMap(Camp);
+	Camp->SetCurGameMode(this);
 
 	Player1 = GetWorld()->SpawnActor<APlayer>("Player1", 0);
 	Player1->SetCurGameMode(this);
 	SetMainPlayer(Player1);
+
+#ifdef _DEBUG
+	InputOn();
+#endif
 }
 
 void ATestGameMode::Tick(float _DeltaTime)
@@ -39,6 +45,12 @@ void ATestGameMode::Tick(float _DeltaTime)
 	UMapDebugGUI::PushMsg(Msgs);
 	Msgs = std::format("y : {}, x : {}", GetCurMap()->PlayerPosToPoint(MousePos).y, GetCurMap()->PlayerPosToPoint(MousePos).x);
 	UMapDebugGUI::PushMsg(Msgs);
+
+	if (true == IsDown('N'))
+	{
+		std::shared_ptr<AWaterCourse> Water = GetWorld()->SpawnActor<AWaterCourse>("Water", EMapObjectType::WaterBalloon);
+
+	}
 #endif // _DEBUG
 }
 

@@ -35,11 +35,7 @@ void AMainGameMode::Tick(float _DeltaTime)
 
 void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 {
-
 	Super::LevelStart(_PrevLevel);
-
-#ifdef _DEBUG
-#endif // _DEBUG
 }
 
 void AMainGameMode::LevelEnd(ULevel* _NextLevel)
