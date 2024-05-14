@@ -53,9 +53,18 @@ void APlayer::Tick(float _DeltaTime)
 		return;
 	}
 
+	if (true == IsDown('B'))
+	{
+		SetCharacterType(ECharacterType::Bazzi);
+		State.ChangeState("Idle");
+		return;
+	}
+
 	if (true == IsDown('D'))
 	{
 		SetCharacterType(ECharacterType::Dao);
+		State.ChangeState("Idle");
+		return;
 	}
 }
 
