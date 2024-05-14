@@ -72,6 +72,11 @@ public:
 
 	void SetDir(EEngineDir _Dir);
 
+	std::string_view GetAniImage()
+	{
+		return _AniName;
+	}
+
 	inline EEngineDir GetDir() const
 	{
 		return Dir;
@@ -136,6 +141,7 @@ protected:
 	void MaterialSettingEnd() override;
 
 private:
+	std::string_view _AniName = ""; 
 	bool AutoSize = false;
 	float ScaleRatio = 1.0f;
 	FSpriteInfo CurInfo;
