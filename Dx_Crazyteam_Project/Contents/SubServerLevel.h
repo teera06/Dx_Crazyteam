@@ -6,6 +6,7 @@
 #include <EngineBase/EngineDispatcher.h>
 
 // Ό³Έν :
+class APlayer;
 class UEngineNetWindow;
 class AServerPlayer;
 
@@ -34,6 +35,7 @@ protected:
 	
 private:
 	std::shared_ptr<UEngineNetWindow> subNetWindow;
-	std::shared_ptr<AServerPlayer> MainPlayer = nullptr;
+//	std::shared_ptr<AServerPlayer> MainPlayer = nullptr;
+	std::shared_ptr<APlayer> MainPlayer = nullptr;
 };
 
