@@ -6,12 +6,8 @@
 
 AWaterCourse::AWaterCourse()
 {
-	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
-	SetRoot(Root);
-
 	WaterCourseRender = CreateDefaultSubObject<USpriteRenderer>("Render");
 	WaterCourseRender->SetupAttachment(Root);
-
 }
 
 AWaterCourse::~AWaterCourse()
@@ -33,6 +29,11 @@ void AWaterCourse::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	State.Update(_DeltaTime);
+
+	if (true == CreateStart)
+	{
+		//CreateWaterStream(_DeltaTime);
+	}
 }
 
 void AWaterCourse::StateInit()
@@ -100,16 +101,16 @@ void AWaterCourse::CreateAnimation()
 
 	{
 		// 물 끝 사라짐.
-		WaterCourseRender->CreateAnimation("EndStemUp_D", "up12.png", 0.125f, true, 1, 10);
-		WaterCourseRender->CreateAnimation("EndStemDown_D", "down12.png", 0.125f, true, 1, 10);
-		WaterCourseRender->CreateAnimation("EndStemLeft_D", "left12.png", 0.125f, true, 1, 10);
-		WaterCourseRender->CreateAnimation("EndStemRight_D", "right12.png", 0.125f, true, 1, 10);
+		WaterCourseRender->CreateAnimation("D_EndStemUp", "up12.png", 0.125f, true, 1, 10);
+		WaterCourseRender->CreateAnimation("D_EndStemDown", "down12.png", 0.125f, true, 1, 10);
+		WaterCourseRender->CreateAnimation("D_EndStemLeft", "left12.png", 0.125f, true, 1, 10);
+		WaterCourseRender->CreateAnimation("D_EndStemRight", "right12.png", 0.125f, true, 1, 10);
 
 		// 물 줄기 사라짐.
-		WaterCourseRender->CreateAnimation("StreamUp_D", "up22.png", 0.125f, true, 1, 10);
-		WaterCourseRender->CreateAnimation("StreamDown_D", "down22.png", 0.125f, true, 1, 10);
-		WaterCourseRender->CreateAnimation("StreamLeft_D", "left22.png", 0.125f, true, 1, 10);
-		WaterCourseRender->CreateAnimation("StreamRight_D", "right22.png", 0.125f, true, 1, 10);
+		WaterCourseRender->CreateAnimation("D_StreamUp", "up22.png", 0.125f, true, 1, 10);
+		WaterCourseRender->CreateAnimation("D_StreamDown", "down22.png", 0.125f, true, 1, 10);
+		WaterCourseRender->CreateAnimation("D_StreamLeft", "left22.png", 0.125f, true, 1, 10);
+		WaterCourseRender->CreateAnimation("D_StreamRight", "right22.png", 0.125f, true, 1, 10);
 	}
 
 	WaterCourseRender->ChangeAnimation("Water_Center");
@@ -128,52 +129,61 @@ void AWaterCourse::NoneTick(float _DeltaTime)
 #pragma region Center
 void AWaterCourse::CreateCenterBegin()
 {
-	LifeTime = 0.0f;
-	CreateTime = 0.0f;
+	CenterLifeTime = 0.0f;
+	CreateStart = true; // 물줄기 만들어라.
 }
 void AWaterCourse::CreateCenterTick(float _DeltaTime)
 {
-	LifeTime += _DeltaTime;
-	CreateTime += _DeltaTime;
-	if (2.0f <= LifeTime)
+	CenterLifeTime += _DeltaTime;
+	if (LifeTime <= CenterLifeTime)
 	{
 		State.ChangeState("Delete");
 		return;
 	}
-
-	for (size_t i = 0; i < PowerValue; i++)
-	{
-		if (0.5f <= CreateTime)
-		{
-			// 만들어 질 곳에 뭐가 있음?
-
-
-			std::shared_ptr<AWaterCourse> Stem = GetWorld()->SpawnActor<AWaterCourse>("Stream");
-			//Stem->GetGameMode()->GetCurMap()->GetMapObject
-
-			//std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject()
-			//Stem->CreateWaterStream();
-
-			//CreateTime = 0.0f;
-		}
-	}
 }
 void AWaterCourse::CreateCenterExit()
 {
-	LifeTime = 0.0f;
+	CenterLifeTime = 0.0f;
 }
 #pragma endregion
 
-#pragma region CreateStream
+#pragma region CreateStream // 물줄기
 void AWaterCourse::CreateStreamBegin()
 {
+	switch (WaterCourseDir)
+	{
+	case EEngineDir::Up:
+	{
+		WaterCourseRender->ChangeAnimation("StreamUp");
+		break;
+	}
+	case EEngineDir::Down :
+	{
+		WaterCourseRender->ChangeAnimation("StreamDown");
+		break;
+	}
+	case EEngineDir::Left:
+	{
+		WaterCourseRender->ChangeAnimation("StreamLeft");
+		break;
+	}
+	case EEngineDir::Right:
+	{
+		WaterCourseRender->ChangeAnimation("StreamRight");
+		break;
+	}
+	default :
+		break;
+	}
+
 	WaterCourseRender->SetActive(true);
 }
+
 void AWaterCourse::CreateStreamTick(float _DeltaTime)
 {
-	LifeTime += _DeltaTime;
+	CenterLifeTime += _DeltaTime;
 
-	if (1.0f <= LifeTime)
+	if (1.0f <= CenterLifeTime)
 	{
 		State.ChangeState("Delete");
 		return;
@@ -181,8 +191,7 @@ void AWaterCourse::CreateStreamTick(float _DeltaTime)
 }
 void AWaterCourse::CreateStreamExit()
 {
-	LifeTime = 0.0f;
-	WaterCourseRender->SetActive(false);
+	CenterLifeTime = 0.0f;
 }
 #pragma endregion
 
@@ -215,3 +224,69 @@ void AWaterCourse::DeleteExit()
 {
 }
 #pragma endregion
+
+// 터지면 들어옴.
+void AWaterCourse::CreateWaterStream(float _DeltaTime)
+{
+	CreateDeltaTime += _DeltaTime;
+
+
+
+	//for (size_t i = 1; i <= PowerValue; i++)
+	//{
+	//}
+
+	if (CreateTime <= CreateDeltaTime)
+	{
+		CurPos;
+		// 만들어 질 곳에 뭐가 있음?
+		{
+			std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y , CurPos.x+1);
+			EMapObjectType type = NextMapObject->GetType();
+			if (type == EMapObjectType::None)
+			{
+				std::shared_ptr<AWaterCourse> Stem = GetWorld()->SpawnActor<AWaterCourse>("Stream");
+				Stem->SetDir(EEngineDir::Down);
+				Stem->CreateWaterStream();
+			}
+		}
+		/*{
+			std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y + 1, CurPos.x);
+			EMapObjectType type = NextMapObject->GetType();
+			if (type == EMapObjectType::None)
+			{
+				std::shared_ptr<AWaterCourse> Stem = GetWorld()->SpawnActor<AWaterCourse>("Stream");
+				Stem->SetDir(EEngineDir::Up);
+				Stem->CreateWaterStream();
+			}
+		}
+		{
+			std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y, CurPos.x - 1);
+			EMapObjectType type = NextMapObject->GetType();
+			if (type == EMapObjectType::None)
+			{
+				std::shared_ptr<AWaterCourse> Stem = GetWorld()->SpawnActor<AWaterCourse>("Stream");
+				Stem->SetDir(EEngineDir::Left);
+				Stem->CreateWaterStream();
+			}
+		}
+		{
+			std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y, CurPos.x + 1);
+			EMapObjectType type = NextMapObject->GetType();
+			if (type == EMapObjectType::None)
+			{
+				std::shared_ptr<AWaterCourse> Stem = GetWorld()->SpawnActor<AWaterCourse>("Stream");
+				Stem->SetDir(EEngineDir::Right);
+				Stem->CreateWaterStream();
+			}
+		}*/
+
+
+
+
+
+		CreateStart = false; // Tick Control
+	}
+	//NextMapObject->WaterInteract();
+
+}

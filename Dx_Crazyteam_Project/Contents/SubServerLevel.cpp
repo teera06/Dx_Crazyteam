@@ -6,6 +6,7 @@
 #include <EngineBase/EngineSerializer.h>
 #include <EngineCore/BlurEffect.h>
 #include <EngineCore/EngineEditorGUI.h>
+#include <EnginePlatform/EngineInput.h>
 
 #include "ServerPlayer.h"
 #include "Game_Core.h"
@@ -14,6 +15,7 @@
 #include "OtherPlayer.h"
 #include "Village.h"
 #include "Camp.h"
+#include "WaterBomb.h"
 
 ASubServerLevel::ASubServerLevel()
 {
@@ -46,11 +48,33 @@ void ASubServerLevel::BeginPlay()
 	MainPlayer = GetWorld()->SpawnActor<APlayer>("Player");
 	MainPlayer->SetCurGameMode(this);
 	SetMainPlayer(MainPlayer);
+
+
+	//AWaterBomb* Bomb = this->GetWorld()->SpawnActor<AWaterBomb>("Bomb", 0).get();
+	//Bomb->SetCurGameMode(this);
 }
 
 void ASubServerLevel::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	if (UEngineInput::IsDown(VK_SPACE)==true)
+	{
+		AWaterBomb* Bomb = this->GetWorld()->SpawnActor<AWaterBomb>("Bomb", 0).get();
+		Bomb->SetCurGameMode(this);
+		Bomb->SetActorLocation(MainPlayer->GetActorLocation());
+		//AWaterBomb* Bomb = this->GetWorld()->SpawnActor<AWaterBomb>("Bomb", 0).get();
+		//Bomb->SetObjectToken(UNetObject::GetNewObjectToken());
+		//Bomb->SetObjectToken(_Packet->GetObjectToken());
+		//Bomb->PushProtocol(_Packet);
+		//Bomb->SetActorLocation(OtherPlayer->GetActorLocation());
+		//ServerPacketInit(UGame_Core::Net->Dispatcher);
+	}
+
+
+
+	
+
 }
 
 void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
@@ -105,10 +129,19 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 				OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
 			}
 			OtherPlayer->PushProtocol(_Packet);
-			//OtherPlayer->SetActorLocation(_Packet->Pos);
+
+
+			//AWaterBomb* Bomb = UNetObject::GetNetObject<AWaterBomb>(_Packet->GetObjectToken());
+			//if (UEngineInput::IsDown(VK_SPACE))
+			//{
+			//	AWaterBomb* Bomb = this->GetWorld()->SpawnActor<AWaterBomb>("Bomb", 0).get();
+			//	Bomb->SetObjectToken(_Packet->GetObjectToken());
+			//	Bomb->PushProtocol(_Packet);
+			//	Bomb->SetActorLocation(OtherPlayer->GetActorLocation());
+			//}
+			
+
 		});
-
-
 	});
 }
 

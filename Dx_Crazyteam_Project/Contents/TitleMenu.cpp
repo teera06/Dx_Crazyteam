@@ -6,6 +6,8 @@
 #include "EngineCore/Image.h"
 #include "EngineCore/TextWidget.h"
 
+#include "ServerGameMode.h"
+
 ATitleMenu::ATitleMenu()
 {
 
@@ -19,7 +21,8 @@ void ATitleMenu::BeginPlay()
 {
 	Super::BeginPlay();
 	InputOn();
-	UIGameMode = dynamic_cast<AUitestMonde*>(GetWorld()->GetGameMode().get());
+	//UIGameMode = dynamic_cast<AUitestMonde*>(GetWorld()->GetGameMode().get());
+	ServerGameMode = dynamic_cast<AServerGameMode*>(GetWorld()->GetGameMode().get());
 
 	UImage* TitleBackGround = CreateWidget<UImage>(GetWorld(), "TitleBackGround");
 	TitleBackGround->AddToViewPort(1);
@@ -39,7 +42,15 @@ void ATitleMenu::BeginPlay()
 			{
 				TitleBackGround->SetActive(false);
 				GameStartButton->SetActive(false);
-				UIGameMode->GetPlayLobby()->SetIsActive(true);
+				//UIGameMode->GetPlayLobby()->SetIsActive(true);
+				ServerGameMode->GetPlayLobby()->SetIsActive(true);
+
+				if (nullptr == Function)
+				{
+					return;
+				}
+
+				Function();
 			}
 		});
 

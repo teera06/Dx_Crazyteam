@@ -6,6 +6,7 @@
 #include "MapDebugGUI.h"
 #include "Player.h"
 #include "WaterCourse.h"
+#include "WaterBomb.h"
 
 ATestGameMode::ATestGameMode()
 {
@@ -25,6 +26,7 @@ void ATestGameMode::BeginPlay()
 	std::shared_ptr<ACamp> Camp = GetWorld()->SpawnActor<ACamp>("Camp");
 	SetCurMap(Camp);
 	Camp->SetCurGameMode(this);
+	//Camp->SpawnWaterBomb(0, 0);
 
 	Player1 = GetWorld()->SpawnActor<APlayer>("Player1", 0);
 	Player1->SetCurGameMode(this);
@@ -48,8 +50,7 @@ void ATestGameMode::Tick(float _DeltaTime)
 
 	if (true == IsDown('N'))
 	{
-		std::shared_ptr<AWaterCourse> Water = GetWorld()->SpawnActor<AWaterCourse>("Water", EMapObjectType::Water);
-
+		GetCurMap()->SpawnWaterBomb(GetPlayer()->GetActorLocation()); // ¹°Ç³¼± »ý¼º.
 	}
 #endif // _DEBUG
 }

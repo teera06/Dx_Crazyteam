@@ -2,14 +2,16 @@
 #include "WaterBomb.h"
 #include <EngineCore/DefaultSceneComponent.h>
 #include "WaterCourse.h"
+#include "BaseMap.h"
+#include "CAGameMode.h"
 
 AWaterBomb::AWaterBomb()
 {
 	//UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
 	//SetRoot(Root);
 
-	WaterCourseRender = CreateDefaultSubObject<USpriteRenderer>("Render");
-	WaterCourseRender->SetupAttachment(Root);
+	//Renderer = CreateDefaultSubObject<USpriteRenderer>("Render");
+	//Renderer->SetupAttachment(Root);
 }
 
 AWaterBomb::~AWaterBomb()
@@ -21,9 +23,11 @@ void AWaterBomb::BeginPlay()
 	Super::BeginPlay();
 	StateInit();
 	CreateAnimation();
-
-	WaterCourseRender->SetAutoSize(5.0f, true);
-	WaterCourseRender->SetActive(false);
+	SetActorScale3D(FVector(20, 20, 1));
+	Renderer->SetAutoSize(0.05f, true);
+	Renderer->SetOrder(ERenderOrder::Player);
+	//Renderer->SetPivot(EPivot::BOT);
+	//Renderer->SetActive(false);
 }
 
 void AWaterBomb::Tick(float _DeltaTime)
@@ -56,9 +60,9 @@ void AWaterBomb::StateInit()
 void AWaterBomb::CreateAnimation()
 {
 	//WaterCourseRender->CreateAnimation("Create", "bomb.png", 0.125f, true);
-	WaterCourseRender->CreateAnimation("Create", "bomb.png", { 0.125f, 0.125f, 0.125f, 0.125f }, {0, 1, 2, 1}, true);
+	Renderer->CreateAnimation("Create", "bomb.png", { 0.125f, 0.125f, 0.125f, 0.125f }, {0, 1, 2, 1}, true);
 
-	WaterCourseRender->ChangeAnimation("Create");
+	Renderer->ChangeAnimation("Create");
 }
 
 
@@ -71,9 +75,10 @@ void AWaterBomb::NoneTick(float _DeltaTime)
 {
 }
 
+
 void AWaterBomb::CreateBegin()
 {
-	WaterCourseRender->SetActive(true);
+	Renderer->SetActive(true);
 	LifeTime = 0.0f;
 }
 
@@ -90,16 +95,22 @@ void AWaterBomb::CreateTick(float _DeltaTime)
 void AWaterBomb::CreateExit()
 {
 	LifeTime = 0.0f;
-	WaterCourseRender->SetActive(false);
+	Renderer->SetActive(false);
 }
+
+
+
+
 
 void AWaterBomb::BombBegin()
 {
-	std::shared_ptr<AWaterCourse> Course = GetWorld()->SpawnActor<AWaterCourse>("WaterCourse");
-	Course->SetPowerValue(Power);
+	//std::shared_ptr<AWaterCourse> Course = GetWorld()->SpawnActor<AWaterCourse>("WaterCourse");
+	////Course->SetPowerValue(Power);
 	//Course->SetPowerValue(5);
 	//Course->SetBombPoint(CurPos);
-	Course->CreateWaterCenter();
+	//Course->CreateWaterCenter();
+
+	GetGameMode()->GetCurMap()->AddMapObject(CurPos.y, CurPos.x, EMapObject::Water);
 }
 
 void AWaterBomb::BombTick(float _DeltaTime)
