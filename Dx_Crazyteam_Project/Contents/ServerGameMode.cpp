@@ -46,7 +46,7 @@ void AServerGameMode::BeginPlay()
 
 	PlayLobby = GetWorld()->SpawnActor<APlayLobby>("PlayLobby");
 	TitleMenu = GetWorld()->SpawnActor<ATitleMenu>("TitleMenu");
-
+	TitleMenu->SetFunction(std::bind(&AServerGameMode::CollectWindowAppear, this));
 }
 
 void AServerGameMode::Tick(float _DeltaTime)

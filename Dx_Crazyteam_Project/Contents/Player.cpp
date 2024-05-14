@@ -41,6 +41,11 @@ void APlayer::Tick(float _DeltaTime)
 
 	Info->CurIndex = GetGameMode()->GetCurMap()->PlayerPosToPoint(GetActorLocation());
 	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 0));
+
+	if (true == IsDown(VK_SPACE))
+	{
+		GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation());
+	}
 }
 
 std::string APlayer::GetAnimationName(std::string_view _StateName)

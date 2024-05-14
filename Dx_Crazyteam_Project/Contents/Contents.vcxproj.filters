@@ -61,6 +61,18 @@
     <Filter Include="Object">
       <UniqueIdentifier>{338152c8-a708-484e-bde0-4313c8ebba67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MapObject\Block">
+      <UniqueIdentifier>{437f5415-8d39-4782-83b3-00225467a750}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapObject\MoveBlock">
+      <UniqueIdentifier>{82eddbd3-8ea2-409f-8d2d-c4e6f60796aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapObject\Block\CampBlock">
+      <UniqueIdentifier>{1145bd0a-29b7-4e09-a16e-4954f44a19a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapObject\MoveBlock\CampMoveBlock">
+      <UniqueIdentifier>{6f4636d5-c4e8-4088-a3fc-23fdb34859f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -120,9 +132,6 @@
     <ClInclude Include="PlayLobby.h">
       <Filter>Level\UItestLevel</Filter>
     </ClInclude>
-    <ClInclude Include="Block.h">
-      <Filter>MapObject</Filter>
-    </ClInclude>
     <ClInclude Include="MapSpriteObject.h">
       <Filter>MapObject</Filter>
     </ClInclude>
@@ -140,9 +149,6 @@
     </ClInclude>
     <ClInclude Include="Camp.h">
       <Filter>Map\Camp</Filter>
-    </ClInclude>
-    <ClInclude Include="CampBlock.h">
-      <Filter>MapObject</Filter>
     </ClInclude>
     <ClInclude Include="MainGameMode.h">
       <Filter>Level\MainLevel</Filter>
@@ -165,8 +171,17 @@
     <ClInclude Include="Player_Shadow.h">
       <Filter>Level\PlayertestLevel\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>MapObject\Block</Filter>
+    </ClInclude>
     <ClInclude Include="MoveBlock.h">
-      <Filter>MapObject</Filter>
+      <Filter>MapObject\MoveBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="CampBlock.h">
+      <Filter>MapObject\Block\CampBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="CampMoveBlock.h">
+      <Filter>MapObject\MoveBlock\CampMoveBlock</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -227,9 +242,6 @@
     <ClCompile Include="PlayLobby.cpp">
       <Filter>Level\UItestLevel</Filter>
     </ClCompile>
-    <ClCompile Include="Block.cpp">
-      <Filter>MapObject</Filter>
-    </ClCompile>
     <ClCompile Include="MapSpriteObject.cpp">
       <Filter>MapObject</Filter>
     </ClCompile>
@@ -247,9 +259,6 @@
     </ClCompile>
     <ClCompile Include="Camp.cpp">
       <Filter>Map\Camp</Filter>
-    </ClCompile>
-    <ClCompile Include="CampBlock.cpp">
-      <Filter>MapObject</Filter>
     </ClCompile>
     <ClCompile Include="MainGameMode.cpp">
       <Filter>Level\MainLevel</Filter>
@@ -274,8 +283,17 @@
     <ClCompile Include="CAObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>MapObject\Block</Filter>
+    </ClCompile>
     <ClCompile Include="MoveBlock.cpp">
-      <Filter>MapObject</Filter>
+      <Filter>MapObject\MoveBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="CampBlock.cpp">
+      <Filter>MapObject\Block\CampBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="CampMoveBlock.cpp">
+      <Filter>MapObject\MoveBlock\CampMoveBlock</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

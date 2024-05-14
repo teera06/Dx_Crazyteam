@@ -26,5 +26,10 @@ protected:
 
 private:
 	UImage* PlayLobbyUI = nullptr;
+
+	UImage* Random;
+	//std::vector<UImage*>::iterator RandomIter = Random.begin();
+
+	UCollision* Collision0 = nullptr;
 };
 
