@@ -1,21 +1,28 @@
 #pragma once
+#include <EngineCore/Actor.h>
+#include <EngineBase/NetObject.h>
 
-class Intro
+class AUitestMonde;
+class UImage;
+class AIntro : public AActor, public UNetObject
 {
+	GENERATED_BODY(AActor)
 public:
 	// constrcuter destructer
-	Intro();
-	~Intro();
+	AIntro();
+	~AIntro();
 
 	// delete Function
-	Intro(const Intro& _Other) = delete;
-	Intro(Intro&& _Other) noexcept = delete;
-	Intro& operator=(const Intro& _Other) = delete;
-	Intro& operator=(Intro&& _Other) noexcept = delete;
+	AIntro(const AIntro& _Other) = delete;
+	AIntro(AIntro&& _Other) noexcept = delete;
+	AIntro& operator=(const AIntro& _Other) = delete;
+	AIntro& operator=(AIntro&& _Other) noexcept = delete;
 
 protected:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 
 private:
-
+	UImage* IntroUI = nullptr;
 };
 
