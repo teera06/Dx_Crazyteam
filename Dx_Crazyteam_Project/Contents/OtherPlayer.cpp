@@ -63,7 +63,6 @@ void AOtherPlayer::Tick(float _DeltaTime)
 			{
 				Renderer->SetSprite(SpriteNames, AnimationInFO);
 			}
-
 			int a = 0;
 			break;
 		}
