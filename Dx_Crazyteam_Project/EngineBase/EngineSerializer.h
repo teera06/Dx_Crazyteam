@@ -70,6 +70,11 @@ public:
 		Read(&_Data, sizeof(int));
 	}
 
+	void operator>>(bool& _Data)
+	{
+		Read(&_Data, sizeof(bool));
+	}
+
 	void operator>>(float4& _Data)
 	{
 		Read(&_Data, sizeof(float4));

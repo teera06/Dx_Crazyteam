@@ -13,7 +13,10 @@ void ACampMoveBlock::BeginPlay()
 {
 	Super::BeginPlay();
 	FrontRenderer->SetSprite("CampMoveBlockFront.png");
-	BackRenderer->SetSprite("CampMoveBlockBack");
+	BackRenderer->SetSprite("CampMoveBlockBack.png");
+
+	FrontRenderer->SetAutoSize(1.f, true);
+	BackRenderer->SetAutoSize(1.f, true);
 }
 
 void ACampMoveBlock::Tick(float _DeltaTime)

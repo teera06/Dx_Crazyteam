@@ -4,6 +4,8 @@
 #include "WaterCourse.h"
 #include "BaseMap.h"
 #include "CAGameMode.h"
+#include "Packets.h"
+#include "Game_Core.h"
 
 AWaterBomb::AWaterBomb()
 {
@@ -34,6 +36,8 @@ void AWaterBomb::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	State.Update(_DeltaTime);
+
+	//WaterBombPacket(_DeltaTime, b_ServerBomb);
 }
 
 void AWaterBomb::StateInit()

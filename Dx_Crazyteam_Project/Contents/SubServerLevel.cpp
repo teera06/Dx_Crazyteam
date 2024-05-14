@@ -63,7 +63,6 @@ void ASubServerLevel::Tick(float _DeltaTime)
 		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(this->GetCurMap()->AddMapObject(MainPlayer->GetPlayerInfo()->CurIndex.y, MainPlayer->GetPlayerInfo()->CurIndex.x,EMapObject::WaterBomb));
 		Bomb->SetCurGameMode(this);
 		Bomb->SetObjectToken(UNetObject::GetNewObjectToken());
-		//ServerPacketInit(UGame_Core::Net->Dispatcher);
 
 	/*	UGame_Core::Net = std::make_shared<UEngineClient>();
 		UGame_Core::Net->Connect(IP, PORT);*/
@@ -103,7 +102,6 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 			UGame_Core::Net->SetTokenPacketFunction([=](USessionTokenPacket* _Token)
 			{
 				MainPlayer->SetObjectToken(_Token->GetObjectToken());
-
 			});
 
 			// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
@@ -129,20 +127,24 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 				OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
 			}
 			OtherPlayer->PushProtocol(_Packet);
+			});
+	});
 
+	Dis.AddHandler<UWaterBombUpdatePacket>([=](std::shared_ptr<UWaterBombUpdatePacket> _Packet)
+	{
+		// 다른 사람들한테 이 오브젝트에 대해서 알리고
+		UGame_Core::Net->Send(_Packet);
 
-			AOtherBomb* Bomb = UNetObject::GetNetObject<AOtherBomb>(_Packet->GetObjectToken());
-			//if (UEngineInput::IsDown(VK_SPACE))
-			if (nullptr == Bomb)
+		GetWorld()->PushFunction([=]()
 			{
-				Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
-				Bomb->SetObjectToken(_Packet->GetObjectToken());
-				//Bomb->SetActorLocation(OtherPlayer->GetActorLocation());
-			}
-			Bomb->PushProtocol(_Packet);
-			
-
-		});
+				AOtherBomb* Bomb = UNetObject::GetNetObject<AOtherBomb>(_Packet->GetObjectToken());
+				if (nullptr == Bomb)
+				{
+					Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
+					Bomb->SetObjectToken(_Packet->GetObjectToken());
+				}
+				Bomb->PushProtocol(_Packet);
+			});
 	});
 }
 
@@ -159,16 +161,19 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 				OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
 			}
 			OtherPlayer->PushProtocol(_Packet);
-			//OtherPlayer->SetActorLocation(_Packet->Pos);
+		});
+	});
 
-
+	Dis.AddHandler<UWaterBombUpdatePacket>([=](std::shared_ptr<UWaterBombUpdatePacket> _Packet)
+	{
+		// 다른 사람들한테 이 오브젝트에 대해서 알리고
+		GetWorld()->PushFunction([=]()
+		{
 			AOtherBomb* Bomb = UNetObject::GetNetObject<AOtherBomb>(_Packet->GetObjectToken());
-			//if (UEngineInput::IsDown(VK_SPACE))
 			if (nullptr == Bomb)
 			{
 				Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
 				Bomb->SetObjectToken(_Packet->GetObjectToken());
-				//Bomb->SetActorLocation(OtherPlayer->GetActorLocation());
 			}
 			Bomb->PushProtocol(_Packet);
 		});

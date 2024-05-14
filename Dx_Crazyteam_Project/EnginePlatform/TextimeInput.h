@@ -15,5 +15,11 @@ public:
 protected:
 
 private:
+	char Text[255];
+	char Cstr[10];
+	char CanText[200];
+	int CNumber = 0;
+	int CanMax = 0;
+
 };
 

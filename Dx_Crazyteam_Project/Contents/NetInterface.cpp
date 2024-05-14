@@ -72,3 +72,20 @@ void UNetInterface::PlayerShadowPacket(float _DeltaTime)
 		CurTime += FrameTime;
 	}
 }
+
+void UNetInterface::WaterBombPacket(float _DeltaTime, bool _Isdeath)
+{
+	BaseNetInit(_DeltaTime);
+
+	if (0.0f >= CurTime && true == IsNetInit())
+	{
+		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
+
+		Packet->Pos = GetActorLocation();
+		Packet->AnimationInfo = Renderer->GetCurAnimationFrame();
+		Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
+		Packet->IsDestroy = _Isdeath;
+		Send(Packet);
+		CurTime += FrameTime;
+	}
+}

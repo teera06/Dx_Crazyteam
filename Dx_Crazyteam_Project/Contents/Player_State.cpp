@@ -16,7 +16,8 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Bazzi_Move_Right", "bazzi_right.png", AnimationInter, true, 0, 3);
 	Renderer->CreateAnimation("Bazzi_Move_Up", "bazzi_up.png", AnimationInter, true, 0, 3);
 	Renderer->CreateAnimation("Bazzi_Move_Down", "bazzi_down.png", AnimationInter, true, 0, 3);
-	Renderer->CreateAnimation("Bazzi_Trap", "bazzi_trap.png", AnimationInter * 2, false, 0, 3);
+	Renderer->CreateAnimation("Bazzi_Trap", "bazzi_trap.png", AnimationInter * 2, true, 0, 1);
+	Renderer->CreateAnimation("Bazzi_Trap_Last", "bazzi_trap.png", AnimationInter * 2, false, 2, 3);
 	Renderer->CreateAnimation("Bazzi_Rescue", "bazzi_rescue.png", 0.1f, false, 0, 2);
 
 	Renderer->CreateAnimation("Dao_Idle_Up", "dao_idle.png", AnimationInter, false, 0, 0);
@@ -27,7 +28,8 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Dao_Move_Right", "dao_right.png", AnimationInter, true, 0, 3);
 	Renderer->CreateAnimation("Dao_Move_Up", "dao_up.png", AnimationInter, true, 0, 3);
 	Renderer->CreateAnimation("Dao_Move_Down", "dao_down.png", AnimationInter, true, 0, 3);
-	Renderer->CreateAnimation("Dao_Trap", "dao_trap.png", AnimationInter * 2, false, 0, 3);
+	Renderer->CreateAnimation("Dao_Trap", "dao_trap.png", AnimationInter * 2, true, 0, 1);
+	Renderer->CreateAnimation("Dao_Trap_Last", "dao_trap.png", AnimationInter * 2, false, 2, 3);
 	Renderer->CreateAnimation("Dao_Rescue", "dao_rescue.png", 0.1f, false, 0, 2);
 
 	// CreateState
@@ -128,20 +130,52 @@ void APlayer::Move(float _DeltaTime)
 void APlayer::TrapStart()
 {
 	Renderer->ChangeAnimation(GetAnimationName("Trap"));
+	TrapDir = FVector::Up;
+	TrapMoveTime = 1.f;
 }
+
 
 void APlayer::Trap(float _DeltaTime)
 {
-	if (true == IsDown(VK_F2))
+	// 이벤트 발생 시 구출 상태로 변경
+	if (true == IsDown(VK_F2))	
 	{
+		Renderer->SetPosition(FVector::Zero);
 		State.ChangeState("Rescue");
 		return;
 	}
 
-	if (true == Renderer->IsCurAnimationEnd())
-	{
-		// 둥둥 떠있는 모습 구현하기.
+	// 둥둥 떠있는 모습 구현하기.
+	TrapMoveTime -= _DeltaTime;
+	TrapAnimationTime -= _DeltaTime;
+	TrapToDieTime -= _DeltaTime;
 
+	Renderer->AddPosition(TrapDir * TrapMoveSpeed * _DeltaTime);
+
+	if (TrapMoveTime < 0.f)
+	{
+		TrapDir *= -1.f;
+		TrapMoveTime = 1.f;
+	}
+
+	if (TrapAnimationTime < 0.f)
+	{
+		switch (Info->MyType)
+		{
+		case ECharacterType::Bazzi:
+			Renderer->ChangeAnimation("Bazzi_Trap_Last");
+			break;
+		case ECharacterType::Dao:
+			Renderer->ChangeAnimation("Dao_Trap_Last");
+			break;
+		default:
+			break;
+		}
+	}
+
+	if (TrapToDieTime < 0.f)
+	{
+		//State.ChageState("Die");
 	}
 }
 

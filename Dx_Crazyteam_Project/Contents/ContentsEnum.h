@@ -42,8 +42,10 @@ enum class EItemType
 enum class EMapObject
 {
 	Default,
+	DummyBlock,
 	NormalBlock,
 	CampBlock,
+	CampMoveBlock,
 	WaterBomb,
 	Water,
 };

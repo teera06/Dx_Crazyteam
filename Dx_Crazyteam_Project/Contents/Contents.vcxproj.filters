@@ -61,6 +61,21 @@
     <Filter Include="Object">
       <UniqueIdentifier>{338152c8-a708-484e-bde0-4313c8ebba67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MapObject\Block">
+      <UniqueIdentifier>{437f5415-8d39-4782-83b3-00225467a750}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapObject\MoveBlock">
+      <UniqueIdentifier>{82eddbd3-8ea2-409f-8d2d-c4e6f60796aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapObject\Block\CampBlock">
+      <UniqueIdentifier>{1145bd0a-29b7-4e09-a16e-4954f44a19a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapObject\MoveBlock\CampMoveBlock">
+      <UniqueIdentifier>{6f4636d5-c4e8-4088-a3fc-23fdb34859f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapObject\Block\DummyBlock">
+      <UniqueIdentifier>{a1c84696-382a-4c01-b8e3-63fe528da440}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -167,6 +182,15 @@
     </ClInclude>
     <ClInclude Include="MoveBlock.h">
       <Filter>MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CampBlock.h">
+      <Filter>MapObject\Block\CampBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="CampMoveBlock.h">
+      <Filter>MapObject\MoveBlock\CampMoveBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="DummyBlock.h">
+      <Filter>MapObject\Block\DummyBlock</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -276,6 +300,9 @@
     </ClCompile>
     <ClCompile Include="MoveBlock.cpp">
       <Filter>MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="DummyBlock.cpp">
+      <Filter>MapObject\Block\DummyBlock</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -60,6 +60,7 @@ public:
 		_Ser << Pos;
 		_Ser << AnimationInfo;
 		_Ser << SpriteName;
+		_Ser << IsDestroy;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -68,6 +69,7 @@ public:
 		_Ser >> Pos;
 		_Ser >> AnimationInfo;
 		_Ser >> SpriteName;
+		_Ser >> IsDestroy;
 	}
 
 public:
