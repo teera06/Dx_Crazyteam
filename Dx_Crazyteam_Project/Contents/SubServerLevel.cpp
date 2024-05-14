@@ -12,6 +12,7 @@
 #include "Packets.h"
 #include "Player.h"
 #include "OtherPlayer.h"
+#include "Village.h"
 
 ASubServerLevel::ASubServerLevel()
 {
@@ -33,7 +34,12 @@ void ASubServerLevel::BeginPlay()
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 
+	Village = GetWorld()->SpawnActor<AVillage>("Village");
+	SetCurMap(Village);
+
 	MainPlayer = GetWorld()->SpawnActor<APlayer>("Player");
+	MainPlayer->SetCurGameMode(this);
+	SetMainPlayer(MainPlayer);
 }
 
 void ASubServerLevel::Tick(float _DeltaTime)

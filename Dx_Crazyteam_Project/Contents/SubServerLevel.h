@@ -4,13 +4,14 @@
 #include <EngineBase/EngineNetHeader.h>
 #include <EngineCore/EngineNetWindow.h>
 #include <EngineBase/EngineDispatcher.h>
+#include "CAGameMode.h"
 
 // Ό³Έν :
 class APlayer;
 class UEngineNetWindow;
 class AServerPlayer;
-
-class ASubServerLevel : public AGameMode
+class AVillage;
+class ASubServerLevel : public ACAGameMode
 {
 	GENERATED_BODY(AGameMode)
 public:
@@ -35,7 +36,7 @@ protected:
 	
 private:
 	std::shared_ptr<UEngineNetWindow> subNetWindow;
-//	std::shared_ptr<AServerPlayer> MainPlayer = nullptr;
+	std::shared_ptr<AVillage> Village = nullptr;
 	std::shared_ptr<APlayer> MainPlayer = nullptr;
 };
 
