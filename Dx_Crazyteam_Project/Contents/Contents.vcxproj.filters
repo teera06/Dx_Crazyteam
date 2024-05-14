@@ -153,6 +153,9 @@
     <ClInclude Include="ConstValue.h">
       <Filter>Option</Filter>
     </ClInclude>
+    <ClInclude Include="NetInterface.h">
+      <Filter>Level\ServerLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -247,6 +250,9 @@
     </ClCompile>
     <ClCompile Include="ConstValue.cpp">
       <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="NetInterface.cpp">
+      <Filter>Level\ServerLevel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
