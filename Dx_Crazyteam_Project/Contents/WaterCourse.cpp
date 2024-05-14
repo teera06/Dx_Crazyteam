@@ -81,38 +81,38 @@ void AWaterCourse::CreateAnimation()
 
 	{
 		// 물줄기 뻗어 나갈 때 사용할 애니메이션
-		WaterCourseRender->CreateAnimation("CreateUp", "up12.png", 0.125f, true, 0, 0);
-		WaterCourseRender->CreateAnimation("CreateDown", "down12.png", 0.125f, true, 0, 0);
-		WaterCourseRender->CreateAnimation("CreateLeft", "left12.png", 0.125f, true, 0, 0);
-		WaterCourseRender->CreateAnimation("CreateRight", "right12.png", 0.125f, true, 0, 0);
+		WaterCourseRender->CreateAnimation("CreateUp", "up12.png", 0.0625f, true, 0, 0);
+		WaterCourseRender->CreateAnimation("CreateDown", "down12.png", 0.0625f, true, 0, 0);
+		WaterCourseRender->CreateAnimation("CreateLeft", "left12.png", 0.0625f, true, 0, 0);
+		WaterCourseRender->CreateAnimation("CreateRight", "right12.png", 0.0625f, true, 0, 0);
 	}
 
 	{
 		// 물 끝. -> Tick에서 사용할 애니메이션.
-		WaterCourseRender->CreateAnimation("EndStemUp", "up12.png", 0.125f, true, 0, 1);
-		WaterCourseRender->CreateAnimation("EndStemDown", "down12.png", 0.125f, true, 0, 1);
-		WaterCourseRender->CreateAnimation("EndStemLeft", "left12.png", 0.125f, true, 0, 1);
-		WaterCourseRender->CreateAnimation("EndStemRight", "right12.png", 0.125f, true, 0, 1);
+		WaterCourseRender->CreateAnimation("EndStemUp", "up12.png", 0.0625f, true, 0, 1);
+		WaterCourseRender->CreateAnimation("EndStemDown", "down12.png", 0.0625f, true, 0, 1);
+		WaterCourseRender->CreateAnimation("EndStemLeft", "left12.png", 0.0625f, true, 0, 1);
+		WaterCourseRender->CreateAnimation("EndStemRight", "right12.png", 0.0625f, true, 0, 1);
 
 		// 물 줄기 중간 -> Tick에서 사용할 애니메이션.
-		WaterCourseRender->CreateAnimation("StreamUp", "up22.png", 0.125f, true, 0, 2);
+		WaterCourseRender->CreateAnimation("StreamUp", "up22.png", 0.0625f, true, 0, 2);
 		WaterCourseRender->CreateAnimation("StreamDown", "down22.png", 0.0625f, true, 0, 2);
-		WaterCourseRender->CreateAnimation("StreamLeft", "left22.png", 0.125f, true, 0, 2);
-		WaterCourseRender->CreateAnimation("StreamRight", "right22.png", 0.125f, true, 0, 2);
+		WaterCourseRender->CreateAnimation("StreamLeft", "left22.png", 0.0625f, true, 0, 2);
+		WaterCourseRender->CreateAnimation("StreamRight", "right22.png", 0.0625f, true, 0, 2);
 	}
 
 	{
 		// 물 끝 사라짐.
-		WaterCourseRender->CreateAnimation("D_EndStemUp", "up12.png", 0.125f, true, 1, 10);
-		WaterCourseRender->CreateAnimation("D_EndStemDown", "down12.png", 0.125f, true, 1, 10);
-		WaterCourseRender->CreateAnimation("D_EndStemLeft", "left12.png", 0.125f, true, 1, 10);
-		WaterCourseRender->CreateAnimation("D_EndStemRight", "right12.png", 0.125f, true, 1, 10);
+		WaterCourseRender->CreateAnimation("D_EndStemUp", "up12.png", 0.0625f, true, 1, 10);
+		WaterCourseRender->CreateAnimation("D_EndStemDown", "down12.png", 0.0625f, true, 1, 10);
+		WaterCourseRender->CreateAnimation("D_EndStemLeft", "left12.png", 0.0625f, true, 1, 10);
+		WaterCourseRender->CreateAnimation("D_EndStemRight", "right12.png", 0.0625f, true, 1, 10);
 
 		// 물 줄기 사라짐.
-		WaterCourseRender->CreateAnimation("D_StreamUp", "up22.png", 0.125f, true, 1, 10);
-		WaterCourseRender->CreateAnimation("D_StreamDown", "down22.png", 0.125f, true, 1, 10);
-		WaterCourseRender->CreateAnimation("D_StreamLeft", "left22.png", 0.125f, true, 1, 10);
-		WaterCourseRender->CreateAnimation("D_StreamRight", "right22.png", 0.125f, true, 1, 10);
+		WaterCourseRender->CreateAnimation("D_StreamUp", "up22.png", 0.0625f, true, 1, 10);
+		WaterCourseRender->CreateAnimation("D_StreamDown", "down22.png", 0.0625f, true, 1, 10);
+		WaterCourseRender->CreateAnimation("D_StreamLeft", "left22.png", 0.0625f, true, 1, 10);
+		WaterCourseRender->CreateAnimation("D_StreamRight", "right22.png", 0.0625f, true, 1, 10);
 	}
 
 	WaterCourseRender->ChangeAnimation("Water_Center");
@@ -292,49 +292,53 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 
 	POINT WaterBombPoint = CurPos;
 
-
-
-	if (0 <= CurPos.y - 1)
+	if (PowerValue < 5)
 	{
-		// 만들어 질 곳에 뭐가 있음?
-		std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y - 1, CurPos.x);
-		EMapObjectType type = NextMapObject->GetType();
-		if (type == EMapObjectType::None)
-		{
-			GetGameMode()->GetCurMap()->AddWaterCourse(CurPos.y - 1, CurPos.x, false, EEngineDir::Up);
-		}
+
 	}
 
-	if (13 != CurPos.y + 1)
 	{
-		std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y + 1, CurPos.x);
-		EMapObjectType type = NextMapObject->GetType();
-		if (type == EMapObjectType::None)
+		if (0 <= CurPos.y - 1)
 		{
-			GetGameMode()->GetCurMap()->AddWaterCourse(CurPos.y + 1, CurPos.x, false, EEngineDir::Down);
+			// 만들어 질 곳에 뭐가 있음?
+			std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y - 1, CurPos.x);
+			EMapObjectType type = NextMapObject->GetType();
+			if (type == EMapObjectType::None)
+			{
+				GetGameMode()->GetCurMap()->AddWaterCourse(CurPos.y - 1, CurPos.x, false, EEngineDir::Up);
+			}
+		}
+
+		if (13 != CurPos.y + 1)
+		{
+			std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y + 1, CurPos.x);
+			EMapObjectType type = NextMapObject->GetType();
+			if (type == EMapObjectType::None)
+			{
+				GetGameMode()->GetCurMap()->AddWaterCourse(CurPos.y + 1, CurPos.x, false, EEngineDir::Down);
+			}
+		}
+
+		if (0 <= CurPos.x - 1)
+		{
+			std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y, CurPos.x-1);
+			EMapObjectType type = NextMapObject->GetType();
+			if (type == EMapObjectType::None)
+			{
+				GetGameMode()->GetCurMap()->AddWaterCourse(CurPos.y, CurPos.x-1, false, EEngineDir::Left);
+			}
+		}
+
+		if(15 != CurPos.x + 1)
+		{
+			std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y, CurPos.x+1);
+			EMapObjectType type = NextMapObject->GetType();
+			if (type == EMapObjectType::None)
+			{
+				GetGameMode()->GetCurMap()->AddWaterCourse(CurPos.y, CurPos.x+1, false, EEngineDir::Right);
+			}
 		}
 	}
-
-	if (0 <= CurPos.x - 1)
-	{
-		std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y, CurPos.x-1);
-		EMapObjectType type = NextMapObject->GetType();
-		if (type == EMapObjectType::None)
-		{
-			GetGameMode()->GetCurMap()->AddWaterCourse(CurPos.y, CurPos.x-1, false, EEngineDir::Left);
-		}
-	}
-
-	if(15 != CurPos.x + 1)
-	{
-		std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y, CurPos.x+1);
-		EMapObjectType type = NextMapObject->GetType();
-		if (type == EMapObjectType::None)
-		{
-			GetGameMode()->GetCurMap()->AddWaterCourse(CurPos.y, CurPos.x+1, false, EEngineDir::Right);
-		}
-	}
-
 	
 
 
