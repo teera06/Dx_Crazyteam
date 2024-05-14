@@ -1,5 +1,5 @@
 #pragma once
-#include <EngineCore/GameMode.h>
+#include "CAGameMode.h"
 #include <EngineBase/EngineThread.h>
 #include <EngineBase/EngineNetHeader.h>
 #include <EngineCore/EngineNetWindow.h>
@@ -9,9 +9,9 @@
 class APlayer;
 class AVillage;
 class UMapDebugGUI;
-class AMainGameMode : public AGameMode
+class AMainGameMode : public ACAGameMode
 {
-	GENERATED_BODY(AGameMode)
+	GENERATED_BODY(ACAGameMode)
 public:
 	// constrcuter destructer
 	AMainGameMode(); // 디폴트 생성자
