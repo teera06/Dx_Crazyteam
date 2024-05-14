@@ -13,6 +13,9 @@
 #include "OtherPlayer.h"
 #include "Village.h"
 
+#include "TitleMenu.h"
+#include "PlayLobby.h"
+
 AServerGameMode::AServerGameMode() 
 {
 }
@@ -40,6 +43,9 @@ void AServerGameMode::BeginPlay()
 	MainPlayer = GetWorld()->SpawnActor<APlayer>("Player");
 	MainPlayer->SetCurGameMode(this);
 	SetMainPlayer(MainPlayer);
+
+	PlayLobby = GetWorld()->SpawnActor<APlayLobby>("PlayLobby");
+	TitleMenu = GetWorld()->SpawnActor<ATitleMenu>("TitleMenu");
 
 }
 
@@ -122,6 +128,11 @@ void AServerGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 					OtherPlayer->SetActorLocation(_Packet->Pos);
 				});
 		});
+}
+
+std::shared_ptr<APlayLobby> AServerGameMode::GetPlayLobby()
+{
+	return PlayLobby;
 }
 
 void AServerGameMode::LevelEnd(ULevel* _DeltaTime)

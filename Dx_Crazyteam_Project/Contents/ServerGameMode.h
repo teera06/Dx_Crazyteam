@@ -11,6 +11,8 @@
 class UEngineNetWindow;
 class APlayer;
 class AVillage;
+class ATitleMenu;
+class APlayLobby;
 class AServerGameMode : public ACAGameMode
 {
 	GENERATED_BODY(AGameMode)
@@ -29,6 +31,7 @@ public:
 	void ServerPacketInit(UEngineDispatcher& Dis);
 	void ClientPacketInit(UEngineDispatcher& Dis);
 
+	std::shared_ptr<APlayLobby> GetPlayLobby();
 
 protected:
 	void BeginPlay() override;
@@ -39,5 +42,7 @@ protected:
 	std::shared_ptr<UEngineNetWindow> NetWindow;
 	std::shared_ptr<APlayer> MainPlayer = nullptr;
 	std::shared_ptr<AVillage> Village = nullptr;
+	std::shared_ptr<ATitleMenu> TitleMenu = nullptr;
+	std::shared_ptr<APlayLobby> PlayLobby = nullptr;
 };
 
