@@ -58,6 +58,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Item.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ItemBubble.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="MainGameMode.h">
       <SubType>
       </SubType>
@@ -176,6 +184,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Intro.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemBubble.cpp">
       <SubType>
       </SubType>
     </ClCompile>

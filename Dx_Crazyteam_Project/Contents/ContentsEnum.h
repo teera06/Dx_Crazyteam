@@ -27,7 +27,15 @@ enum class EMapObjectType {
 	Bush,          //부시
 	Water,  //물풍선
 	WaterBalloon,
+	Item,
+};
 
+enum class EItemType
+{
+	None,
+	ItemBubble,	// 개수 + 1 아이템
+	ItemFluid,	// 줄기 + 1 아이템
+	ItemRoller,	// 속도 + 1 아이템
 };
 
 enum class EMapObject

@@ -1,6 +1,6 @@
 #include "PreCompile.h"
 #include "PlayertestMode.h"
-
+#include "ItemBubble.h"
 
 APlayerTestMode::APlayerTestMode()
 {
@@ -20,12 +20,12 @@ void APlayerTestMode::BeginPlay()
 	Village = GetWorld()->SpawnActor<AVillage>("Village");
 	SetCurMap(Village);
 
-	Player1 = GetWorld()->SpawnActor<APlayer>("Player1", 0);
+	Player1 = GetWorld()->SpawnActor<APlayer>("Player1");
 	Player1->SetCurGameMode(this);
 	SetMainPlayer(Player1);
 
-
-
+	//std::shared_ptr<AItemBubble> Bubble = GetWorld()->SpawnActor<AItemBubble>("ItemTest");
+	//Bubble->SetActorLocation(GetActorLocation());
 }
 
 void APlayerTestMode::Tick(float _DeltaTime)
