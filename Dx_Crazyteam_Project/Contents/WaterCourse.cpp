@@ -32,7 +32,7 @@ void AWaterCourse::Tick(float _DeltaTime)
 
 	if (true == CreateStart)
 	{
-		CreateWaterStream(_DeltaTime);
+		//CreateWaterStream(_DeltaTime);
 	}
 }
 
@@ -238,7 +238,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 
 	if (CreateTime <= CreateDeltaTime)
 	{
-		//CurPos;
+		CurPos;
 		// 만들어 질 곳에 뭐가 있음?
 		{
 			std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y , CurPos.x+1);
