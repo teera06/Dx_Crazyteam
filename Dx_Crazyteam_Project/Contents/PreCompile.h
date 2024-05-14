@@ -14,5 +14,7 @@
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/EngineDebugMsgWindow.h>
 #include <EngineCore/EngineDebug3D.h>
+#include <EngineCore/DefaultSceneComponent.h>
 
 #include "ContentsEnum.h"
+#include "ConstValue.h"

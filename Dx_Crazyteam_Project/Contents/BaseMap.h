@@ -20,13 +20,8 @@ public:
 	ABaseMap& operator=(ABaseMap&& _Other) noexcept = delete;
 
 	static bool IsMove(FVector _PlayerPos);
-	static const FVector TileSize;
-	static const int TileY;
-	static const int TileX;
-	
 	void AddMapObject(int _Y, int _X, EMapObject _MapObjectType);
-
-	static POINT PlayerPosToPoint(FVector _PlayerPos);
+	POINT PlayerPosToPoint(FVector _PlayerPos);
 
 protected:
 	void BeginPlay() override;

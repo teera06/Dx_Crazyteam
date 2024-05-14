@@ -30,9 +30,9 @@ void ACamp::Tick(float _DeltaTime)
 
 void ACamp::AddObjectInit()
 {
-	for (int y = 1; y < TileY - 1; y += 2)
+	for (int y = 1; y < ConstValue::TileY - 1; y += 2)
 	{
-		for (int x = 1; x < TileX; x += 2)
+		for (int x = 1; x < ConstValue::TileX; x += 2)
 		{
 			AddMapObject(y, x, EMapObject::CampBlock);
 		}
