@@ -40,6 +40,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="CampMoveBlock.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="CAObject.h">
       <SubType>
       </SubType>
@@ -51,6 +55,18 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Intro.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ItemBubble.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ItemRoller.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -125,6 +141,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="TestLobbyMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="TitleMenu.h">
       <SubType>
       </SubType>
@@ -162,6 +182,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="CampMoveBlock.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="CAObject.cpp">
       <SubType>
       </SubType>
@@ -172,6 +196,18 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Intro.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemBubble.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemRoller.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -244,6 +280,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="TestGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TestLobbyMode.cpp">
       <SubType>
       </SubType>
     </ClCompile>
