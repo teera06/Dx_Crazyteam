@@ -25,12 +25,14 @@ protected:
 
 	void PlayerSendPacket(float _DeltaTime);
 	void PlayerShadowPacket(float _DeltaTime);
+	void WaterBombPacket(float _DeltaTime, bool _Isdeath);
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
+	float FrameTime = 1.0f / 60.0f;
+	float CurTime = FrameTime;
 
 private:
 	void BaseNetInit(float _DeltaTime);
-	float FrameTime = 1.0f / 60.0f;
-	float CurTime = FrameTime;
+
 };
 

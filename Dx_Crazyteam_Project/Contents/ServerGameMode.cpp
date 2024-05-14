@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "ServerGameMode.h"
+#include <EngineBase/EngineProtocol.h>
 
 #include <EngineCore/Image.h>
 #include <EngineCore/Camera.h>
@@ -15,6 +16,9 @@
 
 #include "TitleMenu.h"
 #include "PlayLobby.h"
+
+#include "TestLobbyMode.h"
+
 
 AServerGameMode::AServerGameMode() 
 {
@@ -46,7 +50,7 @@ void AServerGameMode::BeginPlay()
 
 	PlayLobby = GetWorld()->SpawnActor<APlayLobby>("PlayLobby");
 	TitleMenu = GetWorld()->SpawnActor<ATitleMenu>("TitleMenu");
-
+	TitleMenu->SetFunction(std::bind(&AServerGameMode::CollectWindowAppear, this));
 }
 
 void AServerGameMode::Tick(float _DeltaTime)
@@ -55,7 +59,7 @@ void AServerGameMode::Tick(float _DeltaTime)
 
 }
 
-void AServerGameMode::LevelStart(ULevel* _DeltaTime)
+void AServerGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	if (nullptr == NetWindow)
 	{
@@ -66,7 +70,8 @@ void AServerGameMode::LevelStart(ULevel* _DeltaTime)
 				UGame_Core::Net = std::make_shared<UEngineServer>();
 				UGame_Core::Net->ServerOpen(30000, 512);
 
-				//ServerPacketInit(UGame_Core::Net->Dispatcher);
+				GEngine->CreateLevel<ATestLobbyMode>("TestLobbyMode");
+				GEngine->ChangeLevel("TestLobbyMode");
 			});
 
 		NetWindow->SetClientConnectFunction([&](std::string IP, short PORT)
@@ -74,7 +79,9 @@ void AServerGameMode::LevelStart(ULevel* _DeltaTime)
 				UGame_Core::Net = std::make_shared<UEngineClient>();
 				UGame_Core::Net->Connect(IP, PORT);
 
-				//ClientPacketInit(UGame_Core::Net->Dispatcher);
+
+				GEngine->CreateLevel<ATestLobbyMode>("TestLobbyMode");
+				GEngine->ChangeLevel("TestLobbyMode");
 			});
 	}
 	NetWindow->Off();
@@ -124,7 +131,7 @@ std::shared_ptr<APlayLobby> AServerGameMode::GetPlayLobby()
 	return PlayLobby;
 }
 
-void AServerGameMode::LevelEnd(ULevel* _DeltaTime)
+void AServerGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	NetWindow->Off();
 }

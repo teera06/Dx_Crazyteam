@@ -24,5 +24,6 @@ protected:
 
 private:
 	UImage* IntroUI = nullptr;
+	UImage* StartUI = nullptr;
 };
 

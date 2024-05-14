@@ -81,7 +81,7 @@ void UGame_Core::CuttingAni()
 {
 	// 물풍선
 	{
-		UEngineSprite::CreateCutting("bomb.png", 3, 1);
+		UEngineSprite::CreateCutting("bomb.png", 4, 1);
 	}
 	// 물줄기
 	{
@@ -95,17 +95,38 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("up12.png", 11, 1);
 		UEngineSprite::CreateCutting("up22.png", 11, 1);
 	}
-	UEngineSprite::CreateCutting("bazzi_right.png", 4, 1);
-	UEngineSprite::CreateCutting("bazzi_left.png", 4, 1);
-	UEngineSprite::CreateCutting("bazzi_down.png", 4, 1);
-	UEngineSprite::CreateCutting("bazzi_up.png", 4, 1);
-	UEngineSprite::CreateCutting("bazzi_idle.png", 4, 1);
 
-	UEngineSprite::CreateCutting("dao_right.png", 4, 1);
-	UEngineSprite::CreateCutting("dao_left.png", 4, 1);
-	UEngineSprite::CreateCutting("dao_down.png", 4, 1);
-	UEngineSprite::CreateCutting("dao_up.png", 4, 1);
-	UEngineSprite::CreateCutting("dao_idle.png", 4, 1);
+	// 캐릭터
+	{
+		UEngineSprite::CreateCutting("bazzi_right.png", 4, 1);
+		UEngineSprite::CreateCutting("bazzi_left.png", 4, 1);
+		UEngineSprite::CreateCutting("bazzi_down.png", 4, 1);
+		UEngineSprite::CreateCutting("bazzi_up.png", 4, 1);
+		UEngineSprite::CreateCutting("bazzi_idle.png", 4, 1);
+		UEngineSprite::CreateCutting("bazzi_trap.png", 4, 1);
+		UEngineSprite::CreateCutting("bazzi_rescue.png", 3, 1);
+
+		UEngineSprite::CreateCutting("dao_right.png", 4, 1);
+		UEngineSprite::CreateCutting("dao_left.png", 4, 1);
+		UEngineSprite::CreateCutting("dao_down.png", 4, 1);
+		UEngineSprite::CreateCutting("dao_up.png", 4, 1);
+		UEngineSprite::CreateCutting("dao_idle.png", 4, 1);
+		UEngineSprite::CreateCutting("dao_trap.png", 4, 1);
+		UEngineSprite::CreateCutting("dao_rescue.png", 3, 1);
+	}
+
+	// 아이템
+	{
+		//Item
+		UEngineSprite::CreateCutting("Bubble(1).png", 6, 1);
+		UEngineSprite::CreateCutting("Roller.png", 6, 1);
+		UEngineSprite::CreateCutting("Fluid.png", 6, 1);
+
+		//Item Shadow
+		//UEngineSprite::CreateCutting("ItemShadow.png", 6, 1);
+
+	}
+
 
 	{
 		UEngineSprite::CreateCutting("GameTimer.png", 10, 1);

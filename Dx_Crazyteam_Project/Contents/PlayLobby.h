@@ -26,5 +26,30 @@ protected:
 
 private:
 	UImage* PlayLobbyUI = nullptr;
+	UImage* GameStart = nullptr;
+	//캐릭터 선택창
+	UImage* RandomBT;
+	UImage* DaoBT;
+	UImage* DizniBT;
+	UImage* MosBT;
+	UImage* EthiBT;
+	UImage* MaridBT;
+	UImage* BazziBT;
+	UImage* UniBT;
+	UImage* KephiBT;
+	UImage* SuBT;
+	UImage* HooUBT;
+	UImage* RayBT;
+	//캐릭터 설명
+	UImage* Randomex;
+	UImage* Daoex;
+	UImage* Maridex;
+	UImage* Kephiex;
+	UImage* Bazziex;
+	//std::vector<UImage*>::iterator RandomIter = Random.begin();
+
+	UCollision* Collision0 = nullptr;
+
+	bool SwitchON = false;
 };
 

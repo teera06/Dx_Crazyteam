@@ -2,10 +2,15 @@
 #include "EngineWindow.h"
 #include <EngineBase\EngineDebug.h>
 #include "WindowImage.h"
+#include "TextimeInput.h"
+#include <stdio.h>
+
+
 
 bool UEngineWindow::WindowLive = true;
 HINSTANCE UEngineWindow::hInstance;
 std::function<bool(HWND, UINT, WPARAM, LPARAM)> UEngineWindow::UserWndProcFunction;
+
 std::map<HWND, UEngineWindow*> UEngineWindow::AllWindow;
 
 void UEngineWindow::SetUserWindowCallBack(std::function<bool(HWND, UINT, WPARAM, LPARAM)> _UserWndProcFunction)
@@ -288,3 +293,4 @@ void UEngineWindow::CursorOn()
 	ShowCursor(TRUE);
 	IsCursorValue = true;
 }
+

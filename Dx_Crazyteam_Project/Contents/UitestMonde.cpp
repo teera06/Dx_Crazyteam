@@ -23,8 +23,8 @@ void AUitestMonde::BeginPlay()
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -200.0f));
 
 	std::shared_ptr<ATitleMenu> TitleMenu = GetWorld()->SpawnActor<ATitleMenu>("TitleMenu");
-	PlayLobby = GetWorld()->SpawnActor<APlayLobby>("PlayLobby");
 	MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
+	PlayLobby = GetWorld()->SpawnActor<APlayLobby>("PlayLobby");
 	Intro = GetWorld()->SpawnActor <AIntro> ("Intro");
 }
 

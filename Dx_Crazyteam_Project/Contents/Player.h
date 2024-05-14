@@ -51,17 +51,22 @@ private:
 
 	void IdleStart();
 	void Idle(float _DeltaTime);
-
 	void MoveStart();
 	void Move(float _DeltaTime);
-
-	//void Attack(float _DeltaTime);
-	//void Die(float _DeltaTime);
+	void TrapStart();
+	void Trap(float _DeltaTime);
+	void RescueStart();
+	void Rescue(float _DeltaTime);
 
 	std::string GetAnimationName(std::string_view _StateName);
 
 	FVector Dir = FVector::Down;
 	float AnimationInter = 0.1f;
+	float TrapMoveSpeed = 0.4f;
+	float TrapMoveTime = 1.f;
+	float TrapAnimationTime = 3.f;
+	float TrapToDieTime = 5.f;
+	FVector TrapDir = FVector::Up;
 
 	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
 

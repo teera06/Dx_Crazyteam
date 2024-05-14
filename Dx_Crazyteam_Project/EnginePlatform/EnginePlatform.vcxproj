@@ -191,6 +191,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="TextimeInput.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ThirdParty\FMOD\inc\fmod.h" />
     <ClInclude Include="ThirdParty\FMOD\inc\fmod.hpp" />
     <ClInclude Include="ThirdParty\FMOD\inc\fmod_codec.h" />
@@ -225,6 +229,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="TextimeInput.cpp">
+      <SubType>
+      </SubType>
     </ClCompile>
     <ClCompile Include="WindowImage.cpp" />
   </ItemGroup>

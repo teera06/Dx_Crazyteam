@@ -4,6 +4,8 @@
 #include "WaterCourse.h"
 #include "BaseMap.h"
 #include "CAGameMode.h"
+#include "Packets.h"
+#include "Game_Core.h"
 
 AWaterBomb::AWaterBomb()
 {
@@ -34,6 +36,8 @@ void AWaterBomb::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	State.Update(_DeltaTime);
+
+	//WaterBombPacket(_DeltaTime, b_ServerBomb);
 }
 
 void AWaterBomb::StateInit()
@@ -60,7 +64,7 @@ void AWaterBomb::StateInit()
 void AWaterBomb::CreateAnimation()
 {
 	//WaterCourseRender->CreateAnimation("Create", "bomb.png", 0.125f, true);
-	Renderer->CreateAnimation("Create", "bomb.png", { 0.125f, 0.125f, 0.125f, 0.125f }, {0, 1, 2, 1}, true);
+	Renderer->CreateAnimation("Create", "bomb.png", 0.125f, true);
 
 	Renderer->ChangeAnimation("Create");
 }
@@ -95,7 +99,7 @@ void AWaterBomb::CreateTick(float _DeltaTime)
 void AWaterBomb::CreateExit()
 {
 	LifeTime = 0.0f;
-	Renderer->SetActive(false);
+	//Renderer->SetActive(false);
 }
 
 
@@ -111,11 +115,12 @@ void AWaterBomb::BombBegin()
 	//Course->CreateWaterCenter();
 
 	GetGameMode()->GetCurMap()->AddMapObject(CurPos.y, CurPos.x, EMapObject::Water);
+	b_ServerBomb = true;
 }
 
 void AWaterBomb::BombTick(float _DeltaTime)
 {
-	Destroy();
+	//Destroy();
 }
 
 void AWaterBomb::BombExit()
