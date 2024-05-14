@@ -1,13 +1,13 @@
 #pragma once
-#include <EngineCore/Actor.h>
+#include "CAObject.h"
 
 // Ό³Έν :
 class UEngineTexture;
 class UDefaultSceneComponent;
 class AMapObject;
-class ABaseMap : public AActor
+class ABaseMap : public ACAObject
 {
-	GENERATED_BODY(AActor)
+	GENERATED_BODY(ACAObject)
 public:
 	// constructor destructor
 	ABaseMap();
@@ -21,6 +21,7 @@ public:
 
 	bool IsMove(FVector _PlayerPos);
 	void AddMapObject(int _Y, int _X, EMapObject _MapObjectType);
+	void SpawnWaterBomb(FVector _SpawnPos);
 	POINT PlayerPosToPoint(FVector _PlayerPos);
 
 protected:

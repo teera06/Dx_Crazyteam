@@ -2,6 +2,7 @@
 #include "BaseMap.h"
 #include "Block.h"
 #include "CampBlock.h"
+#include "WaterBomb.h"
 #include <EngineCore/DefaultSceneComponent.h>
 #include <algorithm>
 
@@ -41,7 +42,7 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 			case EMapObjectType::Block:
 			case EMapObjectType::BrakableBlock:
 			case EMapObjectType::MoveBlock:
-			case EMapObjectType::WaterBalloon:
+			case EMapObjectType::Water:
 			{
 				FVector TilePosition = MapStatus[y][x]->GetActorLocation();
 
@@ -102,23 +103,44 @@ void ABaseMap::Tick(float _DeltaTime)
 void ABaseMap::AddMapObject(int _Y, int _X, EMapObject _MapObjectType)
 {
 	std::shared_ptr<AMapObject> MapObj = nullptr;
-
 	switch (_MapObjectType)
 	{
 	case EMapObject::NormalBlock:
-		MapObj = GetWorld()->SpawnActor<ABlock>("Block");
+	{
+		std::shared_ptr<ABlock> TempObj = GetWorld()->SpawnActor<ABlock>("Block");
+		MapObj = TempObj;
 		break;
+	}
 	case EMapObject::CampBlock:
-		MapObj = GetWorld()->SpawnActor<ACampBlock>("CampBlock");
+	{
+		std::shared_ptr<ACampBlock> TempObj = GetWorld()->SpawnActor<ACampBlock>("CampBlock");
+		MapObj = TempObj;
 		break;
+	}
+	case EMapObject::WaterBomb:
+	{
+		std::shared_ptr<AWaterBomb> TempObj = GetWorld()->SpawnActor<AWaterBomb>("CampBlock");
+		TempObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
+		TempObj->CreateWaterBomb();
+		MapObj = TempObj;
+		break;
+	}
 	default:
 		break;
 	}
 
 	MapObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
+	MapObj->SetCurGameMode(GetGameMode());
 
 	MapStatus[_Y][_X]->Destroy();
 	MapStatus[_Y][_X] = MapObj;
+}
+
+void ABaseMap::SpawnWaterBomb(FVector _SpawnPos)
+{
+	POINT BombPoint = PlayerPosToPoint(_SpawnPos);
+
+	AddMapObject(BombPoint.y, BombPoint.x, EMapObject::WaterBomb);
 }
 
 POINT ABaseMap::PlayerPosToPoint(FVector _PlayerPos)
