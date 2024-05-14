@@ -28,10 +28,37 @@ void APlayLobby::BeginPlay()
 	PlayLobbyUI->SetActive(true);
 
 
+	
+	for (int i = 0; i < 4; i++)
+	{
+		UImage* Room = CreateWidget<UImage>(GetWorld(), "Room");
+		Room->AddToViewPort(12);
+		Room->SetSprite("Room_0.png");
+		Room->SetAutoSize(1.0f, true);
+		Room->SetPosition(FVector(-324.f + 106.f * i, 157.f));
+		Room->SetActive(true);
+		RoomVector.push_back(Room);
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		UImage* Room = CreateWidget<UImage>(GetWorld(), "Room");
+		Room->AddToViewPort(12);
+		Room->SetSprite("Room_0.png");
+		Room->SetAutoSize(1.0f, true);
+		Room->SetPosition(FVector(-324.f + 106.f * i, 11.f));
+		Room->SetActive(true);
+		RoomVector.push_back(Room);
+	}
+
+
+
+
+	//시작 버튼
 	GameStart = CreateWidget<UImage>(GetWorld(), "GameStart");
 	GameStart->CreateAnimation("UnHover", "StartBt_1.png", 0.1f, false, 0, 0);
 	GameStart->CreateAnimation("Hover", "StartBT", 0.1f, true, 0, 1);
-	GameStart->CreateAnimation("Down", "StartBt_0.png", 0.1f, false, 0, 0);
+	GameStart->CreateAnimation("Down", "StartBt_3.png", 0.1f, false, 0, 0);
 	GameStart->AddToViewPort(10);
 	GameStart->SetSprite("StartBt_1.png");
 	GameStart->SetScale({ 190,52  });
@@ -39,10 +66,12 @@ void APlayLobby::BeginPlay()
 	GameStart->SetActive(true);
 	GameStart->ChangeAnimation("UnHover");
 
+	//캐릭터 선택창
 	RandomBT = CreateWidget<UImage>(GetWorld(), "RandomBT");
 	RandomBT->CreateAnimation("UnHover", "CharatorSelect_Button_Random_Normal.bmp", 0.1f, false, 0, 0);
 	RandomBT->CreateAnimation("Hover", "CharatorSelect_Button_Random_Hover.bmp", 0.1f, false, 0, 0);
 	RandomBT->CreateAnimation("Down", "CharatorSelect_Button_Random_Click.bmp", 0.1f, false, 0, 0);
+	RandomBT->CreateAnimation("Up", "CharatorSelect_Button_Random_Pick.bmp", 0.1f, false, 0, 0);
 	RandomBT->AddToViewPort(11);
 	RandomBT->SetSprite("CharatorSelect_Button_Random_Normal.bmp");
 	RandomBT->SetScale({ 65.f,43.f });
@@ -53,6 +82,7 @@ void APlayLobby::BeginPlay()
 	DaoBT->CreateAnimation("UnHover", "CharatorSelect_Button_Dao_Normal.bmp", 0.1f, false, 0, 0);
 	DaoBT->CreateAnimation("Hover", "CharatorSelect_Button_Dao_Hover.bmp", 0.1f, false, 0, 0);
 	DaoBT->CreateAnimation("Down", "CharatorSelect_Button_Dao_Click.bmp", 0.1f, false, 0, 0);
+	DaoBT->CreateAnimation("Up", "CharatorSelect_Button_Dao_Pick.bmp", 0.1f, false, 0, 0);
 	DaoBT->AddToViewPort(11);
 	DaoBT->SetSprite("CharatorSelect_Button_Dao_Normal.bmp");
 	DaoBT->SetScale({ 65.f,43.f });
@@ -93,17 +123,18 @@ void APlayLobby::BeginPlay()
 	MaridBT->CreateAnimation("UnHover", "CharatorSelect_Button_Marid_Normal.bmp", 0.1f, false, 0, 0);
 	MaridBT->CreateAnimation("Hover", "CharatorSelect_Button_Marid_Hover.bmp", 0.1f, false, 0, 0);
 	MaridBT->CreateAnimation("Down", "CharatorSelect_Button_Marid_Click.bmp", 0.1f, false, 0, 0);
+	MaridBT->CreateAnimation("Up", "CharatorSelect_Button_Marid_Pick.bmp", 0.1f, false, 0, 0);
 	MaridBT->AddToViewPort(11);
 	MaridBT->SetSprite("CharatorSelect_Button_Marid_Normal.bmp");
 	MaridBT->SetScale({ 65.f,43.f });
 	MaridBT->SetPosition({ 194.0f,114.0f });
 	MaridBT->SetActive(true);
 
-
 	BazziBT = CreateWidget<UImage>(GetWorld(), "MosBT");
 	BazziBT->CreateAnimation("UnHover", "CharatorSelect_Button_Bazzi_Normal.bmp", 0.1f, false, 0, 0);
 	BazziBT->CreateAnimation("Hover", "CharatorSelect_Button_Bazzi_Hover.bmp", 0.1f, false, 0, 0);
 	BazziBT->CreateAnimation("Down", "CharatorSelect_Button_Bazzi_Click.bmp", 0.1f, false, 0, 0);
+	BazziBT->CreateAnimation("Up", "CharatorSelect_Button_Bazzi_Pick.bmp", 0.1f, false, 0, 0);
 	BazziBT->AddToViewPort(11);
 	BazziBT->SetSprite("CharatorSelect_Button_Bazzi_Normal.bmp");
 	BazziBT->SetScale({ 65.f,43.f });
@@ -124,6 +155,7 @@ void APlayLobby::BeginPlay()
 	KephiBT->CreateAnimation("UnHover", "CharatorSelect_Button_Kephi_Normal.bmp", 0.1f, false, 0, 0);
 	KephiBT->CreateAnimation("Hover", "CharatorSelect_Button_Kephi_Hover.bmp", 0.1f, false, 0, 0);
 	KephiBT->CreateAnimation("Down", "CharatorSelect_Button_Kephi_Click.bmp", 0.1f, false, 0, 0);
+	KephiBT->CreateAnimation("Up", "CharatorSelect_Button_Kephi_Pick.bmp", 0.1f, false, 0, 0);
 	KephiBT->AddToViewPort(11);
 	KephiBT->SetSprite("CharatorSelect_Button_Kephi_Normal.bmp");
 	KephiBT->SetScale({ 65.f,43.f });
@@ -240,6 +272,10 @@ void APlayLobby::Tick(float _DeltaTime)
 					RandomBT->ChangeAnimation("Down");
 
 				}
+				else if (IsUp(VK_LBUTTON))
+				{
+					RandomBT->ChangeAnimation("Up");
+				}
 			}
 			});
 	}
@@ -264,6 +300,11 @@ void APlayLobby::Tick(float _DeltaTime)
 					DaoBT->ChangeAnimation("Down");
 
 				}
+				else if (IsUp(VK_LBUTTON))
+				{
+					DaoBT->ChangeAnimation("Up");
+				}
+
 			}
 			});
 	}
@@ -350,6 +391,11 @@ void APlayLobby::Tick(float _DeltaTime)
 					MaridBT->ChangeAnimation("Down");
 
 				}
+				else if (IsUp(VK_LBUTTON))
+				{
+					MaridBT->ChangeAnimation("Up");
+				}
+
 			}
 			});
 	}
@@ -372,6 +418,10 @@ void APlayLobby::Tick(float _DeltaTime)
 				{
 					BazziBT->ChangeAnimation("Down");
 
+				}
+				else if (IsUp(VK_LBUTTON))
+				{
+					BazziBT->ChangeAnimation("Up");
 				}
 			}
 			});
@@ -416,6 +466,11 @@ void APlayLobby::Tick(float _DeltaTime)
 				{
 					KephiBT->ChangeAnimation("Down");
 
+				}
+		
+				else if (IsUp(VK_LBUTTON))
+				{
+					KephiBT->ChangeAnimation("Up");
 				}
 			}
 			});
@@ -482,6 +537,34 @@ void APlayLobby::Tick(float _DeltaTime)
 				}
 			}
 			});
+	}
+
+	for (int i = 1; i < 8; i++)
+	{
+		{
+			RoomVector[i]->SetUnHover([=] {
+				RoomVector[i]->SetSprite("Room_0.png");
+				SwitchON = false;
+				});
+			RoomVector[i]->SetHover([=] {
+				{
+					if (false == SwitchON)
+					{
+						RoomVector[i]->SetSprite("Room_1.png");
+						SwitchON = true;
+
+					}
+					else if (IsDown(VK_LBUTTON) && true == SwitchON)
+					{
+						RoomVector[i]->SetSprite("Room_2.png");
+					}
+					else if (IsUp(VK_LBUTTON))
+					{
+						RoomVector[i]->SetSprite("RoomX_0.png");
+					}
+				}
+				});
+		}
 	}
 
 }

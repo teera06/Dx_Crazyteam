@@ -46,7 +46,10 @@ private:
 	UImage* Maridex;
 	UImage* Kephiex;
 	UImage* Bazziex;
-	//std::vector<UImage*>::iterator RandomIter = Random.begin();
+	
+	std::vector<UImage*> RoomVector;
+	std::vector<UImage*>::iterator RoomIter = RoomVector.begin();
+
 
 	UCollision* Collision0 = nullptr;
 
