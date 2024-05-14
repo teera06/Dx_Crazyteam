@@ -13,9 +13,6 @@
     <Filter Include="Option">
       <UniqueIdentifier>{0a1e54c0-faf8-4c3f-9539-10411c69114a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\ServerLevel">
-      <UniqueIdentifier>{fd9a87db-12e7-4d75-bc20-b94b6e189b49}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Protocol">
       <UniqueIdentifier>{d0df054d-24fa-44d8-80bb-06c7c7bdefde}</UniqueIdentifier>
     </Filter>
@@ -55,11 +52,20 @@
     <Filter Include="Level\MainLevel">
       <UniqueIdentifier>{0cfefc0a-afca-477a-b165-c5fe30c8c993}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\SubServerLevel">
-      <UniqueIdentifier>{8c31784e-4ac2-4a50-b20e-6953ad591546}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{338152c8-a708-484e-bde0-4313c8ebba67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Suver">
+      <UniqueIdentifier>{5b3b2d14-0427-4823-bb65-1e154c1f3d7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Suver\SubServerLevel">
+      <UniqueIdentifier>{8c31784e-4ac2-4a50-b20e-6953ad591546}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Suver\ServerLevel">
+      <UniqueIdentifier>{fd9a87db-12e7-4d75-bc20-b94b6e189b49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Suver\PublicOBJ">
+      <UniqueIdentifier>{5c3efb8e-2f64-4c9e-9dd2-b715b1b1d056}</UniqueIdentifier>
     </Filter>
     <Filter Include="MapObject\Block">
       <UniqueIdentifier>{437f5415-8d39-4782-83b3-00225467a750}</UniqueIdentifier>
@@ -87,14 +93,13 @@
     <ClInclude Include="ContentsEnum.h">
       <Filter>Option</Filter>
     </ClInclude>
+    <ClInclude Include="ServerGameMode.h">
+      <Filter>Level\Suver\ServerLevel</Filter>
     <ClInclude Include="ServerPlayer.h">
       <Filter>Level\ServerLevel</Filter>
     </ClInclude>
     <ClInclude Include="Packets.h">
       <Filter>Protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="OtherPlayer.h">
-      <Filter>Level\ServerLevel</Filter>
     </ClInclude>
     <ClInclude Include="Game_Core.h">
       <Filter>Core</Filter>
@@ -157,7 +162,7 @@
       <Filter>Level\MainLevel</Filter>
     </ClInclude>
     <ClInclude Include="SubServerLevel.h">
-      <Filter>Level\SubServerLevel</Filter>
+      <Filter>Level\Suver\SubServerLevel</Filter>
     </ClInclude>
     <ClInclude Include="CAGameMode.h">
       <Filter>Level</Filter>
@@ -167,9 +172,6 @@
     </ClInclude>
     <ClInclude Include="CAObject.h">
       <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="NetInterface.h">
-      <Filter>Level\ServerLevel</Filter>
     </ClInclude>
     <ClInclude Include="Player_Shadow.h">
       <Filter>Level\PlayertestLevel\Actor</Filter>
@@ -201,19 +203,31 @@
     <ClInclude Include="ItemRoller.h">
       <Filter>MapObject\Item</Filter>
     </ClInclude>
+    <ClInclude Include="OtherPlayer.h">
+      <Filter>Level\Suver\PublicOBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="NetInterface.h">
+      <Filter>Level\Suver\PublicOBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerPlayer.h">
+      <Filter>Level\Suver\PublicOBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherBomb.h">
+      <Filter>Level\Suver\PublicOBJ</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerGameMode.cpp">
+      <Filter>Level\ServerLevel</Filter>
     </ClCompile>
     <ClCompile Include="ServerPlayer.cpp">
       <Filter>Level\ServerLevel</Filter>
     </ClCompile>
     <ClCompile Include="Packets.cpp">
       <Filter>Protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="OtherPlayer.cpp">
-      <Filter>Level\ServerLevel</Filter>
     </ClCompile>
     <ClCompile Include="Game_Core.cpp">
       <Filter>Core</Filter>
@@ -279,7 +293,7 @@
       <Filter>Level\MainLevel</Filter>
     </ClCompile>
     <ClCompile Include="SubServerLevel.cpp">
-      <Filter>Level\SubServerLevel</Filter>
+      <Filter>Level\Suver\SubServerLevel</Filter>
     </ClCompile>
     <ClCompile Include="CAGameMode.cpp">
       <Filter>Level</Filter>
@@ -324,6 +338,18 @@
     </ClCompile>
     <ClCompile Include="ItemRoller.cpp">
       <Filter>MapObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherPlayer.cpp">
+      <Filter>Level\Suver\PublicOBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerPlayer.cpp">
+      <Filter>Level\Suver\PublicOBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="NetInterface.cpp">
+      <Filter>Level\Suver\PublicOBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherBomb.cpp">
+      <Filter>Level\Suver\PublicOBJ</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

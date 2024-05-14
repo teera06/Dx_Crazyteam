@@ -67,7 +67,6 @@ void UNetInterface::PlayerShadowPacket(float _DeltaTime)
 		std::shared_ptr<UActorUpdatePacket> Packet = std::make_shared<UActorUpdatePacket>();
 
 		Packet->Pos = GetActorLocation();
-		//Packet->AnimationInfo = Renderer->GetCurAnimationFrame();
 		Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
 		Send(Packet);
 		CurTime += FrameTime;
