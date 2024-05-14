@@ -25,11 +25,13 @@ void APlayerTestMode::BeginPlay()
 	SetMainPlayer(Player1);
 
 
+
 }
 
 void APlayerTestMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+	
 }
 
 void APlayerTestMode::LevelStart(ULevel* _PrevLevel)

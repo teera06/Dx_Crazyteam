@@ -15,6 +15,8 @@ public:
 	float MoveSpeed = 100.f;
 };
 
+class APlayer_Shadow;
+
 class APlayer : public ACAObject
 {
 	GENERATED_BODY(ACAObject)
@@ -50,6 +52,9 @@ private:
 
 	FVector Dir = FVector::Down;
 	float AnimationInter = 0.1f;
+
+	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
+
 };
 
 
