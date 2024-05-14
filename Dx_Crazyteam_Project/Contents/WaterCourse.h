@@ -18,12 +18,6 @@ public :
 	AWaterCourse& operator=(const AWaterCourse& _Other) = delete;
 	AWaterCourse& operator=(AWaterCourse&& _Other) noexcept = delete;
 	
-	inline void SetPowerValue(size_t _Power)
-	{
-		PowerValue = _Power;
-	}
-
-
 	/// <summary>
 	/// 물줄기 중간 생성.
 	/// </summary>
@@ -90,7 +84,8 @@ private :
 	float LifeTime = 2.0f;
 	float CreateDeltaTime = 0.0f;
 	float CreateTime = 0.125f; // 0.125f
-	size_t PowerValue = 0;
+	const size_t MaxPowerValue = 7;
+	int DefaultPowerValue = 1;
 	std::string PreAniName = "";
 	EEngineDir WaterCourseDir = EEngineDir::MAX;
 };
