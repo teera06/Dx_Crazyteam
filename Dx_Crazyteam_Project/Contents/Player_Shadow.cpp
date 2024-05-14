@@ -24,5 +24,5 @@ void APlayer_Shadow::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	PlayerSendPacket(_DeltaTime);
+	//PlayerShadowPacket(_DeltaTime);
 }
