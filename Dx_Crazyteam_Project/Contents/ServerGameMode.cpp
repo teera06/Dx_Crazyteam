@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "ServerGameMode.h"
+#include <EngineBase/EngineProtocol.h>
 
 #include <EngineCore/Image.h>
 #include <EngineCore/Camera.h>
@@ -15,6 +16,9 @@
 
 #include "TitleMenu.h"
 #include "PlayLobby.h"
+
+#include "TestLobbyMode.h"
+
 
 AServerGameMode::AServerGameMode() 
 {
@@ -66,7 +70,8 @@ void AServerGameMode::LevelStart(ULevel* _PrevLevel)
 				UGame_Core::Net = std::make_shared<UEngineServer>();
 				UGame_Core::Net->ServerOpen(30000, 512);
 
-				//ServerPacketInit(UGame_Core::Net->Dispatcher);
+				GEngine->CreateLevel<ATestLobbyMode>("TestLobbyMode");
+				GEngine->ChangeLevel("TestLobbyMode");
 			});
 
 		NetWindow->SetClientConnectFunction([&](std::string IP, short PORT)
@@ -74,7 +79,9 @@ void AServerGameMode::LevelStart(ULevel* _PrevLevel)
 				UGame_Core::Net = std::make_shared<UEngineClient>();
 				UGame_Core::Net->Connect(IP, PORT);
 
-				//ClientPacketInit(UGame_Core::Net->Dispatcher);
+
+				GEngine->CreateLevel<ATestLobbyMode>("TestLobbyMode");
+				GEngine->ChangeLevel("TestLobbyMode");
 			});
 	}
 	NetWindow->Off();

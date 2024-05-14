@@ -198,6 +198,9 @@
     <ClInclude Include="ServerGameMode.h">
       <Filter>Level\ServerLevel\Test</Filter>
     </ClInclude>
+    <ClInclude Include="ItemRoller.h">
+      <Filter>MapObject\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -318,6 +321,9 @@
     </ClCompile>
     <ClCompile Include="ServerGameMode.cpp">
       <Filter>Level\ServerLevel\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemRoller.cpp">
+      <Filter>MapObject\Item</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
