@@ -40,8 +40,8 @@ protected:
 	void LevelEnd(ULevel* _DeltaTime) override;
 
 	std::shared_ptr<UEngineNetWindow> NetWindow;
-	std::shared_ptr<APlayer> MainPlayer = nullptr;
-	std::shared_ptr<AVillage> Village = nullptr;
+	//std::shared_ptr<APlayer> MainPlayer = nullptr;
+	//std::shared_ptr<AVillage> Village = nullptr;
 	std::shared_ptr<ATitleMenu> TitleMenu = nullptr;
 	std::shared_ptr<APlayLobby> PlayLobby = nullptr;
 };
