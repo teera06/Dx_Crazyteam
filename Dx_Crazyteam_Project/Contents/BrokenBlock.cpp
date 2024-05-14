@@ -130,7 +130,7 @@ void ABrokenBlock::BreakExit()
 #pragma region End
 void ABrokenBlock::EndBegin()
 {
-	GetGameMode()->
+	
 }
 
 void ABrokenBlock::EndTick(float _DeltaTime)
