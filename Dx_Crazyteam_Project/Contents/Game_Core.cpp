@@ -78,6 +78,10 @@ void UGame_Core::ForderLoadAni()
 
 void UGame_Core::CuttingAni()
 {
+	// 물풍선
+	{
+		UEngineSprite::CreateCutting("bomb.png", 3, 1);
+	}
 	// 물줄기
 	{
 		UEngineSprite::CreateCutting("Center11.png", 4, 1);
