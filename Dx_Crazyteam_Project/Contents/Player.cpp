@@ -40,6 +40,18 @@ std::string APlayer::GetAnimationName(std::string_view _StateName)
 {
 	std::string _AniName = _StateName.data() + std::string("_");
 
+	switch (Info->MyType)
+	{
+	case ECharacterType::Bazzi:
+		_AniName = std::string("Bazzi_") + _AniName;
+		break;
+	case ECharacterType::Dao:
+		_AniName = std::string("Dao_") + _AniName;
+		break;
+	default:
+		break;
+	}
+
 	if (Dir.iX() == FVector::Up.iX() && Dir.iY() == FVector::Up.iY())
 	{
 		return _AniName + "Up";

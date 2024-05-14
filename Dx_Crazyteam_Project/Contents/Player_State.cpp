@@ -8,15 +8,23 @@ void APlayer::StateInit()
 	InputOn();
 
 	// CreateAnimation
-	Renderer->CreateAnimation("Idle_Left", "bazzi_left.png", AnimationInter, false, 0, 0);
-	Renderer->CreateAnimation("Idle_Right", "bazzi_right.png", AnimationInter, false, 0, 0);
-	Renderer->CreateAnimation("Idle_Up", "bazzi_up.png", AnimationInter, false, 0, 0);
-	Renderer->CreateAnimation("Idle_Down", "bazzi_down.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Bazzi_Idle_Up", "bazzi_idle.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Bazzi_Idle_Down", "bazzi_idle.png", AnimationInter, false, 1, 1);
+	Renderer->CreateAnimation("Bazzi_Idle_Right", "bazzi_idle.png", AnimationInter, false, 2, 2);
+	Renderer->CreateAnimation("Bazzi_Idle_Left", "bazzi_idle.png", AnimationInter, false, 3, 3);
+	Renderer->CreateAnimation("Bazzi_Move_Left", "bazzi_left.png", AnimationInter,true, 0, 3);
+	Renderer->CreateAnimation("Bazzi_Move_Right", "bazzi_right.png", AnimationInter, true, 0, 3);
+	Renderer->CreateAnimation("Bazzi_Move_Up", "bazzi_up.png", AnimationInter, true, 0, 3);
+	Renderer->CreateAnimation("Bazzi_Move_Down", "bazzi_down.png", AnimationInter, true, 0, 3);
 
-	Renderer->CreateAnimation("Move_Left", "bazzi_left.png", AnimationInter,true, 0, 5);
-	Renderer->CreateAnimation("Move_Right", "bazzi_right.png", AnimationInter, true, 0, 5);
-	Renderer->CreateAnimation("Move_Up", "bazzi_up.png", AnimationInter, true, 0, 7);
-	Renderer->CreateAnimation("Move_Down", "bazzi_down.png", AnimationInter, true, 0, 7);
+	Renderer->CreateAnimation("Dao_Idle_Up", "dao_idle.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Dao_Idle_Down", "dao_idle.png", AnimationInter, false, 1, 1);
+	Renderer->CreateAnimation("Dao_Idle_Right", "dao_idle.png", AnimationInter, false, 2, 2);
+	Renderer->CreateAnimation("Dao_Idle_Left", "dao_idle.png", AnimationInter, false, 3, 3);
+	Renderer->CreateAnimation("Dao_Move_Left", "dao_left.png", AnimationInter, true, 0, 3);
+	Renderer->CreateAnimation("Dao_Move_Right", "dao_right.png", AnimationInter, true, 0, 3);
+	Renderer->CreateAnimation("Dao_Move_Up", "dao_up.png", AnimationInter, true, 0, 3);
+	Renderer->CreateAnimation("Dao_Move_Down", "dao_down.png", AnimationInter, true, 0, 3);
 
 	// CreateState
 	State.CreateState("Idle");
