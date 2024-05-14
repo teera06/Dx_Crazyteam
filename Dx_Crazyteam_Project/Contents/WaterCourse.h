@@ -33,11 +33,6 @@ public :
 		return;
 	}
 
-	inline void SetBombPoint(POINT _Point)
-	{
-		BombPoint = _Point;
-	}
-
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -96,8 +91,6 @@ private :
 	float CreateDeltaTime = 0.0f;
 	float CreateTime = 0.125f;
 	size_t PowerValue = 0;
-	POINT BombPoint = POINT(0, 0);
-	std::string preStateName = "";
 	EEngineDir WaterCourseDir = EEngineDir::MAX;
 };
 

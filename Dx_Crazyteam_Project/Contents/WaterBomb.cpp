@@ -2,6 +2,8 @@
 #include "WaterBomb.h"
 #include <EngineCore/DefaultSceneComponent.h>
 #include "WaterCourse.h"
+#include "BaseMap.h"
+#include "CAGameMode.h"
 
 AWaterBomb::AWaterBomb()
 {
@@ -73,6 +75,7 @@ void AWaterBomb::NoneTick(float _DeltaTime)
 {
 }
 
+
 void AWaterBomb::CreateBegin()
 {
 	Renderer->SetActive(true);
@@ -95,13 +98,19 @@ void AWaterBomb::CreateExit()
 	Renderer->SetActive(false);
 }
 
+
+
+
+
 void AWaterBomb::BombBegin()
 {
-	std::shared_ptr<AWaterCourse> Course = GetWorld()->SpawnActor<AWaterCourse>("WaterCourse");
-	Course->SetPowerValue(Power);
+	//std::shared_ptr<AWaterCourse> Course = GetWorld()->SpawnActor<AWaterCourse>("WaterCourse");
+	////Course->SetPowerValue(Power);
 	//Course->SetPowerValue(5);
 	//Course->SetBombPoint(CurPos);
-	Course->CreateWaterCenter();
+	//Course->CreateWaterCenter();
+
+	GetGameMode()->GetCurMap()->AddMapObject(CurPos.y, CurPos.x, EMapObject::Water);
 }
 
 void AWaterBomb::BombTick(float _DeltaTime)
