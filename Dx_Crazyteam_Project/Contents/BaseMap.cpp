@@ -193,7 +193,7 @@ POINT ABaseMap::PlayerPosToPoint(FVector _PlayerPos)
 
 	for (int y = 0; y < ConstValue::TileY - 1; y++)
 	{
-		for (int x = 0; x < ConstValue::TileX - 1; x++)
+		for (int x = 0; x < ConstValue::TileX; x++)
 		{
 			FVector TileLocation = MapStatus[y][x]->GetActorLocation();
 			TileLocation.Z = 0.f;
