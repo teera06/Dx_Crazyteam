@@ -162,6 +162,9 @@
     <ClInclude Include="NetInterface.h">
       <Filter>Level\ServerLevel</Filter>
     </ClInclude>
+    <ClInclude Include="Player_Shadow.h">
+      <Filter>Level\PlayertestLevel\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -258,8 +261,9 @@
       <Filter>Option</Filter>
     </ClCompile>
     <ClCompile Include="CAObject.cpp" />
-    <ClCompile Include="NetInterface.cpp">
-      <Filter>Level\ServerLevel</Filter>
+    <ClCompile Include="NetInterface.cpp" />
+    <ClCompile Include="Player_Shadow.cpp">
+      <Filter>Level\PlayertestLevel\Actor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

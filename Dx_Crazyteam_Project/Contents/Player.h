@@ -33,8 +33,6 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	//UDefaultSceneComponent* Root = nullptr;
-	//USpriteRenderer* Renderer = nullptr;
 
 private:
 	void StateInit();
