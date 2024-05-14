@@ -8,9 +8,7 @@
 
 ABaseMap::ABaseMap()
 {
-	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
 
-	SetRoot(Root);
 }
 
 ABaseMap::~ABaseMap()
@@ -61,6 +59,29 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 
 
 	return true;
+}
+
+bool ABaseMap::IsEmpty(FVector _PlayerPos)
+{
+	POINT PlayerPoint = PlayerPosToPoint(_PlayerPos);
+
+	if (MapStatus[PlayerPoint.y][PlayerPoint.x]->GetType() == EMapObjectType::None)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool ABaseMap::IsEmpty(int _Y, int _X)
+{
+
+	if (MapStatus[_Y][_X]->GetType() == EMapObjectType::None)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 

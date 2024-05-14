@@ -50,3 +50,12 @@ enum class ECharacterType
 	Dao,
 	Marid,
 };
+
+enum class ECADir
+{
+	None,
+	Right,
+	Left,
+	Up,
+	Down,
+};

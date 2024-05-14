@@ -26,12 +26,13 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	UDefaultSceneComponent* Root = nullptr;
+	std::function<void()> PlayerInteract;
+	std::function<void()> WaterInteract;
 
 	EMapObjectType Type = EMapObjectType::None;
 
-	std::function<void()> PlayerInteract;
-	std::function<void()> WaterInteract;
+	USpriteRenderer* FrontRenderer = nullptr;
+	USpriteRenderer* BackRenderer = nullptr;
 	
 private:
 

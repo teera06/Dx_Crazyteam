@@ -3,6 +3,7 @@
 #include <EngineCore/DefaultSceneComponent.h>
 #include "ContentsEnum.h"
 #include "CAObject.h"
+#include "NetInterface.h"
 
 class APlayer;
 class PlayerInfo
@@ -14,7 +15,7 @@ public:
 	float MoveSpeed = 100.f;
 };
 
-class APlayer : public ACAObject, public UNetObject
+class APlayer : public ACAObject
 {
 	GENERATED_BODY(ACAObject)
 public:
@@ -32,8 +33,8 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	UDefaultSceneComponent* Root = nullptr;
-	USpriteRenderer* Renderer = nullptr;
+	//UDefaultSceneComponent* Root = nullptr;
+	//USpriteRenderer* Renderer = nullptr;
 
 private:
 	void StateInit();

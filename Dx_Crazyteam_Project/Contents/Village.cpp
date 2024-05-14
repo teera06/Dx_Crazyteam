@@ -4,8 +4,8 @@
 
 AVillage::AVillage()
 {
-	BackMap = CreateDefaultSubObject<USpriteRenderer>("BackMap");
-	BackMap->SetupAttachment(Root);
+	/*Renderer = CreateDefaultSubObject<USpriteRenderer>("BackMap");
+	Renderer->SetupAttachment(Root);*/
 }
 
 AVillage::~AVillage()
@@ -16,9 +16,9 @@ void AVillage::BeginPlay()
 {
 	Super::BeginPlay();
 
-	BackMap->SetOrder(EObjectOrder::Map);
-	BackMap->SetSprite("BossStage_Back.png");
-	BackMap->SetAutoSize(1.f, true);
+	Renderer->SetOrder(EObjectOrder::Map);
+	Renderer->SetSprite("BossStage_Back.png");
+	Renderer->SetAutoSize(1.f, true);
 }
 
 void AVillage::Tick(float _DeltaTime)

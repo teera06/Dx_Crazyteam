@@ -50,5 +50,6 @@ protected:
 private:
 	std::shared_ptr<ABaseMap> CurMap = nullptr;
 	std::shared_ptr<APlayer> MainPlayer = nullptr;
+
 };
 
