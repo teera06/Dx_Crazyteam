@@ -28,6 +28,7 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+
 private:
 	float FrameTime = 1.0f / 60.0f;
 	float CurTime = FrameTime;
