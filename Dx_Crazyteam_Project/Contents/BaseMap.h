@@ -19,7 +19,7 @@ public:
 	ABaseMap& operator=(const ABaseMap& _Other) = delete;
 	ABaseMap& operator=(ABaseMap&& _Other) noexcept = delete;
 
-	static bool IsMove(FVector _PlayerPos);
+	bool IsMove(FVector _PlayerPos);
 	void AddMapObject(int _Y, int _X, EMapObject _MapObjectType);
 	POINT PlayerPosToPoint(FVector _PlayerPos);
 
@@ -30,7 +30,7 @@ protected:
 	USpriteRenderer* BackMap = nullptr;
 	UDefaultSceneComponent* Root = nullptr;
 
-	static std::vector<std::vector<std::shared_ptr<AMapObject>>> MapStatus;
+	std::vector<std::vector<std::shared_ptr<AMapObject>>> MapStatus;
 private:
 
 	void GetWaterWavePoint();
