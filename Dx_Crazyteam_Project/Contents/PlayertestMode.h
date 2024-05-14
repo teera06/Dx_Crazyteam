@@ -4,14 +4,14 @@
 #include <EngineBase/EngineNetHeader.h>
 #include <EngineCore/EngineNetWindow.h>
 #include <EngineBase/EngineDispatcher.h>
-
+#include "CAGameMode.h"
 
 #include "Village.h"
 #include "Player.h"
 
-class APlayerTestMode : public AGameMode
+class APlayerTestMode : public ACAGameMode
 {
-	GENERATED_BODY(AGameMode)
+	GENERATED_BODY(ACAGameMode)
 public:
 	// constrcuter destructer
 	APlayerTestMode(); // 디폴트 생성자

@@ -1,8 +1,8 @@
 #pragma once
-#include <EngineCore/Actor.h>
 #include <EngineBase/NetObject.h>
 #include <EngineCore/DefaultSceneComponent.h>
 #include "ContentsEnum.h"
+#include "CAObject.h"
 
 class APlayer;
 class PlayerInfo
@@ -14,9 +14,9 @@ public:
 	float MoveSpeed = 100.f;
 };
 
-class APlayer : public AActor, public UNetObject
+class APlayer : public ACAObject, public UNetObject
 {
-	GENERATED_BODY(AActor)
+	GENERATED_BODY(ACAObject)
 public:
 	APlayer();
 	~APlayer();

@@ -320,6 +320,7 @@ void USpriteRenderer::CreateAnimation(
 	int _Start /*= -1*/, 
 	int _End /*= -1*/)
 {
+	_AniName = _SpriteName;
 	std::shared_ptr<UEngineSprite> FindSprite = UEngineSprite::FindRes(_SpriteName);
 
 	if (nullptr == FindSprite)
@@ -400,6 +401,7 @@ void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName, int Start
 
 void USpriteRenderer::CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<float> _Inter, std::vector<int> _Frame, bool _Loop /*= true*/)
 {
+	_AniName = _SpriteName;
 	std::string UpperName = UEngineString::ToUpper(_AnimationName);
 
 	if (true == Animations.contains(UpperName))
