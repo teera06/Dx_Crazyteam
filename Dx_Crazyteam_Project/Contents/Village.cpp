@@ -1,6 +1,5 @@
 #include "PreCompile.h"
 #include "Village.h"
-#include <EngineCore/EngineTexture.h>
 #include <EngineCore/DefaultSceneComponent.h>
 
 AVillage::AVillage()
@@ -17,11 +16,9 @@ void AVillage::BeginPlay()
 {
 	Super::BeginPlay();
 
+	BackMap->SetOrder(EObjectOrder::Map);
 	BackMap->SetSprite("BossStage_Back.png");
 	BackMap->SetAutoSize(1.f, true);
-	BackMap->SetOrder(EObjectOrder::Map);
-
-	AddMapObject(0, 0, EMapObject::NormalBlock);
 }
 
 void AVillage::Tick(float _DeltaTime)

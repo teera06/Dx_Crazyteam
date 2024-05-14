@@ -28,6 +28,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="BrokenBlock.h" />
+    <ClInclude Include="Camp.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="CampBlock.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ContentsDebugWindow.h" />
     <ClInclude Include="Game_Core.h">
       <SubType>
@@ -109,6 +117,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="BrokenBlock.cpp" />
+    <ClCompile Include="Camp.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="CampBlock.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ContentsDebugWindow.cpp" />
     <ClCompile Include="Game_Core.cpp">
       <SubType>
