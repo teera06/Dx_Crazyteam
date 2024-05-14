@@ -105,6 +105,10 @@ void UGame_Core::CuttingAni()
 	UEngineSprite::CreateCutting("dao_down.png", 4, 1);
 	UEngineSprite::CreateCutting("dao_up.png", 4, 1);
 	UEngineSprite::CreateCutting("dao_idle.png", 4, 1);
+
+	{
+		UEngineSprite::CreateCutting("GameTimer.png", 10, 1);
+	}
 }
 
 void UGame_Core::SoundLoad()
