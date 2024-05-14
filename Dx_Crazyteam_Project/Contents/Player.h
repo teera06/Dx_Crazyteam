@@ -62,6 +62,11 @@ private:
 
 	FVector Dir = FVector::Down;
 	float AnimationInter = 0.1f;
+	float TrapMoveSpeed = 0.4f;
+	float TrapMoveTime = 1.f;
+	float TrapAnimationTime = 3.f;
+	float TrapToDieTime = 5.f;
+	FVector TrapDir = FVector::Up;
 
 	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
 
