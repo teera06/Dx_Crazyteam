@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "WaterCourse.h"
 #include <EngineCore/DefaultSceneComponent.h>
+#include "BaseMap.h"
+#include "CAGameMode.h"
 
 AWaterCourse::AWaterCourse()
 {
@@ -143,11 +145,16 @@ void AWaterCourse::CreateCenterTick(float _DeltaTime)
 	{
 		if (0.5f <= CreateTime)
 		{
-			
-			std::shared_ptr<AWaterCourse> Stem = GetWorld()->SpawnActor<AWaterCourse>("Stream");
-			Stem->CreateWaterStream();
+			// 만들어 질 곳에 뭐가 있음?
 
-			CreateTime = 0.0f;
+
+			std::shared_ptr<AWaterCourse> Stem = GetWorld()->SpawnActor<AWaterCourse>("Stream");
+			//Stem->GetGameMode()->GetCurMap()->GetMapObject
+
+			//std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject()
+			//Stem->CreateWaterStream();
+
+			//CreateTime = 0.0f;
 		}
 	}
 }

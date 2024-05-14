@@ -49,6 +49,11 @@ public :
 		return;
 	}
 
+	inline void SetBombPoint(POINT _Point)
+	{
+		BombPoint = _Point;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -78,5 +83,6 @@ private :
 	float LifeTime = 0.0f;
 	float CreateTime = 0.0f;
 	size_t PowerValue = 0;
+	POINT BombPoint = POINT(0, 0);
 };
 
