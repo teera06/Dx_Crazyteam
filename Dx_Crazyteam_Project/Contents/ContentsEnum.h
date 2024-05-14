@@ -32,6 +32,8 @@ enum class EMapObjectType {
 	MoveBlock,     //움직이는 블록
 	Bush,          //부시
 	Water,  //물풍선
+	WaterBalloon,
+
 };
 
 enum class EMapObject
