@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "BrokenBlock.h"
 #include <EngineCore/DefaultSceneComponent.h>
+#include "CAGameMode.h"
+#include "BaseMap.h"
 
 ABrokenBlock::ABrokenBlock()
 {
@@ -130,7 +132,7 @@ void ABrokenBlock::BreakExit()
 #pragma region End
 void ABrokenBlock::EndBegin()
 {
-	
+	GetGameMode()->GetCurMap()->DestroyMapObject(CurPos.y, CurPos.x);
 }
 
 void ABrokenBlock::EndTick(float _DeltaTime)
