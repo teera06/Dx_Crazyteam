@@ -2,6 +2,7 @@
 #include <EngineCore/Actor.h>
 #include <EngineBase/NetObject.h>
 #include <EngineCore/DefaultSceneComponent.h>
+#include "ContentsEnum.h"
 
 class APlayer;
 class PlayerInfo
@@ -9,6 +10,7 @@ class PlayerInfo
 	friend APlayer;
 
 public:
+	ECharacterType MyType = ECharacterType::Bazzi;
 	float MoveSpeed = 100.f;
 };
 

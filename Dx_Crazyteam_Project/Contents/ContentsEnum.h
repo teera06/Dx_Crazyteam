@@ -39,3 +39,11 @@ enum class EMapObject
 	NormalBlock,
 	CampBlock,
 };
+
+enum class ECharacterType
+{
+	None,
+	Bazzi,
+	Dao,
+	Marid,
+};
