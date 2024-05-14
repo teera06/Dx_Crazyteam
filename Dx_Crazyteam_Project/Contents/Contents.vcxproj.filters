@@ -55,6 +55,9 @@
     <Filter Include="Level\MainLevel">
       <UniqueIdentifier>{0cfefc0a-afca-477a-b165-c5fe30c8c993}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\SubServerLevel">
+      <UniqueIdentifier>{8c31784e-4ac2-4a50-b20e-6953ad591546}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -141,6 +144,9 @@
     <ClInclude Include="MainGameMode.h">
       <Filter>Level\MainLevel</Filter>
     </ClInclude>
+    <ClInclude Include="SubServerLevel.h">
+      <Filter>Level\SubServerLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -226,6 +232,9 @@
     </ClCompile>
     <ClCompile Include="MainGameMode.cpp">
       <Filter>Level\MainLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="SubServerLevel.cpp">
+      <Filter>Level\SubServerLevel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
