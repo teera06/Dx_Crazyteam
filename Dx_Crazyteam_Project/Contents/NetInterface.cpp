@@ -28,7 +28,7 @@ void UNetInterface::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 }
 
-void UNetInterface::PlayerSendPacket(float _DeltaTime)
+void UNetInterface::BaseNetInit(float _DeltaTime)
 {
 	if (false == IsNetInit())
 	{
@@ -40,6 +40,11 @@ void UNetInterface::PlayerSendPacket(float _DeltaTime)
 	}
 
 	CurTime -= _DeltaTime;
+}
+
+void UNetInterface::PlayerSendPacket(float _DeltaTime)
+{
+	BaseNetInit(_DeltaTime);
 
 	if (0.0f >= CurTime && true == IsNetInit())
 	{
@@ -55,16 +60,7 @@ void UNetInterface::PlayerSendPacket(float _DeltaTime)
 
 void UNetInterface::PlayerShadowPacket(float _DeltaTime)
 {
-	if (false == IsNetInit())
-	{
-		// 네트워크 통신준비가 아직 안된 오브젝트다.
-		if (nullptr != UGame_Core::Net)
-		{
-			InitNet(UGame_Core::Net);
-		}
-	}
-
-	CurTime -= _DeltaTime;
+	BaseNetInit(_DeltaTime);
 
 	if (0.0f >= CurTime && true == IsNetInit())
 	{
