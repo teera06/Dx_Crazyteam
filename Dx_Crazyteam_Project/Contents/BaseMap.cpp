@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "BaseMap.h"
 #include "Block.h"
+#include "CampBlock.h"
 #include <EngineCore/DefaultSceneComponent.h>
 #include <algorithm>
 
@@ -32,7 +33,7 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 	}
 
 	if (_CheckPos.Y > TileSize.Y / 2.f * (TileY-1) ||
-		_CheckPos.Y < TileSize.Y / 2.f * (-TileY-1))
+		_CheckPos.Y < TileSize.Y / 2.f * (-(TileY-1)))
 	{
 		return false;
 	}
@@ -94,7 +95,6 @@ void ABaseMap::BeginPlay()
 			PushPos.Y = FirstPos.Y - TileSize.Y * y;
 
 			Default->SetActorLocation(PushPos);
-			Default->SetActorScale3D(TileSize);
 
 			MapStatus[y].push_back(Default);
 		}
@@ -116,12 +116,14 @@ void ABaseMap::AddMapObject(int _Y, int _X, EMapObject _MapObjectType)
 	case EMapObject::NormalBlock:
 		MapObj = GetWorld()->SpawnActor<ABlock>("Block");
 		break;
+	case EMapObject::CampBlock:
+		MapObj = GetWorld()->SpawnActor<ACampBlock>("CampBlock");
+		break;
 	default:
 		break;
 	}
 
 	MapObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
-	MapObj->SetActorScale3D(TileSize);
 
 	MapStatus[_Y][_X]->Destroy();
 	MapStatus[_Y][_X] = MapObj;

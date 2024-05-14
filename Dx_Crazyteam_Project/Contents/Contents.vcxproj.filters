@@ -49,6 +49,9 @@
     <Filter Include="Map\Debug">
       <UniqueIdentifier>{32d5609f-fb42-44be-a167-7333da739bcc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Map\Camp">
+      <UniqueIdentifier>{7bb02701-73e1-48c9-bfb3-860f5c889d97}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Level\MainLevel">
       <UniqueIdentifier>{0cfefc0a-afca-477a-b165-c5fe30c8c993}</UniqueIdentifier>
     </Filter>
@@ -129,6 +132,12 @@
     <ClInclude Include="MapDebugGUI.h">
       <Filter>Map\Debug</Filter>
     </ClInclude>
+    <ClInclude Include="Camp.h">
+      <Filter>Map\Camp</Filter>
+    </ClInclude>
+    <ClInclude Include="CampBlock.h">
+      <Filter>MapObject</Filter>
+    </ClInclude>
     <ClInclude Include="MainGameMode.h">
       <Filter>Level\MainLevel</Filter>
     </ClInclude>
@@ -208,6 +217,12 @@
     </ClCompile>
     <ClCompile Include="MapDebugGUI.cpp">
       <Filter>Map\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Camp.cpp">
+      <Filter>Map\Camp</Filter>
+    </ClCompile>
+    <ClCompile Include="CampBlock.cpp">
+      <Filter>MapObject</Filter>
     </ClCompile>
     <ClCompile Include="MainGameMode.cpp">
       <Filter>Level\MainLevel</Filter>

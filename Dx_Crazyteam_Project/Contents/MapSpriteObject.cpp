@@ -21,7 +21,10 @@ void AMapSpriteObject::BeginPlay()
 	Super::BeginPlay();
 
 	FrontRenderer->SetOrder(EObjectOrder::BlockFront);
+
 	BackRenderer->SetOrder(EObjectOrder::BlockBack);
+	BackRenderer->SetPivot(EPivot::BOT);
+	BackRenderer->AddPosition(FVector(0.f, 20.f, 0.f));
 }
 
 void AMapSpriteObject::Tick(float _DeltaTime)

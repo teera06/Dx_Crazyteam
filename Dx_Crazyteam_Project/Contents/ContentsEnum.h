@@ -37,4 +37,5 @@ enum class EMapObjectType {
 enum class EMapObject
 {
 	NormalBlock,
+	CampBlock,
 };
