@@ -47,6 +47,7 @@ void AServerGameMode::BeginPlay()
 	PlayLobby = GetWorld()->SpawnActor<APlayLobby>("PlayLobby");
 	TitleMenu = GetWorld()->SpawnActor<ATitleMenu>("TitleMenu");
 
+	TitleMenu->GetFunction();
 }
 
 void AServerGameMode::Tick(float _DeltaTime)
