@@ -3,6 +3,7 @@
 #include <EngineBase/NetObject.h>
 
 class AUitestMonde;
+class AServerGameMode;
 class UImage;
 class UTextWidget;
 class ATitleMenu : public AActor, public UNetObject
@@ -25,7 +26,8 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	AUitestMonde* UIGameMode = nullptr;
+	//AUitestMonde* UIGameMode = nullptr;
+	AServerGameMode* ServerGameMode = nullptr;
 	UTextWidget* TestText = nullptr;
 
 };

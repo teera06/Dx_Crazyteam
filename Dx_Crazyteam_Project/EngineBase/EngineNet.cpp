@@ -21,8 +21,8 @@ UEngineNet::~UEngineNet()
 void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 {
 	UEngineSerializer Ser;
-	//Ser.BufferResize(1024);
-	Ser.BufferResize(2048);
+	Ser.BufferResize(1024);
+	//Ser.BufferResize(2048);
 
 	UEngineDispatcher& Dis = _Net->Dispatcher;
 
@@ -95,6 +95,12 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 			continue;
 		}
 
+		if (Ser.GetReadOffset() > 1024)
+		{
+			MsgBoxAssert("ReadOffset이 1024를 넘었습니다.");
+			return;
+		}
+
 		while(true)
 		{
 			std::shared_ptr<UEngineProtocol> Protocal = Dis.ConvertProtocol(Protocol.GetPacketType(), Ser);
@@ -111,6 +117,8 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 				Ser.Reset();
 				break;
 			}
+
+
 
 			if (16 > RemainOffset)
 			{

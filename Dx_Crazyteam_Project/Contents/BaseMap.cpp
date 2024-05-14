@@ -123,7 +123,7 @@ void ABaseMap::Tick(float _DeltaTime)
 }
 
 
-void ABaseMap::AddMapObject(int _Y, int _X, EMapObject _MapObjectType)
+std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _MapObjectType)
 {
 	std::shared_ptr<AMapObject> MapObj = nullptr;
 	switch (_MapObjectType)
@@ -171,6 +171,8 @@ void ABaseMap::AddMapObject(int _Y, int _X, EMapObject _MapObjectType)
 
 	MapStatus[_Y][_X]->Destroy();
 	MapStatus[_Y][_X] = MapObj;
+
+	return MapObj;
 }
 
 void ABaseMap::SpawnWaterBomb(FVector _SpawnPos)
