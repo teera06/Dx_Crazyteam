@@ -32,6 +32,7 @@ enum class EMapObjectType {
 
 enum class EMapObject
 {
+	Default,
 	NormalBlock,
 	CampBlock,
 	WaterBomb,
