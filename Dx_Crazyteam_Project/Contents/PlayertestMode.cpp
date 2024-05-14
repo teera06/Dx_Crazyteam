@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "PlayertestMode.h"
 #include "ItemBubble.h"
+#include "ItemRoller.h"
+
 
 APlayerTestMode::APlayerTestMode()
 {
@@ -26,6 +28,10 @@ void APlayerTestMode::BeginPlay()
 
 	std::shared_ptr<AItemBubble> Bubble = GetWorld()->SpawnActor<AItemBubble>("ItemTest");
 	Bubble->SetActorLocation(Player1->GetActorLocation());
+
+	std::shared_ptr<AItemRoller> Roller = GetWorld()->SpawnActor<AItemRoller>("ItemTest");
+	Roller->SetActorLocation(FVector(100.0f, 100.0f, 0.0f));
+
 }
 
 void APlayerTestMode::Tick(float _DeltaTime)

@@ -3,6 +3,7 @@
 
 AItemRoller::AItemRoller()
 {
+	SetItemType(EItemType::ItemRoller);
 }
 
 AItemRoller::~AItemRoller()
@@ -13,9 +14,9 @@ void AItemRoller::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	//FrontRenderer->CreateAnimation("ItemRoller", "Roller.png", true, 0.5f);
-
-
+	FrontRenderer->CreateAnimation("ItemRoller", "Roller.png", 0.2f, true, 0, 5);
+	FrontRenderer->ChangeAnimation("ItemRoller");
+	FrontRenderer->SetAutoSize(1.0f, true);
 
 }
 

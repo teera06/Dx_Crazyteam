@@ -135,5 +135,7 @@ private:
 	float4 ScreenMouseDir;
 	float4 ScreenMouseDirNormal;
 
+
 	FVector GetMousePosition();
+
 };
