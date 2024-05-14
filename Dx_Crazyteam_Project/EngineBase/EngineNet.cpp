@@ -21,7 +21,8 @@ UEngineNet::~UEngineNet()
 void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 {
 	UEngineSerializer Ser;
-	Ser.BufferResize(1024);
+	//Ser.BufferResize(1024);
+	Ser.BufferResize(2048);
 
 	UEngineDispatcher& Dis = _Net->Dispatcher;
 
