@@ -262,6 +262,7 @@
     </ClCompile>
     <ClCompile Include="NetInterface.cpp">
       <Filter>Level\ServerLevel</Filter>
+    </ClCompile>
     <ClCompile Include="CAObject.cpp" />
     <ClCompile Include="NetInterface.cpp" />
     <ClCompile Include="Player_Shadow.cpp">
