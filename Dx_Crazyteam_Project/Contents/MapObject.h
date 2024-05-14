@@ -22,12 +22,12 @@ public:
 		return Type;
 	}
 
+	std::function<void()> PlayerInteract;
+	std::function<void()> WaterInteract;
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
-
-	std::function<void()> PlayerInteract;
-	std::function<void()> WaterInteract;
 
 	EMapObjectType Type = EMapObjectType::None;
 

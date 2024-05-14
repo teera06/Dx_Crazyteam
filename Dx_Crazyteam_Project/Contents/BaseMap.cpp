@@ -164,6 +164,11 @@ void ABaseMap::SpawnWaterBomb(FVector _SpawnPos)
 	AddMapObject(BombPoint.y, BombPoint.x, EMapObject::WaterBomb);
 }
 
+void ABaseMap::SpawnWaterBomb(int _Y, int _X)
+{
+	AddMapObject(_Y, _X, EMapObject::WaterBomb);
+}
+
 void ABaseMap::DestroyMapObject(int _Y, int _X)
 {
 
