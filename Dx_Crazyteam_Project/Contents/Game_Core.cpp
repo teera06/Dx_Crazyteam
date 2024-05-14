@@ -49,7 +49,7 @@ void UGame_Core::MainLoad()
 			}
 		}
 	}
-
+	
 	UEngineSprite::CreateCutting("Bazzi_1.bmp", 5, 18);
 	UEngineSprite::CreateCutting("Bazzi_1a.bmp", 5, 18);
 	UEngineSprite::CreateCutting("Bazzi_2.bmp", 5, 2);
@@ -75,4 +75,17 @@ void UGame_Core::MainLoad()
 	UEngineSprite::CreateCutting("bazzi_left.png", 6, 1);
 	UEngineSprite::CreateCutting("bazzi_down.png", 8, 1);
 	UEngineSprite::CreateCutting("bazzi_up.png", 8, 1);
+
+	// π∞¡Ÿ±‚
+	{
+		UEngineSprite::CreateCutting("Center11.png", 1, 4);
+		UEngineSprite::CreateCutting("down12.png", 11, 1);
+		UEngineSprite::CreateCutting("down22.png", 11, 1);
+		UEngineSprite::CreateCutting("left12.png", 11, 1);
+		UEngineSprite::CreateCutting("left22.png", 11, 1);
+		UEngineSprite::CreateCutting("right12.png", 11, 1);
+		UEngineSprite::CreateCutting("right22.png", 11, 1);
+		UEngineSprite::CreateCutting("up12.png", 11, 1);
+		UEngineSprite::CreateCutting("up22.png", 11, 1);
+	}
 }

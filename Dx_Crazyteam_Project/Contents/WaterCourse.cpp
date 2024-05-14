@@ -23,7 +23,7 @@ void AWaterCourse::BeginPlay()
 	StateInit();
 	CreateAnimation();
 
-	WaterCourseRender->SetAutoSize(1.0f, true);
+	WaterCourseRender->SetAutoSize(5.0f, true);
 	WaterCourseRender->SetActive(false);
 }
 
@@ -57,21 +57,20 @@ void AWaterCourse::StateInit()
 
 void AWaterCourse::CreateAnimation()
 {
-	WaterCourseRender->CreateAnimation("", "", 0.125f, true); // 중
-	WaterCourseRender->CreateAnimation("", "", 0.125f, true); // 상
-	WaterCourseRender->CreateAnimation("", "", 0.125f, true); // 하
-	WaterCourseRender->CreateAnimation("", "", 0.125f, true); // 좌
-	WaterCourseRender->CreateAnimation("", "", 0.125f, true); // 우
-	WaterCourseRender->CreateAnimation("", "", 0.125f, true); // 끝 상
-	WaterCourseRender->CreateAnimation("", "", 0.125f, true); // 끝 하
-	WaterCourseRender->CreateAnimation("", "", 0.125f, true); // 끝 좌
-	WaterCourseRender->CreateAnimation("", "", 0.125f, true); // 끝 우
+	WaterCourseRender->CreateAnimation("Water_Center", "Center11.png", 0.125f, true); // 중
+	WaterCourseRender->CreateAnimation("Water_Up_Tick", "up12.png", 0.125f, true); // 상중
+	WaterCourseRender->CreateAnimation("Water_Up_Exit", "up22.png", 0.125f, true); // 상끝
+	WaterCourseRender->CreateAnimation("Water_Down_Tick", "down12.png", 0.125f, true); // 하중
+	WaterCourseRender->CreateAnimation("Water_Down_Exit", "down22.png", 0.125f, true); // 하끝
+	WaterCourseRender->CreateAnimation("Water_Left_Tick", "left12.png", 0.125f, true); // 좌중
+	WaterCourseRender->CreateAnimation("Water_Left_Exit", "left22.png", 0.125f, true); // 좌끝
+	WaterCourseRender->CreateAnimation("Water_Right_Tick", "right12.png", 0.125f, true); // 우중
+	WaterCourseRender->CreateAnimation("Water_Right_Exit", "right12.png", 0.125f, true); // 우끝
 
-
-	WaterCourseRender->ChangeAnimation("");
+	WaterCourseRender->ChangeAnimation("Water_Center");
 }
 
-
+#pragma region WallCling
 void AWaterCourse::NoneBegin()
 {
 }
@@ -79,7 +78,9 @@ void AWaterCourse::NoneBegin()
 void AWaterCourse::NoneTick(float _DeltaTime)
 {
 }
+#pragma endregion
 
+#pragma region Create
 void AWaterCourse::CreateBegin()
 {
 	// change Animation
@@ -110,6 +111,7 @@ void AWaterCourse::CreateBegin()
 	}
 
 	WaterCourseRender->SetActive(true);
+	WaterCourseRender->ChangeAnimation("Water_Center");
 	LifeTime = 0.0f;
 }
 
@@ -132,11 +134,11 @@ void AWaterCourse::CreateTick(float _DeltaTime)
 {
 	LifeTime += _DeltaTime;
 
-	if (1.0f <= LifeTime)
-	{
-		State.ChangeState("Delete");
-		return;
-	}
+	//if (1.0f <= LifeTime)
+	//{
+	//	State.ChangeState("Delete");
+	//	return;
+	//}
 }
 
 void AWaterCourse::CreateExit()
@@ -144,9 +146,10 @@ void AWaterCourse::CreateExit()
 	LifeTime = 0.0f;
 	WaterCourseRender->SetActive(false);
 }
+#pragma endregion
 
 
-
+#pragma region Delete
 void AWaterCourse::DeleteBegin()
 {
 }
@@ -160,3 +163,4 @@ void AWaterCourse::DeleteTick(float _DeltaTime)
 void AWaterCourse::DeleteExit()
 {
 }
+#pragma endregion
