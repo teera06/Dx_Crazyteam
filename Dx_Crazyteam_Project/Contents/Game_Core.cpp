@@ -4,13 +4,16 @@
 #include "testGameMode.h"
 #include "UitestMonde.h"
 #include "PlayertestMode.h"
-
-
+#include "ServerGameMode.h"
+#include "MainGameMode.h"
+#include "SubServerLevel.h"
 
 #include "ContentsDebugWindow.h"
 
 #include <EngineCore/EngineDebugMsgWindow.h>
 #include <EngineCore/EngineEditorGUI.h>
+#include <EngineCore/EngineFont.h>
+
 
 std::shared_ptr<UEngineNet> UGame_Core::Net = nullptr;
 
@@ -21,15 +24,20 @@ UGame_Core::UGame_Core()
 UGame_Core::~UGame_Core()
 {
 }
-
 void UGame_Core::Initialize()
 {
+	UEngineFont::Load("±Ã¼­");
 	MainLoad();
+	CuttingAni();
+	SoundLoad();
 
 	GEngine->CreateLevel<ATestGameMode>("testGameMode");
 	GEngine->CreateLevel<APlayerTestMode>("PlayertestMode");
 	GEngine->CreateLevel<AUitestMonde>("UitestMonde");
-	GEngine->ChangeLevel("UitestMonde");
+	GEngine->CreateLevel<AMainGameMode>("MainGameMode");
+	GEngine->CreateLevel<AServerGameMode>("ServerGameMode");
+	GEngine->CreateLevel<ASubServerLevel>("SubServerLevel");
+	GEngine->ChangeLevel("MainGameMode");
 
 	UEngineEditorGUI::CreateEditorWindow<UContentsDebugWindow>("contentsHelpMe");
 
@@ -49,7 +57,27 @@ void UGame_Core::MainLoad()
 			}
 		}
 	}
+}
 
+void UGame_Core::ForderLoadAni()
+{
+	UEngineDirectory Dir;
+	Dir.MoveToSearchChild("GameResource");
+	Dir.Move("Image\\UI");
+	{
+		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
+
+		for (size_t i = 0; i < Directorys.size(); i++)
+		{
+			std::string Name = Directorys[i].GetFolderName();
+
+			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
+		}
+	}
+}
+
+void UGame_Core::CuttingAni()
+{
 	UEngineSprite::CreateCutting("Bazzi_1.bmp", 5, 18);
 	UEngineSprite::CreateCutting("Bazzi_1a.bmp", 5, 18);
 	UEngineSprite::CreateCutting("Bazzi_2.bmp", 5, 2);
@@ -75,4 +103,23 @@ void UGame_Core::MainLoad()
 	UEngineSprite::CreateCutting("bazzi_left.png", 6, 1);
 	UEngineSprite::CreateCutting("bazzi_down.png", 8, 1);
 	UEngineSprite::CreateCutting("bazzi_up.png", 8, 1);
+}
+
+void UGame_Core::SoundLoad()
+{
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("GameResource");
+		Dir.Move("Sound");
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".wav" });
+		for (UEngineFile& File : Files)
+		{
+			File.Open(EIOOpenMode::Read, EIODataType::Binary);
+
+			char Arr[100];
+			File.Read(Arr, 100);
+
+			UEngineSound::Load(File.GetFullPath());
+		}
+	}
 }

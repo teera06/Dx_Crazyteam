@@ -27,5 +27,9 @@ private:
 	std::atomic_int MainLoadCount = -1;
 
 	void MainLoad();
+	void ForderLoadAni();
+	void CuttingAni();
+
+	void SoundLoad();
 };
 

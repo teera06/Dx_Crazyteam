@@ -12,8 +12,6 @@ class AServerGameMode : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
 
-	
-
 public:
 	// constrcuter destructer
 	AServerGameMode();
