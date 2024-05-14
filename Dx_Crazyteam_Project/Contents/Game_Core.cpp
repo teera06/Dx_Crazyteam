@@ -107,6 +107,19 @@ void UGame_Core::CuttingAni()
 	UEngineSprite::CreateCutting("dao_up.png", 4, 1);
 	UEngineSprite::CreateCutting("dao_idle.png", 4, 1);
 
+
+	{
+		//Item
+		UEngineSprite::CreateCutting("Bubble(1).png", 6, 1);
+		UEngineSprite::CreateCutting("Roller.png", 6, 1);
+		UEngineSprite::CreateCutting("Fluid.png", 6, 1);
+
+		//Item Shadow
+		//UEngineSprite::CreateCutting("ItemShadow.png", 6, 1);
+
+	}
+
+
 	{
 		UEngineSprite::CreateCutting("GameTimer.png", 10, 1);
 	}

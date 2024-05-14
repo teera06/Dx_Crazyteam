@@ -15,7 +15,7 @@ class ATitleMenu;
 class APlayLobby;
 class AServerGameMode : public ACAGameMode
 {
-	GENERATED_BODY(AGameMode)
+	GENERATED_BODY(ACAGameMode)
 
 public:
 	// constrcuter destructer
@@ -44,8 +44,8 @@ protected:
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
-	void LevelStart(ULevel* _DeltaTime) override;
-	void LevelEnd(ULevel* _DeltaTime) override;
+	void LevelStart(ULevel* _PrevLevel) override;
+	void LevelEnd(ULevel* _NextLevel) override;
 	void CollectWindowAppear();
 };
 

@@ -73,6 +73,12 @@
     <Filter Include="MapObject\MoveBlock\CampMoveBlock">
       <UniqueIdentifier>{6f4636d5-c4e8-4088-a3fc-23fdb34859f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MapObject\Item">
+      <UniqueIdentifier>{a62c0951-a00b-4530-ae3e-97248b0fe3a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\ServerLevel\Test">
+      <UniqueIdentifier>{99371aa4-b2d2-4f4c-aa56-f2ea777b40df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -80,9 +86,6 @@
     </ClInclude>
     <ClInclude Include="ContentsEnum.h">
       <Filter>Option</Filter>
-    </ClInclude>
-    <ClInclude Include="ServerGameMode.h">
-      <Filter>Level\ServerLevel</Filter>
     </ClInclude>
     <ClInclude Include="ServerPlayer.h">
       <Filter>Level\ServerLevel</Filter>
@@ -183,13 +186,25 @@
     <ClInclude Include="CampMoveBlock.h">
       <Filter>MapObject\MoveBlock\CampMoveBlock</Filter>
     </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>MapObject\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBubble.h">
+      <Filter>MapObject\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="TestLobbyMode.h">
+      <Filter>Level\ServerLevel\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerGameMode.h">
+      <Filter>Level\ServerLevel\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemRoller.h">
+      <Filter>MapObject\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
-    </ClCompile>
-    <ClCompile Include="ServerGameMode.cpp">
-      <Filter>Level\ServerLevel</Filter>
     </ClCompile>
     <ClCompile Include="ServerPlayer.cpp">
       <Filter>Level\ServerLevel</Filter>
@@ -272,9 +287,6 @@
     <ClCompile Include="ConstValue.cpp">
       <Filter>Option</Filter>
     </ClCompile>
-    <ClCompile Include="NetInterface.cpp">
-      <Filter>Level\ServerLevel</Filter>
-    </ClCompile>
     <ClCompile Include="CAObject.cpp" />
     <ClCompile Include="NetInterface.cpp" />
     <ClCompile Include="Player_Shadow.cpp">
@@ -294,6 +306,24 @@
     </ClCompile>
     <ClCompile Include="CampMoveBlock.cpp">
       <Filter>MapObject\MoveBlock\CampMoveBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>MapObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBubble.cpp">
+      <Filter>MapObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="TestLobbyMode.cpp">
+      <Filter>Level\ServerLevel\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="NetInterface.cpp">
+      <Filter>Level\ServerLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerGameMode.cpp">
+      <Filter>Level\ServerLevel\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemRoller.cpp">
+      <Filter>MapObject\Item</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
