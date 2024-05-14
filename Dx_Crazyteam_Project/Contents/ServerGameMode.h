@@ -4,11 +4,14 @@
 #include <EngineBase/EngineNetHeader.h>
 #include <EngineCore/EngineNetWindow.h>
 #include <EngineBase/EngineDispatcher.h>
+#include "CAGameMode.h"
+
 
 // Ό³Έν :
 class UEngineNetWindow;
-class AServerPlayer;
-class AServerGameMode : public AGameMode
+class APlayer;
+class AVillage;
+class AServerGameMode : public ACAGameMode
 {
 	GENERATED_BODY(AGameMode)
 
@@ -34,6 +37,7 @@ protected:
 	void LevelEnd(ULevel* _DeltaTime) override;
 
 	std::shared_ptr<UEngineNetWindow> NetWindow;
-	std::shared_ptr<AServerPlayer> MainPlayer = nullptr;
+	std::shared_ptr<APlayer> MainPlayer = nullptr;
+	std::shared_ptr<AVillage> Village = nullptr;
 };
 
