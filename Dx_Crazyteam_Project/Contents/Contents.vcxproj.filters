@@ -49,6 +49,9 @@
     <Filter Include="Map\Debug">
       <UniqueIdentifier>{32d5609f-fb42-44be-a167-7333da739bcc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\MainLevel">
+      <UniqueIdentifier>{0cfefc0a-afca-477a-b165-c5fe30c8c993}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -126,6 +129,9 @@
     <ClInclude Include="MapDebugGUI.h">
       <Filter>Map\Debug</Filter>
     </ClInclude>
+    <ClInclude Include="MainGameMode.h">
+      <Filter>Level\MainLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -202,6 +208,9 @@
     </ClCompile>
     <ClCompile Include="MapDebugGUI.cpp">
       <Filter>Map\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="MainGameMode.cpp">
+      <Filter>Level\MainLevel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

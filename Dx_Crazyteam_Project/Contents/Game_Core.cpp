@@ -8,6 +8,7 @@
 
 
 #include "ContentsDebugWindow.h"
+#include "MainGameMode.h"
 
 #include <EngineCore/EngineDebugMsgWindow.h>
 #include <EngineCore/EngineEditorGUI.h>
@@ -21,7 +22,6 @@ UGame_Core::UGame_Core()
 UGame_Core::~UGame_Core()
 {
 }
-
 void UGame_Core::Initialize()
 {
 	MainLoad();
@@ -29,7 +29,8 @@ void UGame_Core::Initialize()
 	GEngine->CreateLevel<ATestGameMode>("testGameMode");
 	GEngine->CreateLevel<APlayerTestMode>("PlayertestMode");
 	GEngine->CreateLevel<AUitestMonde>("UitestMonde");
-	GEngine->ChangeLevel("UitestMonde");
+	GEngine->CreateLevel<AMainGameMode>("MainGameMode");
+	GEngine->ChangeLevel("MainGameMode");
 
 	UEngineEditorGUI::CreateEditorWindow<UContentsDebugWindow>("contentsHelpMe");
 
