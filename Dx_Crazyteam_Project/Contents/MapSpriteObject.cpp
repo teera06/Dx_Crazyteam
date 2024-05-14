@@ -20,9 +20,9 @@ void AMapSpriteObject::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FrontRenderer->SetOrder(EObjectOrder::BlockFront);
+	FrontRenderer->SetOrder(ERenderOrder::BlockFront);
 
-	BackRenderer->SetOrder(EObjectOrder::BlockBack);
+	BackRenderer->SetOrder(ERenderOrder::BlockBack);
 	BackRenderer->SetPivot(EPivot::BOT);
 	BackRenderer->AddPosition(FVector(0.f, 20.f, 0.f));
 }

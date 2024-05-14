@@ -5,7 +5,7 @@
 class ACAGameMode;
 class ACAObject : public UNetInterface
 {
-	GENERATED_BODY(AActor)
+	GENERATED_BODY(UNetInterface)
 public:
 	// constructor destructor
 	ACAObject();

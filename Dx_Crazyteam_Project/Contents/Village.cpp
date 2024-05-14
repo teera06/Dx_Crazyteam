@@ -15,7 +15,7 @@ void AVillage::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetOrder(EObjectOrder::Map);
+	Renderer->SetOrder(ERenderOrder::Map);
 	Renderer->SetSprite("BossStage_Back.png");
 	Renderer->SetAutoSize(1.f, true);
 }

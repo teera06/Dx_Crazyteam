@@ -1,10 +1,11 @@
 #pragma once
 
-enum class EObjectOrder
+enum class ERenderOrder
 {
 	None,
 	Background,
 	Map,
+	Shadow,
 	BlockFront,
 	Player,
 	BlockBack,
@@ -16,13 +17,6 @@ enum class ECollisionOrder
 {
 	Player,
 	Monster,
-};
-
-enum class ERenderOrder
-{
-	Back,
-	Player,
-	Test,
 };
 
 enum class EMapObjectType {
