@@ -20,6 +20,26 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	void StateInit();
+	void CreateAnimation();
+	void NoneBegin();
+	void NoneTick(float _DeltaTime);
+	void IdleBegin();
+	void IdleTick(float _DeltaTime);
+	void IdleExit();
+	void PushBegin();
+	void PushTick(float _DeltaTime);
+	void PushExit();
+	void EndBegin();
+	void EndTick(float _DeltaTime);
+	void EndExit();
+
+	UStateManager State;
+
+	bool IsPush = false;
+
+	float MoveSpeed = 0.f;
+
 private:
 
 };

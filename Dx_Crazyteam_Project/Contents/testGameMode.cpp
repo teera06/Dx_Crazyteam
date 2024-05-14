@@ -25,7 +25,7 @@ void ATestGameMode::BeginPlay()
 	std::shared_ptr<ACamp> Camp = GetWorld()->SpawnActor<ACamp>("Camp");
 	SetCurMap(Camp);
 	Camp->SetCurGameMode(this);
-	//Camp->SpawnWaterBomb(0, 0);
+	Camp->SpawnWaterBomb(0, 0);
 
 	Player1 = GetWorld()->SpawnActor<APlayer>("Player1", 0);
 	Player1->SetCurGameMode(this);

@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "MapObject.h"
 #include <EngineCore/DefaultSceneComponent.h>
+#include "CAGameMode.h"
+#include "Player.h"
 
 AMapObject::AMapObject()
 {

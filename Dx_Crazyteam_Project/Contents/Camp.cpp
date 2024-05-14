@@ -36,6 +36,6 @@ void ACamp::AddObjectInit()
 			AddMapObject(y, x, EMapObject::CampBlock);
 		}
 	}
-	
+	AddMapObject(0, 1, EMapObject::CampBlock);
 }
 

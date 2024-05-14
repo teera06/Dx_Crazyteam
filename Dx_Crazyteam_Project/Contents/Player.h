@@ -28,7 +28,8 @@ public:
 	APlayer(APlayer&& _Other) noexcept = delete;
 	APlayer& operator=(const APlayer& _Other) = delete;
 	APlayer& operator=(APlayer&& _Other) noexcept = delete;
-	
+
+
 protected:
 	std::shared_ptr<PlayerInfo> Info = nullptr;
 	UStateManager State;
