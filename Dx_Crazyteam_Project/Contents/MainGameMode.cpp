@@ -40,11 +40,6 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 	Super::LevelStart(_PrevLevel);
 
 #ifdef _DEBUG
-	if (nullptr == MapDebugWindow)
-	{
-		MapDebugWindow = UEngineEditorGUI::CreateEditorWindow<UMapDebugGUI>("MapObject");
-	}
-	MapDebugWindow->On();
 #endif // _DEBUG
 }
 
