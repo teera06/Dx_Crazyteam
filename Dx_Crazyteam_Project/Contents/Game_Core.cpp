@@ -81,7 +81,7 @@ void UGame_Core::MainLoad()
 
 	// π∞¡Ÿ±‚
 	{
-		UEngineSprite::CreateCutting("Center11.png", 1, 4);
+		UEngineSprite::CreateCutting("Center11.png", 4, 1);
 		UEngineSprite::CreateCutting("down12.png", 11, 1);
 		UEngineSprite::CreateCutting("down22.png", 11, 1);
 		UEngineSprite::CreateCutting("left12.png", 11, 1);

@@ -1,10 +1,11 @@
 #pragma once
 #include <EngineCore/Actor.h>
+#include "Block.h"
 
 class USpriteRenderer;
-class AWaterCourse : public AActor
+class AWaterCourse : public ABlock
 {
-	GENERATED_BODY(AActor)
+	GENERATED_BODY(ABlock)
 
 public :
 	// constructor destructor
@@ -17,19 +18,34 @@ public :
 	AWaterCourse& operator=(const AWaterCourse& _Other) = delete;
 	AWaterCourse& operator=(AWaterCourse&& _Other) noexcept = delete;
 	
-	inline void SetTheEnd(bool _Val)
+	inline void SetPowerValue(size_t _Power)
 	{
-		b_TheEnd = _Val;
+		PowerValue = _Power;
 	}
 
-	inline void SetWaterCourseDir(EEngineDir _Dir)
-	{
-		Dir = _Dir;
-	}
 
-	inline void CreateWaterCourse()
+	/// <summary>
+	/// 물줄기 중간 생성.
+	/// </summary>
+	inline void CreateWaterCenter()
 	{
-		State.ChangeState("Create");
+		State.ChangeState("CreateCenter");
+		return;
+	}
+	/// <summary>
+	/// 물줄기 생성.
+	/// </summary>
+	inline void CreateWaterStream()
+	{
+		State.ChangeState("CreateStream");
+		return;
+	}
+	/// <summary>
+	/// 물줄기 끝 생성.
+	/// </summary>
+	inline void CreateWaterEndStem()
+	{
+		State.ChangeState("CreateEndStem");
 		return;
 	}
 
@@ -40,21 +56,27 @@ protected:
 private :
 	void StateInit();
 	void CreateAnimation();
-	void ChangeAnimation(std::string_view _AniName ,bool _Val);
 
 	void NoneBegin();
 	void NoneTick(float _DeltaTime);
-	void CreateBegin();
-	void CreateTick(float _DeltaTime);
-	void CreateExit();
+
+	void CreateCenterBegin();
+	void CreateCenterTick(float _DeltaTime);
+	void CreateCenterExit();
+	void CreateStreamBegin();
+	void CreateStreamTick(float _DeltaTime);
+	void CreateStreamExit();
+	void CreateEndStemBegin();
+	void CreateEndStemTick(float _DeltaTime);
+	void CreateEndStemExit();
 	void DeleteBegin();
 	void DeleteTick(float _DeltaTime);
 	void DeleteExit();
 
-	bool b_TheEnd = false;
 	UStateManager State;
 	USpriteRenderer* WaterCourseRender = nullptr;
-	EEngineDir Dir = EEngineDir::MAX;
 	float LifeTime = 0.0f;
+	float CreateTime = 0.0f;
+	size_t PowerValue = 0;
 };
 
