@@ -24,6 +24,7 @@ protected:
 	UDefaultSceneComponent* Root = nullptr;
 
 	void PlayerSendPacket(float _DeltaTime);
+	void PlayerShadowPacket(float _DeltaTime);
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
