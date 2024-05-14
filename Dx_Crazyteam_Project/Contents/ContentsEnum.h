@@ -36,6 +36,7 @@ enum class EMapObject
 	NormalBlock,
 	CampBlock,
 	WaterBomb,
+	Water,
 };
 
 enum class ECharacterType

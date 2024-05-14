@@ -3,6 +3,7 @@
 #include "Block.h"
 #include "CampBlock.h"
 #include "WaterBomb.h"
+#include "WaterCourse.h"
 #include <EngineCore/DefaultSceneComponent.h>
 #include <algorithm>
 
@@ -149,6 +150,14 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 		std::shared_ptr<AWaterBomb> TempObj = GetWorld()->SpawnActor<AWaterBomb>("CampBlock");
 		TempObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
 		TempObj->CreateWaterBomb();
+		MapObj = TempObj;
+		break;
+	}
+	case EMapObject::Water:
+	{
+		std::shared_ptr<AWaterCourse> TempObj = GetWorld()->SpawnActor<AWaterCourse>("CampBlock");
+		TempObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
+		TempObj->CreateWaterCenter();
 		MapObj = TempObj;
 		break;
 	}

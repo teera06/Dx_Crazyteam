@@ -6,12 +6,8 @@
 
 AWaterCourse::AWaterCourse()
 {
-	//UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
-	//SetRoot(Root);
-
 	WaterCourseRender = CreateDefaultSubObject<USpriteRenderer>("Render");
 	WaterCourseRender->SetupAttachment(Root);
-
 }
 
 AWaterCourse::~AWaterCourse()
@@ -36,7 +32,7 @@ void AWaterCourse::Tick(float _DeltaTime)
 
 	if (true == CreateStart)
 	{
-		CreateWaterStream(_DeltaTime);
+		//CreateWaterStream(_DeltaTime);
 	}
 }
 
@@ -154,7 +150,6 @@ void AWaterCourse::CreateCenterExit()
 #pragma region CreateStream // 물줄기
 void AWaterCourse::CreateStreamBegin()
 {
-	std::string AnimationName = "Stream";
 	switch (WaterCourseDir)
 	{
 	case EEngineDir::Up:
@@ -197,10 +192,6 @@ void AWaterCourse::CreateStreamTick(float _DeltaTime)
 void AWaterCourse::CreateStreamExit()
 {
 	CenterLifeTime = 0.0f;
-	
-	preStateName = State.GetCurStateName();
-	
-	WaterCourseRender->SetActive(false);
 }
 #pragma endregion
 
@@ -221,15 +212,6 @@ void AWaterCourse::CreateEndStemExit()
 #pragma region Delete
 void AWaterCourse::DeleteBegin()
 {
-	
-	if (preStateName == "CreateStream")
-	{
-		//WaterCourseRender->ChangeAnimation("");
-	}
-	else if (preStateName == "")
-	{
-
-	}
 }
 
 void AWaterCourse::DeleteTick(float _DeltaTime)
@@ -256,9 +238,10 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 
 	if (CreateTime <= CreateDeltaTime)
 	{
+		CurPos;
 		// 만들어 질 곳에 뭐가 있음?
 		{
-			std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(BombPoint.y - 1, BombPoint.x);
+			std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y , CurPos.x+1);
 			EMapObjectType type = NextMapObject->GetType();
 			if (type == EMapObjectType::None)
 			{
@@ -267,8 +250,8 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				Stem->CreateWaterStream();
 			}
 		}
-		{
-			std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(BombPoint.y + 1, BombPoint.x);
+		/*{
+			std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y + 1, CurPos.x);
 			EMapObjectType type = NextMapObject->GetType();
 			if (type == EMapObjectType::None)
 			{
@@ -278,7 +261,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 			}
 		}
 		{
-			std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(BombPoint.y, BombPoint.x - 1);
+			std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y, CurPos.x - 1);
 			EMapObjectType type = NextMapObject->GetType();
 			if (type == EMapObjectType::None)
 			{
@@ -288,7 +271,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 			}
 		}
 		{
-			std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(BombPoint.y, BombPoint.x + 1);
+			std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y, CurPos.x + 1);
 			EMapObjectType type = NextMapObject->GetType();
 			if (type == EMapObjectType::None)
 			{
@@ -296,17 +279,14 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				Stem->SetDir(EEngineDir::Right);
 				Stem->CreateWaterStream();
 			}
-		}
+		}*/
 
 
 
 
 
-		CreateStart = false;
+		CreateStart = false; // Tick Control
 	}
-
-
-
 	//NextMapObject->WaterInteract();
 
 }
