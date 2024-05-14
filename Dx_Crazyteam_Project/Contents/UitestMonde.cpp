@@ -3,7 +3,7 @@
 
 #include "TitleMenu.h"
 #include "PlayLobby.h"
-#include "StageUI.h"
+#include "MapUI.h"
 #include "Intro.h"
 
 AUitestMonde::AUitestMonde()
@@ -21,8 +21,10 @@ void AUitestMonde::BeginPlay()
 
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -200.0f));
+
 	std::shared_ptr<ATitleMenu> TitleMenu = GetWorld()->SpawnActor<ATitleMenu>("TitleMenu");
-	PlayLobby = GetWorld()->SpawnActor<APlayLobby>("TitleMenu");
+	PlayLobby = GetWorld()->SpawnActor<APlayLobby>("PlayLobby");
+	MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
 
 }
 

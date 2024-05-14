@@ -6,9 +6,11 @@
 #include <EngineBase/EngineDispatcher.h>
 
 class APlayLobby;
+class AMapUI;
 class AUitestMonde : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
+
 public:
 	// constrcuter destructer
 	AUitestMonde(); // 디폴트 생성자
@@ -24,6 +26,12 @@ public:
 	{
 		return PlayLobby;
 	}
+
+	std::shared_ptr<AMapUI> GetMapUI()
+	{
+		return MapUI;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -32,5 +40,6 @@ protected:
 
 private:
 	std::shared_ptr<APlayLobby> PlayLobby = nullptr;
+	std::shared_ptr<AMapUI> MapUI = nullptr;
 };
 

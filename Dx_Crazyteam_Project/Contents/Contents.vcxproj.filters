@@ -114,7 +114,7 @@
     <ClInclude Include="Intro.h">
       <Filter>Level\UItestLevel</Filter>
     </ClInclude>
-    <ClInclude Include="StageUI.h">
+    <ClInclude Include="MapUI.h">
       <Filter>Level\UItestLevel</Filter>
     </ClInclude>
     <ClInclude Include="PlayLobby.h">
@@ -215,7 +215,7 @@
     <ClCompile Include="Intro.cpp">
       <Filter>Level\UItestLevel</Filter>
     </ClCompile>
-    <ClCompile Include="StageUI.cpp">
+    <ClCompile Include="MapUI.cpp">
       <Filter>Level\UItestLevel</Filter>
     </ClCompile>
     <ClCompile Include="PlayLobby.cpp">
@@ -257,5 +257,7 @@
     <ClCompile Include="ConstValue.cpp">
       <Filter>Option</Filter>
     </ClCompile>
+    <ClCompile Include="CAObject.cpp" />
+    <ClCompile Include="NetInterface.cpp" />
   </ItemGroup>
 </Project>
