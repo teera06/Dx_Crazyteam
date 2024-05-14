@@ -37,7 +37,7 @@ void APlayer::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 	PlayerSendPacket(_DeltaTime);
 
-	Shadow->SetActorLocation(GetActorLocation());
+	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 0));
 
 }
 

@@ -80,32 +80,32 @@ void APlayer::Move(float _DeltaTime)
 	{
 		Dir = FVector::Up;
 		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
-		NextPos2 = NextPos1 + FVector(-10, 0, 0);
-		NextPos3 = NextPos1 + FVector(10, 0, 0);
+		NextPos2 = NextPos1 + FVector(-15, 0, 0);
+		NextPos3 = NextPos1 + FVector(15, 0, 0);
 		MovePos = FVector::Up * Info->MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_DOWN))
 	{
 		Dir = FVector::Down;
-		NextPos1 = GetActorLocation() + MovePos + Dir * 10.f;
-		NextPos2 = NextPos1 + FVector(-10, 0, 0);
-		NextPos3 = NextPos1 + FVector(10, 0, 0);
+		NextPos1 = GetActorLocation() + MovePos + Dir * 5.f;
+		NextPos2 = NextPos1 + FVector(-15, 0, 0);
+		NextPos3 = NextPos1 + FVector(15, 0, 0);
 		MovePos = FVector::Down * Info->MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_RIGHT))
 	{
 		Dir = FVector::Right;
 		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
-		//NextPos2 = NextPos1 + FVector(0, -10, 0);
-		//NextPos3 = NextPos1 + FVector(0, 20, 0);
+		NextPos2 = NextPos1 + FVector(0, 10, 0);
+		NextPos3 = NextPos1 + FVector(0, 0, 0);
 		MovePos = FVector::Right * Info->MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_LEFT))
 	{
 		Dir = FVector::Left;
 		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
-		//NextPos2 = NextPos1 + FVector(0, -10, 0);
-		//NextPos3 = NextPos1 + FVector(0, 20, 0);
+		NextPos2 = NextPos1 + FVector(0, 10, 0);
+		NextPos3 = NextPos1 + FVector(0, 0, 0);
 		MovePos = FVector::Left * Info->MoveSpeed * _DeltaTime;
 	}
 
