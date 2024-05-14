@@ -37,8 +37,7 @@ void AWaterBomb::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 	State.Update(_DeltaTime);
 
-	
-
+	//WaterBombPacket(_DeltaTime, b_ServerBomb);
 }
 
 void AWaterBomb::StateInit()

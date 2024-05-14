@@ -6,7 +6,11 @@
 
 AMapObject::AMapObject()
 {
+	FrontRenderer = CreateDefaultSubObject<USpriteRenderer>("Front");
+	BackRenderer = CreateDefaultSubObject<USpriteRenderer>("Back");
 
+	FrontRenderer->SetupAttachment(Root);
+	BackRenderer->SetupAttachment(Root);
 }
 
 AMapObject::~AMapObject()
@@ -16,6 +20,8 @@ AMapObject::~AMapObject()
 void AMapObject::BeginPlay()
 {
 	Super::BeginPlay();
+	PlayerInteract = [](){};
+	WaterInteract = [](){};
 }
 
 void AMapObject::Tick(float _DeltaTime)

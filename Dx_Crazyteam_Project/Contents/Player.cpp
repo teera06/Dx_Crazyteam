@@ -52,6 +52,20 @@ void APlayer::Tick(float _DeltaTime)
 		State.ChangeState("Trap");
 		return;
 	}
+
+	if (true == IsDown('B'))
+	{
+		SetCharacterType(ECharacterType::Bazzi);
+		State.ChangeState("Idle");
+		return;
+	}
+
+	if (true == IsDown('D'))
+	{
+		SetCharacterType(ECharacterType::Dao);
+		State.ChangeState("Idle");
+		return;
+	}
 }
 
 std::string APlayer::GetAnimationName(std::string_view _StateName)

@@ -5,16 +5,6 @@
 #include "TextimeInput.h"
 #include <stdio.h>
 
-#define IME_KOREAN_SAMPLE
-#pragma warning(disable:4996)
-#if defined(IME_KOREAN_SAMPLE)
-char Text[255];     // 텍스트를 저장하기위한 변수
-char Cstr[10];      // 조합중인 문자!!
-
-int GetText(HWND hWnd, UINT msg, WPARAM wparam, LPARAM lparam);
-#endif
-
-
 
 
 bool UEngineWindow::WindowLive = true;
@@ -37,13 +27,6 @@ LRESULT CALLBACK UEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, 
 
 	//if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
 	//	return true;
-
-#if defined(IME_KOREAN_SAMPLE)
-	if (GetText(hWnd, message, wParam, lParam) == 0)
-	{
-		return 0;
-	}
-#endif
 
 	switch (message)
 	{
@@ -311,64 +294,3 @@ void UEngineWindow::CursorOn()
 	IsCursorValue = true;
 }
 
-#if defined(IME_KOREAN_SAMPLE)
-int GetText(HWND hWnd, UINT msg, WPARAM wparam, LPARAM lparam)
-{
-	int len;
-	HIMC m_hIMC = NULL;   // IME 핸들
-
-	switch (msg)
-	{
-	case WM_IME_COMPOSITION:
-		m_hIMC = ImmGetContext(hWnd);	// ime핸들을 얻는것
-
-		if (lparam & GCS_RESULTSTR)
-		{
-			if ((len = ImmGetCompositionString(m_hIMC, GCS_RESULTSTR, NULL, 0)) > 0)
-			{
-				// 완성된 글자가 있다.
-				ImmGetCompositionString(m_hIMC, GCS_RESULTSTR, Cstr, len);
-				Cstr[len] = 0;
-				strcpy(Text + strlen(Text), Cstr);
-				memset(Cstr, 0, 10);
-
-
-				{
-					char szTemp[256] = "";
-					printf(szTemp, "완성된 글자 : %s\r\n", Text);
-					OutputDebugString((szTemp));
-				}
-			}
-
-		}
-		else if (lparam & GCS_COMPSTR)
-		{
-			// 현재 글자를 조합 중이다.
-
-			// 조합중인 길이를 얻는다.
-			// str에  조합중인 문자를 얻는다.
-			len = ImmGetCompositionString(m_hIMC, GCS_COMPSTR, NULL, 0);
-			ImmGetCompositionString(m_hIMC, GCS_COMPSTR, Cstr, len);
-			Cstr[len] = 0;
-
-			{
-				char szTemp[256] = "";
-				printf(szTemp, "조합중인 글자 : %s\r\n", Cstr);
-				OutputDebugString((szTemp));
-			}
-		}
-
-		ImmReleaseContext(hWnd, m_hIMC);	// IME 핸들 반환!!
-		return 0;
-
-
-	case WM_CHAR:				// 1byte 문자 (ex : 영어)
-		return 0;
-	case WM_IME_NOTIFY:			// 한자입력...
-		return 0;
-	case WM_KEYDOWN:			// 키다운..
-		return 0;
-	}
-	return 1;
-}
-#endif

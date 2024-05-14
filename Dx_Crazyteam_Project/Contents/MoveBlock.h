@@ -1,6 +1,9 @@
 #pragma once
 #include "Block.h"
 
+const int dy[] = { -1,0,1,0 };
+const int dx[] = { 0,1,0,-1 };
+
 // Ό³Έν :
 class AMoveBlock : public ABlock
 {
@@ -21,7 +24,6 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 	void StateInit();
-	void CreateAnimation();
 	void NoneBegin();
 	void NoneTick(float _DeltaTime);
 	void IdleBegin();
@@ -37,8 +39,15 @@ protected:
 	UStateManager State;
 
 	bool IsPush = false;
+	float MoveSpeed = 80.f;
+	float MoveCompleteTime = 0.5f;
+	float AccTime = 0.f;
 
-	float MoveSpeed = 0.f;
+	int ny = 0;
+	int nx = 0;
+
+	ECADir MoveDir = ECADir::None;
+	POINT PlayerIndex = { 0,0 };
 
 private:
 

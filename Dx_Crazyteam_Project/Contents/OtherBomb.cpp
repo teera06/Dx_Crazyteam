@@ -54,12 +54,17 @@ void AOtherBomb::Tick(float _DeltaTime)
 			std::string SpriteNames = UpdatePacket->SpriteName;
 
 
-
 			int AnimationInFO = UpdatePacket->AnimationInfo;
 
-			if (SpriteNames != "")
+			bool IsDie = UpdatePacket->IsDestroy;
+
+			if (SpriteNames != "" && IsDie ==false)
 			{
 				Renderer->SetSprite(SpriteNames, AnimationInFO);
+			}
+			else if (IsDie == true)
+			{
+				Renderer->SetActive(false);
 			}
 			int a = 0;
 			break;

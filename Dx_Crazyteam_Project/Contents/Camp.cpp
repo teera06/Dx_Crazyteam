@@ -18,8 +18,6 @@ void ACamp::BeginPlay()
 	Renderer->SetSprite("Camp_Back1.png");
 	Renderer->SetAutoSize(1.f, true);
 	Renderer->SetOrder(ERenderOrder::Map);
-
-	AddObjectInit();
 }
 
 void ACamp::Tick(float _DeltaTime)
@@ -29,13 +27,14 @@ void ACamp::Tick(float _DeltaTime)
 
 void ACamp::AddObjectInit()
 {
-	for (int y = 1; y < ConstValue::TileY - 1; y += 2)
-	{
-		for (int x = 1; x < ConstValue::TileX; x += 2)
-		{
-			AddMapObject(y, x, EMapObject::CampBlock);
-		}
-	}
-	AddMapObject(0, 1, EMapObject::CampBlock);
+	AddMapObject(1, 1, EMapObject::CampBlock);
+	AddMapObject(3, 1, EMapObject::CampBlock);
+	AddMapObject(1, 3, EMapObject::CampBlock);
+	AddMapObject(3, 3, EMapObject::CampBlock);
+
+	AddMapObject(6, 6, EMapObject::CampMoveBlock);
+	AddMapObject(9, 6, EMapObject::CampMoveBlock);
+	AddMapObject(6, 9, EMapObject::CampMoveBlock);
+	AddMapObject(9, 9, EMapObject::CampMoveBlock);
 }
 

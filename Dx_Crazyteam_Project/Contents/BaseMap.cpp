@@ -4,8 +4,12 @@
 #include "CampBlock.h"
 #include "WaterBomb.h"
 #include "WaterCourse.h"
+#include "DummyBlock.h"
+#include "CampMoveBlock.h"
 #include <EngineCore/DefaultSceneComponent.h>
 #include <algorithm>
+#include "CAGameMode.h"
+#include "Player.h"
 
 ABaseMap::ABaseMap()
 {
@@ -38,6 +42,16 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 			{
 			case EMapObjectType::None:
 				continue;
+			case EMapObjectType::WaterBalloon:
+			{
+				std::shared_ptr<APlayer> Player = GetGameMode()->GetPlayer();
+				POINT point = Player->GetPlayerInfo()->CurIndex;
+				if (point.y == y &&
+					point.x == x)
+				{
+					return true;
+				}
+			}
 			case EMapObjectType::Block:
 			case EMapObjectType::BrakableBlock:
 			case EMapObjectType::MoveBlock:
@@ -50,6 +64,8 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 					TilePosition.Y + ConstValue::TileSize.Y / 2.f > _CheckPos.Y &&
 					TilePosition.Y - ConstValue::TileSize.Y / 2.f < _CheckPos.Y)
 				{
+					POINT PlayerPoint = PlayerPosToPoint(_CheckPos);
+					MapStatus[PlayerPoint.y][PlayerPoint.x]->PlayerInteract();
 					return false;
 				}
 			}
@@ -133,6 +149,18 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 		MapObj = GetWorld()->SpawnActor<AMapObject>("Default");
 		break;
 	}
+	case EMapObject::DummyBlock:
+	{
+		std::shared_ptr<ADummyBlock> TempObj = GetWorld()->SpawnActor<ADummyBlock>("Block");
+		MapObj = TempObj;
+		break;
+	}
+	case EMapObject::CampMoveBlock:
+	{
+		std::shared_ptr<ACampMoveBlock> TempObj = GetWorld()->SpawnActor<ACampMoveBlock>("Block");
+		MapObj = TempObj;
+		break;
+	}
 	case EMapObject::NormalBlock:
 	{
 		std::shared_ptr<ABlock> TempObj = GetWorld()->SpawnActor<ABlock>("Block");
@@ -164,6 +192,39 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 	default:
 		break;
 	}
+
+	MapObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
+	MapObj->SetCurPos(POINT(_X, _Y));
+	MapObj->SetCurGameMode(GetGameMode());
+
+	MapStatus[_Y][_X]->Destroy();
+	MapStatus[_Y][_X] = MapObj;
+
+	return MapObj;
+}
+
+void ABaseMap::PushMapObject(std::shared_ptr<AMapObject> _Obj, int _y, int _x)
+{
+	MapStatus[_y][_x] = _Obj;
+}
+
+std::shared_ptr<AMapObject> ABaseMap::AddWaterCourse(int _Y, int _X, bool _IsEnd, EEngineDir _Dir)
+{
+	std::shared_ptr<AMapObject> MapObj = nullptr;
+
+	std::shared_ptr<AWaterCourse> TempObj = GetWorld()->SpawnActor<AWaterCourse>("CampBlock");
+	TempObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
+	TempObj->SetDir(_Dir);
+	if (false == _IsEnd)
+	{
+		TempObj->CreateWaterStream();
+	}
+	else
+	{
+		TempObj->CreateWaterEndStem();
+	}
+	MapObj = TempObj;
+
 
 	MapObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
 	MapObj->SetCurPos(POINT(_X, _Y));
