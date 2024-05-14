@@ -1,11 +1,11 @@
 #pragma once
-#include <EngineCore/Actor.h>
+#include "CAObject.h"
 
 // Ό³Έν :
 class UDefaultSceneComponent;
-class AMapObject : public AActor
+class AMapObject : public ACAObject
 {
-	GENERATED_BODY(AActor)
+	GENERATED_BODY(ACAObject)
 public:
 	// constructor destructor
 	AMapObject();
