@@ -48,7 +48,7 @@ void ATestGameMode::Tick(float _DeltaTime)
 
 	if (true == IsDown('N'))
 	{
-		std::shared_ptr<AWaterCourse> Water = GetWorld()->SpawnActor<AWaterCourse>("Water", EMapObjectType::WaterBalloon);
+		std::shared_ptr<AWaterCourse> Water = GetWorld()->SpawnActor<AWaterCourse>("Water", EMapObjectType::Water);
 
 	}
 #endif // _DEBUG
