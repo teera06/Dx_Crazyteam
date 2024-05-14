@@ -56,7 +56,7 @@ private :
 	void BombExit();
 
 	UStateManager State;
-	USpriteRenderer* WaterCourseRender = nullptr;
+	//USpriteRenderer* Renderer = nullptr;
 	float LifeTime = 0.0f;
 	size_t Power = 1;
 	//bool b_Bomb = false;
