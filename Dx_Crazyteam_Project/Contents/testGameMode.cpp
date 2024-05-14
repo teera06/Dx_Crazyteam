@@ -25,6 +25,7 @@ void ATestGameMode::BeginPlay()
 	SetCurMap(Camp);
 
 	Player1 = GetWorld()->SpawnActor<APlayer>("Player1", 0);
+	Player1->SetCurGameMode(this);
 	SetMainPlayer(Player1);
 }
 

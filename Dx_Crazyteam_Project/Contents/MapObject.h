@@ -29,6 +29,10 @@ protected:
 	UDefaultSceneComponent* Root = nullptr;
 
 	EMapObjectType Type = EMapObjectType::None;
+
+	std::function<void()> PlayerInteract;
+	std::function<void()> WaterInteract;
+	
 private:
 
 };

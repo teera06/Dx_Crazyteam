@@ -58,6 +58,9 @@
     <Filter Include="Level\SubServerLevel">
       <UniqueIdentifier>{8c31784e-4ac2-4a50-b20e-6953ad591546}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{338152c8-a708-484e-bde0-4313c8ebba67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -153,6 +156,9 @@
     <ClInclude Include="ConstValue.h">
       <Filter>Option</Filter>
     </ClInclude>
+    <ClInclude Include="CAObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -247,6 +253,9 @@
     </ClCompile>
     <ClCompile Include="ConstValue.cpp">
       <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="CAObject.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

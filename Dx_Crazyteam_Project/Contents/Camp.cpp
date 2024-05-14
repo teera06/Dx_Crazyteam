@@ -20,7 +20,7 @@ void ACamp::BeginPlay()
 	BackMap->SetAutoSize(1.f, true);
 	BackMap->SetOrder(EObjectOrder::Map);
 
-	//AddObjectInit();
+	AddObjectInit();
 }
 
 void ACamp::Tick(float _DeltaTime)
