@@ -8,32 +8,32 @@
 // 설명 :
 class UEngineNetWindow;
 class AServerPlayer;
-class AServerGameMode : public AGameMode
+
+class ASubServerLevel : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
-
 public:
 	// constrcuter destructer
-	AServerGameMode();
-	~AServerGameMode();
+	ASubServerLevel(); // 디폴트 생성자
+	~ASubServerLevel(); // 디폴트 소멸자
 
 	// delete Function
-	AServerGameMode(const AServerGameMode& _Other) = delete;
-	AServerGameMode(AServerGameMode&& _Other) noexcept = delete;
-	AServerGameMode& operator=(const AServerGameMode& _Other) = delete;
-	AServerGameMode& operator=(AServerGameMode&& _Other) noexcept = delete;
+	ASubServerLevel(const ASubServerLevel& _Other) = delete; // 디폴트 복사 생성자
+	ASubServerLevel(ASubServerLevel&& _Other) noexcept = delete; 
+	ASubServerLevel& operator=(const ASubServerLevel& _Other) = delete; // 디폴트 대입 연산자
+	ASubServerLevel& operator=(ASubServerLevel&& _Other) noexcept = delete;
 
 	void ServerPacketInit(UEngineDispatcher& Dis);
 	void ClientPacketInit(UEngineDispatcher& Dis);
-
 
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void LevelStart(ULevel* _DeltaTime) override;
 	void LevelEnd(ULevel* _DeltaTime) override;
-
-	std::shared_ptr<UEngineNetWindow> NetWindow;
+	
+private:
+	std::shared_ptr<UEngineNetWindow> subNetWindow;
 	std::shared_ptr<AServerPlayer> MainPlayer = nullptr;
 };
 
