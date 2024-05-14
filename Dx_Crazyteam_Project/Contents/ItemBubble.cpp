@@ -14,8 +14,9 @@ void AItemBubble::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FrontRenderer->CreateAnimation("ItemBubble", "Bubble(1).png", true, 0, 5);
+	FrontRenderer->CreateAnimation("ItemBubble", "Bubble(1).png", 0.1f, true, 0, 5);
 	FrontRenderer->ChangeAnimation("ItemBubble");
+	FrontRenderer->SetAutoSize(1.f, true);
 }
 
 void AItemBubble::Tick(float _DeltaTime)
