@@ -29,6 +29,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	void BaseNetInit(float _DeltaTime);
 	float FrameTime = 1.0f / 60.0f;
 	float CurTime = FrameTime;
 };
