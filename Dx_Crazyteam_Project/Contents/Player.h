@@ -51,12 +51,12 @@ private:
 
 	void IdleStart();
 	void Idle(float _DeltaTime);
-
 	void MoveStart();
 	void Move(float _DeltaTime);
-
-	//void Attack(float _DeltaTime);
-	//void Die(float _DeltaTime);
+	void TrapStart();
+	void Trap(float _DeltaTime);
+	void RescueStart();
+	void Rescue(float _DeltaTime);
 
 	std::string GetAnimationName(std::string_view _StateName);
 

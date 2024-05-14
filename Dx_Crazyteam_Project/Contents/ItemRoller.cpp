@@ -13,7 +13,7 @@ void AItemRoller::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	FrontRenderer->CreateAnimation("ItemRoller", "Roller.png", true, 0.5f);
+	//FrontRenderer->CreateAnimation("ItemRoller", "Roller.png", true, 0.5f);
 
 
 
