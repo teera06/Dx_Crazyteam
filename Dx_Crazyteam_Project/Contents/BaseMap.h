@@ -24,7 +24,7 @@ public:
 	bool IsEmpty(FVector _PlayerPos);
 	bool IsEmpty(int _Y, int _X);
 
-	void AddMapObject(int _Y, int _X, EMapObject _MapObjectType);
+	std::shared_ptr<AMapObject> AddMapObject(int _Y, int _X, EMapObject _MapObjectType);
 	std::shared_ptr<AMapObject> GetMapObject(int _Y, int _X)
 	{
 		return MapStatus[_Y][_X];
