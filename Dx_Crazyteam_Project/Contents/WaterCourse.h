@@ -3,9 +3,9 @@
 #include "Block.h"
 
 class USpriteRenderer;
-class AWaterCourse : public ABlock
+class AWaterCourse : public AMapObject
 {
-	GENERATED_BODY(ABlock)
+	GENERATED_BODY(AMapObject)
 
 public :
 	// constructor destructor
@@ -30,22 +30,6 @@ public :
 	inline void CreateWaterCenter()
 	{
 		State.ChangeState("CreateCenter");
-		return;
-	}
-	/// <summary>
-	/// 물줄기 생성.
-	/// </summary>
-	inline void CreateWaterStream()
-	{
-		State.ChangeState("CreateStream");
-		return;
-	}
-	/// <summary>
-	/// 물줄기 끝 생성.
-	/// </summary>
-	inline void CreateWaterEndStem()
-	{
-		State.ChangeState("CreateEndStem");
 		return;
 	}
 
@@ -78,11 +62,42 @@ private :
 	void DeleteTick(float _DeltaTime);
 	void DeleteExit();
 
+	
+	void CreateWaterStream(float _DeltaTime);
+
+	/// <summary>
+	/// 물줄기 생성.
+	/// </summary>
+	inline void CreateWaterStream()
+	{
+		State.ChangeState("CreateStream");
+		return;
+	}
+	/// <summary>
+	/// 물줄기 끝 생성.
+	/// </summary>
+	inline void CreateWaterEndStem()
+	{
+		State.ChangeState("CreateEndStem");
+		return;
+	}
+
+	inline void SetDir(EEngineDir _Dir)
+	{
+		WaterCourseDir = _Dir;
+	}
+
+
 	UStateManager State;
-	USpriteRenderer* WaterCourseRender = nullptr;
-	float LifeTime = 0.0f;
-	float CreateTime = 0.0f;
+	USpriteRenderer* WaterCourseRender = nullptr; // 수정해야 함. TODO
+	bool CreateStart = false;
+	float CenterLifeTime = 0.0f;
+	float LifeTime = 2.0f;
+	float CreateDeltaTime = 0.0f;
+	float CreateTime = 0.125f;
 	size_t PowerValue = 0;
 	POINT BombPoint = POINT(0, 0);
+	std::string preStateName = "";
+	EEngineDir WaterCourseDir = EEngineDir::MAX;
 };
 
