@@ -26,7 +26,6 @@ void AMainGameMode::BeginPlay()
 
 	Player1 = GetWorld()->SpawnActor<APlayer>("Player1", 0);
 	Player1->SetActorLocation(FVector(-80.f, 20.f, -100.f));
-	Player1->SetActorScale3D(FVector(100, 100, 1));
 }
 
 void AMainGameMode::Tick(float _DeltaTime)
