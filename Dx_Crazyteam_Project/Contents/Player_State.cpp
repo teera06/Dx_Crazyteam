@@ -72,33 +72,45 @@ void APlayer::Move(float _DeltaTime)
 	}
 
 	FVector MovePos = FVector::Zero;
-	FVector NextPos = FVector::Zero;
+	FVector NextPos1 = FVector::Zero;	// Center
+	FVector NextPos2 = FVector::Zero;	// 추가 체크포인트
+	FVector NextPos3 = FVector::Zero;	// 추가 체크포인트
 
 	if (true == IsPress(VK_UP))
 	{
 		Dir = FVector::Up;
+		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
+		NextPos2 = NextPos1 + FVector(-20, 0, 0);
+		NextPos3 = NextPos1 + FVector(20, 0, 0);
 		MovePos = FVector::Up * Info->MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_DOWN))
 	{
 		Dir = FVector::Down;
+		NextPos1 = GetActorLocation() + MovePos + Dir * 10.f;
+		NextPos2 = NextPos1 + FVector(-10, 0, 0);
+		NextPos3 = NextPos1 + FVector(10, 0, 0);
 		MovePos = FVector::Down * Info->MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_RIGHT))
 	{
 		Dir = FVector::Right;
+		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
+		//NextPos2 = NextPos1 + FVector(0, -10, 0);
+		NextPos3 = NextPos1 + FVector(0, 20, 0);
 		MovePos = FVector::Right * Info->MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_LEFT))
 	{
 		Dir = FVector::Left;
+		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
+		//NextPos2 = NextPos1 + FVector(0, -10, 0);
+		NextPos3 = NextPos1 + FVector(0, 20, 0);
 		MovePos = FVector::Left * Info->MoveSpeed * _DeltaTime;
 	}
 
-	NextPos = GetActorLocation() + MovePos + Dir * 10.f;
-
 	Renderer->ChangeAnimation(GetAnimationName("Move"));
-	if (true == GetGameMode()->GetCurMap()->IsMove(NextPos))
+	if (true == GetGameMode()->GetCurMap()->IsMove(NextPos1) && true == GetGameMode()->GetCurMap()->IsMove(NextPos2) && true == GetGameMode()->GetCurMap()->IsMove(NextPos3))
 	{
 		AddActorLocation(MovePos);
 		return;

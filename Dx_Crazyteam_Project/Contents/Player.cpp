@@ -4,14 +4,10 @@
 #include <EngineCore/DefaultSceneComponent.h>
 #include "Game_Core.h"
 #include "Packets.h"
+#include "Player_Shadow.h"
 
 APlayer::APlayer()
 {
-	//Root = CreateDefaultSubObject<UDefaultSceneComponent>("RendererRoot");
-	//SetRoot(Root);
-
-	//Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	//Renderer->SetupAttachment(Root);
 
 }
 
@@ -24,10 +20,13 @@ void APlayer::BeginPlay()
 
 	Super::BeginPlay();
 
-	Renderer->SetOrder(5);
+	Renderer->SetOrder(ERenderOrder::Player);
 	Renderer->SetAutoSize(0.05f, true);
 	Info = std::make_shared<PlayerInfo>();
 	SetActorScale3D(FVector(20, 20, 1));
+
+	Shadow = GetWorld()->SpawnActor<APlayer_Shadow>("Player_Shadow");
+
 	StateInit();
 }
 
@@ -36,8 +35,10 @@ void APlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
-
 	PlayerSendPacket(_DeltaTime);
+
+	Shadow->SetActorLocation(GetActorLocation());
+
 }
 
 std::string APlayer::GetAnimationName(std::string_view _StateName)

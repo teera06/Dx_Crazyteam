@@ -8,6 +8,7 @@
 
 #include "Village.h"
 #include "Player.h"
+#include "Player_Shadow.h"
 
 class APlayerTestMode : public ACAGameMode
 {
@@ -31,5 +32,6 @@ protected:
 private:
 	std::shared_ptr<AVillage> Village = nullptr;
 	std::shared_ptr<APlayer> Player1 = nullptr;
+	
 };
 
