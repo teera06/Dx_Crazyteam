@@ -36,31 +36,6 @@ void APlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
-
-	if (false == IsNetInit())
-	{
-		// 네트워크 통신준비가 아직 안된 오브젝트다.
-		if (nullptr != UGame_Core::Net)
-		{
-			InitNet(UGame_Core::Net);
-		}
-	}
-
-	static float FrameTime = 1.0f / 60.0f;
-	static float CurTime = FrameTime;
-
-	CurTime -= _DeltaTime;
-
-	if (0.0f >= CurTime && true == IsNetInit())
-	{
-		std::shared_ptr<UActorUpdatePacket> Packet = std::make_shared<UActorUpdatePacket>();
-
-		Packet->Pos = GetActorLocation();
-		Packet->AnimationInfo = Renderer->GetCurAnimationFrame();
-		Packet->SpriteName = GetAnimationName(State.GetCurStateName());
-		Send(Packet);
-		CurTime += FrameTime;
-	}
 }
 
 std::string APlayer::GetAnimationName(std::string_view _StateName)

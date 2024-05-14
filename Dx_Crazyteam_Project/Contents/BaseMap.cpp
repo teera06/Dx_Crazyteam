@@ -5,9 +5,6 @@
 #include <EngineCore/DefaultSceneComponent.h>
 #include <algorithm>
 
-std::vector<std::vector<std::shared_ptr<AMapObject>>> ABaseMap::MapStatus;
-
-
 ABaseMap::ABaseMap()
 {
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
