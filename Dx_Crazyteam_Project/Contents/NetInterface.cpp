@@ -1,4 +1,5 @@
 ﻿#include "PreCompile.h"
+#include <EngineCore/DefaultSceneComponent.h>
 
 #include "NetInterface.h"
 #include "Game_Core.h"
@@ -6,13 +7,28 @@
 
 UNetInterface::UNetInterface()
 {
+	Root = CreateDefaultSubObject<UDefaultSceneComponent>("RendererRoot");
+	SetRoot(Root);
+
+	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	Renderer->SetupAttachment(Root);
 }
 
 UNetInterface::~UNetInterface()
 {
 }
 
-void UNetInterface::PlayerSendPacket(float _DeltaTime, float4 _Pos, std::string_view _AnimationName, int _Frame)
+void UNetInterface::BeginPlay()
+{
+	Super::BeginPlay();
+}
+
+void UNetInterface::Tick(float _DeltaTime)
+{
+	Super::Tick(_DeltaTime);
+}
+
+void UNetInterface::PlayerSendPacket(float _DeltaTime)
 {
 	if (false == IsNetInit())
 	{
@@ -29,9 +45,9 @@ void UNetInterface::PlayerSendPacket(float _DeltaTime, float4 _Pos, std::string_
 	{
 		std::shared_ptr<UActorUpdatePacket> Packet = std::make_shared<UActorUpdatePacket>();
 
-		Packet->Pos = _Pos;
-		Packet->AnimationInfo = _Frame;
-		Packet->SpriteName = _AnimationName;
+		Packet->Pos = GetActorLocation();
+		Packet->AnimationInfo = Renderer->GetCurAnimationFrame();
+		Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
 		Send(Packet);
 		CurTime += FrameTime;
 	}

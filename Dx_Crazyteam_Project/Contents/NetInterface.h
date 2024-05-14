@@ -1,9 +1,13 @@
 #pragma once
 #include <EngineBase/NetObject.h>
+#include <EngineCore/Actor.h>
 
 // Ό³Έν :
-class UNetInterface : public UNetObject
+class UDefaultSceneComponent;
+class USpriteRenderer;
+class UNetInterface : public UNetObject, public AActor
 {
+	GENERATED_BODY(AActor)
 public:
 	// constrcuter destructer
 	UNetInterface();
@@ -16,7 +20,12 @@ public:
 	UNetInterface& operator=(UNetInterface&& _Other) noexcept = delete;
 
 protected:
-	void PlayerSendPacket(float _DeltaTime, float4 _Pos, std::string_view _AnimationName, int _Frame);
+	USpriteRenderer* Renderer = nullptr;
+	UDefaultSceneComponent* Root = nullptr;
+
+	void PlayerSendPacket(float _DeltaTime);
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 
 private:
 	float FrameTime = 1.0f / 60.0f;
