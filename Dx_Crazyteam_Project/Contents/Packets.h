@@ -11,11 +11,11 @@ enum EContentPacket
 class UActorUpdatePacket : public UEngineProtocol
 {
 public: 
-	static const ContentPacket Type = ContentPacket::ActorUpdatePacket;
+	static const EContentPacket Type = EContentPacket::ActorUpdatePacket;
 public: 
 	UActorUpdatePacket()
 	{ 
-		SetType(ContentPacket::ActorUpdatePacket);
+		SetType(EContentPacket::ActorUpdatePacket);
 	}
 
 	void Serialize(UEngineSerializer& _Ser) override

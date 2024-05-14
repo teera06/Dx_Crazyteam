@@ -10,6 +10,7 @@
 #include "ServerPlayer.h"
 #include "Game_Core.h"
 #include "Packets.h"
+#include "Player.h"
 #include "OtherPlayer.h"
 
 ASubServerLevel::ASubServerLevel()
@@ -32,7 +33,7 @@ void ASubServerLevel::BeginPlay()
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 
-	MainPlayer = GetWorld()->SpawnActor<AServerPlayer>("Player");
+	MainPlayer = GetWorld()->SpawnActor<APlayer>("Player");
 }
 
 void ASubServerLevel::Tick(float _DeltaTime)
@@ -91,7 +92,8 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 				OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
 				OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
 			}
-			OtherPlayer->SetActorLocation(_Packet->Pos);
+			OtherPlayer->PushProtocol(_Packet);
+			//OtherPlayer->SetActorLocation(_Packet->Pos);
 		});
 
 
@@ -110,7 +112,8 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 				OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
 				OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
 			}
-			OtherPlayer->SetActorLocation(_Packet->Pos);
+			OtherPlayer->PushProtocol(_Packet);
+			//OtherPlayer->SetActorLocation(_Packet->Pos);
 		});
 	});
 }
