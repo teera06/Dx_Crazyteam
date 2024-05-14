@@ -16,6 +16,9 @@ public:
 	ATestLobbyMode& operator=(const ATestLobbyMode& _Other) = delete;
 	ATestLobbyMode& operator=(ATestLobbyMode&& _Other) noexcept = delete;
 
+	void ServerPacketInit(UEngineDispatcher& Dis);
+	void ClientPacketInit(UEngineDispatcher& Dis);
+
 protected:
 
 private:

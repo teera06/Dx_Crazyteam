@@ -28,8 +28,8 @@ public:
 	AServerGameMode& operator=(const AServerGameMode& _Other) = delete;
 	AServerGameMode& operator=(AServerGameMode&& _Other) noexcept = delete;
 
-	void ServerPacketInit(UEngineDispatcher& Dis);
-	void ClientPacketInit(UEngineDispatcher& Dis);
+	//void ServerPacketInit(UEngineDispatcher& Dis);
+	//void ClientPacketInit(UEngineDispatcher& Dis);
 
 	std::shared_ptr<APlayLobby> GetPlayLobby();
 
