@@ -5,6 +5,8 @@
 #include "Game_Core.h"
 #include "Packets.h"
 #include "Player_Shadow.h"
+#include "BaseMap.h"
+#include "CAGameMode.h"
 
 APlayer::APlayer()
 {
@@ -37,8 +39,8 @@ void APlayer::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 	PlayerSendPacket(_DeltaTime);
 
+	Info->CurIndex = GetGameMode()->GetCurMap()->PlayerPosToPoint(GetActorLocation());
 	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 0));
-
 }
 
 std::string APlayer::GetAnimationName(std::string_view _StateName)
@@ -76,5 +78,24 @@ std::string APlayer::GetAnimationName(std::string_view _StateName)
 	else 
 	{
 		return "AnimationNameError";
+	}
+}
+
+void APlayer::SetCharacterType(ECharacterType _Type)
+{
+	switch (_Type)
+	{
+	case ECharacterType::Bazzi:
+		Info->MyType = ECharacterType::Bazzi;
+		Info->WBPower = 1;
+		Info->WBCount = 1;
+		break;
+	case ECharacterType::Dao:
+		Info->MyType = ECharacterType::Dao;
+		Info->WBPower = 1;
+		Info->WBCount = 1;
+		break;
+	default:
+		break;
 	}
 }

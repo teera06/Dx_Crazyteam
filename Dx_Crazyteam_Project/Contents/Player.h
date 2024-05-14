@@ -11,8 +11,11 @@ class PlayerInfo
 	friend APlayer;
 
 public:
+	POINT CurIndex = POINT(0, 0);
 	ECharacterType MyType = ECharacterType::Bazzi;
 	float MoveSpeed = 100.f;
+	int WBPower = 1;				// ¹°ÆøÅº ÆÄ¿ö(¹°ÁÙ±â ±æÀÌ)
+	int WBCount = 1;				// ¹°ÆøÅº °³¼ö
 };
 
 class APlayer_Shadow;
@@ -28,7 +31,13 @@ public:
 	APlayer(APlayer&& _Other) noexcept = delete;
 	APlayer& operator=(const APlayer& _Other) = delete;
 	APlayer& operator=(APlayer&& _Other) noexcept = delete;
+	
+	void SetCharacterType(ECharacterType _Type);
 
+	PlayerInfo* GetPlayerInfo()
+	{
+		return Info.get();
+	}
 
 protected:
 	std::shared_ptr<PlayerInfo> Info = nullptr;
