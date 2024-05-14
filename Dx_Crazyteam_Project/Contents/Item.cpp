@@ -3,11 +3,9 @@
 
 AItem::AItem()
 {
-	//Root = CreateDefaultSubObject<UDefaultSceneComponent>("RendererRoot");
-	SetRoot(Root);
-
 	FrontRenderer = CreateDefaultSubObject<USpriteRenderer>("ItemRender");
 	FrontRenderer->SetupAttachment(Root);
+	FrontRenderer->SetOrder(ERenderOrder::Item);
 }
 
 AItem::~AItem()

@@ -1,22 +1,27 @@
 #pragma once
+#include "CAGameMode.h"
 
 // Ό³Έν :
-class TestLobbyMode
+class ATestLobbyMode : public ACAGameMode
 {
+	GENERATED_BODY(ACAGameMode)
 public:
 	// constrcuter destructer
-	TestLobbyMode();
-	~TestLobbyMode();
+	ATestLobbyMode();
+	~ATestLobbyMode();
 
 	// delete Function
-	TestLobbyMode(const TestLobbyMode& _Other) = delete;
-	TestLobbyMode(TestLobbyMode&& _Other) noexcept = delete;
-	TestLobbyMode& operator=(const TestLobbyMode& _Other) = delete;
-	TestLobbyMode& operator=(TestLobbyMode&& _Other) noexcept = delete;
+	ATestLobbyMode(const ATestLobbyMode& _Other) = delete;
+	ATestLobbyMode(ATestLobbyMode&& _Other) noexcept = delete;
+	ATestLobbyMode& operator=(const ATestLobbyMode& _Other) = delete;
+	ATestLobbyMode& operator=(ATestLobbyMode&& _Other) noexcept = delete;
 
 protected:
 
 private:
-
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
+	void LevelStart(ULevel* _DeltaTime) override;
+	void LevelEnd(ULevel* _DeltaTime) override;
 };
 

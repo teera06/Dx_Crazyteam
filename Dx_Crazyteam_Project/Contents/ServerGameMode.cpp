@@ -55,7 +55,7 @@ void AServerGameMode::Tick(float _DeltaTime)
 
 }
 
-void AServerGameMode::LevelStart(ULevel* _DeltaTime)
+void AServerGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	if (nullptr == NetWindow)
 	{
@@ -124,7 +124,7 @@ std::shared_ptr<APlayLobby> AServerGameMode::GetPlayLobby()
 	return PlayLobby;
 }
 
-void AServerGameMode::LevelEnd(ULevel* _DeltaTime)
+void AServerGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	NetWindow->Off();
 }

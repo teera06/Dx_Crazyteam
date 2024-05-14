@@ -6,6 +6,7 @@ enum class ERenderOrder
 	Background,
 	Map,
 	Shadow,
+	Item,
 	BlockFront,
 	Player,
 	BlockBack,

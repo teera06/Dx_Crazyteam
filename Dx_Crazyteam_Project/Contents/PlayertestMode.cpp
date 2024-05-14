@@ -24,8 +24,8 @@ void APlayerTestMode::BeginPlay()
 	Player1->SetCurGameMode(this);
 	SetMainPlayer(Player1);
 
-	//std::shared_ptr<AItemBubble> Bubble = GetWorld()->SpawnActor<AItemBubble>("ItemTest");
-	//Bubble->SetActorLocation(GetActorLocation());
+	std::shared_ptr<AItemBubble> Bubble = GetWorld()->SpawnActor<AItemBubble>("ItemTest");
+	Bubble->SetActorLocation(Player1->GetActorLocation());
 }
 
 void APlayerTestMode::Tick(float _DeltaTime)
