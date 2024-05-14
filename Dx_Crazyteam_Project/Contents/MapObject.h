@@ -27,9 +27,24 @@ public:
 		CurPos = _Pos;
 	}
 
+	POINT GetCurPos()
+	{
+		return CurPos;
+	}
+
 	std::function<void()> PlayerInteract;
 	std::function<void()> WaterInteract;
 
+	void RendererOn()
+	{
+		FrontRenderer->SetActive(true);
+		BackRenderer->SetActive(true);
+	}
+	void RendererOff()
+	{
+		FrontRenderer->SetActive(false);
+		BackRenderer->SetActive(false);
+	}
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

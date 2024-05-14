@@ -29,6 +29,7 @@ public:
 	{
 		return MapStatus[_Y][_X];
 	}
+	void PushMapObject(std::shared_ptr<AMapObject> _Obj, int _ny, int _nx);
 	void SpawnWaterBomb(FVector _SpawnPos);
 	void SpawnWaterBomb(int _Y, int _X);
 	void DestroyMapObject(int _Y, int _X);
