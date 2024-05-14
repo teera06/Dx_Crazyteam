@@ -1,10 +1,10 @@
 #pragma once
-#include <EngineCore/Actor.h>
+#include "Block.h"
 
 class USpriteRenderer;
-class AWaterBomb : public AActor
+class AWaterBomb : public ABlock
 {
-	GENERATED_BODY(AActor)
+	GENERATED_BODY(ABlock)
 
 public:
 	// constructor destructor

@@ -1,13 +1,13 @@
 #pragma once
-#include <EngineCore/Actor.h>
+#include "CAObject.h"
 
 // Ό³Έν :
 class UEngineTexture;
 class UDefaultSceneComponent;
 class AMapObject;
-class ABaseMap : public AActor
+class ABaseMap : public ACAObject
 {
-	GENERATED_BODY(AActor)
+	GENERATED_BODY(ACAObject)
 public:
 	// constructor destructor
 	ABaseMap();
@@ -19,14 +19,10 @@ public:
 	ABaseMap& operator=(const ABaseMap& _Other) = delete;
 	ABaseMap& operator=(ABaseMap&& _Other) noexcept = delete;
 
-	static bool IsMove(FVector _PlayerPos);
-	static const FVector TileSize;
-	static const int TileY;
-	static const int TileX;
-	
+	bool IsMove(FVector _PlayerPos);
 	void AddMapObject(int _Y, int _X, EMapObject _MapObjectType);
-
-	static POINT PlayerPosToPoint(FVector _PlayerPos);
+	void SpawnWaterBomb(FVector _SpawnPos);
+	POINT PlayerPosToPoint(FVector _PlayerPos);
 
 protected:
 	void BeginPlay() override;
@@ -35,7 +31,7 @@ protected:
 	USpriteRenderer* BackMap = nullptr;
 	UDefaultSceneComponent* Root = nullptr;
 
-	static std::vector<std::vector<std::shared_ptr<AMapObject>>> MapStatus;
+	std::vector<std::vector<std::shared_ptr<AMapObject>>> MapStatus;
 private:
 
 	void GetWaterWavePoint();

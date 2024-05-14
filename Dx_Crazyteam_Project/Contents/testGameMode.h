@@ -1,16 +1,10 @@
 #pragma once
-#include <EngineCore/GameMode.h>
-#include <EngineBase/EngineThread.h>
-#include <EngineBase/EngineNetHeader.h>
-#include <EngineCore/EngineNetWindow.h>
-#include <EngineBase/EngineDispatcher.h>
-
-#include "Player.h"
+#include "CAGameMode.h"
 
 class UMapDebugGUI;
-class ATestGameMode : public AGameMode
+class ATestGameMode : public ACAGameMode
 {
-	GENERATED_BODY(AGameMode)
+	GENERATED_BODY(ACAGameMode)
 public:
 	// constrcuter destructer
 	ATestGameMode(); // 디폴트 생성자
@@ -25,8 +19,8 @@ public:
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
-	void LevelStart(ULevel* _PrevLevel);
-	void LevelEnd(ULevel* _NextLevel);
+	void LevelStart(ULevel* _PrevLevel) override;
+	void LevelEnd(ULevel* _NextLevel) override;
 private:
 	std::shared_ptr<UMapDebugGUI> MapDebugWindow;
 	std::shared_ptr<APlayer> Player1 = nullptr;

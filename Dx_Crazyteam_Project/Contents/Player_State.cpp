@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Player.h"
 #include "BaseMap.h"
+#include "CAGameMode.h"
 
 void APlayer::StateInit()
 {
@@ -89,7 +90,7 @@ void APlayer::Move(float _DeltaTime)
 	NextPos = GetActorLocation() + MovePos + Dir * 10.f;
 
 	Renderer->ChangeAnimation(GetAnimationName("Move"));
-	if (true == ABaseMap::IsMove(NextPos))
+	if (true == GetGameMode()->GetCurMap()->IsMove(NextPos))
 	{
 		AddActorLocation(MovePos);
 		return;

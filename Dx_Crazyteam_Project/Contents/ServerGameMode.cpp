@@ -7,10 +7,11 @@
 #include <EngineCore/BlurEffect.h>
 #include <EngineCore/EngineEditorGUI.h>
 
-#include "ServerPlayer.h"
+#include "Player.h"
 #include "Game_Core.h"
 #include "Packets.h"
 #include "OtherPlayer.h"
+#include "Village.h"
 
 AServerGameMode::AServerGameMode() 
 {
@@ -28,11 +29,18 @@ AServerGameMode::~AServerGameMode()
 void AServerGameMode::BeginPlay() 
 {
 	Super::BeginPlay();
-	// TestThread.Start();
+
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 
-	MainPlayer = GetWorld()->SpawnActor<AServerPlayer>("Player");
+
+	Village = GetWorld()->SpawnActor<AVillage>("Village");
+	SetCurMap(Village);
+
+	MainPlayer = GetWorld()->SpawnActor<APlayer>("Player");
+	MainPlayer->SetCurGameMode(this);
+	SetMainPlayer(MainPlayer);
+
 }
 
 void AServerGameMode::Tick(float _DeltaTime)

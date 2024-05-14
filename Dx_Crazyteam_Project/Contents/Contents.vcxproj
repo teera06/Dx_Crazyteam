@@ -28,6 +28,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="BrokenBlock.h" />
+    <ClInclude Include="CAGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Camp.h">
       <SubType>
       </SubType>
@@ -36,6 +40,11 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="CAObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ConstValue.h" />
     <ClInclude Include="ContentsDebugWindow.h" />
     <ClInclude Include="Game_Core.h">
       <SubType>
@@ -55,6 +64,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="MapSpriteObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="NetInterface.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -125,11 +138,19 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="BrokenBlock.cpp" />
+    <ClCompile Include="CAGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Camp.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="CampBlock.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="CAObject.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -152,6 +173,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="MapSpriteObject.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="NetInterface.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -215,6 +240,7 @@
     </ClCompile>
     <ClCompile Include="WaterBomb.cpp" />
     <ClCompile Include="WaterCourse.cpp" />
+    <ClCompile Include="ConstValue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EngineBase\EngineBase.vcxproj">
