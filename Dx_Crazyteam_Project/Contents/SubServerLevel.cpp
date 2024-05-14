@@ -129,21 +129,26 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 				OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
 			}
 			OtherPlayer->PushProtocol(_Packet);
-
-
-			AOtherBomb* Bomb = UNetObject::GetNetObject<AOtherBomb>(_Packet->GetObjectToken());
-			//if (UEngineInput::IsDown(VK_SPACE))
-			if (nullptr == Bomb)
-			{
-				Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
-				Bomb->SetObjectToken(_Packet->GetObjectToken());
-				//Bomb->SetActorLocation(OtherPlayer->GetActorLocation());
-			}
-			Bomb->PushProtocol(_Packet);
-			
-
-		});
+			});
 	});
+	Dis.AddHandler<UWaterBombUpdatePacket>([=](std::shared_ptr<UWaterBombUpdatePacket> _Packet)
+		{
+			// 다른 사람들한테 이 오브젝트에 대해서 알리고
+			UGame_Core::Net->Send(_Packet);
+
+			GetWorld()->PushFunction([=]()
+				{
+					AOtherBomb* Bomb = UNetObject::GetNetObject<AOtherBomb>(_Packet->GetObjectToken());
+					//if (UEngineInput::IsDown(VK_SPACE))
+					if (nullptr == Bomb)
+					{
+						Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
+						Bomb->SetObjectToken(_Packet->GetObjectToken());
+						//Bomb->SetActorLocation(OtherPlayer->GetActorLocation());
+					}
+					Bomb->PushProtocol(_Packet);
+				});
+		});
 }
 
 void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
@@ -160,19 +165,27 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 			}
 			OtherPlayer->PushProtocol(_Packet);
 			//OtherPlayer->SetActorLocation(_Packet->Pos);
-
-
-			AOtherBomb* Bomb = UNetObject::GetNetObject<AOtherBomb>(_Packet->GetObjectToken());
-			//if (UEngineInput::IsDown(VK_SPACE))
-			if (nullptr == Bomb)
-			{
-				Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
-				Bomb->SetObjectToken(_Packet->GetObjectToken());
-				//Bomb->SetActorLocation(OtherPlayer->GetActorLocation());
-			}
-			Bomb->PushProtocol(_Packet);
 		});
 	});
+
+	Dis.AddHandler<UWaterBombUpdatePacket>([=](std::shared_ptr<UWaterBombUpdatePacket> _Packet)
+		{
+			// 다른 사람들한테 이 오브젝트에 대해서 알리고
+			UGame_Core::Net->Send(_Packet);
+
+			GetWorld()->PushFunction([=]()
+				{
+					AOtherBomb* Bomb = UNetObject::GetNetObject<AOtherBomb>(_Packet->GetObjectToken());
+					//if (UEngineInput::IsDown(VK_SPACE))
+					if (nullptr == Bomb)
+					{
+						Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
+						Bomb->SetObjectToken(_Packet->GetObjectToken());
+						//Bomb->SetActorLocation(OtherPlayer->GetActorLocation());
+					}
+					Bomb->PushProtocol(_Packet);
+				});
+		});
 }
 
 void ASubServerLevel::LevelEnd(ULevel* _DeltaTime)
