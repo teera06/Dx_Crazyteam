@@ -33,6 +33,28 @@ public :
 		return;
 	}
 
+	/// <summary>
+	/// 물줄기 생성.
+	/// </summary>
+	inline void CreateWaterStream()
+	{
+		State.ChangeState("CreateStream");
+		return;
+	}
+	/// <summary>
+	/// 물줄기 끝 생성.
+	/// </summary>
+	inline void CreateWaterEndStem()
+	{
+		State.ChangeState("CreateEndStem");
+		return;
+	}
+
+	inline void SetDir(EEngineDir _Dir)
+	{
+		WaterCourseDir = _Dir;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -60,28 +82,6 @@ private :
 	
 	void CreateWaterStream(float _DeltaTime);
 
-	/// <summary>
-	/// 물줄기 생성.
-	/// </summary>
-	inline void CreateWaterStream()
-	{
-		State.ChangeState("CreateStream");
-		return;
-	}
-	/// <summary>
-	/// 물줄기 끝 생성.
-	/// </summary>
-	inline void CreateWaterEndStem()
-	{
-		State.ChangeState("CreateEndStem");
-		return;
-	}
-
-	inline void SetDir(EEngineDir _Dir)
-	{
-		WaterCourseDir = _Dir;
-	}
-
 
 	UStateManager State;
 	USpriteRenderer* WaterCourseRender = nullptr; // 수정해야 함. TODO
@@ -89,8 +89,9 @@ private :
 	float CenterLifeTime = 0.0f;
 	float LifeTime = 2.0f;
 	float CreateDeltaTime = 0.0f;
-	float CreateTime = 0.125f;
+	float CreateTime = 0.125f; // 0.125f
 	size_t PowerValue = 0;
+	std::string PreAniName = "";
 	EEngineDir WaterCourseDir = EEngineDir::MAX;
 };
 

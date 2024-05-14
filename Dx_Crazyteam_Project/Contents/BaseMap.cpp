@@ -175,6 +175,34 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 	return MapObj;
 }
 
+std::shared_ptr<AMapObject> ABaseMap::AddWaterCourse(int _Y, int _X, bool _IsEnd, EEngineDir _Dir)
+{
+	std::shared_ptr<AMapObject> MapObj = nullptr;
+
+	std::shared_ptr<AWaterCourse> TempObj = GetWorld()->SpawnActor<AWaterCourse>("CampBlock");
+	TempObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
+	TempObj->SetDir(_Dir);
+	if (false == _IsEnd)
+	{
+		TempObj->CreateWaterStream();
+	}
+	else
+	{
+		TempObj->CreateWaterEndStem();
+	}
+	MapObj = TempObj;
+
+
+	MapObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
+	MapObj->SetCurPos(POINT(_X, _Y));
+	MapObj->SetCurGameMode(GetGameMode());
+
+	MapStatus[_Y][_X]->Destroy();
+	MapStatus[_Y][_X] = MapObj;
+
+	return MapObj;
+}
+
 void ABaseMap::SpawnWaterBomb(FVector _SpawnPos)
 {
 	POINT BombPoint = PlayerPosToPoint(_SpawnPos);
