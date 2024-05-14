@@ -4,8 +4,7 @@
 
 AVillage::AVillage()
 {
-	/*Renderer = CreateDefaultSubObject<USpriteRenderer>("BackMap");
-	Renderer->SetupAttachment(Root);*/
+
 }
 
 AVillage::~AVillage()
