@@ -19,13 +19,23 @@ public:
 
 	inline void CreateWaterBomb()
 	{
-		State.ChangeState("Bomb");
+		State.ChangeState("Create");
 		return;
 	}
 
-	inline bool IsBomb() const
+	inline void SetPower(size_t _Val)
 	{
-		return b_Bomb;
+		Power = _Val;
+	}
+
+	//inline bool IsBomb() const
+	//{
+	//	return b_Bomb;
+	//}
+
+	inline void SetWaterToBomg(bool _Val)
+	{
+		b_WaterToBomb = _Val;
 	}
 
 protected:
@@ -48,6 +58,8 @@ private :
 	UStateManager State;
 	USpriteRenderer* WaterCourseRender = nullptr;
 	float LifeTime = 0.0f;
-	bool b_Bomb = false;
+	size_t Power = 1;
+	//bool b_Bomb = false;
+	bool b_WaterToBomb = false;
 };
 
