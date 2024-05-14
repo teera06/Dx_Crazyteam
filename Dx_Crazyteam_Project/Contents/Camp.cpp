@@ -4,8 +4,7 @@
 
 ACamp::ACamp() 
 {
-	BackMap = CreateDefaultSubObject<USpriteRenderer>("BackMap");
-	BackMap->SetupAttachment(Root);
+
 }
 
 ACamp::~ACamp() 
@@ -16,9 +15,9 @@ void ACamp::BeginPlay()
 {
 	Super::BeginPlay();
 
-	BackMap->SetSprite("Camp_Back1.png");
-	BackMap->SetAutoSize(1.f, true);
-	BackMap->SetOrder(EObjectOrder::Map);
+	Renderer->SetSprite("Camp_Back1.png");
+	Renderer->SetAutoSize(1.f, true);
+	Renderer->SetOrder(EObjectOrder::Map);
 
 	AddObjectInit();
 }

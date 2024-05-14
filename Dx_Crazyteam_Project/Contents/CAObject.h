@@ -1,9 +1,9 @@
 #pragma once
-#include <EngineCore/Actor.h>
+#include "NetInterface.h"
 
 // Ό³Έν :
 class ACAGameMode;
-class ACAObject : public AActor
+class ACAObject : public UNetInterface
 {
 	GENERATED_BODY(AActor)
 public:

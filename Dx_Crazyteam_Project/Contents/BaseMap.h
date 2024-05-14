@@ -1,6 +1,7 @@
 #pragma once
 #include "CAObject.h"
 
+
 // Ό³Έν :
 class UEngineTexture;
 class UDefaultSceneComponent;
@@ -20,12 +21,16 @@ public:
 	ABaseMap& operator=(ABaseMap&& _Other) noexcept = delete;
 
 	bool IsMove(FVector _PlayerPos);
+	bool IsEmpty(FVector _PlayerPos);
+	bool IsEmpty(int _Y, int _X);
+
 	void AddMapObject(int _Y, int _X, EMapObject _MapObjectType);
 	std::shared_ptr<AMapObject> GetMapObject(int _Y, int _X)
 	{
 		return MapStatus[_Y][_X];
 	}
 	void SpawnWaterBomb(FVector _SpawnPos);
+	void SpawnWaterBomb(int _Y, int _X);
 	void DestroyMapObject(int _Y, int _X);
 
 	POINT PlayerPosToPoint(FVector _PlayerPos);
@@ -34,7 +39,6 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	USpriteRenderer* BackMap = nullptr;
 	UDefaultSceneComponent* Root = nullptr;
 
 	std::vector<std::vector<std::shared_ptr<AMapObject>>> MapStatus;

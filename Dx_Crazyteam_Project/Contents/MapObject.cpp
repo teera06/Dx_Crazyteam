@@ -4,8 +4,7 @@
 
 AMapObject::AMapObject()
 {
-	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
-	SetRoot(Root);
+
 }
 
 AMapObject::~AMapObject()
