@@ -4,6 +4,7 @@
 
 class AUitestMonde;
 class UImage;
+class UTextWidget;
 class ATitleMenu : public AActor, public UNetObject
 {
 	GENERATED_BODY(AActor)
@@ -25,6 +26,7 @@ protected:
 
 private:
 	AUitestMonde* UIGameMode = nullptr;
+	UTextWidget* TestText = nullptr;
 
 };
 
