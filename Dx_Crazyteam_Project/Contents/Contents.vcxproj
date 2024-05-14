@@ -176,10 +176,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="NetInterface.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="NetInterface.cpp" />
     <ClCompile Include="OtherPlayer.cpp">
       <SubType>
       </SubType>

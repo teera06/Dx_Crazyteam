@@ -257,9 +257,11 @@
     <ClCompile Include="ConstValue.cpp">
       <Filter>Option</Filter>
     </ClCompile>
-    <ClCompile Include="CAObject.cpp" />
     <ClCompile Include="NetInterface.cpp">
       <Filter>Level\ServerLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="CAObject.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
