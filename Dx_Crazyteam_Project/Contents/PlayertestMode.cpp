@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "PlayertestMode.h"
 
+
 APlayerTestMode::APlayerTestMode()
 {
 }
@@ -17,8 +18,13 @@ void APlayerTestMode::BeginPlay()
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -200.0f));
 
 	Village = GetWorld()->SpawnActor<AVillage>("Village");
+	SetCurMap(Village);
 
 	Player1 = GetWorld()->SpawnActor<APlayer>("Player1", 0);
+	Player1->SetCurGameMode(this);
+	SetMainPlayer(Player1);
+
+
 }
 
 void APlayerTestMode::Tick(float _DeltaTime)

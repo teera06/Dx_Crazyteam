@@ -27,8 +27,6 @@ void APlayer::BeginPlay()
 
 	SetActorScale3D(FVector(20, 20, 1));
 	StateInit();
-
-
 }
 
 void APlayer::Tick(float _DeltaTime)
