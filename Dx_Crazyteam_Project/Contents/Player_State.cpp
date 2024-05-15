@@ -37,18 +37,21 @@ void APlayer::StateInit()
 	State.CreateState("Move");
 	State.CreateState("Trap");
 	State.CreateState("Rescue");
+	State.CreateState("Die");
 
 	// StartFunction
 	State.SetStartFunction("Idle", std::bind(&APlayer::IdleStart, this));
 	State.SetStartFunction("Move", std::bind(&APlayer::MoveStart, this));
 	State.SetStartFunction("Trap", std::bind(&APlayer::TrapStart, this));
 	State.SetStartFunction("Rescue", std::bind(&APlayer::RescueStart, this));
+	State.SetStartFunction("Die", std::bind(&APlayer::DieStart, this));
 
 	// UpdateFunction
 	State.SetUpdateFunction("Idle", std::bind(&APlayer::Idle, this, std::placeholders::_1));
 	State.SetUpdateFunction("Move", std::bind(&APlayer::Move, this, std::placeholders::_1));
 	State.SetUpdateFunction("Trap", std::bind(&APlayer::Trap, this, std::placeholders::_1));
 	State.SetUpdateFunction("Rescue", std::bind(&APlayer::Rescue, this, std::placeholders::_1));
+	State.SetUpdateFunction("Die", std::bind(&APlayer::Die, this, std::placeholders::_1));
 
 	// Init
 	State.ChangeState("Idle");
@@ -132,6 +135,7 @@ void APlayer::TrapStart()
 	Renderer->ChangeAnimation(GetAnimationName("Trap"));
 	TrapDir = FVector::Up;
 	TrapMoveTime = 1.f;
+	TrapToDieTime = 5.f;
 }
 
 
@@ -145,18 +149,18 @@ void APlayer::Trap(float _DeltaTime)
 		return;
 	}
 
-	// 둥둥 떠있는 모습 구현하기.
 	TrapMoveTime -= _DeltaTime;
 	TrapAnimationTime -= _DeltaTime;
 	TrapToDieTime -= _DeltaTime;
 
-	Renderer->AddPosition(TrapDir * TrapMoveSpeed * _DeltaTime);
 
+	// Renderer 상하로 움직이도록 Dir을 변경
 	if (TrapMoveTime < 0.f)
 	{
 		TrapDir *= -1.f;
 		TrapMoveTime = 1.f;
 	}
+	Renderer->AddPosition(TrapDir * TrapMoveSpeed * _DeltaTime);
 
 	if (TrapAnimationTime < 0.f)
 	{
@@ -173,9 +177,12 @@ void APlayer::Trap(float _DeltaTime)
 		}
 	}
 
+	// Trap 이후 DieTime 초과 시 Die 상태로 변경
 	if (TrapToDieTime < 0.f)
 	{
-		//State.ChageState("Die");
+		Renderer->SetPosition(FVector::Zero);
+		State.ChangeState("Die");
+		return;
 	}
 }
 
@@ -191,4 +198,16 @@ void APlayer::Rescue(float _DeltaTime)
 		State.ChangeState("Idle");
 		return;
 	}
+}
+
+void APlayer::DieStart()
+{
+	// 임시
+	State.ChangeState("Idle");
+	return;
+}
+
+void APlayer::Die(float _DeltaTime)
+{
+
 }

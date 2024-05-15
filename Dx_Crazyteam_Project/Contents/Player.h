@@ -57,6 +57,8 @@ private:
 	void Trap(float _DeltaTime);
 	void RescueStart();
 	void Rescue(float _DeltaTime);
+	void DieStart();
+	void Die(float _DeltaTime);
 
 	std::string GetAnimationName(std::string_view _StateName);
 
