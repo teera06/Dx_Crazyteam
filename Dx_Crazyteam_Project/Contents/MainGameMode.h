@@ -8,7 +8,7 @@
 
 class APlayer;
 class AVillage;
-class UMapDebugGUI;
+class UTextWidget;
 class AMainGameMode : public ACAGameMode
 {
 	GENERATED_BODY(ACAGameMode)
@@ -29,7 +29,7 @@ protected:
 	void LevelStart(ULevel* _PrevLevel);
 	void LevelEnd(ULevel* _NextLevel);
 private:
-	std::shared_ptr<UMapDebugGUI> MapDebugWindow;
+	UTextWidget* ShowText = nullptr;
 	std::shared_ptr<AVillage> Village = nullptr;
 	std::shared_ptr<APlayer> Player1 = nullptr;
 };

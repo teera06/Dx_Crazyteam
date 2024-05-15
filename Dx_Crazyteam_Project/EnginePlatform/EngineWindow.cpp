@@ -3,15 +3,19 @@
 #include <EngineBase\EngineDebug.h>
 #include "WindowImage.h"
 #include "TextimeInput.h"
-#include <stdio.h>
-
-
 
 bool UEngineWindow::WindowLive = true;
 HINSTANCE UEngineWindow::hInstance;
 std::function<bool(HWND, UINT, WPARAM, LPARAM)> UEngineWindow::UserWndProcFunction;
 
 std::map<HWND, UEngineWindow*> UEngineWindow::AllWindow;
+
+char Text[255];     // 텍스트를 저장하기위한 변수
+char Cstr[10];
+char CanText[200];
+#pragma warning(disable : 4996)
+int CNumber = 0;
+int CanMax = 0;
 
 void UEngineWindow::SetUserWindowCallBack(std::function<bool(HWND, UINT, WPARAM, LPARAM)> _UserWndProcFunction)
 {
@@ -52,7 +56,14 @@ LRESULT CALLBACK UEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, 
 		WindowLive = false;
 		// PostQuitMessage(123213);
 		break;
+	case WM_IME_COMPOSITION:
+	case WM_CHAR:
+	case WM_KEYDOWN:
+		UTextimeInput::SetIme(hWnd, message, wParam, lParam);
+		
+		break;
 	default:
+
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 	return 0;
@@ -147,7 +158,6 @@ void UEngineWindow::Open(std::string_view _Title /*= "Title"*/, std::string_view
 
 	hWnd = CreateWindowA("DefaultWindow", _Title.data(), Style,
 		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-
 	AllWindow[hWnd] = this;
 
 	if (!hWnd)
@@ -293,4 +303,3 @@ void UEngineWindow::CursorOn()
 	ShowCursor(TRUE);
 	IsCursorValue = true;
 }
-

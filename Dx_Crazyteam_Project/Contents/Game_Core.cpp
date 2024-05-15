@@ -27,6 +27,7 @@ UGame_Core::~UGame_Core()
 void UGame_Core::Initialize()
 {
 	UEngineFont::Load("±Ã¼­");
+	UEngineFont::Load("¸¼Àº °íµñ");
 	MainLoad();
 	CuttingAni();
 	SoundLoad();

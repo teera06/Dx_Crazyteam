@@ -1,10 +1,10 @@
 #include "PreCompile.h"
 #include "MainGameMode.h"
 
+#include <EngineCore/TextWidget.h>
+#include <EnginePlatform/TextimeInput.h>
 
 #include "Village.h"
-#include <EngineCore/EngineEditorGUI.h>
-#include "MapDebugGUI.h"
 #include "Player.h"
 #include "Camp.h"
 #include "WaterCourse.h"
@@ -32,6 +32,15 @@ void AMainGameMode::BeginPlay()
 	Player1->SetCurGameMode(this);
 	SetMainPlayer(Player1);
 
+	ShowText = CreateWidget<UTextWidget>(GetWorld(), "ShowText");
+	ShowText->SetFont("¸¼Àº °íµñ");
+	ShowText->SetScale(30.0f);
+	ShowText->SetColor(Color8Bit::Black);
+	ShowText->SetPosition({ 0.0f ,0.0f });
+	ShowText->SetFlag(FW1_LEFT);
+	ShowText->AddToViewPort(11);
+
+
 #ifdef _DEBUG
 	InputOn();
 #endif
@@ -40,7 +49,16 @@ void AMainGameMode::BeginPlay()
 void AMainGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
+	UTextimeInput::IMEInput();
+	std::string Text = UTextimeInput::GetReadText();
+	if (Text.size() > 0)
+	{
+		ShowText->SetText(Text);
+	}
+	else
+	{
+		ShowText->SetText(" ");
+	}
 }
 
 void AMainGameMode::LevelStart(ULevel* _PrevLevel)
