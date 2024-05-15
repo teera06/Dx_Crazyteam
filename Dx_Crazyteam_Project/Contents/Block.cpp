@@ -13,7 +13,7 @@ void ABlock::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Type = EMapObjectType::Block;
+	SetType(EMapObjectType::Block);
 }
 
 void ABlock::Tick(float _DeltaTime)

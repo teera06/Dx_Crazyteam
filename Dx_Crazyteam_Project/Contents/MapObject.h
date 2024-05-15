@@ -22,6 +22,11 @@ public:
 		return Type;
 	}
 
+	void SetType(EMapObjectType _Type)
+	{
+		Type = _Type;
+	}
+
 	void SetCurPos(POINT _Pos)
 	{
 		CurPos = _Pos;
@@ -49,13 +54,12 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	EMapObjectType Type = EMapObjectType::None;
-	POINT CurPos = { 0,0 };
-
 	USpriteRenderer* FrontRenderer = nullptr;
 	USpriteRenderer* BackRenderer = nullptr;
 	
 private:
+	EMapObjectType Type = EMapObjectType::None;
+	POINT CurPos = { 0,0 };
 
 };
 

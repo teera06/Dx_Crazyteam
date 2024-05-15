@@ -18,7 +18,7 @@ void ABrokenBlock::BeginPlay()
 	Super::BeginPlay();
 	StateInit();
 	CreateAnimation();
-	Type = EMapObjectType::BrakableBlock;
+	SetType(EMapObjectType::BrakableBlock);
 
 	WaterInteract = [&]() {
 		IsBreak = true;
@@ -132,7 +132,7 @@ void ABrokenBlock::BreakExit()
 #pragma region End
 void ABrokenBlock::EndBegin()
 {
-	GetGameMode()->GetCurMap()->DestroyMapObject(CurPos.y, CurPos.x);
+	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 }
 
 void ABrokenBlock::EndTick(float _DeltaTime)

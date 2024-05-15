@@ -34,58 +34,69 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 		return false;
 	}
 
-	for (int y = 0; y < ConstValue::TileY-1; y++)
+	POINT CheckPoint = PosToPoint(_CheckPos);
+
+	if (MapStatus[CheckPoint.y][CheckPoint.x] == nullptr) return true;
+
+	switch (MapStatus[CheckPoint.y][CheckPoint.x]->GetType())
 	{
-		for (int x = 0 ; x < ConstValue::TileX; x++)
+		case EMapObjectType::None:
+		case EMapObjectType::Water:
 		{
-			if (MapStatus[y][x] == nullptr) continue;
-
-			switch (MapStatus[y][x]->GetType())
-			{
-			case EMapObjectType::None:
-				continue;
-			case EMapObjectType::WaterBalloon:
-			{
-				std::shared_ptr<APlayer> Player = GetGameMode()->GetPlayer();
-				POINT point = Player->GetPlayerInfo()->CurIndex;
-				if (point.y == y &&
-					point.x == x)
-				{
-					return true;
-				}
-			}
-			case EMapObjectType::Block:
-			case EMapObjectType::BrakableBlock:
-			case EMapObjectType::MoveBlock:
-			case EMapObjectType::Water:
-			{
-				FVector TilePosition = MapStatus[y][x]->GetActorLocation();
-
-				if (TilePosition.X + ConstValue::TileSize.X / 2.f > _CheckPos.X &&
-					TilePosition.X - ConstValue::TileSize.X / 2.f < _CheckPos.X &&
-					TilePosition.Y + ConstValue::TileSize.Y / 2.f > _CheckPos.Y &&
-					TilePosition.Y - ConstValue::TileSize.Y / 2.f < _CheckPos.Y)
-				{
-					POINT CheckPoint = PlayerPosToPoint(_CheckPos);
-
-					if (MapStatus[CheckPoint.y][CheckPoint.x] == nullptr) continue;
-
-					MapStatus[CheckPoint.y][CheckPoint.x]->PlayerInteract();
-					return false;
-				}
-			}
-			break;
-			}
+			return true;
 		}
+		break;
+
+		case EMapObjectType::WaterBalloon:
+		{
+			std::shared_ptr<APlayer> Player = GetGameMode()->GetPlayer();
+			POINT PlayerPoint = Player->GetPlayerInfo()->CurIndex;
+			POINT CheckPoint = PosToPoint(_CheckPos);
+			if (CheckPoint.x != PlayerPoint.x ||
+				CheckPoint.y != PlayerPoint.y)
+			{
+				return false;
+			}
+			else return true;
+		}
+		case EMapObjectType::Block:
+		case EMapObjectType::BrakableBlock:
+		case EMapObjectType::MoveBlock:
+		{
+			FVector TilePosition = MapStatus[CheckPoint.y][CheckPoint.x]->GetActorLocation();
+
+			if (TilePosition.X + ConstValue::TileSize.X / 2.f > _CheckPos.X &&
+				TilePosition.X - ConstValue::TileSize.X / 2.f < _CheckPos.X &&
+				TilePosition.Y + ConstValue::TileSize.Y / 2.f > _CheckPos.Y &&
+				TilePosition.Y - ConstValue::TileSize.Y / 2.f < _CheckPos.Y)
+			{
+				POINT CheckPoint = PosToPoint(_CheckPos);
+
+				if (MapStatus[CheckPoint.y][CheckPoint.x] == nullptr) return true;
+
+				MapStatus[CheckPoint.y][CheckPoint.x]->PlayerInteract();
+				return false;
+			}
+
+			return true;
+		}
+		break;
+		case EMapObjectType::Item:
+		{
+			POINT CheckPoint = PosToPoint(_CheckPos);
+			MapStatus[CheckPoint.y][CheckPoint.x]->PlayerInteract();
+			return true;
+		}
+		break;
+		default:
+			return true;
+			break;
 	}
-
-
-	return true;
 }
 
 bool ABaseMap::IsEmpty(FVector _PlayerPos)
 {
-	POINT PlayerPoint = PlayerPosToPoint(_PlayerPos);
+	POINT PlayerPoint = PosToPoint(_PlayerPos);
 
 	if (MapStatus[PlayerPoint.y][PlayerPoint.x] = nullptr)
 	{
@@ -257,7 +268,7 @@ void ABaseMap::MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX,
 
 void ABaseMap::SpawnWaterBomb(FVector _SpawnPos)
 {
-	POINT BombPoint = PlayerPosToPoint(_SpawnPos);
+	POINT BombPoint = PosToPoint(_SpawnPos);
 
 	AddMapObject(BombPoint.y, BombPoint.x, EMapObject::WaterBomb);
 }
@@ -273,7 +284,7 @@ void ABaseMap::DestroyMapObject(int _Y, int _X)
 	MapStatus[_Y][_X] = nullptr;
 }
 
-POINT ABaseMap::PlayerPosToPoint(FVector _PlayerPos)
+POINT ABaseMap::PosToPoint(FVector _PlayerPos)
 {
 	float MinDistance = 999999;
 	POINT Result = { 0,0 };

@@ -38,7 +38,7 @@ public:
 	void SpawnWaterBomb(int _Y, int _X);
 	void DestroyMapObject(int _Y, int _X);
 
-	POINT PlayerPosToPoint(FVector _PlayerPos);
+	POINT PosToPoint(FVector _PlayerPos);
 	FVector PointToPos(int _Y, int _X);
 
 protected:

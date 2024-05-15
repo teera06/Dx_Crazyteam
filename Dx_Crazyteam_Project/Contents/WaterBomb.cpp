@@ -30,6 +30,7 @@ void AWaterBomb::BeginPlay()
 	Renderer->SetOrder(ERenderOrder::Player);
 	//Renderer->SetPivot(EPivot::BOT);
 	//Renderer->SetActive(false);
+	SetType(EMapObjectType::WaterBalloon);
 }
 
 void AWaterBomb::Tick(float _DeltaTime)
@@ -114,13 +115,14 @@ void AWaterBomb::BombBegin()
 	//Course->SetBombPoint(CurPos);
 	//Course->CreateWaterCenter();
 
-	GetGameMode()->GetCurMap()->AddMapObject(CurPos.y, CurPos.x, EMapObject::Water);
+	GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water);
 	b_ServerBomb = true;
 }
 
 void AWaterBomb::BombTick(float _DeltaTime)
 {
 	//Destroy();
+	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 }
 
 void AWaterBomb::BombExit()

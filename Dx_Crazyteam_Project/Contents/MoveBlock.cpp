@@ -16,7 +16,7 @@ void AMoveBlock::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Type = EMapObjectType::MoveBlock;
+	SetType(EMapObjectType::MoveBlock);
 
 	PlayerInteract = [&]() {
 
@@ -25,9 +25,9 @@ void AMoveBlock::BeginPlay()
 		IsPush = true;
 		PlayerIndex = GetGameMode()->GetPlayer()->GetPlayerInfo()->CurIndex;
 
-		if (PlayerIndex.x == CurPos.x)
+		if (PlayerIndex.x == GetCurPos().x)
 		{
-			if (PlayerIndex.y < CurPos.y)
+			if (PlayerIndex.y < GetCurPos().y)
 			{
 				MoveDir = ECADir::Down;
 			}
@@ -36,9 +36,9 @@ void AMoveBlock::BeginPlay()
 				MoveDir = ECADir::Up;
 			}
 		}
-		else if (PlayerIndex.y == CurPos.y)
+		else if (PlayerIndex.y == GetCurPos().y)
 		{
-			if (PlayerIndex.x < CurPos.x)
+			if (PlayerIndex.x < GetCurPos().x)
 			{
 				MoveDir = ECADir::Right;
 			}
@@ -117,8 +117,8 @@ void AMoveBlock::IdleTick(float _DeltaTime)
 			break;
 		}
 
-		nx = CurPos.x + dx[Order];
-		ny = CurPos.y + dy[Order];
+		nx = GetCurPos().x + dx[Order];
+		ny = GetCurPos().y + dy[Order];
 
 		if (nx < 0 || ny < 0 || nx >= ConstValue::TileX || ny >= ConstValue::TileY - 1)
 		{
@@ -185,7 +185,7 @@ void AMoveBlock::PushExit()
 
 void AMoveBlock::EndBegin()
 {
-	GetGameMode()->GetCurMap()->MoveMapObject(shared_from_this(), ny, nx, CurPos.y, CurPos.x);
+	GetGameMode()->GetCurMap()->MoveMapObject(shared_from_this(), ny, nx, GetCurPos().y, GetCurPos().x);
 
 	IsPush = false;
 }
@@ -193,7 +193,6 @@ void AMoveBlock::EndBegin()
 void AMoveBlock::EndTick(float _DeltaTime)
 {
 	State.ChangeState("Idle");
-
 }
 
 void AMoveBlock::EndExit()

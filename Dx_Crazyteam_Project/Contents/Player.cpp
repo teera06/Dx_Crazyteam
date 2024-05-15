@@ -39,7 +39,7 @@ void APlayer::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 	PlayerSendPacket(_DeltaTime);
 
-	Info->CurIndex = GetGameMode()->GetCurMap()->PlayerPosToPoint(GetActorLocation());
+	Info->CurIndex = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
 	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 0));
 
 	if (true == IsDown(VK_SPACE))
