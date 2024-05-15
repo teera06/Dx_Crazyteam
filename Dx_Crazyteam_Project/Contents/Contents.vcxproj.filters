@@ -82,6 +82,9 @@
     <Filter Include="Level\Surver\PublicOBJ">
       <UniqueIdentifier>{149b30b1-88f3-4ac2-b507-696641148050}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\Surver\PublicOBJ\Test">
+      <UniqueIdentifier>{2f2ff1b3-fda1-42ca-9c60-065fde88a1f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -189,7 +192,6 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemBubble.h" />
     <ClInclude Include="ItemRoller.h" />
-    <ClInclude Include="TestLobbyMode.h" />
     <ClInclude Include="OtherBomb.h">
       <Filter>Level\Surver\PublicOBJ</Filter>
     </ClInclude>
@@ -201,6 +203,12 @@
     </ClInclude>
     <ClInclude Include="ServerPlayer.h">
       <Filter>Level\Surver\PublicOBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="TestLobbyMode.h">
+      <Filter>Level\Surver\ServerLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="TestLobbyPlayer.h">
+      <Filter>Level\Surver\PublicOBJ\Test</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -302,7 +310,6 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemBubble.cpp" />
     <ClCompile Include="ItemRoller.cpp" />
-    <ClCompile Include="TestLobbyMode.cpp" />
     <ClCompile Include="OtherBomb.cpp">
       <Filter>Level\Surver\PublicOBJ</Filter>
     </ClCompile>
@@ -314,6 +321,12 @@
     </ClCompile>
     <ClCompile Include="ServerPlayer.cpp">
       <Filter>Level\Surver\PublicOBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="TestLobbyMode.cpp">
+      <Filter>Level\Surver\ServerLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="TestLobbyPlayer.cpp">
+      <Filter>Level\Surver\PublicOBJ\Test</Filter>
     </ClCompile>
     <ClCompile Include="CampMoveBlock.cpp">
       <Filter>MapObject\MoveBlock\CampMoveBlock</Filter>
