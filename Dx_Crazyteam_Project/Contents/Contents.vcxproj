@@ -83,10 +83,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="MapSpriteObject.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="MoveBlock.h">
       <SubType>
       </SubType>
@@ -225,10 +221,6 @@
     </ClCompile>
     <ClCompile Include="MapDebugGUI.cpp" />
     <ClCompile Include="MapObject.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="MapSpriteObject.cpp">
       <SubType>
       </SubType>
     </ClCompile>

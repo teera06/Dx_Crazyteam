@@ -342,8 +342,13 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 			{
 				// 만들어 질 곳에 뭐가 있음?
 				std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y - DefaultPowerValue, CurPos.x);
-				EMapObjectType type = NextMapObject->GetType();
-				if (type == EMapObjectType::None)
+
+				if (NextMapObject != nullptr)
+				{
+					EMapObjectType type = NextMapObject->GetType();
+				}
+				
+				if (NextMapObject == nullptr)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(CurPos.y - DefaultPowerValue, CurPos.x, false, EEngineDir::Up);
 				}
@@ -352,8 +357,12 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 			if (13 != CurPos.y + DefaultPowerValue)
 			{
 				std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y + DefaultPowerValue, CurPos.x);
-				EMapObjectType type = NextMapObject->GetType();
-				if (type == EMapObjectType::None)
+				if (NextMapObject != nullptr)
+				{
+					EMapObjectType type = NextMapObject->GetType();
+				}
+
+				if (NextMapObject == nullptr)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(CurPos.y + DefaultPowerValue, CurPos.x, false, EEngineDir::Down);
 				}
@@ -362,8 +371,12 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 			if (0 <= CurPos.x - DefaultPowerValue)
 			{
 				std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y, CurPos.x - DefaultPowerValue);
-				EMapObjectType type = NextMapObject->GetType();
-				if (type == EMapObjectType::None)
+				if (NextMapObject != nullptr)
+				{
+					EMapObjectType type = NextMapObject->GetType();
+				}
+
+				if (NextMapObject == nullptr)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(CurPos.y, CurPos.x - DefaultPowerValue, false, EEngineDir::Left);
 				}
@@ -372,8 +385,12 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 			if (15 != CurPos.x + DefaultPowerValue)
 			{
 				std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y, CurPos.x + DefaultPowerValue);
-				EMapObjectType type = NextMapObject->GetType();
-				if (type == EMapObjectType::None)
+				if (NextMapObject != nullptr)
+				{
+					EMapObjectType type = NextMapObject->GetType();
+				}
+
+				if (NextMapObject == nullptr)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(CurPos.y, CurPos.x + DefaultPowerValue, false, EEngineDir::Right);
 				}
@@ -388,8 +405,12 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 			{
 				// 만들어 질 곳에 뭐가 있음?
 				std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y - DefaultPowerValue, CurPos.x);
-				EMapObjectType type = NextMapObject->GetType();
-				if (type == EMapObjectType::None)
+				if (NextMapObject != nullptr)
+				{
+					EMapObjectType type = NextMapObject->GetType();
+				}
+
+				if (NextMapObject == nullptr)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(CurPos.y - DefaultPowerValue, CurPos.x, true, EEngineDir::Up);
 				}
@@ -398,8 +419,12 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 			if (13 != CurPos.y + DefaultPowerValue)
 			{
 				std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y + DefaultPowerValue, CurPos.x);
-				EMapObjectType type = NextMapObject->GetType();
-				if (type == EMapObjectType::None)
+				if (NextMapObject != nullptr)
+				{
+					EMapObjectType type = NextMapObject->GetType();
+				}
+
+				if (NextMapObject == nullptr)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(CurPos.y + DefaultPowerValue, CurPos.x, true, EEngineDir::Down);
 				}
@@ -408,8 +433,12 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 			if (0 <= CurPos.x - DefaultPowerValue)
 			{
 				std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y, CurPos.x - DefaultPowerValue);
-				EMapObjectType type = NextMapObject->GetType();
-				if (type == EMapObjectType::None)
+				if (NextMapObject != nullptr)
+				{
+					EMapObjectType type = NextMapObject->GetType();
+				}
+
+				if (NextMapObject == nullptr)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(CurPos.y, CurPos.x - DefaultPowerValue, true, EEngineDir::Left);
 				}
@@ -418,8 +447,12 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 			if (15 != CurPos.x + DefaultPowerValue)
 			{
 				std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(CurPos.y, CurPos.x + DefaultPowerValue);
-				EMapObjectType type = NextMapObject->GetType();
-				if (type == EMapObjectType::None)
+				if (NextMapObject != nullptr)
+				{
+					EMapObjectType type = NextMapObject->GetType();
+				}
+
+				if (NextMapObject == nullptr)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(CurPos.y, CurPos.x + DefaultPowerValue, true, EEngineDir::Right);
 				}

@@ -3,7 +3,7 @@
 
 // Ό³Έν :
 class UDefaultSceneComponent;
-class AMapObject : public ACAObject
+class AMapObject : public ACAObject, public std::enable_shared_from_this<AMapObject>
 {
 	GENERATED_BODY(ACAObject)
 public:

@@ -38,6 +38,8 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 	{
 		for (int x = 0 ; x < ConstValue::TileX; x++)
 		{
+			if (MapStatus[y][x] == nullptr) continue;
+
 			switch (MapStatus[y][x]->GetType())
 			{
 			case EMapObjectType::None:
@@ -64,8 +66,11 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 					TilePosition.Y + ConstValue::TileSize.Y / 2.f > _CheckPos.Y &&
 					TilePosition.Y - ConstValue::TileSize.Y / 2.f < _CheckPos.Y)
 				{
-					POINT PlayerPoint = PlayerPosToPoint(_CheckPos);
-					MapStatus[PlayerPoint.y][PlayerPoint.x]->PlayerInteract();
+					POINT CheckPoint = PlayerPosToPoint(_CheckPos);
+
+					if (MapStatus[CheckPoint.y][CheckPoint.x] == nullptr) continue;
+
+					MapStatus[CheckPoint.y][CheckPoint.x]->PlayerInteract();
 					return false;
 				}
 			}
@@ -82,7 +87,7 @@ bool ABaseMap::IsEmpty(FVector _PlayerPos)
 {
 	POINT PlayerPoint = PlayerPosToPoint(_PlayerPos);
 
-	if (MapStatus[PlayerPoint.y][PlayerPoint.x]->GetType() == EMapObjectType::None)
+	if (MapStatus[PlayerPoint.y][PlayerPoint.x] = nullptr)
 	{
 		return true;
 	}
@@ -93,7 +98,7 @@ bool ABaseMap::IsEmpty(FVector _PlayerPos)
 bool ABaseMap::IsEmpty(int _Y, int _X)
 {
 
-	if (MapStatus[_Y][_X]->GetType() == EMapObjectType::None)
+	if (MapStatus[_Y][_X] == nullptr)
 	{
 		return true;
 	}
@@ -109,10 +114,6 @@ void ABaseMap::BeginPlay()
 
 	AddActorLocation(FVector(0.f, ConstValue::TileSize.Y / 2.f, 0.f));
 
-	FVector FirstPos = FVector::Zero;
-
-	FirstPos.X = -ConstValue::TileSize.X * static_cast<float>((ConstValue::TileX / 2));
-	FirstPos.Y = ConstValue::TileSize.Y * static_cast<float>((ConstValue::TileY-1) / 2);
 	
 	for (int y = 0; y < ConstValue::TileY-1; y++)
 	{
@@ -120,15 +121,7 @@ void ABaseMap::BeginPlay()
 		MapStatus.push_back(Temp);
 		for (int x = 0; x < ConstValue::TileX; x++)
 		{
-			std::shared_ptr<AMapObject> Default = GetWorld()->SpawnActor<AMapObject>("Block");
-			FVector PushPos = FVector::Zero;
-			PushPos.X = FirstPos.X + ConstValue::TileSize.X * x;
-			PushPos.Y = FirstPos.Y - ConstValue::TileSize.Y * y;
-
-			Default->SetActorLocation(PushPos);
-			Default->SetCurPos(POINT(x, y));
-
-			MapStatus[y].push_back(Default);
+			MapStatus[y].push_back(nullptr);
 		}
 	}
 }
@@ -141,6 +134,9 @@ void ABaseMap::Tick(float _DeltaTime)
 
 std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _MapObjectType)
 {
+	FVector PushPos = PointToPos(_Y, _X);
+
+
 	std::shared_ptr<AMapObject> MapObj = nullptr;
 	switch (_MapObjectType)
 	{
@@ -151,32 +147,28 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 	}
 	case EMapObject::DummyBlock:
 	{
-		std::shared_ptr<ADummyBlock> TempObj = GetWorld()->SpawnActor<ADummyBlock>("Block");
-		MapObj = TempObj;
+		MapObj = GetWorld()->SpawnActor<ADummyBlock>("Block");
 		break;
 	}
 	case EMapObject::CampMoveBlock:
 	{
-		std::shared_ptr<ACampMoveBlock> TempObj = GetWorld()->SpawnActor<ACampMoveBlock>("Block");
-		MapObj = TempObj;
+		MapObj = GetWorld()->SpawnActor<ACampMoveBlock>("Block");
 		break;
 	}
 	case EMapObject::NormalBlock:
 	{
-		std::shared_ptr<ABlock> TempObj = GetWorld()->SpawnActor<ABlock>("Block");
-		MapObj = TempObj;
+		MapObj = GetWorld()->SpawnActor<ABlock>("Block");
 		break;
 	}
 	case EMapObject::CampBlock:
 	{
-		std::shared_ptr<ACampBlock> TempObj = GetWorld()->SpawnActor<ACampBlock>("CampBlock");
-		MapObj = TempObj;
+		MapObj = GetWorld()->SpawnActor<ACampBlock>("CampBlock");
 		break;
 	}
 	case EMapObject::WaterBomb:
 	{
 		std::shared_ptr<AWaterBomb> TempObj = GetWorld()->SpawnActor<AWaterBomb>("CampBlock");
-		TempObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
+		TempObj->SetActorLocation(PushPos);
 		TempObj->CreateWaterBomb();
 		MapObj = TempObj;
 		break;
@@ -184,7 +176,7 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 	case EMapObject::Water:
 	{
 		std::shared_ptr<AWaterCourse> TempObj = GetWorld()->SpawnActor<AWaterCourse>("CampBlock");
-		TempObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
+		TempObj->SetActorLocation(PushPos);
 		TempObj->CreateWaterCenter();
 		MapObj = TempObj;
 		break;
@@ -193,27 +185,28 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 		break;
 	}
 
-	MapObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
+	MapObj->SetActorLocation(PushPos);
 	MapObj->SetCurPos(POINT(_X, _Y));
 	MapObj->SetCurGameMode(GetGameMode());
 
-	MapStatus[_Y][_X]->Destroy();
+	if (MapStatus[_Y][_X] != nullptr)
+	{
+		MapStatus[_Y][_X]->Destroy();
+	}
+
 	MapStatus[_Y][_X] = MapObj;
 
 	return MapObj;
-}
-
-void ABaseMap::PushMapObject(std::shared_ptr<AMapObject> _Obj, int _y, int _x)
-{
-	MapStatus[_y][_x] = _Obj;
 }
 
 std::shared_ptr<AMapObject> ABaseMap::AddWaterCourse(int _Y, int _X, bool _IsEnd, EEngineDir _Dir)
 {
 	std::shared_ptr<AMapObject> MapObj = nullptr;
 
+	FVector PushPos = PointToPos(_Y, _X);
+
 	std::shared_ptr<AWaterCourse> TempObj = GetWorld()->SpawnActor<AWaterCourse>("CampBlock");
-	TempObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
+	TempObj->SetActorLocation(PushPos);
 	TempObj->SetDir(_Dir);
 	if (false == _IsEnd)
 	{
@@ -226,14 +219,40 @@ std::shared_ptr<AMapObject> ABaseMap::AddWaterCourse(int _Y, int _X, bool _IsEnd
 	MapObj = TempObj;
 
 
-	MapObj->SetActorLocation(MapStatus[_Y][_X]->GetActorLocation());
+	MapObj->SetActorLocation(PushPos);
 	MapObj->SetCurPos(POINT(_X, _Y));
 	MapObj->SetCurGameMode(GetGameMode());
 
-	MapStatus[_Y][_X]->Destroy();
+	if (MapStatus[_Y][_X] != nullptr)
+	{
+		MapStatus[_Y][_X]->Destroy();
+	}
+
 	MapStatus[_Y][_X] = MapObj;
 
 	return MapObj;
+}
+
+void ABaseMap::PushMapObject(std::shared_ptr<AMapObject> _Obj, int _Y, int _X)
+{
+	if (MapStatus[_Y][_X] != nullptr)
+	{
+		MapStatus[_Y][_X]->Destroy();
+	}
+
+	FVector PushPos = PointToPos(_Y, _X);
+
+	_Obj->SetActorLocation(PushPos);
+	_Obj->SetCurPos(POINT(_X, _Y));
+	_Obj->SetCurGameMode(GetGameMode());
+
+	MapStatus[_Y][_X] = _Obj;
+}
+
+void ABaseMap::MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX, int _PY, int _PX)
+{
+	PushMapObject(_Obj, _NY, _NX);
+	MapStatus[_PY][_PX] = nullptr;
 }
 
 void ABaseMap::SpawnWaterBomb(FVector _SpawnPos)
@@ -250,22 +269,24 @@ void ABaseMap::SpawnWaterBomb(int _Y, int _X)
 
 void ABaseMap::DestroyMapObject(int _Y, int _X)
 {
-	AddMapObject(_Y, _X, EMapObject::Default);
+	MapStatus[_Y][_X]->Destroy();
+	MapStatus[_Y][_X] = nullptr;
 }
 
 POINT ABaseMap::PlayerPosToPoint(FVector _PlayerPos)
 {
 	float MinDistance = 999999;
-	POINT Result;
+	POINT Result = { 0,0 };
 
 	FVector PlayerPos = _PlayerPos;
 	PlayerPos.Z = 0.f;
+
 
 	for (int y = 0; y < ConstValue::TileY - 1; y++)
 	{
 		for (int x = 0; x < ConstValue::TileX; x++)
 		{
-			FVector TileLocation = MapStatus[y][x]->GetActorLocation();
+			FVector TileLocation = PointToPos(y,x);
 			TileLocation.Z = 0.f;
 
 			float Distance = (PlayerPos - TileLocation).Size3D();
@@ -279,4 +300,19 @@ POINT ABaseMap::PlayerPosToPoint(FVector _PlayerPos)
 	}
 
 	return Result;
+}
+
+FVector ABaseMap::PointToPos(int _Y, int _X)
+{
+	FVector FirstPos = FVector::Zero;
+
+	FirstPos.X = -ConstValue::TileSize.X * static_cast<float>((ConstValue::TileX / 2));
+	FirstPos.Y = ConstValue::TileSize.Y * static_cast<float>((ConstValue::TileY - 1) / 2);
+
+	FVector PushPos = FVector::Zero;
+
+	PushPos.X = FirstPos.X + ConstValue::TileSize.X * _X;
+	PushPos.Y = FirstPos.Y - ConstValue::TileSize.Y * _Y;
+
+	return PushPos;
 }

@@ -138,9 +138,6 @@
     <ClInclude Include="Block.h">
       <Filter>MapObject</Filter>
     </ClInclude>
-    <ClInclude Include="MapSpriteObject.h">
-      <Filter>MapObject</Filter>
-    </ClInclude>
     <ClInclude Include="BrokenBlock.h">
       <Filter>MapObject</Filter>
     </ClInclude>
@@ -261,9 +258,6 @@
     <ClCompile Include="Block.cpp">
       <Filter>MapObject</Filter>
     </ClCompile>
-    <ClCompile Include="MapSpriteObject.cpp">
-      <Filter>MapObject</Filter>
-    </ClCompile>
     <ClCompile Include="BrokenBlock.cpp">
       <Filter>MapObject</Filter>
     </ClCompile>
@@ -278,9 +272,6 @@
     </ClCompile>
     <ClCompile Include="Camp.cpp">
       <Filter>Map\Camp</Filter>
-    </ClCompile>
-    <ClCompile Include="CampBlock.cpp">
-      <Filter>MapObject</Filter>
     </ClCompile>
     <ClCompile Include="MainGameMode.cpp">
       <Filter>Level\MainLevel</Filter>
@@ -308,7 +299,6 @@
     <ClCompile Include="DummyBlock.cpp">
       <Filter>MapObject\Block\DummyBlock</Filter>
     </ClCompile>
-    <ClCompile Include="CampMoveBlock.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemBubble.cpp" />
     <ClCompile Include="ItemRoller.cpp" />
@@ -324,6 +314,12 @@
     </ClCompile>
     <ClCompile Include="ServerPlayer.cpp">
       <Filter>Level\Surver\PublicOBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="CampMoveBlock.cpp">
+      <Filter>MapObject\MoveBlock\CampMoveBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="CampBlock.cpp">
+      <Filter>MapObject\Block\CampBlock</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

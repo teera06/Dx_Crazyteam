@@ -22,6 +22,12 @@ void AMapObject::BeginPlay()
 	Super::BeginPlay();
 	PlayerInteract = [](){};
 	WaterInteract = [](){};
+
+	FrontRenderer->SetOrder(ERenderOrder::BlockFront);
+	BackRenderer->SetOrder(ERenderOrder::BlockBack);
+
+	BackRenderer->SetPivot(EPivot::BOT);
+	BackRenderer->AddPosition(FVector::Up * 20.f);
 }
 
 void AMapObject::Tick(float _DeltaTime)

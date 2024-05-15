@@ -39,8 +39,8 @@ protected:
 	UStateManager State;
 
 	bool IsPush = false;
-	float MoveSpeed = 80.f;
-	float MoveCompleteTime = 0.5f;
+	float MoveSpeed = 100.f;
+	float MoveCompleteTime = 0.4f;
 	float AccTime = 0.f;
 
 	int ny = 0;

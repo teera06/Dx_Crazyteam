@@ -19,6 +19,9 @@ void AMoveBlock::BeginPlay()
 	Type = EMapObjectType::MoveBlock;
 
 	PlayerInteract = [&]() {
+
+		if (IsPush) return;
+
 		IsPush = true;
 		PlayerIndex = GetGameMode()->GetPlayer()->GetPlayerInfo()->CurIndex;
 
@@ -140,7 +143,7 @@ void AMoveBlock::IdleExit()
 
 void AMoveBlock::PushBegin()
 {
-	GetGameMode()->GetCurMap()->AddMapObject(ny, nx, EMapObject::DummyBlock);
+	
 }
 
 void AMoveBlock::PushTick(float _DeltaTime)
@@ -163,12 +166,13 @@ void AMoveBlock::PushTick(float _DeltaTime)
 		break;
 	}
 
-	FrontRenderer->AddPosition(MoveVector * MoveSpeed * _DeltaTime);
-	BackRenderer->AddPosition(MoveVector * MoveSpeed * _DeltaTime);
+	AddActorLocation(MoveVector * MoveSpeed * _DeltaTime);
+
 
 	AccTime += _DeltaTime;
 	if (AccTime > MoveCompleteTime)
 	{
+		AccTime = 0.f;
 		State.ChangeState("End");
 		return;
 	}
@@ -176,18 +180,19 @@ void AMoveBlock::PushTick(float _DeltaTime)
 
 void AMoveBlock::PushExit()
 {
-	GetGameMode()->GetCurMap()->DestroyMapObject(CurPos.y,CurPos.x);
-	GetGameMode()->GetCurMap()->AddMapObject(ny, nx,EMapObject::CampMoveBlock);
-
-	IsPush = false;
+	
 }
 
 void AMoveBlock::EndBegin()
 {
+	GetGameMode()->GetCurMap()->MoveMapObject(shared_from_this(), ny, nx, CurPos.y, CurPos.x);
+
+	IsPush = false;
 }
 
 void AMoveBlock::EndTick(float _DeltaTime)
 {
+	State.ChangeState("Idle");
 
 }
 
