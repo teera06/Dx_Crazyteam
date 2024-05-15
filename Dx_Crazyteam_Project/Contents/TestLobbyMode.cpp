@@ -3,7 +3,7 @@
 
 #include "TestLobbyMode.h"
 #include "Game_Core.h"
-
+#include "TestLobbyPlayer.h"
 
 ATestLobbyMode::ATestLobbyMode()
 {
@@ -16,6 +16,8 @@ ATestLobbyMode::~ATestLobbyMode()
 void ATestLobbyMode::BeginPlay()
 {
 	Super::BeginPlay();
+
+	CreateObject();
 }
 
 void ATestLobbyMode::Tick(float _DeltaTime)
@@ -79,4 +81,12 @@ void ATestLobbyMode::ClientPacketInit(UEngineDispatcher& Dis)
 					OtherPlayer->PushProtocol(_Packet);
 				});
 		});*/
+}
+
+void ATestLobbyMode::CreateObject()
+{
+	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
+	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
+
+	MainLobbyPlayer = GetWorld()->SpawnActor<ATestLobbyPlayer>("MainLobbyPlayer");
 }

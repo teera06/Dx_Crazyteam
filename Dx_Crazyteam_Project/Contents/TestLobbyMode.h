@@ -2,6 +2,7 @@
 #include "CAGameMode.h"
 
 // Ό³Έν :
+class ATestLobbyPlayer;
 class ATestLobbyMode : public ACAGameMode
 {
 	GENERATED_BODY(ACAGameMode)
@@ -22,9 +23,14 @@ public:
 protected:
 
 private:
+	std::shared_ptr<ATestLobbyPlayer> MainLobbyPlayer = nullptr;
+
+private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void LevelStart(ULevel* _DeltaTime) override;
 	void LevelEnd(ULevel* _DeltaTime) override;
+
+	void CreateObject();
 };
 

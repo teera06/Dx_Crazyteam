@@ -1,8 +1,11 @@
 #pragma once
+#include "CAObject.h"
 
 // Ό³Έν :
-class ATestLobbyPlayer
+class ATestLobbyPlayer : public ACAObject
 {
+	GENERATED_BODY(ACAObject)
+
 public:
 	// constrcuter destructer
 	ATestLobbyPlayer();
@@ -17,6 +20,9 @@ public:
 protected:
 
 private:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
+	void RendererInit();
 
 };
 
