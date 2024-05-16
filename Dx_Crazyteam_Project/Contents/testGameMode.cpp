@@ -44,14 +44,16 @@ void ATestGameMode::Tick(float _DeltaTime)
 #ifdef _DEBUG
 	FVector MousePos = GetWorld()->GetMainCamera()->ScreenPosToWorldPos(GEngine->EngineWindow.GetScreenMousePos());
 	std::string Msgs = std::format("Mouse Position : {}", MousePos.ToString());
-	UMapDebugGUI::PushMsg(Msgs);
-	Msgs = std::format("y : {}, x : {}", GetCurMap()->PosToPoint(MousePos).y, GetCurMap()->PosToPoint(MousePos).x);
-	UMapDebugGUI::PushMsg(Msgs);
+	std::string MousePosMsg = std::format("y : {}, x : {}", GetCurMap()->PosToPoint(MousePos).y, GetCurMap()->PosToPoint(MousePos).x);
+		
+	PlayerInfo* TestPlayerInfo = Player1->GetPlayerInfo();
+	int WaterPower = TestPlayerInfo->WBCount;
+	std::string WBCountStr = std::format("Water Bomb Count : {}", WaterPower);
 
-	if (true == IsDown('N'))
-	{
-		GetCurMap()->SpawnWaterBomb(GetPlayer()->GetActorLocation()); // ¹°Ç³¼± »ý¼º.
-	}
+
+	UMapDebugGUI::PushMsg(Msgs);
+	UMapDebugGUI::PushMsg(MousePosMsg);
+	UMapDebugGUI::PushMsg(WBCountStr);
 #endif // _DEBUG
 }
 

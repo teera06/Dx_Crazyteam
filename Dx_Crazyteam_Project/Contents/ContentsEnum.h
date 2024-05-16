@@ -24,8 +24,8 @@ enum class EMapObjectType {
 	None,
 	Block,   //움직이지도 부서지지도 않는 블록 / 물풍선
 	Bush,          //부시
-	Water,  //물풍선
-	WaterBalloon,
+	Water,  //물줄기
+	WaterBalloon, // 물풍선
 	Item,
 };
 
@@ -74,4 +74,11 @@ enum class ETeamType
 	None,
 	ATeam,
 	BTeam,
+};
+
+enum class EPlayerRideType
+{
+	None,
+	Owl,
+	Turtle,
 };

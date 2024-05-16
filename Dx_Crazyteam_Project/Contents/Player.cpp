@@ -48,12 +48,17 @@ void APlayer::Tick(float _DeltaTime)
 
 	if (true == IsDown(VK_SPACE))
 	{
-		if (Info->WBCount > 0)
-		{
-			//--Info->WBCount;
-			std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
-			Bomb->SetObjectToken(WaterBomb_Token++);
-		}
+
+		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
+		Bomb->SetObjectToken(WaterBomb_Token++);
+
+		//if (Info->WBCount > 0)
+		//{
+			//if (nullptr == GetGameMode()->GetCurMap()->GetMapObject(Info->CurIndex.y, Info->CurIndex.x))
+			//{
+			//	--Info->WBCount;
+			//}
+		//}
 	}
 
 	/* 테스트용 */
@@ -127,15 +132,18 @@ void APlayer::SetCharacterType(ECharacterType _Type)
 	{
 	case ECharacterType::Bazzi:
 		Info->MyType = ECharacterType::Bazzi;
-		Info->WBPower = 1;
-		Info->WBCount = 1;
+		Info->Speed = ConstValue::BazziDefaultSpeed;
+		Info->WBPower = ConstValue::BazziDefaultWBPower;
+		Info->WBCount = ConstValue::BazziDefaultWBCount;
 		break;
 	case ECharacterType::Dao:
 		Info->MyType = ECharacterType::Dao;
-		Info->WBPower = 1;
-		Info->WBCount = 1;
+		Info->Speed = ConstValue::DaoDefaultSpeed;
+		Info->WBPower = ConstValue::DaoDefaultWBPower;
+		Info->WBCount = ConstValue::DaoDefaultWBCount;
 		break;
 	default:
 		break;
 	}
 }
+

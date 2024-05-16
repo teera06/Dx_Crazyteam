@@ -14,9 +14,11 @@ public:
 	POINT CurIndex = POINT(0, 0);
 	ECharacterType MyType = ECharacterType::Bazzi;
 	ETeamType Team = ETeamType::None;
-	float MoveSpeed = 100.f;
-	int WBPower = 4;				// ¹°ÆøÅº ÆÄ¿ö(¹°ÁÙ±â ±æÀÌ)
-	int WBCount = 4;				// ¹°ÆøÅº °³¼ö	
+	EPlayerRideType RideType = EPlayerRideType::None;
+
+	int Speed = -1;					// ¼Óµµ
+	int WBPower = -1;				// ¹°ÆøÅº ÆÄ¿ö(¹°ÁÙ±â ±æÀÌ)
+	int WBCount = -1;				// ¹°ÆøÅº °³¼ö	
 };
 
 class APlayer_Shadow;
@@ -82,12 +84,18 @@ private:
 	void Die(float _DeltaTime);
 	void RealDieStart();
 	void RealDie(float _DeltaTime);
+	void RideIdleStart();
+	void RideIdle(float _DeltaTime);
+	void RideMoveStart();
+	void RideMove(float _DeltaTime);
 
 
 	std::string GetAnimationName(std::string_view _StateName);
 
 	FVector Dir = FVector::Down;
 	float AnimationInter = 0.1f;
+	float MoveSpeed = 20.f;		// ¼Óµµ °è¼ö
+
 	float TrapMoveSpeed = 0.4f;
 	float TrapMoveTime = 1.f;
 	float TrapAnimationTime = 3.f;
@@ -97,7 +105,7 @@ private:
 	bool DieAnimationChange = false;
 	bool DieAniTwinkleActive = false;
 	float DieAnimationTime = 2.f;
-	float DieTwinkleTime = 0.2f;
+	float DieTwinkleTime = 0.1f;
 
 	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
 
