@@ -54,4 +54,22 @@ void UEngineNetWindow::OnGui(ULevel* Level, float _Delta)
 			ClientConnectFunction(IP, PORT);
 		}
 	}
+
+	if (true == ImGui::Button("Connect 192.168.0.197"))
+	{
+		if (nullptr != ServerOpenFunction)
+		{
+			NetType = ENetType::Client;
+			ClientConnectFunction("192.168.0.197", PORT);
+		}
+	}
+
+	if (true == ImGui::Button("Connect 192.168.0.122" ))
+	{
+		if (nullptr != ServerOpenFunction)
+		{
+			NetType = ENetType::Client;
+			ClientConnectFunction("192.168.0.122", PORT);
+		}
+	}
 }

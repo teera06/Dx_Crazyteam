@@ -85,7 +85,7 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 			MsgBoxAssert("단한번만 교환되어야할 토큰패킷이 또 교환되었습니다.");
 		}
 
-		Ser.ResetRead();
+		Ser.AddReadOffset(-16);
 
 		// 30바이트
 
@@ -103,8 +103,8 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 
 		while(true)
 		{
-			std::shared_ptr<UEngineProtocol> Protocal = Dis.ConvertProtocol(Protocol.GetPacketType(), Ser);
-			Dis.ProcessPacket(Protocal);
+			std::shared_ptr<UEngineProtocol> NewProtocal = Dis.ConvertProtocol(Protocol.GetPacketType(), Ser);
+			Dis.ProcessPacket(NewProtocal);
 
 			if (Ser.BufferSize() == Ser.GetReadOffset())
 			{
