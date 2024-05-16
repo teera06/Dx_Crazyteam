@@ -266,16 +266,16 @@ void ABaseMap::MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX,
 	MapStatus[_PY][_PX] = nullptr;
 }
 
-void ABaseMap::SpawnWaterBomb(FVector _SpawnPos)
+std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(FVector _SpawnPos)
 {
 	POINT BombPoint = PosToPoint(_SpawnPos);
 
-	AddMapObject(BombPoint.y, BombPoint.x, EMapObject::WaterBomb);
+	return AddMapObject(BombPoint.y, BombPoint.x, EMapObject::WaterBomb);
 }
 
-void ABaseMap::SpawnWaterBomb(int _Y, int _X)
+std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(int _Y, int _X)
 {
-	AddMapObject(_Y, _X, EMapObject::WaterBomb);
+	return AddMapObject(_Y, _X, EMapObject::WaterBomb);
 }
 
 void ABaseMap::DestroyMapObject(int _Y, int _X)
