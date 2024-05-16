@@ -67,7 +67,9 @@ private:
 
 
 	bool SwitchON = false;
+	bool TeamSwitchON = false;
 	bool IsSelectSharacter = false;
+	bool IsTeamSelectSharacter = false;
 	int  PlayerCount = 0;
 };
 
