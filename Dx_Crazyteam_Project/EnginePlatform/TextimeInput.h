@@ -18,6 +18,10 @@ private:
 	static std::string ComstrText;
 	static std::string MidText;
 
+	static char Text[255];
+	static char Cstr[10]; 
+
+
 	static bool bHangeul;
 	static HWND hwnd;
 	static HIMC himc;

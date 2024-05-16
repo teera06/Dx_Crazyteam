@@ -3,10 +3,13 @@
 
 #include <EnginePlatform/EngineInput.h>
 
+#pragma warning(disable:4996) 
 
 std::string UTextimeInput::ReadText ="";
 std::string UTextimeInput::MidText = "";
 std::string UTextimeInput::ComstrText="";
+char UTextimeInput::Text[255]="";
+char UTextimeInput::Cstr[10]="";
 bool UTextimeInput::bHangeul=false;
 HWND UTextimeInput::hwnd;
 HIMC UTextimeInput::himc;
@@ -68,7 +71,9 @@ void UTextimeInput::IMEInput()
 
 std::string UTextimeInput::GetReadText()
 {
-	return ReadText;
+	std::string ch=Text;
+
+	return ch +Cstr;
 }
 
 
@@ -84,50 +89,50 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 	case WM_IME_COMPOSITION:
 		if (_lParam & GCS_COMPSTR) // 조합중 글자 
 		{
+			bHangeul = true;
 			len = ImmGetCompositionString(himc, GCS_COMPSTR, NULL, 0);
+			ImmGetCompositionString(himc, GCS_COMPSTR, Cstr, len);
+			Cstr[len] = 0;
 			
-			if (len > 0)
-			{
-				ComstrText.resize(len);
-				ImmGetCompositionString(himc, GCS_COMPSTR, &ComstrText[0], len);
-				
-				//ReadText += ComstrText;
-			}
-			//ComstrText= '\0';
-			//ImmReleaseContext(hwnd, himc);
 		}else if(_lParam & GCS_RESULTSTR) // 완성중 글자
 		{
 			len = ImmGetCompositionString(himc, GCS_RESULTSTR, NULL, 0);
-			std::string Write;
+		
 			if (len > 0)
 			{
-				Write.resize(len);
-				ImmGetCompositionString(himc, GCS_RESULTSTR, &Write[0], len);
-
-				//strcpy(&Write[0], &ComstrText[0]);
-				ReadText += Write;
-
-				//ReadText += MidText;
+				bHangeul = true;
+				ImmGetCompositionString(himc, GCS_RESULTSTR, Cstr, len);
+				Cstr[len] = 0;
+				strcpy(Text + strlen(Text), Cstr);
+				memset(Cstr, 0, 10);
 			}
-			Write = '\0';
+			
 		}
-		ComstrText = '\0';
+		
 		ImmReleaseContext(hwnd, himc); 
 		break;
 	case WM_CHAR: // 영어랑 숫자 처리
 		if (_wparam == 8)
 		{
-			if (ReadText.size() > 0)
+			if (strlen(Text) > 0)
 			{
-				ReadText.pop_back();
+				Text[strlen(Text) - 1] = 0;
+				if (true == bHangeul)
+				{
+					Text[strlen(Text) - 1] = 0;
+				}
 			}
 		}
 		else
 		{
-			ReadText += _wparam & 0xff;
+			bHangeul = false;
+			len = static_cast<int>(strlen(Text));
+			Text[len] = _wparam & 0xff;
+			//Text[len+1] = 0;
 		}
 		break;
 	case WM_KEYDOWN:
+		//bHangeul = false;
 		break;
 	default:
 		bHangeul = false;
