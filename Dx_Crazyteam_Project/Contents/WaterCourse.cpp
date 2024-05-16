@@ -148,6 +148,16 @@ void AWaterCourse::CreateCenterTick(float _DeltaTime)
 		State.ChangeState("Delete");
 		return;
 	}
+
+	if (false == b_BombCountUpdateOne)
+	{
+		ACAGameMode* TestGameMode = GetGameMode();
+		std::shared_ptr<APlayer> TestPlayer = TestGameMode->GetPlayer();
+		PlayerInfo* TestPlayerInfo = TestPlayer->GetPlayerInfo();
+		//int WaterPower = TestPlayerInfo->WBCount;
+		TestPlayerInfo->SetWBCountUpdate();
+		b_BombCountUpdateOne = true;
+	}
 }
 void AWaterCourse::CreateCenterExit()
 {
