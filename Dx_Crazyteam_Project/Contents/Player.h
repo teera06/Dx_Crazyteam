@@ -97,7 +97,7 @@ private:
 	bool DieAnimationChange = false;
 	bool DieAniTwinkleActive = false;
 	float DieAnimationTime = 2.f;
-	float DieTwinkleTime = 0.2f;
+	float DieTwinkleTime = 0.1f;
 
 	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
 

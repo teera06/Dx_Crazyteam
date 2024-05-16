@@ -228,7 +228,7 @@ void APlayer::DieStart()
 	Renderer->ChangeAnimation(GetAnimationName("Die"));
 	DieAnimationChange = false;
 	DieAniTwinkleActive = true;
-	DieTwinkleTime = 0.2f;
+	DieTwinkleTime = 0.1f;
 	DieAnimationTime = 2.f;
 }
 
@@ -259,7 +259,7 @@ void APlayer::Die(float _DeltaTime)
 		{
 			Renderer->SetActive(DieAniTwinkleActive);
 			DieAniTwinkleActive = !DieAniTwinkleActive;
-			DieTwinkleTime = 0.2f;
+			DieTwinkleTime = 0.1f;
 		}
 
 		if (DieAnimationTime < 0.f)
