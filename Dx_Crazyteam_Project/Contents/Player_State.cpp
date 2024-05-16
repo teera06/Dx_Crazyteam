@@ -83,6 +83,12 @@ void  APlayer::Idle(float _DeltaTime)
 		State.ChangeState("Move");
 		return;
 	}
+
+	if (true == GetGameMode()->GetCurMap()->IsOnWater(GetActorLocation()))
+	{
+		State.ChangeState("Trap");
+		return;
+	}
 }
 
 void APlayer::MoveStart()
@@ -95,6 +101,12 @@ void APlayer::Move(float _DeltaTime)
 	if (true == IsFree(VK_UP) && true == IsFree(VK_DOWN) && true == IsFree(VK_RIGHT) && true == IsFree(VK_LEFT))
 	{
 		State.ChangeState("Idle");
+		return;
+	}
+
+	if (true == GetGameMode()->GetCurMap()->IsOnWater(GetActorLocation()))
+	{
+		State.ChangeState("Trap");
 		return;
 	}
 
@@ -142,6 +154,7 @@ void APlayer::Move(float _DeltaTime)
 	if (true == GetGameMode()->GetCurMap()->IsMove(NextPos1) && true == GetGameMode()->GetCurMap()->IsMove(NextPos2) && true == GetGameMode()->GetCurMap()->IsMove(NextPos3))
 	{
 		AddActorLocation(MovePos);
+		SettingZValue();
 		return;
 	}
 }

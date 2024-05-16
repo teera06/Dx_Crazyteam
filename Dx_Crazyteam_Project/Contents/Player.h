@@ -107,6 +107,7 @@ private:
 
 
 	std::string GetAnimationName(std::string_view _StateName);
+	void SettingZValue();
 
 	FVector Dir = FVector::Down;
 	float AnimationInter = 0.1f;
