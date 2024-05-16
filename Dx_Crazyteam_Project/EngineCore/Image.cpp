@@ -328,6 +328,7 @@ void UImage::ChangeAnimation(std::string_view _AnimationName)
 		return;
 	}
 
+	UiAniName = UpperName;
 	CurAnimation = Animations[UpperName];
 	CurAnimation->Reset();
 	CurAnimation->FrameCallBackCheck();

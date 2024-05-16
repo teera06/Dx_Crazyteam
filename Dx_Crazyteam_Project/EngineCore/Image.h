@@ -89,11 +89,20 @@ public:
 		VertexUVValue.PlusUV = _UVPlus;
 	}
 
+	std::string GetUiAniName()
+	{
+		return UiAniName;
+	}
+
+
 protected:
 	void MaterialSettingEnd() override;
 	void Tick(float _DetaTime) override;
 
 private:
+
+	std::string UiAniName = "";
+
 	bool AutoSize = false;
 	float ScaleRatio = 1.0f;
 	FSpriteInfo CurInfo;
