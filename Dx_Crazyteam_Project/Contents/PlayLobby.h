@@ -43,6 +43,7 @@ private:
 	UImage* HooUBT;
 	UImage* RayBT;
 	//캐릭터 설명
+	UImage* LobbyCharacterBanner;
 	UImage* Randomex;
 	UImage* Daoex;
 	UImage* Maridex;

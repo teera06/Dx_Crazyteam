@@ -113,7 +113,12 @@ void AWaterBomb::CreateBegin()
 void AWaterBomb::CreateTick(float _DeltaTime)
 {
 	LifeTime += _DeltaTime;
-	if (2.0f <= LifeTime || true == b_WaterToBomb)
+	if (2.0f <= LifeTime && false == b_WaterToBomb)
+	{
+		State.ChangeState("Bomb");
+		return;
+	}
+	else if (true == b_WaterToBomb)
 	{
 		State.ChangeState("Bomb");
 		return;

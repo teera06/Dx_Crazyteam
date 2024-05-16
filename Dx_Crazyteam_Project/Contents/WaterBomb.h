@@ -23,11 +23,6 @@ public:
 		return;
 	}
 
-	inline void SetPower(size_t _Val)
-	{
-		Power = _Val;
-	}
-
 	//inline bool IsBomb() const
 	//{
 	//	return b_Bomb;
@@ -62,7 +57,6 @@ private :
 	UStateManager State;
 	//USpriteRenderer* Renderer = nullptr;
 	float LifeTime = 0.0f;
-	size_t Power = 1;
 	//bool b_Bomb = false;
 	bool b_WaterToBomb = false;
 	bool b_ServerBomb = false;
