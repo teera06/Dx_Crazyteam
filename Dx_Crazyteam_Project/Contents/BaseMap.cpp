@@ -60,8 +60,6 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 			else return true;
 		}
 		case EMapObjectType::Block:
-		case EMapObjectType::BrakableBlock:
-		case EMapObjectType::MoveBlock:
 		{
 			FVector TilePosition = MapStatus[CheckPoint.y][CheckPoint.x]->GetActorLocation();
 

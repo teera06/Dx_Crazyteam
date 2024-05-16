@@ -12,6 +12,10 @@ ACampMoveBlock::~ACampMoveBlock()
 void ACampMoveBlock::BeginPlay()
 {
 	Super::BeginPlay();
+
+	BreakSetOwner(this);
+	MoveSetOwner(this);
+
 	FrontRenderer->SetSprite("CampMoveBlockFront.png");
 	BackRenderer->SetSprite("CampMoveBlockBack.png");
 
