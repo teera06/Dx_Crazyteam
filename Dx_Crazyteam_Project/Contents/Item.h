@@ -20,6 +20,9 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 	virtual void Action() = 0;
+
+	bool bWaterInteract = false;
+	bool bPlayerInteract = false;
 private:
 
 };

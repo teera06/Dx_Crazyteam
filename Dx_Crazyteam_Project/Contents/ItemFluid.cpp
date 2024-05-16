@@ -28,8 +28,31 @@ void AItemFluid::Tick(float _DeltaTime)
 
 void AItemFluid::Action()
 {
-	++GetGameMode()->GetPlayer()->GetPlayerInfo()->WBPower;
+	int iWBPower = GetGameMode()->GetPlayer()->GetPlayerInfo()->MaxWBPower;
+	int iMaxPower = 0;
 
+	switch (GetGameMode()->GetPlayer()->GetPlayerInfo()->MyType)
+	{
+	case ECharacterType::None:
+		return;
+	case ECharacterType::Bazzi:
+		iMaxPower = ConstValue::BazziDefaultWBPower;
+		break;
+	case ECharacterType::Dao:
+		iMaxPower = ConstValue::DaoMaxWBPower;
+		break;
+	case ECharacterType::Marid:
+		//iMaxPower = ConstValue::MaridWBPower;
+		break;
+	default:
+		break;
+	}
+
+
+	if (iWBPower < iMaxPower)
+	{
+		++GetGameMode()->GetPlayer()->GetPlayerInfo()->WBPower;
+	}
 
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 }
