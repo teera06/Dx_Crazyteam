@@ -44,9 +44,14 @@ void APlayer::Tick(float _DeltaTime)
 
 	if (true == IsDown(VK_SPACE))
 	{
-		GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation());
+		if (Info->WBCount > 0)
+		{
+			--Info->WBCount;
+			GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation());
+		}
 	}
 
+	/* 테스트용 */
 	if (true == IsDown(VK_F1))
 	{
 		State.ChangeState("Trap");
