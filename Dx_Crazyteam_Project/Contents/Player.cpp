@@ -45,21 +45,7 @@ void APlayer::Tick(float _DeltaTime)
 	Info->CurIndex = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
 	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 0));
 
-	if (true == IsDown(VK_SPACE))
-	{
 
-		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
-		int TestValue = GetObjectToken();
-		Bomb->SetObjectToken(GetObjectToken() + (++WaterBomb_Token));
-
-		//if (Info->WBCount > 0)
-		//{
-			//if (nullptr == GetGameMode()->GetCurMap()->GetMapObject(Info->CurIndex.y, Info->CurIndex.x))
-			//{
-			//	--Info->WBCount;
-			//}
-		//}
-	}
 
 	/* 테스트용 */
 	if (true == IsDown(VK_F1))
@@ -82,7 +68,44 @@ void APlayer::Tick(float _DeltaTime)
 		return;
 	}
 
-	PlayerSendPacket(_DeltaTime);
+	//PlayerSendPacket(_DeltaTime);
+
+	if (false == IsNetInit())
+	{
+		// 네트워크 통신준비가 아직 안된 오브젝트다.
+		if (nullptr != UGame_Core::Net)
+		{
+			InitNet(UGame_Core::Net);
+		}
+	}
+
+	CurTime -= _DeltaTime;
+
+	if (0.0f >= CurTime && true == IsNetInit())
+	{
+		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
+
+		Packet->Pos = GetActorLocation();
+		Packet->AnimationInfo = Renderer->GetCurAnimationFrame();
+		Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
+		Send(Packet);
+		CurTime += FrameTime;
+	}
+
+
+	if (true == IsDown(VK_SPACE))
+	{
+		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
+
+
+		//if (Info->WBCount > 0)
+		//{
+			//if (nullptr == GetGameMode()->GetCurMap()->GetMapObject(Info->CurIndex.y, Info->CurIndex.x))
+			//{
+			//	--Info->WBCount;
+			//}
+		//}
+	}
 }
 
 std::string APlayer::GetAnimationName(std::string_view _StateName)
