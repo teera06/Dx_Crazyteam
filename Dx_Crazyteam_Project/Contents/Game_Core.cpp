@@ -117,6 +117,14 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("dao_trap.png", 4, 1);
 		UEngineSprite::CreateCutting("dao_rescue.png", 3, 1);
 		UEngineSprite::CreateCutting("dao_die.png", 5, 1);
+
+		//Red Dao
+		UEngineSprite::CreateCutting("Dao_1_red.png", 5, 12);
+		UEngineSprite::CreateCutting("Dao_2_red.png", 5, 2);
+		UEngineSprite::CreateCutting("Dao_3_red.png", 5, 4);
+		UEngineSprite::CreateCutting("Dao_4_red.png", 5, 4);
+		UEngineSprite::CreateCutting("Dao_5_red.png", 5, 6);
+
 	}
 
 	// æ∆¿Ã≈€

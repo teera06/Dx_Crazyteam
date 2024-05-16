@@ -37,6 +37,8 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Dao_Die", "dao_die.png", 0.1f, false, 0, 2);
 	Renderer->CreateAnimation("Dao_Die_Last", "dao_die.png", 0.1f, false, 3, 4);
 
+	Renderer->CreateAnimation("Red_Dao_Die", "dao_2_red.png", 0.1f, false, 0, 5);
+
 	// CreateState
 	State.CreateState("Idle");
 	State.CreateState("Move");
