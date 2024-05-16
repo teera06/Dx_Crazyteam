@@ -13,6 +13,8 @@ void ACampBlock::BeginPlay()
 {
 	Super::BeginPlay();
 
+	BreakSetOwner(this);
+
 	FrontRenderer->SetSprite("CampBlockFront.png");
 	BackRenderer->SetSprite("CampBlockBack.png");
 

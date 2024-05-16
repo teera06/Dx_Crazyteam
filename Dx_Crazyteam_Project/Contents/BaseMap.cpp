@@ -1,4 +1,8 @@
 #include "PreCompile.h"
+
+#include <EngineCore/DefaultSceneComponent.h>
+#include <algorithm>
+
 #include "BaseMap.h"
 #include "Block.h"
 #include "CampBlock.h"
@@ -6,10 +10,14 @@
 #include "WaterCourse.h"
 #include "DummyBlock.h"
 #include "CampMoveBlock.h"
-#include <EngineCore/DefaultSceneComponent.h>
-#include <algorithm>
 #include "CAGameMode.h"
 #include "Player.h"
+#include "ItemBubble.h"
+#include "ItemNiddle.h"
+#include "ItemOwl.h"
+#include "ItemRoller.h"
+#include "ItemFluid.h"
+#include "ItemShoes.h"
 
 ABaseMap::ABaseMap()
 {
@@ -141,7 +149,7 @@ void ABaseMap::Tick(float _DeltaTime)
 }
 
 
-std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _MapObjectType)
+std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _MapObjectType, EItemType _Item)
 {
 	FVector PushPos = PointToPos(_Y, _X);
 
@@ -190,8 +198,18 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 		MapObj = TempObj;
 		break;
 	}
+	case EMapObject::Item:
+	{
+		MapObj = SpawnItemObject(_Y, _X, _Item);
+		break;
+	}
 	default:
 		break;
+	}
+
+	if (MapObj == nullptr) 
+	{
+		return nullptr;
 	}
 
 	MapObj->SetActorLocation(PushPos);
@@ -262,6 +280,42 @@ void ABaseMap::MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX,
 {
 	PushMapObject(_Obj, _NY, _NX);
 	MapStatus[_PY][_PX] = nullptr;
+}
+
+std::shared_ptr<AMapObject> ABaseMap::SpawnItemObject(int _Y, int _X, EItemType _Item)
+{
+	if (_Item == EItemType::None) return nullptr;
+
+	std::shared_ptr<AMapObject> Item = nullptr;
+
+	switch (_Item)
+	{
+	case EItemType::None:
+		return nullptr;
+		break;
+	case EItemType::ItemBubble:
+		Item = GetWorld()->SpawnActor<AItemBubble>("Bubble");
+		break;
+	case EItemType::ItemFluid:
+		Item = GetWorld()->SpawnActor<AItemFluid>("Fluid");
+		break;
+	case EItemType::ItemRoller:
+		Item = GetWorld()->SpawnActor<AItemRoller>("Roller");
+		break;
+	case EItemType::ItemOwl:
+		Item = GetWorld()->SpawnActor<AItemOwl>("Owl");
+		break;
+	case EItemType::ItemShoes:
+		Item = GetWorld()->SpawnActor<AItemShoes>("Shoes");
+		break;
+	case EItemType::ItemNiddle:
+		Item = GetWorld()->SpawnActor<AItemNiddle>("Niddle");
+		break;
+	default:
+		break;
+	}
+
+	return Item;
 }
 
 std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(FVector _SpawnPos)

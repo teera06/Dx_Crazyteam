@@ -1,19 +1,18 @@
 #include "PreCompile.h"
-#include "ItemBubble.h"
+#include "ItemFluid.h"
 #include "Player.h"
 #include "CAGameMode.h"
 #include "BaseMap.h"
 
-AItemBubble::AItemBubble()
-{
-	
-}
-
-AItemBubble::~AItemBubble()
+AItemFluid::AItemFluid() 
 {
 }
 
-void AItemBubble::BeginPlay()
+AItemFluid::~AItemFluid() 
+{
+}
+
+void AItemFluid::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -22,14 +21,14 @@ void AItemBubble::BeginPlay()
 	FrontRenderer->SetAutoSize(1.f, true);
 }
 
-void AItemBubble::Tick(float _DeltaTime)
+void AItemFluid::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }
 
-void AItemBubble::Action()
+void AItemFluid::Action()
 {
-	++GetGameMode()->GetPlayer()->GetPlayerInfo()->WBCount;
+	++GetGameMode()->GetPlayer()->GetPlayerInfo()->WBPower;
 
 
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);

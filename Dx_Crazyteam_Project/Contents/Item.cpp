@@ -15,6 +15,12 @@ AItem::~AItem()
 void AItem::BeginPlay()
 {
 	Super::BeginPlay();
+
+	SetType(EMapObjectType::Item);
+
+	PlayerInteract = [=] {
+		Action();
+		};
 }
 
 void AItem::Tick(float _DeltaTime)
