@@ -43,14 +43,20 @@ private:
 	UImage* HooUBT;
 	UImage* RayBT;
 	//캐릭터 설명
+	UImage* LobbyCharacterBanner;
 	UImage* Randomex;
 	UImage* Daoex;
 	UImage* Maridex;
 	UImage* Kephiex;
 	UImage* Bazziex;
-
+	
+	//팀 선택
+	UImage* TeamA;
+	UImage* TeamB;
+	
 	//선택한 캐릭터
 	UImage* SelectCharacter;
+	UImage* checkUI;
 
 	//로비 플레이어 캐릭터
 	std::vector<UImage*> LobbyPlayer;
@@ -59,7 +65,6 @@ private:
 	std::vector<UImage*>::iterator RoomIter = RoomVector.begin();
 
 
-	UCollision* Collision0 = nullptr;
 
 	bool SwitchON = false;
 	bool IsSelectSharacter = false;

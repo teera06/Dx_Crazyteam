@@ -33,7 +33,6 @@ private:
 	UTextWidget* ShowText = nullptr;
 	std::shared_ptr<AVillage> Village = nullptr;
 	std::shared_ptr<APlayer> Player1 = nullptr;
-	std::shared_ptr<ACamp> Camp = nullptr;
 
 };
 

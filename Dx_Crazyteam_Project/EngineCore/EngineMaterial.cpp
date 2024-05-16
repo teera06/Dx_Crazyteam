@@ -9,6 +9,7 @@ UEngineMaterial::UEngineMaterial()
 {
 	SetRasterizer("EngineBase");
 	SetBlend("EngineBase");
+	SetDepthStencil("EngineBase");
 }
 
 UEngineMaterial::~UEngineMaterial() 
@@ -54,6 +55,17 @@ void UEngineMaterial::SetBlend(std::string_view _Name)
 		return;
 	}
 }
+
+void UEngineMaterial::SetDepthStencil(std::string_view _Name)
+{
+	DepthStencil = UEngineDepthStencil::FindRes(_Name);
+	if (nullptr == DepthStencil)
+	{
+		MsgBoxAssert("존재하지 않는 뎁스를 세팅하려고 했습니다.");
+		return;
+	}
+}
+
 
 //void UEngineMaterial::Setting()
 //{
@@ -115,4 +127,17 @@ void UEngineMaterial::BlendSetting()
 
 	Blend->Setting();
 
+}
+
+void UEngineMaterial::DepthStencilSetting()
+{
+#ifdef _DEBUG
+	if (nullptr == DepthStencil)
+	{
+		MsgBoxAssert("깊이 세팅을 세팅하지 않고 랜더링 하려고 했습니다.");
+		return;
+	}
+#endif
+
+	DepthStencil->Setting();
 }
