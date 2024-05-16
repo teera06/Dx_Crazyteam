@@ -392,6 +392,7 @@ void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName, int Start
 		return;
 	}
 
+	CurAniName = UpperName;
 	CurAnimation = Animations[UpperName];
 	CurAnimation->Reset();
 	CurAnimation->CurFrame = StartFrame;
