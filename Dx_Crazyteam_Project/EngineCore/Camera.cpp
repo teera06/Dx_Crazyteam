@@ -53,7 +53,13 @@ void UCamera::CameraTransformUpdate()
 
 void UCamera::CamTargetSetting()
 {
-	CameraTarget->Setting();
+	CameraTarget->Clear();
+	CameraTarget->Setting(IsDepth);
+}
+
+void UCamera::DepthOn()
+{
+	IsDepth = true;
 }
 
 void UCamera::BeginPlay()
