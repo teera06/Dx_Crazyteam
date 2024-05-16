@@ -39,30 +39,7 @@ void AWaterBomb::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 	State.Update(_DeltaTime);
 
-
-	if (false == IsNetInit())
-	{
-		// 네트워크 통신준비가 아직 안된 오브젝트다.
-		if (nullptr != UGame_Core::Net)
-		{
-			InitNet(UGame_Core::Net);
-		}
-	}
-
-	CurTime -= _DeltaTime;
-
-	if (0.0f >= CurTime && true == IsNetInit())
-	{
-		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
-
-		Packet->Pos = GetActorLocation();
-		Packet->AnimationInfo = Renderer->GetCurAnimationFrame();
-		Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
-		Send(Packet);
-		CurTime += FrameTime;
-	}
-
-	///WaterBombPacket(_DeltaTime, b_ServerBomb);
+	WaterBombPacket(_DeltaTime, b_ServerBomb);
 }
 
 void AWaterBomb::StateInit()
