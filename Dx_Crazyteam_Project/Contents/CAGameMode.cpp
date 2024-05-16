@@ -12,6 +12,8 @@ ACAGameMode::~ACAGameMode()
 void ACAGameMode::BeginPlay()
 {
 	Super::BeginPlay();
+
+	GetWorld()->GetMainCamera()->DepthOn();
 }
 
 void ACAGameMode::Tick(float _DeltaTime)

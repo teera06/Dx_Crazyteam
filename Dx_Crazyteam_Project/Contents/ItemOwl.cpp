@@ -17,9 +17,9 @@ void AItemOwl::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FrontRenderer->CreateAnimation("ItemOwl", "Owl.png", 0.3f, true, 0, 5);
-	FrontRenderer->ChangeAnimation("ItemOwl");
-	FrontRenderer->SetAutoSize(1.0f, true);
+	Renderer->CreateAnimation("ItemOwl", "Owl.png", 0.3f, true, 0, 5);
+	Renderer->ChangeAnimation("ItemOwl");
+	Renderer->SetAutoSize(1.0f, true);
 
 }
 
