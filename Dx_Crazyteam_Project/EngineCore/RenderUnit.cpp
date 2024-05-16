@@ -35,6 +35,8 @@ void URenderUnit::RenderingSetting()
 	Material->PixelShaderSetting();
 
 	Material->BlendSetting();
+
+	Material->DepthStencilSetting();
 }
 
 bool URenderUnit::Render(float _DeltaTime)

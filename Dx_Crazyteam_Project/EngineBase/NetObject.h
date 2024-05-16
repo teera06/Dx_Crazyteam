@@ -22,6 +22,16 @@ public:
 		return CurObjectToken++;
 	}
 
+	static int GetClientObjectToken()
+	{
+		return CurClientObjectToken++;
+	}
+
+	int GetObjectToken()
+	{
+		return ObjectToken;
+	}
+
 	static bool IsNetObject(int _ObjectToken)
 	{
 		return AllNetObject.contains(_ObjectToken);
@@ -80,9 +90,11 @@ public:
 
 	std::shared_ptr<UEngineProtocol> PopProtocol();
 
+	static std::map<int, UNetObject*> AllNetObject;
 protected:
 	static std::atomic<int> CurObjectToken;
-	static std::map<int, UNetObject*> AllNetObject;
+	static std::atomic<int> CurClientObjectToken;
+	//static std::map<int, UNetObject*> AllNetObject;
 
 private:
 	std::mutex ProtocolLock;

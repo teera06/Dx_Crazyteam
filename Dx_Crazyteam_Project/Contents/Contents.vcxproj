@@ -27,7 +27,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="BrokenBlock.h" />
+    <ClInclude Include="BreakObject.h" />
     <ClInclude Include="CAGameMode.h">
       <SubType>
       </SubType>
@@ -36,11 +36,11 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="CampBlock.h">
+    <ClInclude Include="CampBlock1.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="CampMoveBlock.h">
+    <ClInclude Include="CampMoveBlock1.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -62,6 +62,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="IntroMainMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Item.h">
       <SubType>
       </SubType>
@@ -70,7 +74,27 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ItemFluid.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ItemNiddle.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ItemOwl.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ItemRoller.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ItemShoes.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ItemTurtle.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -83,7 +107,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="MoveBlock.h">
+    <ClInclude Include="MoveObject.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -133,6 +157,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ServerPlayMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ServerTestPlayer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="SubServerLevel.h">
       <SubType>
       </SubType>
@@ -173,7 +205,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="BrokenBlock.cpp" />
+    <ClCompile Include="BreakObject.cpp" />
     <ClCompile Include="CAGameMode.cpp">
       <SubType>
       </SubType>
@@ -182,11 +214,11 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="CampBlock.cpp">
+    <ClCompile Include="CampBlock1.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="CampMoveBlock.cpp">
+    <ClCompile Include="CampMoveBlock1.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -207,6 +239,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="IntroMainMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Item.cpp">
       <SubType>
       </SubType>
@@ -215,7 +251,27 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ItemFluid.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemNiddle.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemOwl.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ItemRoller.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemShoes.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemTurtle.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -228,7 +284,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="MoveBlock.cpp">
+    <ClCompile Include="MoveObject.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -276,6 +332,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="MapUI.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ServerPlayMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ServerTestPlayer.cpp">
       <SubType>
       </SubType>
     </ClCompile>

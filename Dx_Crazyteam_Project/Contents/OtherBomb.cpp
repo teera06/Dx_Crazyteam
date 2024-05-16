@@ -40,7 +40,6 @@ void AOtherBomb::Tick(float _DeltaTime)
 		{
 			break;
 		}
-
 		EContentPacket PacketType = Protocol->GetPacketType<EContentPacket>();
 
 		switch (PacketType)
@@ -53,7 +52,6 @@ void AOtherBomb::Tick(float _DeltaTime)
 
 			std::string SpriteNames = UpdatePacket->SpriteName;
 
-
 			int AnimationInFO = UpdatePacket->AnimationInfo;
 
 			bool IsDie = UpdatePacket->IsDestroy;
@@ -62,19 +60,15 @@ void AOtherBomb::Tick(float _DeltaTime)
 			{
 				Renderer->SetSprite(SpriteNames, AnimationInFO);
 			}
-			else if (IsDie == true)
+			if (IsDie == true)
 			{
 				Renderer->SetActive(false);
 			}
-			int a = 0;
 			break;
 		}
 		default:
 			break;
 		}
-
 	} while (nullptr != Protocol);
-
-
 }
 

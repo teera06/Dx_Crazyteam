@@ -25,6 +25,7 @@ public:
 		_Ser << Pos;
 		_Ser << AnimationInfo;
 		_Ser << SpriteName;
+		_Ser << IsDestroy;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -33,6 +34,7 @@ public:
 		_Ser >> Pos;
 		_Ser >> AnimationInfo;
 		_Ser >> SpriteName;
+		_Ser >> IsDestroy;
 	}
 
 public:
@@ -61,6 +63,7 @@ public:
 		_Ser << AnimationInfo;
 		_Ser << SpriteName;
 		_Ser << IsDestroy;
+		_Ser << StartTime;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -70,6 +73,7 @@ public:
 		_Ser >> AnimationInfo;
 		_Ser >> SpriteName;
 		_Ser >> IsDestroy;
+		_Ser >> StartTime;
 	}
 
 public:
@@ -78,4 +82,5 @@ public:
 	// int ObjectType = 0;
 	bool IsDestroy = true;
 	std::string SpriteName;
+	float StartTime = 2.f;
 };

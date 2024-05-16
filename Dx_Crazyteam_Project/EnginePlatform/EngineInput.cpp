@@ -87,7 +87,7 @@ void UEngineInput::InputInit()
 	AllKeys[VK_CAPITAL] = EngineKey(VK_CAPITAL);
 	// AllKeys[VK_KANA] = EngineKey(VK_KANA);
 	//AllKeys[VK_HANGEUL] = EngineKey(VK_HANGEUL);
-	//AllKeys[VK_HANGUL] = EngineKey(VK_HANGUL);
+	AllKeys[VK_HANGUL] = EngineKey(VK_HANGUL);
 	AllKeys[VK_IME_ON] = EngineKey(VK_IME_ON);
 	AllKeys[VK_JUNJA] = EngineKey(VK_JUNJA);
 	AllKeys[VK_FINAL] = EngineKey(VK_FINAL);

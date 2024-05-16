@@ -85,6 +85,15 @@
     <Filter Include="Level\Surver\PublicOBJ\Test">
       <UniqueIdentifier>{2f2ff1b3-fda1-42ca-9c60-065fde88a1f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MapObject\Component">
+      <UniqueIdentifier>{0b287165-7af3-4f8f-bf45-a931751e2418}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item">
+      <UniqueIdentifier>{202aa6e6-6bd0-4aad-beff-703e9a9a5580}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGameLevel">
+      <UniqueIdentifier>{709f3459-cf50-4ec0-8d39-17fd34e73c14}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -141,9 +150,6 @@
     <ClInclude Include="Block.h">
       <Filter>MapObject</Filter>
     </ClInclude>
-    <ClInclude Include="BrokenBlock.h">
-      <Filter>MapObject</Filter>
-    </ClInclude>
     <ClInclude Include="WaterCourse.h">
       <Filter>MapObject</Filter>
     </ClInclude>
@@ -156,7 +162,7 @@
     <ClInclude Include="Camp.h">
       <Filter>Map\Camp</Filter>
     </ClInclude>
-    <ClInclude Include="CampBlock.h">
+    <ClInclude Include="CampBlock1.h">
       <Filter>MapObject</Filter>
     </ClInclude>
     <ClInclude Include="MainGameMode.h">
@@ -177,21 +183,12 @@
     <ClInclude Include="Player_Shadow.h">
       <Filter>Level\PlayertestLevel\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="MoveBlock.h">
-      <Filter>MapObject</Filter>
-    </ClInclude>
-    <ClInclude Include="CampBlock.h">
-      <Filter>MapObject\Block\CampBlock</Filter>
-    </ClInclude>
-    <ClInclude Include="CampMoveBlock.h">
+    <ClInclude Include="CampMoveBlock1.h">
       <Filter>MapObject\MoveBlock\CampMoveBlock</Filter>
     </ClInclude>
     <ClInclude Include="DummyBlock.h">
       <Filter>MapObject\Block\DummyBlock</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="ItemBubble.h" />
-    <ClInclude Include="ItemRoller.h" />
     <ClInclude Include="OtherBomb.h">
       <Filter>Level\Surver\PublicOBJ</Filter>
     </ClInclude>
@@ -209,6 +206,45 @@
     </ClInclude>
     <ClInclude Include="TestLobbyPlayer.h">
       <Filter>Level\Surver\PublicOBJ\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerTestPlayer.h">
+      <Filter>Level\Surver\PublicOBJ\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerPlayMode.h">
+      <Filter>Level\Surver\ServerLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveObject.h">
+      <Filter>MapObject\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="BreakObject.h">
+      <Filter>MapObject\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBubble.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemNiddle.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemOwl.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemRoller.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemFluid.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemShoes.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemTurtle.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroMainMode.h">
+      <Filter>MainGameLevel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -266,9 +302,6 @@
     <ClCompile Include="Block.cpp">
       <Filter>MapObject</Filter>
     </ClCompile>
-    <ClCompile Include="BrokenBlock.cpp">
-      <Filter>MapObject</Filter>
-    </ClCompile>
     <ClCompile Include="WaterCourse.cpp">
       <Filter>MapObject</Filter>
     </ClCompile>
@@ -301,15 +334,9 @@
     <ClCompile Include="CAObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="MoveBlock.cpp">
-      <Filter>MapObject</Filter>
-    </ClCompile>
     <ClCompile Include="DummyBlock.cpp">
       <Filter>MapObject\Block\DummyBlock</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="ItemBubble.cpp" />
-    <ClCompile Include="ItemRoller.cpp" />
     <ClCompile Include="OtherBomb.cpp">
       <Filter>Level\Surver\PublicOBJ</Filter>
     </ClCompile>
@@ -328,11 +355,50 @@
     <ClCompile Include="TestLobbyPlayer.cpp">
       <Filter>Level\Surver\PublicOBJ\Test</Filter>
     </ClCompile>
-    <ClCompile Include="CampMoveBlock.cpp">
+    <ClCompile Include="CampMoveBlock1.cpp">
       <Filter>MapObject\MoveBlock\CampMoveBlock</Filter>
     </ClCompile>
-    <ClCompile Include="CampBlock.cpp">
+    <ClCompile Include="CampBlock1.cpp">
       <Filter>MapObject\Block\CampBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerTestPlayer.cpp">
+      <Filter>Level\Surver\PublicOBJ\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerPlayMode.cpp">
+      <Filter>Level\Surver\ServerLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveObject.cpp">
+      <Filter>MapObject\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="BreakObject.cpp">
+      <Filter>MapObject\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBubble.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemNiddle.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemOwl.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemRoller.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemFluid.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemShoes.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemTurtle.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroMainMode.cpp">
+      <Filter>MainGameLevel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

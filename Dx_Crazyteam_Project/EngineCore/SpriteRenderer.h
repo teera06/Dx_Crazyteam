@@ -136,12 +136,18 @@ public:
 		VertexUVValue.PlusUV = _UVPlus;
 	}
 	
+	std::string GetCurAniName()
+	{
+		return CurAniName;
+	}
+
 protected:
 	void Tick(float _DeltaTime) override;
 	void MaterialSettingEnd() override;
 
 private:
-	std::string_view _AniName = ""; 
+	std::string_view _AniName = "";
+	std::string CurAniName = "";
 	bool AutoSize = false;
 	float ScaleRatio = 1.0f;
 	FSpriteInfo CurInfo;

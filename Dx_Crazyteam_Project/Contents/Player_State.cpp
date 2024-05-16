@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "BaseMap.h"
 #include "CAGameMode.h"
+#include "Player_Shadow.h"
 
 void APlayer::StateInit()
 {
@@ -19,6 +20,8 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Bazzi_Trap", "bazzi_trap.png", AnimationInter * 2, true, 0, 1);
 	Renderer->CreateAnimation("Bazzi_Trap_Last", "bazzi_trap.png", AnimationInter * 2, false, 2, 3);
 	Renderer->CreateAnimation("Bazzi_Rescue", "bazzi_rescue.png", 0.1f, false, 0, 2);
+	Renderer->CreateAnimation("Bazzi_Die", "bazzi_die.png", 0.1f, false, 0, 2);
+	Renderer->CreateAnimation("Bazzi_Die_Last", "bazzi_die.png", 0.1f, false, 3, 4);
 
 	Renderer->CreateAnimation("Dao_Idle_Up", "dao_idle.png", AnimationInter, false, 0, 0);
 	Renderer->CreateAnimation("Dao_Idle_Down", "dao_idle.png", AnimationInter, false, 1, 1);
@@ -31,6 +34,10 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Dao_Trap", "dao_trap.png", AnimationInter * 2, true, 0, 1);
 	Renderer->CreateAnimation("Dao_Trap_Last", "dao_trap.png", AnimationInter * 2, false, 2, 3);
 	Renderer->CreateAnimation("Dao_Rescue", "dao_rescue.png", 0.1f, false, 0, 2);
+	Renderer->CreateAnimation("Dao_Die", "dao_die.png", 0.1f, false, 0, 2);
+	Renderer->CreateAnimation("Dao_Die_Last", "dao_die.png", 0.1f, false, 3, 4);
+
+	Renderer->CreateAnimation("Red_Dao_Die", "dao_2_red.png", 0.1f, false, 0, 5);
 
 	// CreateState
 	State.CreateState("Idle");
@@ -38,6 +45,9 @@ void APlayer::StateInit()
 	State.CreateState("Trap");
 	State.CreateState("Rescue");
 	State.CreateState("Die");
+	State.CreateState("RealDie");
+	State.CreateState("RideIdle");
+	State.CreateState("RideMove");
 
 	// StartFunction
 	State.SetStartFunction("Idle", std::bind(&APlayer::IdleStart, this));
@@ -45,6 +55,9 @@ void APlayer::StateInit()
 	State.SetStartFunction("Trap", std::bind(&APlayer::TrapStart, this));
 	State.SetStartFunction("Rescue", std::bind(&APlayer::RescueStart, this));
 	State.SetStartFunction("Die", std::bind(&APlayer::DieStart, this));
+	State.SetStartFunction("RealDie", std::bind(&APlayer::RealDieStart, this));
+	State.SetStartFunction("RideIdle", std::bind(&APlayer::RideIdleStart, this));
+	State.SetStartFunction("RideMove", std::bind(&APlayer::RideMoveStart, this));
 
 	// UpdateFunction
 	State.SetUpdateFunction("Idle", std::bind(&APlayer::Idle, this, std::placeholders::_1));
@@ -52,6 +65,9 @@ void APlayer::StateInit()
 	State.SetUpdateFunction("Trap", std::bind(&APlayer::Trap, this, std::placeholders::_1));
 	State.SetUpdateFunction("Rescue", std::bind(&APlayer::Rescue, this, std::placeholders::_1));
 	State.SetUpdateFunction("Die", std::bind(&APlayer::Die, this, std::placeholders::_1));
+	State.SetUpdateFunction("RealDie", std::bind(&APlayer::RealDie, this, std::placeholders::_1));
+	State.SetUpdateFunction("RideIdle", std::bind(&APlayer::RideIdle, this, std::placeholders::_1));
+	State.SetUpdateFunction("RideMove", std::bind(&APlayer::RideMove, this, std::placeholders::_1));
 
 	// Init
 	State.ChangeState("Idle");
@@ -69,6 +85,12 @@ void  APlayer::Idle(float _DeltaTime)
 		State.ChangeState("Move");
 		return;
 	}
+
+	if (true == GetGameMode()->GetCurMap()->IsOnWater(GetActorLocation()))
+	{
+		State.ChangeState("Trap");
+		return;
+	}
 }
 
 void APlayer::MoveStart()
@@ -84,10 +106,18 @@ void APlayer::Move(float _DeltaTime)
 		return;
 	}
 
+	if (true == GetGameMode()->GetCurMap()->IsOnWater(GetActorLocation()))
+	{
+		State.ChangeState("Trap");
+		return;
+	}
+
 	FVector MovePos = FVector::Zero;
 	FVector NextPos1 = FVector::Zero;	// Center
 	FVector NextPos2 = FVector::Zero;	// 추가 체크포인트
 	FVector NextPos3 = FVector::Zero;	// 추가 체크포인트
+
+	float Speed = static_cast<float>(Info->Speed);
 
 	if (true == IsPress(VK_UP))
 	{
@@ -95,7 +125,7 @@ void APlayer::Move(float _DeltaTime)
 		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
 		NextPos2 = NextPos1 + FVector(-15, 0, 0);
 		NextPos3 = NextPos1 + FVector(15, 0, 0);
-		MovePos = FVector::Up * Info->MoveSpeed * _DeltaTime;
+		MovePos = FVector::Up * Speed * MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_DOWN))
 	{
@@ -103,7 +133,7 @@ void APlayer::Move(float _DeltaTime)
 		NextPos1 = GetActorLocation() + MovePos + Dir * 5.f;
 		NextPos2 = NextPos1 + FVector(-15, 0, 0);
 		NextPos3 = NextPos1 + FVector(15, 0, 0);
-		MovePos = FVector::Down * Info->MoveSpeed * _DeltaTime;
+		MovePos = FVector::Down * Speed * MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_RIGHT))
 	{
@@ -111,7 +141,7 @@ void APlayer::Move(float _DeltaTime)
 		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
 		NextPos2 = NextPos1 + FVector(0, 10, 0);
 		NextPos3 = NextPos1 + FVector(0, 0, 0);
-		MovePos = FVector::Right * Info->MoveSpeed * _DeltaTime;
+		MovePos = FVector::Right * Speed * MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_LEFT))
 	{
@@ -119,13 +149,14 @@ void APlayer::Move(float _DeltaTime)
 		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
 		NextPos2 = NextPos1 + FVector(0, 10, 0);
 		NextPos3 = NextPos1 + FVector(0, 0, 0);
-		MovePos = FVector::Left * Info->MoveSpeed * _DeltaTime;
+		MovePos = FVector::Left * Speed * MoveSpeed * _DeltaTime;
 	}
 
 	Renderer->ChangeAnimation(GetAnimationName("Move"));
 	if (true == GetGameMode()->GetCurMap()->IsMove(NextPos1) && true == GetGameMode()->GetCurMap()->IsMove(NextPos2) && true == GetGameMode()->GetCurMap()->IsMove(NextPos3))
 	{
 		AddActorLocation(MovePos);
+		SettingZValue();
 		return;
 	}
 }
@@ -177,6 +208,22 @@ void APlayer::Trap(float _DeltaTime)
 		}
 	}
 
+	// 예시 인터페이스
+	//APlayer* Other = IsOtherPlayer(GetActorLocation());
+	//if (nullptr != Other)	// 이 위치에 다른 플레이어가 있다면
+	//{
+	//	if (Other->Info->Team == Info->Team)	// 같은 팀
+	//	{
+	//		State.ChangeState("Rescue");
+	//		return;
+	//	}
+	//	else									// 다른 팀
+	//	{
+	//		State.ChangeState("Die");
+	//		return;
+	//	}
+	//}
+
 	// Trap 이후 DieTime 초과 시 Die 상태로 변경
 	if (TrapToDieTime < 0.f)
 	{
@@ -202,12 +249,82 @@ void APlayer::Rescue(float _DeltaTime)
 
 void APlayer::DieStart()
 {
-	// 임시
-	State.ChangeState("Idle");
-	return;
+	Renderer->ChangeAnimation(GetAnimationName("Die"));
+
+	DieAnimationChange = false;
+	DieAniTwinkleActive = true;
+	DieTwinkleTime = 0.1f;
+	DieAnimationTime = 2.f;
 }
 
 void APlayer::Die(float _DeltaTime)
+{
+	if (false == DieAnimationChange && UEngineString::ToUpper(GetAnimationName("Die")) == Renderer->GetCurAniName() && true == Renderer->IsCurAnimationEnd())
+	{
+		DieAnimationChange = true;
+		
+		switch (Info->MyType)
+		{
+		case ECharacterType::Bazzi:
+			Renderer->ChangeAnimation("Bazzi_Die_Last");
+			break;
+		case ECharacterType::Dao:
+			Renderer->ChangeAnimation("Dao_Die_Last");
+			break;
+		default:
+			break;
+		}
+	}
+
+	if (true == DieAnimationChange)
+	{
+		DieAnimationTime -= _DeltaTime;
+		DieTwinkleTime -= _DeltaTime;
+
+		if (DieTwinkleTime < 0.f)
+		{
+			Renderer->SetActive(DieAniTwinkleActive);
+			DieAniTwinkleActive = !DieAniTwinkleActive;
+			DieTwinkleTime = 0.1f;
+		}
+
+		if (DieAnimationTime < 0.f)
+		{
+			State.ChangeState("RealDie");
+			return;
+		}
+	}
+
+}
+
+void APlayer::RealDieStart()
+{
+	// 진짜 죽음 처리
+	Shadow->SetActive(false);
+	Renderer->SetActive(false);
+}
+
+void APlayer::RealDie(float _DeltaTime)
+{
+
+}
+
+void APlayer::RideIdleStart()
+{
+
+}
+
+void APlayer::RideIdle(float _DeltaTime)
+{
+
+}
+
+void APlayer::RideMoveStart()
+{
+
+}
+
+void APlayer::RideMove(float _DeltaTime)
 {
 
 }

@@ -23,8 +23,10 @@ public:
 	bool IsMove(FVector _PlayerPos);
 	bool IsEmpty(FVector _PlayerPos);
 	bool IsEmpty(int _Y, int _X);
+	bool IsOnWater(FVector _PlayerPos);
 
-	std::shared_ptr<AMapObject> AddMapObject(int _Y, int _X, EMapObject _MapObjectType);
+	std::shared_ptr<AMapObject> AddMapObject(int _Y, int _X, EMapObject _MapObjectType, EItemType _Item = EItemType::None);
+	std::shared_ptr<AMapObject> SpawnItemObject(int _Y, int _X, EItemType _Item);
 	std::shared_ptr<AMapObject> AddWaterCourse(int _Y, int _X, bool _IsEnd, EEngineDir _Dir);
 
 	std::shared_ptr<AMapObject> GetMapObject(int _Y, int _X)
@@ -34,8 +36,8 @@ public:
 	void PushMapObject(std::shared_ptr<AMapObject> _Obj, int _Y, int _X);
 	void MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX, int _PY, int _PX);
 
-	void SpawnWaterBomb(FVector _SpawnPos);
-	void SpawnWaterBomb(int _Y, int _X);
+	std::shared_ptr<AMapObject> SpawnWaterBomb(FVector _SpawnPos);
+	std::shared_ptr<AMapObject> SpawnWaterBomb(int _Y, int _X);
 	void DestroyMapObject(int _Y, int _X);
 
 	POINT PosToPoint(FVector _PlayerPos);
@@ -49,7 +51,5 @@ protected:
 
 	std::vector<std::vector<std::shared_ptr<AMapObject>>> MapStatus;
 private:
-
-	void GetWaterWavePoint();
 };
 

@@ -3,35 +3,37 @@
 #include <EngineCore/DefaultSceneComponent.h>
 #include "CAGameMode.h"
 #include "Player.h"
+#include "BaseMap.h"
 
 AMapObject::AMapObject()
 {
-	FrontRenderer = CreateDefaultSubObject<USpriteRenderer>("Front");
-	BackRenderer = CreateDefaultSubObject<USpriteRenderer>("Back");
 
-	FrontRenderer->SetupAttachment(Root);
-	BackRenderer->SetupAttachment(Root);
 }
 
 AMapObject::~AMapObject()
 {
 }
 
+void AMapObject::DepthUpdate()
+{
+	FVector Location = GetActorLocation();
+	Location.Z = static_cast<float>(GetCurPos().y);
+	Location.Z *= -1.f;
+
+	SetActorLocation(Location);
+}
+
 void AMapObject::BeginPlay()
 {
 	Super::BeginPlay();
+
 	PlayerInteract = [](){};
 	WaterInteract = [](){};
-
-	FrontRenderer->SetOrder(ERenderOrder::BlockFront);
-	BackRenderer->SetOrder(ERenderOrder::BlockBack);
-
-	BackRenderer->SetPivot(EPivot::BOT);
-	BackRenderer->AddPosition(FVector::Up * 20.f);
 }
 
 void AMapObject::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+	DepthUpdate();
 }
 

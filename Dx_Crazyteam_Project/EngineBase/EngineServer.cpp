@@ -4,6 +4,7 @@
 #include "EngineProtocol.h"
 #include "NetObject.h"
 
+
 UEngineServer::UEngineServer() 
 {
 }
@@ -33,6 +34,7 @@ void UEngineServer::AcceptThreadFunction(UEngineServer* Server, SOCKET _AcceptSo
 		// 토큰의 생성은 가장 쉬운게 서버에요.
 		// 서버가 다 담당할 겁니다.
 		int SessionToken = USession::GetNewSessionToken();
+		//int ObjectToken = UNetObject::GetClientObjectToken();
 		int ObjectToken = UNetObject::GetNewObjectToken();
 
 		USessionTokenPacket NewPacket;

@@ -2,6 +2,8 @@
 #include "PlayertestMode.h"
 #include "ItemBubble.h"
 #include "ItemRoller.h"
+#include "ItemNiddle.h"
+#include "ItemOwl.h"
 
 
 APlayerTestMode::APlayerTestMode()
@@ -31,6 +33,12 @@ void APlayerTestMode::BeginPlay()
 
 	std::shared_ptr<AItemRoller> Roller = GetWorld()->SpawnActor<AItemRoller>("ItemTest");
 	Roller->SetActorLocation(FVector(100.0f, 100.0f, 0.0f));
+
+	std::shared_ptr<AItemNiddle> Niddle = GetWorld()->SpawnActor<AItemNiddle>("ItemTest");
+	Niddle->SetActorLocation(FVector(50.0f, 50.0f, 0.0f));
+
+	std::shared_ptr<AItemOwl> Owl = GetWorld()->SpawnActor<AItemOwl>("ItemTest");
+	Owl->SetActorLocation(FVector(150.0f, 150.0f, 0.0f));
 
 }
 

@@ -47,10 +47,6 @@ void AServerGameMode::BeginPlay()
 	//MainPlayer = GetWorld()->SpawnActor<APlayer>("Player");
 	//MainPlayer->SetCurGameMode(this);
 	//SetMainPlayer(MainPlayer);
-
-	PlayLobby = GetWorld()->SpawnActor<APlayLobby>("PlayLobby");
-	TitleMenu = GetWorld()->SpawnActor<ATitleMenu>("TitleMenu");
-	TitleMenu->SetFunction(std::bind(&AServerGameMode::CollectWindowAppear, this));
 }
 
 void AServerGameMode::Tick(float _DeltaTime)
@@ -69,22 +65,15 @@ void AServerGameMode::LevelStart(ULevel* _PrevLevel)
 			{
 				UGame_Core::Net = std::make_shared<UEngineServer>();
 				UGame_Core::Net->ServerOpen(30000, 512);
-
-				GEngine->CreateLevel<ATestLobbyMode>("TestLobbyMode");
-				GEngine->ChangeLevel("TestLobbyMode");
 			});
 
 		NetWindow->SetClientConnectFunction([&](std::string IP, short PORT)
 			{
 				UGame_Core::Net = std::make_shared<UEngineClient>();
 				UGame_Core::Net->Connect(IP, PORT);
-
-
-				GEngine->CreateLevel<ATestLobbyMode>("TestLobbyMode");
-				GEngine->ChangeLevel("TestLobbyMode");
 			});
 	}
-	NetWindow->Off();
+	NetWindow->On();
 }
 
 //void AServerGameMode::ServerPacketInit(UEngineDispatcher& Dis)

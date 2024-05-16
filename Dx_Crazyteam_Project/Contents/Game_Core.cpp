@@ -28,6 +28,7 @@ void UGame_Core::Initialize()
 {
 	UEngineFont::Load("±√º≠");
 	UEngineFont::Load("∏º¿∫ ∞ÌµÒ");
+	GEngine->EngineWindow.SetWindowTitle("Ceazy");
 	MainLoad();
 	CuttingAni();
 	SoundLoad();
@@ -106,6 +107,7 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("bazzi_idle.png", 4, 1);
 		UEngineSprite::CreateCutting("bazzi_trap.png", 4, 1);
 		UEngineSprite::CreateCutting("bazzi_rescue.png", 3, 1);
+		UEngineSprite::CreateCutting("bazzi_die.png", 5, 1);
 
 		UEngineSprite::CreateCutting("dao_right.png", 4, 1);
 		UEngineSprite::CreateCutting("dao_left.png", 4, 1);
@@ -114,6 +116,15 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("dao_idle.png", 4, 1);
 		UEngineSprite::CreateCutting("dao_trap.png", 4, 1);
 		UEngineSprite::CreateCutting("dao_rescue.png", 3, 1);
+		UEngineSprite::CreateCutting("dao_die.png", 5, 1);
+
+		//Red Dao
+		UEngineSprite::CreateCutting("Dao_1_red.png", 5, 12);
+		UEngineSprite::CreateCutting("Dao_2_red.png", 5, 2);
+		UEngineSprite::CreateCutting("Dao_3_red.png", 5, 4);
+		UEngineSprite::CreateCutting("Dao_4_red.png", 5, 4);
+		UEngineSprite::CreateCutting("Dao_5_red.png", 5, 6);
+
 	}
 
 	// æ∆¿Ã≈€
@@ -123,8 +134,12 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("Roller.png", 6, 1);
 		UEngineSprite::CreateCutting("Fluid.png", 6, 1);
 
+		UEngineSprite::CreateCutting("Niddle.png", 6, 1);
+		UEngineSprite::CreateCutting("Owl.png", 6, 1);
+		UEngineSprite::CreateCutting("Shoes.png", 6, 1);
+
 		//Item Shadow
-		//UEngineSprite::CreateCutting("ItemShadow.png", 6, 1);
+		UEngineSprite::CreateCutting("ItemShadow.png", 2, 1);
 
 	}
 

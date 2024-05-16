@@ -7,13 +7,11 @@
 #include "Packets.h"
 #include "Game_Core.h"
 
+int AWaterBomb::WaterBomb_Token = 0;
+
 AWaterBomb::AWaterBomb()
 {
-	//UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
-	//SetRoot(Root);
 
-	//Renderer = CreateDefaultSubObject<USpriteRenderer>("Render");
-	//Renderer->SetupAttachment(Root);
 }
 
 AWaterBomb::~AWaterBomb()
@@ -25,9 +23,10 @@ void AWaterBomb::BeginPlay()
 	Super::BeginPlay();
 	StateInit();
 	CreateAnimation();
-	SetActorScale3D(FVector(20, 20, 1));
-	Renderer->SetAutoSize(0.05f, true);
-	Renderer->SetOrder(ERenderOrder::Player);
+	//SetActorScale3D(FVector(20, 20, 1));
+	Renderer->SetPosition(FVector(0.0f, -55.0f)); // 기본값으로 +20.0f 가 되어있음
+	Renderer->SetAutoSize(1.0f, true);
+	//Renderer->SetOrder(ERenderOrder::Player);
 	//Renderer->SetPivot(EPivot::BOT);
 	//Renderer->SetActive(false);
 	SetType(EMapObjectType::WaterBalloon);
@@ -38,7 +37,7 @@ void AWaterBomb::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 	State.Update(_DeltaTime);
 
-	//WaterBombPacket(_DeltaTime, b_ServerBomb);
+	WaterBombPacket(_DeltaTime, b_ServerBomb);
 }
 
 void AWaterBomb::StateInit()
@@ -90,7 +89,12 @@ void AWaterBomb::CreateBegin()
 void AWaterBomb::CreateTick(float _DeltaTime)
 {
 	LifeTime += _DeltaTime;
-	if (2.0f <= LifeTime || true == b_WaterToBomb)
+	if (2.0f <= LifeTime && false == b_WaterToBomb)
+	{
+		State.ChangeState("Bomb");
+		return;
+	}
+	else if (true == b_WaterToBomb)
 	{
 		State.ChangeState("Bomb");
 		return;
@@ -109,12 +113,6 @@ void AWaterBomb::CreateExit()
 
 void AWaterBomb::BombBegin()
 {
-	//std::shared_ptr<AWaterCourse> Course = GetWorld()->SpawnActor<AWaterCourse>("WaterCourse");
-	////Course->SetPowerValue(Power);
-	//Course->SetPowerValue(5);
-	//Course->SetBombPoint(CurPos);
-	//Course->CreateWaterCenter();
-
 	GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water);
 	b_ServerBomb = true;
 }

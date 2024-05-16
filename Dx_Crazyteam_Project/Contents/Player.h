@@ -13,9 +13,16 @@ class PlayerInfo
 public:
 	POINT CurIndex = POINT(0, 0);
 	ECharacterType MyType = ECharacterType::Bazzi;
-	float MoveSpeed = 100.f;
-	int WBPower = 1;				// ¹°ÆøÅº ÆÄ¿ö(¹°ÁÙ±â ±æÀÌ)
-	int WBCount = 1;				// ¹°ÆøÅº °³¼ö
+	ETeamType Team = ETeamType::None;
+	EPlayerRideType RideType = EPlayerRideType::None;
+
+	int Speed = -1;					// ¼Óµµ
+	int WBCount = -1;				// ¹°ÆøÅº °³¼ö	
+	int WBPower = -1;				// ¹°ÆøÅº ÆÄ¿ö(¹°ÁÙ±â ±æÀÌ)
+
+	int MaxSpeed = -1;
+	int MaxWBCount = -1;
+	int MaxWBPower = -1;
 };
 
 class APlayer_Shadow;
@@ -34,10 +41,42 @@ public:
 	
 	void SetCharacterType(ECharacterType _Type);
 
+	void SetWBCount(int _count)
+	{
+		Info->WBCount = _count;
+	}
+
+	void SetTeamType(ETeamType _Team)
+	{
+		Info->Team = _Team;
+	}
+	
+	void SetSpeed(int _speed)
+	{
+		Info->Speed = _speed;
+	}
+
+	int GetWBCount()
+	{
+		return Info->WBCount;
+	}
+
+	int GetWBPower()
+	{
+		return Info->WBPower;
+	}
+
+	int GetSpeed()
+	{
+		return Info->Speed;
+	}
+
 	PlayerInfo* GetPlayerInfo()
 	{
 		return Info.get();
 	}
+
+	static int WaterBomb_Token;
 
 protected:
 	std::shared_ptr<PlayerInfo> Info = nullptr;
@@ -59,18 +98,35 @@ private:
 	void Rescue(float _DeltaTime);
 	void DieStart();
 	void Die(float _DeltaTime);
+	void RealDieStart();
+	void RealDie(float _DeltaTime);
+	void RideIdleStart();
+	void RideIdle(float _DeltaTime);
+	void RideMoveStart();
+	void RideMove(float _DeltaTime);
+
 
 	std::string GetAnimationName(std::string_view _StateName);
+	void SettingZValue();
 
 	FVector Dir = FVector::Down;
 	float AnimationInter = 0.1f;
+	float MoveSpeed = 20.f;		// ¼Óµµ °è¼ö
+
 	float TrapMoveSpeed = 0.4f;
 	float TrapMoveTime = 1.f;
 	float TrapAnimationTime = 3.f;
 	float TrapToDieTime = 5.f;
 	FVector TrapDir = FVector::Up;
 
+	bool DieAnimationChange = false;
+	bool DieAniTwinkleActive = false;
+	float DieAnimationTime = 2.f;
+	float DieTwinkleTime = 0.1f;
+
 	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
+
+
 
 };
 

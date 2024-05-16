@@ -7,6 +7,10 @@
 #include "Player_Shadow.h"
 #include "BaseMap.h"
 #include "CAGameMode.h"
+#include "WaterBomb.h"
+
+int APlayer::WaterBomb_Token = 0;
+
 
 APlayer::APlayer()
 {
@@ -22,12 +26,15 @@ void APlayer::BeginPlay()
 
 	Super::BeginPlay();
 
+	Info = std::make_shared<PlayerInfo>();
+	SetCharacterType(ECharacterType::Bazzi);
+
 	Renderer->SetOrder(ERenderOrder::Player);
 	Renderer->SetAutoSize(0.05f, true);
-	Info = std::make_shared<PlayerInfo>();
 	SetActorScale3D(FVector(20, 20, 1));
 
 	Shadow = GetWorld()->SpawnActor<APlayer_Shadow>("Player_Shadow");
+	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 1));
 
 	StateInit();
 }
@@ -37,16 +44,13 @@ void APlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
-	PlayerSendPacket(_DeltaTime);
 
 	Info->CurIndex = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
-	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 0));
+	
+	//Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 0));
 
-	if (true == IsDown(VK_SPACE))
-	{
-		GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation());
-	}
 
+	/* 테스트용 */
 	if (true == IsDown(VK_F1))
 	{
 		State.ChangeState("Trap");
@@ -66,6 +70,20 @@ void APlayer::Tick(float _DeltaTime)
 		State.ChangeState("Idle");
 		return;
 	}
+
+	PlayerSendPacket(_DeltaTime);
+
+	if (true == IsDown(VK_SPACE))
+	{
+		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
+		Bomb->SetObjectToken(WaterBomb_Token++);
+
+		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
+		//Packet->Pos = GetActorLocation();
+		//Packet->AnimationInfo = Renderer->GetCurAnimationFrame();
+		//Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
+		//Send(Packet);
+	}
 }
 
 std::string APlayer::GetAnimationName(std::string_view _StateName)
@@ -84,7 +102,7 @@ std::string APlayer::GetAnimationName(std::string_view _StateName)
 		break;
 	}
 
-	if (_StateName == "Trap" || _StateName == "Rescue")
+	if (_StateName == "Trap" || _StateName == "Rescue" || _StateName == "Die")
 	{
 		return _AniName;
 	}
@@ -117,15 +135,34 @@ void APlayer::SetCharacterType(ECharacterType _Type)
 	{
 	case ECharacterType::Bazzi:
 		Info->MyType = ECharacterType::Bazzi;
-		Info->WBPower = 1;
-		Info->WBCount = 1;
+		Info->Speed = ConstValue::BazziDefaultSpeed;
+		Info->WBCount = ConstValue::BazziDefaultWBCount;
+		Info->WBPower = ConstValue::BazziDefaultWBPower;
+		Info->MaxSpeed = ConstValue::BazziMaxSpeed;
+		Info->MaxWBCount = ConstValue::BazziMaxWBCount;
+		Info->MaxWBPower = ConstValue::BazziMaxWBPower;
 		break;
 	case ECharacterType::Dao:
 		Info->MyType = ECharacterType::Dao;
-		Info->WBPower = 1;
-		Info->WBCount = 1;
+		Info->Speed = ConstValue::DaoDefaultSpeed;
+		Info->WBCount = ConstValue::DaoDefaultWBCount;
+		Info->WBPower = ConstValue::DaoDefaultWBPower;
+		Info->MaxSpeed = ConstValue::DaoMaxSpeed;
+		Info->MaxWBCount = ConstValue::DaoMaxWBCount;
+		Info->MaxWBPower = ConstValue::DaoMaxWBPower;
 		break;
 	default:
 		break;
 	}
+}
+
+void APlayer::SettingZValue()
+{
+	FVector Pos = GetActorLocation();
+	POINT IDX = GetGameMode()->GetCurMap()->PosToPoint(Pos);
+	Pos.Z = -static_cast<float>(IDX.y);
+	SetActorLocation(Pos);
+
+	Pos.Z += 1.f;
+	Shadow->SetActorLocation(Pos);
 }
