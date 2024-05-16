@@ -106,12 +106,13 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 			std::shared_ptr<UEngineProtocol> Protocal = Dis.ConvertProtocol(Protocol.GetPacketType(), Ser);
 			Dis.ProcessPacket(Protocal);
 
-			int Size = *(reinterpret_cast<int*>(Ser.DataPtr()));
-			int WriteOffset = Ser.GetWriteOffset();
-			int ReadOffset = Ser.GetReadOffset();
-			int RemainOffset = WriteOffset - ReadOffset;
-			// 받은만큼 다 읽었어.
-			if (WriteOffset == ReadOffset)
+			if (Ser.BufferSize() == Ser.GetReadOffset())
+			{
+				Ser.DataToReadOffsetPush();
+				break;
+			}
+
+			if (Ser.GetWriteOffset() == Ser.GetReadOffset())
 			{
 				// 깔끔하게 읽었다.
 				Ser.Reset();
@@ -119,12 +120,26 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 			}
 
 
+			int WriteOffset = Ser.GetWriteOffset();
+			int ReadOffset = Ser.GetReadOffset();
+			int RemainOffset = WriteOffset - ReadOffset;
 
-			if (16 > RemainOffset)
+			if (4 > RemainOffset)
 			{
 				Ser.DataToReadOffsetPush();
 				break;
 			}
+
+			int Size = *(reinterpret_cast<int*>(Ser.DataCharPtrToReadOffset()));
+			// 받은만큼 다 읽었어.
+
+			if (Size > RemainOffset)
+			{
+				Ser.DataToReadOffsetPush();
+				break;
+			}
+
+
 		} 
 	}
 }

@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "BaseMap.h"
 #include "CAGameMode.h"
+#include "Player_Shadow.h"
 
 void APlayer::StateInit()
 {
@@ -96,13 +97,15 @@ void APlayer::Move(float _DeltaTime)
 	FVector NextPos2 = FVector::Zero;	// 추가 체크포인트
 	FVector NextPos3 = FVector::Zero;	// 추가 체크포인트
 
+	float Speed = static_cast<float>(Info->Speed);
+
 	if (true == IsPress(VK_UP))
 	{
 		Dir = FVector::Up;
 		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
 		NextPos2 = NextPos1 + FVector(-15, 0, 0);
 		NextPos3 = NextPos1 + FVector(15, 0, 0);
-		MovePos = FVector::Up * Info->MoveSpeed * _DeltaTime;
+		MovePos = FVector::Up * Speed * MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_DOWN))
 	{
@@ -110,7 +113,7 @@ void APlayer::Move(float _DeltaTime)
 		NextPos1 = GetActorLocation() + MovePos + Dir * 5.f;
 		NextPos2 = NextPos1 + FVector(-15, 0, 0);
 		NextPos3 = NextPos1 + FVector(15, 0, 0);
-		MovePos = FVector::Down * Info->MoveSpeed * _DeltaTime;
+		MovePos = FVector::Down * Speed * MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_RIGHT))
 	{
@@ -118,7 +121,7 @@ void APlayer::Move(float _DeltaTime)
 		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
 		NextPos2 = NextPos1 + FVector(0, 10, 0);
 		NextPos3 = NextPos1 + FVector(0, 0, 0);
-		MovePos = FVector::Right * Info->MoveSpeed * _DeltaTime;
+		MovePos = FVector::Right * Speed * MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_LEFT))
 	{
@@ -126,7 +129,7 @@ void APlayer::Move(float _DeltaTime)
 		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
 		NextPos2 = NextPos1 + FVector(0, 10, 0);
 		NextPos3 = NextPos1 + FVector(0, 0, 0);
-		MovePos = FVector::Left * Info->MoveSpeed * _DeltaTime;
+		MovePos = FVector::Left * Speed * MoveSpeed * _DeltaTime;
 	}
 
 	Renderer->ChangeAnimation(GetAnimationName("Move"));
@@ -226,6 +229,7 @@ void APlayer::Rescue(float _DeltaTime)
 void APlayer::DieStart()
 {
 	Renderer->ChangeAnimation(GetAnimationName("Die"));
+
 	DieAnimationChange = false;
 	DieAniTwinkleActive = true;
 	DieTwinkleTime = 0.1f;
@@ -237,6 +241,7 @@ void APlayer::Die(float _DeltaTime)
 	if (false == DieAnimationChange && UEngineString::ToUpper(GetAnimationName("Die")) == Renderer->GetCurAniName() && true == Renderer->IsCurAnimationEnd())
 	{
 		DieAnimationChange = true;
+		
 		switch (Info->MyType)
 		{
 		case ECharacterType::Bazzi:
@@ -274,6 +279,7 @@ void APlayer::Die(float _DeltaTime)
 void APlayer::RealDieStart()
 {
 	// 진짜 죽음 처리
+	Shadow->SetActive(false);
 	Renderer->SetActive(false);
 }
 
