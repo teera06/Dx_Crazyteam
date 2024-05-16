@@ -54,7 +54,7 @@ public:
 		operator<<(Size+1);
 		Write(_Data.c_str(), Size);
 		char Test = 0;
-		Write(&Test,Size);
+		Write(&Test,1);
 	}
 
 	template<typename DataType>

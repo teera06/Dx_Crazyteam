@@ -57,7 +57,6 @@ void APlayer::Tick(float _DeltaTime)
 			//if (nullptr == GetGameMode()->GetCurMap()->GetMapObject(Info->CurIndex.y, Info->CurIndex.x))
 			//{
 			//	--Info->WBCount;
-
 			//}
 		//}
 	}
