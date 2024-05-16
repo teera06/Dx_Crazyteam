@@ -85,7 +85,7 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 			MsgBoxAssert("단한번만 교환되어야할 토큰패킷이 또 교환되었습니다.");
 		}
 
-		Ser.ResetRead();
+		Ser.AddReadOffset(-16);
 
 		// 30바이트
 
