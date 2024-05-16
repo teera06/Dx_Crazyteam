@@ -89,7 +89,6 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 	case WM_IME_COMPOSITION:
 		if (_lParam & GCS_COMPSTR) // 조합중 글자 
 		{
-			bHangeul = true;
 			len = ImmGetCompositionString(himc, GCS_COMPSTR, NULL, 0);
 			ImmGetCompositionString(himc, GCS_COMPSTR, Cstr, len);
 			Cstr[len] = 0;
@@ -100,7 +99,6 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 		
 			if (len > 0)
 			{
-				bHangeul = true;
 				ImmGetCompositionString(himc, GCS_RESULTSTR, Cstr, len);
 				Cstr[len] = 0;
 				strcpy(Text + strlen(Text), Cstr);
@@ -108,34 +106,57 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 			}
 			
 		}
-		
+		bHangeul = true;
 		ImmReleaseContext(hwnd, himc); 
 		break;
 	case WM_CHAR: // 영어랑 숫자 처리
 		if (_wparam == 8)
 		{
-			if (strlen(Text) > 0)
+			if (strlen(Text) > 0 && true == bHangeul) // 한글 지울때 
 			{
+				if (' ' == Text[strlen(Text) - 1]) // 스페이스바 빈공간 해결
+				{
+					Text[strlen(Text) - 1] = 0;
+				}
+
 				Text[strlen(Text) - 1] = 0;
-				if (true == bHangeul)
+
+				if (strlen(Text) > 0)
 				{
 					Text[strlen(Text) - 1] = 0;
 				}
 			}
+			else if(strlen(Text) > 0 && false == bHangeul) // 영어 지울때
+			{
+				Text[strlen(Text) - 1] = 0;
+			}
 		}
 		else
 		{
-			bHangeul = false;
+			if (_wparam == VK_SPACE)
+			{
+				bHangeul = true;
+			}
+			else
+			{
+				bHangeul = false;
+			}
+
+			if (_wparam == VK_RETURN)
+			{
+				break;
+			}
 			len = static_cast<int>(strlen(Text));
 			Text[len] = _wparam & 0xff;
-			//Text[len+1] = 0;
 		}
 		break;
 	case WM_KEYDOWN:
-		//bHangeul = false;
+		if (_wparam == VK_SPACE)
+		{
+			bHangeul = true;
+		}
 		break;
 	default:
-		bHangeul = false;
 		break;
 	}
 }
