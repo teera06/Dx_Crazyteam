@@ -34,8 +34,8 @@ public:
 	void PushMapObject(std::shared_ptr<AMapObject> _Obj, int _Y, int _X);
 	void MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX, int _PY, int _PX);
 
-	void SpawnWaterBomb(FVector _SpawnPos);
-	void SpawnWaterBomb(int _Y, int _X);
+	std::shared_ptr<AMapObject> SpawnWaterBomb(FVector _SpawnPos);
+	std::shared_ptr<AMapObject> SpawnWaterBomb(int _Y, int _X);
 	void DestroyMapObject(int _Y, int _X);
 
 	POINT PosToPoint(FVector _PlayerPos);

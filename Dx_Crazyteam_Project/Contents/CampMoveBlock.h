@@ -1,10 +1,12 @@
 #pragma once
-#include "MoveBlock.h"
+#include "Block.h"
+#include "MoveObject.h"
+#include "BreakObject.h"
 
 // Ό³Έν :
-class ACampMoveBlock : public AMoveBlock
+class ACampMoveBlock : public ABlock, public UMoveObject, public UBreakObject
 {
-	GENERATED_BODY(AMoveBlock)
+	GENERATED_BODY(ABlock)
 public:
 	// constructor destructor
 	ACampMoveBlock();
