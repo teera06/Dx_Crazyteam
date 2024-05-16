@@ -26,6 +26,7 @@ void AWaterBomb::BeginPlay()
 	StateInit();
 	CreateAnimation();
 	SetActorScale3D(FVector(20, 20, 1));
+	Renderer->SetPosition(FVector(0.0f, -1.0f));
 	Renderer->SetAutoSize(0.05f, true);
 	Renderer->SetOrder(ERenderOrder::Player);
 	//Renderer->SetPivot(EPivot::BOT);

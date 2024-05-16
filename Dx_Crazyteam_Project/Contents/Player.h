@@ -13,9 +13,10 @@ class PlayerInfo
 public:
 	POINT CurIndex = POINT(0, 0);
 	ECharacterType MyType = ECharacterType::Bazzi;
+	ETeamType Team = ETeamType::None;
 	float MoveSpeed = 100.f;
 	int WBPower = 4;				// ¹°ÆøÅº ÆÄ¿ö(¹°ÁÙ±â ±æÀÌ)
-	int WBCount = 1;				// ¹°ÆøÅº °³¼ö
+	int WBCount = 4;				// ¹°ÆøÅº °³¼ö	
 };
 
 class APlayer_Shadow;
@@ -33,6 +34,10 @@ public:
 	APlayer& operator=(APlayer&& _Other) noexcept = delete;
 	
 	void SetCharacterType(ECharacterType _Type);
+	void SetTeamType(ETeamType _Team)
+	{
+		Info->Team = _Team;
+	}
 
 	PlayerInfo* GetPlayerInfo()
 	{
@@ -71,6 +76,9 @@ private:
 	FVector TrapDir = FVector::Up;
 
 	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
+
+
+	static int WaterBomb_Token;
 
 };
 

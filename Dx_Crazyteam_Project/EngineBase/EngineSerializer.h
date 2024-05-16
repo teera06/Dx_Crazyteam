@@ -27,6 +27,11 @@ public:
 
 	void operator<<(UEngineSerializeObject* _Data);
 
+	void operator<<(const float& _Data)
+	{
+		Write(&_Data, sizeof(float));
+	}
+
 	void operator<<(const int& _Data)
 	{
 		Write(&_Data, sizeof(int));
@@ -64,6 +69,11 @@ public:
 
 
 	void Read(void* _Data, size_t _Size);
+
+	void operator>>(float& _Data)
+	{
+		Read(&_Data, sizeof(float));
+	}
 
 	void operator>>(int& _Data)
 	{

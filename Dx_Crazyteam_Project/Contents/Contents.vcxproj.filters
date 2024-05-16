@@ -207,6 +207,12 @@
     <ClInclude Include="TestLobbyPlayer.h">
       <Filter>Level\Surver\PublicOBJ\Test</Filter>
     </ClInclude>
+    <ClInclude Include="ServerTestPlayer.h">
+      <Filter>Level\Surver\PublicOBJ\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerPlayMode.h">
+      <Filter>Level\Surver\ServerLevel</Filter>
+    </ClInclude>
     <ClInclude Include="MoveObject.h">
       <Filter>MapObject\Component</Filter>
     </ClInclude>
@@ -330,6 +336,12 @@
     </ClCompile>
     <ClCompile Include="CampBlock.cpp">
       <Filter>MapObject\Block\CampBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerTestPlayer.cpp">
+      <Filter>Level\Surver\PublicOBJ\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerPlayMode.cpp">
+      <Filter>Level\Surver\ServerLevel</Filter>
     </ClCompile>
     <ClCompile Include="MoveObject.cpp">
       <Filter>MapObject\Component</Filter>

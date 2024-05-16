@@ -66,3 +66,10 @@ enum class ECADir
 	Up,
 	Down,
 };
+
+enum class ETeamType
+{
+	None,
+	ATeam,
+	BTeam,
+};

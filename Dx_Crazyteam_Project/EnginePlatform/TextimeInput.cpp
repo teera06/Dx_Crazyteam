@@ -5,6 +5,7 @@
 
 
 std::string UTextimeInput::ReadText ="";
+bool UTextimeInput::bHangeul=false;
 HWND UTextimeInput::hwnd;
 HIMC UTextimeInput::himc;
 
@@ -25,6 +26,20 @@ void UTextimeInput::IMEInput()
 		return;
 	}
 
+	if (true == UEngineInput::IsDown(VK_TAB))
+	{
+		if (false == bHangeul)
+		{
+			bHangeul = true;
+		}
+		else
+		{
+			bHangeul = false;
+		}
+		SetNativeMode(bHangeul);
+		return;
+	}
+
 	for (int i = '0'; i <= '9'; i++)
 	{
 		if (true == UEngineInput::IsDown(i))
@@ -34,11 +49,16 @@ void UTextimeInput::IMEInput()
 		}
 	}
 
+	if (false == bHangeul)
+	{
+		return;
+	}
+
 	for (int i = 'A'; i <= 'Z'; i++)
 	{
 		if (true == UEngineInput::IsDown(i))
 		{
-			ReadText += static_cast<char>(i);
+			ReadText += tolower(static_cast<char>(i));
 			return;
 		}
 	}
@@ -70,6 +90,7 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 				ImmGetCompositionString(himc, GCS_COMPSTR, &Write[0], len);
 				ReadText += Write;
 			}
+			ImmReleaseContext(hwnd, himc);
 		}
 		
 		if (_lParam & GCS_RESULTSTR) // 완성중 글자
@@ -95,5 +116,34 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 	}
 }
 
+void UTextimeInput::SetNativeMode(bool bHangeul)
+{
+	DWORD dwConv, dwSent;
+
+	DWORD dwTemp;
+
+
+
+	ImmGetConversionStatus(himc, &dwConv, &dwSent);
+
+	dwTemp = dwConv & ~IME_CMODE_LANGUAGE;
+
+	if (bHangeul) {
+
+		dwTemp |= IME_CMODE_NATIVE;
+
+	}
+	else {
+
+		dwTemp |= IME_CMODE_ALPHANUMERIC;
+
+	}
+
+	dwConv = dwTemp;
+
+	ImmSetConversionStatus(himc, dwConv, dwSent);
+
+	ImmReleaseContext(hwnd, himc);
+}
 
 

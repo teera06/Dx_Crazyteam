@@ -28,6 +28,7 @@ void UGame_Core::Initialize()
 {
 	UEngineFont::Load("±Ã¼­");
 	UEngineFont::Load("¸¼Àº °íµñ");
+	GEngine->EngineWindow.SetWindowTitle("Ceazy");
 	MainLoad();
 	CuttingAni();
 	SoundLoad();
@@ -122,6 +123,10 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("Bubble(1).png", 6, 1);
 		UEngineSprite::CreateCutting("Roller.png", 6, 1);
 		UEngineSprite::CreateCutting("Fluid.png", 6, 1);
+
+		UEngineSprite::CreateCutting("Niddle.png", 6, 1);
+		UEngineSprite::CreateCutting("Owl.png", 6, 1);
+		UEngineSprite::CreateCutting("Shoes.png", 6, 1);
 
 		//Item Shadow
 		//UEngineSprite::CreateCutting("ItemShadow.png", 6, 1);

@@ -133,6 +133,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ServerPlayMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ServerTestPlayer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="SubServerLevel.h">
       <SubType>
       </SubType>
@@ -276,6 +284,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="MapUI.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ServerPlayMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ServerTestPlayer.cpp">
       <SubType>
       </SubType>
     </ClCompile>
