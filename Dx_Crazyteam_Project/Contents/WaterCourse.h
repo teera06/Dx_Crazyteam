@@ -80,6 +80,10 @@ private :
 	UStateManager State;
 	USpriteRenderer* WaterCourseRender = nullptr; // 수정해야 함. TODO
 	bool CreateStart = false;
+	bool UpEnd = false;
+	bool DownEnd = false;
+	bool LeftEnd = false;
+	bool RightEnd = false;
 	float CenterLifeTime = 0.0f;
 	float LifeTime = 2.0f;
 	float CreateDeltaTime = 0.0f;

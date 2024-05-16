@@ -348,9 +348,10 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject != nullptr)
 				{
 					EMapObjectType type = NextMapObject->GetType();
+					UpEnd = true;
 				}
 				
-				if (NextMapObject == nullptr)
+				if (NextMapObject == nullptr && UpEnd == false)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y - DefaultPowerValue, GetCurPos().x, false, EEngineDir::Up);
 				}
@@ -362,9 +363,10 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject != nullptr)
 				{
 					EMapObjectType type = NextMapObject->GetType();
+					DownEnd = true;
 				}
 
-				if (NextMapObject == nullptr)
+				if (NextMapObject == nullptr && DownEnd == false)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y + DefaultPowerValue, GetCurPos().x, false, EEngineDir::Down);
 				}
@@ -376,9 +378,10 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject != nullptr)
 				{
 					EMapObjectType type = NextMapObject->GetType();
+					LeftEnd = true;
 				}
 
-				if (NextMapObject == nullptr)
+				if (NextMapObject == nullptr && LeftEnd == false)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x - DefaultPowerValue, false, EEngineDir::Left);
 				}
@@ -390,9 +393,10 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject != nullptr)
 				{
 					EMapObjectType type = NextMapObject->GetType();
+					RightEnd = true;
 				}
 
-				if (NextMapObject == nullptr)
+				if (NextMapObject == nullptr && RightEnd == false)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x + DefaultPowerValue, false, EEngineDir::Right);
 				}
@@ -412,7 +416,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					EMapObjectType type = NextMapObject->GetType();
 				}
 
-				if (NextMapObject == nullptr)
+				if (NextMapObject == nullptr && UpEnd == false)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y - DefaultPowerValue, GetCurPos().x, true, EEngineDir::Up);
 				}
@@ -426,7 +430,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					EMapObjectType type = NextMapObject->GetType();
 				}
 
-				if (NextMapObject == nullptr)
+				if (NextMapObject == nullptr && DownEnd == false)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y + DefaultPowerValue, GetCurPos().x, true, EEngineDir::Down);
 				}
@@ -440,7 +444,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					EMapObjectType type = NextMapObject->GetType();
 				}
 
-				if (NextMapObject == nullptr)
+				if (NextMapObject == nullptr && LeftEnd == false)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x - DefaultPowerValue, true, EEngineDir::Left);
 				}
@@ -454,7 +458,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					EMapObjectType type = NextMapObject->GetType();
 				}
 
-				if (NextMapObject == nullptr)
+				if (NextMapObject == nullptr && RightEnd == false)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x + DefaultPowerValue, true, EEngineDir::Right);
 				}

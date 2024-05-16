@@ -14,7 +14,7 @@ public:
 	POINT CurIndex = POINT(0, 0);
 	ECharacterType MyType = ECharacterType::Bazzi;
 	float MoveSpeed = 100.f;
-	int WBPower = 1;				// 물폭탄 파워(물줄기 길이)
+	int WBPower = 4;				// 물폭탄 파워(물줄기 길이)
 	int WBCount = 1;				// 물폭탄 개수
 };
 
