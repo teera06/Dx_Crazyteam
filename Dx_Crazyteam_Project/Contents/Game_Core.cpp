@@ -28,6 +28,7 @@ void UGame_Core::Initialize()
 {
 	UEngineFont::Load("±Ã¼­");
 	UEngineFont::Load("¸¼Àº °íµñ");
+	GEngine->EngineWindow.SetWindowTitle("Ceazy");
 	MainLoad();
 	CuttingAni();
 	SoundLoad();
