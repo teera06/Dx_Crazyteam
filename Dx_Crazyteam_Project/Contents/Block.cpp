@@ -29,6 +29,12 @@ void ABlock::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
+
+	FVector Location = GetActorLocation();
+	Location.Z = static_cast<float>(GetCurPos().y);
+	//Location.Z *= -1.f;
+
+	SetActorLocation(Location);
 }
 
 void ABlock::StateInit()

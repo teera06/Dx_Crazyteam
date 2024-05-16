@@ -17,7 +17,6 @@ void ACamp::BeginPlay()
 
 	Renderer->SetSprite("Camp_Back1.png");
 	Renderer->SetAutoSize(1.f, true);
-	Renderer->SetOrder(ERenderOrder::Map);
 }
 
 void ACamp::Tick(float _DeltaTime)
