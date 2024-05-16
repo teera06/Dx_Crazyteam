@@ -46,7 +46,7 @@ void AOtherPlayer::Tick(float _DeltaTime)
 		}
 
 		EContentPacket PacketType = Protocol->GetPacketType<EContentPacket>();
-
+		
 		switch (PacketType)
 		{
 		case ActorUpdatePacket:
@@ -69,7 +69,6 @@ void AOtherPlayer::Tick(float _DeltaTime)
 		default:
 			break;
 		}
-
 	} while (nullptr != Protocol);
 
 }
