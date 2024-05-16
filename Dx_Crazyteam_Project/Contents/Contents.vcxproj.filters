@@ -210,6 +210,12 @@
     <ClInclude Include="TestLobbyPlayer.h">
       <Filter>Level\Surver\PublicOBJ\Test</Filter>
     </ClInclude>
+    <ClInclude Include="ServerTestPlayer.h">
+      <Filter>Level\Surver\PublicOBJ\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerPlayMode.h">
+      <Filter>Level\Surver\ServerLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -333,6 +339,12 @@
     </ClCompile>
     <ClCompile Include="CampBlock.cpp">
       <Filter>MapObject\Block\CampBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerTestPlayer.cpp">
+      <Filter>Level\Surver\PublicOBJ\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerPlayMode.cpp">
+      <Filter>Level\Surver\ServerLevel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
