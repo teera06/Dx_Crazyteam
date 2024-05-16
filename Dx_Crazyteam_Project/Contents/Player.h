@@ -11,15 +11,12 @@ class PlayerInfo
 	friend APlayer;
 
 public:
-	inline void SetWBCountUpdate()
-	{
-		WBCount++;
-	}
-
 	POINT CurIndex = POINT(0, 0);
 	ECharacterType MyType = ECharacterType::Bazzi;
 	ETeamType Team = ETeamType::None;
-	float MoveSpeed = 100.f;
+	EPlayerRideType RideType = EPlayerRideType::None;
+
+	int Speed = 5;					// 속도
 	int WBPower = 4;				// 물폭탄 파워(물줄기 길이)
 	int WBCount = 4;				// 물폭탄 개수	
 };
@@ -93,6 +90,8 @@ private:
 
 	FVector Dir = FVector::Down;
 	float AnimationInter = 0.1f;
+	float MoveSpeed = 20.f;		// 속도 계수
+
 	float TrapMoveSpeed = 0.4f;
 	float TrapMoveTime = 1.f;
 	float TrapAnimationTime = 3.f;
