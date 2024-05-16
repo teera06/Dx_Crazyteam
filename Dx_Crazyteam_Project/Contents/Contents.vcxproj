@@ -70,6 +70,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ItemFluid.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ItemNiddle.h">
       <SubType>
       </SubType>
@@ -79,6 +83,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ItemRoller.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ItemShoes.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -231,6 +239,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ItemFluid.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ItemNiddle.cpp">
       <SubType>
       </SubType>
@@ -240,6 +252,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ItemRoller.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemShoes.cpp">
       <SubType>
       </SubType>
     </ClCompile>

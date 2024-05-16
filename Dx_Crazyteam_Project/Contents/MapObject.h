@@ -50,6 +50,7 @@ public:
 		FrontRenderer->SetActive(false);
 		BackRenderer->SetActive(false);
 	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

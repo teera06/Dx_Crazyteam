@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Item.h"
-
+#include "BaseMap.h"
+#include "CAGameMode.h"
 AItem::AItem()
 {
 	FrontRenderer = CreateDefaultSubObject<USpriteRenderer>("ItemRender");
@@ -27,6 +28,17 @@ void AItem::BeginPlay()
 	BackRenderer->SetOrder(ERenderOrder::Shadow);
 	//BackRenderer->SetMulColor(FVector(1.f, 1.f, 1.f, 0.6f));
 
+
+	SetType(EMapObjectType::Item);
+
+	WaterInteract = [=]
+		{
+			GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+		};
+
+	PlayerInteract = [=] {
+		Action();
+		};
 }
 
 void AItem::Tick(float _DeltaTime)

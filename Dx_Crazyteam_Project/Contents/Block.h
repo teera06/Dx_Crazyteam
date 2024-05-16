@@ -44,6 +44,11 @@ public:
 		MoveDir = _Dir;
 	}
 
+	void SetPossessItem(EItemType _Item)
+	{
+		PossessItem = _Item;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -90,5 +95,7 @@ private:
 
 	ECADir MoveDir = ECADir::None;
 	POINT PlayerIndex = { 0,0 };
+
+	EItemType PossessItem = EItemType::None;
 };
 
