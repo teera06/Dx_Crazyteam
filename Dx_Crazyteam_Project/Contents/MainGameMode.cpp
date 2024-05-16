@@ -13,7 +13,6 @@
 #include "CampBlock.h"
 #include "CampMoveBlock.h"
 
-
 #include "Camp.h"
 #include "WaterCourse.h"
 
@@ -51,12 +50,7 @@ void AMainGameMode::BeginPlay()
 
 	{//Block
 
-		std::shared_ptr<ACampBlock> CampBlock = GetWorld()->SpawnActor<ACampBlock>("BlockTest");
-		CampBlock->SetActorLocation(FVector(0.0f, 100.0f, 0.0f));
-
-		std::shared_ptr<ACampMoveBlock> CampMoveBlock = GetWorld()->SpawnActor<ACampMoveBlock>("BlockTest");
-		CampMoveBlock->SetActorLocation(FVector(100.0f, 200.0f, 0.0f));
-
+		Camp->AddObjectInit();
 	}
 
 	ShowText = CreateWidget<UTextWidget>(GetWorld(), "ShowText");

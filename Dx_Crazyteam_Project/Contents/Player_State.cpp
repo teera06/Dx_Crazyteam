@@ -19,6 +19,8 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Bazzi_Trap", "bazzi_trap.png", AnimationInter * 2, true, 0, 1);
 	Renderer->CreateAnimation("Bazzi_Trap_Last", "bazzi_trap.png", AnimationInter * 2, false, 2, 3);
 	Renderer->CreateAnimation("Bazzi_Rescue", "bazzi_rescue.png", 0.1f, false, 0, 2);
+	Renderer->CreateAnimation("Bazzi_Die", "bazzi_die.png", 0.1f, false, 0, 2);
+	Renderer->CreateAnimation("Bazzi_Die_Last", "bazzi_die.png", 0.1f, false, 3, 4);
 
 	Renderer->CreateAnimation("Dao_Idle_Up", "dao_idle.png", AnimationInter, false, 0, 0);
 	Renderer->CreateAnimation("Dao_Idle_Down", "dao_idle.png", AnimationInter, false, 1, 1);
@@ -31,6 +33,8 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Dao_Trap", "dao_trap.png", AnimationInter * 2, true, 0, 1);
 	Renderer->CreateAnimation("Dao_Trap_Last", "dao_trap.png", AnimationInter * 2, false, 2, 3);
 	Renderer->CreateAnimation("Dao_Rescue", "dao_rescue.png", 0.1f, false, 0, 2);
+	Renderer->CreateAnimation("Dao_Die", "dao_die.png", 0.1f, false, 0, 2);
+	Renderer->CreateAnimation("Dao_Die_Last", "dao_die.png", 0.1f, false, 3, 4);
 
 	// CreateState
 	State.CreateState("Idle");
@@ -38,6 +42,7 @@ void APlayer::StateInit()
 	State.CreateState("Trap");
 	State.CreateState("Rescue");
 	State.CreateState("Die");
+	State.CreateState("RealDie");
 
 	// StartFunction
 	State.SetStartFunction("Idle", std::bind(&APlayer::IdleStart, this));
@@ -45,6 +50,7 @@ void APlayer::StateInit()
 	State.SetStartFunction("Trap", std::bind(&APlayer::TrapStart, this));
 	State.SetStartFunction("Rescue", std::bind(&APlayer::RescueStart, this));
 	State.SetStartFunction("Die", std::bind(&APlayer::DieStart, this));
+	State.SetStartFunction("RealDie", std::bind(&APlayer::RealDieStart, this));
 
 	// UpdateFunction
 	State.SetUpdateFunction("Idle", std::bind(&APlayer::Idle, this, std::placeholders::_1));
@@ -52,6 +58,7 @@ void APlayer::StateInit()
 	State.SetUpdateFunction("Trap", std::bind(&APlayer::Trap, this, std::placeholders::_1));
 	State.SetUpdateFunction("Rescue", std::bind(&APlayer::Rescue, this, std::placeholders::_1));
 	State.SetUpdateFunction("Die", std::bind(&APlayer::Die, this, std::placeholders::_1));
+	State.SetUpdateFunction("RealDie", std::bind(&APlayer::RealDie, this, std::placeholders::_1));
 
 	// Init
 	State.ChangeState("Idle");
@@ -218,12 +225,59 @@ void APlayer::Rescue(float _DeltaTime)
 
 void APlayer::DieStart()
 {
-	// 임시
-	State.ChangeState("Idle");
-	return;
+	Renderer->ChangeAnimation(GetAnimationName("Die"));
+	DieAnimationChange = false;
+	DieAniTwinkleActive = true;
+	DieTwinkleTime = 0.1f;
+	DieAnimationTime = 2.f;
 }
 
 void APlayer::Die(float _DeltaTime)
+{
+	if (false == DieAnimationChange && UEngineString::ToUpper(GetAnimationName("Die")) == Renderer->GetCurAniName() && true == Renderer->IsCurAnimationEnd())
+	{
+		DieAnimationChange = true;
+		switch (Info->MyType)
+		{
+		case ECharacterType::Bazzi:
+			Renderer->ChangeAnimation("Bazzi_Die_Last");
+			break;
+		case ECharacterType::Dao:
+			Renderer->ChangeAnimation("Dao_Die_Last");
+			break;
+		default:
+			break;
+		}
+	}
+
+	if (true == DieAnimationChange)
+	{
+		DieAnimationTime -= _DeltaTime;
+		DieTwinkleTime -= _DeltaTime;
+
+		if (DieTwinkleTime < 0.f)
+		{
+			Renderer->SetActive(DieAniTwinkleActive);
+			DieAniTwinkleActive = !DieAniTwinkleActive;
+			DieTwinkleTime = 0.1f;
+		}
+
+		if (DieAnimationTime < 0.f)
+		{
+			State.ChangeState("RealDie");
+			return;
+		}
+	}
+
+}
+
+void APlayer::RealDieStart()
+{
+	// 진짜 죽음 처리
+	Renderer->SetActive(false);
+}
+
+void APlayer::RealDie(float _DeltaTime)
 {
 
 }

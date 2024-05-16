@@ -97,7 +97,7 @@ std::string APlayer::GetAnimationName(std::string_view _StateName)
 		break;
 	}
 
-	if (_StateName == "Trap" || _StateName == "Rescue")
+	if (_StateName == "Trap" || _StateName == "Rescue" || _StateName == "Die")
 	{
 		return _AniName;
 	}

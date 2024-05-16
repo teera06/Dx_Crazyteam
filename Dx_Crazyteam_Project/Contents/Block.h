@@ -73,7 +73,7 @@ protected:
 private:
 	//break 관련 변수
 	bool IsBreak = false;
-	float BreakBlockTime = 0.25f;
+	float BreakBlockTime = 0.5f;
 	float BreakAccTime = 0.f;
 	bool BlinkOn = false;
 	float BlinkTime = 0.05f;

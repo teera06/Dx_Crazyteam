@@ -39,9 +39,25 @@ public:
 	APlayer& operator=(APlayer&& _Other) noexcept = delete;
 	
 	void SetCharacterType(ECharacterType _Type);
+
+	void SetWBCount(int _count)
+	{
+		Info->WBCount = _count;
+	}
+
 	void SetTeamType(ETeamType _Team)
 	{
 		Info->Team = _Team;
+	}
+
+	int GetWBCount()
+	{
+		return Info->WBCount;
+	}
+
+	int GetWBPower()
+	{
+		return Info->WBPower;
 	}
 
 	PlayerInfo* GetPlayerInfo()
@@ -69,6 +85,9 @@ private:
 	void Rescue(float _DeltaTime);
 	void DieStart();
 	void Die(float _DeltaTime);
+	void RealDieStart();
+	void RealDie(float _DeltaTime);
+
 
 	std::string GetAnimationName(std::string_view _StateName);
 
@@ -79,6 +98,11 @@ private:
 	float TrapAnimationTime = 3.f;
 	float TrapToDieTime = 5.f;
 	FVector TrapDir = FVector::Up;
+
+	bool DieAnimationChange = false;
+	bool DieAniTwinkleActive = false;
+	float DieAnimationTime = 2.f;
+	float DieTwinkleTime = 0.1f;
 
 	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
 

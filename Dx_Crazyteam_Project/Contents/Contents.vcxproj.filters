@@ -219,6 +219,8 @@
     <ClInclude Include="BreakObject.h">
       <Filter>MapObject\Component</Filter>
     </ClInclude>
+    <ClInclude Include="ItemOwl.h" />
+    <ClInclude Include="ItemNiddle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -349,5 +351,7 @@
     <ClCompile Include="BreakObject.cpp">
       <Filter>MapObject\Component</Filter>
     </ClCompile>
+    <ClCompile Include="ItemOwl.cpp" />
+    <ClCompile Include="ItemNiddle.cpp" />
   </ItemGroup>
 </Project>
