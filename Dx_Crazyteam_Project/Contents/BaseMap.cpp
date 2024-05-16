@@ -142,6 +142,7 @@ void ABaseMap::BeginPlay()
 	Super::BeginPlay();
 
 	AddActorLocation(FVector(0.f, ConstValue::TileSize.Y / 2.f, 0.f));
+	//Renderer->SetOrder(ERenderOrder::Shadow);
 	
 	for (int y = 0; y < ConstValue::TileY-1; y++)
 	{

@@ -17,7 +17,7 @@ AMapObject::~AMapObject()
 void AMapObject::DepthUpdate()
 {
 	FVector Location = GetActorLocation();
-	Location.Z = static_cast<float>(GetCurPos().y);
+	Location.Z = 10.f;//static_cast<float>(GetCurPos().y);
 	//Location.Z *= -1.f;
 
 	SetActorLocation(Location);
@@ -27,6 +27,7 @@ void AMapObject::BeginPlay()
 {
 	Super::BeginPlay();
 
+	Renderer->SetOrder(ERenderOrder::Shadow);
 	PlayerInteract = [](){};
 	WaterInteract = [](){};
 }

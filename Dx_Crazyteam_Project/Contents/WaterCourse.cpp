@@ -24,7 +24,7 @@ void AWaterCourse::BeginPlay()
 	CreateAnimation();
 
 	Renderer->SetAutoSize(1.0f, true);
-	Renderer->SetOrder(ERenderOrder::Player);
+	//Renderer->SetOrder(ERenderOrder::Player);
 	Renderer->SetActive(false);
 
 	SetType(EMapObjectType::Water);
