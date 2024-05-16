@@ -23,9 +23,9 @@ void AWaterBomb::BeginPlay()
 	Super::BeginPlay();
 	StateInit();
 	CreateAnimation();
-	SetActorScale3D(FVector(20, 20, 1));
-	Renderer->SetPosition(FVector(0.0f, -1.0f));
-	Renderer->SetAutoSize(0.05f, true);
+	//SetActorScale3D(FVector(20, 20, 1));
+	Renderer->SetPosition(FVector(0.0f, -55.0f)); // 기본값으로 +20.0f 가 되어있음
+	Renderer->SetAutoSize(1.0f, true);
 	//Renderer->SetOrder(ERenderOrder::Player);
 	//Renderer->SetPivot(EPivot::BOT);
 	//Renderer->SetActive(false);
