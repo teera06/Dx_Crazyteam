@@ -240,6 +240,9 @@
     <ClInclude Include="ItemShoes.h">
       <Filter>Item</Filter>
     </ClInclude>
+    <ClInclude Include="ItemTurtle.h">
+      <Filter>Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -386,6 +389,9 @@
       <Filter>Item</Filter>
     </ClCompile>
     <ClCompile Include="ItemShoes.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemTurtle.cpp">
       <Filter>Item</Filter>
     </ClCompile>
   </ItemGroup>

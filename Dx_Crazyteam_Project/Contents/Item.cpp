@@ -35,14 +35,13 @@ void AItem::BeginPlay()
 		{
 			if (bWaterInteract) return;
 
-			bWaterInteract = true;
+
 			GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 		};
 
 	PlayerInteract = [&] {
-		if (bPlayerInteract) return;
+		if(bPlayerInteract) return;
 
-		bPlayerInteract = true;
 		Action();
 		};
 }
