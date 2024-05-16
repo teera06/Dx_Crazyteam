@@ -106,7 +106,7 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 			std::shared_ptr<UEngineProtocol> Protocal = Dis.ConvertProtocol(Protocol.GetPacketType(), Ser);
 			Dis.ProcessPacket(Protocal);
 
-			int Size = *(reinterpret_cast<int*>(Ser.DataPtr()));
+			int Size = *(reinterpret_cast<int*>(Ser.DataCharPtrToWriteOffset()));
 			int WriteOffset = Ser.GetWriteOffset();
 			int ReadOffset = Ser.GetReadOffset();
 			int RemainOffset = WriteOffset - ReadOffset;
@@ -125,6 +125,7 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 				Ser.DataToReadOffsetPush();
 				break;
 			}
+
 		} 
 	}
 }
