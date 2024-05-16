@@ -84,6 +84,10 @@ private:
 	void Die(float _DeltaTime);
 	void RealDieStart();
 	void RealDie(float _DeltaTime);
+	void RideIdleStart();
+	void RideIdle(float _DeltaTime);
+	void RideMoveStart();
+	void RideMove(float _DeltaTime);
 
 
 	std::string GetAnimationName(std::string_view _StateName);

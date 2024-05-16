@@ -132,17 +132,18 @@ void APlayer::SetCharacterType(ECharacterType _Type)
 	{
 	case ECharacterType::Bazzi:
 		Info->MyType = ECharacterType::Bazzi;
-		Info->WBPower = 1;
-		Info->WBCount = 1;
-		Info->Speed = 5;
+		Info->Speed = ConstValue::BazziDefaultSpeed;
+		Info->WBPower = ConstValue::BazziDefaultWBPower;
+		Info->WBCount = ConstValue::BazziDefaultWBCount;
 		break;
 	case ECharacterType::Dao:
 		Info->MyType = ECharacterType::Dao;
-		Info->WBPower = 1;
-		Info->WBCount = 1;
-		Info->Speed = 5;
+		Info->Speed = ConstValue::DaoDefaultSpeed;
+		Info->WBPower = ConstValue::DaoDefaultWBPower;
+		Info->WBCount = ConstValue::DaoDefaultWBCount;
 		break;
 	default:
 		break;
 	}
 }
+

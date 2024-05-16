@@ -44,6 +44,8 @@ void APlayer::StateInit()
 	State.CreateState("Rescue");
 	State.CreateState("Die");
 	State.CreateState("RealDie");
+	State.CreateState("RideIdle");
+	State.CreateState("RideMove");
 
 	// StartFunction
 	State.SetStartFunction("Idle", std::bind(&APlayer::IdleStart, this));
@@ -52,6 +54,8 @@ void APlayer::StateInit()
 	State.SetStartFunction("Rescue", std::bind(&APlayer::RescueStart, this));
 	State.SetStartFunction("Die", std::bind(&APlayer::DieStart, this));
 	State.SetStartFunction("RealDie", std::bind(&APlayer::RealDieStart, this));
+	State.SetStartFunction("RideIdle", std::bind(&APlayer::RideIdleStart, this));
+	State.SetStartFunction("RideMove", std::bind(&APlayer::RideMoveStart, this));
 
 	// UpdateFunction
 	State.SetUpdateFunction("Idle", std::bind(&APlayer::Idle, this, std::placeholders::_1));
@@ -60,6 +64,8 @@ void APlayer::StateInit()
 	State.SetUpdateFunction("Rescue", std::bind(&APlayer::Rescue, this, std::placeholders::_1));
 	State.SetUpdateFunction("Die", std::bind(&APlayer::Die, this, std::placeholders::_1));
 	State.SetUpdateFunction("RealDie", std::bind(&APlayer::RealDie, this, std::placeholders::_1));
+	State.SetUpdateFunction("RideIdle", std::bind(&APlayer::RideIdle, this, std::placeholders::_1));
+	State.SetUpdateFunction("RideMove", std::bind(&APlayer::RideMove, this, std::placeholders::_1));
 
 	// Init
 	State.ChangeState("Idle");
@@ -284,6 +290,26 @@ void APlayer::RealDieStart()
 }
 
 void APlayer::RealDie(float _DeltaTime)
+{
+
+}
+
+void APlayer::RideIdleStart()
+{
+
+}
+
+void APlayer::RideIdle(float _DeltaTime)
+{
+
+}
+
+void APlayer::RideMoveStart()
+{
+
+}
+
+void APlayer::RideMove(float _DeltaTime)
 {
 
 }
