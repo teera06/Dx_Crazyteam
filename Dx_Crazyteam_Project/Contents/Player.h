@@ -11,6 +11,11 @@ class PlayerInfo
 	friend APlayer;
 
 public:
+	inline void SetWBCountUpdate()
+	{
+		WBCount++;
+	}
+
 	POINT CurIndex = POINT(0, 0);
 	ECharacterType MyType = ECharacterType::Bazzi;
 	ETeamType Team = ETeamType::None;

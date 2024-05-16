@@ -50,9 +50,12 @@ void APlayer::Tick(float _DeltaTime)
 	{
 		if (Info->WBCount > 0)
 		{
-			//--Info->WBCount;
-			std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
-			Bomb->SetObjectToken(WaterBomb_Token++);
+			if (nullptr == GetGameMode()->GetCurMap()->GetMapObject(Info->CurIndex.y, Info->CurIndex.x))
+			{
+				--Info->WBCount;
+				std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
+				Bomb->SetObjectToken(WaterBomb_Token++);
+			}
 		}
 	}
 
