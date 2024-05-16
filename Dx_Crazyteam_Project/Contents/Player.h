@@ -16,9 +16,9 @@ public:
 	ETeamType Team = ETeamType::None;
 	EPlayerRideType RideType = EPlayerRideType::None;
 
-	int Speed = 5;					// 속도
-	int WBPower = 4;				// 물폭탄 파워(물줄기 길이)
-	int WBCount = 4;				// 물폭탄 개수	
+	int Speed = -1;					// 속도
+	int WBPower = -1;				// 물폭탄 파워(물줄기 길이)
+	int WBCount = -1;				// 물폭탄 개수	
 };
 
 class APlayer_Shadow;
