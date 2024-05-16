@@ -1,36 +1,34 @@
 #include "PreCompile.h"
-#include "ItemBubble.h"
+#include "ItemFluid.h"
 #include "Player.h"
 #include "CAGameMode.h"
 #include "BaseMap.h"
 
-AItemBubble::AItemBubble()
-{
-	
-}
-
-AItemBubble::~AItemBubble()
+AItemFluid::AItemFluid() 
 {
 }
 
-void AItemBubble::BeginPlay()
+AItemFluid::~AItemFluid() 
+{
+}
+
+void AItemFluid::BeginPlay()
 {
 	Super::BeginPlay();
 
 	FrontRenderer->CreateAnimation("ItemBubble", "Bubble(1).png", 0.3f, true, 0, 5);
 	FrontRenderer->ChangeAnimation("ItemBubble");
 	FrontRenderer->SetAutoSize(1.f, true);
-
 }
 
-void AItemBubble::Tick(float _DeltaTime)
+void AItemFluid::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }
 
-void AItemBubble::Action()
+void AItemFluid::Action()
 {
-	++GetGameMode()->GetPlayer()->GetPlayerInfo()->WBCount;
+	++GetGameMode()->GetPlayer()->GetPlayerInfo()->WBPower;
 
 
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);

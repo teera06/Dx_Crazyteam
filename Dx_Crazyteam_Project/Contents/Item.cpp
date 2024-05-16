@@ -27,6 +27,12 @@ void AItem::BeginPlay()
 	BackRenderer->SetOrder(ERenderOrder::Shadow);
 	//BackRenderer->SetMulColor(FVector(1.f, 1.f, 1.f, 0.6f));
 
+
+	SetType(EMapObjectType::Item);
+
+	PlayerInteract = [=] {
+		Action();
+		};
 }
 
 void AItem::Tick(float _DeltaTime)

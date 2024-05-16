@@ -1,8 +1,9 @@
 #pragma once
 #include "Block.h"
+#include "BreakObject.h"
 
 // Ό³Έν :
-class ACampBlock : public ABlock
+class ACampBlock : public ABlock, public UBreakObject
 {
 	GENERATED_BODY(ABlock)
 public:

@@ -49,6 +49,7 @@ enum class EMapObject
 	CampMoveBlock,
 	WaterBomb,
 	Water,
+	Item,
 };
 
 enum class ECharacterType
