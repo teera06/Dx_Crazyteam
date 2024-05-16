@@ -16,6 +16,7 @@ private:
 
 	static std::string ReadText;
 	static std::string ComstrText;
+	static std::string MidText;
 
 	static bool bHangeul;
 	static HWND hwnd;

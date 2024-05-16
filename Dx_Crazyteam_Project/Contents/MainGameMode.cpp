@@ -70,7 +70,7 @@ void AMainGameMode::BeginPlay()
 void AMainGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-	UTextimeInput::IMEInput();
+	//UTextimeInput::IMEInput();
 	std::string Text = UTextimeInput::GetReadText();
 	if (Text.size() > 0)
 	{
