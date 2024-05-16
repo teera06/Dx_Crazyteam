@@ -123,6 +123,18 @@ bool ABaseMap::IsEmpty(int _Y, int _X)
 	return false;
 }
 
+bool ABaseMap::IsOnWater(FVector _PlayerPos)
+{
+	POINT CheckPos = PosToPoint(_PlayerPos);
+	
+	if (MapStatus[CheckPos.y][CheckPos.x] == nullptr) return false;
+
+	EMapObjectType Type = MapStatus[CheckPos.y][CheckPos.x]->GetType();
+	
+	if (Type == EMapObjectType::Water) return true;
+	else return false;
+}
+
 
 
 void ABaseMap::BeginPlay()
