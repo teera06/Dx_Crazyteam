@@ -51,6 +51,9 @@ private:
 
 	//선택한 캐릭터
 	UImage* SelectCharacter;
+
+	//로비 플레이어 캐릭터
+	std::vector<UImage*> LobbyPlayer;
 	
 	std::vector<UImage*> RoomVector;
 	std::vector<UImage*>::iterator RoomIter = RoomVector.begin();
@@ -60,5 +63,6 @@ private:
 
 	bool SwitchON = false;
 	bool IsSelectSharacter = false;
+	int  PlayerCount = 0;
 };
 

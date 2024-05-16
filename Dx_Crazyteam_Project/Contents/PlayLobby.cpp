@@ -20,6 +20,7 @@ void APlayLobby::BeginPlay()
 {
 	Super::BeginPlay();
 	InputOn();
+	LobbyPlayer.resize(9);
 
 	PlayLobbyUI = CreateWidget<UImage>(GetWorld(), "PlayLobbyUI");
 	PlayLobbyUI->AddToViewPort(10);
@@ -27,8 +28,6 @@ void APlayLobby::BeginPlay()
 	PlayLobbyUI->SetScale({ 800, 600 });
 	PlayLobbyUI->SetActive(true);
 
-
-	
 	for (int i = 0; i < 4; i++)
 	{
 		UImage* Room = CreateWidget<UImage>(GetWorld(), "Room");
@@ -50,9 +49,6 @@ void APlayLobby::BeginPlay()
 		Room->SetActive(true);
 		RoomVector.push_back(Room);
 	}
-
-
-
 
 	//시작 버튼
 	GameStart = CreateWidget<UImage>(GetWorld(), "GameStart");
@@ -571,6 +567,20 @@ void APlayLobby::Tick(float _DeltaTime)
 					}
 				}
 				});
+		}
+	}
+
+	if (IsDown('P'))
+	{
+		LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
+		LobbyPlayer[PlayerCount]->AddToViewPort(15);
+		LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
+		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
+		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-325 + PlayerCount * 105), 125.0f, 100.0f ));
+
+		if (8 > PlayerCount)
+		{
+			++PlayerCount;
 		}
 	}
 
