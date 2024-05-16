@@ -21,6 +21,8 @@ void ABlock::BeginPlay()
 	Renderer->AddPosition(FVector::Down * 20.f);
 	Renderer->SetAutoSize(1.f, true);
 
+	Renderer->SetOrder(4);
+
 	StateInit();
 }
 

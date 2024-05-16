@@ -61,7 +61,7 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 		}
 
 		UEngineProtocol Protocol;
-		Protocol.DeSerialize(Ser);
+		Protocol.UEngineProtocol::DeSerialize(Ser);
 
 		if (Protocol.GetPacketType() == -2)
 		{
@@ -139,7 +139,8 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 				break;
 			}
 
-
+			Protocol.UEngineProtocol::DeSerialize(Ser);
+			Ser.AddReadOffset(-16);
 		} 
 	}
 }
