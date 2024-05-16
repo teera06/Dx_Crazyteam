@@ -84,7 +84,7 @@ void APlayLobby::BeginPlay()
 	DaoBT->CreateAnimation("Down", "CharatorSelect_Button_Dao_Click.bmp", 0.1f, false, 0, 0);
 	DaoBT->CreateAnimation("Up", "CharatorSelect_Button_Dao_Pick.bmp", 0.1f, false, 0, 0);
 	DaoBT->AddToViewPort(11);
-	DaoBT->SetSprite("CharatorSelect_Button_Dao_Normal.bmp");
+	DaoBT->SetSprite("CharatorSelect_Button_Dao_Pick.bmp");
 	DaoBT->SetScale({ 65.f,43.f });
 	DaoBT->SetPosition({ 194.0f,163.0f });
 	DaoBT->SetActive(true);
@@ -227,7 +227,8 @@ void APlayLobby::BeginPlay()
 	Bazziex->SetPosition({ 230.0f,237.0f });
 	Bazziex->SetActive(false);
 
-
+	// 선택한 캐릭터
+	SelectCharacter = DaoBT;
 }
 
 void APlayLobby::Tick(float _DeltaTime)
@@ -255,26 +256,28 @@ void APlayLobby::Tick(float _DeltaTime)
 
 	{
 		RandomBT->SetUnHover([=] {
-			RandomBT->ChangeAnimation("UnHover");
-			SwitchON = false;
+			if ("UP" != RandomBT->GetUiAniName())
+			{
+				RandomBT->ChangeAnimation("UnHover");
+			}
+				SwitchON = false;
 			});
 		RandomBT->SetHover([=] {
 			{
-				if (false == SwitchON)
+				if (false == SwitchON && "UP" != RandomBT->GetUiAniName())
 				{
 					RandomBT->ChangeAnimation("Hover");
 					Randomex->SetActive(true);
 					SwitchON = true;
-
 				}
 				else if (IsDown(VK_LBUTTON) && true == SwitchON)
 				{
 					RandomBT->ChangeAnimation("Down");
-
 				}
 				else if (IsUp(VK_LBUTTON))
 				{
-					RandomBT->ChangeAnimation("Up");
+					SwapSelectCharacter(RandomBT);
+					//RandomBT->ChangeAnimation("Up");
 				}
 			}
 			});
@@ -282,13 +285,16 @@ void APlayLobby::Tick(float _DeltaTime)
 
 	{
 		DaoBT->SetUnHover([=] {
-			DaoBT->ChangeAnimation("UnHover");
-			SwitchON = false;
-			Daoex->SetActive(false);
+			if ("UP" != DaoBT->GetUiAniName())
+			{
+				DaoBT->ChangeAnimation("UnHover");
+				Daoex->SetActive(false);
+			}
+				SwitchON = false;
 			});
 		DaoBT->SetHover([=] {
 			{
-				if (false == SwitchON)
+				if (false == SwitchON && "UP" != DaoBT->GetUiAniName())
 				{
 					DaoBT->ChangeAnimation("Hover");
 					Daoex->SetActive(true);
@@ -298,246 +304,247 @@ void APlayLobby::Tick(float _DeltaTime)
 				else if (IsDown(VK_LBUTTON) && true == SwitchON)
 				{
 					DaoBT->ChangeAnimation("Down");
-
 				}
 				else if (IsUp(VK_LBUTTON))
 				{
-					DaoBT->ChangeAnimation("Up");
+					IsSelectSharacter = true;
+					SwapSelectCharacter(DaoBT);
+					//DaoBT->ChangeAnimation("Up");
 				}
 
 			}
 			});
 	}
-	{
-		DizniBT->SetUnHover([=] {
-			DizniBT->ChangeAnimation("UnHover");
-			SwitchON = false;
-			});
-		DizniBT->SetHover([=] {
-			{
-				if (false == SwitchON)
-				{
-					DizniBT->ChangeAnimation("Hover");
-					SwitchON = true;
+	//{
+	//	DizniBT->SetUnHover([=] {
+	//		DizniBT->ChangeAnimation("UnHover");
+	//		SwitchON = false;
+	//		});
+	//	DizniBT->SetHover([=] {
+	//		{
+	//			if (false == SwitchON)
+	//			{
+	//				DizniBT->ChangeAnimation("Hover");
+	//				SwitchON = true;
 
-				}
-				else if (IsDown(VK_LBUTTON) && true == SwitchON)
-				{
-					DizniBT->ChangeAnimation("Down");
+	//			}
+	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
+	//			{
+	//				DizniBT->ChangeAnimation("Down");
 
-				}
-			}
-			});
-	}
-	{
-		MosBT->SetUnHover([=] {
-			MosBT->ChangeAnimation("UnHover");
-			SwitchON = false;
-			});
-		MosBT->SetHover([=] {
-			{
-				if (false == SwitchON)
-				{
-					MosBT->ChangeAnimation("Hover");
-					SwitchON = true;
+	//			}
+	//		}
+	//		});
+	//}
+	//{
+	//	MosBT->SetUnHover([=] {
+	//		MosBT->ChangeAnimation("UnHover");
+	//		SwitchON = false;
+	//		});
+	//	MosBT->SetHover([=] {
+	//		{
+	//			if (false == SwitchON)
+	//			{
+	//				MosBT->ChangeAnimation("Hover");
+	//				SwitchON = true;
 
-				}
-				else if (IsDown(VK_LBUTTON) && true == SwitchON)
-				{
-					MosBT->ChangeAnimation("Down");
+	//			}
+	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
+	//			{
+	//				MosBT->ChangeAnimation("Down");
 
-				}
-			}
-			});
-	}
-	{
-		EthiBT->SetUnHover([=] {
-			EthiBT->ChangeAnimation("UnHover");
-			SwitchON = false;
-			});
-		EthiBT->SetHover([=] {
-			{
-				if (false == SwitchON)
-				{
-					EthiBT->ChangeAnimation("Hover");
-					SwitchON = true;
+	//			}
+	//		}
+	//		});
+	//}
+	//{
+	//	EthiBT->SetUnHover([=] {
+	//		EthiBT->ChangeAnimation("UnHover");
+	//		SwitchON = false;
+	//		});
+	//	EthiBT->SetHover([=] {
+	//		{
+	//			if (false == SwitchON)
+	//			{
+	//				EthiBT->ChangeAnimation("Hover");
+	//				SwitchON = true;
 
-				}
-				else if (IsDown(VK_LBUTTON) && true == SwitchON)
-				{
-					EthiBT->ChangeAnimation("Down");
+	//			}
+	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
+	//			{
+	//				EthiBT->ChangeAnimation("Down");
 
-				}
-			}
-			});
-	}
-	{
-		MaridBT->SetUnHover([=] {
-			MaridBT->ChangeAnimation("UnHover");
-			SwitchON = false;
-			Maridex->SetActive(false);
-			});
-		MaridBT->SetHover([=] {
-			{
-				if (false == SwitchON)
-				{
-					MaridBT->ChangeAnimation("Hover");
-					Maridex->SetActive(true);
-					SwitchON = true;
+	//			}
+	//		}
+	//		});
+	//}
+	//{
+	//	MaridBT->SetUnHover([=] {
+	//		MaridBT->ChangeAnimation("UnHover");
+	//		SwitchON = false;
+	//		Maridex->SetActive(false);
+	//		});
+	//	MaridBT->SetHover([=] {
+	//		{
+	//			if (false == SwitchON)
+	//			{
+	//				MaridBT->ChangeAnimation("Hover");
+	//				Maridex->SetActive(true);
+	//				SwitchON = true;
 
-				}
-				else if (IsDown(VK_LBUTTON) && true == SwitchON)
-				{
-					MaridBT->ChangeAnimation("Down");
+	//			}
+	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
+	//			{
+	//				MaridBT->ChangeAnimation("Down");
 
-				}
-				else if (IsUp(VK_LBUTTON))
-				{
-					MaridBT->ChangeAnimation("Up");
-				}
+	//			}
+	//			else if (IsUp(VK_LBUTTON))
+	//			{
+	//				MaridBT->ChangeAnimation("Up");
+	//			}
 
-			}
-			});
-	}
-	{
-		BazziBT->SetUnHover([=] {
-			BazziBT->ChangeAnimation("UnHover");
-			SwitchON = false;
-			Bazziex->SetActive(false);
-			});
-		BazziBT->SetHover([=] {
-			{
-				if (false == SwitchON)
-				{
-					BazziBT->ChangeAnimation("Hover");
-					Bazziex->SetActive(true);
-					SwitchON = true;
+	//		}
+	//		});
+	//}
+	//{
+	//	BazziBT->SetUnHover([=] {
+	//		BazziBT->ChangeAnimation("UnHover");
+	//		SwitchON = false;
+	//		Bazziex->SetActive(false);
+	//		});
+	//	BazziBT->SetHover([=] {
+	//		{
+	//			if (false == SwitchON)
+	//			{
+	//				BazziBT->ChangeAnimation("Hover");
+	//				Bazziex->SetActive(true);
+	//				SwitchON = true;
 
-				}
-				else if (IsDown(VK_LBUTTON) && true == SwitchON)
-				{
-					BazziBT->ChangeAnimation("Down");
+	//			}
+	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
+	//			{
+	//				BazziBT->ChangeAnimation("Down");
 
-				}
-				else if (IsUp(VK_LBUTTON))
-				{
-					BazziBT->ChangeAnimation("Up");
-				}
-			}
-			});
-	}
-	{
-		UniBT->SetUnHover([=] {
-			UniBT->ChangeAnimation("UnHover");
-			SwitchON = false;
-			});
-		UniBT->SetHover([=] {
-			{
-				if (false == SwitchON)
-				{
-					UniBT->ChangeAnimation("Hover");
-					SwitchON = true;
+	//			}
+	//			else if (IsUp(VK_LBUTTON))
+	//			{
+	//				BazziBT->ChangeAnimation("Up");
+	//			}
+	//		}
+	//		});
+	//}
+	//{
+	//	UniBT->SetUnHover([=] {
+	//		UniBT->ChangeAnimation("UnHover");
+	//		SwitchON = false;
+	//		});
+	//	UniBT->SetHover([=] {
+	//		{
+	//			if (false == SwitchON)
+	//			{
+	//				UniBT->ChangeAnimation("Hover");
+	//				SwitchON = true;
 
-				}
-				else if (IsDown(VK_LBUTTON) && true == SwitchON)
-				{
-					UniBT->ChangeAnimation("Down");
+	//			}
+	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
+	//			{
+	//				UniBT->ChangeAnimation("Down");
 
-				}
-			}
-			});
-	}
-	{
-		KephiBT->SetUnHover([=] {
-			KephiBT->ChangeAnimation("UnHover");
-			SwitchON = false;
-			Kephiex->SetActive(false);
-			});
-		KephiBT->SetHover([=] {
-			{
-				if (false == SwitchON)
-				{
-					KephiBT->ChangeAnimation("Hover");
-					Kephiex->SetActive(true);
-					SwitchON = true;
+	//			}
+	//		}
+	//		});
+	//}
+	//{
+	//	KephiBT->SetUnHover([=] {
+	//		KephiBT->ChangeAnimation("UnHover");
+	//		SwitchON = false;
+	//		Kephiex->SetActive(false);
+	//		});
+	//	KephiBT->SetHover([=] {
+	//		{
+	//			if (false == SwitchON)
+	//			{
+	//				KephiBT->ChangeAnimation("Hover");
+	//				Kephiex->SetActive(true);
+	//				SwitchON = true;
 
-				}
-				else if (IsDown(VK_LBUTTON) && true == SwitchON)
-				{
-					KephiBT->ChangeAnimation("Down");
+	//			}
+	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
+	//			{
+	//				KephiBT->ChangeAnimation("Down");
 
-				}
-		
-				else if (IsUp(VK_LBUTTON))
-				{
-					KephiBT->ChangeAnimation("Up");
-				}
-			}
-			});
-	}
-	{
-		SuBT->SetUnHover([=] {
-			SuBT->ChangeAnimation("UnHover");
-			SwitchON = false;
-			});
-		SuBT->SetHover([=] {
-			{
-				if (false == SwitchON)
-				{
-					SuBT->ChangeAnimation("Hover");
-					SwitchON = true;
+	//			}
+	//	
+	//			else if (IsUp(VK_LBUTTON))
+	//			{
+	//				KephiBT->ChangeAnimation("Up");
+	//			}
+	//		}
+	//		});
+	//}
+	//{
+	//	SuBT->SetUnHover([=] {
+	//		SuBT->ChangeAnimation("UnHover");
+	//		SwitchON = false;
+	//		});
+	//	SuBT->SetHover([=] {
+	//		{
+	//			if (false == SwitchON)
+	//			{
+	//				SuBT->ChangeAnimation("Hover");
+	//				SwitchON = true;
 
-				}
-				else if (IsDown(VK_LBUTTON) && true == SwitchON)
-				{
-					SuBT->ChangeAnimation("Down");
+	//			}
+	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
+	//			{
+	//				SuBT->ChangeAnimation("Down");
 
-				}
-			}
-			});
-	}
-	{
-		HooUBT->SetUnHover([=] {
-			HooUBT->ChangeAnimation("UnHover");
-			SwitchON = false;
-			});
-		HooUBT->SetHover([=] {
-			{
-				if (false == SwitchON)
-				{
-					HooUBT->ChangeAnimation("Hover");
-					SwitchON = true;
+	//			}
+	//		}
+	//		});
+	//}
+	//{
+	//	HooUBT->SetUnHover([=] {
+	//		HooUBT->ChangeAnimation("UnHover");
+	//		SwitchON = false;
+	//		});
+	//	HooUBT->SetHover([=] {
+	//		{
+	//			if (false == SwitchON)
+	//			{
+	//				HooUBT->ChangeAnimation("Hover");
+	//				SwitchON = true;
 
-				}
-				else if (IsDown(VK_LBUTTON) && true == SwitchON)
-				{
-					HooUBT->ChangeAnimation("Down");
+	//			}
+	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
+	//			{
+	//				HooUBT->ChangeAnimation("Down");
 
-				}
-			}
-			});
-	}
-	{
-		RayBT->SetUnHover([=] {
-			RayBT->ChangeAnimation("UnHover");
-			SwitchON = false;
-			});
-		RayBT->SetHover([=] {
-			{
-				if (false == SwitchON)
-				{
-					RayBT->ChangeAnimation("Hover");
-					SwitchON = true;
+	//			}
+	//		}
+	//		});
+	//}
+	//{
+	//	RayBT->SetUnHover([=] {
+	//		RayBT->ChangeAnimation("UnHover");
+	//		SwitchON = false;
+	//		});
+	//	RayBT->SetHover([=] {
+	//		{
+	//			if (false == SwitchON)
+	//			{
+	//				RayBT->ChangeAnimation("Hover");
+	//				SwitchON = true;
 
-				}
-				else if (IsDown(VK_LBUTTON) && true == SwitchON)
-				{
-					RayBT->ChangeAnimation("Down");
+	//			}
+	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
+	//			{
+	//				RayBT->ChangeAnimation("Down");
 
-				}
-			}
-			});
-	}
+	//			}
+	//		}
+	//		});
+	//}
 
 	for (int i = 1; i < 8; i++)
 	{
@@ -567,6 +574,13 @@ void APlayLobby::Tick(float _DeltaTime)
 		}
 	}
 
+}
+
+void APlayLobby::SwapSelectCharacter(UImage* _SelectCharacter)
+{
+	SelectCharacter->ChangeAnimation("UnHover");
+	_SelectCharacter->ChangeAnimation("Up");
+	SelectCharacter = _SelectCharacter;
 }
 
 void APlayLobby::SetIsActive(bool _Active)
