@@ -103,8 +103,8 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 
 		while(true)
 		{
-			std::shared_ptr<UEngineProtocol> Protocal = Dis.ConvertProtocol(Protocol.GetPacketType(), Ser);
-			Dis.ProcessPacket(Protocal);
+			std::shared_ptr<UEngineProtocol> NewProtocal = Dis.ConvertProtocol(Protocol.GetPacketType(), Ser);
+			Dis.ProcessPacket(NewProtocal);
 
 			if (Ser.BufferSize() == Ser.GetReadOffset())
 			{
