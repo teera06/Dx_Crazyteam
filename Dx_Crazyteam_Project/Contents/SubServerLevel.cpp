@@ -60,9 +60,9 @@ void ASubServerLevel::Tick(float _DeltaTime)
 
 	if (UEngineInput::IsDown(VK_SPACE)==true)
 	{
-		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(this->GetCurMap()->AddMapObject(MainPlayer->GetPlayerInfo()->CurIndex.y, MainPlayer->GetPlayerInfo()->CurIndex.x,EMapObject::WaterBomb));
-		Bomb->SetCurGameMode(this);
-		Bomb->SetObjectToken(UNetObject::GetNewObjectToken());
+		//std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(this->GetCurMap()->AddMapObject(MainPlayer->GetPlayerInfo()->CurIndex.y, MainPlayer->GetPlayerInfo()->CurIndex.x,EMapObject::WaterBomb));
+		//Bomb->SetCurGameMode(this);
+		//Bomb->SetObjectToken(UNetObject::GetNewObjectToken());
 
 	/*	UGame_Core::Net = std::make_shared<UEngineClient>();
 		UGame_Core::Net->Connect(IP, PORT);*/

@@ -77,6 +77,9 @@ private:
 
 	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
 
+
+	static int WaterBomb_Token;
+
 };
 
 

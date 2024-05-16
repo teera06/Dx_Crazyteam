@@ -7,6 +7,10 @@
 #include "Player_Shadow.h"
 #include "BaseMap.h"
 #include "CAGameMode.h"
+#include "WaterBomb.h"
+
+int APlayer::WaterBomb_Token = 1000;
+
 
 APlayer::APlayer()
 {
@@ -46,8 +50,9 @@ void APlayer::Tick(float _DeltaTime)
 	{
 		if (Info->WBCount > 0)
 		{
-			--Info->WBCount;
-			GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation());
+			//--Info->WBCount;
+			std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
+			Bomb->SetObjectToken(WaterBomb_Token++);
 		}
 	}
 
