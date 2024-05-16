@@ -107,6 +107,7 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 			UGame_Core::Net->SetTokenPacketFunction([=](USessionTokenPacket* _Token)
 			{
 				MainPlayer->SetObjectToken(_Token->GetSessionToken() * 1000);
+				MainPlayer->WaterBomb_Token = _Token->GetSessionToken() * 1000 + 1;
 			});
 
 			// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
@@ -174,6 +175,8 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 		// 다른 사람들한테 이 오브젝트에 대해서 알리고
 		GetWorld()->PushFunction([=]()
 		{
+			int Test = _Packet->GetObjectToken();
+
 			AOtherBomb* Bomb = UNetObject::GetNetObject<AOtherBomb>(_Packet->GetObjectToken());
 			if (nullptr == Bomb)
 			{

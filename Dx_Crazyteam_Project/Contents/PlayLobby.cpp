@@ -184,40 +184,47 @@ void APlayLobby::BeginPlay()
 	RayBT->SetPosition({ 338.0f,65.0f });
 	RayBT->SetActive(true);
 
-	Randomex = CreateWidget<UImage>(GetWorld(), "Randomex");
-	Randomex->AddToViewPort(11);
-	Randomex->SetSprite("CharatorSelect_Outline_Random.bmp");
-	Randomex->SetScale({ 281.f, 80.f });
-	Randomex->SetPosition({ 230.0f,237.0f });
-	Randomex->SetActive(true);
+	LobbyCharacterBanner = CreateWidget<UImage>(GetWorld(), "Randomex");
+	LobbyCharacterBanner->AddToViewPort(11);
+	LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Random.bmp");
+	LobbyCharacterBanner->SetScale({ 281.f, 80.f });
+	LobbyCharacterBanner->SetPosition({ 230.0f,237.0f });
+	LobbyCharacterBanner->SetActive(true);
 
-	Daoex = CreateWidget<UImage>(GetWorld(), "Daoex");
-	Daoex->AddToViewPort(11);
-	Daoex->SetSprite("CharatorSelect_Outline_Dao.bmp");
-	Daoex->SetScale({ 281.f, 80.f });
-	Daoex->SetPosition({ 230.0f,237.0f });
-	Daoex->SetActive(false);
+	//Randomex = CreateWidget<UImage>(GetWorld(), "Randomex");
+	//Randomex->AddToViewPort(11);
+	//Randomex->SetSprite("CharatorSelect_Outline_Random.bmp");
+	//Randomex->SetScale({ 281.f, 80.f });
+	//Randomex->SetPosition({ 230.0f,237.0f });
+	//Randomex->SetActive(true);
 
-	Maridex = CreateWidget<UImage>(GetWorld(), "Maridex");
-	Maridex->AddToViewPort(11);
-	Maridex->SetSprite("CharatorSelect_Outline_Marid.bmp");
-	Maridex->SetScale({ 281.f, 80.f });
-	Maridex->SetPosition({ 230.0f,237.0f });
-	Maridex->SetActive(false);
+	//Daoex = CreateWidget<UImage>(GetWorld(), "Daoex");
+	//Daoex->AddToViewPort(11);
+	//Daoex->SetSprite("CharatorSelect_Outline_Dao.bmp");
+	//Daoex->SetScale({ 281.f, 80.f });
+	//Daoex->SetPosition({ 230.0f,237.0f });
+	//Daoex->SetActive(false);
 
-	Kephiex = CreateWidget<UImage>(GetWorld(), "Kephiex");
-	Kephiex->AddToViewPort(11);
-	Kephiex->SetSprite("CharatorSelect_Outline_Kephi.bmp");
-	Kephiex->SetScale({ 281.f, 80.f });
-	Kephiex->SetPosition({ 230.0f,237.0f });
-	Kephiex->SetActive(false);
+	//Maridex = CreateWidget<UImage>(GetWorld(), "Maridex");
+	//Maridex->AddToViewPort(11);
+	//Maridex->SetSprite("CharatorSelect_Outline_Marid.bmp");
+	//Maridex->SetScale({ 281.f, 80.f });
+	//Maridex->SetPosition({ 230.0f,237.0f });
+	//Maridex->SetActive(false);
 
-	Bazziex = CreateWidget<UImage>(GetWorld(), "Bazziex");
-	Bazziex->AddToViewPort(11);
-	Bazziex->SetSprite("CharatorSelect_Outline_Bazzi.bmp");
-	Bazziex->SetScale({ 281.f, 80.f });
-	Bazziex->SetPosition({ 230.0f,237.0f });
-	Bazziex->SetActive(false);
+	//Kephiex = CreateWidget<UImage>(GetWorld(), "Kephiex");
+	//Kephiex->AddToViewPort(11);
+	//Kephiex->SetSprite("CharatorSelect_Outline_Kephi.bmp");
+	//Kephiex->SetScale({ 281.f, 80.f });
+	//Kephiex->SetPosition({ 230.0f,237.0f });
+	//Kephiex->SetActive(false);
+
+	//Bazziex = CreateWidget<UImage>(GetWorld(), "Bazziex");
+	//Bazziex->AddToViewPort(11);
+	//Bazziex->SetSprite("CharatorSelect_Outline_Bazzi.bmp");
+	//Bazziex->SetScale({ 281.f, 80.f });
+	//Bazziex->SetPosition({ 230.0f,237.0f });
+	//Bazziex->SetActive(false);
 
 	//ÆÀ ¼±ÅÃ
 	
@@ -339,7 +346,6 @@ void APlayLobby::Tick(float _DeltaTime)
 				if (false == SwitchON && "UP" != RandomBT->GetUiAniName())
 				{
 					RandomBT->ChangeAnimation("Hover");
-					Randomex->SetActive(true);
 					SwitchON = true;
 				}
 				else if (IsDown(VK_LBUTTON) && true == SwitchON)
@@ -348,6 +354,7 @@ void APlayLobby::Tick(float _DeltaTime)
 				}
 				else if (IsUp(VK_LBUTTON))
 				{
+					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Random.bmp");
 					SwapSelectCharacter(RandomBT);
 					checkUI->SetPosition({ 152.0f,183.0f });
 					checkUI->SetActive(true);
@@ -362,7 +369,6 @@ void APlayLobby::Tick(float _DeltaTime)
 			if ("UP" != DaoBT->GetUiAniName())
 			{
 				DaoBT->ChangeAnimation("UnHover");
-				Daoex->SetActive(false);
 			}
 				SwitchON = false;
 			});
@@ -371,7 +377,6 @@ void APlayLobby::Tick(float _DeltaTime)
 				if (false == SwitchON && "UP" != DaoBT->GetUiAniName())
 				{
 					DaoBT->ChangeAnimation("Hover");
-					Daoex->SetActive(true);
 					SwitchON = true;
 
 				}
@@ -383,6 +388,7 @@ void APlayLobby::Tick(float _DeltaTime)
 				{
 					IsSelectSharacter = true;
 					SwapSelectCharacter(DaoBT);
+					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Dao.bmp");
 					checkUI->SetPosition({ 222.0f,183.0f });
 					checkUI->SetActive(true);
 					//DaoBT->ChangeAnimation("Up");
@@ -459,7 +465,6 @@ void APlayLobby::Tick(float _DeltaTime)
 			if ("UP" != MaridBT->GetUiAniName())
 			{
 				MaridBT->ChangeAnimation("UnHover");
-				Maridex->SetActive(false);
 			}
 			SwitchON = false;
 			});
@@ -468,7 +473,6 @@ void APlayLobby::Tick(float _DeltaTime)
 				if (false == SwitchON && "UP" != MaridBT->GetUiAniName())
 				{
 					MaridBT->ChangeAnimation("Hover");
-					Maridex->SetActive(true);
 					SwitchON = true;
 
 				}
@@ -481,6 +485,7 @@ void APlayLobby::Tick(float _DeltaTime)
 				{
 					IsSelectSharacter = true;
 					SwapSelectCharacter(MaridBT);
+					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Marid.bmp");
 					checkUI->SetPosition({ 222.0f,133.0f });
 					checkUI->SetActive(true);
 				}
@@ -494,7 +499,6 @@ void APlayLobby::Tick(float _DeltaTime)
 			if ("UP" != BazziBT->GetUiAniName())
 			{
 				BazziBT->ChangeAnimation("UnHover");
-				Bazziex->SetActive(false);
 			}
 			SwitchON = false;
 			});
@@ -503,7 +507,6 @@ void APlayLobby::Tick(float _DeltaTime)
 				if (false == SwitchON && "UP" != BazziBT->GetUiAniName())
 				{
 					BazziBT->ChangeAnimation("Hover");
-					Bazziex->SetActive(true);
 					SwitchON = true;
 
 				}
@@ -516,6 +519,7 @@ void APlayLobby::Tick(float _DeltaTime)
 				{
 					IsSelectSharacter = true;
 					SwapSelectCharacter(BazziBT);
+					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Bazzi.bmp");
 					checkUI->SetPosition({ 292.0f,133.0f });
 					checkUI->SetActive(true);
 				}
@@ -664,32 +668,27 @@ void APlayLobby::Tick(float _DeltaTime)
 		}
 	}
 
-	if (IsDown('P'))
+	if (IsDown('P') && 3 >= PlayerCount)
 	{
 		LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
 		LobbyPlayer[PlayerCount]->AddToViewPort(15);
 		LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
 		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
 		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f ));
-
-		if (3 > PlayerCount)
-		{
-			++PlayerCount;
-		}
+		++PlayerCount;
 	}
-
-	else if (true == IsDown('P') && 3 == PlayerCount)
+	else if (IsDown('P') && 3 < PlayerCount)
 	{
+		if (8 < PlayerCount)
+		{
+			return;
+		}
+
 		LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
 		LobbyPlayer[PlayerCount]->AddToViewPort(15);
 		LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
 		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
 		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 225.0f, 100.0f));
-
-		if (3 > PlayerCount)
-		{
-			++PlayerCount;
-		}
 	}
 
 }

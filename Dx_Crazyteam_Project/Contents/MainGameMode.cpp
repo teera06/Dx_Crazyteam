@@ -5,6 +5,7 @@
 #include <EnginePlatform/TextimeInput.h>
 
 #include "Village.h"
+#include "Camp.h"
 #include "Player.h"
 
 #include "ItemBubble.h"
@@ -12,10 +13,6 @@
 #include "ItemNiddle.h"
 #include "ItemOwl.h"
 
-#include "CampBlock.h"
-#include "CampMoveBlock.h"
-
-#include "Camp.h"
 #include "WaterCourse.h"
 
 AMainGameMode::AMainGameMode()
@@ -30,12 +27,19 @@ void AMainGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
+	GetWorld()->GetMainCamera()->DepthOn();
+	//깊이버퍼 실행시 DepthOn
+
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -400.0f));
 
+	
 	std::shared_ptr<ACamp> Camp = GetWorld()->SpawnActor<ACamp>("Camp");
 	SetCurMap(Camp);
 	Camp->SetCurGameMode(this);
+
+	
+
 
 	Player1 = GetWorld()->SpawnActor<APlayer>("Player1", 0);
 	Player1->SetCurGameMode(this);
@@ -89,6 +93,10 @@ void AMainGameMode::Tick(float _DeltaTime)
 	{
 		ShowText->SetText(" ");
 	}
+
+
+
+
 }
 
 void AMainGameMode::LevelStart(ULevel* _PrevLevel)
