@@ -6,6 +6,10 @@
 
 #include "Village.h"
 #include "Player.h"
+
+#include "ItemBubble.h"
+#include "ItemRoller.h"
+
 #include "Camp.h"
 #include "WaterCourse.h"
 
@@ -31,6 +35,18 @@ void AMainGameMode::BeginPlay()
 	Player1 = GetWorld()->SpawnActor<APlayer>("Player1", 0);
 	Player1->SetCurGameMode(this);
 	SetMainPlayer(Player1);
+
+
+	{//Item
+
+		std::shared_ptr<AItemBubble> Bubble = GetWorld()->SpawnActor<AItemBubble>("ItemTest");
+		Bubble->SetActorLocation(Player1->GetActorLocation());
+
+		std::shared_ptr<AItemRoller> Roller = GetWorld()->SpawnActor<AItemRoller>("ItemTest");
+		Roller->SetActorLocation(FVector(100.0f, 100.0f, 0.0f));
+
+
+	}
 
 	ShowText = CreateWidget<UTextWidget>(GetWorld(), "ShowText");
 	ShowText->SetFont("¸¼Àº °íµñ");
