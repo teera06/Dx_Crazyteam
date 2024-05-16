@@ -5,11 +5,7 @@
 
 APlayLobby::APlayLobby()
 {
-	Collision0 = CreateDefaultSubObject<UCollision>("Collision");
-	Collision0->SetScale({ 63.f,42.f });
-	Collision0->SetPosition({ 122.0f,162.0f });
-	Collision0->SetCollisionGroup(ECollisionOrder::Player);
-	Collision0->SetCollisionType(ECollisionType::Rect);
+
 }
 
 APlayLobby::~APlayLobby()
@@ -223,14 +219,94 @@ void APlayLobby::BeginPlay()
 	Bazziex->SetPosition({ 230.0f,237.0f });
 	Bazziex->SetActive(false);
 
+	//팀 선택
+	
+	TeamA = CreateWidget<UImage>(GetWorld(), "TeamA");
+	TeamA->AddToViewPort(12);
+	TeamA->SetSprite("ATeam.png");
+	TeamA->SetScale({ 100.f, 50.f });
+	TeamA->SetPosition({ 160.0f,0.0f });
+	TeamA->SetActive(true);
+
+	TeamB = CreateWidget<UImage>(GetWorld(), "TeamB");
+	TeamB->AddToViewPort(12);
+	TeamB->SetSprite("BTeam.png");
+	TeamB->SetScale({ 100.f, 50.f });
+	TeamB->SetPosition({ 300.0f,0.0f });
+	TeamB->SetActive(true);
+
+
 	// 선택한 캐릭터
-	SelectCharacter = DaoBT;
+	SelectCharacter = RandomBT;
+
+	checkUI = CreateWidget<UImage>(GetWorld(), "checkUI");
+	checkUI->AddToViewPort(13);
+	checkUI->SetSprite("check.png");
+	checkUI->SetAutoSize(1.0f, true);
+	checkUI->SetPosition({ 222.0f,183.0f });
+	checkUI->SetActive(false);
+	
 }
 
 void APlayLobby::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	PlayLobbyUI->SetActive(true);
+
+	TeamA->SetUnHover([=] {
+		if ("UP" != RandomBT->GetUiAniName())
+		{
+			TeamA->SetSprite("ATeam.png");
+		}
+		SwitchON = false;
+		});
+	TeamA->SetHover([=] {
+		{
+			if (false == SwitchON && "UP" != TeamA->GetUiAniName())
+			{
+				TeamA->SetSprite("ATeam.png");
+				SwitchON = true;
+			}
+			else if (IsDown(VK_LBUTTON) && true == SwitchON)
+			{
+				TeamA->SetSprite("ATeam_Down.png");
+			}
+			else if (IsUp(VK_LBUTTON))
+			{
+				TeamA->SetSprite("ATeam_Pick.png");
+				//RandomBT->ChangeAnimation("Up");
+			}
+		}
+		});
+
+
+	TeamB->SetUnHover([=] {
+		if ("UP" != RandomBT->GetUiAniName())
+		{
+			TeamB->SetSprite("BTeam.png");
+		}
+		SwitchON = false;
+		});
+	TeamB->SetHover([=] {
+		{
+			if (false == SwitchON && "UP" != TeamB->GetUiAniName())
+			{
+				TeamB->SetSprite("BTeam.png");
+				SwitchON = true;
+			}
+			else if (IsDown(VK_LBUTTON) && true == SwitchON)
+			{
+				TeamB->SetSprite("BTeam_Down.png");
+			}
+			else if (IsUp(VK_LBUTTON))
+			{
+				TeamB->SetSprite("BTeam_Pick.png");
+				//RandomBT->ChangeAnimation("Up");
+			}
+		}
+		});
+
+
 
 
 	{
@@ -273,6 +349,8 @@ void APlayLobby::Tick(float _DeltaTime)
 				else if (IsUp(VK_LBUTTON))
 				{
 					SwapSelectCharacter(RandomBT);
+					checkUI->SetPosition({ 152.0f,183.0f });
+					checkUI->SetActive(true);
 					//RandomBT->ChangeAnimation("Up");
 				}
 			}
@@ -305,6 +383,8 @@ void APlayLobby::Tick(float _DeltaTime)
 				{
 					IsSelectSharacter = true;
 					SwapSelectCharacter(DaoBT);
+					checkUI->SetPosition({ 222.0f,183.0f });
+					checkUI->SetActive(true);
 					//DaoBT->ChangeAnimation("Up");
 				}
 
@@ -374,61 +454,75 @@ void APlayLobby::Tick(float _DeltaTime)
 	//		}
 	//		});
 	//}
-	//{
-	//	MaridBT->SetUnHover([=] {
-	//		MaridBT->ChangeAnimation("UnHover");
-	//		SwitchON = false;
-	//		Maridex->SetActive(false);
-	//		});
-	//	MaridBT->SetHover([=] {
-	//		{
-	//			if (false == SwitchON)
-	//			{
-	//				MaridBT->ChangeAnimation("Hover");
-	//				Maridex->SetActive(true);
-	//				SwitchON = true;
+	{
+		MaridBT->SetUnHover([=] {
+			if ("UP" != MaridBT->GetUiAniName())
+			{
+				MaridBT->ChangeAnimation("UnHover");
+				Maridex->SetActive(false);
+			}
+			SwitchON = false;
+			});
+		MaridBT->SetHover([=] {
+			{
+				if (false == SwitchON && "UP" != MaridBT->GetUiAniName())
+				{
+					MaridBT->ChangeAnimation("Hover");
+					Maridex->SetActive(true);
+					SwitchON = true;
 
-	//			}
-	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
-	//			{
-	//				MaridBT->ChangeAnimation("Down");
+				}
+				else if (IsDown(VK_LBUTTON) && true == SwitchON)
+				{
+					MaridBT->ChangeAnimation("Down");
 
-	//			}
-	//			else if (IsUp(VK_LBUTTON))
-	//			{
-	//				MaridBT->ChangeAnimation("Up");
-	//			}
+				}
+				else if (IsUp(VK_LBUTTON))
+				{
+					IsSelectSharacter = true;
+					SwapSelectCharacter(MaridBT);
+					checkUI->SetPosition({ 222.0f,133.0f });
+					checkUI->SetActive(true);
+				}
 
-	//		}
-	//		});
-	//}
-	//{
-	//	BazziBT->SetUnHover([=] {
-	//		BazziBT->ChangeAnimation("UnHover");
-	//		SwitchON = false;
-	//		Bazziex->SetActive(false);
-	//		});
-	//	BazziBT->SetHover([=] {
-	//		{
-	//			if (false == SwitchON)
-	//			{
-	//				BazziBT->ChangeAnimation("Hover");
-	//				Bazziex->SetActive(true);
-	//				SwitchON = true;
+			}
+			});
 
-	//			}
-	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
-	//			{
-	//				BazziBT->ChangeAnimation("Down");
+	}
+	{
+		BazziBT->SetUnHover([=] {
+			if ("UP" != BazziBT->GetUiAniName())
+			{
+				BazziBT->ChangeAnimation("UnHover");
+				Bazziex->SetActive(false);
+			}
+			SwitchON = false;
+			});
+		BazziBT->SetHover([=] {
+			{
+				if (false == SwitchON && "UP" != BazziBT->GetUiAniName())
+				{
+					BazziBT->ChangeAnimation("Hover");
+					Bazziex->SetActive(true);
+					SwitchON = true;
 
-	//			}
-	//			else if (IsUp(VK_LBUTTON))
-	//			{
-	//				BazziBT->ChangeAnimation("Up");
-	//			}
-	//		}
-	//		});
-	//}
+				}
+				else if (IsDown(VK_LBUTTON) && true == SwitchON)
+				{
+					BazziBT->ChangeAnimation("Down");
+
+				}
+				else if (IsUp(VK_LBUTTON))
+				{
+					IsSelectSharacter = true;
+					SwapSelectCharacter(BazziBT);
+					checkUI->SetPosition({ 292.0f,133.0f });
+					checkUI->SetActive(true);
+				}
+
+			}
+			});
+	}
 	//{
 	//	UniBT->SetUnHover([=] {
 	//		UniBT->ChangeAnimation("UnHover");
@@ -576,9 +670,23 @@ void APlayLobby::Tick(float _DeltaTime)
 		LobbyPlayer[PlayerCount]->AddToViewPort(15);
 		LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
 		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
-		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-325 + PlayerCount * 105), 125.0f, 100.0f ));
+		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f ));
 
-		if (8 > PlayerCount)
+		if (3 > PlayerCount)
+		{
+			++PlayerCount;
+		}
+	}
+
+	else if (true == IsDown('P') && 3 == PlayerCount)
+	{
+		LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
+		LobbyPlayer[PlayerCount]->AddToViewPort(15);
+		LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
+		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
+		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 225.0f, 100.0f));
+
+		if (3 > PlayerCount)
 		{
 			++PlayerCount;
 		}
@@ -592,6 +700,13 @@ void APlayLobby::SwapSelectCharacter(UImage* _SelectCharacter)
 	_SelectCharacter->ChangeAnimation("Up");
 	SelectCharacter = _SelectCharacter;
 }
+
+//void APlayLobby::SwapSelectCharacter(UImage* _SelectCharacterex)
+//{
+//	SelectCharacterex->ChangeAnimation("UnHover");
+//	_SelectCharacterex->ChangeAnimation("Up");
+//	SelectCharacterex = _SelectCharacterex;
+//}
 
 void APlayLobby::SetIsActive(bool _Active)
 {
