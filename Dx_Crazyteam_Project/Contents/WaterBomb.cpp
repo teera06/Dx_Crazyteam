@@ -7,6 +7,8 @@
 #include "Packets.h"
 #include "Game_Core.h"
 
+int AWaterBomb::WaterBomb_Token = 0;
+
 AWaterBomb::AWaterBomb()
 {
 	//UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
@@ -14,6 +16,9 @@ AWaterBomb::AWaterBomb()
 
 	//Renderer = CreateDefaultSubObject<USpriteRenderer>("Render");
 	//Renderer->SetupAttachment(Root);
+
+	int TestValue = GetObjectToken();
+	SetObjectToken(GetObjectToken() + (1));
 }
 
 AWaterBomb::~AWaterBomb()
@@ -53,11 +58,12 @@ void AWaterBomb::Tick(float _DeltaTime)
 
 	if (0.0f >= CurTime && true == IsNetInit())
 	{
-		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
+		std::shared_ptr<UActorUpdatePacket> Packet = std::make_shared<UActorUpdatePacket>();
 
 		Packet->Pos = GetActorLocation();
 		Packet->AnimationInfo = Renderer->GetCurAnimationFrame();
 		Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
+		Packet->IsDestroy = b_ServerBomb;
 		Send(Packet);
 		CurTime += FrameTime;
 	}

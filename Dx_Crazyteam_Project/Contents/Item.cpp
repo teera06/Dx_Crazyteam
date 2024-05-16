@@ -31,12 +31,18 @@ void AItem::BeginPlay()
 
 	SetType(EMapObjectType::Item);
 
-	WaterInteract = [=]
+	WaterInteract = [&]
 		{
+			if (bWaterInteract) return;
+
+			bWaterInteract = true;
 			GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 		};
 
-	PlayerInteract = [=] {
+	PlayerInteract = [&] {
+		if (bPlayerInteract) return;
+
+		bPlayerInteract = true;
 		Action();
 		};
 }
