@@ -73,39 +73,16 @@ void APlayer::Tick(float _DeltaTime)
 
 	PlayerSendPacket(_DeltaTime);
 
-	//if (false == IsNetInit())
-	//{
-	//	// 네트워크 통신준비가 아직 안된 오브젝트다.
-	//	if (nullptr != UGame_Core::Net)
-	//	{
-	//		InitNet(UGame_Core::Net);
-	//	}
-	//}
-
-	//CurTime -= _DeltaTime;
-
-	//if (0.0f >= CurTime && true == IsNetInit())
-	//{
-	//	std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
-
-	//	Packet->Pos = GetActorLocation();
-	//	Packet->AnimationInfo = Renderer->GetCurAnimationFrame();
-	//	Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
-	//	Send(Packet);
-	//	CurTime += FrameTime;
-	//}
-
-
 	if (true == IsDown(VK_SPACE))
 	{
 		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
 		Bomb->SetObjectToken(WaterBomb_Token++);
 
 		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
-		Packet->Pos = GetActorLocation();
-		Packet->AnimationInfo = Renderer->GetCurAnimationFrame();
-		Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
-		Send(Packet);
+		//Packet->Pos = GetActorLocation();
+		//Packet->AnimationInfo = Renderer->GetCurAnimationFrame();
+		//Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
+		//Send(Packet);
 	}
 }
 

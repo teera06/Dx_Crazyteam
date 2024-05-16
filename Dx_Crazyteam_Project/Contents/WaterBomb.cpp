@@ -23,10 +23,10 @@ void AWaterBomb::BeginPlay()
 	Super::BeginPlay();
 	StateInit();
 	CreateAnimation();
-	SetActorScale3D(FVector(20, 20, 1));
-	Renderer->SetPosition(FVector(0.0f, -1.0f));
-	Renderer->SetAutoSize(0.05f, true);
-	Renderer->SetOrder(ERenderOrder::Player);
+	//SetActorScale3D(FVector(20, 20, 1));
+	Renderer->SetPosition(FVector(0.0f, -55.0f)); // 기본값으로 +20.0f 가 되어있음
+	Renderer->SetAutoSize(1.0f, true);
+	//Renderer->SetOrder(ERenderOrder::Player);
 	//Renderer->SetPivot(EPivot::BOT);
 	//Renderer->SetActive(false);
 	SetType(EMapObjectType::WaterBalloon);
@@ -37,31 +37,7 @@ void AWaterBomb::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 	State.Update(_DeltaTime);
 
-
-	//if (false == IsNetInit())
-	//{
-	//	// 네트워크 통신준비가 아직 안된 오브젝트다.
-	//	if (nullptr != UGame_Core::Net)
-	//	{
-	//		InitNet(UGame_Core::Net);
-	//	}
-	//}
-
-	//CurTime -= _DeltaTime;
-
-	//if (0.0f >= CurTime && true == IsNetInit())
-	//{
-	//	std::shared_ptr<UActorUpdatePacket> Packet = std::make_shared<UActorUpdatePacket>();
-
-	//	Packet->Pos = GetActorLocation();
-	//	Packet->AnimationInfo = Renderer->GetCurAnimationFrame();
-	//	Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
-	//	Packet->IsDestroy = b_ServerBomb;
-	//	Send(Packet);
-	//	CurTime += FrameTime;
-	//}
-
-	///WaterBombPacket(_DeltaTime, b_ServerBomb);
+	WaterBombPacket(_DeltaTime, b_ServerBomb);
 }
 
 void AWaterBomb::StateInit()

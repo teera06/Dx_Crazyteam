@@ -18,7 +18,7 @@ void AMapObject::DepthUpdate()
 {
 	FVector Location = GetActorLocation();
 	Location.Z = static_cast<float>(GetCurPos().y);
-	//Location.Z *= -1.f;
+	Location.Z *= -1.f;
 
 	SetActorLocation(Location);
 }

@@ -91,6 +91,9 @@
     <Filter Include="Item">
       <UniqueIdentifier>{202aa6e6-6bd0-4aad-beff-703e9a9a5580}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGameLevel">
+      <UniqueIdentifier>{709f3459-cf50-4ec0-8d39-17fd34e73c14}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -180,9 +183,6 @@
     <ClInclude Include="Player_Shadow.h">
       <Filter>Level\PlayertestLevel\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="CampBlock.h">
-      <Filter>MapObject\Block\CampBlock</Filter>
-    </ClInclude>
     <ClInclude Include="CampMoveBlock1.h">
       <Filter>MapObject\MoveBlock\CampMoveBlock</Filter>
     </ClInclude>
@@ -242,6 +242,9 @@
     </ClInclude>
     <ClInclude Include="ItemTurtle.h">
       <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroMainMode.h">
+      <Filter>MainGameLevel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -393,6 +396,9 @@
     </ClCompile>
     <ClCompile Include="ItemTurtle.cpp">
       <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroMainMode.cpp">
+      <Filter>MainGameLevel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -19,9 +19,6 @@ void AItem::BeginPlay()
 	Renderer->ChangeAnimation("ItemShadow");
 	Renderer->SetAutoSize(0.6f, true);
 	Renderer->AddPosition(FVector::Down * 65.f);
-	Renderer->SetOrder(ERenderOrder::Shadow);
-	//BackRenderer->SetMulColor(FVector(1.f, 1.f, 1.f, 0.6f));
-
 
 	SetType(EMapObjectType::Item);
 
