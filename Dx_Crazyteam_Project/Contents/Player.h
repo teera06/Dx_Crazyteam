@@ -17,8 +17,12 @@ public:
 	EPlayerRideType RideType = EPlayerRideType::None;
 
 	int Speed = -1;					// ¼Óµµ
-	int WBPower = -1;				// ¹°ÆøÅº ÆÄ¿ö(¹°ÁÙ±â ±æÀÌ)
 	int WBCount = -1;				// ¹°ÆøÅº °³¼ö	
+	int WBPower = -1;				// ¹°ÆøÅº ÆÄ¿ö(¹°ÁÙ±â ±æÀÌ)
+
+	int MaxSpeed = -1;
+	int MaxWBCount = -1;
+	int MaxWBPower = -1;
 };
 
 class APlayer_Shadow;
@@ -46,6 +50,11 @@ public:
 	{
 		Info->Team = _Team;
 	}
+	
+	void SetSpeed(int _speed)
+	{
+		Info->Speed = _speed;
+	}
 
 	int GetWBCount()
 	{
@@ -55,6 +64,11 @@ public:
 	int GetWBPower()
 	{
 		return Info->WBPower;
+	}
+
+	int GetSpeed()
+	{
+		return Info->Speed;
 	}
 
 	PlayerInfo* GetPlayerInfo()
