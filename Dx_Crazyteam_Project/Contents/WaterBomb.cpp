@@ -133,12 +133,6 @@ void AWaterBomb::CreateExit()
 
 void AWaterBomb::BombBegin()
 {
-	//std::shared_ptr<AWaterCourse> Course = GetWorld()->SpawnActor<AWaterCourse>("WaterCourse");
-	////Course->SetPowerValue(Power);
-	//Course->SetPowerValue(5);
-	//Course->SetBombPoint(CurPos);
-	//Course->CreateWaterCenter();
-
 	GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water);
 	b_ServerBomb = true;
 }
