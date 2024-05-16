@@ -112,17 +112,19 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 				break;
 			}
 
-			int Size = *(reinterpret_cast<int*>(Ser.DataCharPtrToReadOffset()));
-			int WriteOffset = Ser.GetWriteOffset();
-			int ReadOffset = Ser.GetReadOffset();
-			int RemainOffset = WriteOffset - ReadOffset;
-			// 받은만큼 다 읽었어.
-			if (WriteOffset == ReadOffset)
+			if (Ser.GetWriteOffset() == Ser.GetReadOffset())
 			{
 				// 깔끔하게 읽었다.
 				Ser.Reset();
 				break;
 			}
+
+
+			int Size = *(reinterpret_cast<int*>(Ser.DataCharPtrToReadOffset()));
+			int WriteOffset = Ser.GetWriteOffset();
+			int ReadOffset = Ser.GetReadOffset();
+			int RemainOffset = WriteOffset - ReadOffset;
+			// 받은만큼 다 읽었어.
 
 
 
