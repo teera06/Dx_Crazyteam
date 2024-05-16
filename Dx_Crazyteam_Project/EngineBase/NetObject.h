@@ -90,10 +90,11 @@ public:
 
 	std::shared_ptr<UEngineProtocol> PopProtocol();
 
+	static std::map<int, UNetObject*> AllNetObject;
 protected:
 	static std::atomic<int> CurObjectToken;
 	static std::atomic<int> CurClientObjectToken;
-	static std::map<int, UNetObject*> AllNetObject;
+	//static std::map<int, UNetObject*> AllNetObject;
 
 private:
 	std::mutex ProtocolLock;

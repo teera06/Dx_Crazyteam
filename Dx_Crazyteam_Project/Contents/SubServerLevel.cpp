@@ -18,6 +18,8 @@
 #include "WaterBomb.h"
 #include "OtherBomb.h"
 
+#include <EngineBase/NetObject.h>
+
 ASubServerLevel::ASubServerLevel()
 {
 	if (nullptr != UGame_Core::Net)
@@ -57,6 +59,9 @@ void ASubServerLevel::BeginPlay()
 void ASubServerLevel::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	UNetObject::AllNetObject;
+	int a = 0;
 
 	//if (UEngineInput::IsDown(VK_SPACE)==true)
 	//{
@@ -101,7 +106,7 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 
 			UGame_Core::Net->SetTokenPacketFunction([=](USessionTokenPacket* _Token)
 			{
-				MainPlayer->SetObjectToken(_Token->GetObjectToken());
+				MainPlayer->SetObjectToken(_Token->GetSessionToken() * 1000);
 			});
 
 			// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
