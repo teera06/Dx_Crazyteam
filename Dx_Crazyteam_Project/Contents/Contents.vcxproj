@@ -27,7 +27,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="BrokenBlock.h" />
+    <ClInclude Include="BreakObject.h" />
     <ClInclude Include="CAGameMode.h">
       <SubType>
       </SubType>
@@ -91,7 +91,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="MoveBlock.h">
+    <ClInclude Include="MoveObject.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -189,7 +189,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="BrokenBlock.cpp" />
+    <ClCompile Include="BreakObject.cpp" />
     <ClCompile Include="CAGameMode.cpp">
       <SubType>
       </SubType>
@@ -252,7 +252,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="MoveBlock.cpp">
+    <ClCompile Include="MoveObject.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -25,6 +25,8 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	void SwapSelectCharacter(UImage* _SelectCharacter);
+
 	UImage* PlayLobbyUI = nullptr;
 	UImage* GameStart = nullptr;
 	//캐릭터 선택창
@@ -46,6 +48,9 @@ private:
 	UImage* Maridex;
 	UImage* Kephiex;
 	UImage* Bazziex;
+
+	//선택한 캐릭터
+	UImage* SelectCharacter;
 	
 	std::vector<UImage*> RoomVector;
 	std::vector<UImage*>::iterator RoomIter = RoomVector.begin();
@@ -54,5 +59,6 @@ private:
 	UCollision* Collision0 = nullptr;
 
 	bool SwitchON = false;
+	bool IsSelectSharacter = false;
 };
 

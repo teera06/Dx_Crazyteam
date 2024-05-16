@@ -107,6 +107,7 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("bazzi_idle.png", 4, 1);
 		UEngineSprite::CreateCutting("bazzi_trap.png", 4, 1);
 		UEngineSprite::CreateCutting("bazzi_rescue.png", 3, 1);
+		UEngineSprite::CreateCutting("bazzi_die.png", 5, 1);
 
 		UEngineSprite::CreateCutting("dao_right.png", 4, 1);
 		UEngineSprite::CreateCutting("dao_left.png", 4, 1);
@@ -115,6 +116,7 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("dao_idle.png", 4, 1);
 		UEngineSprite::CreateCutting("dao_trap.png", 4, 1);
 		UEngineSprite::CreateCutting("dao_rescue.png", 3, 1);
+		UEngineSprite::CreateCutting("dao_die.png", 5, 1);
 	}
 
 	// æ∆¿Ã≈€
