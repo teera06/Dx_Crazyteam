@@ -11,14 +11,7 @@ int AWaterBomb::WaterBomb_Token = 0;
 
 AWaterBomb::AWaterBomb()
 {
-	//UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
-	//SetRoot(Root);
 
-	//Renderer = CreateDefaultSubObject<USpriteRenderer>("Render");
-	//Renderer->SetupAttachment(Root);
-
-	int TestValue = GetObjectToken();
-	SetObjectToken(GetObjectToken() + (1));
 }
 
 AWaterBomb::~AWaterBomb()
