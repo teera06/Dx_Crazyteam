@@ -143,6 +143,7 @@ void ABlock::BreakTick(float _DeltaTime)
 	BreakAccTime += _DeltaTime;
 	if (BreakAccTime > BreakBlockTime)
 	{
+		BreakAccTime = 0.f;
 		State.ChangeState("End");
 		return;
 	}
@@ -150,15 +151,18 @@ void ABlock::BreakTick(float _DeltaTime)
 	AccBlinkTime += _DeltaTime;
 	if (AccBlinkTime > BlinkTime)
 	{
+		AccBlinkTime = 0.f;
 		if (BlinkOn)
 		{
-			FrontRenderer->SetActive(false);
-			BackRenderer->SetActive(false);
+			FrontRenderer->SetMulColor(FVector(1.f, 1.f, 1.f, 0.5f));
+			BackRenderer->SetMulColor(FVector(1.f, 1.f, 1.f, 0.5f));
+			BlinkOn = false;
 		}
 		else
 		{
-			FrontRenderer->SetActive(true);
-			BackRenderer->SetActive(true);
+			FrontRenderer->SetMulColor(FVector(1.f, 1.f, 1.f, 1.f));
+			BackRenderer->SetMulColor(FVector(1.f, 1.f, 1.f, 1.f));
+			BlinkOn = true;
 		}
 	}
 }
