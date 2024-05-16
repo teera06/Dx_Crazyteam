@@ -21,8 +21,6 @@ void ABlock::BeginPlay()
 	Renderer->AddPosition(FVector::Down * 20.f);
 	Renderer->SetAutoSize(1.f, true);
 
-	Renderer->SetOrder(4);
-
 	StateInit();
 }
 
@@ -31,12 +29,6 @@ void ABlock::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
-
-	FVector Location = GetActorLocation();
-	Location.Z = static_cast<float>(GetCurPos().y);
-	//Location.Z *= -1.f;
-
-	SetActorLocation(Location);
 }
 
 void ABlock::StateInit()
