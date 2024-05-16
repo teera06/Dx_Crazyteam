@@ -159,7 +159,7 @@
     <ClInclude Include="Camp.h">
       <Filter>Map\Camp</Filter>
     </ClInclude>
-    <ClInclude Include="CampBlock.h">
+    <ClInclude Include="CampBlock1.h">
       <Filter>MapObject</Filter>
     </ClInclude>
     <ClInclude Include="MainGameMode.h">
@@ -183,7 +183,7 @@
     <ClInclude Include="CampBlock.h">
       <Filter>MapObject\Block\CampBlock</Filter>
     </ClInclude>
-    <ClInclude Include="CampMoveBlock.h">
+    <ClInclude Include="CampMoveBlock1.h">
       <Filter>MapObject\MoveBlock\CampMoveBlock</Filter>
     </ClInclude>
     <ClInclude Include="DummyBlock.h">
@@ -352,10 +352,10 @@
     <ClCompile Include="TestLobbyPlayer.cpp">
       <Filter>Level\Surver\PublicOBJ\Test</Filter>
     </ClCompile>
-    <ClCompile Include="CampMoveBlock.cpp">
+    <ClCompile Include="CampMoveBlock1.cpp">
       <Filter>MapObject\MoveBlock\CampMoveBlock</Filter>
     </ClCompile>
-    <ClCompile Include="CampBlock.cpp">
+    <ClCompile Include="CampBlock1.cpp">
       <Filter>MapObject\Block\CampBlock</Filter>
     </ClCompile>
     <ClCompile Include="ServerTestPlayer.cpp">

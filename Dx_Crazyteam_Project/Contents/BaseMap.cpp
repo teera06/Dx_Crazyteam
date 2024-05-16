@@ -5,11 +5,11 @@
 
 #include "BaseMap.h"
 #include "Block.h"
-#include "CampBlock.h"
+#include "CampBlock1.h"
 #include "WaterBomb.h"
 #include "WaterCourse.h"
 #include "DummyBlock.h"
-#include "CampMoveBlock.h"
+#include "CampMoveBlock1.h"
 #include "CAGameMode.h"
 #include "Player.h"
 #include "ItemBubble.h"
@@ -142,7 +142,6 @@ void ABaseMap::BeginPlay()
 	Super::BeginPlay();
 
 	AddActorLocation(FVector(0.f, ConstValue::TileSize.Y / 2.f, 0.f));
-
 	
 	for (int y = 0; y < ConstValue::TileY-1; y++)
 	{
@@ -153,6 +152,10 @@ void ABaseMap::BeginPlay()
 			MapStatus[y].push_back(nullptr);
 		}
 	}
+
+	FVector Pos = GetActorLocation();
+	Pos.Z = 300.f;
+	SetActorLocation(Pos);
 }
 
 void ABaseMap::Tick(float _DeltaTime)
@@ -181,7 +184,7 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 	}
 	case EMapObject::CampMoveBlock:
 	{
-		MapObj = GetWorld()->SpawnActor<ACampMoveBlock>("Block");
+		MapObj = GetWorld()->SpawnActor<ACampMoveBlock1>("CampMoveBlock1");
 		break;
 	}
 	case EMapObject::NormalBlock:
@@ -191,7 +194,7 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 	}
 	case EMapObject::CampBlock:
 	{
-		MapObj = GetWorld()->SpawnActor<ACampBlock>("CampBlock");
+		MapObj = GetWorld()->SpawnActor<ACampBlock1>("CampBlock1");
 		break;
 	}
 	case EMapObject::WaterBomb:

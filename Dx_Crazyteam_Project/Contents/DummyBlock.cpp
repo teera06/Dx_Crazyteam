@@ -12,8 +12,7 @@ ADummyBlock::~ADummyBlock()
 void ADummyBlock::BeginPlay()
 {
 	Super::BeginPlay();
-	FrontRenderer->SetActive(false);
-	BackRenderer->SetActive(false);
+	Renderer->SetActive(false);
 }
 
 void ADummyBlock::Tick(float _DeltaTime)
