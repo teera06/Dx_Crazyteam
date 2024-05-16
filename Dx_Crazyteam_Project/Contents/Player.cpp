@@ -26,9 +26,11 @@ void APlayer::BeginPlay()
 
 	Super::BeginPlay();
 
+	Info = std::make_shared<PlayerInfo>();
+	SetCharacterType(ECharacterType::Bazzi);
+
 	Renderer->SetOrder(ERenderOrder::Player);
 	Renderer->SetAutoSize(0.05f, true);
-	Info = std::make_shared<PlayerInfo>();
 	SetActorScale3D(FVector(20, 20, 1));
 
 	Shadow = GetWorld()->SpawnActor<APlayer_Shadow>("Player_Shadow");
