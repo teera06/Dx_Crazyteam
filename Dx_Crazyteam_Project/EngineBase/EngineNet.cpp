@@ -112,7 +112,7 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 				break;
 			}
 
-			int Size = *(reinterpret_cast<int*>(Ser.DataCharPtrToWriteOffset()));
+			int Size = *(reinterpret_cast<int*>(Ser.DataCharPtrToReadOffset()));
 			int WriteOffset = Ser.GetWriteOffset();
 			int ReadOffset = Ser.GetReadOffset();
 			int RemainOffset = WriteOffset - ReadOffset;

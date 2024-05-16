@@ -168,6 +168,11 @@ public:
 		return &Data[WriteOffset];
 	}
 
+	char* DataCharPtrToReadOffset()
+	{
+		return &Data[ReadOffset];
+	}
+
 	int GetWriteOffset()
 	{
 		return WriteOffset;
