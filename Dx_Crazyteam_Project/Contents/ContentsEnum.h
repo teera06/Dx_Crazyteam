@@ -74,3 +74,10 @@ enum class ETeamType
 	ATeam,
 	BTeam,
 };
+
+enum class EPlayerRideType
+{
+	None,
+	Owl,
+	Turtle,
+};

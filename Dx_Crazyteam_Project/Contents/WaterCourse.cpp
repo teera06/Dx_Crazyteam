@@ -155,7 +155,7 @@ void AWaterCourse::CreateCenterTick(float _DeltaTime)
 		std::shared_ptr<APlayer> TestPlayer = TestGameMode->GetPlayer();
 		PlayerInfo* TestPlayerInfo = TestPlayer->GetPlayerInfo();
 		//int WaterPower = TestPlayerInfo->WBCount;
-		TestPlayerInfo->SetWBCountUpdate();
+		//TestPlayerInfo->SetWBCountUpdate(); kkk
 		b_BombCountUpdateOne = true;
 	}
 }
