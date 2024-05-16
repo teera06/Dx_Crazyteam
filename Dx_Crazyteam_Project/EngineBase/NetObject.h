@@ -22,6 +22,16 @@ public:
 		return CurObjectToken++;
 	}
 
+	static int GetClientObjectToken()
+	{
+		return CurClientObjectToken++;
+	}
+
+	int GetObjectToken()
+	{
+		return ObjectToken;
+	}
+
 	static bool IsNetObject(int _ObjectToken)
 	{
 		return AllNetObject.contains(_ObjectToken);
@@ -82,6 +92,7 @@ public:
 
 protected:
 	static std::atomic<int> CurObjectToken;
+	static std::atomic<int> CurClientObjectToken;
 	static std::map<int, UNetObject*> AllNetObject;
 
 private:
