@@ -70,6 +70,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ItemNiddle.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ItemOwl.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ItemRoller.h">
       <SubType>
       </SubType>
@@ -220,6 +228,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ItemBubble.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemNiddle.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemOwl.cpp">
       <SubType>
       </SubType>
     </ClCompile>

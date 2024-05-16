@@ -37,6 +37,9 @@ enum class EItemType
 	ItemBubble,	// 개수 + 1 아이템
 	ItemFluid,	// 줄기 + 1 아이템
 	ItemRoller,	// 속도 + 1 아이템
+	ItemOwl,    // 속도 레벨6 아이템
+	ItemShoes,  // 물풍선 kick 아이템
+	ItemNiddle, // Trap 상태에서 Rescue 만들어주는 아이템
 };
 
 enum class EMapObject

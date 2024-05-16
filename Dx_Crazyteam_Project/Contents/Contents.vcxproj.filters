@@ -216,6 +216,8 @@
     <ClInclude Include="ServerPlayMode.h">
       <Filter>Level\Surver\ServerLevel</Filter>
     </ClInclude>
+    <ClInclude Include="ItemOwl.h" />
+    <ClInclude Include="ItemNiddle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -346,5 +348,7 @@
     <ClCompile Include="ServerPlayMode.cpp">
       <Filter>Level\Surver\ServerLevel</Filter>
     </ClCompile>
+    <ClCompile Include="ItemOwl.cpp" />
+    <ClCompile Include="ItemNiddle.cpp" />
   </ItemGroup>
 </Project>
