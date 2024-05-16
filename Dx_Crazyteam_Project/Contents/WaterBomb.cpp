@@ -38,28 +38,28 @@ void AWaterBomb::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 
 
-	if (false == IsNetInit())
-	{
-		// 네트워크 통신준비가 아직 안된 오브젝트다.
-		if (nullptr != UGame_Core::Net)
-		{
-			InitNet(UGame_Core::Net);
-		}
-	}
+	//if (false == IsNetInit())
+	//{
+	//	// 네트워크 통신준비가 아직 안된 오브젝트다.
+	//	if (nullptr != UGame_Core::Net)
+	//	{
+	//		InitNet(UGame_Core::Net);
+	//	}
+	//}
 
-	CurTime -= _DeltaTime;
+	//CurTime -= _DeltaTime;
 
-	if (0.0f >= CurTime && true == IsNetInit())
-	{
-		std::shared_ptr<UActorUpdatePacket> Packet = std::make_shared<UActorUpdatePacket>();
+	//if (0.0f >= CurTime && true == IsNetInit())
+	//{
+	//	std::shared_ptr<UActorUpdatePacket> Packet = std::make_shared<UActorUpdatePacket>();
 
-		Packet->Pos = GetActorLocation();
-		Packet->AnimationInfo = Renderer->GetCurAnimationFrame();
-		Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
-		Packet->IsDestroy = b_ServerBomb;
-		Send(Packet);
-		CurTime += FrameTime;
-	}
+	//	Packet->Pos = GetActorLocation();
+	//	Packet->AnimationInfo = Renderer->GetCurAnimationFrame();
+	//	Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
+	//	Packet->IsDestroy = b_ServerBomb;
+	//	Send(Packet);
+	//	CurTime += FrameTime;
+	//}
 
 	///WaterBombPacket(_DeltaTime, b_ServerBomb);
 }
@@ -113,7 +113,12 @@ void AWaterBomb::CreateBegin()
 void AWaterBomb::CreateTick(float _DeltaTime)
 {
 	LifeTime += _DeltaTime;
-	if (2.0f <= LifeTime || true == b_WaterToBomb)
+	if (2.0f <= LifeTime && false == b_WaterToBomb)
+	{
+		State.ChangeState("Bomb");
+		return;
+	}
+	else if (true == b_WaterToBomb)
 	{
 		State.ChangeState("Bomb");
 		return;

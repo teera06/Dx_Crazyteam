@@ -4,11 +4,12 @@
 #include "BaseMap.h"
 #include "CAGameMode.h"
 #include "Player.h"
+#include "WaterBomb.h"
 
 AWaterCourse::AWaterCourse()
 {
-	WaterCourseRender = CreateDefaultSubObject<USpriteRenderer>("Render");
-	WaterCourseRender->SetupAttachment(Root);
+	//Renderer = CreateDefaultSubObject<USpriteRenderer>("Render");
+	//Renderer->SetupAttachment(Root);
 }
 
 AWaterCourse::~AWaterCourse()
@@ -22,9 +23,9 @@ void AWaterCourse::BeginPlay()
 	StateInit();
 	CreateAnimation();
 
-	WaterCourseRender->SetAutoSize(1.0f, true);
-	WaterCourseRender->SetOrder(ERenderOrder::Player);
-	WaterCourseRender->SetActive(false);
+	Renderer->SetAutoSize(1.0f, true);
+	Renderer->SetOrder(ERenderOrder::Player);
+	Renderer->SetActive(false);
 
 	SetType(EMapObjectType::Water);
 }
@@ -79,46 +80,46 @@ void AWaterCourse::StateInit()
 void AWaterCourse::CreateAnimation()
 {
 	// 물 줄기 센터
-	WaterCourseRender->CreateAnimation("Water_Center", "Center11.png", 0.0625f, true, 0, 1);
-	WaterCourseRender->CreateAnimation("Water_Center_End", "Center11.png", 0.0625f, false);
+	Renderer->CreateAnimation("Water_Center", "Center11.png", 0.0625f, true, 0, 1);
+	Renderer->CreateAnimation("Water_Center_End", "Center11.png", 0.0625f, false);
 
 	{
 		// 물줄기 뻗어 나갈 때 사용할 애니메이션
-		WaterCourseRender->CreateAnimation("CreateUp", "up12.png", 0.0625f, true, 0, 0);
-		WaterCourseRender->CreateAnimation("CreateDown", "down12.png", 0.0625f, true, 0, 0);
-		WaterCourseRender->CreateAnimation("CreateLeft", "left12.png", 0.0625f, true, 0, 0);
-		WaterCourseRender->CreateAnimation("CreateRight", "right12.png", 0.0625f, true, 0, 0);
+		Renderer->CreateAnimation("CreateUp", "up12.png", 0.0625f, true, 0, 0);
+		Renderer->CreateAnimation("CreateDown", "down12.png", 0.0625f, true, 0, 0);
+		Renderer->CreateAnimation("CreateLeft", "left12.png", 0.0625f, true, 0, 0);
+		Renderer->CreateAnimation("CreateRight", "right12.png", 0.0625f, true, 0, 0);
 	}
 
 	{
 		// 물 끝. -> Tick에서 사용할 애니메이션.
-		WaterCourseRender->CreateAnimation("EndStemUp", "up12.png", 0.0625f, true, 0, 1);
-		WaterCourseRender->CreateAnimation("EndStemDown", "down12.png", 0.0625f, true, 0, 1);
-		WaterCourseRender->CreateAnimation("EndStemLeft", "left12.png", 0.0625f, true, 0, 1);
-		WaterCourseRender->CreateAnimation("EndStemRight", "right12.png", 0.0625f, true, 0, 1);
+		Renderer->CreateAnimation("EndStemUp", "up12.png", 0.0625f, true, 0, 1);
+		Renderer->CreateAnimation("EndStemDown", "down12.png", 0.0625f, true, 0, 1);
+		Renderer->CreateAnimation("EndStemLeft", "left12.png", 0.0625f, true, 0, 1);
+		Renderer->CreateAnimation("EndStemRight", "right12.png", 0.0625f, true, 0, 1);
 
 		// 물 줄기 중간 -> Tick에서 사용할 애니메이션.
-		WaterCourseRender->CreateAnimation("StreamUp", "up22.png", 0.0625f, true, 0, 2);
-		WaterCourseRender->CreateAnimation("StreamDown", "down22.png", 0.0625f, true, 0, 2);
-		WaterCourseRender->CreateAnimation("StreamLeft", "left22.png", 0.0625f, true, 0, 2);
-		WaterCourseRender->CreateAnimation("StreamRight", "right22.png", 0.0625f, true, 0, 2);
+		Renderer->CreateAnimation("StreamUp", "up22.png", 0.0625f, true, 0, 2);
+		Renderer->CreateAnimation("StreamDown", "down22.png", 0.0625f, true, 0, 2);
+		Renderer->CreateAnimation("StreamLeft", "left22.png", 0.0625f, true, 0, 2);
+		Renderer->CreateAnimation("StreamRight", "right22.png", 0.0625f, true, 0, 2);
 	}
 
 	{
 		// 물 끝 사라짐.
-		WaterCourseRender->CreateAnimation("D_EndStemUp", "up12.png", 0.0625f, true, 1, 10);
-		WaterCourseRender->CreateAnimation("D_EndStemDown", "down12.png", 0.0625f, true, 1, 10);
-		WaterCourseRender->CreateAnimation("D_EndStemLeft", "left12.png", 0.0625f, true, 1, 10);
-		WaterCourseRender->CreateAnimation("D_EndStemRight", "right12.png", 0.0625f, true, 1, 10);
+		Renderer->CreateAnimation("D_EndStemUp", "up12.png", 0.0625f, true, 1, 10);
+		Renderer->CreateAnimation("D_EndStemDown", "down12.png", 0.0625f, true, 1, 10);
+		Renderer->CreateAnimation("D_EndStemLeft", "left12.png", 0.0625f, true, 1, 10);
+		Renderer->CreateAnimation("D_EndStemRight", "right12.png", 0.0625f, true, 1, 10);
 
 		// 물 줄기 사라짐.
-		WaterCourseRender->CreateAnimation("D_StreamUp", "up22.png", 0.0625f, true, 1, 10);
-		WaterCourseRender->CreateAnimation("D_StreamDown", "down22.png", 0.0625f, true, 1, 10);
-		WaterCourseRender->CreateAnimation("D_StreamLeft", "left22.png", 0.0625f, true, 1, 10);
-		WaterCourseRender->CreateAnimation("D_StreamRight", "right22.png", 0.0625f, true, 1, 10);
+		Renderer->CreateAnimation("D_StreamUp", "up22.png", 0.0625f, true, 1, 10);
+		Renderer->CreateAnimation("D_StreamDown", "down22.png", 0.0625f, true, 1, 10);
+		Renderer->CreateAnimation("D_StreamLeft", "left22.png", 0.0625f, true, 1, 10);
+		Renderer->CreateAnimation("D_StreamRight", "right22.png", 0.0625f, true, 1, 10);
 	}
 
-	WaterCourseRender->ChangeAnimation("Water_Center");
+	Renderer->ChangeAnimation("Water_Center");
 }
 
 #pragma region None
@@ -136,9 +137,9 @@ void AWaterCourse::CreateCenterBegin()
 {
 	CenterLifeTime = 0.0f;
 	CreateStart = true; // 물줄기 만들어라.
-	WaterCourseRender->ChangeAnimation("Water_Center");
+	Renderer->ChangeAnimation("Water_Center");
 	PreAniName = "Water_Center";
-	WaterCourseRender->SetActive(true);
+	Renderer->SetActive(true);
 }
 void AWaterCourse::CreateCenterTick(float _DeltaTime)
 {
@@ -172,25 +173,25 @@ void AWaterCourse::CreateStreamBegin()
 	{
 	case EEngineDir::Up:
 	{
-		WaterCourseRender->ChangeAnimation("StreamUp");
+		Renderer->ChangeAnimation("StreamUp");
 		PreAniName = "StreamUp";
 		break;
 	}
 	case EEngineDir::Down :
 	{
-		WaterCourseRender->ChangeAnimation("StreamDown");
+		Renderer->ChangeAnimation("StreamDown");
 		PreAniName = "StreamDown";
 		break;
 	}
 	case EEngineDir::Left:
 	{
-		WaterCourseRender->ChangeAnimation("StreamLeft");
+		Renderer->ChangeAnimation("StreamLeft");
 		PreAniName = "StreamLeft";
 		break;
 	}
 	case EEngineDir::Right:
 	{
-		WaterCourseRender->ChangeAnimation("StreamRight");
+		Renderer->ChangeAnimation("StreamRight");
 		PreAniName = "StreamRight";
 		break;
 	}
@@ -198,7 +199,7 @@ void AWaterCourse::CreateStreamBegin()
 		break;
 	}
 
-	WaterCourseRender->SetActive(true);
+	Renderer->SetActive(true);
 }
 
 void AWaterCourse::CreateStreamTick(float _DeltaTime)
@@ -227,25 +228,25 @@ void AWaterCourse::CreateEndStemBegin()
 	{
 	case EEngineDir::Up:
 	{
-		WaterCourseRender->ChangeAnimation("EndStemUp");
+		Renderer->ChangeAnimation("EndStemUp");
 		PreAniName = "EndStemUp";
 		break;
 	}
 	case EEngineDir::Down :
 	{
-		WaterCourseRender->ChangeAnimation("EndStemDown");
+		Renderer->ChangeAnimation("EndStemDown");
 		PreAniName = "EndStemDown";
 		break;
 	}
 	case EEngineDir::Left:
 	{
-		WaterCourseRender->ChangeAnimation("EndStemLeft");
+		Renderer->ChangeAnimation("EndStemLeft");
 		PreAniName = "EndStemLeft";
 		break;
 	}
 	case EEngineDir::Right:
 	{
-		WaterCourseRender->ChangeAnimation("EndStemRight");
+		Renderer->ChangeAnimation("EndStemRight");
 		PreAniName = "EndStemRight";
 		break;
 	}
@@ -253,7 +254,7 @@ void AWaterCourse::CreateEndStemBegin()
 		break;
 	}
 
-	WaterCourseRender->SetActive(true);
+	Renderer->SetActive(true);
 }
 void AWaterCourse::CreateEndStemTick(float _DeltaTime)
 {
@@ -280,47 +281,47 @@ void AWaterCourse::DeleteBegin()
 
 	if (PreAniName == "Water_Center")
 	{
-		WaterCourseRender->ChangeAnimation("Water_Center_End");
+		Renderer->ChangeAnimation("Water_Center_End");
 		PreAniName = "Water_Center_End";
 	}
 	else if (PreAniName == "EndStemUp")
 	{
-		WaterCourseRender->ChangeAnimation("D_EndStemUp");
+		Renderer->ChangeAnimation("D_EndStemUp");
 		PreAniName = "D_EndStemUp";
 	}
 	else if (PreAniName == "EndStemDown")
 	{
-		WaterCourseRender->ChangeAnimation("D_EndStemDown");
+		Renderer->ChangeAnimation("D_EndStemDown");
 		PreAniName = "D_EndStemDown";
 	}
 	else if (PreAniName == "EndStemLeft")
 	{
-		WaterCourseRender->ChangeAnimation("D_EndStemLeft");
+		Renderer->ChangeAnimation("D_EndStemLeft");
 		PreAniName = "D_EndStemLeft";
 	}
 	else if (PreAniName == "EndStemRight")
 	{
-		WaterCourseRender->ChangeAnimation("D_EndStemRight");
+		Renderer->ChangeAnimation("D_EndStemRight");
 		PreAniName = "D_EndStemRight";
 	}
 	else if (PreAniName == "StreamUp")
 	{
-		WaterCourseRender->ChangeAnimation("D_StreamUp");
+		Renderer->ChangeAnimation("D_StreamUp");
 		PreAniName = "D_StreamUp";
 	}
 	else if (PreAniName == "StreamDown")
 	{
-		WaterCourseRender->ChangeAnimation("D_StreamDown");
+		Renderer->ChangeAnimation("D_StreamDown");
 		PreAniName = "D_StreamDown";
 	}
 	else if (PreAniName == "StreamLeft")
 	{
-		WaterCourseRender->ChangeAnimation("D_StreamLeft");
+		Renderer->ChangeAnimation("D_StreamLeft");
 		PreAniName = "D_StreamLeft";
 	}
 	else if (PreAniName == "StreamRight")
 	{
-		WaterCourseRender->ChangeAnimation("D_StreamRight");
+		Renderer->ChangeAnimation("D_StreamRight");
 		PreAniName = "D_StreamRight";
 	}
 }
@@ -328,7 +329,7 @@ void AWaterCourse::DeleteBegin()
 void AWaterCourse::DeleteTick(float _DeltaTime)
 {
 	// Animation Final Frame callback
-	WaterCourseRender->SetLastFrameCallback(PreAniName, [=]()
+	Renderer->SetLastFrameCallback(PreAniName, [=]()
 		{
 			GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 		}
@@ -366,9 +367,14 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 						NextMapObject->WaterInteract();
 						UpEnd = true;
 					}
-					if (type == EMapObjectType::Item)
+					else if (type == EMapObjectType::Item)
 					{
 						NextMapObject->WaterInteract();
+					}
+					else if (type == EMapObjectType::WaterBalloon)
+					{
+						AWaterBomb* NextBomb = dynamic_cast<AWaterBomb*>(NextMapObject.get());
+						NextBomb->SetWaterToBomg(true);
 					}
 				}
 				
@@ -382,7 +388,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				}
 			}
 
-			if (12 >= GetCurPos().y + DefaultPowerValue)
+			if (12 >= GetCurPos().y + DefaultPowerValue && false == DownEnd)
 			{
 				std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y + DefaultPowerValue, GetCurPos().x);
 				if (NextMapObject != nullptr)
@@ -391,17 +397,30 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					if (type == EMapObjectType::Block)
 					{
 						NextMapObject->WaterInteract();
+						DownEnd = true;
 					}
-					DownEnd = true;
+					else if (type == EMapObjectType::Item)
+					{
+						NextMapObject->WaterInteract();
+					}
+					else if (type == EMapObjectType::WaterBalloon)
+					{
+						AWaterBomb* NextBomb = dynamic_cast<AWaterBomb*>(NextMapObject.get());
+						NextBomb->SetWaterToBomg(true);
+					}
 				}
 
 				if (NextMapObject == nullptr && DownEnd == false)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y + DefaultPowerValue, GetCurPos().x, false, EEngineDir::Down);
 				}
+				else if (EMapObjectType::Item == NextMapObject->GetType() && false == DownEnd)
+				{
+					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y + DefaultPowerValue, GetCurPos().x, false, EEngineDir::Down);
+				}
 			}
 
-			if (0 <= GetCurPos().x - DefaultPowerValue)
+			if (0 <= GetCurPos().x - DefaultPowerValue && false == LeftEnd)
 			{
 				std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x - DefaultPowerValue);
 				if (NextMapObject != nullptr)
@@ -410,17 +429,30 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					if (type == EMapObjectType::Block)
 					{
 						NextMapObject->WaterInteract();
+						LeftEnd = true;
 					}
-					LeftEnd = true;
+					else if (type == EMapObjectType::Item)
+					{
+						NextMapObject->WaterInteract();
+					}
+					else if (type == EMapObjectType::WaterBalloon)
+					{
+						AWaterBomb* NextBomb = dynamic_cast<AWaterBomb*>(NextMapObject.get());
+						NextBomb->SetWaterToBomg(true);
+					}
 				}
 
 				if (NextMapObject == nullptr && LeftEnd == false)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x - DefaultPowerValue, false, EEngineDir::Left);
 				}
+				else if (EMapObjectType::Item == NextMapObject->GetType() && false == LeftEnd)
+				{
+					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x - DefaultPowerValue, false, EEngineDir::Left);
+				}
 			}
 
-			if (14 >= GetCurPos().x + DefaultPowerValue)
+			if (14 >= GetCurPos().x + DefaultPowerValue && false == RightEnd)
 			{
 				POINT x = GetCurPos();
 				std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x + DefaultPowerValue);
@@ -430,11 +462,24 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					if (type == EMapObjectType::Block)
 					{
 						NextMapObject->WaterInteract();
+						RightEnd = true;
 					}
-					RightEnd = true;
+					else if (type == EMapObjectType::Item)
+					{
+						NextMapObject->WaterInteract();
+					}
+					else if (type == EMapObjectType::WaterBalloon)
+					{
+						AWaterBomb* NextBomb = dynamic_cast<AWaterBomb*>(NextMapObject.get());
+						NextBomb->SetWaterToBomg(true);
+					}
 				}
 
 				if (NextMapObject == nullptr && RightEnd == false)
+				{
+					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x + DefaultPowerValue, false, EEngineDir::Right);
+				}
+				else if (EMapObjectType::Item == NextMapObject->GetType() && false == RightEnd)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x + DefaultPowerValue, false, EEngineDir::Right);
 				}
@@ -456,9 +501,22 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					{
 						NextMapObject->WaterInteract();
 					}
+					else if (type == EMapObjectType::Item)
+					{
+						NextMapObject->WaterInteract();
+					}
+					else if (type == EMapObjectType::WaterBalloon)
+					{
+						AWaterBomb* NextBomb = dynamic_cast<AWaterBomb*>(NextMapObject.get());
+						NextBomb->SetWaterToBomg(true);
+					}
 				}
 
 				if (NextMapObject == nullptr && UpEnd == false)
+				{
+					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y - DefaultPowerValue, GetCurPos().x, true, EEngineDir::Up);
+				}
+				else if (NextMapObject != nullptr && EMapObjectType::Item == NextMapObject->GetType() && UpEnd == false)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y - DefaultPowerValue, GetCurPos().x, true, EEngineDir::Up);
 				}
@@ -474,9 +532,22 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					{
 						NextMapObject->WaterInteract();
 					}
+					else if (type == EMapObjectType::Item)
+					{
+						NextMapObject->WaterInteract();
+					}
+					else if (type == EMapObjectType::WaterBalloon)
+					{
+						AWaterBomb* NextBomb = dynamic_cast<AWaterBomb*>(NextMapObject.get());
+						NextBomb->SetWaterToBomg(true);
+					}
 				}
 
 				if (NextMapObject == nullptr && DownEnd == false)
+				{
+					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y + DefaultPowerValue, GetCurPos().x, true, EEngineDir::Down);
+				}
+				else if (NextMapObject != nullptr && EMapObjectType::Item == NextMapObject->GetType() && DownEnd == false)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y + DefaultPowerValue, GetCurPos().x, true, EEngineDir::Down);
 				}
@@ -492,9 +563,22 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					{
 						NextMapObject->WaterInteract();
 					}
+					else if (type == EMapObjectType::Item)
+					{
+						NextMapObject->WaterInteract();
+					}
+					else if (type == EMapObjectType::WaterBalloon)
+					{
+						AWaterBomb* NextBomb = dynamic_cast<AWaterBomb*>(NextMapObject.get());
+						NextBomb->SetWaterToBomg(true);
+					}
 				}
 
 				if (NextMapObject == nullptr && LeftEnd == false)
+				{
+					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x - DefaultPowerValue, true, EEngineDir::Left);
+				}
+				else if (NextMapObject != nullptr && EMapObjectType::Item == NextMapObject->GetType() && LeftEnd == false)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x - DefaultPowerValue, true, EEngineDir::Left);
 				}
@@ -510,9 +594,22 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					{
 						NextMapObject->WaterInteract();
 					}
+					else if (type == EMapObjectType::Item)
+					{
+						NextMapObject->WaterInteract();
+					}
+					else if (type == EMapObjectType::WaterBalloon)
+					{
+						AWaterBomb* NextBomb = dynamic_cast<AWaterBomb*>(NextMapObject.get());
+						NextBomb->SetWaterToBomg(true);
+					}
 				}
 
 				if (NextMapObject == nullptr && RightEnd == false)
+				{
+					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x + DefaultPowerValue, true, EEngineDir::Right);
+				}
+				else if (NextMapObject != nullptr && EMapObjectType::Item == NextMapObject->GetType() && RightEnd == false)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x + DefaultPowerValue, true, EEngineDir::Right);
 				}

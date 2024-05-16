@@ -62,11 +62,6 @@ void AOtherBomb::Tick(float _DeltaTime)
 			{
 				Renderer->SetSprite(SpriteNames, AnimationInFO);
 			}
-			else if (IsDie == true)
-			{
-				Renderer->SetActive(false);
-			}
-			int a = 0;
 			break;
 		}
 		default:
