@@ -42,22 +42,20 @@ public:
 
 	void RendererOn()
 	{
-		FrontRenderer->SetActive(true);
-		BackRenderer->SetActive(true);
+		Renderer->SetActive(true);
+
 	}
 	void RendererOff()
 	{
-		FrontRenderer->SetActive(false);
-		BackRenderer->SetActive(false);
+		Renderer->SetActive(false);
 	}
+	
+	void DepthUpdate();
 
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	USpriteRenderer* FrontRenderer = nullptr;
-	USpriteRenderer* BackRenderer = nullptr;
-	
 private:
 	EMapObjectType Type = EMapObjectType::None;
 	POINT CurPos = { 0,0 };

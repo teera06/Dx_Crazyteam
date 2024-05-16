@@ -17,9 +17,9 @@ void AItemBubble::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FrontRenderer->CreateAnimation("ItemBubble", "Bubble(1).png", 0.3f, true, 0, 5);
-	FrontRenderer->ChangeAnimation("ItemBubble");
-	FrontRenderer->SetAutoSize(1.f, true);
+	Renderer->CreateAnimation("ItemBubble", "Bubble(1).png", 0.3f, true, 0, 5);
+	Renderer->ChangeAnimation("ItemBubble");
+	Renderer->SetAutoSize(1.f, true);
 
 }
 

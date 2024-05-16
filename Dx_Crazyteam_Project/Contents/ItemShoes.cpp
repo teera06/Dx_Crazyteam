@@ -16,9 +16,9 @@ void AItemShoes::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FrontRenderer->CreateAnimation("ItemRoller", "Roller.png", 0.3f, true, 0, 5);
-	FrontRenderer->ChangeAnimation("ItemRoller");
-	FrontRenderer->SetAutoSize(1.0f, true);
+	Renderer->CreateAnimation("ItemRoller", "Roller.png", 0.3f, true, 0, 5);
+	Renderer->ChangeAnimation("ItemRoller");
+	Renderer->SetAutoSize(1.0f, true);
 }
 
 void AItemShoes::Tick(float _DeltaTime)

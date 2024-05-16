@@ -21,8 +21,7 @@ protected:
 
 	virtual void Action() = 0;
 
-	bool bWaterInteract = false;
-	bool bPlayerInteract = false;
+	
 private:
 
 };
