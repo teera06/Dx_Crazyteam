@@ -66,5 +66,7 @@ private :
 	//bool b_Bomb = false;
 	bool b_WaterToBomb = false;
 	bool b_ServerBomb = false;
+
+	static int WaterBomb_Token;
 };
 
