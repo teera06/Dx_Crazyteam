@@ -28,5 +28,6 @@ void AItemShoes::Tick(float _DeltaTime)
 
 void AItemShoes::Action()
 {
-
+	//action
+	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 }

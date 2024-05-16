@@ -9,7 +9,7 @@
 #include "CAGameMode.h"
 #include "WaterBomb.h"
 
-int APlayer::WaterBomb_Token = 1000;
+int APlayer::WaterBomb_Token = 0;
 
 
 APlayer::APlayer()
@@ -43,7 +43,6 @@ void APlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
-	PlayerSendPacket(_DeltaTime);
 
 	Info->CurIndex = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
 	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 0));
@@ -52,7 +51,8 @@ void APlayer::Tick(float _DeltaTime)
 	{
 
 		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
-		Bomb->SetObjectToken(WaterBomb_Token++);
+		int TestValue = GetObjectToken();
+		Bomb->SetObjectToken(GetObjectToken() + (++WaterBomb_Token));
 
 		//if (Info->WBCount > 0)
 		//{
@@ -83,6 +83,8 @@ void APlayer::Tick(float _DeltaTime)
 		State.ChangeState("Idle");
 		return;
 	}
+
+	PlayerSendPacket(_DeltaTime);
 }
 
 std::string APlayer::GetAnimationName(std::string_view _StateName)
