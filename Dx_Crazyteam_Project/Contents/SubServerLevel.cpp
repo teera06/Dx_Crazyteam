@@ -175,6 +175,8 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 		// 다른 사람들한테 이 오브젝트에 대해서 알리고
 		GetWorld()->PushFunction([=]()
 		{
+			int Test = _Packet->GetObjectToken();
+
 			AOtherBomb* Bomb = UNetObject::GetNetObject<AOtherBomb>(_Packet->GetObjectToken());
 			if (nullptr == Bomb)
 			{
