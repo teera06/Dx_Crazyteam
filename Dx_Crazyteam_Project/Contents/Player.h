@@ -76,6 +76,8 @@ public:
 		return Info.get();
 	}
 
+	static int WaterBomb_Token;
+
 protected:
 	std::shared_ptr<PlayerInfo> Info = nullptr;
 	UStateManager State;
@@ -124,7 +126,6 @@ private:
 	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
 
 
-	static int WaterBomb_Token;
 
 };
 

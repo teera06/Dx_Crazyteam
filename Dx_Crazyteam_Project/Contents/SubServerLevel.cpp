@@ -18,6 +18,8 @@
 #include "WaterBomb.h"
 #include "OtherBomb.h"
 
+#include <EngineBase/NetObject.h>
+
 ASubServerLevel::ASubServerLevel()
 {
 	if (nullptr != UGame_Core::Net)
@@ -58,22 +60,25 @@ void ASubServerLevel::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	if (UEngineInput::IsDown(VK_SPACE)==true)
-	{
-		//std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(this->GetCurMap()->AddMapObject(MainPlayer->GetPlayerInfo()->CurIndex.y, MainPlayer->GetPlayerInfo()->CurIndex.x,EMapObject::WaterBomb));
-		//Bomb->SetCurGameMode(this);
-		//Bomb->SetObjectToken(UNetObject::GetNewObjectToken());
+	UNetObject::AllNetObject;
+	int a = 0;
 
-	/*	UGame_Core::Net = std::make_shared<UEngineClient>();
-		UGame_Core::Net->Connect(IP, PORT);*/
+	//if (UEngineInput::IsDown(VK_SPACE)==true)
+	//{
+	//	std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(this->GetCurMap()->AddMapObject(MainPlayer->GetPlayerInfo()->CurIndex.y, MainPlayer->GetPlayerInfo()->CurIndex.x,EMapObject::WaterBomb));
+	//	Bomb->SetCurGameMode(this);
+	//	//Bomb->SetObjectToken(UNetObject::GetNewObjectToken());
 
-		//AWaterBomb* Bomb = this->GetWorld()->SpawnActor<AWaterBomb>("Bomb", 0).get();
-		//Bomb->SetObjectToken(UNetObject::GetNewObjectToken());
-		//Bomb->SetObjectToken(_Packet->GetObjectToken());
-		//Bomb->PushProtocol(_Packet);
-		//Bomb->SetActorLocation(OtherPlayer->GetActorLocation());
-		//ServerPacketInit(UGame_Core::Net->Dispatcher);
-	}
+	///*	UGame_Core::Net = std::make_shared<UEngineClient>();
+	//	UGame_Core::Net->Connect(IP, PORT);*/
+
+	//	//AWaterBomb* Bomb = this->GetWorld()->SpawnActor<AWaterBomb>("Bomb", 0).get();
+	//	//Bomb->SetObjectToken(UNetObject::GetNewObjectToken());
+	//	//Bomb->SetObjectToken(_Packet->GetObjectToken());
+	//	//Bomb->PushProtocol(_Packet);
+	//	//Bomb->SetActorLocation(OtherPlayer->GetActorLocation());
+	//	//ServerPacketInit(UGame_Core::Net->Dispatcher);
+	//}
 }
 
 void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
@@ -101,7 +106,8 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 
 			UGame_Core::Net->SetTokenPacketFunction([=](USessionTokenPacket* _Token)
 			{
-				MainPlayer->SetObjectToken(_Token->GetObjectToken());
+				MainPlayer->SetObjectToken(_Token->GetSessionToken() * 1000);
+				MainPlayer->WaterBomb_Token = _Token->GetSessionToken() * 1000 + 1;
 			});
 
 			// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
@@ -169,6 +175,8 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 		// 다른 사람들한테 이 오브젝트에 대해서 알리고
 		GetWorld()->PushFunction([=]()
 		{
+			int Test = _Packet->GetObjectToken();
+
 			AOtherBomb* Bomb = UNetObject::GetNetObject<AOtherBomb>(_Packet->GetObjectToken());
 			if (nullptr == Bomb)
 			{

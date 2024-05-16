@@ -17,6 +17,10 @@ void ABlock::BeginPlay()
 
 	SetType(EMapObjectType::Block);
 
+	Renderer->SetPivot(EPivot::BOT);
+	Renderer->AddPosition(FVector::Down * 20.f);
+	Renderer->SetAutoSize(1.f, true);
+
 	StateInit();
 }
 
@@ -154,14 +158,12 @@ void ABlock::BreakTick(float _DeltaTime)
 		AccBlinkTime = 0.f;
 		if (BlinkOn)
 		{
-			FrontRenderer->SetMulColor(FVector(1.f, 1.f, 1.f, 0.5f));
-			BackRenderer->SetMulColor(FVector(1.f, 1.f, 1.f, 0.5f));
+			Renderer->SetMulColor(FVector(1.f, 1.f, 1.f, 0.5f));
 			BlinkOn = false;
 		}
 		else
 		{
-			FrontRenderer->SetMulColor(FVector(1.f, 1.f, 1.f, 1.f));
-			BackRenderer->SetMulColor(FVector(1.f, 1.f, 1.f, 1.f));
+			Renderer->SetMulColor(FVector(1.f, 1.f, 1.f, 1.f));
 			BlinkOn = true;
 		}
 	}

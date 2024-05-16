@@ -78,7 +78,7 @@ private :
 
 
 	UStateManager State;
-	USpriteRenderer* WaterCourseRender = nullptr; // 수정해야 함. TODO
+	//USpriteRenderer* Renderer = nullptr; // 수정해야 함. TODO
 	bool CreateStart = false;
 	bool b_BombCountUpdateOne = false;
 	bool UpEnd = false;

@@ -20,9 +20,9 @@ void AItemNiddle::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FrontRenderer->CreateAnimation("ItemNiddle", "Niddle.png", 0.3f, true, 0, 5);
-	FrontRenderer->ChangeAnimation("ItemNiddle");
-	FrontRenderer->SetAutoSize(1.0f, true);
+	Renderer->CreateAnimation("ItemNiddle", "Niddle.png", 0.3f, true, 0, 5);
+	Renderer->ChangeAnimation("ItemNiddle");
+	Renderer->SetAutoSize(1.0f, true);
 }
 
 void AItemNiddle::Tick(float _DeltaTime)

@@ -36,11 +36,11 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="CampBlock.h">
+    <ClInclude Include="CampBlock1.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="CampMoveBlock.h">
+    <ClInclude Include="CampMoveBlock1.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -87,6 +87,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ItemShoes.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ItemTurtle.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -206,11 +210,11 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="CampBlock.cpp">
+    <ClCompile Include="CampBlock1.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="CampMoveBlock.cpp">
+    <ClCompile Include="CampMoveBlock1.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -256,6 +260,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ItemShoes.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemTurtle.cpp">
       <SubType>
       </SubType>
     </ClCompile>

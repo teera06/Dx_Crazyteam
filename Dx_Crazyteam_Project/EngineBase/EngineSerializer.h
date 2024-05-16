@@ -196,6 +196,8 @@ public:
 
 	void DataToReadOffsetPush();
 
+	void AddReadOffset(int _Value);
+
 protected:
 
 private:

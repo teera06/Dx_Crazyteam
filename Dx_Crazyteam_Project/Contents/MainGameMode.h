@@ -29,11 +29,12 @@ protected:
 	void Tick(float _DeltaTime) override;
 	void LevelStart(ULevel* _PrevLevel);
 	void LevelEnd(ULevel* _NextLevel);
+
+	void GameModeActorInit();
 private:
 	UTextWidget* ShowText = nullptr;
 	std::shared_ptr<AVillage> Village = nullptr;
 	std::shared_ptr<APlayer> Player1 = nullptr;
-	std::shared_ptr<ACamp> Camp = nullptr;
 
 };
 
