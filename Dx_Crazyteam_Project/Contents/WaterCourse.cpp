@@ -200,6 +200,9 @@ void AWaterCourse::CreateStreamTick(float _DeltaTime)
 		State.ChangeState("Delete");
 		return;
 	}
+
+	// 플레이어 닿을 때.
+
 }
 void AWaterCourse::CreateStreamExit()
 {
@@ -348,7 +351,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject != nullptr)
 				{
 					EMapObjectType type = NextMapObject->GetType();
-					if (type == EMapObjectType::MoveBlock)
+					if (type == EMapObjectType::Block)
 					{
 						NextMapObject->WaterInteract();
 					}
@@ -367,6 +370,10 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject != nullptr)
 				{
 					EMapObjectType type = NextMapObject->GetType();
+					if (type == EMapObjectType::Block)
+					{
+						NextMapObject->WaterInteract();
+					}
 					DownEnd = true;
 				}
 
@@ -382,6 +389,10 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject != nullptr)
 				{
 					EMapObjectType type = NextMapObject->GetType();
+					if (type == EMapObjectType::Block)
+					{
+						NextMapObject->WaterInteract();
+					}
 					LeftEnd = true;
 				}
 
@@ -398,6 +409,10 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject != nullptr)
 				{
 					EMapObjectType type = NextMapObject->GetType();
+					if (type == EMapObjectType::Block)
+					{
+						NextMapObject->WaterInteract();
+					}
 					RightEnd = true;
 				}
 
