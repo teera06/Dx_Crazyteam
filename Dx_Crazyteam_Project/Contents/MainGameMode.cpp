@@ -10,6 +10,9 @@
 #include "ItemBubble.h"
 #include "ItemRoller.h"
 
+#include "CampBlock.h"
+#include "DummyBlock.h"
+
 #include "Camp.h"
 #include "WaterCourse.h"
 
@@ -38,13 +41,17 @@ void AMainGameMode::BeginPlay()
 
 
 	{//Item
-
 		std::shared_ptr<AItemBubble> Bubble = GetWorld()->SpawnActor<AItemBubble>("ItemTest");
 		Bubble->SetActorLocation(Player1->GetActorLocation());
 
 		std::shared_ptr<AItemRoller> Roller = GetWorld()->SpawnActor<AItemRoller>("ItemTest");
 		Roller->SetActorLocation(FVector(100.0f, 100.0f, 0.0f));
+	}
 
+	{//Block
+
+		std::shared_ptr<ACampBlock> CampBlock = GetWorld()->SpawnActor<ACampBlock>("BlockTest");
+		CampBlock->SetActorLocation(FVector(0.0f, 100.0f, 0.0f));
 
 	}
 
