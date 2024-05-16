@@ -34,6 +34,7 @@ void APlayer::BeginPlay()
 	SetActorScale3D(FVector(20, 20, 1));
 
 	Shadow = GetWorld()->SpawnActor<APlayer_Shadow>("Player_Shadow");
+	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 1));
 
 	StateInit();
 }
@@ -46,8 +47,7 @@ void APlayer::Tick(float _DeltaTime)
 
 	Info->CurIndex = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
 	
-	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 0));
-
+	//Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 0));
 
 
 	/* 테스트용 */
