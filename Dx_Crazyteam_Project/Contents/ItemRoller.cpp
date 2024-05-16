@@ -32,7 +32,7 @@ void AItemRoller::Tick(float _DeltaTime)
 
 void AItemRoller::Action()
 {
-	GetGameMode()->GetPlayer()->GetPlayerInfo()->MoveSpeed += 100.f;
+	GetGameMode()->GetPlayer()->GetPlayerInfo()->Speed += 100;
 
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 }
