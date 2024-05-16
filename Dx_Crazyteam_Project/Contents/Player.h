@@ -11,17 +11,18 @@ class PlayerInfo
 	friend APlayer;
 
 public:
-	inline void SetWBCountUpdate()
-	{
-		WBCount++;
-	}
-
 	POINT CurIndex = POINT(0, 0);
 	ECharacterType MyType = ECharacterType::Bazzi;
 	ETeamType Team = ETeamType::None;
-	float MoveSpeed = 100.f;
-	int WBPower = 4;				// ¹°ÆøÅº ÆÄ¿ö(¹°ÁÙ±â ±æÀÌ)
-	int WBCount = 4;				// ¹°ÆøÅº °³¼ö	
+	EPlayerRideType RideType = EPlayerRideType::None;
+
+	int Speed = -1;					// ¼Óµµ
+	int WBCount = -1;				// ¹°ÆøÅº °³¼ö	
+	int WBPower = -1;				// ¹°ÆøÅº ÆÄ¿ö(¹°ÁÙ±â ±æÀÌ)
+
+	int MaxSpeed = -1;
+	int MaxWBCount = -1;
+	int MaxWBPower = -1;
 };
 
 class APlayer_Shadow;
@@ -49,6 +50,11 @@ public:
 	{
 		Info->Team = _Team;
 	}
+	
+	void SetSpeed(int _speed)
+	{
+		Info->Speed = _speed;
+	}
 
 	int GetWBCount()
 	{
@@ -58,6 +64,11 @@ public:
 	int GetWBPower()
 	{
 		return Info->WBPower;
+	}
+
+	int GetSpeed()
+	{
+		return Info->Speed;
 	}
 
 	PlayerInfo* GetPlayerInfo()
@@ -87,12 +98,18 @@ private:
 	void Die(float _DeltaTime);
 	void RealDieStart();
 	void RealDie(float _DeltaTime);
+	void RideIdleStart();
+	void RideIdle(float _DeltaTime);
+	void RideMoveStart();
+	void RideMove(float _DeltaTime);
 
 
 	std::string GetAnimationName(std::string_view _StateName);
 
 	FVector Dir = FVector::Down;
 	float AnimationInter = 0.1f;
+	float MoveSpeed = 20.f;		// ¼Óµµ °è¼ö
+
 	float TrapMoveSpeed = 0.4f;
 	float TrapMoveTime = 1.f;
 	float TrapAnimationTime = 3.f;

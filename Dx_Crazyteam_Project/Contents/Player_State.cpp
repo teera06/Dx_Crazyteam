@@ -44,6 +44,8 @@ void APlayer::StateInit()
 	State.CreateState("Rescue");
 	State.CreateState("Die");
 	State.CreateState("RealDie");
+	State.CreateState("RideIdle");
+	State.CreateState("RideMove");
 
 	// StartFunction
 	State.SetStartFunction("Idle", std::bind(&APlayer::IdleStart, this));
@@ -52,6 +54,8 @@ void APlayer::StateInit()
 	State.SetStartFunction("Rescue", std::bind(&APlayer::RescueStart, this));
 	State.SetStartFunction("Die", std::bind(&APlayer::DieStart, this));
 	State.SetStartFunction("RealDie", std::bind(&APlayer::RealDieStart, this));
+	State.SetStartFunction("RideIdle", std::bind(&APlayer::RideIdleStart, this));
+	State.SetStartFunction("RideMove", std::bind(&APlayer::RideMoveStart, this));
 
 	// UpdateFunction
 	State.SetUpdateFunction("Idle", std::bind(&APlayer::Idle, this, std::placeholders::_1));
@@ -60,6 +64,8 @@ void APlayer::StateInit()
 	State.SetUpdateFunction("Rescue", std::bind(&APlayer::Rescue, this, std::placeholders::_1));
 	State.SetUpdateFunction("Die", std::bind(&APlayer::Die, this, std::placeholders::_1));
 	State.SetUpdateFunction("RealDie", std::bind(&APlayer::RealDie, this, std::placeholders::_1));
+	State.SetUpdateFunction("RideIdle", std::bind(&APlayer::RideIdle, this, std::placeholders::_1));
+	State.SetUpdateFunction("RideMove", std::bind(&APlayer::RideMove, this, std::placeholders::_1));
 
 	// Init
 	State.ChangeState("Idle");
@@ -97,13 +103,15 @@ void APlayer::Move(float _DeltaTime)
 	FVector NextPos2 = FVector::Zero;	// 추가 체크포인트
 	FVector NextPos3 = FVector::Zero;	// 추가 체크포인트
 
+	float Speed = static_cast<float>(Info->Speed);
+
 	if (true == IsPress(VK_UP))
 	{
 		Dir = FVector::Up;
 		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
 		NextPos2 = NextPos1 + FVector(-15, 0, 0);
 		NextPos3 = NextPos1 + FVector(15, 0, 0);
-		MovePos = FVector::Up * Info->MoveSpeed * _DeltaTime;
+		MovePos = FVector::Up * Speed * MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_DOWN))
 	{
@@ -111,7 +119,7 @@ void APlayer::Move(float _DeltaTime)
 		NextPos1 = GetActorLocation() + MovePos + Dir * 5.f;
 		NextPos2 = NextPos1 + FVector(-15, 0, 0);
 		NextPos3 = NextPos1 + FVector(15, 0, 0);
-		MovePos = FVector::Down * Info->MoveSpeed * _DeltaTime;
+		MovePos = FVector::Down * Speed * MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_RIGHT))
 	{
@@ -119,7 +127,7 @@ void APlayer::Move(float _DeltaTime)
 		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
 		NextPos2 = NextPos1 + FVector(0, 10, 0);
 		NextPos3 = NextPos1 + FVector(0, 0, 0);
-		MovePos = FVector::Right * Info->MoveSpeed * _DeltaTime;
+		MovePos = FVector::Right * Speed * MoveSpeed * _DeltaTime;
 	}
 	if (true == IsPress(VK_LEFT))
 	{
@@ -127,7 +135,7 @@ void APlayer::Move(float _DeltaTime)
 		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
 		NextPos2 = NextPos1 + FVector(0, 10, 0);
 		NextPos3 = NextPos1 + FVector(0, 0, 0);
-		MovePos = FVector::Left * Info->MoveSpeed * _DeltaTime;
+		MovePos = FVector::Left * Speed * MoveSpeed * _DeltaTime;
 	}
 
 	Renderer->ChangeAnimation(GetAnimationName("Move"));
@@ -282,6 +290,26 @@ void APlayer::RealDieStart()
 }
 
 void APlayer::RealDie(float _DeltaTime)
+{
+
+}
+
+void APlayer::RideIdleStart()
+{
+
+}
+
+void APlayer::RideIdle(float _DeltaTime)
+{
+
+}
+
+void APlayer::RideMoveStart()
+{
+
+}
+
+void APlayer::RideMove(float _DeltaTime)
 {
 
 }

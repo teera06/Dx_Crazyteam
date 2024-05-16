@@ -9,7 +9,7 @@
 #include "CAGameMode.h"
 #include "WaterBomb.h"
 
-int APlayer::WaterBomb_Token = 1000;
+int APlayer::WaterBomb_Token = 0;
 
 
 APlayer::APlayer()
@@ -26,9 +26,11 @@ void APlayer::BeginPlay()
 
 	Super::BeginPlay();
 
+	Info = std::make_shared<PlayerInfo>();
+	SetCharacterType(ECharacterType::Bazzi);
+
 	Renderer->SetOrder(ERenderOrder::Player);
 	Renderer->SetAutoSize(0.05f, true);
-	Info = std::make_shared<PlayerInfo>();
 	SetActorScale3D(FVector(20, 20, 1));
 
 	Shadow = GetWorld()->SpawnActor<APlayer_Shadow>("Player_Shadow");
@@ -41,25 +43,11 @@ void APlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
-	PlayerSendPacket(_DeltaTime);
 
 	Info->CurIndex = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
 	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 0));
 
-	if (true == IsDown(VK_SPACE))
-	{
 
-		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
-		Bomb->SetObjectToken(WaterBomb_Token++);
-
-		//if (Info->WBCount > 0)
-		//{
-			//if (nullptr == GetGameMode()->GetCurMap()->GetMapObject(Info->CurIndex.y, Info->CurIndex.x))
-			//{
-			//	--Info->WBCount;
-			//}
-		//}
-	}
 
 	/* 테스트용 */
 	if (true == IsDown(VK_F1))
@@ -80,6 +68,45 @@ void APlayer::Tick(float _DeltaTime)
 		SetCharacterType(ECharacterType::Dao);
 		State.ChangeState("Idle");
 		return;
+	}
+
+	//PlayerSendPacket(_DeltaTime);
+
+	if (false == IsNetInit())
+	{
+		// 네트워크 통신준비가 아직 안된 오브젝트다.
+		if (nullptr != UGame_Core::Net)
+		{
+			InitNet(UGame_Core::Net);
+		}
+	}
+
+	CurTime -= _DeltaTime;
+
+	if (0.0f >= CurTime && true == IsNetInit())
+	{
+		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
+
+		Packet->Pos = GetActorLocation();
+		Packet->AnimationInfo = Renderer->GetCurAnimationFrame();
+		Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
+		Send(Packet);
+		CurTime += FrameTime;
+	}
+
+
+	if (true == IsDown(VK_SPACE))
+	{
+		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
+
+
+		//if (Info->WBCount > 0)
+		//{
+			//if (nullptr == GetGameMode()->GetCurMap()->GetMapObject(Info->CurIndex.y, Info->CurIndex.x))
+			//{
+			//	--Info->WBCount;
+			//}
+		//}
 	}
 }
 
@@ -132,15 +159,24 @@ void APlayer::SetCharacterType(ECharacterType _Type)
 	{
 	case ECharacterType::Bazzi:
 		Info->MyType = ECharacterType::Bazzi;
-		Info->WBPower = 1;
-		Info->WBCount = 1;
+		Info->Speed = ConstValue::BazziDefaultSpeed;
+		Info->WBCount = ConstValue::BazziDefaultWBCount;
+		Info->WBPower = ConstValue::BazziDefaultWBPower;
+		Info->MaxSpeed = ConstValue::BazziMaxSpeed;
+		Info->MaxWBCount = ConstValue::BazziMaxWBCount;
+		Info->MaxWBPower = ConstValue::BazziMaxWBPower;
 		break;
 	case ECharacterType::Dao:
 		Info->MyType = ECharacterType::Dao;
-		Info->WBPower = 1;
-		Info->WBCount = 1;
+		Info->Speed = ConstValue::DaoDefaultSpeed;
+		Info->WBCount = ConstValue::DaoDefaultWBCount;
+		Info->WBPower = ConstValue::DaoDefaultWBPower;
+		Info->MaxSpeed = ConstValue::DaoMaxSpeed;
+		Info->MaxWBCount = ConstValue::DaoMaxWBCount;
+		Info->MaxWBPower = ConstValue::DaoMaxWBPower;
 		break;
 	default:
 		break;
 	}
 }
+

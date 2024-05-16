@@ -1,59 +1,57 @@
 #include "PreCompile.h"
-#include "ItemBubble.h"
+#include "ItemFluid.h"
 #include "Player.h"
 #include "CAGameMode.h"
 #include "BaseMap.h"
 
-AItemBubble::AItemBubble()
-{
-	
-}
-
-AItemBubble::~AItemBubble()
+AItemFluid::AItemFluid() 
 {
 }
 
-void AItemBubble::BeginPlay()
+AItemFluid::~AItemFluid() 
+{
+}
+
+void AItemFluid::BeginPlay()
 {
 	Super::BeginPlay();
 
 	FrontRenderer->CreateAnimation("ItemBubble", "Bubble(1).png", 0.3f, true, 0, 5);
 	FrontRenderer->ChangeAnimation("ItemBubble");
 	FrontRenderer->SetAutoSize(1.f, true);
-
 }
 
-void AItemBubble::Tick(float _DeltaTime)
+void AItemFluid::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }
 
-void AItemBubble::Action()
+void AItemFluid::Action()
 {
-	int iWBCount = GetGameMode()->GetPlayer()->GetPlayerInfo()->WBCount;
-	int iMaxCount = 0;
+	int iWBPower = GetGameMode()->GetPlayer()->GetPlayerInfo()->MaxWBPower;
+	int iMaxPower = 0;
 
 	switch (GetGameMode()->GetPlayer()->GetPlayerInfo()->MyType)
 	{
 	case ECharacterType::None:
 		return;
 	case ECharacterType::Bazzi:
-		iMaxCount = ConstValue::BazziMaxWBCount;
+		iMaxPower = ConstValue::BazziDefaultWBPower;
 		break;
 	case ECharacterType::Dao:
-		iMaxCount = ConstValue::DaoMaxWBCount;
+		iMaxPower = ConstValue::DaoMaxWBPower;
 		break;
 	case ECharacterType::Marid:
-		//iMaxCount = ConstValue::MaridWBCount;
+		//iMaxPower = ConstValue::MaridWBPower;
 		break;
 	default:
 		break;
 	}
 
 
-	if (iWBCount < iMaxCount)
+	if (iWBPower < iMaxPower)
 	{
-		++GetGameMode()->GetPlayer()->GetPlayerInfo()->WBCount;
+		++GetGameMode()->GetPlayer()->GetPlayerInfo()->WBPower;
 	}
 
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);

@@ -131,7 +131,7 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("Shoes.png", 6, 1);
 
 		//Item Shadow
-		//UEngineSprite::CreateCutting("ItemShadow.png", 6, 1);
+		UEngineSprite::CreateCutting("ItemShadow.png", 2, 1);
 
 	}
 

@@ -14,16 +14,15 @@ public:
 	AItem& operator=(const AItem& _Other) = delete;
 	AItem& operator=(AItem&& _Other) noexcept = delete;
 
-	void SetItemType(EItemType _Type)
-	{
-		MyItemType = _Type;
-	}
 
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	EItemType MyItemType = EItemType::ItemBubble;
+	virtual void Action() = 0;
+
+	bool bWaterInteract = false;
+	bool bPlayerInteract = false;
 private:
 
 };

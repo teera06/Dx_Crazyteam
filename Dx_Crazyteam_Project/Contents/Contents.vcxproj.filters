@@ -88,6 +88,9 @@
     <Filter Include="MapObject\Component">
       <UniqueIdentifier>{0b287165-7af3-4f8f-bf45-a931751e2418}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Item">
+      <UniqueIdentifier>{202aa6e6-6bd0-4aad-beff-703e9a9a5580}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -186,9 +189,6 @@
     <ClInclude Include="DummyBlock.h">
       <Filter>MapObject\Block\DummyBlock</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="ItemBubble.h" />
-    <ClInclude Include="ItemRoller.h" />
     <ClInclude Include="OtherBomb.h">
       <Filter>Level\Surver\PublicOBJ</Filter>
     </ClInclude>
@@ -219,8 +219,30 @@
     <ClInclude Include="BreakObject.h">
       <Filter>MapObject\Component</Filter>
     </ClInclude>
-    <ClInclude Include="ItemOwl.h" />
-    <ClInclude Include="ItemNiddle.h" />
+    <ClInclude Include="Item.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBubble.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemNiddle.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemOwl.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemRoller.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemFluid.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemShoes.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemTurtle.h">
+      <Filter>Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -312,9 +334,6 @@
     <ClCompile Include="DummyBlock.cpp">
       <Filter>MapObject\Block\DummyBlock</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="ItemBubble.cpp" />
-    <ClCompile Include="ItemRoller.cpp" />
     <ClCompile Include="OtherBomb.cpp">
       <Filter>Level\Surver\PublicOBJ</Filter>
     </ClCompile>
@@ -351,7 +370,29 @@
     <ClCompile Include="BreakObject.cpp">
       <Filter>MapObject\Component</Filter>
     </ClCompile>
-    <ClCompile Include="ItemOwl.cpp" />
-    <ClCompile Include="ItemNiddle.cpp" />
+    <ClCompile Include="Item.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBubble.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemNiddle.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemOwl.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemRoller.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemFluid.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemShoes.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemTurtle.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -153,9 +153,9 @@ void AWaterCourse::CreateCenterTick(float _DeltaTime)
 	{
 		ACAGameMode* TestGameMode = GetGameMode();
 		std::shared_ptr<APlayer> TestPlayer = TestGameMode->GetPlayer();
-		PlayerInfo* TestPlayerInfo = TestPlayer->GetPlayerInfo();
-		//int WaterPower = TestPlayerInfo->WBCount;
-		TestPlayerInfo->SetWBCountUpdate();
+		int WBCount = TestPlayer->GetWBCount();
+		WBCount += 1;
+		TestPlayer->SetWBCount(WBCount);
 		b_BombCountUpdateOne = true;
 	}
 }
@@ -353,7 +353,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 	if (WaterPower != DefaultPowerValue)
 	{
 		{
-			if (0 <= GetCurPos().y - DefaultPowerValue)
+			if (0 <= GetCurPos().y - DefaultPowerValue && false == UpEnd)
 			{
 				// 만들어 질 곳에 뭐가 있음?
 				std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y - DefaultPowerValue, GetCurPos().x);
@@ -364,11 +364,19 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					if (type == EMapObjectType::Block)
 					{
 						NextMapObject->WaterInteract();
+						UpEnd = true;
 					}
-					UpEnd = true;
+					if (type == EMapObjectType::Item)
+					{
+						NextMapObject->WaterInteract();
+					}
 				}
 				
 				if (NextMapObject == nullptr && UpEnd == false)
+				{
+					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y - DefaultPowerValue, GetCurPos().x, false, EEngineDir::Up);
+				}
+				else if (EMapObjectType::Item == NextMapObject->GetType() && false == UpEnd)
 				{
 					GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y - DefaultPowerValue, GetCurPos().x, false, EEngineDir::Up);
 				}
@@ -444,6 +452,10 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject != nullptr)
 				{
 					EMapObjectType type = NextMapObject->GetType();
+					if (type == EMapObjectType::Block)
+					{
+						NextMapObject->WaterInteract();
+					}
 				}
 
 				if (NextMapObject == nullptr && UpEnd == false)
@@ -458,6 +470,10 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject != nullptr)
 				{
 					EMapObjectType type = NextMapObject->GetType();
+					if (type == EMapObjectType::Block)
+					{
+						NextMapObject->WaterInteract();
+					}
 				}
 
 				if (NextMapObject == nullptr && DownEnd == false)
@@ -472,6 +488,10 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject != nullptr)
 				{
 					EMapObjectType type = NextMapObject->GetType();
+					if (type == EMapObjectType::Block)
+					{
+						NextMapObject->WaterInteract();
+					}
 				}
 
 				if (NextMapObject == nullptr && LeftEnd == false)
@@ -486,6 +506,10 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject != nullptr)
 				{
 					EMapObjectType type = NextMapObject->GetType();
+					if (type == EMapObjectType::Block)
+					{
+						NextMapObject->WaterInteract();
+					}
 				}
 
 				if (NextMapObject == nullptr && RightEnd == false)
