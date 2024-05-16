@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "BaseMap.h"
 #include "CAGameMode.h"
+#include "Player_Shadow.h"
 
 void APlayer::StateInit()
 {
@@ -226,6 +227,7 @@ void APlayer::Rescue(float _DeltaTime)
 void APlayer::DieStart()
 {
 	Renderer->ChangeAnimation(GetAnimationName("Die"));
+
 	DieAnimationChange = false;
 	DieAniTwinkleActive = true;
 	DieTwinkleTime = 0.1f;
@@ -237,6 +239,7 @@ void APlayer::Die(float _DeltaTime)
 	if (false == DieAnimationChange && UEngineString::ToUpper(GetAnimationName("Die")) == Renderer->GetCurAniName() && true == Renderer->IsCurAnimationEnd())
 	{
 		DieAnimationChange = true;
+		
 		switch (Info->MyType)
 		{
 		case ECharacterType::Bazzi:
@@ -274,6 +277,7 @@ void APlayer::Die(float _DeltaTime)
 void APlayer::RealDieStart()
 {
 	// 진짜 죽음 처리
+	Shadow->SetActive(false);
 	Renderer->SetActive(false);
 }
 
