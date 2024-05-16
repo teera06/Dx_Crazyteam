@@ -120,15 +120,20 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 			}
 
 
-			int Size = *(reinterpret_cast<int*>(Ser.DataCharPtrToReadOffset()));
 			int WriteOffset = Ser.GetWriteOffset();
 			int ReadOffset = Ser.GetReadOffset();
 			int RemainOffset = WriteOffset - ReadOffset;
+
+			if (4 > RemainOffset)
+			{
+				Ser.DataToReadOffsetPush();
+				break;
+			}
+
+			int Size = *(reinterpret_cast<int*>(Ser.DataCharPtrToReadOffset()));
 			// 받은만큼 다 읽었어.
 
-
-
-			if (16 > RemainOffset)
+			if (Size > RemainOffset)
 			{
 				Ser.DataToReadOffsetPush();
 				break;
