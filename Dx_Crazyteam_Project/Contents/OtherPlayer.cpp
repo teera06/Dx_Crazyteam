@@ -53,6 +53,11 @@ void AOtherPlayer::Tick(float _DeltaTime)
 		{
 			std::shared_ptr<UActorUpdatePacket> ActorUpdatePacket = std::dynamic_pointer_cast<UActorUpdatePacket>(Protocol);
 
+			if (static_cast<int>(EObjectType::Player) != ActorUpdatePacket->ObjectType)
+			{
+				break;
+			}
+
 			SetActorLocation(ActorUpdatePacket->Pos);
 
 			std::string SpriteNames = ActorUpdatePacket->SpriteName;

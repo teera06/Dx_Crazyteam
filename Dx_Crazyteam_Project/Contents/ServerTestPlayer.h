@@ -1,22 +1,31 @@
 #pragma once
+#include "Player.h"
 
 // Ό³Έν :
-class ServerTestPlayer
+class AItem;
+class AServerTestPlayer : public APlayer
 {
+	GENERATED_BODY(APlayer)
 public:
 	// constrcuter destructer
-	ServerTestPlayer();
-	~ServerTestPlayer();
+	AServerTestPlayer();
+	~AServerTestPlayer();
 
 	// delete Function
-	ServerTestPlayer(const ServerTestPlayer& _Other) = delete;
-	ServerTestPlayer(ServerTestPlayer&& _Other) noexcept = delete;
-	ServerTestPlayer& operator=(const ServerTestPlayer& _Other) = delete;
-	ServerTestPlayer& operator=(ServerTestPlayer&& _Other) noexcept = delete;
+	AServerTestPlayer(const AServerTestPlayer& _Other) = delete;
+	AServerTestPlayer(AServerTestPlayer&& _Other) noexcept = delete;
+	AServerTestPlayer& operator=(const AServerTestPlayer& _Other) = delete;
+	AServerTestPlayer& operator=(AServerTestPlayer&& _Other) noexcept = delete;
 
 protected:
 
 private:
+	std::shared_ptr<AItem> Item = nullptr;
+
+private:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
+	void SpawnItem();
 
 };
 

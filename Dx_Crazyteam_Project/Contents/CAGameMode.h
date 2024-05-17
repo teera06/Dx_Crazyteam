@@ -8,6 +8,7 @@
 // Ό³Έν :
 class ABaseMap;
 class APlayer;
+class AMapUI;
 class ACAGameMode : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
@@ -42,6 +43,16 @@ public:
 		return MainPlayer;
 	}
 
+	void SetUI(std::shared_ptr<AMapUI> _UI)
+	{
+		UI = _UI;
+	}
+
+	std::shared_ptr<AMapUI> GetUI()
+	{
+		return UI;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -50,6 +61,7 @@ protected:
 private:
 	std::shared_ptr<ABaseMap> CurMap = nullptr;
 	std::shared_ptr<APlayer> MainPlayer = nullptr;
+	std::shared_ptr<AMapUI> UI = nullptr;
 
 };
 
