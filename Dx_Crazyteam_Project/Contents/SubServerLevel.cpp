@@ -110,8 +110,8 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 			{
 				MainPlayer->SetObjectToken(_Token->GetSessionToken() * 1000);
 				MainPlayer->WaterBomb_Token = _Token->GetSessionToken() * 1000 + 1;
+				MainPlayer->WaterCourse_Token = _Token->GetSessionToken() * 10000 + 1;
 			});
-
 			// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
 			ClientPacketInit(UGame_Core::Net->Dispatcher);
 		});
@@ -149,7 +149,6 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 				if (nullptr == Bomb)
 				{
 					Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
-					//Bomb = dynamic_cast<AOtherBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(MainPlayer->GetActorLocation()));
 					Bomb->SetObjectToken(_Packet->GetObjectToken());
 					Bomb->CreateWaterBomb();
 				}

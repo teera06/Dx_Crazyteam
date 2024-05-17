@@ -48,10 +48,21 @@ public :
 	{
 		WaterCourseDir = _Dir;
 	}
-
+	static int WaterCourseToken;
+	static bool SetToken;
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
+
+	int Bomb_MilliSecond = 0;
+	int Bomb_Second = 0;
+
+	int Sub_MilliSecond = 0;
+	int Sub_Second = 0;
+
+	bool OtherCreate = false;
+
+
 
 private :
 	void StateInit();

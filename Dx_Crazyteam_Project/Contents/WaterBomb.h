@@ -37,6 +37,8 @@ public:
 		b_WaterToBomb = _Val;
 	}
 
+	void SetToken(int _Set) { WaterBomb_Token = _Set; }
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -50,6 +52,10 @@ protected:
 	bool OtherCreate = false;
 	
 	float GetCreateTime();
+
+	int WaterBomb_Token = 0;
+	int WaterCourse_Token = 0;
+	static bool SetWaterCourseToken;
 
 private :
 	void StateInit();
@@ -74,6 +80,5 @@ private :
 	bool b_ServerBomb = false;
 
 
-	static int WaterBomb_Token;
 };
 

@@ -9,7 +9,8 @@
 #include "MapDebugGUI.h"
 #include <EngineBase/EngineTime.h>
 
-int AWaterBomb::WaterBomb_Token = 0;
+
+bool AWaterBomb::SetWaterCourseToken = false;
 
 AWaterBomb::AWaterBomb()
 {
@@ -145,7 +146,21 @@ void AWaterBomb::CreateExit()
 
 void AWaterBomb::BombBegin()
 {
-	//GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water);
+
+	std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));
+	if (SetWaterCourseToken == false)
+	{
+		WaterCourse->WaterCourseToken = WaterCourse_Token;
+		SetWaterCourseToken = true;
+	}
+	WaterCourse_Token = WaterCourse->WaterCourseToken;
+	WaterCourse->SetObjectToken(WaterCourse_Token++);
+
+	std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
+	Packet->Pos = GetActorLocation();
+	Packet->ObjectType = static_cast<int>(EObjectType::WaterCourse);
+	Send(Packet);
+
 	Renderer->SetActive(false);
 	b_ServerBomb = true;
 }
