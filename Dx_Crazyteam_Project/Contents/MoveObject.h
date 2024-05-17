@@ -16,6 +16,7 @@ public:
 
 protected:
 	void MoveSetOwner(ABlock* _Owner);
+	POINT PlayerDirCheck();
 
 	ABlock* GetOwner()
 	{

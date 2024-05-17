@@ -52,6 +52,7 @@ void ACamp::AddObjectInit()
 	AddMapObject(3, 9, EMapObject::CampHPBlock);
 
 	AddMapObject(9, 1, EMapObject::TownBush);
+	AddMapObject(10, 1, EMapObject::TownBush);
 
 }
 

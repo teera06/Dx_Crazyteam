@@ -14,6 +14,7 @@ public:
 	UBreakObject& operator=(UBreakObject&& _Other) noexcept = delete;
 
 	void BreakSetOwner(ABlock* _Owner);
+	void DamageLogic();
 
 	ABlock* GetOwner()
 	{

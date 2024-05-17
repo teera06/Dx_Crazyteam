@@ -358,7 +358,11 @@ void ABaseMap::MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX,
 	if (MapStatus[_NY][_NX] == nullptr)
 	{
 		PushMapObject(_Obj, _NY, _NX);
-		MapStatus[_PY][_PX] = nullptr;
+		_Obj->SetIsPossessed(false);
+		if (!(MapStatus[_PY][_PX]->GetType() == EMapObjectType::Bush))
+		{
+			MapStatus[_PY][_PX] = nullptr;
+		}
 	}
 	else
 	{
@@ -374,7 +378,12 @@ void ABaseMap::MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX,
 			_Obj->SetCurGameMode(GetGameMode());
 			_Obj->SetIsPossessed(true);
 
-			MapStatus[_PY][_PX] = nullptr;
+			if (!(MapStatus[_PY][_PX]->GetType() == EMapObjectType::Bush))
+			{
+				MapStatus[_PY][_PX] = nullptr;
+			}
+
+
 		}
 	}
 }
