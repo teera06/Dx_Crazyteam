@@ -34,6 +34,7 @@ void APlayer::BeginPlay()
 	SetActorScale3D(FVector(20, 20, 1));
 
 	Shadow = GetWorld()->SpawnActor<APlayer_Shadow>("Player_Shadow");
+	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 1));
 
 	StateInit();
 }
@@ -45,8 +46,8 @@ void APlayer::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 
 	Info->CurIndex = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
-	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 0));
-
+	
+	//Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 0));
 
 
 	/* 테스트용 */
@@ -155,3 +156,13 @@ void APlayer::SetCharacterType(ECharacterType _Type)
 	}
 }
 
+void APlayer::SettingZValue()
+{
+	FVector Pos = GetActorLocation();
+	POINT IDX = GetGameMode()->GetCurMap()->PosToPoint(Pos);
+	Pos.Z = -static_cast<float>(IDX.y);
+	SetActorLocation(Pos);
+
+	Pos.Z += 1.f;
+	Shadow->SetActorLocation(Pos);
+}

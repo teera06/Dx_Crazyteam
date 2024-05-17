@@ -37,6 +37,8 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Dao_Die", "dao_die.png", 0.1f, false, 0, 2);
 	Renderer->CreateAnimation("Dao_Die_Last", "dao_die.png", 0.1f, false, 3, 4);
 
+	Renderer->CreateAnimation("Red_Dao_Die", "dao_2_red.png", 0.1f, false, 0, 5);
+
 	// CreateState
 	State.CreateState("Idle");
 	State.CreateState("Move");
@@ -83,6 +85,12 @@ void  APlayer::Idle(float _DeltaTime)
 		State.ChangeState("Move");
 		return;
 	}
+
+	if (true == GetGameMode()->GetCurMap()->IsOnWater(GetActorLocation()))
+	{
+		State.ChangeState("Trap");
+		return;
+	}
 }
 
 void APlayer::MoveStart()
@@ -95,6 +103,12 @@ void APlayer::Move(float _DeltaTime)
 	if (true == IsFree(VK_UP) && true == IsFree(VK_DOWN) && true == IsFree(VK_RIGHT) && true == IsFree(VK_LEFT))
 	{
 		State.ChangeState("Idle");
+		return;
+	}
+
+	if (true == GetGameMode()->GetCurMap()->IsOnWater(GetActorLocation()))
+	{
+		State.ChangeState("Trap");
 		return;
 	}
 
@@ -142,6 +156,7 @@ void APlayer::Move(float _DeltaTime)
 	if (true == GetGameMode()->GetCurMap()->IsMove(NextPos1) && true == GetGameMode()->GetCurMap()->IsMove(NextPos2) && true == GetGameMode()->GetCurMap()->IsMove(NextPos3))
 	{
 		AddActorLocation(MovePos);
+		SettingZValue();
 		return;
 	}
 }
