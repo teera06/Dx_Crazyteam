@@ -86,10 +86,22 @@ private:
 	bool TeamSwitchON = false;
 	bool IsSelectSharacter = false;
 	bool IsTeamSelectSharacter = false;
-	bool RoomO = true;
-	bool RoomX = false;
+	bool RoomO1 = true;
+	bool RoomX1 = false;
+	bool RoomO2 = true;
+	bool RoomX2 = false;
+	bool RoomO3 = true;
+	bool RoomX3 = false;
+	bool RoomO4 = true;
+	bool RoomX4 = false;
+	bool RoomO5 = true;
+	bool RoomX5 = false;
+	bool RoomO6 = true;
+	bool RoomX6 = false;
+	bool RoomO7 = true;
+	bool RoomX7 = false;
+
 	bool RoomSwitch= false;
-	bool OX = false;
 	int  PlayerCount = 0;
 	int TestCount = 0;
 };

@@ -264,6 +264,9 @@
     <ClInclude Include="CampBlock1.h">
       <Filter>MapObject\Block\CampBlock</Filter>
     </ClInclude>
+    <ClInclude Include="OtherWaterCourse.h">
+      <Filter>Level\Surver\PublicOBJ</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -426,6 +429,9 @@
     </ClCompile>
     <ClCompile Include="CampHpBlock.cpp">
       <Filter>MapObject\MoveBlock\CampHpBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherWaterCourse.cpp">
+      <Filter>Level\Surver\PublicOBJ</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
