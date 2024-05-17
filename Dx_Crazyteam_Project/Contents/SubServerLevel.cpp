@@ -17,6 +17,8 @@
 #include "Camp.h"
 #include "WaterBomb.h"
 #include "OtherBomb.h"
+#include "CAGameMode.h"
+#include "BaseMap.h"
 
 #include <EngineBase/NetObject.h>
 
@@ -38,7 +40,7 @@ void ASubServerLevel::BeginPlay()
 	Super::BeginPlay();
 	// TestThread.Start();
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
-	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
+	Camera->SetActorLocation(FVector(0.0f, 0.0f, -400.0f));
 
 	//Village = GetWorld()->SpawnActor<AVillage>("Village");
 	//SetCurMap(Village);
@@ -147,6 +149,7 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 				if (nullptr == Bomb)
 				{
 					Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
+					//Bomb = dynamic_cast<AOtherBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(MainPlayer->GetActorLocation()));
 					Bomb->SetObjectToken(_Packet->GetObjectToken());
 				}
 				Bomb->PushProtocol(_Packet);

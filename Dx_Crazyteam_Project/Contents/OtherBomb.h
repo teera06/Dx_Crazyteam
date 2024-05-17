@@ -2,10 +2,11 @@
 #include <EngineCore/Actor.h>
 #include <EngineBase/NetObject.h>
 #include <EngineCore/DefaultSceneComponent.h>
+#include "WaterBomb.h"
 
 // Ό³Έν :
 class USpriteRenderer;
-class AOtherBomb : public AActor, public UNetObject
+class AOtherBomb : public AWaterBomb/*,public AActor, public UNetObject*/
 {
 public:
 	// constrcuter destructer
@@ -23,7 +24,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	UDefaultSceneComponent* Root = nullptr;
-	USpriteRenderer* Renderer = nullptr;
+	//UDefaultSceneComponent* Root = nullptr;
+	//USpriteRenderer* Renderer = nullptr;
 };
 
