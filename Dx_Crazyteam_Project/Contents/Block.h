@@ -64,6 +64,7 @@ public:
 		Hp = _Hp;
 	}
 
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -113,6 +114,8 @@ private:
 	POINT PlayerIndex = { 0,0 };
 
 	EItemType PossessItem = EItemType::None;
+
+	
 	
 
 };

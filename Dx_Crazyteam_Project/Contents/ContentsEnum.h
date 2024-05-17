@@ -55,6 +55,14 @@ enum class EMapObject
 	WaterBomb,
 	Water,
 	Item,
+	TownBush,
+};
+
+enum class EGimmickType
+{
+	None,
+	Thorn,
+	Drain,
 };
 
 enum class ECharacterType

@@ -2,6 +2,7 @@
 #include "Block.h"
 #include "CAGameMode.h"
 #include "BaseMap.h"
+#include "Bush.h"
 
 ABlock::ABlock() 
 {
@@ -121,9 +122,24 @@ void ABlock::IdleTick(float _DeltaTime)
 
 		if (!GetGameMode()->GetCurMap()->IsEmpty(ny, nx))
 		{
-			IsPush = false;
-			return;
+			if (GetGameMode()->GetCurMap()->GetMapObject(ny, nx)->GetType() == EMapObjectType::Bush)
+			{
+				ABush* Bush = dynamic_cast<ABush*>(GetGameMode()->GetCurMap()->GetMapObject(ny, nx).get());
+
+				if (Bush->GetPossessBlock() != nullptr)
+				{
+					IsPush = false;
+					return;
+				}
+			}
+			else
+			{
+				IsPush = false;
+				return;
+			}
+
 		}
+
 
 		State.ChangeState("Push");
 		return;

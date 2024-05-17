@@ -8,6 +8,7 @@
 #include "CampBlock1.h"
 #include "WaterBomb.h"
 #include "WaterCourse.h"
+#include "Bush.h"
 #include "DummyBlock.h"
 #include "CampMoveBlock1.h"
 #include "CampHpBlock.h"
@@ -19,6 +20,7 @@
 #include "ItemRoller.h"
 #include "ItemFluid.h"
 #include "ItemShoes.h"
+#include "TownBush.h"
 
 ABaseMap::ABaseMap()
 {
@@ -214,6 +216,11 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 	{
 		
 	}
+	case EMapObject::TownBush:
+	{
+		MapObj = GetWorld()->SpawnActor<ATownBush>("TownBush");
+		break;
+	}
 	case EMapObject::CampHPBlock:
 	{
 		MapObj = GetWorld()->SpawnActor<ACampHpBlock>("CampHPBlock");
@@ -315,8 +322,27 @@ void ABaseMap::PushMapObject(std::shared_ptr<AMapObject> _Obj, int _Y, int _X)
 
 void ABaseMap::MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX, int _PY, int _PX)
 {
-	PushMapObject(_Obj, _NY, _NX);
-	MapStatus[_PY][_PX] = nullptr;
+	if (MapStatus[_NY][_NX] == nullptr)
+	{
+		PushMapObject(_Obj, _NY, _NX);
+		MapStatus[_PY][_PX] = nullptr;
+	}
+	else
+	{
+		if (MapStatus[_NY][_NX]->GetType() == EMapObjectType::Bush)
+		{
+			ABush* Bush = dynamic_cast<ABush*>(MapStatus[_NY][_NX].get());
+			Bush->SetPossessBlock(_Obj);
+
+			FVector PushPos = PointToPos(_NY, _NX);
+
+			_Obj->SetActorLocation(PushPos);
+			_Obj->SetCurPos(POINT(_NX, _NY));
+			_Obj->SetCurGameMode(GetGameMode());
+
+			MapStatus[_PY][_PX] = nullptr;
+		}
+	}
 }
 
 std::shared_ptr<AMapObject> ABaseMap::SpawnItemObject(int _Y, int _X, EItemType _Item)
