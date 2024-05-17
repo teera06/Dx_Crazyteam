@@ -70,10 +70,6 @@ void AServerGameMode::LevelStart(ULevel* _PrevLevel)
 
 				MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
 				
-				{
-					std::shared_ptr<AItemBubble> BubbleItem = GetWorld()->SpawnActor<AItemBubble>("BubbleItem");
-					BubbleItem->SetObjectToken(UNetObject::GetNewObjectToken());
-				}
 
 				ServerPacketInit(UGame_Core::Net->Dispatcher);
 			});
