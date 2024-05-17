@@ -95,13 +95,18 @@ void AWaterBomb::NoneTick(float _DeltaTime)
 void AWaterBomb::CreateBegin()
 {
 	Renderer->SetActive(true);
-	LifeTime = 0.0f;
+	
 	if (true == OtherCreate)
 	{
 		float Secound = static_cast<float>(Sub_Second);
 		float MiliSecound = static_cast<float>(Sub_MilliSecond);
 		MiliSecound /= 10000;
 		ServerBombTime = BombTime - (Secound + MiliSecound); // 차이나는 만큼 빨리 터져라.
+		LifeTime = 0.0f;
+	}
+	else
+	{
+		LifeTime = 0.0f;
 	}
 }
 
@@ -146,7 +151,6 @@ void AWaterBomb::CreateExit()
 
 void AWaterBomb::BombBegin()
 {
-
 	std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));
 	if (SetWaterCourseToken == false)
 	{
@@ -156,7 +160,7 @@ void AWaterBomb::BombBegin()
 	WaterCourse_Token = WaterCourse->WaterCourseToken;
 	WaterCourse->SetObjectToken(WaterCourse_Token++);
 
-	std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
+	std::shared_ptr<UWaterWaterCourseUpdatePacket> Packet = std::make_shared<UWaterWaterCourseUpdatePacket>();
 	Packet->Pos = GetActorLocation();
 	Packet->ObjectType = static_cast<int>(EObjectType::WaterCourse);
 	Send(Packet);
