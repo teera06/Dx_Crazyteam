@@ -69,6 +69,7 @@ private :
 	float LifeTime = 0.0f; // ++DeltaTime
 	float BombTime = 2.0f; // 2.0
 	float ServerBombTime = 0.0f;
+	bool b_ServerOne = false;
 	bool b_WaterToBomb = false;
 	bool b_ServerBomb = false;
 
