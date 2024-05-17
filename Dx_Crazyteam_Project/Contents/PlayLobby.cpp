@@ -570,57 +570,57 @@ void APlayLobby::Tick(float _DeltaTime)
 	// Room Hover
 	{
 		Room1->SetUnHover([=] {
-			if (true == RoomO && false == RoomSwitch && "UP" != Room1->GetUiAniName())
+			if (true == RoomO1 && false == RoomSwitch && "UP" != Room1->GetUiAniName())
 			{
 				Room1->ChangeAnimation("UnHover");
-				RoomO = true;
+				RoomO1 = true;
 			}
-			else if (true == RoomX && "UP" == Room1->GetUiAniName())
+			else if (true == RoomX1 && "UP" == Room1->GetUiAniName())
 			{
 				Room1->ChangeAnimation("UP");
-				RoomO = false;
-				RoomX = true;
+				RoomO1 = false;
+				RoomX1 = true;
 			}
 			});
 
 		Room1->SetHover([=] {
 			{
-				if (true == RoomO && false == RoomSwitch && "UP" != Room1->GetUiAniName())
+				if (true == RoomO1 && false == RoomSwitch && "UP" != Room1->GetUiAniName())
 				{
 					Room1->ChangeAnimation("Hover");
 					RoomSwitch = true;
 
 				}
-				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO)
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO1)
 				{
 					Room1->ChangeAnimation("Down");
 
 				}
-				else if (IsUp(VK_LBUTTON) && true == RoomO)
+				else if (IsUp(VK_LBUTTON) && true == RoomO1)
 				{
 					IsSelectSharacter = false;
 					Room1->ChangeAnimation("UP");
-					RoomX = true;
+					RoomX1 = true;
 					RoomSwitch = true;
-					RoomO = false;
+					RoomO1 = false;
 				}
-				else if (false == RoomSwitch && true == RoomX && false == RoomO && "UP" == Room1->GetUiAniName())
+				else if (false == RoomSwitch && true == RoomX1 && false == RoomO1 && "UP" == Room1->GetUiAniName())
 				{
 					Room1->ChangeAnimation("XHover");
-					RoomX = true;
+					RoomX1 = true;
 				}
-				else if (true == RoomX && false == RoomO && IsDown(VK_LBUTTON))
+				else if (true == RoomX1 && false == RoomO1 && IsDown(VK_LBUTTON))
 				{
 					Room1->ChangeAnimation("XDown");
-					RoomX = true;
+					RoomX1 = true;
 					RoomSwitch = true;
 				}
-				else if (true == RoomX && false == RoomO && IsUp(VK_LBUTTON))
+				else if (true == RoomX1 && false == RoomO1 && IsUp(VK_LBUTTON))
 				{
 					IsSelectSharacter = false;
 					Room1->ChangeAnimation("XUp");
-					RoomX = false;
-					RoomO = true;
+					RoomX1 = false;
+					RoomO1 = true;
 				}
 			}
 			});
@@ -628,57 +628,57 @@ void APlayLobby::Tick(float _DeltaTime)
 	}
 	{
 		Room2->SetUnHover([=] {
-			if (true == RoomO && false == RoomSwitch && "UP" != Room1->GetUiAniName())
+			if (true == RoomO2 && false == RoomSwitch && "UP" != Room1->GetUiAniName())
 			{
 				Room2->ChangeAnimation("UnHover");
-				RoomO = true;
+				RoomO2 = true;
 			}
-			else if (true == RoomX && "UP" == Room2->GetUiAniName())
+			else if (true == RoomX2 && "UP" == Room2->GetUiAniName())
 			{
 				Room2->ChangeAnimation("UP");
-				RoomO = false;
-				RoomX = true;
+				RoomO2 = false;
+				RoomX2 = true;
 			}
 			});
 
 		Room2->SetHover([=] {
 			{
-				if (true == RoomO && false == RoomSwitch && "UP" != Room2->GetUiAniName())
+				if (true == RoomO2 && false == RoomSwitch && "UP" != Room2->GetUiAniName())
 				{
 					Room2->ChangeAnimation("Hover");
 					RoomSwitch = true;
 
 				}
-				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO)
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO2)
 				{
 					Room2->ChangeAnimation("Down");
 
 				}
-				else if (IsUp(VK_LBUTTON) && true == RoomO)
+				else if (IsUp(VK_LBUTTON) && true == RoomO2)
 				{
 					IsSelectSharacter = false;
 					Room2->ChangeAnimation("UP");
-					RoomX = true;
+					RoomX2 = true;
 					RoomSwitch = true;
-					RoomO = false;
+					RoomO2 = false;
 				}
-				else if (false == RoomSwitch && true == RoomX && false == RoomO && "UP" == Room2->GetUiAniName())
+				else if (false == RoomSwitch && true == RoomX2 && false == RoomO2 && "UP" == Room2->GetUiAniName())
 				{
 					Room2->ChangeAnimation("XHover");
-					RoomX = true;
+					RoomX2 = true;
 				}
-				else if (true == RoomX && false == RoomO && IsDown(VK_LBUTTON))
+				else if (true == RoomX2 && false == RoomO2 && IsDown(VK_LBUTTON))
 				{
 					Room2->ChangeAnimation("XDown");
-					RoomX = true;
+					RoomX2 = true;
 					RoomSwitch = true;
 				}
-				else if (true == RoomX && false == RoomO && IsUp(VK_LBUTTON))
+				else if (true == RoomX2 && false == RoomO2 && IsUp(VK_LBUTTON))
 				{
 					IsSelectSharacter = false;
 					Room2->ChangeAnimation("XUp");
-					RoomX = false;
-					RoomO = true;
+					RoomX2 = false;
+					RoomO2 = true;
 				}
 			}
 			});
@@ -687,42 +687,42 @@ void APlayLobby::Tick(float _DeltaTime)
 	{
 		Room3->SetHover([=] {
 			{
-				if (true == RoomO && false == RoomSwitch && "UP" != Room3->GetUiAniName())
+				if (true == RoomO3 && false == RoomSwitch && "UP" != Room3->GetUiAniName())
 				{
 					Room3->ChangeAnimation("Hover");
 					RoomSwitch = true;
 
 				}
-				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO)
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO3)
 				{
 					Room3->ChangeAnimation("Down");
 
 				}
-				else if (IsUp(VK_LBUTTON) && true == RoomO)
+				else if (IsUp(VK_LBUTTON) && true == RoomO3)
 				{
 					IsSelectSharacter = false;
 					Room3->ChangeAnimation("UP");
-					RoomX = true;
+					RoomX3 = true;
 					RoomSwitch = true;
-					RoomO = false;
+					RoomO3 = false;
 				}
-				else if (false == RoomSwitch && true == RoomX && false == RoomO && "UP" == Room3->GetUiAniName())
+				else if (false == RoomSwitch && true == RoomX3 && false == RoomO3 && "UP" == Room3->GetUiAniName())
 				{
 					Room3->ChangeAnimation("XHover");
-					RoomX = true;
+					RoomX3 = true;
 				}
-				else if (true == RoomX && false == RoomO && IsDown(VK_LBUTTON))
+				else if (true == RoomX3 && false == RoomO3 && IsDown(VK_LBUTTON))
 				{
 					Room3->ChangeAnimation("XDown");
-					RoomX = true;
+					RoomX3 = true;
 					RoomSwitch = true;
 				}
-				else if (true == RoomX && false == RoomO && IsUp(VK_LBUTTON))
+				else if (true == RoomX3 && false == RoomO3 && IsUp(VK_LBUTTON))
 				{
 					IsSelectSharacter = false;
 					Room3->ChangeAnimation("XUp");
-					RoomX = false;
-					RoomO = true;
+					RoomX3= false;
+					RoomO3 = true;
 				}
 			}
 			});
@@ -730,42 +730,42 @@ void APlayLobby::Tick(float _DeltaTime)
 	{
 		Room4->SetHover([=] {
 			{
-				if (true == RoomO && false == RoomSwitch && "UP" != Room4->GetUiAniName())
+				if (true == RoomO4 && false == RoomSwitch && "UP" != Room4->GetUiAniName())
 				{
 					Room4->ChangeAnimation("Hover");
 					RoomSwitch = true;
 
 				}
-				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO)
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO4)
 				{
 					Room4->ChangeAnimation("Down");
 
 				}
-				else if (IsUp(VK_LBUTTON) && true == RoomO)
+				else if (IsUp(VK_LBUTTON) && true == RoomO4)
 				{
 					IsSelectSharacter = false;
 					Room4->ChangeAnimation("UP");
-					RoomX = true;
+					RoomX4 = true;
 					RoomSwitch = true;
-					RoomO = false;
+					RoomO4 = false;
 				}
-				else if (false == RoomSwitch && true == RoomX && false == RoomO && "UP" == Room4->GetUiAniName())
+				else if (false == RoomSwitch && true == RoomX4 && false == RoomO4 && "UP" == Room4->GetUiAniName())
 				{
 					Room4->ChangeAnimation("XHover");
-					RoomX = true;
+					RoomX4 = true;
 				}
-				else if (true == RoomX && false == RoomO && IsDown(VK_LBUTTON))
+				else if (true == RoomX4 && false == RoomO4 && IsDown(VK_LBUTTON))
 				{
 					Room4->ChangeAnimation("XDown");
-					RoomX = true;
+					RoomX4 = true;
 					RoomSwitch = true;
 				}
-				else if (true == RoomX && false == RoomO && IsUp(VK_LBUTTON))
+				else if (true == RoomX4 && false == RoomO4 && IsUp(VK_LBUTTON))
 				{
 					IsSelectSharacter = false;
 					Room4->ChangeAnimation("XUp");
-					RoomX = false;
-					RoomO = true;
+					RoomX4 = false;
+					RoomO4 = true;
 				}
 			}
 			});
@@ -774,42 +774,42 @@ void APlayLobby::Tick(float _DeltaTime)
 	{
 		Room5->SetHover([=] {
 			{
-				if (true == RoomO && false == RoomSwitch && "UP" != Room5->GetUiAniName())
+				if (true == RoomO5 && false == RoomSwitch && "UP" != Room5->GetUiAniName())
 				{
 					Room5->ChangeAnimation("Hover");
 					RoomSwitch = true;
 
 				}
-				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO)
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO5)
 				{
 					Room5->ChangeAnimation("Down");
 
 				}
-				else if (IsUp(VK_LBUTTON) && true == RoomO)
+				else if (IsUp(VK_LBUTTON) && true == RoomO5)
 				{
 					IsSelectSharacter = false;
 					Room5->ChangeAnimation("UP");
-					RoomX = true;
+					RoomX5 = true;
 					RoomSwitch = true;
-					RoomO = false;
+					RoomO5 = false;
 				}
-				else if (false == RoomSwitch && true == RoomX && false == RoomO && "UP" == Room5->GetUiAniName())
+				else if (false == RoomSwitch && true == RoomX5 && false == RoomO5 && "UP" == Room5->GetUiAniName())
 				{
 					Room5->ChangeAnimation("XHover");
-					RoomX = true;
+					RoomX5 = true;
 				}
-				else if (true == RoomX && false == RoomO && IsDown(VK_LBUTTON))
+				else if (true == RoomX5 && false == RoomO5 && IsDown(VK_LBUTTON))
 				{
 					Room5->ChangeAnimation("XDown");
-					RoomX = true;
+					RoomX5 = true;
 					RoomSwitch = true;
 				}
-				else if (true == RoomX && false == RoomO && IsUp(VK_LBUTTON))
+				else if (true == RoomX5 && false == RoomO5 && IsUp(VK_LBUTTON))
 				{
 					IsSelectSharacter = false;
 					Room5->ChangeAnimation("XUp");
-					RoomX = false;
-					RoomO = true;
+					RoomX5 = false;
+					RoomO5 = true;
 				}
 			}
 			});
@@ -818,42 +818,42 @@ void APlayLobby::Tick(float _DeltaTime)
 	{
 		Room6->SetHover([=] {
 			{
-				if (true == RoomO && false == RoomSwitch && "UP" != Room6->GetUiAniName())
+				if (true == RoomO6 && false == RoomSwitch && "UP" != Room6->GetUiAniName())
 				{
 					Room6->ChangeAnimation("Hover");
 					RoomSwitch = true;
 
 				}
-				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO)
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO6)
 				{
 					Room6->ChangeAnimation("Down");
 
 				}
-				else if (IsUp(VK_LBUTTON) && true == RoomO)
+				else if (IsUp(VK_LBUTTON) && true == RoomO6)
 				{
 					IsSelectSharacter = false;
 					Room6->ChangeAnimation("UP");
-					RoomX = true;
+					RoomX6 = true;
 					RoomSwitch = true;
-					RoomO = false;
+					RoomO6 = false;
 				}
-				else if (false == RoomSwitch && true == RoomX && false == RoomO && "UP" == Room6->GetUiAniName())
+				else if (false == RoomSwitch && true == RoomX6 && false == RoomO6 && "UP" == Room6->GetUiAniName())
 				{
 					Room6->ChangeAnimation("XHover");
-					RoomX = true;
+					RoomX6 = true;
 				}
-				else if (true == RoomX && false == RoomO && IsDown(VK_LBUTTON))
+				else if (true == RoomX6 && false == RoomO6 && IsDown(VK_LBUTTON))
 				{
 					Room6->ChangeAnimation("XDown");
-					RoomX = true;
+					RoomX6 = true;
 					RoomSwitch = true;
 				}
-				else if (true == RoomX && false == RoomO && IsUp(VK_LBUTTON))
+				else if (true == RoomX6 && false == RoomO6 && IsUp(VK_LBUTTON))
 				{
 					IsSelectSharacter = false;
 					Room6->ChangeAnimation("XUp");
-					RoomX = false;
-					RoomO = true;
+					RoomX6 = false;
+					RoomO6 = true;
 				}
 			}
 			});
@@ -862,42 +862,42 @@ void APlayLobby::Tick(float _DeltaTime)
 	{
 		Room7->SetHover([=] {
 			{
-				if (true == RoomO && false == RoomSwitch && "UP" != Room7->GetUiAniName())
+				if (true == RoomO7 && false == RoomSwitch && "UP" != Room7->GetUiAniName())
 				{
 					Room7->ChangeAnimation("Hover");
 					RoomSwitch = true;
 
 				}
-				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO)
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO7)
 				{
 					Room7->ChangeAnimation("Down");
 
 				}
-				else if (IsUp(VK_LBUTTON) && true == RoomO)
+				else if (IsUp(VK_LBUTTON) && true == RoomO7)
 				{
 					IsSelectSharacter = false;
 					Room7->ChangeAnimation("UP");
-					RoomX = true;
+					RoomX7 = true;
 					RoomSwitch = true;
-					RoomO = false;
+					RoomO7 = false;
 				}
-				else if (false == RoomSwitch && true == RoomX && false == RoomO && "UP" == Room7->GetUiAniName())
+				else if (false == RoomSwitch && true == RoomX7 && false == RoomO7 && "UP" == Room7->GetUiAniName())
 				{
 					Room7->ChangeAnimation("XHover");
-					RoomX = true;
+					RoomX7 = true;
 				}
-				else if (true == RoomX && false == RoomO && IsDown(VK_LBUTTON))
+				else if (true == RoomX7 && false == RoomO7 && IsDown(VK_LBUTTON))
 				{
 					Room7->ChangeAnimation("XDown");
-					RoomX = true;
+					RoomX7 = true;
 					RoomSwitch = true;
 				}
-				else if (true == RoomX && false == RoomO && IsUp(VK_LBUTTON))
+				else if (true == RoomX7 && false == RoomO7 && IsUp(VK_LBUTTON))
 				{
 					IsSelectSharacter = false;
 					Room7->ChangeAnimation("XUp");
-					RoomX = false;
-					RoomO = true;
+					RoomX7 = false;
+					RoomO7 = true;
 				}
 			}
 			});
