@@ -144,6 +144,9 @@ void AWaterBomb::CreateExit()
 {
 	LifeTime = 0.0f;
 	//Renderer->SetActive(false);
+	ACAGameMode* CulGameModexx = GetGameMode();
+	CulGameMode = CulGameModexx;
+	int a = 0;
 }
 
 
@@ -152,21 +155,11 @@ void AWaterBomb::CreateExit()
 
 void AWaterBomb::BombBegin()
 {
-	ACAGameMode* CulGameMode = GetGameMode();
-	if (nullptr == CulGameMode)
-	{
-		if (nullptr != WaterBombThisGameMode)
-		{
-			CulGameMode = WaterBombThisGameMode;
-		}
-	}
+	ACAGameMode* CulGameModexxx = CulGameMode;
+	
 
-	if (nullptr == CulGameMode->GetCurMap())
-	{
-		CulGameMode->SetCurMap(WaterBombThisGameMode->GetCurMap());
-	}
+	std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(CulGameModexxx->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));
 
-	std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));
 	if (SetWaterCourseToken == false)
 	{
 		WaterCourse->WaterCourseToken = WaterCourse_Token;
