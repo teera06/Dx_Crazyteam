@@ -49,6 +49,16 @@ public:
 	{
 		Renderer->SetActive(false);
 	}
+
+	void SetIsPossessed(bool _IsPossess)
+	{
+		IsPossessed = _IsPossess;
+	}
+
+	bool GetIsPossessed()
+	{
+		return IsPossessed;
+	}
 	
 	void DepthUpdate();
 
@@ -59,6 +69,9 @@ protected:
 private:
 	EMapObjectType Type = EMapObjectType::None;
 	POINT CurPos = { 0,0 };
+
+	//bush 관련 변수
+	bool IsPossessed = false;
 
 };
 

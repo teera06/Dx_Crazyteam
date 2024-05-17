@@ -17,11 +17,11 @@
 #include "Camp.h"
 #include "WaterBomb.h"
 #include "OtherBomb.h"
-#include "OtherBomb.h"
+#include "OtherUI.h"
 #include "OtherWaterCourse.h"
 #include "CAGameMode.h"
 #include "BaseMap.h"
-
+#include "MapUI.h"
 #include <EngineBase/NetObject.h>
 
 ASubServerLevel::ASubServerLevel()
@@ -42,7 +42,8 @@ void ASubServerLevel::BeginPlay()
 	Super::BeginPlay();
 	// TestThread.Start();
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
-	Camera->SetActorLocation(FVector(0.0f, 0.0f, -400.0f));
+	//Camera->SetActorLocation(FVector(90.0f, 0.0f, -400.0f));
+	Camera->SetActorLocation(FVector(80.0f, 1.0f, -1000.0f));
 
 	//Village = GetWorld()->SpawnActor<AVillage>("Village");
 	//SetCurMap(Village);
@@ -52,9 +53,18 @@ void ASubServerLevel::BeginPlay()
 	Camp->SetCurGameMode(this);
 
 
+	MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
+	MapUI->SetCurGameMode(this);
+	SetUI(MapUI);
+	FVector Pos = MapUI->GetActorLocation();
+	Pos.Z = 100.f;
+	MapUI->SetActorLocation(Pos);
+
+
 	MainPlayer = GetWorld()->SpawnActor<APlayer>("Player");
 	MainPlayer->SetCurGameMode(this);
 	SetMainPlayer(MainPlayer);
+
 
 
 }
@@ -134,6 +144,7 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 				{
 					Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
 					Bomb->SetObjectToken(_Packet->GetObjectToken());
+					Bomb->SetCurGameMode(this);
 					Bomb->CreateWaterBomb();
 				}
 				Bomb->PushProtocol(_Packet);
@@ -159,6 +170,24 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 					Bomb->PushProtocol(_Packet);
 				});
 		});	
+
+	Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
+		{
+			// 다른 사람들한테 이 오브젝트에 대해서 알리고
+			UGame_Core::Net->Send(_Packet);
+
+			GetWorld()->PushFunction([=]()
+				{
+					AOtherUI* Time = UNetObject::GetNetObject<AOtherUI>(_Packet->GetObjectToken());
+					if (nullptr == Time)
+					{
+						Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
+						Time->SetObjectToken(_Packet->GetObjectToken());
+					}
+					Time->PushProtocol(_Packet);
+				});
+		});
+
 }
 
 void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
@@ -189,6 +218,7 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 			{
 				Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
 				Bomb->SetObjectToken(_Packet->GetObjectToken());
+				Bomb->SetCurGameMode(this);
 				Bomb->CreateWaterBomb();
 			}
 			Bomb->PushProtocol(_Packet);
@@ -216,7 +246,24 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 				});
 		});
 
-	
+
+	Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
+		{
+			// 다른 사람들한테 이 오브젝트에 대해서 알리고
+			GetWorld()->PushFunction([=]()
+				{
+					int Test = _Packet->GetObjectToken();
+
+					AOtherUI* Time = UNetObject::GetNetObject<AOtherUI>(_Packet->GetObjectToken());
+					if (nullptr == Time)
+					{
+						Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
+						Time->SetObjectToken(_Packet->GetObjectToken());
+					}
+					Time->PushProtocol(_Packet);
+
+				});
+		});	
 }
 
 void ASubServerLevel::LevelEnd(ULevel* _DeltaTime)

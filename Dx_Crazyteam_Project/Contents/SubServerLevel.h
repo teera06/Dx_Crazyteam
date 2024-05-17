@@ -7,6 +7,7 @@
 #include "CAGameMode.h"
 
 // Ό³Έν :
+class AMapUI;
 class APlayer;
 class UEngineNetWindow;
 class AServerPlayer;
@@ -38,5 +39,6 @@ private:
 	std::shared_ptr<UEngineNetWindow> subNetWindow;
 	std::shared_ptr<AVillage> Village = nullptr;
 	std::shared_ptr<APlayer> MainPlayer = nullptr;
+	std::shared_ptr<AMapUI> MapUI = nullptr;
 };
 

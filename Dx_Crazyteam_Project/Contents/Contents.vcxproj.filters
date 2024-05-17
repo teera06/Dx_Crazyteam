@@ -103,6 +103,9 @@
     <Filter Include="MapObject\MoveBlock\CampHpBlock">
       <UniqueIdentifier>{76bd974b-6be3-4d9d-bc97-6fc4077f063b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MapObject\HideBlock">
+      <UniqueIdentifier>{977ca052-993d-4aae-978b-21d340e48be2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -266,6 +269,18 @@
     </ClInclude>
     <ClInclude Include="OtherWaterCourse.h">
       <Filter>Level\Surver\PublicOBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="Bush.h">
+      <Filter>MapObject\HideBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="TownBush.h">
+      <Filter>MapObject\HideBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherUI.h">
+      <Filter>Level\Surver\PublicOBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="MapStateValue.h">
+      <Filter>Option</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -432,6 +447,18 @@
     </ClCompile>
     <ClCompile Include="OtherWaterCourse.cpp">
       <Filter>Level\Surver\PublicOBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="Bush.cpp">
+      <Filter>MapObject\HideBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="TownBush.cpp">
+      <Filter>MapObject\HideBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherUI.cpp">
+      <Filter>Level\Surver\PublicOBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="MapStateValue.cpp">
+      <Filter>Option</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

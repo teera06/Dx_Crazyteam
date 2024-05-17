@@ -19,10 +19,40 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Red_Bazzi_Move_Up", "bazzi_up.png", AnimationInter, true, 0, 3);
 	Renderer->CreateAnimation("Red_Bazzi_Move_Down", "bazzi_down.png", AnimationInter, true, 0, 3);
 	Renderer->CreateAnimation("Red_Bazzi_Trap", "bazzi_trap_long.png", AnimationInter, false, 6, 31);
-	//Renderer->CreateAnimation("Red_Bazzi_Trap_Last", "bazzi_trap.png", AnimationInter * 2, false, 2, 3);
 	Renderer->CreateAnimation("Red_Bazzi_Rescue", "bazzi_rescue.png", 0.1f, false, 0, 2);
 	Renderer->CreateAnimation("Red_Bazzi_Die", "bazzi_die.png", 0.1f, false, 0, 5);
-	//Renderer->CreateAnimation("Red_Bazzi_Die_Last", "bazzi_die.png", 0.1f, false, 3, 4);
+	Renderer->CreateAnimation("Red_Bazzi_GameOn1", "bazzi_1_red.png", AnimationInter * 0.5f, true, 45, 48);
+	Renderer->CreateAnimation("Red_Bazzi_GameOn2", "bazzi_1_red.png", AnimationInter, false, 49, 58);
+	
+	//블루 배찌 애니메이션
+	Renderer->CreateAnimation("Blue_Bazzi_Idle_Up", "Bazzi_1_blue.png", AnimationInter, false, 12, 12);
+	Renderer->CreateAnimation("Blue_Bazzi_Idle_Down", "Bazzi_1_blue.png", AnimationInter, false, 20, 20);
+	Renderer->CreateAnimation("Blue_Bazzi_Idle_Right", "Bazzi_1_blue.png", AnimationInter, false, 6, 6);
+	Renderer->CreateAnimation("Blue_Bazzi_Idle_Left", "Bazzi_1_blue.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Blue_Bazzi_Move_Left", "Bazzi_1_blue.png", AnimationInter, true, 0, 5);
+	Renderer->CreateAnimation("Blue_Bazzi_Move_Right", "Bazzi_1_blue.png", AnimationInter, true, 6, 11);
+	Renderer->CreateAnimation("Blue_Bazzi_Move_Up", "Bazzi_1_blue.png", AnimationInter, true, 12, 19);
+	Renderer->CreateAnimation("Blue_Bazzi_Move_Down", "Bazzi_1_blue.png", AnimationInter, true, 20, 27);
+	Renderer->CreateAnimation("Blue_Bazzi_Trap", "Bazzi_4_blue.png", AnimationInter, false, 6, 31);
+	Renderer->CreateAnimation("Blue_Bazzi_Rescue", "Bazzi_2_blue.png", 0.1f, false, 6, 9);
+	Renderer->CreateAnimation("Blue_Bazzi_Die", "Bazzi_2_blue.png", 0.1f, false, 0, 5);
+	Renderer->CreateAnimation("Blue_Bazzi_GameOn1", "Bazzi_1_blue.png", AnimationInter * 0.5f, true, 45, 48);
+	Renderer->CreateAnimation("Blue_Bazzi_GameOn2", "Bazzi_1_blue.png", AnimationInter, false, 49, 58);
+	
+	//레드 다오 애니메이션
+	Renderer->CreateAnimation("Red_Dao_Idle_Up", "Dao_4_red.png", AnimationInter, false, 2, 2);
+	Renderer->CreateAnimation("Red_Dao_Idle_Down", "Dao_4_red.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Red_Dao_Idle_Right", "Dao_4_red.png", AnimationInter, false, 1, 1);
+	Renderer->CreateAnimation("Red_Dao_Idle_Left", "Dao_4_red.png", AnimationInter, false, 3, 3);
+	Renderer->CreateAnimation("Red_Dao_Move_Left", "Dao_1_red.png", AnimationInter, true, 6, 11);
+	Renderer->CreateAnimation("Red_Dao_Move_Right", "Dao_1_red.png", AnimationInter, true, 0, 5);
+	Renderer->CreateAnimation("Red_Dao_Move_Up", "Dao_1_red.png", AnimationInter, true, 12, 17);
+	Renderer->CreateAnimation("Red_Dao_Move_Down", "Dao_1_red.png", AnimationInter, true, 18, 23);
+	Renderer->CreateAnimation("Red_Dao_Trap", "Dao_5_red.png", AnimationInter, false, 0, 25);
+	Renderer->CreateAnimation("Red_Dao_Rescue", "Dao_2_red.png", 0.1f, false, 6, 9);
+	Renderer->CreateAnimation("Red_Dao_Die", "Dao_2_red.png", 0.1f, false, 0, 5);
+	Renderer->CreateAnimation("Red_Dao_GameOn1", "Dao_1_red.png", AnimationInter * 0.5f, true, 24, 27);
+	Renderer->CreateAnimation("Red_Dao_GameOn2", "Dao_1_red.png", AnimationInter, false, 28, 37);
 
 	//블루 다오 애니메이션
 	Renderer->CreateAnimation("Blue_Dao_Idle_Up", "dao_idle.png", AnimationInter, false, 0, 0);
@@ -36,20 +66,8 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Blue_Dao_Trap", "dao_trap_long.png", AnimationInter, false, 0, 25);
 	Renderer->CreateAnimation("Blue_Dao_Rescue", "dao_rescue.png", 0.1f, false, 0, 2);
 	Renderer->CreateAnimation("Blue_Dao_Die", "dao_die.png", 0.1f, false, 0, 5);
-	
-	//레드 다오 애니메이션
-	
-	Renderer->CreateAnimation("Red_Dao_Idle_Up", "Dao_4_red.png", AnimationInter, false, 2, 2);
-	Renderer->CreateAnimation("Red_Dao_Idle_Down", "Dao_4_red.png", AnimationInter, false, 0, 0);
-	Renderer->CreateAnimation("Red_Dao_Idle_Right", "Dao_4_red.png", AnimationInter, false, 1, 1);
-	Renderer->CreateAnimation("Red_Dao_Idle_Left", "Dao_4_red.png", AnimationInter, false, 3, 3);
-	Renderer->CreateAnimation("Red_Dao_Move_Left", "Dao_1_red.png", AnimationInter, true, 6, 11);
-	Renderer->CreateAnimation("Red_Dao_Move_Right", "Dao_1_red.png", AnimationInter, true, 0, 5);
-	Renderer->CreateAnimation("Red_Dao_Move_Up", "Dao_1_red.png", AnimationInter, true, 12, 17);
-	Renderer->CreateAnimation("Red_Dao_Move_Down", "Dao_1_red.png", AnimationInter, true, 18, 23);
-	Renderer->CreateAnimation("Red_Dao_Trap", "Dao_5_red.png", AnimationInter, false, 0, 25);
-	Renderer->CreateAnimation("Red_Dao_Rescue", "Dao_2_red.png", 0.1f, false, 6, 9);
-	Renderer->CreateAnimation("Red_Dao_Die", "Dao_2_red.png", 0.1f, false, 0, 5);
+	Renderer->CreateAnimation("Blue_Dao_GameOn1", "dao_1_blue.png", AnimationInter * 0.5f, true, 24, 27);
+	Renderer->CreateAnimation("Blue_Dao_GameOn2", "dao_1_blue.png", AnimationInter, false, 28, 37);
 
 	//레드 마리드 애니메이션
 	Renderer->CreateAnimation("Red_Marid_Idle_Up", "luxMarid_1.png", AnimationInter, false, 12, 12);
@@ -60,12 +78,26 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Red_Marid_Move_Right", "luxMarid_1.png", AnimationInter, true, 0, 5);
 	Renderer->CreateAnimation("Red_Marid_Move_Up", "luxMarid_1.png", AnimationInter, true, 12, 17);
 	Renderer->CreateAnimation("Red_Marid_Move_Down", "luxMarid_1.png", AnimationInter, true, 18, 23);
-	Renderer->CreateAnimation("Red_Marid_Trap", "luxMarid_5.png", AnimationInter, false, 0, 26);
+	Renderer->CreateAnimation("Red_Marid_Trap", "luxMarid_5.png", AnimationInter, false, 0, 25);
 	Renderer->CreateAnimation("Red_Marid_Rescue", "luxMarid_2.png", 0.1f, false, 6, 9);
 	Renderer->CreateAnimation("Red_Marid_Die", "luxMarid_2.png", 0.1f, false, 0, 5);
-
 	Renderer->CreateAnimation("Red_Marid_GameOn1", "luxMarid_1.png", AnimationInter * 0.5f, true, 24, 27);
 	Renderer->CreateAnimation("Red_Marid_GameOn2", "luxMarid_1.png", AnimationInter, false, 28, 37);
+
+	//블루 마리드 애니메이션
+	Renderer->CreateAnimation("Blue_Marid_Idle_Up", "luxMarid_4_blue.png", AnimationInter, false, 2, 2);
+	Renderer->CreateAnimation("Blue_Marid_Idle_Down", "luxMarid_4_blue.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Blue_Marid_Idle_Right", "luxMarid_4_blue.png", AnimationInter, false, 1, 1);
+	Renderer->CreateAnimation("Blue_Marid_Idle_Left", "luxMarid_4_blue.png", AnimationInter, false, 3, 3);
+	Renderer->CreateAnimation("Blue_Marid_Move_Left", "luxMarid_1_blue.png", AnimationInter, true, 6, 11);
+	Renderer->CreateAnimation("Blue_Marid_Move_Right", "luxMarid_1_blue.png", AnimationInter, true, 0, 5);
+	Renderer->CreateAnimation("Blue_Marid_Move_Up", "luxMarid_1_blue.png", AnimationInter, true, 12, 17);
+	Renderer->CreateAnimation("Blue_Marid_Move_Down", "luxMarid_1_blue.png", AnimationInter, true, 18, 23);
+	Renderer->CreateAnimation("Blue_Marid_Trap", "luxMarid_5_blue.png", AnimationInter, false, 0, 25);
+	Renderer->CreateAnimation("Blue_Marid_Rescue", "luxMarid_2_blue.png", 0.1f, false, 6, 9);
+	Renderer->CreateAnimation("Blue_Marid_Die", "luxMarid_2_blue.png", 0.1f, false, 0, 5);
+	Renderer->CreateAnimation("Blue_Marid_GameOn1", "luxMarid_1_blue.png", AnimationInter * 0.5f, true, 24, 27);
+	Renderer->CreateAnimation("Blue_Marid_GameOn2", "luxMarid_1_blue.png", AnimationInter, false, 28, 37);
 
 
 	// CreateState
@@ -108,9 +140,8 @@ void APlayer::StateInit()
 void APlayer::GameOnStart()
 {
 	InputOff();
-
+	GameOnTime = 1.5f;
 	Renderer->ChangeAnimation((GetAnimationName("GameOn1")));
-
 }
 
 void APlayer::GameOn(float _DeltaTime)
@@ -127,7 +158,7 @@ void APlayer::GameOn(float _DeltaTime)
 		{
 			InputOn();
 			State.ChangeState("Idle");
-
+			return;
 		}
 
 	}

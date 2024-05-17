@@ -154,17 +154,7 @@ void AWaterCourse::CreateCenterTick(float _DeltaTime)
 
 	if (false == b_BombCountUpdateOne)
 	{
-		ACAGameMode* TestGameMode = GetGameMode();
-		if (nullptr == TestGameMode)
-		{
-			TestGameMode = BombGameMode;
-			if (nullptr == TestGameMode)
-			{
-				TestGameMode = WaterBombGameMode;
-			}
-		}
-
-		std::shared_ptr<APlayer> TestPlayer = TestGameMode->GetPlayer();
+		std::shared_ptr<APlayer> TestPlayer = GetGameMode()->GetPlayer();
 		int WBCount = TestPlayer->GetWBCount();
 		WBCount += 1;
 		TestPlayer->SetWBCount(WBCount);
@@ -373,7 +363,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject != nullptr)
 				{
 					EMapObjectType type = NextMapObject->GetType();
-					if (type == EMapObjectType::Block)
+					if (type == EMapObjectType::Block || type == EMapObjectType::Bush)
 					{
 						NextMapObject->WaterInteract();
 						UpEnd = true;
@@ -508,7 +498,11 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject != nullptr)
 				{
 					EMapObjectType type = NextMapObject->GetType();
-					if (type == EMapObjectType::Block)
+					if(type == EMapObjectType::Block)
+					{
+						NextMapObject->WaterInteract();
+					}
+					else if (type == EMapObjectType::Bush)
 					{
 						NextMapObject->WaterInteract();
 					}

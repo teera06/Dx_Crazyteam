@@ -69,14 +69,13 @@ void AMainGameMode::LevelEnd(ULevel* _NextLevel)
 void AMainGameMode::GameModeActorInit()
 {
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
-	Camera->SetActorLocation(FVector(0.0f, 0.0f, -400.0f));
+	Camera->SetActorLocation(FVector(80.0f, 1.0f, -1000.0f));
 
 
 
 	std::shared_ptr<ACamp> Camp = GetWorld()->SpawnActor<ACamp>("Camp");
 	SetCurMap(Camp);
 	Camp->SetCurGameMode(this);
-
 
 	Player1 = GetWorld()->SpawnActor<APlayer>("Player1", 0);
 	Player1->SetCurGameMode(this);

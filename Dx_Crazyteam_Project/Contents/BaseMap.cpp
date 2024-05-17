@@ -8,6 +8,7 @@
 #include "CampBlock1.h"
 #include "WaterBomb.h"
 #include "WaterCourse.h"
+#include "Bush.h"
 #include "DummyBlock.h"
 #include "CampMoveBlock1.h"
 #include "CampHpBlock.h"
@@ -19,6 +20,10 @@
 #include "ItemRoller.h"
 #include "ItemFluid.h"
 #include "ItemShoes.h"
+#include "Packets.h"
+#include "Game_Core.h"
+#include "TownBush.h"
+#include "MapStateValue.h"
 
 ABaseMap::ABaseMap()
 {
@@ -95,6 +100,13 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 			return true;
 		}
 		break;
+		case EMapObjectType::Bush:
+		{
+			POINT CheckPoint = PosToPoint(_CheckPos);
+			MapStatus[CheckPoint.y][CheckPoint.x]->PlayerInteract();
+			return true;
+		}
+		break;
 		default:
 			return true;
 			break;
@@ -133,6 +145,28 @@ bool ABaseMap::IsOnWater(FVector _PlayerPos)
 	EMapObjectType Type = MapStatus[CheckPos.y][CheckPos.x]->GetType();
 	
 	if (Type == EMapObjectType::Water) return true;
+	else return false;
+}
+
+bool ABaseMap::IsOnBush(FVector _PlayerPos)
+{
+	POINT CheckPos = PosToPoint(_PlayerPos);
+
+	if (MapStatus[CheckPos.y][CheckPos.x] == nullptr) return false;
+
+	EMapObjectType Type = MapStatus[CheckPos.y][CheckPos.x]->GetType();
+
+	if (Type == EMapObjectType::Bush) return true;
+	else return false;
+}
+
+bool ABaseMap::IsOnBush(int _Y, int _X)
+{
+	if (MapStatus[_Y][_X] == nullptr) return false;
+
+	EMapObjectType Type = MapStatus[_Y][_X]->GetType();
+
+	if (Type == EMapObjectType::Bush) return true;
 	else return false;
 }
 
@@ -214,6 +248,11 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 	{
 		
 	}
+	case EMapObject::TownBush:
+	{
+		MapObj = GetWorld()->SpawnActor<ATownBush>("TownBush");
+		break;
+	}
 	case EMapObject::CampHPBlock:
 	{
 		MapObj = GetWorld()->SpawnActor<ACampHpBlock>("CampHPBlock");
@@ -224,6 +263,7 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 		std::shared_ptr<AWaterBomb> TempObj = GetWorld()->SpawnActor<AWaterBomb>("CampBlock");
 		TempObj->SetActorLocation(PushPos);
 		TempObj->CreateWaterBomb();
+		UMapStateValue::st_ACAGameMode = GetGameMode();
 		MapObj = TempObj;
 		break;
 	}
@@ -232,8 +272,6 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 		std::shared_ptr<AWaterCourse> TempObj = GetWorld()->SpawnActor<AWaterCourse>("CampBlock");
 		TempObj->SetActorLocation(PushPos);
 		TempObj->CreateWaterCenter();
-		TempObj->BaseToSetGameMode(GetGameMode());
-		TempObj->SetWaterBombGameMode(GetGameMode());
 		MapObj = TempObj;
 		break;
 	}
@@ -317,8 +355,28 @@ void ABaseMap::PushMapObject(std::shared_ptr<AMapObject> _Obj, int _Y, int _X)
 
 void ABaseMap::MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX, int _PY, int _PX)
 {
-	PushMapObject(_Obj, _NY, _NX);
-	MapStatus[_PY][_PX] = nullptr;
+	if (MapStatus[_NY][_NX] == nullptr)
+	{
+		PushMapObject(_Obj, _NY, _NX);
+		MapStatus[_PY][_PX] = nullptr;
+	}
+	else
+	{
+		if (MapStatus[_NY][_NX]->GetType() == EMapObjectType::Bush)
+		{
+			ABush* Bush = dynamic_cast<ABush*>(MapStatus[_NY][_NX].get());
+			Bush->SetPossessBlock(_Obj);
+
+			FVector PushPos = PointToPos(_NY, _NX);
+
+			_Obj->SetActorLocation(PushPos);
+			_Obj->SetCurPos(POINT(_NX, _NY));
+			_Obj->SetCurGameMode(GetGameMode());
+			_Obj->SetIsPossessed(true);
+
+			MapStatus[_PY][_PX] = nullptr;
+		}
+	}
 }
 
 std::shared_ptr<AMapObject> ABaseMap::SpawnItemObject(int _Y, int _X, EItemType _Item)
@@ -371,6 +429,33 @@ std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(int _Y, int _X)
 
 void ABaseMap::DestroyMapObject(int _Y, int _X)
 {
+	//EMapObjectType Type = MapStatus[_Y][_X]->GetType();
+
+	//switch (Type)
+	//{
+	////case EMapObjectType::Block:
+	////	break;
+	////case EMapObjectType::Bush:
+	////	break;
+	////case EMapObjectType::Water:
+	////	break;
+	////case EMapObjectType::WaterBalloon:
+	////	break;
+	//case EMapObjectType::Item:
+	//{
+	//	int ReleaseObjectToken = MapStatus[_Y][_X]->GetObjectToken();
+
+	//	std::shared_ptr<UActorUpdatePacket> Packet = std::make_shared<UActorUpdatePacket>();
+	//	Packet->SetObjectToken(ReleaseObjectToken);
+	//	Packet->IsDestroy = true;
+	//	Packet->ObjectType = static_cast<int>(EObjectType::Item);
+	//	UGame_Core::Net->Send(Packet);
+	//	break;
+	//}
+	//default:
+	//	break;
+	//}
+	
 	MapStatus[_Y][_X]->Destroy();
 	MapStatus[_Y][_X] = nullptr;
 }

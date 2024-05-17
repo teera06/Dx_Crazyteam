@@ -24,6 +24,8 @@ public:
 	bool IsEmpty(FVector _PlayerPos);
 	bool IsEmpty(int _Y, int _X);
 	bool IsOnWater(FVector _PlayerPos);
+	bool IsOnBush(FVector _PlayerPos);
+	bool IsOnBush(int _Y, int _X);
 
 	std::shared_ptr<AMapObject> AddMapObject(int _Y, int _X, EMapObject _MapObjectType, EItemType _Item = EItemType::None);
 	std::shared_ptr<AMapObject> SpawnItemObject(int _Y, int _X, EItemType _Item);
@@ -35,6 +37,16 @@ public:
 	}
 	void PushMapObject(std::shared_ptr<AMapObject> _Obj, int _Y, int _X);
 	void MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX, int _PY, int _PX);
+
+	EGimmickType GetGimmickType(int _Y, int _X)
+	{
+		return GimmickStatus[_Y][_X];
+	}
+
+	void SetGimickType(int _Y, int _X, EGimmickType _Type)
+	{
+		GimmickStatus[_Y][_X] = _Type;
+	}
 
 	std::shared_ptr<AMapObject> SpawnWaterBomb(FVector _SpawnPos);
 	std::shared_ptr<AMapObject> SpawnWaterBomb(int _Y, int _X);
@@ -50,6 +62,7 @@ protected:
 	UDefaultSceneComponent* Root = nullptr;
 
 	std::vector<std::vector<std::shared_ptr<AMapObject>>> MapStatus;
+	std::vector<std::vector<EGimmickType>> GimmickStatus;
 private:
 };
 
