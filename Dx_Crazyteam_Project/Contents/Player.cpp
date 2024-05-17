@@ -156,15 +156,16 @@ void APlayer::SetCharacterType(ECharacterType _Type)
 		break;
 	}
 
-	SettingZValue();
 }
 
 void APlayer::SettingZValue()
 {
 	FVector Pos = GetActorLocation();
-	Pos.Z = -Pos.Y;
+	POINT Idx = GetGameMode()->GetCurMap()->PosToPoint(Pos);
+	Pos.Z = -static_cast<float>(Idx.y) - 0.1f;
+	
 	SetActorLocation(Pos);
 
-	Pos.Z = -Pos.Y + 0.1f;
+	Pos.Z += 0.1f;
 	Shadow->SetActorLocation(Pos);
 }
