@@ -52,6 +52,17 @@ void APlayer::Tick(float _DeltaTime)
 	//Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 0));
 
 
+	if (true == GetGameMode()->GetCurMap()->IsOnBush(GetActorLocation()))
+	{
+		Renderer->SetActive(false);
+		Shadow->ShadowRenderOff();
+	}
+	else 
+	{
+		Renderer->SetActive(true);
+		Shadow->ShadowRenderOn();
+	}
+
 	/* 테스트용 */
 	if (true == IsDown(VK_F1))
 	{

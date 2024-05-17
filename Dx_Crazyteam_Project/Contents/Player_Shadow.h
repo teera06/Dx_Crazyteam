@@ -13,6 +13,16 @@ public :
 	APlayer_Shadow(APlayer_Shadow& _Other) noexcept				 = delete;
 	APlayer_Shadow& operator =(const APlayer_Shadow& _Other)	 = delete;
 	APlayer_Shadow& operator =(APlayer_Shadow& _Other) noexcept	 = delete;
+	
+	void ShadowRenderOn()
+	{
+		Renderer->SetActive(true);
+	}
+
+	void ShadowRenderOff()
+	{
+		Renderer->SetActive(false);
+	}
 
 protected:
 	void BeginPlay() override;
