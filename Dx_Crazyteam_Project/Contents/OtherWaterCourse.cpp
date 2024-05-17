@@ -1,5 +1,5 @@
 #include "PreCompile.h"
-#include "OtherBomb.h"
+#include "OtherWaterCourse.h"
 #include <EngineCore/Collision.h>
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/DefaultSceneComponent.h>
@@ -7,28 +7,27 @@
 #include "Packets.h"
 #include "EngineBase/EngineTime.h"
 
-AOtherBomb::AOtherBomb()
+AOtherWaterCourse::AOtherWaterCourse()
 {
 	UEngineTime Time;
 	OherBomb_MilliSecond = Time.GetCurTime().MilliSecond;
 	OherBomb_Second = Time.GetCurTime().Second;
 }
 
-AOtherBomb::~AOtherBomb()
+AOtherWaterCourse::~AOtherWaterCourse()
 {
 }
 
-void AOtherBomb::BeginPlay()
+void AOtherWaterCourse::BeginPlay()
 {
-	AWaterBomb::BeginPlay();
+	AWaterCourse::BeginPlay();
 
 	Sub_MilliSecond = OherBomb_MilliSecond - Bomb_MilliSecond;
 	Sub_Second = OherBomb_Second - Bomb_Second;
 	OtherCreate = true;
-
 }
 
-void AOtherBomb::Tick(float _DeltaTime)
+void AOtherWaterCourse::Tick(float _DeltaTime)
 {
 	std::shared_ptr<UEngineProtocol> Protocol = nullptr;
 
@@ -48,15 +47,10 @@ void AOtherBomb::Tick(float _DeltaTime)
 
 			std::shared_ptr<UWaterBombUpdatePacket> UpdatePacket = std::dynamic_pointer_cast<UWaterBombUpdatePacket>(Protocol);
 
-			if (UpdatePacket->ObjectType == static_cast<int>(EObjectType::WaterBomb))
+			if (UpdatePacket->ObjectType == static_cast<int>(EObjectType::WaterCourse))
 			{
 				SetActorLocation(UpdatePacket->Pos);
 			}
-			//else if (UpdatePacket->ObjectType == static_cast<int>(EObjectType::WaterBomb))
-			//{
-			//	AWaterBomb::SetActorLocation(UpdatePacket->Pos);
-			//}
-		
 			break;
 		}
 		default:
@@ -64,7 +58,7 @@ void AOtherBomb::Tick(float _DeltaTime)
 		}
 	} while (nullptr != Protocol);
 
-	
-	AWaterBomb::Tick(_DeltaTime);
+
+	AWaterCourse::Tick(_DeltaTime);
 }
 

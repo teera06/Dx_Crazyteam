@@ -6,10 +6,12 @@
 #include "Player.h"
 #include "WaterBomb.h"
 
+int AWaterCourse::WaterCourseToken = 0;
+bool AWaterCourse::SetToken = false;
+
 AWaterCourse::AWaterCourse()
 {
-	//Renderer = CreateDefaultSubObject<USpriteRenderer>("Render");
-	//Renderer->SetupAttachment(Root);
+
 }
 
 AWaterCourse::~AWaterCourse()

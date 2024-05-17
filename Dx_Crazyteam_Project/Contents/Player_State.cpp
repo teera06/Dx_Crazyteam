@@ -21,7 +21,7 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Red_Bazzi_Trap", "bazzi_trap_long.png", AnimationInter, false, 6, 31);
 	//Renderer->CreateAnimation("Red_Bazzi_Trap_Last", "bazzi_trap.png", AnimationInter * 2, false, 2, 3);
 	Renderer->CreateAnimation("Red_Bazzi_Rescue", "bazzi_rescue.png", 0.1f, false, 0, 2);
-	Renderer->CreateAnimation("Red_Bazzi_Die", "bazzi_die.png", 0.1f, false, 0, 4);
+	Renderer->CreateAnimation("Red_Bazzi_Die", "bazzi_die.png", 0.1f, false, 0, 5);
 	//Renderer->CreateAnimation("Red_Bazzi_Die_Last", "bazzi_die.png", 0.1f, false, 3, 4);
 
 	//블루 다오 애니메이션
@@ -33,14 +33,23 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Blue_Dao_Move_Right", "dao_right.png", AnimationInter, true, 0, 3);
 	Renderer->CreateAnimation("Blue_Dao_Move_Up", "dao_up.png", AnimationInter, true, 0, 3);
 	Renderer->CreateAnimation("Blue_Dao_Move_Down", "dao_down.png", AnimationInter, true, 0, 3);
-	Renderer->CreateAnimation("Blue_Dao_Trap", "dao_trap_long.png", AnimationInter, false, 6, 31);
-	//Renderer->CreateAnimation("Blue_Dao_Trap_Last", "dao_trap.png", AnimationInter * 2, false, 2, 3);
+	Renderer->CreateAnimation("Blue_Dao_Trap", "dao_trap_long.png", AnimationInter, false, 0, 25);
 	Renderer->CreateAnimation("Blue_Dao_Rescue", "dao_rescue.png", 0.1f, false, 0, 2);
-	Renderer->CreateAnimation("Blue_Dao_Die", "dao_die.png", 0.1f, false, 0, 2);
-	Renderer->CreateAnimation("Blue_Dao_Die_Last", "dao_die.png", 0.1f, false, 3, 4);
+	Renderer->CreateAnimation("Blue_Dao_Die", "dao_die.png", 0.1f, false, 0, 5);
 	
 	//레드 다오 애니메이션
-	Renderer->CreateAnimation("Red_Dao_Die", "dao_2_red.png", 0.1f, false, 0, 5);
+	
+	Renderer->CreateAnimation("Red_Dao_Idle_Up", "Dao_4_red.png", AnimationInter, false, 2, 2);
+	Renderer->CreateAnimation("Red_Dao_Idle_Down", "Dao_4_red.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Red_Dao_Idle_Right", "Dao_4_red.png", AnimationInter, false, 1, 1);
+	Renderer->CreateAnimation("Red_Dao_Idle_Left", "Dao_4_red.png", AnimationInter, false, 3, 3);
+	Renderer->CreateAnimation("Red_Dao_Move_Left", "Dao_1_red.png", AnimationInter, true, 6, 11);
+	Renderer->CreateAnimation("Red_Dao_Move_Right", "Dao_1_red.png", AnimationInter, true, 0, 5);
+	Renderer->CreateAnimation("Red_Dao_Move_Up", "Dao_1_red.png", AnimationInter, true, 12, 17);
+	Renderer->CreateAnimation("Red_Dao_Move_Down", "Dao_1_red.png", AnimationInter, true, 18, 23);
+	Renderer->CreateAnimation("Red_Dao_Trap", "Dao_5_red.png", AnimationInter, false, 0, 25);
+	Renderer->CreateAnimation("Red_Dao_Rescue", "Dao_2_red.png", 0.1f, false, 6, 9);
+	Renderer->CreateAnimation("Red_Dao_Die", "Dao_2_red.png", 0.1f, false, 0, 5);
 
 	//레드 마리드 애니메이션
 	Renderer->CreateAnimation("Red_Marid_Idle_Up", "luxMarid_1.png", AnimationInter, false, 12, 12);
@@ -51,18 +60,16 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Red_Marid_Move_Right", "luxMarid_1.png", AnimationInter, true, 0, 5);
 	Renderer->CreateAnimation("Red_Marid_Move_Up", "luxMarid_1.png", AnimationInter, true, 12, 17);
 	Renderer->CreateAnimation("Red_Marid_Move_Down", "luxMarid_1.png", AnimationInter, true, 18, 23);
-
-	Renderer->CreateAnimation("Red_Marid_Trap", "luxMarid_5.png", AnimationInter * 2, true, 0, 26);
+	Renderer->CreateAnimation("Red_Marid_Trap", "luxMarid_5.png", AnimationInter, false, 0, 26);
 	Renderer->CreateAnimation("Red_Marid_Rescue", "luxMarid_2.png", 0.1f, false, 6, 9);
 	Renderer->CreateAnimation("Red_Marid_Die", "luxMarid_2.png", 0.1f, false, 0, 5);
-	//Renderer->CreateAnimation("Red_Marid_Die_Last", "luxMarid_2.png", 0.1f, false, 3, 4);
 
-	Renderer->CreateAnimation("Red_Marid_GameStart_1", "luxMarid_1.png", AnimationInter * 0.5f, true, 24, 27);
-	Renderer->CreateAnimation("Red_Marid_GameStart_2", "luxMarid_1.png", AnimationInter, true, 28, 36);
+	Renderer->CreateAnimation("Red_Marid_GameOn1", "luxMarid_1.png", AnimationInter * 0.5f, true, 24, 27);
+	Renderer->CreateAnimation("Red_Marid_GameOn2", "luxMarid_1.png", AnimationInter, false, 28, 37);
 
 
 	// CreateState
-	State.CreateState("GameStart");
+	State.CreateState("GameOn");
 	State.CreateState("Idle");
 	State.CreateState("Move");
 	State.CreateState("Trap");
@@ -73,6 +80,7 @@ void APlayer::StateInit()
 	State.CreateState("RideMove");
 
 	// StartFunction
+	State.SetStartFunction("GameOn", std::bind(&APlayer::GameOnStart, this));
 	State.SetStartFunction("Idle", std::bind(&APlayer::IdleStart, this));
 	State.SetStartFunction("Move", std::bind(&APlayer::MoveStart, this));
 	State.SetStartFunction("Trap", std::bind(&APlayer::TrapStart, this));
@@ -83,6 +91,7 @@ void APlayer::StateInit()
 	State.SetStartFunction("RideMove", std::bind(&APlayer::RideMoveStart, this));
 
 	// UpdateFunction
+	State.SetUpdateFunction("GameOn", std::bind(&APlayer::GameOn, this, std::placeholders::_1));
 	State.SetUpdateFunction("Idle", std::bind(&APlayer::Idle, this, std::placeholders::_1));
 	State.SetUpdateFunction("Move", std::bind(&APlayer::Move, this, std::placeholders::_1));
 	State.SetUpdateFunction("Trap", std::bind(&APlayer::Trap, this, std::placeholders::_1));
@@ -93,8 +102,38 @@ void APlayer::StateInit()
 	State.SetUpdateFunction("RideMove", std::bind(&APlayer::RideMove, this, std::placeholders::_1));
 
 	// Init
-	State.ChangeState("Idle");
+	State.ChangeState("GameOn");
 }
+
+void APlayer::GameOnStart()
+{
+	InputOff();
+
+	Renderer->ChangeAnimation((GetAnimationName("GameOn1")));
+
+}
+
+void APlayer::GameOn(float _DeltaTime)
+{
+	// 게임 시작 시 플레이어 input off 하고 애니메이션 자동생성
+
+	GameOnTime -= _DeltaTime;
+
+	if (0.0f >= GameOnTime)
+	{
+		Renderer->ChangeAnimation((GetAnimationName("GameOn2")));
+
+		if (true == Renderer->IsCurAnimationEnd())
+		{
+			InputOn();
+			State.ChangeState("Idle");
+
+		}
+
+	}
+
+}
+
 
 void APlayer::IdleStart()
 {
@@ -216,20 +255,6 @@ void APlayer::Trap(float _DeltaTime)
 	}
 	Renderer->AddPosition(TrapDir * TrapMoveSpeed * _DeltaTime);
 
-	//if (TrapAnimationTime < 0.f)
-	//{
-	//	switch (Info->MyType)
-	//	{
-	//	case ECharacterType::Bazzi:
-	//		Renderer->ChangeAnimation("Bazzi_Trap_Last");
-	//		break;
-	//	case ECharacterType::Dao:
-	//		Renderer->ChangeAnimation("Dao_Trap_Last");
-	//		break;
-	//	default:
-	//		break;
-	//	}
-	//}
 
 	// 예시 인터페이스
 	//APlayer* Other = IsOtherPlayer(GetActorLocation());
@@ -274,14 +299,14 @@ void APlayer::DieStart()
 {
 	Renderer->ChangeAnimation(GetAnimationName("Die"));
 
-	DieAniTwinkleActive = true;
+	DieAniTwinkleActive = false;
 	DieTwinkleTime = 0.1f;
 	DieAnimationTime = 2.f;
 }
 
 void APlayer::Die(float _DeltaTime)
 {
-	if (true == Renderer->IsCurAnimationEnd())
+	if (5 == Renderer->GetCurAnimationFrame())
 	{
 		DieAnimationTime -= _DeltaTime;
 		DieTwinkleTime -= _DeltaTime;
@@ -299,7 +324,6 @@ void APlayer::Die(float _DeltaTime)
 			return;
 		}
 	}
-
 }
 
 void APlayer::RealDieStart()
