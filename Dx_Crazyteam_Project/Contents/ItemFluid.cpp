@@ -16,8 +16,8 @@ void AItemFluid::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->CreateAnimation("ItemBubble", "Bubble(1).png", 0.3f, true, 0, 5);
-	Renderer->ChangeAnimation("ItemBubble");
+	Renderer->CreateAnimation("ItemFluid", "Fluid.png", 0.3f, true, 0, 5);
+	Renderer->ChangeAnimation("ItemFluid");
 	Renderer->SetAutoSize(1.f, true);
 }
 
@@ -28,25 +28,8 @@ void AItemFluid::Tick(float _DeltaTime)
 
 void AItemFluid::Action()
 {
-	int iWBPower = GetGameMode()->GetPlayer()->GetPlayerInfo()->MaxWBPower;
-	int iMaxPower = 0;
-
-	switch (GetGameMode()->GetPlayer()->GetPlayerInfo()->MyType)
-	{
-	case ECharacterType::None:
-		return;
-	case ECharacterType::Bazzi:
-		iMaxPower = ConstValue::BazziDefaultWBPower;
-		break;
-	case ECharacterType::Dao:
-		iMaxPower = ConstValue::DaoMaxWBPower;
-		break;
-	case ECharacterType::Marid:
-		//iMaxPower = ConstValue::MaridWBPower;
-		break;
-	default:
-		break;
-	}
+	int iWBPower = GetGameMode()->GetPlayer()->GetPlayerInfo()->WBPower;
+	int iMaxPower = GetGameMode()->GetPlayer()->GetPlayerInfo()->MaxWBPower;
 
 
 	if (iWBPower < iMaxPower)
