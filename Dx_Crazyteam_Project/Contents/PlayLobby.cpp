@@ -2,6 +2,7 @@
 #include "PlayLobby.h"
 
 #include "EngineCore/Image.h"
+#include "EngineBase/EngineDebug.h"
 
 APlayLobby::APlayLobby()
 {
@@ -33,6 +34,7 @@ void APlayLobby::BeginPlay()
 		Room->SetPosition(FVector(-324.f + 106.f * i, 157.f));
 		Room->SetActive(true);
 		RoomVector.push_back(Room);
+		RoomVectorNumber.push_back(false);
 	}
 
 	for (int i = 0; i < 4; i++)
@@ -44,12 +46,13 @@ void APlayLobby::BeginPlay()
 		Room->SetPosition(FVector(-324.f + 106.f * i, 11.f));
 		Room->SetActive(true);
 		RoomVector.push_back(Room);
+		RoomVectorNumber.push_back(false);
 	}
 
 	//Ω√¿€ πˆ∆∞
 	GameStart = CreateWidget<UImage>(GetWorld(), "GameStart");
 	GameStart->CreateAnimation("UnHover", "StartBt_1.png", 0.1f, false, 0, 0);
-	GameStart->CreateAnimation("Hover", "StartBT", 0.1f, true, 0, 1);
+	GameStart->CreateAnimation("Hover", "StartBT", 0.1f, true, 6, 7);
 	GameStart->CreateAnimation("Down", "StartBt_3.png", 0.1f, false, 0, 0);
 	GameStart->AddToViewPort(10);
 	GameStart->SetSprite("StartBt_1.png");
@@ -191,44 +194,13 @@ void APlayLobby::BeginPlay()
 	LobbyCharacterBanner->SetPosition({ 230.0f,237.0f });
 	LobbyCharacterBanner->SetActive(true);
 
-	//Randomex = CreateWidget<UImage>(GetWorld(), "Randomex");
-	//Randomex->AddToViewPort(11);
-	//Randomex->SetSprite("CharatorSelect_Outline_Random.bmp");
-	//Randomex->SetScale({ 281.f, 80.f });
-	//Randomex->SetPosition({ 230.0f,237.0f });
-	//Randomex->SetActive(true);
-
-	//Daoex = CreateWidget<UImage>(GetWorld(), "Daoex");
-	//Daoex->AddToViewPort(11);
-	//Daoex->SetSprite("CharatorSelect_Outline_Dao.bmp");
-	//Daoex->SetScale({ 281.f, 80.f });
-	//Daoex->SetPosition({ 230.0f,237.0f });
-	//Daoex->SetActive(false);
-
-	//Maridex = CreateWidget<UImage>(GetWorld(), "Maridex");
-	//Maridex->AddToViewPort(11);
-	//Maridex->SetSprite("CharatorSelect_Outline_Marid.bmp");
-	//Maridex->SetScale({ 281.f, 80.f });
-	//Maridex->SetPosition({ 230.0f,237.0f });
-	//Maridex->SetActive(false);
-
-	//Kephiex = CreateWidget<UImage>(GetWorld(), "Kephiex");
-	//Kephiex->AddToViewPort(11);
-	//Kephiex->SetSprite("CharatorSelect_Outline_Kephi.bmp");
-	//Kephiex->SetScale({ 281.f, 80.f });
-	//Kephiex->SetPosition({ 230.0f,237.0f });
-	//Kephiex->SetActive(false);
-
-	//Bazziex = CreateWidget<UImage>(GetWorld(), "Bazziex");
-	//Bazziex->AddToViewPort(11);
-	//Bazziex->SetSprite("CharatorSelect_Outline_Bazzi.bmp");
-	//Bazziex->SetScale({ 281.f, 80.f });
-	//Bazziex->SetPosition({ 230.0f,237.0f });
-	//Bazziex->SetActive(false);
-
 	//∆¿ º±≈√
 	
 	TeamA = CreateWidget<UImage>(GetWorld(), "TeamA");
+	TeamA->CreateAnimation("UnHover", "ATeam.png", 0.1f, false, 0, 0);
+	TeamA->CreateAnimation("Hover", "ATeam.png", 0.1f, false, 0, 0);
+	TeamA->CreateAnimation("Down", "ATeam_Down.png", 0.1f, false, 0, 0);
+	TeamA->CreateAnimation("UP", "ATeam_Pick.png", 0.1f, false, 0, 0);
 	TeamA->AddToViewPort(12);
 	TeamA->SetSprite("ATeam.png");
 	TeamA->SetScale({ 100.f, 50.f });
@@ -236,6 +208,10 @@ void APlayLobby::BeginPlay()
 	TeamA->SetActive(true);
 
 	TeamB = CreateWidget<UImage>(GetWorld(), "TeamB");
+	TeamB->CreateAnimation("UnHover", "BTeam.png", 0.1f, false, 0, 0);
+	TeamB->CreateAnimation("Hover", "BTeam.png", 0.1f, false, 0, 0);
+	TeamB->CreateAnimation("Down", "BTeam_Down.png", 0.1f, false, 0, 0);
+	TeamB->CreateAnimation("UP", "BTeam_Pick.png", 0.1f, false, 0, 0);
 	TeamB->AddToViewPort(12);
 	TeamB->SetSprite("BTeam.png");
 	TeamB->SetScale({ 100.f, 50.f });
@@ -260,59 +236,66 @@ void APlayLobby::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 	PlayLobbyUI->SetActive(true);
 
-	TeamA->SetUnHover([=] {
-		if ("UP" != RandomBT->GetUiAniName())
-		{
-			TeamA->SetSprite("ATeam.png");
-		}
-		SwitchON = false;
-		});
-	TeamA->SetHover([=] {
-		{
-			if (false == SwitchON && "UP" != TeamA->GetUiAniName())
-			{
-				TeamA->SetSprite("ATeam.png");
-				SwitchON = true;
-			}
-			else if (IsDown(VK_LBUTTON) && true == SwitchON)
-			{
-				TeamA->SetSprite("ATeam_Down.png");
-			}
-			else if (IsUp(VK_LBUTTON))
-			{
-				TeamA->SetSprite("ATeam_Pick.png");
-				//RandomBT->ChangeAnimation("Up");
-			}
-		}
-		});
 
+	//∆¿ º±≈√
+	{
+		TeamA->SetUnHover([=] {
+			if ("UP" != TeamA->GetUiAniName())
+			{
+				TeamA->ChangeAnimation("UnHover");
+			}
+			TeamSwitchON = false;
+			});
+		TeamA->SetHover([=] {
+			{
+				if (false == TeamSwitchON && "UP" != TeamA->GetUiAniName())
+				{
+					TeamA->ChangeAnimation("Hover");
+					TeamSwitchON = true;
+				}
+				else if (IsDown(VK_LBUTTON) && true == TeamSwitchON)
+				{
+					TeamA->ChangeAnimation("Down");
+				}
+				else if (IsUp(VK_LBUTTON))
+				{
+					TeamA->ChangeAnimation("UP");
+					IsTeamSelectSharacter = true;
+					SwapSelectCharacter(TeamA);
+				}
+			}
+			});
 
-	TeamB->SetUnHover([=] {
-		if ("UP" != RandomBT->GetUiAniName())
-		{
-			TeamB->SetSprite("BTeam.png");
-		}
-		SwitchON = false;
-		});
-	TeamB->SetHover([=] {
-		{
-			if (false == SwitchON && "UP" != TeamB->GetUiAniName())
+	}
+	{
+		TeamB->SetUnHover([=] {
+			if ("UP" != TeamB->GetUiAniName())
 			{
-				TeamB->SetSprite("BTeam.png");
-				SwitchON = true;
+				TeamB->ChangeAnimation("UnHover");
 			}
-			else if (IsDown(VK_LBUTTON) && true == SwitchON)
+			TeamSwitchON = false;
+			});
+		TeamB->SetHover([=] {
 			{
-				TeamB->SetSprite("BTeam_Down.png");
-			}
-			else if (IsUp(VK_LBUTTON))
-			{
-				TeamB->SetSprite("BTeam_Pick.png");
-				//RandomBT->ChangeAnimation("Up");
-			}
-		}
-		});
+				if (false == TeamSwitchON && "UP" != TeamB->GetUiAniName())
+				{
+					TeamB->ChangeAnimation("Hover");
+					TeamSwitchON = true;
+				}
+				else if (IsDown(VK_LBUTTON) && true == TeamSwitchON)
+				{
+					TeamB->ChangeAnimation("Down");
+				}
 
+				else if (IsUp(VK_LBUTTON))
+				{
+					TeamB->ChangeAnimation("UP");
+					IsTeamSelectSharacter = true;
+					SwapSelectCharacter(TeamB);
+				}
+			}
+			});
+	}
 
 
 
@@ -330,6 +313,8 @@ void APlayLobby::Tick(float _DeltaTime)
 		GameStart->SetDown([=] {
 			GameStart->ChangeAnimation("Down");
 			});
+
+
 
 	}
 
@@ -358,7 +343,6 @@ void APlayLobby::Tick(float _DeltaTime)
 					SwapSelectCharacter(RandomBT);
 					checkUI->SetPosition({ 152.0f,183.0f });
 					checkUI->SetActive(true);
-					//RandomBT->ChangeAnimation("Up");
 				}
 			}
 			});
@@ -391,75 +375,11 @@ void APlayLobby::Tick(float _DeltaTime)
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Dao.bmp");
 					checkUI->SetPosition({ 222.0f,183.0f });
 					checkUI->SetActive(true);
-					//DaoBT->ChangeAnimation("Up");
 				}
 
 			}
 			});
 	}
-	//{
-	//	DizniBT->SetUnHover([=] {
-	//		DizniBT->ChangeAnimation("UnHover");
-	//		SwitchON = false;
-	//		});
-	//	DizniBT->SetHover([=] {
-	//		{
-	//			if (false == SwitchON)
-	//			{
-	//				DizniBT->ChangeAnimation("Hover");
-	//				SwitchON = true;
-
-	//			}
-	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
-	//			{
-	//				DizniBT->ChangeAnimation("Down");
-
-	//			}
-	//		}
-	//		});
-	//}
-	//{
-	//	MosBT->SetUnHover([=] {
-	//		MosBT->ChangeAnimation("UnHover");
-	//		SwitchON = false;
-	//		});
-	//	MosBT->SetHover([=] {
-	//		{
-	//			if (false == SwitchON)
-	//			{
-	//				MosBT->ChangeAnimation("Hover");
-	//				SwitchON = true;
-
-	//			}
-	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
-	//			{
-	//				MosBT->ChangeAnimation("Down");
-
-	//			}
-	//		}
-	//		});
-	//}
-	//{
-	//	EthiBT->SetUnHover([=] {
-	//		EthiBT->ChangeAnimation("UnHover");
-	//		SwitchON = false;
-	//		});
-	//	EthiBT->SetHover([=] {
-	//		{
-	//			if (false == SwitchON)
-	//			{
-	//				EthiBT->ChangeAnimation("Hover");
-	//				SwitchON = true;
-
-	//			}
-	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
-	//			{
-	//				EthiBT->ChangeAnimation("Down");
-
-	//			}
-	//		}
-	//		});
-	//}
 	{
 		MaridBT->SetUnHover([=] {
 			if ("UP" != MaridBT->GetUiAniName())
@@ -526,128 +446,72 @@ void APlayLobby::Tick(float _DeltaTime)
 
 			}
 			});
+
+
 	}
-	//{
-	//	UniBT->SetUnHover([=] {
-	//		UniBT->ChangeAnimation("UnHover");
-	//		SwitchON = false;
-	//		});
-	//	UniBT->SetHover([=] {
-	//		{
-	//			if (false == SwitchON)
-	//			{
-	//				UniBT->ChangeAnimation("Hover");
-	//				SwitchON = true;
 
-	//			}
-	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
-	//			{
-	//				UniBT->ChangeAnimation("Down");
-
-	//			}
-	//		}
-	//		});
-	//}
-	//{
-	//	KephiBT->SetUnHover([=] {
-	//		KephiBT->ChangeAnimation("UnHover");
-	//		SwitchON = false;
-	//		Kephiex->SetActive(false);
-	//		});
-	//	KephiBT->SetHover([=] {
-	//		{
-	//			if (false == SwitchON)
-	//			{
-	//				KephiBT->ChangeAnimation("Hover");
-	//				Kephiex->SetActive(true);
-	//				SwitchON = true;
-
-	//			}
-	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
-	//			{
-	//				KephiBT->ChangeAnimation("Down");
-
-	//			}
-	//	
-	//			else if (IsUp(VK_LBUTTON))
-	//			{
-	//				KephiBT->ChangeAnimation("Up");
-	//			}
-	//		}
-	//		});
-	//}
-	//{
-	//	SuBT->SetUnHover([=] {
-	//		SuBT->ChangeAnimation("UnHover");
-	//		SwitchON = false;
-	//		});
-	//	SuBT->SetHover([=] {
-	//		{
-	//			if (false == SwitchON)
-	//			{
-	//				SuBT->ChangeAnimation("Hover");
-	//				SwitchON = true;
-
-	//			}
-	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
-	//			{
-	//				SuBT->ChangeAnimation("Down");
-
-	//			}
-	//		}
-	//		});
-	//}
-	//{
-	//	HooUBT->SetUnHover([=] {
-	//		HooUBT->ChangeAnimation("UnHover");
-	//		SwitchON = false;
-	//		});
-	//	HooUBT->SetHover([=] {
-	//		{
-	//			if (false == SwitchON)
-	//			{
-	//				HooUBT->ChangeAnimation("Hover");
-	//				SwitchON = true;
-
-	//			}
-	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
-	//			{
-	//				HooUBT->ChangeAnimation("Down");
-
-	//			}
-	//		}
-	//		});
-	//}
-	//{
-	//	RayBT->SetUnHover([=] {
-	//		RayBT->ChangeAnimation("UnHover");
-	//		SwitchON = false;
-	//		});
-	//	RayBT->SetHover([=] {
-	//		{
-	//			if (false == SwitchON)
-	//			{
-	//				RayBT->ChangeAnimation("Hover");
-	//				SwitchON = true;
-
-	//			}
-	//			else if (IsDown(VK_LBUTTON) && true == SwitchON)
-	//			{
-	//				RayBT->ChangeAnimation("Down");
-
-	//			}
-	//		}
-	//		});
-	//}
 
 	for (int i = 1; i < 8; i++)
 	{
 		{
-			RoomVector[i]->SetUnHover([=] {
-				RoomVector[i]->SetSprite("Room_0.png");
-				SwitchON = false;
-				});
+
 			RoomVector[i]->SetHover([=] {
+
+				if (false == RoomVectorNumber[i])
+				{
+					RoomVector[i]->SetSprite("Room_1.png");
+				}
+				else if(true == RoomVectorNumber[i])
+				{
+					RoomVector[i]->SetSprite("RoomX_1.png");
+				}
+				}
+			);
+
+
+			RoomVector[i]->SetUnHover([=] {
+
+				if (false == RoomVectorNumber[i])
+				{
+					RoomVector[i]->SetSprite("Room_0.png");
+				}
+				else if(true == RoomVectorNumber[i])
+				{
+					RoomVector[i]->SetSprite("RoomX_0.png");
+				}
+				}
+			);
+
+
+			RoomVector[i]->SetDown([=] {
+
+				if (false == RoomVectorNumber[i])
+				{
+					RoomVectorNumber[i] = false;
+				}
+				else
+				{
+					RoomVectorNumber[i] = true;
+				}
+
+				if (true == RoomO && false == RoomX && IsDown(VK_LBUTTON))
+				{
+					RoomVector[i]->SetSprite("Room_2.png");
+					RoomO = false;
+					RoomX = true;
+				}
+				else
+				{
+					RoomVector[i]->SetSprite("RoomX_2.png");
+					RoomO = true;
+					RoomX = false;
+				}
+				}	
+			);
+
+
+			
+			/*RoomVector[i]->SetHover([=] {
 				{
 					if (false == SwitchON)
 					{
@@ -659,12 +523,17 @@ void APlayLobby::Tick(float _DeltaTime)
 					{
 						RoomVector[i]->SetSprite("Room_2.png");
 					}
-					else if (IsUp(VK_LBUTTON))
-					{
-						RoomVector[i]->SetSprite("RoomX_0.png");
-					}
+		
 				}
 				});
+			RoomVector[i]->SetDown([=] {
+				{
+					RoomVector[i]->SetSprite("RoomX_0.png");
+				}
+
+
+				});*/
+
 		}
 	}
 
@@ -688,7 +557,8 @@ void APlayLobby::Tick(float _DeltaTime)
 		LobbyPlayer[PlayerCount]->AddToViewPort(15);
 		LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
 		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
-		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 225.0f, 100.0f));
+		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-750 + PlayerCount * 105), -20.0f, 100.0f));
+		++PlayerCount;
 	}
 
 }
@@ -700,12 +570,6 @@ void APlayLobby::SwapSelectCharacter(UImage* _SelectCharacter)
 	SelectCharacter = _SelectCharacter;
 }
 
-//void APlayLobby::SwapSelectCharacter(UImage* _SelectCharacterex)
-//{
-//	SelectCharacterex->ChangeAnimation("UnHover");
-//	_SelectCharacterex->ChangeAnimation("Up");
-//	SelectCharacterex = _SelectCharacterex;
-//}
 
 void APlayLobby::SetIsActive(bool _Active)
 {

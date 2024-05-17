@@ -94,6 +94,12 @@
     <Filter Include="MainGameLevel">
       <UniqueIdentifier>{709f3459-cf50-4ec0-8d39-17fd34e73c14}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGameLevel\Intro">
+      <UniqueIdentifier>{c5ec79db-fee8-4c99-a4f9-c43ee99318aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGameLevel\Lobby">
+      <UniqueIdentifier>{e8b38b9b-5555-4285-97e8-c1ffe29b05fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -244,7 +250,13 @@
       <Filter>Item</Filter>
     </ClInclude>
     <ClInclude Include="IntroMainMode.h">
-      <Filter>MainGameLevel</Filter>
+      <Filter>MainGameLevel\Intro</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyMainMode.h">
+      <Filter>MainGameLevel\Lobby</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentsMainDebugWin.h">
+      <Filter>ContentsGUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -398,7 +410,13 @@
       <Filter>Item</Filter>
     </ClCompile>
     <ClCompile Include="IntroMainMode.cpp">
-      <Filter>MainGameLevel</Filter>
+      <Filter>MainGameLevel\Intro</Filter>
+    </ClCompile>
+    <ClCompile Include="LobbyMainMode.cpp">
+      <Filter>MainGameLevel\Lobby</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentsMainDebugWin.cpp">
+      <Filter>ContentsGUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

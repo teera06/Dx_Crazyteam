@@ -7,8 +7,10 @@
 #include "ServerGameMode.h"
 #include "MainGameMode.h"
 #include "SubServerLevel.h"
+#include "IntroMainMode.h"
 
 #include "ContentsDebugWindow.h"
+#include "ContentsMainDebugWin.h"
 
 #include <EngineCore/EngineDebugMsgWindow.h>
 #include <EngineCore/EngineEditorGUI.h>
@@ -40,9 +42,11 @@ void UGame_Core::Initialize()
 	GEngine->CreateLevel<AMainGameMode>("MainGameMode");
 	GEngine->CreateLevel<AServerGameMode>("ServerGameMode");
 	GEngine->CreateLevel<ASubServerLevel>("SubServerLevel");
+	GEngine->CreateLevel<AIntroMainMode>("IntroMainMode");
 	GEngine->ChangeLevel("MainGameMode");
 
 	UEngineEditorGUI::CreateEditorWindow<UContentsDebugWindow>("contentsHelpMe");
+	UEngineEditorGUI::CreateEditorWindow<UContentsMainDebugWin>("MainStart");
 
 }
 
