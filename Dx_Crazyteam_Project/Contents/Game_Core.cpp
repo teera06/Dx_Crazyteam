@@ -129,6 +129,13 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("Dao_4_red.png", 5, 4);
 		UEngineSprite::CreateCutting("Dao_5_red.png", 5, 6);
 
+		//Red Marid
+		UEngineSprite::CreateCutting("luxMarid_1.png", 5, 12);
+		UEngineSprite::CreateCutting("luxMarid_2.png", 5, 2);
+		UEngineSprite::CreateCutting("luxMarid_3.png", 5, 4);
+		UEngineSprite::CreateCutting("luxMarid_4.png", 5, 4);
+		UEngineSprite::CreateCutting("luxMarid_5.png", 5, 6);
+
 	}
 
 	// æ∆¿Ã≈€

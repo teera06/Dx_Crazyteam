@@ -22,4 +22,11 @@ public:
 	static const int DaoMaxSpeed = 7;
 	static const int DaoMaxWBCount = 10;
 	static const int DaoMaxWBPower = 7;
+
+	static const int MaridDefaultSpeed = 4;
+	static const int MaridDefaultWBCount = 2;
+	static const int MaridDefaultWBPower = 1;
+	static const int MaridMaxSpeed = 8;
+	static const int MaridMaxWBCount = 9;
+	static const int MaridMaxWBPower = 6;
 };
