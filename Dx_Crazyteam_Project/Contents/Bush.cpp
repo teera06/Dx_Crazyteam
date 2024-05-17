@@ -25,6 +25,9 @@ void ABush::SetPossessBlock(std::shared_ptr<AMapObject> _Block)
 void ABush::BeginPlay()
 {
 	Super::BeginPlay();
+
+	BreakSetOwner(this);
+	MoveSetOwner(this);
 	
 	SetType(EMapObjectType::Bush);
 }

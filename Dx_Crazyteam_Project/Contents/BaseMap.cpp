@@ -97,6 +97,13 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 			return true;
 		}
 		break;
+		case EMapObjectType::Bush:
+		{
+			POINT CheckPoint = PosToPoint(_CheckPos);
+			MapStatus[CheckPoint.y][CheckPoint.x]->PlayerInteract();
+			return true;
+		}
+		break;
 		default:
 			return true;
 			break;
@@ -135,6 +142,28 @@ bool ABaseMap::IsOnWater(FVector _PlayerPos)
 	EMapObjectType Type = MapStatus[CheckPos.y][CheckPos.x]->GetType();
 	
 	if (Type == EMapObjectType::Water) return true;
+	else return false;
+}
+
+bool ABaseMap::IsOnBush(FVector _PlayerPos)
+{
+	POINT CheckPos = PosToPoint(_PlayerPos);
+
+	if (MapStatus[CheckPos.y][CheckPos.x] == nullptr) return false;
+
+	EMapObjectType Type = MapStatus[CheckPos.y][CheckPos.x]->GetType();
+
+	if (Type == EMapObjectType::Bush) return true;
+	else return false;
+}
+
+bool ABaseMap::IsOnBush(int _Y, int _X)
+{
+	if (MapStatus[_Y][_X] == nullptr) return false;
+
+	EMapObjectType Type = MapStatus[_Y][_X]->GetType();
+
+	if (Type == EMapObjectType::Bush) return true;
 	else return false;
 }
 

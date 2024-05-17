@@ -1,10 +1,11 @@
 #pragma once
 #include "Block.h"
 #include "BreakObject.h"
+#include "MoveObject.h"
 
 // Ό³Έν :
 class ABlock;
-class ABush : public ABlock, public UBreakObject
+class ABush : public ABlock, public UBreakObject, public UMoveObject
 {
 	GENERATED_BODY(ABlock)
 public:
