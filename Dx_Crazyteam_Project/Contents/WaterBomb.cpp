@@ -161,6 +161,11 @@ void AWaterBomb::BombBegin()
 		}
 	}
 
+	if (nullptr == CulGameMode->GetCurMap())
+	{
+		CulGameMode->SetCurMap(WaterBombThisGameMode->GetCurMap());
+	}
+
 	std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));
 	if (SetWaterCourseToken == false)
 	{
