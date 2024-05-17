@@ -6,10 +6,12 @@
 #include "Player.h"
 #include "WaterBomb.h"
 
+int AWaterCourse::WaterCourseToken = 0;
+bool AWaterCourse::SetToken = false;
+
 AWaterCourse::AWaterCourse()
 {
-	//Renderer = CreateDefaultSubObject<USpriteRenderer>("Render");
-	//Renderer->SetupAttachment(Root);
+
 }
 
 AWaterCourse::~AWaterCourse()
@@ -153,6 +155,15 @@ void AWaterCourse::CreateCenterTick(float _DeltaTime)
 	if (false == b_BombCountUpdateOne)
 	{
 		ACAGameMode* TestGameMode = GetGameMode();
+		if (nullptr == TestGameMode)
+		{
+			TestGameMode = BombGameMode;
+			if (nullptr == TestGameMode)
+			{
+				TestGameMode = WaterBombGameMode;
+			}
+		}
+
 		std::shared_ptr<APlayer> TestPlayer = TestGameMode->GetPlayer();
 		int WBCount = TestPlayer->GetWBCount();
 		WBCount += 1;

@@ -88,11 +88,10 @@ void APlayer::Tick(float _DeltaTime)
 	{
 		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
 		Bomb->SetObjectToken(WaterBomb_Token++);
-
+		Bomb->SetToken(WaterBomb_Token);
 		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
 		Packet->Pos = GetActorLocation();
-		//Packet->AnimationInfo = Renderer->GetCurAnimationFrame();
-		//Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
+		Packet->ObjectType = static_cast<int>(EObjectType::WaterBomb);
 		Send(Packet);
 	}
 }

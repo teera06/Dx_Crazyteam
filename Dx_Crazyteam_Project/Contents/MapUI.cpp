@@ -37,6 +37,13 @@ void AMapUI::BeginPlay()
 	GameStartUI->SetAutoSize(0.5f, true);
 	GameStartUI->SetActive(false);
 
+	ColonUI = CreateWidget<UImage>(GetWorld(), "GameStartUI");
+	ColonUI->AddToViewPort(3);
+	ColonUI->SetSprite("Time.png");
+	ColonUI->SetPosition(FVector(340.0f, 220.0f, 0.0f));
+	ColonUI->SetAutoSize(1.1f, true);
+	ColonUI->SetActive(true);
+
 	DelayCallBack(2.0f, [this]() { GameStartUI->SetActive(true); });
 	DelayCallBack(4.0f, [this]() { GameStartUI->SetActive(false); });
 
@@ -44,14 +51,14 @@ void AMapUI::BeginPlay()
 	{
 		GameTimeerUI[i] = CreateWidget<UImage>(GetWorld(), "GameTimeerUI");
 		GameTimeerUI[i]->AddToViewPort(3);
-		GameTimeerUI[i]->SetPosition(FVector(310.0f + static_cast<float>((i * 20)), 255.0f, 0.0f));
+		GameTimeerUI[i]->SetPosition(FVector(315.0f + static_cast<float>((i * 17)), 220.0f, 0.0f));
 		GameTimeerUI[i]->SetAutoSize(1.0f, true);
 		//GameTimeerUI[i]->SetActive(true);
 	}
 	GameTimeerUI[0]->SetSprite("GameTimer.png", 0);
-	GameTimeerUI[1]->SetSprite("GameTimer.png", 3);
-	GameTimeerUI[2]->SetSprite("GameTimer.png", 0);
-	GameTimeerUI[3]->SetSprite("GameTimer.png", 0);
+	GameTimeerUI[1]->SetSprite("GameTimer.png", 2);
+	GameTimeerUI[2]->SetSprite("GameTimer.png", 5);
+	GameTimeerUI[3]->SetSprite("GameTimer.png", 9);
 }
 
 void AMapUI::Tick(float _DeltaTime)
@@ -70,53 +77,36 @@ void AMapUI::Tick(float _DeltaTime)
 		}
 	}
 
-	if (0 <= GameTimerCheck)
+	if (0 <= GameTimeCheck)
 	{
-		GameTimerCheck -= _DeltaTime;
-		switch (static_cast<int>(GameTimerCheck))
+		GameTimeCheck -= _DeltaTime;
+		if (0 == MinUI && 0 == SecondUI && 0 == SecondUI2)
 		{
-		case 179:
-			GameTimeerUI[1]->SetSprite("GameTimer.png", MinUI);
-			//GameTimeerUI[2]->SetSprite("GameTimer.png", 5);
-			//GameTimeerUI[3]->SetSprite("GameTimer.png", 9);
-			break;
-		case 119:
-			GameTimeerUI[1]->SetSprite("GameTimer.png", MinUI);
-			MinUI = 0;
-			break;
-		case 59:
-			GameTimeerUI[1]->SetSprite("GameTimer.png", MinUI);
-			break;
-		default:
+			return;
+		}
+
+		if (0 > GameTimeCheck)
+		{
+			GameTimeCheck = 1.0f;
+
 			if (0 < SecondUI2)
 			{
 				--SecondUI2;
+				GameTimeerUI[3]->SetSprite("GameTimer.png", SecondUI2);
 			}
-			break;
-		}
-
-		if (0 == SecondUI2)
-		{
-			if (0 < SecondUI)
-			{
-				if (0 == MinUI && 0 == SecondUI && 0 == SecondUI2)
-				{
-					return;
-				}
-				else
-				{
-					SecondUI2 = 9;
-					GameTimeerUI[3]->SetSprite("GameTimer.png", SecondUI2);
-				}
-			}
-			else if (0 == SecondUI)
+			else if (0 == SecondUI2 && 0 < SecondUI)
 			{
 				SecondUI -= 1;
+				SecondUI2 = 9;
+
+				if (0 == SecondUI && 0 < MinUI)
+				{
+					MinUI -= 1;
+					SecondUI = 5;
+					GameTimeerUI[1]->SetSprite("GameTimer.png", MinUI);
+				}
 				GameTimeerUI[2]->SetSprite("GameTimer.png", SecondUI);
-			}
-			else
-			{
-				return;
+				GameTimeerUI[3]->SetSprite("GameTimer.png", SecondUI2);
 			}
 		}
 	}

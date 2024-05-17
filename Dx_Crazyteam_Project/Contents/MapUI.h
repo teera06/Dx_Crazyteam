@@ -27,10 +27,11 @@ private:
 	UImage* MapPlayUI = nullptr;
 	UImage* PlayerItemUI = nullptr;
 	UImage* GameStartUI = nullptr;
+	UImage* ColonUI = nullptr;
 	std::vector<UImage*> PlayerUI;
 	std::vector<UImage*> GameTimeerUI;
 
-	float GameTimerCheck = 180.0f;
+	float GameTimeCheck = 1.0f;
 	int MinUI = 2;
 	int SecondUI = 5;
 	int SecondUI2 = 9;
