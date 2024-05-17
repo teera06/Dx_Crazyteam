@@ -8,3 +8,6 @@ const int ConstValue::TileX = 15;
 
 const int ConstValue::dy[] = { -1,0,1,0 };
 const int ConstValue::dx[] = { 0,1,0,-1 };
+
+ETeamType ConstValue::MainPlayerTeamType = ETeamType::None;
+ECharacterType ConstValue::MainPlayerCharacterType = ECharacterType::None;

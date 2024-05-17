@@ -120,6 +120,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="MapStateValue.h" />
     <ClInclude Include="MoveObject.h">
       <SubType>
       </SubType>
@@ -322,6 +323,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="MapStateValue.cpp" />
     <ClCompile Include="MoveObject.cpp">
       <SubType>
       </SubType>

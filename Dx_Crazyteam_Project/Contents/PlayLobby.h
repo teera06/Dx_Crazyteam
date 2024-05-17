@@ -3,6 +3,8 @@
 #include <EngineBase/NetObject.h>
 
 class UImage;
+class ACAObject;
+class ACAGameMode;
 class APlayLobby : public AActor, public UNetObject
 {
 	GENERATED_BODY(AActor)
@@ -63,6 +65,7 @@ private:
 
 	//로비 플레이어 캐릭터
 	std::vector<UImage*> LobbyPlayer;
+	std::vector<UImage*> Rank;
 	
 	//플레이어 Room
 	UImage* Room1;
@@ -72,14 +75,8 @@ private:
 	UImage* Room5;
 	UImage* Room6;
 	UImage* Room7;
-
-	UImage* XRoom1;
-	UImage* XRoom2;
-	UImage* XRoom3;
-	UImage* XRoom4;
-	UImage* XRoom5;
-	UImage* XRoom6;
-	UImage* XRoom7;
+	
+	ACAGameMode* Teamtyp = nullptr;
 
 
 	bool SwitchON = false;
@@ -100,6 +97,7 @@ private:
 	bool RoomX6 = false;
 	bool RoomO7 = true;
 	bool RoomX7 = false;
+
 
 	bool RoomSwitch= false;
 	int  PlayerCount = 0;

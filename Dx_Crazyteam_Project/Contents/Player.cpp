@@ -14,7 +14,6 @@ int APlayer::WaterBomb_Token = 0;
 
 APlayer::APlayer()
 {
-
 }
 
 APlayer::~APlayer()
@@ -35,7 +34,7 @@ void APlayer::BeginPlay()
 	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 1));
 
 	Info = std::make_shared<PlayerInfo>();
-	SetCharacterType(ECharacterType::Bazzi);
+	SetCharacterType(ECharacterType::Dao);
 	SetTeamType(ETeamType::BTeam);
 	StateInit();
 	
@@ -51,6 +50,17 @@ void APlayer::Tick(float _DeltaTime)
 	
 	//Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 0));
 
+
+	if (true == GetGameMode()->GetCurMap()->IsOnBush(GetActorLocation()))
+	{
+		Renderer->SetActive(false);
+		Shadow->ShadowRenderOff();
+	}
+	else 
+	{
+		Renderer->SetActive(true);
+		Shadow->ShadowRenderOn();
+	}
 
 	/* 테스트용 */
 	if (true == IsDown(VK_F1))
@@ -81,8 +91,11 @@ void APlayer::Tick(float _DeltaTime)
 		return;
 	}
 
+	if (true == GetIsSendPacket())
+	{
+		PlayerSendPacket(_DeltaTime);
+	}
 
-	PlayerSendPacket(_DeltaTime);
 
 	if (true == IsDown(VK_SPACE))
 	{

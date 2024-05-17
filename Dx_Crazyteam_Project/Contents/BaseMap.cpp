@@ -23,6 +23,7 @@
 #include "Packets.h"
 #include "Game_Core.h"
 #include "TownBush.h"
+#include "MapStateValue.h"
 
 ABaseMap::ABaseMap()
 {
@@ -262,6 +263,7 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 		std::shared_ptr<AWaterBomb> TempObj = GetWorld()->SpawnActor<AWaterBomb>("CampBlock");
 		TempObj->SetActorLocation(PushPos);
 		TempObj->CreateWaterBomb();
+		UMapStateValue::st_ACAGameMode = GetGameMode();
 		MapObj = TempObj;
 		break;
 	}
@@ -270,8 +272,6 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 		std::shared_ptr<AWaterCourse> TempObj = GetWorld()->SpawnActor<AWaterCourse>("CampBlock");
 		TempObj->SetActorLocation(PushPos);
 		TempObj->CreateWaterCenter();
-		TempObj->BaseToSetGameMode(GetGameMode());
-		TempObj->SetWaterBombGameMode(GetGameMode());
 		MapObj = TempObj;
 		break;
 	}
@@ -438,32 +438,32 @@ std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(int _Y, int _X)
 
 void ABaseMap::DestroyMapObject(int _Y, int _X)
 {
-	EMapObjectType Type = MapStatus[_Y][_X]->GetType();
+	//EMapObjectType Type = MapStatus[_Y][_X]->GetType();
 
-	switch (Type)
-	{
-	//case EMapObjectType::Block:
-	//	break;
-	//case EMapObjectType::Bush:
-	//	break;
-	//case EMapObjectType::Water:
-	//	break;
-	//case EMapObjectType::WaterBalloon:
-	//	break;
-	case EMapObjectType::Item:
-	{
-		int ReleaseObjectToken = MapStatus[_Y][_X]->GetObjectToken();
+	//switch (Type)
+	//{
+	////case EMapObjectType::Block:
+	////	break;
+	////case EMapObjectType::Bush:
+	////	break;
+	////case EMapObjectType::Water:
+	////	break;
+	////case EMapObjectType::WaterBalloon:
+	////	break;
+	//case EMapObjectType::Item:
+	//{
+	//	int ReleaseObjectToken = MapStatus[_Y][_X]->GetObjectToken();
 
-		std::shared_ptr<UActorUpdatePacket> Packet = std::make_shared<UActorUpdatePacket>();
-		Packet->SetObjectToken(ReleaseObjectToken);
-		Packet->IsDestroy = true;
-		Packet->ObjectType = static_cast<int>(EObjectType::Item);
-		UGame_Core::Net->Send(Packet);
-		break;
-	}
-	default:
-		break;
-	}
+	//	std::shared_ptr<UActorUpdatePacket> Packet = std::make_shared<UActorUpdatePacket>();
+	//	Packet->SetObjectToken(ReleaseObjectToken);
+	//	Packet->IsDestroy = true;
+	//	Packet->ObjectType = static_cast<int>(EObjectType::Item);
+	//	UGame_Core::Net->Send(Packet);
+	//	break;
+	//}
+	//default:
+	//	break;
+	//}
 	
 	MapStatus[_Y][_X]->Destroy();
 	MapStatus[_Y][_X] = nullptr;

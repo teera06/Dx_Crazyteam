@@ -68,6 +68,7 @@ enum class EGimmickType
 enum class ECharacterType
 {
 	None,
+	Random,
 	Bazzi,
 	Dao,
 	Marid,
