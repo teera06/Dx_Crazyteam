@@ -4,6 +4,7 @@
 #include <EngineCore/TextWidget.h>
 #include <EnginePlatform/TextimeInput.h>
 
+#include "MapUI.h"
 #include "Village.h"
 #include "Camp.h"
 #include "Player.h"
@@ -72,18 +73,22 @@ void AMainGameMode::GameModeActorInit()
 
 
 
-
 	std::shared_ptr<ACamp> Camp = GetWorld()->SpawnActor<ACamp>("Camp");
 	SetCurMap(Camp);
 	Camp->SetCurGameMode(this);
-
-
 
 
 	Player1 = GetWorld()->SpawnActor<APlayer>("Player1", 0);
 	Player1->SetCurGameMode(this);
 	SetMainPlayer(Player1);
 	
+
+	
+	{//UI
+		
+	std::shared_ptr<AMapUI> MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
+			
+	}
 
 
 
@@ -110,6 +115,11 @@ void AMainGameMode::GameModeActorInit()
 		Camp->AddMapObject(6, 9, EMapObject::CampMoveBlock1);
 		Camp->AddMapObject(9, 9, EMapObject::CampMoveBlock1);
 
+		Camp->AddMapObject(1, 6, EMapObject::CampHPBlock);
+		Camp->AddMapObject(3, 6, EMapObject::CampHPBlock);
+		Camp->AddMapObject(1, 9, EMapObject::CampHPBlock);
+		Camp->AddMapObject(3, 9, EMapObject::CampHPBlock);
+
 		//Item
 		Camp->AddMapObject(5, 1,EMapObject::Item,EItemType::ItemBubble);
 		Camp->AddMapObject(1, 2, EMapObject::Item, EItemType::ItemNiddle);
@@ -117,7 +127,6 @@ void AMainGameMode::GameModeActorInit()
 		Camp->AddMapObject(2, 2, EMapObject::Item, EItemType::ItemShoes);
 		Camp->AddMapObject(8, 6, EMapObject::Item, EItemType::ItemRoller);
 		Camp->AddMapObject(6, 8, EMapObject::Item, EItemType::ItemFluid);
-
 
 		//Camp 내 Object 그대로하려면 아래코드로
 		//Camp->AddObjectInit();

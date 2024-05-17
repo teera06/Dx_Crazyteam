@@ -47,9 +47,8 @@ void AServerGameMode::BeginPlay()
 	Camp = GetWorld()->SpawnActor<ACamp>("Camp");
 	Camp->SetCurGameMode(this);
 	SetCurMap(Camp);
-	Camp->AddObjectInit();
 
-	std::shared_ptr<APlayer> Player1 = GetWorld()->SpawnActor<APlayer>("Player1", 0);
+	std::shared_ptr<APlayer> Player1 = GetWorld()->SpawnActor<AServerTestPlayer>("Player1", 0);
 	Player1->SetCurGameMode(this);
 	SetMainPlayer(Player1);
 
