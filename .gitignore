@@ -394,6 +394,9 @@ FodyWeavers.xsd
 *.msm
 *.msp
 
+# IMGUI
+imgui.ini
+
 # JetBrains Rider
 *.sln.iml
 /Dx_Crazyteam_Project/EngineCore/ThirdParty/DirectxTex/Debug/DirectXTex.lib
