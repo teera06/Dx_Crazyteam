@@ -2,6 +2,7 @@
 #include "PlayLobby.h"
 
 #include "EngineCore/Image.h"
+#include "EngineBase/EngineDebug.h"
 
 APlayLobby::APlayLobby()
 {
@@ -33,6 +34,7 @@ void APlayLobby::BeginPlay()
 		Room->SetPosition(FVector(-324.f + 106.f * i, 157.f));
 		Room->SetActive(true);
 		RoomVector.push_back(Room);
+		RoomVectorNumber.push_back(false);
 	}
 
 	for (int i = 0; i < 4; i++)
@@ -44,6 +46,7 @@ void APlayLobby::BeginPlay()
 		Room->SetPosition(FVector(-324.f + 106.f * i, 11.f));
 		Room->SetActive(true);
 		RoomVector.push_back(Room);
+		RoomVectorNumber.push_back(false);
 	}
 
 	//시작 버튼
@@ -340,7 +343,6 @@ void APlayLobby::Tick(float _DeltaTime)
 					SwapSelectCharacter(RandomBT);
 					checkUI->SetPosition({ 152.0f,183.0f });
 					checkUI->SetActive(true);
-					//RandomBT->ChangeAnimation("Up");
 				}
 			}
 			});
@@ -373,7 +375,6 @@ void APlayLobby::Tick(float _DeltaTime)
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Dao.bmp");
 					checkUI->SetPosition({ 222.0f,183.0f });
 					checkUI->SetActive(true);
-					//DaoBT->ChangeAnimation("Up");
 				}
 
 			}
@@ -445,17 +446,72 @@ void APlayLobby::Tick(float _DeltaTime)
 
 			}
 			});
+
+
 	}
 
 
 	for (int i = 1; i < 8; i++)
 	{
 		{
-			RoomVector[i]->SetUnHover([=] {
-				RoomVector[i]->SetSprite("Room_0.png");
-				SwitchON = false;
-				});
+
 			RoomVector[i]->SetHover([=] {
+
+				if (false == RoomVectorNumber[i])
+				{
+					RoomVector[i]->SetSprite("Room_1.png");
+				}
+				else if(true == RoomVectorNumber[i])
+				{
+					RoomVector[i]->SetSprite("RoomX_1.png");
+				}
+				}
+			);
+
+
+			RoomVector[i]->SetUnHover([=] {
+
+				if (false == RoomVectorNumber[i])
+				{
+					RoomVector[i]->SetSprite("Room_0.png");
+				}
+				else if(true == RoomVectorNumber[i])
+				{
+					RoomVector[i]->SetSprite("RoomX_0.png");
+				}
+				}
+			);
+
+
+			RoomVector[i]->SetDown([=] {
+
+				if (false == RoomVectorNumber[i])
+				{
+					RoomVectorNumber[i] = false;
+				}
+				else
+				{
+					RoomVectorNumber[i] = true;
+				}
+
+				if (true == RoomO && false == RoomX && IsDown(VK_LBUTTON))
+				{
+					RoomVector[i]->SetSprite("Room_2.png");
+					RoomO = false;
+					RoomX = true;
+				}
+				else
+				{
+					RoomVector[i]->SetSprite("RoomX_2.png");
+					RoomO = true;
+					RoomX = false;
+				}
+				}	
+			);
+
+
+			
+			/*RoomVector[i]->SetHover([=] {
 				{
 					if (false == SwitchON)
 					{
@@ -467,12 +523,17 @@ void APlayLobby::Tick(float _DeltaTime)
 					{
 						RoomVector[i]->SetSprite("Room_2.png");
 					}
-					else if (IsUp(VK_LBUTTON))
-					{
-						RoomVector[i]->SetSprite("RoomX_0.png");
-					}
+		
 				}
 				});
+			RoomVector[i]->SetDown([=] {
+				{
+					RoomVector[i]->SetSprite("RoomX_0.png");
+				}
+
+
+				});*/
+
 		}
 	}
 
