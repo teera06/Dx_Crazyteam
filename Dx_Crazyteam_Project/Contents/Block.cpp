@@ -242,7 +242,17 @@ void ABlock::EndTick(float _DeltaTime)
 	{
 		if (PossessItem == EItemType::None)
 		{
-			GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+			if (GetIsPossessed())
+			{
+				GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x);
+				ABush* Bush = dynamic_cast<ABush*>(GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x).get());
+				Bush->SetPossessBlock(nullptr);
+				Destroy();
+			}
+			else
+			{
+				GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+			}
 		}
 		else
 		{

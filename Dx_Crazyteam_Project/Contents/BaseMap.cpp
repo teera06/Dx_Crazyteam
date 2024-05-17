@@ -341,6 +341,7 @@ void ABaseMap::MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX,
 			_Obj->SetActorLocation(PushPos);
 			_Obj->SetCurPos(POINT(_NX, _NY));
 			_Obj->SetCurGameMode(GetGameMode());
+			_Obj->SetIsPossessed(true);
 
 			MapStatus[_PY][_PX] = nullptr;
 		}

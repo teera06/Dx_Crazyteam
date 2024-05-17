@@ -50,9 +50,14 @@ public:
 		Renderer->SetActive(false);
 	}
 
-	void SetIsPossess(bool _IsPossess)
+	void SetIsPossessed(bool _IsPossess)
 	{
 		IsPossessed = _IsPossess;
+	}
+
+	bool GetIsPossessed()
+	{
+		return IsPossessed;
 	}
 	
 	void DepthUpdate();

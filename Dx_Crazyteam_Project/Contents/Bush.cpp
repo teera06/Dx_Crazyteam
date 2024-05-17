@@ -14,9 +14,12 @@ ABush::~ABush()
 
 void ABush::SetPossessBlock(std::shared_ptr<AMapObject> _Block)
 {
+	if (_Block != nullptr)
+	{
+		_Block->SetIsPossessed(true);
+		_Block->SetCurPos(GetCurPos());
+	}
 	PossessBlock = _Block;
-	_Block->SetIsPossess(true);
-	_Block->SetCurPos(GetCurPos());
 }
 
 void ABush::BeginPlay()
@@ -24,30 +27,6 @@ void ABush::BeginPlay()
 	Super::BeginPlay();
 	
 	SetType(EMapObjectType::Bush);
-
-	WaterInteract = [=]
-		{
-			if (GetPossessBlock() == nullptr)
-			{
-				GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
-			}
-			else
-			{
-				PossessBlock->WaterInteract();
-			}
-		};
-
-	PlayerInteract = [=]
-		{
-			if (GetPossessBlock() == nullptr)
-			{
-				return;
-			}
-			else
-			{
-				PossessBlock->PlayerInteract();
-			}
-		};
 }
 
 void ABush::Tick(float _DeltaTime)
