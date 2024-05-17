@@ -36,7 +36,7 @@ void AWaterBomb::BeginPlay()
 void AWaterBomb::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-	//State.Update(_DeltaTime);
+	State.Update(_DeltaTime);
 
 	//WaterBombPacket(_DeltaTime, b_ServerBomb);
 }
