@@ -91,41 +91,39 @@ void AServerGameMode::LevelStart(ULevel* _PrevLevel)
 
 void AServerGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 {
-	//Dis.AddHandler<UActorUpdatePacket>([=](std::shared_ptr<UActorUpdatePacket> _Packet)
-	//	{
-	//		// 다른 사람들한테 이 오브젝트에 대해서 알리고
-	//	    UGame_Core::Net->Send(_Packet);
+	Dis.AddHandler<UActorUpdatePacket>([=](std::shared_ptr<UActorUpdatePacket> _Packet)
+		{
+			// 다른 사람들한테 이 오브젝트에 대해서 알리고
+		    UGame_Core::Net->Send(_Packet);
 
-	//		GetWorld()->PushFunction([=]()
-	//			{
-	//				AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
-	//				if (nullptr == OtherPlayer)
-	//				{
-	//					OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
-	//					OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
-	//				}
-	//				OtherPlayer->PushProtocol(_Packet);
-	//			});
-
-
-	//	});
+			GetWorld()->PushFunction([=]()
+				{
+					AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
+					if (nullptr == OtherPlayer)
+					{
+						OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
+						OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+					}
+					OtherPlayer->PushProtocol(_Packet);
+				});
+		});
 }
 
 void AServerGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 {
-	//Dis.AddHandler<UActorUpdatePacket>([=](std::shared_ptr<UActorUpdatePacket> _Packet)
-	//	{
-	//		GetWorld()->PushFunction([=]()
-	//			{
-	//				AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
-	//				if (nullptr == OtherPlayer)
-	//				{
-	//					OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
-	//					OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
-	//				}
-	//				OtherPlayer->PushProtocol(_Packet);
-	//			});
-	//	});
+	Dis.AddHandler<UActorUpdatePacket>([=](std::shared_ptr<UActorUpdatePacket> _Packet)
+		{
+			GetWorld()->PushFunction([=]()
+				{
+					AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
+					if (nullptr == OtherPlayer)
+					{
+						OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
+						OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+					}
+					OtherPlayer->PushProtocol(_Packet);
+				});
+		});
 }
 
 std::shared_ptr<APlayLobby> AServerGameMode::GetPlayLobby()
