@@ -2,12 +2,21 @@
 
 #include "ServerTestPlayer.h"
 
-ServerTestPlayer::ServerTestPlayer()
+AServerTestPlayer::AServerTestPlayer()
 {
 }
 
-ServerTestPlayer::~ServerTestPlayer()
+AServerTestPlayer::~AServerTestPlayer()
 {
 }
 
+void AServerTestPlayer::BeginPlay()
+{
+	Super::BeginPlay();
+}
 
+void AServerTestPlayer::Tick(float _DeltaTime)
+{
+
+	Super::Tick(_DeltaTime);
+}

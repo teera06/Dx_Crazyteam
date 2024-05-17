@@ -63,11 +63,17 @@ private:
 	
 	std::vector<UImage*> RoomVector;
 	std::vector<UImage*>::iterator RoomIter = RoomVector.begin();
-
+	std::vector<bool> RoomVectorNumber;
 
 
 	bool SwitchON = false;
+	bool TeamSwitchON = false;
 	bool IsSelectSharacter = false;
+	bool IsTeamSelectSharacter = false;
+	bool RoomO = true;
+	bool RoomX = false;
+	bool RoomSwitch= false;
 	int  PlayerCount = 0;
+	int TestCount = 0;
 };
 

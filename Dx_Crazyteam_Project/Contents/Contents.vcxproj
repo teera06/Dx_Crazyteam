@@ -50,6 +50,10 @@
     </ClInclude>
     <ClInclude Include="ConstValue.h" />
     <ClInclude Include="ContentsDebugWindow.h" />
+    <ClInclude Include="ContentsMainDebugWin.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="DummyBlock.h">
       <SubType>
       </SubType>
@@ -95,6 +99,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ItemTurtle.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="LobbyMainMode.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -227,6 +235,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ContentsDebugWindow.cpp" />
+    <ClCompile Include="ContentsMainDebugWin.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="DummyBlock.cpp">
       <SubType>
       </SubType>
@@ -272,6 +284,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ItemTurtle.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LobbyMainMode.cpp">
       <SubType>
       </SubType>
     </ClCompile>

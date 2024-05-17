@@ -16,7 +16,7 @@ public:
 	ETeamType Team = ETeamType::None;
 	EPlayerRideType RideType = EPlayerRideType::None;
 
-	int Speed = -1;					// 속도
+	int Speed = -1;					// 속도 단계 (1씩 증가시켜주면 속도 계수와 곱해서 적용됨)
 	int WBCount = -1;				// 물폭탄 개수	
 	int WBPower = -1;				// 물폭탄 파워(물줄기 길이)
 
@@ -107,6 +107,7 @@ private:
 
 
 	std::string GetAnimationName(std::string_view _StateName);
+	void SettingZValue();
 
 	FVector Dir = FVector::Down;
 	float AnimationInter = 0.1f;
