@@ -10,8 +10,8 @@
 OtherUI::OtherUI()
 {
 	UEngineTime Time;
-	OherBomb_MilliSecond = Time.GetCurTime().MilliSecond;
-	OherBomb_Second = Time.GetCurTime().Second;
+	MapTime_MilliSecond = Time.GetCurTime().MilliSecond;
+	MapTime_Second = Time.GetCurTime().Second;
 }
 
 OtherUI::~OtherUI()
@@ -22,8 +22,8 @@ void OtherUI::BeginPlay()
 {
 	AMapUI::BeginPlay();
 
-	Sub_MilliSecond = OherBomb_MilliSecond - Bomb_MilliSecond;
-	Sub_Second = OherBomb_Second - Bomb_Second;
+	Sub_MilliSecond = MapTime_MilliSecond - MapTime_MilliSecond;
+	Sub_Second = MapTime_Second - MapTime_Second;
 	OtherCreate = true;
 }
 

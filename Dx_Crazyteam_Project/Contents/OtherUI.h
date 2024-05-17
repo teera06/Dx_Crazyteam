@@ -24,7 +24,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	int OherBomb_Second = 0;
-	int OherBomb_MilliSecond = 0;
+	int MapTime_Second = 0;
+	int MapTime_MilliSecond = 0;
 };
 
