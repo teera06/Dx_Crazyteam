@@ -35,7 +35,7 @@ void APlayer::BeginPlay()
 	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 1));
 
 	Info = std::make_shared<PlayerInfo>();
-	SetCharacterType(ECharacterType::Bazzi);
+	SetCharacterType(ECharacterType::Dao);
 	SetTeamType(ETeamType::BTeam);
 	StateInit();
 	
