@@ -88,6 +88,8 @@ protected:
 private:
 	void StateInit();
 
+	void GameOnStart();
+	void GameOn(float _DeltaTime);
 	void IdleStart();
 	void Idle(float _DeltaTime);
 	void MoveStart();
@@ -105,6 +107,7 @@ private:
 	void RideMoveStart();
 	void RideMove(float _DeltaTime);
 
+	float GameOnTime = 1.5f;
 
 	std::string GetAnimationName(std::string_view _StateName);
 	void SettingZValue();
