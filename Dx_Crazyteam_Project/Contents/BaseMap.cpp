@@ -21,6 +21,7 @@
 #include "ItemFluid.h"
 #include "ItemShoes.h"
 #include "TownBush.h"
+#include "MapStateValue.h"
 
 ABaseMap::ABaseMap()
 {
@@ -231,6 +232,7 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 		std::shared_ptr<AWaterBomb> TempObj = GetWorld()->SpawnActor<AWaterBomb>("CampBlock");
 		TempObj->SetActorLocation(PushPos);
 		TempObj->CreateWaterBomb();
+		UMapStateValue::st_ACAGameMode = GetGameMode();
 		MapObj = TempObj;
 		break;
 	}
@@ -239,8 +241,6 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 		std::shared_ptr<AWaterCourse> TempObj = GetWorld()->SpawnActor<AWaterCourse>("CampBlock");
 		TempObj->SetActorLocation(PushPos);
 		TempObj->CreateWaterCenter();
-		TempObj->BaseToSetGameMode(GetGameMode());
-		TempObj->SetWaterBombGameMode(GetGameMode());
 		MapObj = TempObj;
 		break;
 	}

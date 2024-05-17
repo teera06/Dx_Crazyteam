@@ -276,6 +276,9 @@
     <ClInclude Include="TownBush.h">
       <Filter>MapObject\HideBlock</Filter>
     </ClInclude>
+    <ClInclude Include="MapStateValue.h">
+      <Filter>Option</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -447,6 +450,9 @@
     </ClCompile>
     <ClCompile Include="TownBush.cpp">
       <Filter>MapObject\HideBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="MapStateValue.cpp">
+      <Filter>Option</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

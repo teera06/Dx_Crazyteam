@@ -8,6 +8,7 @@
 #include "Game_Core.h"
 #include "MapDebugGUI.h"
 #include <EngineBase/EngineTime.h>
+#include "MapStateValue.h"
 
 
 bool AWaterBomb::SetWaterCourseToken = false;
@@ -44,7 +45,7 @@ void AWaterBomb::Tick(float _DeltaTime)
 	if (true == b_ServerBomb)
 	{
 		std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));
-
+		
 		if (SetWaterCourseToken == false)
 		{
 			WaterCourse->WaterCourseToken = WaterCourse_Token;
