@@ -5,69 +5,13 @@
 
 #pragma warning(disable:4996) 
 
-std::string UTextimeInput::ReadText ="";
-std::string UTextimeInput::MidText = "";
-std::string UTextimeInput::ComstrText="";
 char UTextimeInput::Text[255]="";
 char UTextimeInput::Cstr[10]="";
+bool UTextimeInput::OnOff = true;
 bool UTextimeInput::bHangeul=false;
 HWND UTextimeInput::hwnd;
 HIMC UTextimeInput::himc;
 
-void UTextimeInput::IMEInput()
-{
-	if (true == UEngineInput::IsDown(VK_BACK))
-	{
-		if (ReadText.size() >0)
-		{
-			ReadText.pop_back();
-		}
-		return;
-	}
-
-	if (true == UEngineInput::IsDown(VK_SPACE))
-	{
-		ReadText += " ";
-		return;
-	}
-
-	if (true == UEngineInput::IsDown(VK_TAB))
-	{
-		if (false == bHangeul)
-		{
-			bHangeul = true;
-		}
-		else
-		{
-			bHangeul = false;
-		}
-		SetNativeMode(bHangeul);
-		return;
-	}
-
-	for (int i = '0'; i <= '9'; i++)
-	{
-		if (true == UEngineInput::IsDown(i))
-		{
-			ReadText += static_cast<char>(i);
-			return;
-		}
-	}
-
-	if (false == bHangeul)
-	{
-		return;
-	}
-
-	for (int i = 'A'; i <= 'Z'; i++)
-	{
-		if (true == UEngineInput::IsDown(i))
-		{
-			ReadText += tolower(static_cast<char>(i));
-			return;
-		}
-	}
-}
 
 std::string UTextimeInput::GetReadText()
 {
@@ -76,10 +20,26 @@ std::string UTextimeInput::GetReadText()
 	return ch +Cstr;
 }
 
+void UTextimeInput::On()
+{
+	OnOff = true;
+}
+
+void UTextimeInput::Off()
+{
+	OnOff = false;
+}
+
 
 
 void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 {
+
+	if (false == OnOff)
+	{
+		return;
+	}
+
 	hwnd = _hWnd;
 	himc = ImmGetContext(_hWnd);
 
@@ -161,34 +121,6 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 	}
 }
 
-void UTextimeInput::SetNativeMode(bool bHangeul)
-{
-	DWORD dwConv, dwSent;
 
-	DWORD dwTemp;
-
-
-
-	ImmGetConversionStatus(himc, &dwConv, &dwSent);
-
-	dwTemp = dwConv & ~IME_CMODE_LANGUAGE;
-
-	if (bHangeul) {
-
-		dwTemp |= IME_CMODE_NATIVE;
-
-	}
-	else {
-
-		dwTemp |= IME_CMODE_ALPHANUMERIC;
-
-	}
-
-	dwConv = dwTemp;
-
-	ImmSetConversionStatus(himc, dwConv, dwSent);
-
-	ImmReleaseContext(hwnd, himc);
-}
 
 

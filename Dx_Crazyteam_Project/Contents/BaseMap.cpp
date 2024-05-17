@@ -10,6 +10,7 @@
 #include "WaterCourse.h"
 #include "DummyBlock.h"
 #include "CampMoveBlock1.h"
+#include "CampHpBlock.h"
 #include "CAGameMode.h"
 #include "Player.h"
 #include "ItemBubble.h"
@@ -182,19 +183,40 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 		MapObj = GetWorld()->SpawnActor<ADummyBlock>("Block");
 		break;
 	}
-	case EMapObject::CampMoveBlock:
+	case EMapObject::CampMoveBlock1:
 	{
 		MapObj = GetWorld()->SpawnActor<ACampMoveBlock1>("CampMoveBlock1");
 		break;
+	}
+	case EMapObject::CampMoveBlock2:
+	{
+
 	}
 	case EMapObject::NormalBlock:
 	{
 		MapObj = GetWorld()->SpawnActor<ABlock>("Block");
 		break;
 	}
-	case EMapObject::CampBlock:
+	case EMapObject::CampBlock1:
 	{
 		MapObj = GetWorld()->SpawnActor<ACampBlock1>("CampBlock1");
+		break;
+	}
+	case EMapObject::CampBlock2:
+	{
+		
+	}
+	case EMapObject::CampBlock3:
+	{
+		
+	}
+	case EMapObject::CampBlock4:
+	{
+		
+	}
+	case EMapObject::CampHPBlock:
+	{
+		MapObj = GetWorld()->SpawnActor<ACampHpBlock>("CampHPBlock");
 		break;
 	}
 	case EMapObject::WaterBomb:

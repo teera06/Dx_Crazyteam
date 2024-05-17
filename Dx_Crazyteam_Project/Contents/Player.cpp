@@ -72,6 +72,15 @@ void APlayer::Tick(float _DeltaTime)
 		return;
 	}
 
+
+	if (true == IsDown('M'))
+	{
+		SetCharacterType(ECharacterType::Marid);
+		State.ChangeState("Idle");
+		return;
+	}
+
+
 	PlayerSendPacket(_DeltaTime);
 
 	if (true == IsDown(VK_SPACE))
@@ -98,6 +107,21 @@ std::string APlayer::GetAnimationName(std::string_view _StateName)
 		break;
 	case ECharacterType::Dao:
 		_AniName = std::string("Dao_") + _AniName;
+		break;
+	case ECharacterType::Marid:
+		_AniName = std::string("Marid_") + _AniName;
+		break;
+	default:
+		break;
+	}
+
+	switch (Info->Team)
+	{
+	case ETeamType::ATeam:
+		_AniName = std::string("Red_") + _AniName;
+		break;
+	case ETeamType::BTeam:
+		_AniName = std::string("Blue_") + _AniName;
 		break;
 	default:
 		break;
@@ -152,19 +176,29 @@ void APlayer::SetCharacterType(ECharacterType _Type)
 		Info->MaxWBCount = ConstValue::DaoMaxWBCount;
 		Info->MaxWBPower = ConstValue::DaoMaxWBPower;
 		break;
+	case ECharacterType::Marid:
+		Info->MyType = ECharacterType::Marid;
+		Info->Speed = ConstValue::MaridDefaultSpeed;
+		Info->WBCount = ConstValue::MaridDefaultWBCount;
+		Info->WBPower = ConstValue::MaridDefaultWBPower;
+		Info->MaxSpeed = ConstValue::MaridMaxSpeed;
+		Info->MaxWBCount = ConstValue::MaridMaxWBCount;
+		Info->MaxWBPower = ConstValue::MaridMaxWBPower;
+		break;
 	default:
 		break;
 	}
 
-	SettingZValue();
 }
 
 void APlayer::SettingZValue()
 {
 	FVector Pos = GetActorLocation();
-	Pos.Z = -Pos.Y;
+	POINT Idx = GetGameMode()->GetCurMap()->PosToPoint(Pos);
+	Pos.Z = -static_cast<float>(Idx.y) - 0.1f;
+	
 	SetActorLocation(Pos);
 
-	Pos.Z = -Pos.Y + 0.1f;
+	Pos.Z += 0.1f;
 	Shadow->SetActorLocation(Pos);
 }

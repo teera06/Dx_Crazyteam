@@ -20,8 +20,8 @@ public:
 		return BreakOwner;
 	}
 
-private:
 	ABlock* BreakOwner = nullptr;
+private:
 
 };
 

@@ -6,12 +6,14 @@
 #include "CAGameMode.h"
 #include "Packets.h"
 #include "Game_Core.h"
+#include "MapDebugGUI.h"
+#include <EngineBase/EngineTime.h>
 
 int AWaterBomb::WaterBomb_Token = 0;
 
 AWaterBomb::AWaterBomb()
 {
-
+	GetCreateTime();
 }
 
 AWaterBomb::~AWaterBomb()
@@ -36,9 +38,17 @@ void AWaterBomb::BeginPlay()
 void AWaterBomb::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-	//State.Update(_DeltaTime);
+	State.Update(_DeltaTime);
 
 	//WaterBombPacket(_DeltaTime, b_ServerBomb);
+}
+
+float AWaterBomb::GetCreateTime()
+{
+	UEngineTime Time;
+	Bomb_MilliSecond = Time.GetCurTime().MilliSecond;
+	Bomb_Second = Time.GetCurTime().Second;
+	return 0.0f;
 }
 
 void AWaterBomb::StateInit()
@@ -85,21 +95,42 @@ void AWaterBomb::CreateBegin()
 {
 	Renderer->SetActive(true);
 	LifeTime = 0.0f;
+	if (true == OtherCreate)
+	{
+		float Secound = static_cast<float>(Sub_Second);
+		float MiliSecound = static_cast<float>(Sub_MilliSecond);
+		MiliSecound /= 10000;
+		ServerBombTime = BombTime - (Secound + MiliSecound); // 차이나는 만큼 빨리 터져라.
+	}
 }
 
 void AWaterBomb::CreateTick(float _DeltaTime)
 {
 	LifeTime += _DeltaTime;
-	if (2.0f <= LifeTime && false == b_WaterToBomb)
+
+	if (false == OtherCreate)
 	{
-		State.ChangeState("Bomb");
-		return;
+		if (BombTime <= LifeTime && false == b_WaterToBomb)
+		{
+			State.ChangeState("Bomb");
+			return;
+		}
+		else if (true == b_WaterToBomb)
+		{
+			State.ChangeState("Bomb");
+			return;
+		}
 	}
-	else if (true == b_WaterToBomb)
+	else
 	{
-		State.ChangeState("Bomb");
-		return;
+		//  2.0       0.0000000001
+		if (ServerBombTime <= LifeTime)
+		{
+			State.ChangeState("Bomb");
+			return;
+		}
 	}
+
 }
 
 void AWaterBomb::CreateExit()
@@ -114,14 +145,15 @@ void AWaterBomb::CreateExit()
 
 void AWaterBomb::BombBegin()
 {
-	GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water);
+	//GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water);
+	Renderer->SetActive(false);
 	b_ServerBomb = true;
 }
 
 void AWaterBomb::BombTick(float _DeltaTime)
 {
 	//Destroy();
-	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+	//GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 }
 
 void AWaterBomb::BombExit()

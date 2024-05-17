@@ -10,6 +10,8 @@ class APlayer;
 class AVillage;
 class ACamp;
 class UTextWidget;
+class AMapUI;
+
 class AMainGameMode : public ACAGameMode
 {
 	GENERATED_BODY(ACAGameMode)

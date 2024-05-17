@@ -1,4 +1,4 @@
-WindowTitle : [Title]
+WindowTitle : [TestMyTitle]
 WindowScale : [800], [600]
 IsDebug : [false]
 ClearColor : R[0],G[0],B[1]

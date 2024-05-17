@@ -49,6 +49,21 @@ public:
 		PossessItem = _Item;
 	}
 
+	void MinusHP()
+	{
+		--Hp;
+	}
+
+	int GetHp()
+	{
+		return Hp;
+	}
+
+	void SetHp(int _Hp)
+	{
+		Hp = _Hp;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -83,6 +98,7 @@ private:
 	bool BlinkOn = false;
 	float BlinkTime = 0.05f;
 	float AccBlinkTime = 0.f;
+	int Hp = 1;
 
 	//push 관련 변수
 	bool IsPush = false;
@@ -97,5 +113,7 @@ private:
 	POINT PlayerIndex = { 0,0 };
 
 	EItemType PossessItem = EItemType::None;
+	
+
 };
 

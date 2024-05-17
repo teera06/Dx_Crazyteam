@@ -8,11 +8,13 @@
 #include <EngineCore/BlurEffect.h>
 #include <EngineCore/EngineEditorGUI.h>
 
+
 #include "ServerTestPlayer.h"
 #include "Game_Core.h"
 #include "Packets.h"
 #include "OtherPlayer.h"
 #include "Village.h"
+#include "Camp.h"
 #include "ItemBubble.h"
 
 #include "TitleMenu.h"
@@ -42,12 +44,14 @@ void AServerGameMode::BeginPlay()
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 
 
-	Village = GetWorld()->SpawnActor<AVillage>("Village");
-	SetCurMap(Village);
+	Camp = GetWorld()->SpawnActor<ACamp>("Camp");
+	Camp->SetCurGameMode(this);
+	SetCurMap(Camp);
 
-	MainPlayer = GetWorld()->SpawnActor<AServerTestPlayer>("Player");
-	MainPlayer->SetCurGameMode(this);
-	SetMainPlayer(MainPlayer);
+	std::shared_ptr<APlayer> Player1 = GetWorld()->SpawnActor<AServerTestPlayer>("Player1", 0);
+	Player1->SetCurGameMode(this);
+	SetMainPlayer(Player1);
+
 }
 
 void AServerGameMode::Tick(float _DeltaTime)
@@ -59,6 +63,7 @@ void AServerGameMode::Tick(float _DeltaTime)
 
 void AServerGameMode::LevelStart(ULevel* _PrevLevel)
 {
+
 	if (nullptr == NetWindow)
 	{
 		NetWindow = UEngineEditorGUI::CreateEditorWindow<UEngineNetWindow>("NetWindow");
@@ -68,12 +73,8 @@ void AServerGameMode::LevelStart(ULevel* _PrevLevel)
 				UGame_Core::Net = std::make_shared<UEngineServer>();
 				UGame_Core::Net->ServerOpen(30000, 512);
 
-				MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
+				GetPlayer()->SetObjectToken(UNetObject::GetNewObjectToken());
 				
-				{
-					std::shared_ptr<AItemBubble> BubbleItem = GetWorld()->SpawnActor<AItemBubble>("BubbleItem");
-					BubbleItem->SetObjectToken(UNetObject::GetNewObjectToken());
-				}
 
 				ServerPacketInit(UGame_Core::Net->Dispatcher);
 			});
@@ -85,7 +86,7 @@ void AServerGameMode::LevelStart(ULevel* _PrevLevel)
 
 				UGame_Core::Net->SetTokenPacketFunction([=](USessionTokenPacket* _Token)
 					{
-						MainPlayer->SetObjectToken(_Token->GetObjectToken());
+						GetPlayer()->SetObjectToken(_Token->GetObjectToken());
 					});
 
 				// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
