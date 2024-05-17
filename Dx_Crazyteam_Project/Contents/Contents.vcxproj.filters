@@ -282,6 +282,9 @@
     <ClInclude Include="MapStateValue.h">
       <Filter>Option</Filter>
     </ClInclude>
+    <ClInclude Include="ServerTestOtherPlayer.h">
+      <Filter>Level\Surver\PublicOBJ\Test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -459,6 +462,9 @@
     </ClCompile>
     <ClCompile Include="MapStateValue.cpp">
       <Filter>Option</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerTestOtherPlayer.cpp">
+      <Filter>Level\Surver\PublicOBJ\Test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -11,6 +11,7 @@
 
 
 AServerTestPlayer::AServerTestPlayer()
+	:APlayer()
 {
 }
 

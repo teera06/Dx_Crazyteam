@@ -18,13 +18,14 @@ public:
 	AServerTestPlayer& operator=(AServerTestPlayer&& _Other) noexcept = delete;
 
 protected:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
+
 
 private:
 	std::shared_ptr<AItem> Item = nullptr;
 
 private:
-	void BeginPlay() override;
-	void Tick(float _DeltaTime) override;
 	void SpawnItem();
 
 };
