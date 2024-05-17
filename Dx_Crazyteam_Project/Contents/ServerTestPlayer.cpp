@@ -43,5 +43,5 @@ void AServerTestPlayer::SpawnItem()
 	Packet->Pos = BubbleItem->GetActorLocation();
 	Packet->IsDestroy = false;
 	Packet->ObjectType = static_cast<int>(EObjectType::Item);
-	Send(Packet);
+	UGame_Core::Net->Send(Packet);
 }

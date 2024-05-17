@@ -60,16 +60,16 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Red_Marid_Move_Right", "luxMarid_1.png", AnimationInter, true, 0, 5);
 	Renderer->CreateAnimation("Red_Marid_Move_Up", "luxMarid_1.png", AnimationInter, true, 12, 17);
 	Renderer->CreateAnimation("Red_Marid_Move_Down", "luxMarid_1.png", AnimationInter, true, 18, 23);
-	Renderer->CreateAnimation("Red_Marid_Trap", "luxMarid_5.png", AnimationInter, true, 0, 26);
+	Renderer->CreateAnimation("Red_Marid_Trap", "luxMarid_5.png", AnimationInter, false, 0, 26);
 	Renderer->CreateAnimation("Red_Marid_Rescue", "luxMarid_2.png", 0.1f, false, 6, 9);
 	Renderer->CreateAnimation("Red_Marid_Die", "luxMarid_2.png", 0.1f, false, 0, 5);
 
-	Renderer->CreateAnimation("Red_Marid_GameStart_1", "luxMarid_1.png", AnimationInter * 0.5f, true, 24, 27);
-	Renderer->CreateAnimation("Red_Marid_GameStart_2", "luxMarid_1.png", AnimationInter, true, 28, 36);
+	Renderer->CreateAnimation("Red_Marid_GameOn1", "luxMarid_1.png", AnimationInter * 0.5f, true, 24, 27);
+	Renderer->CreateAnimation("Red_Marid_GameOn2", "luxMarid_1.png", AnimationInter, false, 28, 37);
 
 
 	// CreateState
-	State.CreateState("GameStart");
+	State.CreateState("GameOn");
 	State.CreateState("Idle");
 	State.CreateState("Move");
 	State.CreateState("Trap");
@@ -80,6 +80,7 @@ void APlayer::StateInit()
 	State.CreateState("RideMove");
 
 	// StartFunction
+	State.SetStartFunction("GameOn", std::bind(&APlayer::GameOnStart, this));
 	State.SetStartFunction("Idle", std::bind(&APlayer::IdleStart, this));
 	State.SetStartFunction("Move", std::bind(&APlayer::MoveStart, this));
 	State.SetStartFunction("Trap", std::bind(&APlayer::TrapStart, this));
@@ -90,6 +91,7 @@ void APlayer::StateInit()
 	State.SetStartFunction("RideMove", std::bind(&APlayer::RideMoveStart, this));
 
 	// UpdateFunction
+	State.SetUpdateFunction("GameOn", std::bind(&APlayer::GameOn, this, std::placeholders::_1));
 	State.SetUpdateFunction("Idle", std::bind(&APlayer::Idle, this, std::placeholders::_1));
 	State.SetUpdateFunction("Move", std::bind(&APlayer::Move, this, std::placeholders::_1));
 	State.SetUpdateFunction("Trap", std::bind(&APlayer::Trap, this, std::placeholders::_1));
@@ -100,8 +102,38 @@ void APlayer::StateInit()
 	State.SetUpdateFunction("RideMove", std::bind(&APlayer::RideMove, this, std::placeholders::_1));
 
 	// Init
-	State.ChangeState("Idle");
+	State.ChangeState("GameOn");
 }
+
+void APlayer::GameOnStart()
+{
+	InputOff();
+
+	Renderer->ChangeAnimation((GetAnimationName("GameOn1")));
+
+}
+
+void APlayer::GameOn(float _DeltaTime)
+{
+	// 게임 시작 시 플레이어 input off 하고 애니메이션 자동생성
+
+	GameOnTime -= _DeltaTime;
+
+	if (0.0f >= GameOnTime)
+	{
+		Renderer->ChangeAnimation((GetAnimationName("GameOn2")));
+
+		if (true == Renderer->IsCurAnimationEnd())
+		{
+			InputOn();
+			State.ChangeState("Idle");
+
+		}
+
+	}
+
+}
+
 
 void APlayer::IdleStart()
 {

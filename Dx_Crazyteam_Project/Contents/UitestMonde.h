@@ -5,6 +5,7 @@
 #include <EngineCore/EngineNetWindow.h>
 #include <EngineBase/EngineDispatcher.h>
 
+class UImage;
 class AIntro;
 class APlayLobby;
 class AMapUI;
@@ -45,5 +46,6 @@ private:
 	std::shared_ptr<APlayLobby> PlayLobby = nullptr;
 	std::shared_ptr<AMapUI> MapUI = nullptr;
 	std::shared_ptr<AIntro> Intro = nullptr;
+	UImage* CursorImage;
 };
 

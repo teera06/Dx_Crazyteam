@@ -35,7 +35,7 @@ void APlayer::BeginPlay()
 	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 1));
 
 	Info = std::make_shared<PlayerInfo>();
-	SetCharacterType(ECharacterType::Bazzi);
+	SetCharacterType(ECharacterType::Marid);
 	StateInit();
 	
 }
@@ -126,7 +126,7 @@ std::string APlayer::GetAnimationName(std::string_view _StateName)
 		break;
 	}
 
-	if (_StateName == "Trap" || _StateName == "Rescue" || _StateName == "Die")
+	if (_StateName == "GameOn1" || _StateName == "GameOn2" || _StateName == "Trap" || _StateName == "Rescue" || _StateName == "Die")
 	{
 		return _AniName;
 	}
