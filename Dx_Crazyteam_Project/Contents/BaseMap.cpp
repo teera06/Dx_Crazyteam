@@ -20,6 +20,8 @@
 #include "ItemRoller.h"
 #include "ItemFluid.h"
 #include "ItemShoes.h"
+#include "Packets.h"
+#include "Game_Core.h"
 #include "TownBush.h"
 
 ABaseMap::ABaseMap()
@@ -427,6 +429,33 @@ std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(int _Y, int _X)
 
 void ABaseMap::DestroyMapObject(int _Y, int _X)
 {
+	EMapObjectType Type = MapStatus[_Y][_X]->GetType();
+
+	switch (Type)
+	{
+	//case EMapObjectType::Block:
+	//	break;
+	//case EMapObjectType::Bush:
+	//	break;
+	//case EMapObjectType::Water:
+	//	break;
+	//case EMapObjectType::WaterBalloon:
+	//	break;
+	case EMapObjectType::Item:
+	{
+		int ReleaseObjectToken = MapStatus[_Y][_X]->GetObjectToken();
+
+		std::shared_ptr<UActorUpdatePacket> Packet = std::make_shared<UActorUpdatePacket>();
+		Packet->SetObjectToken(ReleaseObjectToken);
+		Packet->IsDestroy = true;
+		Packet->ObjectType = static_cast<int>(EObjectType::Item);
+		UGame_Core::Net->Send(Packet);
+		break;
+	}
+	default:
+		break;
+	}
+	
 	MapStatus[_Y][_X]->Destroy();
 	MapStatus[_Y][_X] = nullptr;
 }

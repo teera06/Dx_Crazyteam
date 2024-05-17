@@ -7,18 +7,18 @@
 #include "Packets.h"
 #include "EngineBase/EngineTime.h"
 
-OtherUI::OtherUI()
+AOtherUI::AOtherUI()
 {
 	UEngineTime Time;
 	MapTime_MilliSecond = Time.GetCurTime().MilliSecond;
 	MapTime_Second = Time.GetCurTime().Second;
 }
 
-OtherUI::~OtherUI()
+AOtherUI::~AOtherUI()
 {
 }
 
-void OtherUI::BeginPlay()
+void AOtherUI::BeginPlay()
 {
 	AMapUI::BeginPlay();
 
@@ -27,9 +27,9 @@ void OtherUI::BeginPlay()
 	OtherCreate = true;
 }
 
-void OtherUI::Tick(float _DeltaTime)
+void AOtherUI::Tick(float _DeltaTime)
 {
-	std::shared_ptr<UEngineProtocol> Protocol = nullptr;
+	/*std::shared_ptr<UEngineProtocol> Protocol = nullptr;
 
 	do
 	{
@@ -51,17 +51,14 @@ void OtherUI::Tick(float _DeltaTime)
 			{
 				SetActorLocation(UpdatePacket->Pos);
 			}
-			//else if (UpdatePacket->ObjectType == static_cast<int>(EObjectType::WaterBomb))
-			//{
-			//	AWaterBomb::SetActorLocation(UpdatePacket->Pos);
-			//}
+
 
 			break;
 		}
 		default:
 			break;
 		}
-	} while (nullptr != Protocol);
+	} while (nullptr != Protocol);*/
 
 
 	AMapUI::Tick(_DeltaTime);

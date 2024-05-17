@@ -121,6 +121,11 @@ void AServerGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 					}
 					case static_cast<int>(EObjectType::Item):
 					{
+						if (true == _Packet->IsDestroy)
+						{
+							int a = 0;
+						}
+
 						// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
 						AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 						if (nullptr == OtherItem)
@@ -159,6 +164,14 @@ void AServerGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 					}
 					case static_cast<int>(EObjectType::Item):
 					{
+						if (true == _Packet->IsDestroy)
+						{
+							int a = 0;
+							//AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+							//OtherItem->Destroy();
+							//OtherItem = nullptr;
+						}
+
 						// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
 						AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 						if (nullptr == OtherItem)
