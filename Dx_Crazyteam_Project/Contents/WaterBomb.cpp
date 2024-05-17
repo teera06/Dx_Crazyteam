@@ -152,6 +152,15 @@ void AWaterBomb::CreateExit()
 
 void AWaterBomb::BombBegin()
 {
+	ACAGameMode* CulGameMode = GetGameMode();
+	if (nullptr == CulGameMode)
+	{
+		if (nullptr != WaterBombThisGameMode)
+		{
+			CulGameMode = WaterBombThisGameMode;
+		}
+	}
+
 	std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));
 	if (SetWaterCourseToken == false)
 	{
