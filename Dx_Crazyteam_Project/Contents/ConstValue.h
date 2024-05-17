@@ -1,4 +1,6 @@
 #pragma once
+
+
 class ConstValue
 {
 public:
@@ -29,4 +31,7 @@ public:
 	static const int MaridMaxSpeed = 8;
 	static const int MaridMaxWBCount = 9;
 	static const int MaridMaxWBPower = 6;
+
+	static ETeamType MainPlayerTeamType;
+	static ECharacterType MainPlayerCharacterType;
 };

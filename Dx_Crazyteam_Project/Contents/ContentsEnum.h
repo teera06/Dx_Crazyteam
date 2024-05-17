@@ -60,6 +60,7 @@ enum class EMapObject
 enum class ECharacterType
 {
 	None,
+	Random,
 	Bazzi,
 	Dao,
 	Marid,
