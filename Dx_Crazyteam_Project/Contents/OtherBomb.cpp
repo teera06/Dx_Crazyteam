@@ -9,13 +9,13 @@
 
 AOtherBomb::AOtherBomb()
 {
-	Root = CreateDefaultSubObject<UDefaultSceneComponent>("RendererRoot");
-	SetRoot(Root);
-	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	Renderer->SetAutoSize(0.05f, true);
-	Renderer->SetupAttachment(Root);
-	Renderer->SetOrder(5);
-	SetActorScale3D(FVector(20, 20, 1));
+	//Root = CreateDefaultSubObject<UDefaultSceneComponent>("RendererRoot");
+	//SetRoot(Root);
+	//Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	//Renderer->SetAutoSize(0.05f, true);
+	//Renderer->SetupAttachment(Root);
+	//Renderer->SetOrder(5);
+	//SetActorScale3D(FVector(20, 20, 1));
 }
 
 AOtherBomb::~AOtherBomb()
@@ -24,12 +24,12 @@ AOtherBomb::~AOtherBomb()
 
 void AOtherBomb::BeginPlay()
 {
-	AActor::BeginPlay();
+	AWaterBomb::BeginPlay();
 }
 
 void AOtherBomb::Tick(float _DeltaTime)
 {
-	AActor::Tick(_DeltaTime);
+	
 
 	std::shared_ptr<UEngineProtocol> Protocol = nullptr;
 
@@ -50,25 +50,27 @@ void AOtherBomb::Tick(float _DeltaTime)
 
 			SetActorLocation(UpdatePacket->Pos);
 
-			std::string SpriteNames = UpdatePacket->SpriteName;
+			//std::string SpriteNames = UpdatePacket->SpriteName;
 
-			int AnimationInFO = UpdatePacket->AnimationInfo;
+			//int AnimationInFO = UpdatePacket->AnimationInfo;
 
-			bool IsDie = UpdatePacket->IsDestroy;
+			//bool IsDie = UpdatePacket->IsDestroy;
 
-			if (SpriteNames != "" && IsDie ==false)
-			{
-				Renderer->SetSprite(SpriteNames, AnimationInFO);
-			}
-			if (IsDie == true)
-			{
-				Renderer->SetActive(false);
-			}
+			//if (SpriteNames != "" && IsDie ==false)
+			//{
+			//	Renderer->SetSprite(SpriteNames, AnimationInFO);
+			//}
+			//if (IsDie == true)
+			//{
+			//	Renderer->SetActive(false);
+			//}
 			break;
 		}
 		default:
 			break;
 		}
 	} while (nullptr != Protocol);
+
+	AWaterBomb::Tick(_DeltaTime);
 }
 

@@ -8,11 +8,12 @@
 #include <EngineCore/BlurEffect.h>
 #include <EngineCore/EngineEditorGUI.h>
 
-#include "Player.h"
+#include "ServerTestPlayer.h"
 #include "Game_Core.h"
 #include "Packets.h"
 #include "OtherPlayer.h"
 #include "Village.h"
+#include "ItemBubble.h"
 
 #include "TitleMenu.h"
 #include "PlayLobby.h"
@@ -44,7 +45,7 @@ void AServerGameMode::BeginPlay()
 	Village = GetWorld()->SpawnActor<AVillage>("Village");
 	SetCurMap(Village);
 
-	MainPlayer = GetWorld()->SpawnActor<APlayer>("Player");
+	MainPlayer = GetWorld()->SpawnActor<AServerTestPlayer>("Player");
 	MainPlayer->SetCurGameMode(this);
 	SetMainPlayer(MainPlayer);
 }
@@ -53,6 +54,7 @@ void AServerGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	UNetObject::AllNetObject;
 }
 
 void AServerGameMode::LevelStart(ULevel* _PrevLevel)
@@ -67,6 +69,11 @@ void AServerGameMode::LevelStart(ULevel* _PrevLevel)
 				UGame_Core::Net->ServerOpen(30000, 512);
 
 				MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
+				
+				{
+					std::shared_ptr<AItemBubble> BubbleItem = GetWorld()->SpawnActor<AItemBubble>("BubbleItem");
+					BubbleItem->SetObjectToken(UNetObject::GetNewObjectToken());
+				}
 
 				ServerPacketInit(UGame_Core::Net->Dispatcher);
 			});
@@ -79,7 +86,6 @@ void AServerGameMode::LevelStart(ULevel* _PrevLevel)
 				UGame_Core::Net->SetTokenPacketFunction([=](USessionTokenPacket* _Token)
 					{
 						MainPlayer->SetObjectToken(_Token->GetObjectToken());
-
 					});
 
 				// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
