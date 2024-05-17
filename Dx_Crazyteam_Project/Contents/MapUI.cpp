@@ -2,8 +2,11 @@
 #include "MapUI.h"
 #include "EngineCore/Image.h"
 
+float AMapUI::GameTimeCheck = 1.0f;
+
 AMapUI::AMapUI()
 {
+	GetCreateTime();
 }
 
 AMapUI::~AMapUI()
@@ -65,6 +68,20 @@ void AMapUI::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+
+	//if (true == OtherCreate)
+	//{
+	//	float Secound = static_cast<float>(Sub_Second);
+	//	float MiliSecound = static_cast<float>(Sub_MilliSecond);
+	//	MiliSecound /= 10000;
+	//	ServerBombTime = BombTime - (Secound + MiliSecound); // 차이나는 만큼 빨리 터져라.
+	//	LifeTime = 0.0f;
+	//}
+	//else
+	//{
+	//	LifeTime = 0.0f;
+	//}
+
 	if (IsDown('P'))
 	{
 		for (size_t i = 0; i < PlayerUI.size(); ++i)
@@ -120,4 +137,12 @@ void AMapUI::Tick(float _DeltaTime)
 void AMapUI::SetPlayItemUI(int _ItemNumber)
 {
 	PlayerItemUI->SetSprite("Item", _ItemNumber);
+}
+
+float AMapUI::GetCreateTime()
+{
+	UEngineTime Time;
+	MapTime_MilliSecond = Time.GetCurTime().MilliSecond;
+	MapTime_Second = Time.GetCurTime().Second;
+	return 0.0f;
 }

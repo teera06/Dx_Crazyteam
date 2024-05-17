@@ -16,7 +16,8 @@ void APlayer_Shadow::BeginPlay()
 	Renderer->SetSprite("Player_Shadow.png");
 	Renderer->SetAutoSize(1.0f, true);
 	//Renderer->SetOrder(ERenderOrder::Shadow);
-	Renderer->SetMulColor(FVector(1.f, 1.f, 1.f, 0.6f));
+	//Renderer->SetMulColor(FVector(1.f, 1.f, 1.f, 0.6f));
+	Renderer->SetAlpha(0.6f);
 
 }
 

@@ -4,6 +4,7 @@
 #include "CAGameMode.h"
 #include "BaseMap.h"
 #include "Block.h"
+#include "Bush.h"
 
 UMoveObject::UMoveObject() 
 {
@@ -45,7 +46,25 @@ void UMoveObject::MoveSetOwner(ABlock* _Owner)
 			}
 		}
 
-		GetOwner()->SetIsPush(true);
+		if (GetOwner()->GetType() == EMapObjectType::Bush)
+		{
+			ABush* Bush = dynamic_cast<ABush*>(GetOwner());
+
+			if (Bush->GetPossessBlock() == nullptr)
+			{
+				return;
+			}
+			else
+			{
+				Bush->GetPossessBlock()->PlayerInteract();
+			}
+		}
+		else
+		{
+			GetOwner()->SetIsPush(true);
+		}
+
+
 		};
 }
 

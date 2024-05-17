@@ -24,6 +24,8 @@ public:
 	bool IsEmpty(FVector _PlayerPos);
 	bool IsEmpty(int _Y, int _X);
 	bool IsOnWater(FVector _PlayerPos);
+	bool IsOnBush(FVector _PlayerPos);
+	bool IsOnBush(int _Y, int _X);
 
 	std::shared_ptr<AMapObject> AddMapObject(int _Y, int _X, EMapObject _MapObjectType, EItemType _Item = EItemType::None);
 	std::shared_ptr<AMapObject> SpawnItemObject(int _Y, int _X, EItemType _Item);

@@ -276,6 +276,9 @@
     <ClInclude Include="TownBush.h">
       <Filter>MapObject\HideBlock</Filter>
     </ClInclude>
+    <ClInclude Include="OtherUI.h">
+      <Filter>Level\Surver\PublicOBJ</Filter>
+    </ClInclude>
     <ClInclude Include="MapStateValue.h">
       <Filter>Option</Filter>
     </ClInclude>
@@ -450,6 +453,9 @@
     </ClCompile>
     <ClCompile Include="TownBush.cpp">
       <Filter>MapObject\HideBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherUI.cpp">
+      <Filter>Level\Surver\PublicOBJ</Filter>
     </ClCompile>
     <ClCompile Include="MapStateValue.cpp">
       <Filter>Option</Filter>

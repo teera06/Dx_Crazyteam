@@ -23,6 +23,16 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	int MapTime_MilliSecond = 0;
+	int MapTime_Second = 0;
+
+	int Sub_MilliSecond = 0;
+	int Sub_Second = 0;
+
+	bool OtherCreate = false;
+
+	float GetCreateTime();
+
 private:
 	UImage* MapPlayUI = nullptr;
 	UImage* PlayerItemUI = nullptr;
@@ -31,7 +41,7 @@ private:
 	std::vector<UImage*> PlayerUI;
 	std::vector<UImage*> GameTimeerUI;
 
-	float GameTimeCheck = 1.0f;
+	static float GameTimeCheck;
 	int MinUI = 2;
 	int SecondUI = 5;
 	int SecondUI2 = 9;
