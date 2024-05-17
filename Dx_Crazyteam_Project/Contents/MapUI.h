@@ -23,6 +23,16 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	int MapTime_MilliSecond = 0;
+	int MapTime_Second = 0;
+
+	int Sub_MilliSecond = 0;
+	int Sub_Second = 0;
+
+	bool OtherCreate = false;
+
+	float GetCreateTime();
+
 private:
 	UImage* MapPlayUI = nullptr;
 	UImage* PlayerItemUI = nullptr;
