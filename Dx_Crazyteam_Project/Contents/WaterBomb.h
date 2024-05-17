@@ -44,6 +44,10 @@ protected:
 	int Bomb_MilliSecond = 0;
 	int Bomb_Second = 0;
 
+	int Sub_MilliSecond = 0;
+	int Sub_Second = 0;
+	
+
 	float GetCreateTime();
 
 private :
