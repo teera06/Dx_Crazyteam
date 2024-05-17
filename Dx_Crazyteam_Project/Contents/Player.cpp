@@ -37,6 +37,7 @@ void APlayer::BeginPlay()
 	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 1));
 
 	StateInit();
+	
 }
 
 void APlayer::Tick(float _DeltaTime)
@@ -79,10 +80,10 @@ void APlayer::Tick(float _DeltaTime)
 		Bomb->SetObjectToken(WaterBomb_Token++);
 
 		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
-		//Packet->Pos = GetActorLocation();
+		Packet->Pos = GetActorLocation();
 		//Packet->AnimationInfo = Renderer->GetCurAnimationFrame();
 		//Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
-		//Send(Packet);
+		Send(Packet);
 	}
 }
 
