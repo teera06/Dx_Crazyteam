@@ -24,6 +24,9 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	int OherBomb_Second = 0;
+	int OherBomb_MilliSecond = 0;
+
 	//UDefaultSceneComponent* Root = nullptr;
 	//USpriteRenderer* Renderer = nullptr;
 };

@@ -21,6 +21,7 @@ public:
 protected:
 
 	void Initialize() override;
+	void WindowOpen(std::string& _OutWindowTitle, std::string& _SmallIconPath) override;
 
 private:
 

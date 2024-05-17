@@ -50,6 +50,18 @@ void UGame_Core::Initialize()
 
 }
 
+void UGame_Core::WindowOpen(std::string& _OutWindowTitle, std::string& _SmallIconPath)
+{
+	UEngineDirectory NewDir;
+	NewDir.MoveToSearchChild("GameResource");
+
+	_OutWindowTitle = "TestMyTitle";
+
+	std::string IconPath = NewDir.AppendPath("Icon.ico");
+	_SmallIconPath = IconPath;
+
+}
+
 void UGame_Core::MainLoad()
 {
 	{
@@ -104,21 +116,25 @@ void UGame_Core::CuttingAni()
 
 	// Ä³¸¯ÅÍ
 	{
+		// Red Bazzi
 		UEngineSprite::CreateCutting("bazzi_right.png", 4, 1);
 		UEngineSprite::CreateCutting("bazzi_left.png", 4, 1);
 		UEngineSprite::CreateCutting("bazzi_down.png", 4, 1);
 		UEngineSprite::CreateCutting("bazzi_up.png", 4, 1);
 		UEngineSprite::CreateCutting("bazzi_idle.png", 4, 1);
 		UEngineSprite::CreateCutting("bazzi_trap.png", 4, 1);
+		UEngineSprite::CreateCutting("bazzi_trap_long.png", 5, 7);
 		UEngineSprite::CreateCutting("bazzi_rescue.png", 3, 1);
 		UEngineSprite::CreateCutting("bazzi_die.png", 5, 1);
 
+		// Blue Dao 
 		UEngineSprite::CreateCutting("dao_right.png", 4, 1);
 		UEngineSprite::CreateCutting("dao_left.png", 4, 1);
 		UEngineSprite::CreateCutting("dao_down.png", 4, 1);
 		UEngineSprite::CreateCutting("dao_up.png", 4, 1);
 		UEngineSprite::CreateCutting("dao_idle.png", 4, 1);
 		UEngineSprite::CreateCutting("dao_trap.png", 4, 1);
+		UEngineSprite::CreateCutting("dao_trap_long.png", 5, 7);
 		UEngineSprite::CreateCutting("dao_rescue.png", 3, 1);
 		UEngineSprite::CreateCutting("dao_die.png", 5, 1);
 
@@ -128,6 +144,13 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("Dao_3_red.png", 5, 4);
 		UEngineSprite::CreateCutting("Dao_4_red.png", 5, 4);
 		UEngineSprite::CreateCutting("Dao_5_red.png", 5, 6);
+
+		//Red Marid
+		UEngineSprite::CreateCutting("luxMarid_1.png", 5, 12);
+		UEngineSprite::CreateCutting("luxMarid_2.png", 5, 2);
+		UEngineSprite::CreateCutting("luxMarid_3.png", 5, 4);
+		UEngineSprite::CreateCutting("luxMarid_4.png", 5, 4);
+		UEngineSprite::CreateCutting("luxMarid_5.png", 5, 6);
 
 	}
 

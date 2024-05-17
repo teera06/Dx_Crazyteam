@@ -157,11 +157,13 @@ if (0 >= Out.COLOR.a)
 	{
         // 알파가 0이면 아예 그냥 
 		clip(-1);
-	}
+    }
+ 
 
 
     Out.COLOR.xyz += PlusColor.xyz;
     Out.COLOR.xyzw *= MulColor.xyzw;
+    Out.COLOR.w = AlphaColor.w;
     // #define Sampling(Name, TEXCOORD) Name##.Sample(##Name##_Sampler, TEXCOORD.xy);
     // Image.Sample(Image_Sampler, _Input.TEXCOORD.xy);
     

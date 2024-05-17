@@ -13,7 +13,7 @@ class AServerPlayer;
 class AVillage;
 class ASubServerLevel : public ACAGameMode
 {
-	GENERATED_BODY(AGameMode)
+	GENERATED_BODY(ACAGameMode)
 public:
 	// constrcuter destructer
 	ASubServerLevel(); // 디폴트 생성자
