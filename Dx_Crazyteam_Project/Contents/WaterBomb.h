@@ -37,6 +37,13 @@ public:
 		b_WaterToBomb = _Val;
 	}
 
+	inline ACAGameMode* GetWaterBombGameMode()
+	{
+		return WaterBombThisGameMode;
+	}
+
+	void SetToken(int _Set) { WaterBomb_Token = _Set; }
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -50,6 +57,10 @@ protected:
 	bool OtherCreate = false;
 	
 	float GetCreateTime();
+
+	int WaterBomb_Token = 0;
+	int WaterCourse_Token = 0;
+	static bool SetWaterCourseToken;
 
 private :
 	void StateInit();
@@ -67,13 +78,13 @@ private :
 	UStateManager State;
 
 	//USpriteRenderer* Renderer = nullptr;
+	ACAGameMode* CulGameMode = nullptr;
+	ACAGameMode* WaterBombThisGameMode = nullptr;
 	float LifeTime = 0.0f; // ++DeltaTime
 	float BombTime = 2.0f; // 2.0
 	float ServerBombTime = 0.0f;
 	bool b_WaterToBomb = false;
 	bool b_ServerBomb = false;
 
-
-	static int WaterBomb_Token;
 };
 

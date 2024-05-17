@@ -5,81 +5,53 @@
 
 #pragma warning(disable:4996) 
 
-std::string UTextimeInput::ReadText ="";
-std::string UTextimeInput::MidText = "";
-std::string UTextimeInput::ComstrText="";
 char UTextimeInput::Text[255]="";
 char UTextimeInput::Cstr[10]="";
+bool UTextimeInput::OnOff = true;
 bool UTextimeInput::bHangeul=false;
 HWND UTextimeInput::hwnd;
 HIMC UTextimeInput::himc;
 
-void UTextimeInput::IMEInput()
-{
-	if (true == UEngineInput::IsDown(VK_BACK))
-	{
-		if (ReadText.size() >0)
-		{
-			ReadText.pop_back();
-		}
-		return;
-	}
-
-	if (true == UEngineInput::IsDown(VK_SPACE))
-	{
-		ReadText += " ";
-		return;
-	}
-
-	if (true == UEngineInput::IsDown(VK_TAB))
-	{
-		if (false == bHangeul)
-		{
-			bHangeul = true;
-		}
-		else
-		{
-			bHangeul = false;
-		}
-		SetNativeMode(bHangeul);
-		return;
-	}
-
-	for (int i = '0'; i <= '9'; i++)
-	{
-		if (true == UEngineInput::IsDown(i))
-		{
-			ReadText += static_cast<char>(i);
-			return;
-		}
-	}
-
-	if (false == bHangeul)
-	{
-		return;
-	}
-
-	for (int i = 'A'; i <= 'Z'; i++)
-	{
-		if (true == UEngineInput::IsDown(i))
-		{
-			ReadText += tolower(static_cast<char>(i));
-			return;
-		}
-	}
-}
 
 std::string UTextimeInput::GetReadText()
 {
-	std::string ch=Text;
+	char Text1[255];
+	memset(Text1, 0, 255);
 
-	return ch +Cstr;
+	strcpy(Text1, Text);
+
+	if (Cstr[0] != 0)
+	{
+		strcpy(Text1 + strlen(Text), Cstr);
+	}
+
+	strcpy(Text1 + strlen(Text1), "_");
+
+	std::string ch=Text1;
+
+	return ch;
+}
+
+void UTextimeInput::On()
+{
+	OnOff = true;
+}
+
+void UTextimeInput::Off()
+{
+	OnOff = false;
 }
 
 
 
 void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 {
+
+	if (false == OnOff)
+	{
+		return;
+	}
+
 	hwnd = _hWnd;
 	himc = ImmGetContext(_hWnd);
 
@@ -112,12 +84,23 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 	case WM_CHAR: // 영어랑 숫자 처리
 		if (_wparam == 8)
 		{
-			if (strlen(Text) > 0 && true == bHangeul) // 한글 지울때 
+			if (strlen(Text) > 0) // 한글 지울때 
 			{
-				if (' ' == Text[strlen(Text) - 1]) // 스페이스바 빈공간 해결
+				
+				if (Text[strlen(Text) - 1] == ' ')
 				{
 					Text[strlen(Text) - 1] = 0;
+					memset(Cstr, 0, 10);
+					return;
 				}
+
+				if (Text[strlen(Text) - 1] >= 33 && Text[strlen(Text) - 1] <= 126) // 아스키 코드 사용 영어랑 특수문자들 구분
+				{
+					Text[strlen(Text) - 1] = 0;
+					memset(Cstr, 0, 10);
+					return;
+				}
+
 
 				Text[strlen(Text) - 1] = 0;
 
@@ -125,29 +108,19 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 				{
 					Text[strlen(Text) - 1] = 0;
 				}
-			}
-			else if(strlen(Text) > 0 && false == bHangeul) // 영어 지울때
-			{
-				Text[strlen(Text) - 1] = 0;
+
+				memset(Cstr, 0, 10);
 			}
 		}
 		else
 		{
-			if (_wparam == VK_SPACE)
-			{
-				bHangeul = true;
-			}
-			else
-			{
-				bHangeul = false;
-			}
-
 			if (_wparam == VK_RETURN)
 			{
 				break;
 			}
-			len = static_cast<int>(strlen(Text));
-			Text[len] = _wparam & 0xff;
+			//len = static_cast<int>(strlen(Text));
+			Text[strlen(Text)] = _wparam & 0xff;
+			Text[strlen(Text)] = 0;
 		}
 		break;
 	case WM_KEYDOWN:
@@ -161,34 +134,6 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 	}
 }
 
-void UTextimeInput::SetNativeMode(bool bHangeul)
-{
-	DWORD dwConv, dwSent;
 
-	DWORD dwTemp;
-
-
-
-	ImmGetConversionStatus(himc, &dwConv, &dwSent);
-
-	dwTemp = dwConv & ~IME_CMODE_LANGUAGE;
-
-	if (bHangeul) {
-
-		dwTemp |= IME_CMODE_NATIVE;
-
-	}
-	else {
-
-		dwTemp |= IME_CMODE_ALPHANUMERIC;
-
-	}
-
-	dwConv = dwTemp;
-
-	ImmSetConversionStatus(himc, dwConv, dwSent);
-
-	ImmReleaseContext(hwnd, himc);
-}
 
 

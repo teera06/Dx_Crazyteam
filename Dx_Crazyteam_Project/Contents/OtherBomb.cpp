@@ -45,24 +45,18 @@ void AOtherBomb::Tick(float _DeltaTime)
 		{
 		case WaterBombUpdatePacket:
 		{
+
 			std::shared_ptr<UWaterBombUpdatePacket> UpdatePacket = std::dynamic_pointer_cast<UWaterBombUpdatePacket>(Protocol);
 
-			SetActorLocation(UpdatePacket->Pos);
-
-			//std::string SpriteNames = UpdatePacket->SpriteName;
-
-			//int AnimationInFO = UpdatePacket->AnimationInfo;
-
-			//bool IsDie = UpdatePacket->IsDestroy;
-
-			//if (SpriteNames != "" && IsDie ==false)
+			if (UpdatePacket->ObjectType == static_cast<int>(EObjectType::WaterBomb))
+			{
+				SetActorLocation(UpdatePacket->Pos);
+			}
+			//else if (UpdatePacket->ObjectType == static_cast<int>(EObjectType::WaterBomb))
 			//{
-			//	Renderer->SetSprite(SpriteNames, AnimationInFO);
+			//	AWaterBomb::SetActorLocation(UpdatePacket->Pos);
 			//}
-			//if (IsDie == true)
-			//{
-			//	Renderer->SetActive(false);
-			//}
+		
 			break;
 		}
 		default:

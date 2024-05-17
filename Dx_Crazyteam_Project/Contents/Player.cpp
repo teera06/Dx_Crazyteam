@@ -36,6 +36,7 @@ void APlayer::BeginPlay()
 
 	Info = std::make_shared<PlayerInfo>();
 	SetCharacterType(ECharacterType::Bazzi);
+	SetTeamType(ETeamType::BTeam);
 	StateInit();
 	
 }
@@ -87,11 +88,10 @@ void APlayer::Tick(float _DeltaTime)
 	{
 		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
 		Bomb->SetObjectToken(WaterBomb_Token++);
-
+		Bomb->SetToken(WaterBomb_Token);
 		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
 		Packet->Pos = GetActorLocation();
-		//Packet->AnimationInfo = Renderer->GetCurAnimationFrame();
-		//Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
+		Packet->ObjectType = static_cast<int>(EObjectType::WaterBomb);
 		Send(Packet);
 	}
 }
@@ -127,7 +127,7 @@ std::string APlayer::GetAnimationName(std::string_view _StateName)
 		break;
 	}
 
-	if (_StateName == "Trap" || _StateName == "Rescue" || _StateName == "Die")
+	if (_StateName == "GameOn1" || _StateName == "GameOn2" || _StateName == "Trap" || _StateName == "Rescue" || _StateName == "Die")
 	{
 		return _AniName;
 	}

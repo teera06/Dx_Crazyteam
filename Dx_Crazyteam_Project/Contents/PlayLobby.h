@@ -29,6 +29,8 @@ private:
 
 	UImage* PlayLobbyUI = nullptr;
 	UImage* GameStart = nullptr;
+	UImage* SelectMap = nullptr;
+
 	//캐릭터 선택창
 	UImage* RandomBT;
 	UImage* DaoBT;
@@ -42,6 +44,7 @@ private:
 	UImage* SuBT;
 	UImage* HooUBT;
 	UImage* RayBT;
+
 	//캐릭터 설명
 	UImage* LobbyCharacterBanner;
 	UImage* Randomex;
@@ -61,17 +64,43 @@ private:
 	//로비 플레이어 캐릭터
 	std::vector<UImage*> LobbyPlayer;
 	
-	std::vector<UImage*> RoomVector;
-	std::vector<UImage*>::iterator RoomIter = RoomVector.begin();
-	std::vector<bool> RoomVectorNumber;
+	//플레이어 Room
+	UImage* Room1;
+	UImage* Room2;
+	UImage* Room3;
+	UImage* Room4;
+	UImage* Room5;
+	UImage* Room6;
+	UImage* Room7;
+
+	UImage* XRoom1;
+	UImage* XRoom2;
+	UImage* XRoom3;
+	UImage* XRoom4;
+	UImage* XRoom5;
+	UImage* XRoom6;
+	UImage* XRoom7;
 
 
 	bool SwitchON = false;
 	bool TeamSwitchON = false;
 	bool IsSelectSharacter = false;
 	bool IsTeamSelectSharacter = false;
-	bool RoomO = true;
-	bool RoomX = false;
+	bool RoomO1 = true;
+	bool RoomX1 = false;
+	bool RoomO2 = true;
+	bool RoomX2 = false;
+	bool RoomO3 = true;
+	bool RoomX3 = false;
+	bool RoomO4 = true;
+	bool RoomX4 = false;
+	bool RoomO5 = true;
+	bool RoomX5 = false;
+	bool RoomO6 = true;
+	bool RoomX6 = false;
+	bool RoomO7 = true;
+	bool RoomX7 = false;
+
 	bool RoomSwitch= false;
 	int  PlayerCount = 0;
 	int TestCount = 0;

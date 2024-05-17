@@ -3,10 +3,10 @@
 #include <EngineBase/NetObject.h>
 #include <EngineCore/DefaultSceneComponent.h>
 #include "WaterBomb.h"
-
+#include "WaterCourse.h"
 // Ό³Έν :
 class USpriteRenderer;
-class AOtherBomb : public AWaterBomb/*,public AActor, public UNetObject*/
+class AOtherBomb : public AWaterBomb
 {
 public:
 	// constrcuter destructer
@@ -26,8 +26,5 @@ protected:
 private:
 	int OherBomb_Second = 0;
 	int OherBomb_MilliSecond = 0;
-
-	//UDefaultSceneComponent* Root = nullptr;
-	//USpriteRenderer* Renderer = nullptr;
 };
 

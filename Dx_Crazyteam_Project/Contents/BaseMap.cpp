@@ -239,6 +239,8 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 		std::shared_ptr<AWaterCourse> TempObj = GetWorld()->SpawnActor<AWaterCourse>("CampBlock");
 		TempObj->SetActorLocation(PushPos);
 		TempObj->CreateWaterCenter();
+		TempObj->BaseToSetGameMode(GetGameMode());
+		TempObj->SetWaterBombGameMode(GetGameMode());
 		MapObj = TempObj;
 		break;
 	}
