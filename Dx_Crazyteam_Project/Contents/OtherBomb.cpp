@@ -5,17 +5,13 @@
 #include <EngineCore/DefaultSceneComponent.h>
 #include "Game_Core.h"
 #include "Packets.h"
-
+#include "EngineBase/EngineTime.h"
 
 AOtherBomb::AOtherBomb()
 {
-	//Root = CreateDefaultSubObject<UDefaultSceneComponent>("RendererRoot");
-	//SetRoot(Root);
-	//Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	//Renderer->SetAutoSize(0.05f, true);
-	//Renderer->SetupAttachment(Root);
-	//Renderer->SetOrder(5);
-	//SetActorScale3D(FVector(20, 20, 1));
+	UEngineTime Time;
+	OherBomb_MilliSecond = Time.GetCurTime().MilliSecond;
+	OherBomb_Second = Time.GetCurTime().Second;
 }
 
 AOtherBomb::~AOtherBomb()
@@ -25,12 +21,15 @@ AOtherBomb::~AOtherBomb()
 void AOtherBomb::BeginPlay()
 {
 	AWaterBomb::BeginPlay();
+
+	Sub_MilliSecond = OherBomb_MilliSecond - Bomb_MilliSecond;
+	Sub_Second = OherBomb_Second - Bomb_Second;
+	OtherCreate = true;
+
 }
 
 void AOtherBomb::Tick(float _DeltaTime)
 {
-	
-
 	std::shared_ptr<UEngineProtocol> Protocol = nullptr;
 
 	do
@@ -71,6 +70,7 @@ void AOtherBomb::Tick(float _DeltaTime)
 		}
 	} while (nullptr != Protocol);
 
+	
 	AWaterBomb::Tick(_DeltaTime);
 }
 

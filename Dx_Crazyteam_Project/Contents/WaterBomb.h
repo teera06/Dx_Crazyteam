@@ -41,6 +41,16 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	int Bomb_MilliSecond = 0;
+	int Bomb_Second = 0;
+
+	int Sub_MilliSecond = 0;
+	int Sub_Second = 0;
+
+	bool OtherCreate = false;
+	
+	float GetCreateTime();
+
 private :
 	void StateInit();
 	void CreateAnimation();
@@ -57,9 +67,10 @@ private :
 	UStateManager State;
 	//USpriteRenderer* Renderer = nullptr;
 	float LifeTime = 0.0f;
-	//bool b_Bomb = false;
+	float BombTime = 2.0f;
 	bool b_WaterToBomb = false;
 	bool b_ServerBomb = false;
+
 
 	static int WaterBomb_Token;
 };

@@ -13,6 +13,7 @@
 #include "Packets.h"
 #include "OtherPlayer.h"
 #include "Village.h"
+#include "Camp.h"
 #include "ItemBubble.h"
 
 #include "TitleMenu.h"
@@ -42,8 +43,9 @@ void AServerGameMode::BeginPlay()
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 
 
-	Village = GetWorld()->SpawnActor<AVillage>("Village");
-	SetCurMap(Village);
+	Camp = GetWorld()->SpawnActor<ACamp>("Camp");
+	SetCurMap(Camp);
+	Camp->AddObjectInit();
 
 	MainPlayer = GetWorld()->SpawnActor<AServerTestPlayer>("Player");
 	MainPlayer->SetCurGameMode(this);
@@ -70,10 +72,6 @@ void AServerGameMode::LevelStart(ULevel* _PrevLevel)
 
 				MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
 				
-				{
-					std::shared_ptr<AItemBubble> BubbleItem = GetWorld()->SpawnActor<AItemBubble>("BubbleItem");
-					BubbleItem->SetObjectToken(UNetObject::GetNewObjectToken());
-				}
 
 				ServerPacketInit(UGame_Core::Net->Dispatcher);
 			});
