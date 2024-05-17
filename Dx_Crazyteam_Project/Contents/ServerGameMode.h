@@ -28,15 +28,15 @@ public:
 	AServerGameMode& operator=(const AServerGameMode& _Other) = delete;
 	AServerGameMode& operator=(AServerGameMode&& _Other) noexcept = delete;
 
-	//void ServerPacketInit(UEngineDispatcher& Dis);
-	//void ClientPacketInit(UEngineDispatcher& Dis);
+	void ServerPacketInit(UEngineDispatcher& Dis);
+	void ClientPacketInit(UEngineDispatcher& Dis);
 
 	std::shared_ptr<APlayLobby> GetPlayLobby();
 
 protected:
 	std::shared_ptr<UEngineNetWindow> NetWindow;
-	//std::shared_ptr<APlayer> MainPlayer = nullptr;
-	//std::shared_ptr<AVillage> Village = nullptr;
+	std::shared_ptr<APlayer> MainPlayer = nullptr;
+	std::shared_ptr<AVillage> Village = nullptr;
 	std::shared_ptr<ATitleMenu> TitleMenu = nullptr;
 	std::shared_ptr<APlayLobby> PlayLobby = nullptr;
 
