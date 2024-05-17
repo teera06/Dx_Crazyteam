@@ -1,7 +1,7 @@
 #pragma once
 #include "Item.h"
 
-// 설명 :
+// 설명 : 물풍선 킥할 수 있는 아이템
 class AItemShoes : public AItem
 {
 	GENERATED_BODY(AItem)

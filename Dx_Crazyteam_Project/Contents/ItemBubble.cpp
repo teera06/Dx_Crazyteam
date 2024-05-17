@@ -31,24 +31,7 @@ void AItemBubble::Tick(float _DeltaTime)
 void AItemBubble::Action()
 {
 	int iWBCount = GetGameMode()->GetPlayer()->GetPlayerInfo()->WBCount;
-	int iMaxCount = 0;
-
-	switch (GetGameMode()->GetPlayer()->GetPlayerInfo()->MyType)
-	{
-	case ECharacterType::None:
-		return;
-	case ECharacterType::Bazzi:
-		iMaxCount = ConstValue::BazziMaxWBCount;
-		break;
-	case ECharacterType::Dao:
-		iMaxCount = ConstValue::DaoMaxWBCount;
-		break;
-	case ECharacterType::Marid:
-		//iMaxCount = ConstValue::MaridWBCount;
-		break;
-	default:
-		break;
-	}
+	int iMaxCount = GetGameMode()->GetPlayer()->GetPlayerInfo()->MaxWBCount;
 
 
 	if (iWBCount < iMaxCount)

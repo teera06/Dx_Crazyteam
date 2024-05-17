@@ -2,6 +2,12 @@
 #include <EngineBase/EngineMath.h>
 #include <EngineBase/EngineProtocol.h>
 
+enum class EObjectType
+{
+	Player = 2000,
+	Item,
+};
+
 enum EContentPacket
 {
 	WaterBombUpdatePacket = 98,
@@ -24,6 +30,7 @@ public:
 		UEngineProtocol::Serialize(_Ser);
 		_Ser << Pos;
 		_Ser << AnimationInfo;
+		_Ser << ObjectType;
 		_Ser << SpriteName;
 		_Ser << IsDestroy;
 	}
@@ -33,6 +40,7 @@ public:
 		UEngineProtocol::DeSerialize(_Ser);
 		_Ser >> Pos;
 		_Ser >> AnimationInfo;
+		_Ser >> ObjectType;
 		_Ser >> SpriteName;
 		_Ser >> IsDestroy;
 	}
@@ -40,7 +48,7 @@ public:
 public:
 	float4 Pos = float4::Zero;
 	int AnimationInfo = 0;
-	// int ObjectType = 0;
+	int ObjectType = 0;
 	bool IsDestroy = true;
 	std::string SpriteName;
 };

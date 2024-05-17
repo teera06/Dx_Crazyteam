@@ -6,12 +6,14 @@
 #include "CAGameMode.h"
 #include "Packets.h"
 #include "Game_Core.h"
+#include "MapDebugGUI.h"
+#include <EngineBase/EngineTime.h>
 
 int AWaterBomb::WaterBomb_Token = 0;
 
 AWaterBomb::AWaterBomb()
 {
-
+	GetCreateTime();
 }
 
 AWaterBomb::~AWaterBomb()
@@ -39,6 +41,14 @@ void AWaterBomb::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 
 	//WaterBombPacket(_DeltaTime, b_ServerBomb);
+}
+
+float AWaterBomb::GetCreateTime()
+{
+	UEngineTime Time;
+	Bomb_MilliSecond = Time.GetCurTime().MilliSecond;
+	Bomb_Second = Time.GetCurTime().Second;
+	return 0.0f;
 }
 
 void AWaterBomb::StateInit()
