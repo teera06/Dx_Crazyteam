@@ -4,7 +4,11 @@
 #include "ServerTestPlayer.h"
 #include "ItemBubble.h"
 #include "Game_Core.h"
+#include "MapObject.h"
 #include "Packets.h"
+#include "CAGameMode.h"
+#include "BaseMap.h"
+
 
 AServerTestPlayer::AServerTestPlayer()
 {
@@ -31,9 +35,8 @@ void AServerTestPlayer::Tick(float _DeltaTime)
 
 void AServerTestPlayer::SpawnItem()
 {
-	std::shared_ptr<AItemBubble> BubbleItem = GetWorld()->SpawnActor<AItemBubble>("BubbleItem");
+	std::shared_ptr<AMapObject> BubbleItem = GetGameMode()->GetCurMap()->AddMapObject(6, 1, EMapObject::Item, EItemType::ItemBubble);
 	BubbleItem->SetObjectToken(UNetObject::GetNewObjectToken());
-	BubbleItem->SetActorLocation(GetActorLocation() + float4(50.0f, 50.0f, 0.0f));
 
 	std::shared_ptr<UActorUpdatePacket> Packet = std::make_shared<UActorUpdatePacket>();
 	Packet->SetObjectToken(BubbleItem->GetObjectToken());

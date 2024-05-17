@@ -26,6 +26,13 @@ protected:
 private:
 	UImage* MapPlayUI = nullptr;
 	UImage* PlayerItemUI = nullptr;
+	UImage* GameStartUI = nullptr;
 	std::vector<UImage*> PlayerUI;
+	std::vector<UImage*> GameTimeerUI;
+
+	float GameTimerCheck = 180.0f;
+	int MinUI = 2;
+	int SecondUI = 5;
+	int SecondUI2 = 9;
 };
 
