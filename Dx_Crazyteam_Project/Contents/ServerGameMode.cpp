@@ -16,6 +16,7 @@
 #include "Village.h"
 #include "Camp.h"
 #include "ItemBubble.h"
+#include "MapObject.h"
 
 #include "TitleMenu.h"
 #include "PlayLobby.h"
@@ -105,13 +106,34 @@ void AServerGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 
 			GetWorld()->PushFunction([=]()
 				{
-					AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
-					if (nullptr == OtherPlayer)
+					switch (_Packet->ObjectType)
+					{	
+					case static_cast<int>(EObjectType::Player):
 					{
-						OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
-						OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+						AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
+						if (nullptr == OtherPlayer)
+						{
+							OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
+							OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+						}
+						OtherPlayer->PushProtocol(_Packet);
+						break;
 					}
-					OtherPlayer->PushProtocol(_Packet);
+					case static_cast<int>(EObjectType::Item):
+					{
+						// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
+						AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+						if (nullptr == OtherItem)
+						{
+							ABaseMap* CurMap = GetCurMap().get();
+							OtherItem = CurMap->AddMapObject(6, 1, EMapObject::Item, EItemType::ItemBubble).get();
+							OtherItem->SetObjectToken(_Packet->GetObjectToken());
+						}
+						break;
+					}
+					default:
+						break;
+					}
 				});
 		});
 }
@@ -122,13 +144,34 @@ void AServerGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 		{
 			GetWorld()->PushFunction([=]()
 				{
-					AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
-					if (nullptr == OtherPlayer)
+					switch (_Packet->ObjectType)
 					{
-						OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
-						OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+					case static_cast<int>(EObjectType::Player):
+					{
+						AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
+						if (nullptr == OtherPlayer)
+						{
+							OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
+							OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+						}
+						OtherPlayer->PushProtocol(_Packet);
+						break;
 					}
-					OtherPlayer->PushProtocol(_Packet);
+					case static_cast<int>(EObjectType::Item):
+					{
+						// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
+						AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+						if (nullptr == OtherItem)
+						{
+							ABaseMap* CurMap = GetCurMap().get();
+							OtherItem = CurMap->AddMapObject(6, 1, EMapObject::Item, EItemType::ItemBubble).get();
+							OtherItem->SetObjectToken(_Packet->GetObjectToken());
+						}
+						break;
+					}
+					default:
+						break;
+					}
 				});
 		});
 }
