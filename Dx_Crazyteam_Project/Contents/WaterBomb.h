@@ -86,6 +86,5 @@ private :
 	bool b_WaterToBomb = false;
 	bool b_ServerBomb = false;
 
-
 };
 
