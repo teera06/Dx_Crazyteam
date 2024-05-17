@@ -93,6 +93,7 @@ void AWaterBomb::NoneTick(float _DeltaTime)
 
 void AWaterBomb::CreateBegin()
 {
+	WaterBombThisGameMode = GetGameMode();
 	Renderer->SetActive(true);
 	LifeTime = 0.0f;
 	if (true == OtherCreate)
@@ -145,7 +146,7 @@ void AWaterBomb::CreateExit()
 
 void AWaterBomb::BombBegin()
 {
-	//GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water);
+	GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water);
 	Renderer->SetActive(false);
 	b_ServerBomb = true;
 }

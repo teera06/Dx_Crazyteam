@@ -49,6 +49,22 @@ public :
 		WaterCourseDir = _Dir;
 	}
 
+	inline void BaseToSetGameMode(ACAGameMode* _GameMode)
+	{
+		if (BombGameMode == nullptr)
+		{
+			BombGameMode = _GameMode;
+		}
+	}
+
+	inline void SetWaterBombGameMode(ACAGameMode* _GameMode)
+	{
+		if (nullptr == WaterBombGameMode)
+		{
+			WaterBombGameMode = _GameMode;
+		}
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -78,6 +94,8 @@ private :
 
 
 	UStateManager State;
+	ACAGameMode* BombGameMode = nullptr;
+	ACAGameMode* WaterBombGameMode = nullptr;
 	//USpriteRenderer* Renderer = nullptr; // 수정해야 함. TODO
 	bool CreateStart = false;
 	bool b_BombCountUpdateOne = false;

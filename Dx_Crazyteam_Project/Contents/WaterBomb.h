@@ -37,6 +37,11 @@ public:
 		b_WaterToBomb = _Val;
 	}
 
+	inline ACAGameMode* GetWaterBombGameMode()
+	{
+		return WaterBombThisGameMode;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -67,6 +72,7 @@ private :
 	UStateManager State;
 
 	//USpriteRenderer* Renderer = nullptr;
+	ACAGameMode* WaterBombThisGameMode = nullptr;
 	float LifeTime = 0.0f; // ++DeltaTime
 	float BombTime = 2.0f; // 2.0
 	float ServerBombTime = 0.0f;
