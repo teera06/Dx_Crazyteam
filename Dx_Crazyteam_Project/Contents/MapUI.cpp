@@ -19,12 +19,14 @@ void AMapUI::BeginPlay()
 	MapPlayUI = CreateWidget<UImage>(GetWorld(), "MapPlayUI");
 	MapPlayUI->AddToViewPort(3);
 	MapPlayUI->SetSprite("MapPlayUI.png");
+	MapPlayUI->SetPosition(FVector(0.0f, 0.0f, 0.0f));
 	MapPlayUI->SetAutoSize(1.0f, true);
 
 	PlayerItemUI = CreateWidget<UImage>(GetWorld(), "PlayerItemUI");
 	PlayerItemUI->AddToViewPort(3);
 	PlayerItemUI->SetAutoSize(1.0f, true);
-	PlayerItemUI->SetPosition(FVector(315.0f, -190.0f, 100.0f));
+	PlayerItemUI->SetSprite("Niddle.png", 2);
+	PlayerItemUI->SetPosition(FVector(290.0f, -230.0f, 0.0f));
 	PlayerItemUI->SetActive(true);
 }
 
@@ -39,8 +41,8 @@ void AMapUI::Tick(float _DeltaTime)
 			PlayerUI[i] = CreateWidget<UImage>(GetWorld(), "PlayerUI");
 			PlayerUI[i]->SetSprite("CharatorSelect_Button_Bazzi_Click.bmp");
 			PlayerUI[i]->AddToViewPort(20);
-			PlayerUI[i]->SetAutoSize(1.0f, true);
-			PlayerUI[i]->AddPosition(FVector(360.0f, 230 - static_cast<float>((i * 55)), 100.0f));
+			PlayerUI[i]->SetAutoSize(0.7f, true);
+			PlayerUI[i]->AddPosition(FVector(280.0f, 180 - static_cast<float>((i * 43)), 100.0f));
 		}
 	}
 }
