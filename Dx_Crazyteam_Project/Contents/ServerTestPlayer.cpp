@@ -39,5 +39,6 @@ void AServerTestPlayer::SpawnItem()
 	Packet->SetObjectToken(BubbleItem->GetObjectToken());
 	Packet->Pos = BubbleItem->GetActorLocation();
 	Packet->IsDestroy = false;
+	Packet->ObjectType = static_cast<int>(EObjectType::Item);
 	Send(Packet);
 }
