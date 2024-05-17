@@ -144,6 +144,7 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 				{
 					Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
 					Bomb->SetObjectToken(_Packet->GetObjectToken());
+					Bomb->SetCurGameMode(this);
 					Bomb->CreateWaterBomb();
 				}
 				Bomb->PushProtocol(_Packet);
@@ -217,6 +218,7 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 			{
 				Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
 				Bomb->SetObjectToken(_Packet->GetObjectToken());
+				Bomb->SetCurGameMode(this);
 				Bomb->CreateWaterBomb();
 			}
 			Bomb->PushProtocol(_Packet);
