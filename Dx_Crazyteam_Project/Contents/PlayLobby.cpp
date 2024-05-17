@@ -415,6 +415,7 @@ void APlayLobby::Tick(float _DeltaTime)
 			});
 		GameStart->SetDown([=] {
 			GameStart->ChangeAnimation("Down");
+			GEngine->ChangeLevel("PlayertestMode");
 			});
 
 

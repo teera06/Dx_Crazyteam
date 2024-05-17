@@ -27,7 +27,7 @@ void APlayerTestMode::BeginPlay()
 	Player1 = GetWorld()->SpawnActor<APlayer>("Player1");
 	Player1->SetCurGameMode(this);
 	SetMainPlayer(Player1);
-	Player1->SetTeamType(ETeamType::BTeam);
+	Player1->MainPlayerSetting();
 	//Player1->SetCharacterType(ECharacterType::Marid);
 
 	std::shared_ptr<AItemBubble> Bubble = GetWorld()->SpawnActor<AItemBubble>("ItemTest");
@@ -53,6 +53,8 @@ void APlayerTestMode::Tick(float _DeltaTime)
 void APlayerTestMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
+
+	Player1->MainPlayerInit();
 }
 
 void APlayerTestMode::LevelEnd(ULevel* _NextLevel)

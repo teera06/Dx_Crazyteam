@@ -8,6 +8,7 @@
 #include "BaseMap.h"
 #include "CAGameMode.h"
 #include "WaterBomb.h"
+#include <EngineBase/EngineRandom.h>
 
 int APlayer::WaterBomb_Token = 0;
 
@@ -34,15 +35,52 @@ void APlayer::BeginPlay()
 	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 1));
 
 	Info = std::make_shared<PlayerInfo>();
-	SetCharacterType(ECharacterType::Dao);
-	SetTeamType(ETeamType::BTeam);
+
+	MainPlayerSetting();
 	StateInit();
-	
+}
+
+void APlayer::MainPlayerInit()
+{
+	MainPlayerSetting();
+	State.ChangeState("GameOn");
+}
+
+void APlayer::MainPlayerSetting()
+{
+	if (ConstValue::MainPlayerCharacterType == ECharacterType::None)
+	{
+		// UI에서 캐릭터 타입 선택되지 않은 경우
+		SetCharacterType(ECharacterType::Random);
+	}
+	else
+	{
+		// UI에서 캐릭터 타입 선택된 경우
+		SetCharacterType(ConstValue::MainPlayerCharacterType);
+	}
+
+	if (ConstValue::MainPlayerTeamType == ETeamType::None)
+	{
+		// UI에서 팀 타입 선택되지 않은 경우
+		ConstValue::MainPlayerTeamType = ETeamType::ATeam;
+		SetTeamType(ETeamType::ATeam);
+	}
+	else
+	{
+		// UI에서 팀 타입 선택된 경우
+		SetTeamType(ConstValue::MainPlayerTeamType);
+	}
 }
 
 void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	if (ConstValue::MainPlayerCharacterType != Info->MyType || ConstValue::MainPlayerTeamType != Info->Team)
+	{
+		// 변화가 있으면 다시 시작
+		MainPlayerInit();
+	}
 
 	State.Update(_DeltaTime);
 
@@ -169,6 +207,13 @@ std::string APlayer::GetAnimationName(std::string_view _StateName)
 
 void APlayer::SetCharacterType(ECharacterType _Type)
 {
+	if (_Type == ECharacterType::Random)
+	{
+		int RandomCharacter = UEngineRandom::MainRandom.RandomInt(static_cast<int>(ECharacterType::Bazzi), static_cast<int>(ECharacterType::Marid));
+		_Type = static_cast<ECharacterType>(RandomCharacter);
+		ConstValue::MainPlayerCharacterType = _Type;
+	}
+
 	switch (_Type)
 	{
 	case ECharacterType::Bazzi:

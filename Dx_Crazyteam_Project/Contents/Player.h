@@ -39,6 +39,9 @@ public:
 	APlayer& operator=(const APlayer& _Other) = delete;
 	APlayer& operator=(APlayer&& _Other) noexcept = delete;
 	
+	void MainPlayerInit();
+	void MainPlayerSetting();
+
 	void SetCharacterType(ECharacterType _Type);
 
 	void SetWBCount(int _count)
