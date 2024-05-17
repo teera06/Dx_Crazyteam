@@ -169,7 +169,7 @@ void AWaterBomb::BombBegin()
 	}
 	WaterCourse_Token = WaterCourse->WaterCourseToken;
 	WaterCourse->SetObjectToken(WaterCourse_Token++);
-
+	//std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
 	std::shared_ptr<UWaterWaterCourseUpdatePacket> Packet = std::make_shared<UWaterWaterCourseUpdatePacket>();
 	Packet->Pos = GetActorLocation();
 	Packet->ObjectType = static_cast<int>(EObjectType::WaterCourse);
