@@ -50,6 +50,18 @@ void UGame_Core::Initialize()
 
 }
 
+void UGame_Core::WindowOpen(std::string& _OutWindowTitle, std::string& _SmallIconPath)
+{
+	UEngineDirectory NewDir;
+	NewDir.MoveToSearchChild("GameResource");
+
+	_OutWindowTitle = "TestMyTitle";
+
+	std::string IconPath = NewDir.AppendPath("Icon.ico");
+	_SmallIconPath = IconPath;
+
+}
+
 void UGame_Core::MainLoad()
 {
 	{

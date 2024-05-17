@@ -18,6 +18,7 @@ class UserCore
 {
 public:
 	virtual void Initialize() = 0;
+	virtual void WindowOpen(std::string& _OutWindowTitle, std::string& _SmallIconPath) {}
 };
 
 // Ό³Έν :
