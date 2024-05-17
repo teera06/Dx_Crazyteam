@@ -22,7 +22,7 @@ void ATestGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
-	Camera->SetActorLocation(FVector(0.0f, 0.0f, -1000.0f));
+	Camera->SetActorLocation(FVector(80.0f, 1.0f, -1000.0f));
 
 	std::shared_ptr<ACamp> Camp = GetWorld()->SpawnActor<ACamp>("Camp");
 	SetCurMap(Camp);

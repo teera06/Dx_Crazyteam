@@ -18,7 +18,7 @@ void AItem::BeginPlay()
 	Renderer->CreateAnimation("ItemShadow", "ItemShadow.png", 0.9f, true, 0, 1);
 	Renderer->ChangeAnimation("ItemShadow");
 	Renderer->SetAutoSize(0.6f, true);
-	Renderer->AddPosition(FVector::Down * 65.f);
+	//Renderer->AddPosition(FVector::Down * 65.f);
 
 	SetType(EMapObjectType::Item);
 

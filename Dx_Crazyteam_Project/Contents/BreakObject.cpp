@@ -23,7 +23,7 @@ void UBreakObject::BreakSetOwner(ABlock* _Owner)
 
 		BreakOwner->MinusHP();
 
-		if (BreakOwner->GetHp() < 0)
+		if (BreakOwner->GetHp() <= 0)
 		{
 			BreakOwner->SetIsBreak(true);
 		}
