@@ -37,7 +37,6 @@ public:
 
 protected:
 	std::shared_ptr<UEngineNetWindow> NetWindow;
-	std::shared_ptr<AServerTestPlayer> MainPlayer = nullptr;
 	std::shared_ptr<ACamp> Camp = nullptr;
 	std::shared_ptr<ATitleMenu> TitleMenu = nullptr;
 	std::shared_ptr<APlayLobby> PlayLobby = nullptr;
