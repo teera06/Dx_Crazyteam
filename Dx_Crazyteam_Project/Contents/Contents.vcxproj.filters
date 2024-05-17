@@ -276,6 +276,9 @@
     <ClInclude Include="TownBush.h">
       <Filter>MapObject\HideBlock</Filter>
     </ClInclude>
+    <ClInclude Include="OtherUI.h">
+      <Filter>Level\Surver\PublicOBJ</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -447,6 +450,9 @@
     </ClCompile>
     <ClCompile Include="TownBush.cpp">
       <Filter>MapObject\HideBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherUI.cpp">
+      <Filter>Level\Surver\PublicOBJ</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
 
 AMapUI::AMapUI()
 {
+	GetCreateTime();
 }
 
 AMapUI::~AMapUI()
@@ -120,4 +121,12 @@ void AMapUI::Tick(float _DeltaTime)
 void AMapUI::SetPlayItemUI(int _ItemNumber)
 {
 	PlayerItemUI->SetSprite("Item", _ItemNumber);
+}
+
+float AMapUI::GetCreateTime()
+{
+	UEngineTime Time;
+	MapTime_MilliSecond = Time.GetCurTime().MilliSecond;
+	MapTime_Second = Time.GetCurTime().Second;
+	return 0.0f;
 }
