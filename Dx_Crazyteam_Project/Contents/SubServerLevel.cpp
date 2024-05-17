@@ -53,7 +53,7 @@ void ASubServerLevel::BeginPlay()
 	Camp->SetCurGameMode(this);
 
 
-	std::shared_ptr<AMapUI> MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
+	MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
 	MapUI->SetCurGameMode(this);
 	SetUI(MapUI);
 	FVector Pos = MapUI->GetActorLocation();
