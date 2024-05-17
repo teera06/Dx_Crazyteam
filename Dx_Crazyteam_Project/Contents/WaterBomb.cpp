@@ -145,15 +145,15 @@ void AWaterBomb::CreateExit()
 
 void AWaterBomb::BombBegin()
 {
-	GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water);
-
+	//GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water);
+	Renderer->SetActive(false);
 	b_ServerBomb = true;
 }
 
 void AWaterBomb::BombTick(float _DeltaTime)
 {
 	//Destroy();
-	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+	//GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 }
 
 void AWaterBomb::BombExit()
