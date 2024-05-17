@@ -3,9 +3,9 @@
 #include "Block.h"
 
 class USpriteRenderer;
-class AWaterCourse : public AMapObject
+class AWaterCourse : public ABlock
 {
-	GENERATED_BODY(AMapObject)
+	GENERATED_BODY(ABlock)
 
 public :
 	// constructor destructor

@@ -30,7 +30,7 @@ void UGame_Core::Initialize()
 {
 	UEngineFont::Load("±Ã¼­");
 	UEngineFont::Load("¸¼Àº °íµñ");
-	GEngine->EngineWindow.SetWindowTitle("Ceazy");
+	GEngine->EngineWindow.SetWindowTitle("Crazy Arcade");
 	MainLoad();
 	CuttingAni();
 	SoundLoad();
@@ -55,9 +55,9 @@ void UGame_Core::WindowOpen(std::string& _OutWindowTitle, std::string& _SmallIco
 	UEngineDirectory NewDir;
 	NewDir.MoveToSearchChild("GameResource");
 
-	_OutWindowTitle = "TestMyTitle";
+	//_OutWindowTitle = "TestMyTitle";
 
-	std::string IconPath = NewDir.AppendPath("Icon.ico");
+	std::string IconPath = NewDir.AppendPath("icon_gm.ico");
 	_SmallIconPath = IconPath;
 
 }
