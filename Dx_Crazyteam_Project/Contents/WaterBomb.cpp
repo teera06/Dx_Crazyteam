@@ -95,21 +95,42 @@ void AWaterBomb::CreateBegin()
 {
 	Renderer->SetActive(true);
 	LifeTime = 0.0f;
+	if (true == OtherCreate)
+	{
+		float Secound = static_cast<float>(Sub_Second);
+		float MiliSecound = static_cast<float>(Sub_MilliSecond);
+		MiliSecound /= 10000;
+		ServerBombTime = BombTime - (Secound + MiliSecound); // 차이나는 만큼 빨리 터져라.
+	}
 }
 
 void AWaterBomb::CreateTick(float _DeltaTime)
 {
 	LifeTime += _DeltaTime;
-	if (2.0f <= LifeTime && false == b_WaterToBomb)
+
+	if (false == OtherCreate)
 	{
-		State.ChangeState("Bomb");
-		return;
+		if (BombTime <= LifeTime && false == b_WaterToBomb)
+		{
+			State.ChangeState("Bomb");
+			return;
+		}
+		else if (true == b_WaterToBomb)
+		{
+			State.ChangeState("Bomb");
+			return;
+		}
 	}
-	else if (true == b_WaterToBomb)
+	else
 	{
-		State.ChangeState("Bomb");
-		return;
+		//  2.0       0.0000000001
+		if (ServerBombTime <= LifeTime)
+		{
+			State.ChangeState("Bomb");
+			return;
+		}
 	}
+
 }
 
 void AWaterBomb::CreateExit()
