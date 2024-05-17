@@ -76,6 +76,16 @@ public:
 		return Info.get();
 	}
 
+	inline bool GetIsSendPacket() const
+	{
+		return IsSendPacket;
+	}
+
+	inline void OffIsSendPacket()
+	{
+		IsSendPacket = false;
+	}
+
 	static int WaterBomb_Token;
 	int WaterCourse_Token;
 
@@ -129,7 +139,7 @@ private:
 
 	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
 
-
+	bool IsSendPacket = true;
 
 };
 
