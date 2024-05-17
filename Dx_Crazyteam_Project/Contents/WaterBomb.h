@@ -65,6 +65,7 @@ private :
 	void BombExit();
 
 	UStateManager State;
+
 	//USpriteRenderer* Renderer = nullptr;
 	float LifeTime = 0.0f; // ++DeltaTime
 	float BombTime = 2.0f; // 2.0

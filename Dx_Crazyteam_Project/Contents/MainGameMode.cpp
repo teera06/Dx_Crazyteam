@@ -100,15 +100,15 @@ void AMainGameMode::GameModeActorInit()
 	{//Camp ³» Item ¹× Object
 	
 		//Block
-		Camp->AddMapObject(1, 1, EMapObject::CampBlock);
-		Camp->AddMapObject(3, 1, EMapObject::CampBlock);
-		Camp->AddMapObject(1, 3, EMapObject::CampBlock);
-		Camp->AddMapObject(3, 3, EMapObject::CampBlock);
+		Camp->AddMapObject(1, 1, EMapObject::CampBlock1);
+		Camp->AddMapObject(3, 1, EMapObject::CampBlock1);
+		Camp->AddMapObject(1, 3, EMapObject::CampBlock1);
+		Camp->AddMapObject(3, 3, EMapObject::CampBlock1);
 
-		Camp->AddMapObject(6, 6, EMapObject::CampMoveBlock);
-		Camp->AddMapObject(9, 6, EMapObject::CampMoveBlock);
-		Camp->AddMapObject(6, 9, EMapObject::CampMoveBlock);
-		Camp->AddMapObject(9, 9, EMapObject::CampMoveBlock);
+		Camp->AddMapObject(6, 6, EMapObject::CampMoveBlock1);
+		Camp->AddMapObject(9, 6, EMapObject::CampMoveBlock1);
+		Camp->AddMapObject(6, 9, EMapObject::CampMoveBlock1);
+		Camp->AddMapObject(9, 9, EMapObject::CampMoveBlock1);
 
 		//Item
 		Camp->AddMapObject(5, 1,EMapObject::Item,EItemType::ItemBubble);

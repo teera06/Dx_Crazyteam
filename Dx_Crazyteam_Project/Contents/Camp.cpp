@@ -1,5 +1,7 @@
 #include "PreCompile.h"
 #include "Camp.h"
+#include "Block.h"
+#include "MapObject.h"
 #include <EngineCore/DefaultSceneComponent.h>
 
 ACamp::ACamp() 
@@ -26,20 +28,28 @@ void ACamp::Tick(float _DeltaTime)
 
 void ACamp::AddObjectInit()
 {
-	AddMapObject(1, 1, EMapObject::CampBlock);
-	AddMapObject(3, 1, EMapObject::CampBlock);
-	AddMapObject(1, 3, EMapObject::CampBlock);
-	AddMapObject(3, 3, EMapObject::CampBlock);
+	{
+		ABlock* MapObject = dynamic_cast<ABlock*>(AddMapObject(1, 1, EMapObject::CampBlock1).get());
+		MapObject->SetPossessItem(EItemType::ItemBubble);
+	}
 
-	AddMapObject(6, 6, EMapObject::CampMoveBlock);
-	AddMapObject(9, 6, EMapObject::CampMoveBlock);
-	AddMapObject(6, 9, EMapObject::CampMoveBlock);
-	AddMapObject(9, 9, EMapObject::CampMoveBlock);
+	{
+		ABlock* MapObject = dynamic_cast<ABlock*>(AddMapObject(3, 1, EMapObject::CampBlock1).get());
+		MapObject->SetPossessItem(EItemType::ItemBubble);
+	}
+	
+	AddMapObject(1, 3, EMapObject::CampBlock1);
+	AddMapObject(3, 3, EMapObject::CampBlock1);
 
-	AddMapObject(6, 1, EMapObject::Item, EItemType::ItemBubble);
-	AddMapObject(8, 1, EMapObject::Item, EItemType::ItemNiddle);
-	AddMapObject(6, 3, EMapObject::Item, EItemType::ItemOwl);
-	AddMapObject(8, 3, EMapObject::Item, EItemType::ItemRoller);
+	AddMapObject(6, 6, EMapObject::CampMoveBlock1);
+	AddMapObject(9, 6, EMapObject::CampMoveBlock1);
+	AddMapObject(6, 9, EMapObject::CampMoveBlock1);
+	AddMapObject(9, 9, EMapObject::CampMoveBlock1);
+
+	AddMapObject(1, 6, EMapObject::CampHPBlock);
+	AddMapObject(3, 6, EMapObject::CampHPBlock);
+	AddMapObject(1, 9, EMapObject::CampHPBlock);
+	AddMapObject(3, 9, EMapObject::CampHPBlock);
 
 }
 

@@ -224,7 +224,14 @@ void ABlock::EndTick(float _DeltaTime)
 {
 	if (IsBreak)
 	{
-		GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+		if (PossessItem == EItemType::None)
+		{
+			GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+		}
+		else
+		{
+			GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Item, PossessItem);
+		}
 	}
 
 	if (IsPush)

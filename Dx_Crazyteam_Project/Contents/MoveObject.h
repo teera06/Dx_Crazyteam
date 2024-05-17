@@ -23,7 +23,7 @@ protected:
 	}
 
 
-private:
 	ABlock* MoveOwner = nullptr;
+private:
 };
 

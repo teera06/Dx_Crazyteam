@@ -59,6 +59,11 @@ public:
 		return Hp;
 	}
 
+	void SetHp(int _Hp)
+	{
+		Hp = _Hp;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

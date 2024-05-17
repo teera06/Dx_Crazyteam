@@ -100,6 +100,9 @@
     <Filter Include="MainGameLevel\Lobby">
       <UniqueIdentifier>{e8b38b9b-5555-4285-97e8-c1ffe29b05fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MapObject\MoveBlock\CampHpBlock">
+      <UniqueIdentifier>{76bd974b-6be3-4d9d-bc97-6fc4077f063b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -167,9 +170,6 @@
     </ClInclude>
     <ClInclude Include="Camp.h">
       <Filter>Map\Camp</Filter>
-    </ClInclude>
-    <ClInclude Include="CampBlock1.h">
-      <Filter>MapObject</Filter>
     </ClInclude>
     <ClInclude Include="MainGameMode.h">
       <Filter>Level\MainLevel</Filter>
@@ -257,6 +257,12 @@
     </ClInclude>
     <ClInclude Include="ContentsMainDebugWin.h">
       <Filter>ContentsGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CampHpBlock.h">
+      <Filter>MapObject\MoveBlock\CampHpBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="CampBlock1.h">
+      <Filter>MapObject\Block\CampBlock</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -417,6 +423,9 @@
     </ClCompile>
     <ClCompile Include="ContentsMainDebugWin.cpp">
       <Filter>ContentsGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CampHpBlock.cpp">
+      <Filter>MapObject\MoveBlock\CampHpBlock</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
