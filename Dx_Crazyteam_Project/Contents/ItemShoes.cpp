@@ -16,8 +16,8 @@ void AItemShoes::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->CreateAnimation("ItemRoller", "Roller.png", 0.3f, true, 0, 5);
-	Renderer->ChangeAnimation("ItemRoller");
+	Renderer->CreateAnimation("ItemShoes", "Shoes.png", 0.3f, true, 0, 5);
+	Renderer->ChangeAnimation("ItemShoes");
 	Renderer->SetAutoSize(1.0f, true);
 }
 

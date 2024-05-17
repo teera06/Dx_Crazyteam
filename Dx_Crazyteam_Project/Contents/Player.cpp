@@ -26,8 +26,6 @@ void APlayer::BeginPlay()
 
 	Super::BeginPlay();
 
-	Info = std::make_shared<PlayerInfo>();
-	SetCharacterType(ECharacterType::Bazzi);
 
 	Renderer->SetOrder(ERenderOrder::Player);
 	Renderer->SetAutoSize(0.05f, true);
@@ -36,6 +34,8 @@ void APlayer::BeginPlay()
 	Shadow = GetWorld()->SpawnActor<APlayer_Shadow>("Player_Shadow");
 	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 1));
 
+	Info = std::make_shared<PlayerInfo>();
+	SetCharacterType(ECharacterType::Bazzi);
 	StateInit();
 	
 }
@@ -155,15 +155,16 @@ void APlayer::SetCharacterType(ECharacterType _Type)
 	default:
 		break;
 	}
+
+	SettingZValue();
 }
 
 void APlayer::SettingZValue()
 {
 	FVector Pos = GetActorLocation();
-	POINT IDX = GetGameMode()->GetCurMap()->PosToPoint(Pos);
-	Pos.Z = -static_cast<float>(IDX.y);
+	Pos.Z = -Pos.Y;
 	SetActorLocation(Pos);
 
-	Pos.Z += 1.f;
+	Pos.Z = -Pos.Y + 0.1f;
 	Shadow->SetActorLocation(Pos);
 }

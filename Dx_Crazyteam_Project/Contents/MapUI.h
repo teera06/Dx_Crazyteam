@@ -1,11 +1,10 @@
 #pragma once
-#include <EngineCore/Actor.h>
-#include <EngineBase/NetObject.h>
+#include "CAObject.h"
 
 class UImage;
-class AMapUI : public AActor, public UNetObject
+class AMapUI : public ACAObject
 {
-	GENERATED_BODY(AActor)
+	GENERATED_BODY(ACAObject)
 
 public:
 	// constrcuter destructer

@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "WaterCourse.h"
 #include "WaterBomb.h"
+#include "MapUI.h"
 
 ATestGameMode::ATestGameMode()
 {
@@ -31,6 +32,13 @@ void ATestGameMode::BeginPlay()
 	Player1 = GetWorld()->SpawnActor<APlayer>("Player1", 0);
 	Player1->SetCurGameMode(this);
 	SetMainPlayer(Player1);
+
+	std::shared_ptr<AMapUI> MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
+	MapUI->SetCurGameMode(this);
+	SetUI(MapUI);
+	FVector Pos = MapUI->GetActorLocation();
+	Pos.Z = 100.f;
+	MapUI->SetActorLocation(Pos);
 
 #ifdef _DEBUG
 	InputOn();
