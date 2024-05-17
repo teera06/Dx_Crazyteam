@@ -9,6 +9,7 @@
 #include "MapDebugGUI.h"
 #include <EngineBase/EngineTime.h>
 #include <EngineCore/EngineDebugMsgWindow.h>
+#include "MapStateValue.h"
 
 
 bool AWaterBomb::SetWaterCourseToken = false;

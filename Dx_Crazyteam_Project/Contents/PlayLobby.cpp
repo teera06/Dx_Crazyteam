@@ -1,5 +1,7 @@
 #include "PreCompile.h"
 #include "PlayLobby.h"
+#include "Player.h"
+#include "CAGameMode.h"
 
 #include "EngineCore/Image.h"
 #include "EngineBase/EngineDebug.h"
@@ -18,6 +20,7 @@ void APlayLobby::BeginPlay()
 	Super::BeginPlay();
 	InputOn();
 	LobbyPlayer.resize(9);
+	Rank.resize(9);
 
 	PlayLobbyUI = CreateWidget<UImage>(GetWorld(), "PlayLobbyUI");
 	PlayLobbyUI->AddToViewPort(10);
@@ -325,6 +328,8 @@ void APlayLobby::BeginPlay()
 	checkUI->SetPosition({ 222.0f,183.0f });
 	checkUI->SetActive(true);
 
+	Teamtyp = dynamic_cast<ACAGameMode*>(GetWorld()->GetGameMode().get());
+
 }
 
 void APlayLobby::Tick(float _DeltaTime)
@@ -358,6 +363,7 @@ void APlayLobby::Tick(float _DeltaTime)
 					TeamA->ChangeAnimation("UP");
 					IsTeamSelectSharacter = true;
 					SwapSelectCharacter(TeamA);
+					ConstValue::MainPlayerTeamType = ETeamType::ATeam;
 				}
 			}
 			});
@@ -388,6 +394,7 @@ void APlayLobby::Tick(float _DeltaTime)
 					TeamB->ChangeAnimation("UP");
 					IsTeamSelectSharacter = true;
 					SwapSelectCharacter(TeamB);
+					ConstValue::MainPlayerTeamType = ETeamType::BTeam;
 				}
 			}
 			});
@@ -459,6 +466,7 @@ void APlayLobby::Tick(float _DeltaTime)
 					SwapSelectCharacter(RandomBT);
 					checkUI->SetPosition({ 152.0f,183.0f });
 					checkUI->SetActive(true);
+					ConstValue::MainPlayerCharacterType = ECharacterType::Random;
 				}
 			}
 			});
@@ -491,6 +499,7 @@ void APlayLobby::Tick(float _DeltaTime)
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Dao.bmp");
 					checkUI->SetPosition({ 222.0f,183.0f });
 					checkUI->SetActive(true);
+					ConstValue::MainPlayerCharacterType = ECharacterType::Dao;
 				}
 
 			}
@@ -524,6 +533,7 @@ void APlayLobby::Tick(float _DeltaTime)
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Marid.bmp");
 					checkUI->SetPosition({ 222.0f,133.0f });
 					checkUI->SetActive(true);
+					ConstValue::MainPlayerCharacterType = ECharacterType::Marid;
 				}
 
 			}
@@ -558,6 +568,7 @@ void APlayLobby::Tick(float _DeltaTime)
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Bazzi.bmp");
 					checkUI->SetPosition({ 292.0f,133.0f });
 					checkUI->SetActive(true);
+					ConstValue::MainPlayerCharacterType = ECharacterType::Bazzi;
 				}
 
 			}
@@ -908,12 +919,6 @@ void APlayLobby::Tick(float _DeltaTime)
 
 
 
-
-
-
-
-
-
 	if (IsDown('P') && 3 >= PlayerCount)
 	{
 		LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
@@ -921,8 +926,16 @@ void APlayLobby::Tick(float _DeltaTime)
 		LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
 		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
 		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
+
+		Rank[PlayerCount] = CreateWidget<UImage>(GetWorld(), "Rank");;
+		Rank[PlayerCount]->AddToViewPort(15);
+		Rank[PlayerCount]->SetSprite("CharacterRoom_Flag.png");
+		Rank[PlayerCount]->SetAutoSize(0.5f, true);
+		Rank[PlayerCount]->AddPosition(FVector(static_cast<float>(-310 + PlayerCount * 105), 125.0f, 100.0f));
+
 		++PlayerCount;
 	}
+
 	else if (IsDown('P') && 3 < PlayerCount)
 	{
 		if (7 < PlayerCount)
@@ -935,8 +948,16 @@ void APlayLobby::Tick(float _DeltaTime)
 		LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
 		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
 		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-750 + PlayerCount * 105), -20.0f, 100.0f));
+
+		Rank[PlayerCount] = CreateWidget<UImage>(GetWorld(), "Rank");;
+		Rank[PlayerCount]->AddToViewPort(15);
+		Rank[PlayerCount]->SetSprite("CharacterRoom_Flag.png");
+		Rank[PlayerCount]->SetAutoSize(0.5f, true);
+		Rank[PlayerCount]->AddPosition(FVector(static_cast<float>(-730 + PlayerCount * 105), -20.0f, 100.0f));
 		++PlayerCount;
 	}
+
+
 
 }
 
@@ -946,6 +967,8 @@ void APlayLobby::SwapSelectCharacter(UImage* _SelectCharacter)
 	_SelectCharacter->ChangeAnimation("Up");
 	SelectCharacter = _SelectCharacter;
 }
+
+
 
 
 void APlayLobby::SetIsActive(bool _Active)
