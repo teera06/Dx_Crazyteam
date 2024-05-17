@@ -8,7 +8,7 @@
 #include <EngineCore/BlurEffect.h>
 #include <EngineCore/EngineEditorGUI.h>
 
-#include "Player.h"
+#include "ServerTestPlayer.h"
 #include "Game_Core.h"
 #include "Packets.h"
 #include "OtherPlayer.h"
@@ -45,10 +45,9 @@ void AServerGameMode::BeginPlay()
 	Village = GetWorld()->SpawnActor<AVillage>("Village");
 	SetCurMap(Village);
 
-	MainPlayer = GetWorld()->SpawnActor<APlayer>("Player");
+	MainPlayer = GetWorld()->SpawnActor<AServerTestPlayer>("Player");
 	MainPlayer->SetCurGameMode(this);
 	SetMainPlayer(MainPlayer);
-
 }
 
 void AServerGameMode::Tick(float _DeltaTime)
