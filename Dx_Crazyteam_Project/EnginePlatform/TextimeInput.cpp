@@ -15,9 +15,21 @@ HIMC UTextimeInput::himc;
 
 std::string UTextimeInput::GetReadText()
 {
-	std::string ch=Text;
+	char Text1[255];
+	memset(Text1, 0, 255);
 
-	return ch +Cstr;
+	strcpy(Text1, Text);
+
+	if (Cstr[0] != 0)
+	{
+		strcpy(Text1 + strlen(Text), Cstr);
+	}
+
+	strcpy(Text1 + strlen(Text1), "_");
+
+	std::string ch=Text1;
+
+	return ch;
 }
 
 void UTextimeInput::On()
@@ -72,12 +84,23 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 	case WM_CHAR: // 영어랑 숫자 처리
 		if (_wparam == 8)
 		{
-			if (strlen(Text) > 0 && true == bHangeul) // 한글 지울때 
+			if (strlen(Text) > 0) // 한글 지울때 
 			{
-				if (' ' == Text[strlen(Text) - 1]) // 스페이스바 빈공간 해결
+				
+				if (Text[strlen(Text) - 1] == ' ')
 				{
 					Text[strlen(Text) - 1] = 0;
+					memset(Cstr, 0, 10);
+					return;
 				}
+
+				if (Text[strlen(Text) - 1] >= 33 && Text[strlen(Text) - 1] <= 126) // 아스키 코드 사용 영어랑 특수문자들 구분
+				{
+					Text[strlen(Text) - 1] = 0;
+					memset(Cstr, 0, 10);
+					return;
+				}
+
 
 				Text[strlen(Text) - 1] = 0;
 
@@ -85,29 +108,19 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 				{
 					Text[strlen(Text) - 1] = 0;
 				}
-			}
-			else if(strlen(Text) > 0 && false == bHangeul) // 영어 지울때
-			{
-				Text[strlen(Text) - 1] = 0;
+
+				memset(Cstr, 0, 10);
 			}
 		}
 		else
 		{
-			if (_wparam == VK_SPACE)
-			{
-				bHangeul = true;
-			}
-			else
-			{
-				bHangeul = false;
-			}
-
 			if (_wparam == VK_RETURN)
 			{
 				break;
 			}
-			len = static_cast<int>(strlen(Text));
-			Text[len] = _wparam & 0xff;
+			//len = static_cast<int>(strlen(Text));
+			Text[strlen(Text)] = _wparam & 0xff;
+			Text[strlen(Text)] = 0;
 		}
 		break;
 	case WM_KEYDOWN:

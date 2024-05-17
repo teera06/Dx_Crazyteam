@@ -4,6 +4,7 @@
 #include "CAGameMode.h"
 #include "BaseMap.h"
 #include "Block.h"
+#include "Bush.h"
 
 UBreakObject::UBreakObject()
 {
@@ -21,12 +22,35 @@ void UBreakObject::BreakSetOwner(ABlock* _Owner)
 
 		if (BreakOwner->GetIsBreak() == true) return;
 
-		BreakOwner->MinusHP();
-
-		if (BreakOwner->GetHp() <= 0)
+		if (BreakOwner->GetType() == EMapObjectType::Bush)
 		{
-			BreakOwner->SetIsBreak(true);
+			ABush* Bush = dynamic_cast<ABush*>(BreakOwner);
+
+			if (Bush->GetPossessBlock() == nullptr)
+			{
+				BreakOwner->MinusHP();
+
+				if (BreakOwner->GetHp() <= 0)
+				{
+					BreakOwner->SetIsBreak(true);
+				}
+			}
+			else
+			{
+				Bush->GetPossessBlock()->WaterInteract();
+			}
+		}
+		else
+		{
+			BreakOwner->MinusHP();
+
+			if (BreakOwner->GetHp() <= 0)
+			{
+				BreakOwner->SetIsBreak(true);
+			}
 		}
 
+
 		};
+
 }

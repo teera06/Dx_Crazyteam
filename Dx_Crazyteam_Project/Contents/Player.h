@@ -77,6 +77,7 @@ public:
 	}
 
 	static int WaterBomb_Token;
+	int WaterCourse_Token;
 
 protected:
 	std::shared_ptr<PlayerInfo> Info = nullptr;

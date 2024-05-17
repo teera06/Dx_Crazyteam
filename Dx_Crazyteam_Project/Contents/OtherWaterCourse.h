@@ -2,22 +2,21 @@
 #include <EngineCore/Actor.h>
 #include <EngineBase/NetObject.h>
 #include <EngineCore/DefaultSceneComponent.h>
-#include "WaterBomb.h"
 #include "WaterCourse.h"
 // Ό³Έν :
 class USpriteRenderer;
-class AOtherBomb : public AWaterBomb
+class AOtherWaterCourse : public AWaterCourse
 {
 public:
 	// constrcuter destructer
-	AOtherBomb();
-	~AOtherBomb();
+	AOtherWaterCourse();
+	~AOtherWaterCourse();
 
 	// delete Function
-	AOtherBomb(const AOtherBomb& _Other) = delete;
-	AOtherBomb(AOtherBomb&& _Other) noexcept = delete;
-	AOtherBomb& operator=(const AOtherBomb& _Other) = delete;
-	AOtherBomb& operator=(AOtherBomb&& _Other) noexcept = delete;
+	AOtherWaterCourse(const AOtherWaterCourse& _Other) = delete;
+	AOtherWaterCourse(AOtherWaterCourse&& _Other) noexcept = delete;
+	AOtherWaterCourse& operator=(const AOtherWaterCourse& _Other) = delete;
+	AOtherWaterCourse& operator=(AOtherWaterCourse&& _Other) noexcept = delete;
 
 protected:
 	void BeginPlay() override;

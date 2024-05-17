@@ -17,9 +17,11 @@
 #include "Camp.h"
 #include "WaterBomb.h"
 #include "OtherBomb.h"
+#include "OtherBomb.h"
+#include "OtherWaterCourse.h"
 #include "CAGameMode.h"
 #include "BaseMap.h"
-
+#include "MapUI.h"
 #include <EngineBase/NetObject.h>
 
 ASubServerLevel::ASubServerLevel()
@@ -40,7 +42,8 @@ void ASubServerLevel::BeginPlay()
 	Super::BeginPlay();
 	// TestThread.Start();
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
-	Camera->SetActorLocation(FVector(0.0f, 0.0f, -400.0f));
+	//Camera->SetActorLocation(FVector(90.0f, 0.0f, -400.0f));
+	Camera->SetActorLocation(FVector(80.0f, 1.0f, -1000.0f));
 
 	//Village = GetWorld()->SpawnActor<AVillage>("Village");
 	//SetCurMap(Village);
@@ -50,12 +53,20 @@ void ASubServerLevel::BeginPlay()
 	Camp->SetCurGameMode(this);
 
 
+	std::shared_ptr<AMapUI> MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
+	MapUI->SetCurGameMode(this);
+	SetUI(MapUI);
+	FVector Pos = MapUI->GetActorLocation();
+	Pos.Z = 100.f;
+	MapUI->SetActorLocation(Pos);
+
+
 	MainPlayer = GetWorld()->SpawnActor<APlayer>("Player");
 	MainPlayer->SetCurGameMode(this);
 	SetMainPlayer(MainPlayer);
 
-	//AWaterBomb* Bomb = this->GetWorld()->SpawnActor<AWaterBomb>("Bomb", 0).get();
-	//Bomb->SetCurGameMode(this);
+
+
 }
 
 void ASubServerLevel::Tick(float _DeltaTime)
@@ -64,23 +75,6 @@ void ASubServerLevel::Tick(float _DeltaTime)
 
 	UNetObject::AllNetObject;
 	int a = 0;
-
-	//if (UEngineInput::IsDown(VK_SPACE)==true)
-	//{
-	//	std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(this->GetCurMap()->AddMapObject(MainPlayer->GetPlayerInfo()->CurIndex.y, MainPlayer->GetPlayerInfo()->CurIndex.x,EMapObject::WaterBomb));
-	//	Bomb->SetCurGameMode(this);
-	//	//Bomb->SetObjectToken(UNetObject::GetNewObjectToken());
-
-	///*	UGame_Core::Net = std::make_shared<UEngineClient>();
-	//	UGame_Core::Net->Connect(IP, PORT);*/
-
-	//	//AWaterBomb* Bomb = this->GetWorld()->SpawnActor<AWaterBomb>("Bomb", 0).get();
-	//	//Bomb->SetObjectToken(UNetObject::GetNewObjectToken());
-	//	//Bomb->SetObjectToken(_Packet->GetObjectToken());
-	//	//Bomb->PushProtocol(_Packet);
-	//	//Bomb->SetActorLocation(OtherPlayer->GetActorLocation());
-	//	//ServerPacketInit(UGame_Core::Net->Dispatcher);
-	//}
 }
 
 void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
@@ -110,8 +104,8 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 			{
 				MainPlayer->SetObjectToken(_Token->GetSessionToken() * 1000);
 				MainPlayer->WaterBomb_Token = _Token->GetSessionToken() * 1000 + 1;
+				MainPlayer->WaterCourse_Token = _Token->GetSessionToken() * 10000 + 1;
 			});
-
 			// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
 			ClientPacketInit(UGame_Core::Net->Dispatcher);
 		});
@@ -149,13 +143,51 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 				if (nullptr == Bomb)
 				{
 					Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
-					//Bomb = dynamic_cast<AOtherBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(MainPlayer->GetActorLocation()));
 					Bomb->SetObjectToken(_Packet->GetObjectToken());
 					Bomb->CreateWaterBomb();
 				}
 				Bomb->PushProtocol(_Packet);
 			});
 	});
+
+	Dis.AddHandler<UWaterWaterCourseUpdatePacket>([=](std::shared_ptr<UWaterWaterCourseUpdatePacket> _Packet)
+		{
+			// 다른 사람들한테 이 오브젝트에 대해서 알리고
+			UGame_Core::Net->Send(_Packet);
+
+			GetWorld()->PushFunction([=]()
+				{
+					AOtherWaterCourse* Bomb = UNetObject::GetNetObject<AOtherWaterCourse>(_Packet->GetObjectToken());
+					if (nullptr == Bomb)
+					{
+						Bomb = this->GetWorld()->SpawnActor<AOtherWaterCourse>("WATER", 0).get();
+						Bomb->SetObjectToken(_Packet->GetObjectToken());
+						Bomb->SetCurGameMode(this);
+						Bomb->CreateWaterCenter();
+					
+					}
+					Bomb->PushProtocol(_Packet);
+				});
+		});	
+
+	//Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
+	//	{
+	//		// 다른 사람들한테 이 오브젝트에 대해서 알리고
+	//		UGame_Core::Net->Send(_Packet);
+
+	//		GetWorld()->PushFunction([=]()
+	//			{
+	//				AOtherBomb* Bomb = UNetObject::GetNetObject<AOtherBomb>(_Packet->GetObjectToken());
+	//				if (nullptr == Bomb)
+	//				{
+	//					Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
+	//					Bomb->SetObjectToken(_Packet->GetObjectToken());
+	//					Bomb->CreateWaterBomb();
+	//				}
+	//				Bomb->PushProtocol(_Packet);
+	//			});
+	//	});
+
 }
 
 void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
@@ -189,8 +221,31 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 				Bomb->CreateWaterBomb();
 			}
 			Bomb->PushProtocol(_Packet);
+
 		});
 	});
+
+	Dis.AddHandler<UWaterWaterCourseUpdatePacket>([=](std::shared_ptr<UWaterWaterCourseUpdatePacket> _Packet)
+		{
+			// 다른 사람들한테 이 오브젝트에 대해서 알리고
+			GetWorld()->PushFunction([=]()
+				{
+					int Test = _Packet->GetObjectToken();
+
+					AOtherWaterCourse* Bomb = UNetObject::GetNetObject<AOtherWaterCourse>(_Packet->GetObjectToken());
+					if (nullptr == Bomb)
+					{
+						Bomb = this->GetWorld()->SpawnActor<AOtherWaterCourse>("WATER", 0).get();
+						Bomb->SetObjectToken(_Packet->GetObjectToken());
+						Bomb->SetCurGameMode(this);
+						Bomb->CreateWaterCenter();
+					}
+					Bomb->PushProtocol(_Packet);
+
+				});
+		});
+
+	
 }
 
 void ASubServerLevel::LevelEnd(ULevel* _DeltaTime)

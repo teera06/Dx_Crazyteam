@@ -1,5 +1,5 @@
 #include "PreCompile.h"
-#include "OtherBomb.h"
+#include "OtherUI.h"
 #include <EngineCore/Collision.h>
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/DefaultSceneComponent.h>
@@ -7,28 +7,27 @@
 #include "Packets.h"
 #include "EngineBase/EngineTime.h"
 
-AOtherBomb::AOtherBomb()
+OtherUI::OtherUI()
 {
 	UEngineTime Time;
-	OherBomb_MilliSecond = Time.GetCurTime().MilliSecond;
-	OherBomb_Second = Time.GetCurTime().Second;
+	MapTime_MilliSecond = Time.GetCurTime().MilliSecond;
+	MapTime_Second = Time.GetCurTime().Second;
 }
 
-AOtherBomb::~AOtherBomb()
+OtherUI::~OtherUI()
 {
 }
 
-void AOtherBomb::BeginPlay()
+void OtherUI::BeginPlay()
 {
-	AWaterBomb::BeginPlay();
+	AMapUI::BeginPlay();
 
-	Sub_MilliSecond = OherBomb_MilliSecond - Bomb_MilliSecond;
-	Sub_Second = OherBomb_Second - Bomb_Second;
+	Sub_MilliSecond = MapTime_MilliSecond - MapTime_MilliSecond;
+	Sub_Second = MapTime_Second - MapTime_Second;
 	OtherCreate = true;
-
 }
 
-void AOtherBomb::Tick(float _DeltaTime)
+void OtherUI::Tick(float _DeltaTime)
 {
 	std::shared_ptr<UEngineProtocol> Protocol = nullptr;
 
@@ -56,7 +55,7 @@ void AOtherBomb::Tick(float _DeltaTime)
 			//{
 			//	AWaterBomb::SetActorLocation(UpdatePacket->Pos);
 			//}
-		
+
 			break;
 		}
 		default:
@@ -64,7 +63,7 @@ void AOtherBomb::Tick(float _DeltaTime)
 		}
 	} while (nullptr != Protocol);
 
-	
-	AWaterBomb::Tick(_DeltaTime);
+
+	AMapUI::Tick(_DeltaTime);
 }
 
