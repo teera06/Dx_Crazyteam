@@ -28,12 +28,7 @@ void UBreakObject::BreakSetOwner(ABlock* _Owner)
 
 			if (Bush->GetPossessBlock() == nullptr)
 			{
-				BreakOwner->MinusHP();
-
-				if (BreakOwner->GetHp() <= 0)
-				{
-					BreakOwner->SetIsBreak(true);
-				}
+				DamageLogic();
 			}
 			else
 			{
@@ -42,15 +37,20 @@ void UBreakObject::BreakSetOwner(ABlock* _Owner)
 		}
 		else
 		{
-			BreakOwner->MinusHP();
-
-			if (BreakOwner->GetHp() <= 0)
-			{
-				BreakOwner->SetIsBreak(true);
-			}
+			DamageLogic();
 		}
 
 
 		};
 
+}
+
+void UBreakObject::DamageLogic()
+{
+	BreakOwner->MinusHP();
+
+	if (BreakOwner->GetHp() <= 0)
+	{
+		BreakOwner->SetIsBreak(true);
+	}
 }

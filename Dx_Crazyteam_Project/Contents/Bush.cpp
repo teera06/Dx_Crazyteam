@@ -18,8 +18,12 @@ void ABush::SetPossessBlock(std::shared_ptr<AMapObject> _Block)
 	{
 		_Block->SetIsPossessed(true);
 		_Block->SetCurPos(GetCurPos());
+		PossessBlock = _Block;
 	}
-	PossessBlock = _Block;
+	else
+	{
+		PossessBlock = nullptr;
+	}
 }
 
 void ABush::BeginPlay()

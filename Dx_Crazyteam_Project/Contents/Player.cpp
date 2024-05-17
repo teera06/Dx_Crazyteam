@@ -143,6 +143,7 @@ void APlayer::Tick(float _DeltaTime)
 		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
 		Packet->Pos = GetActorLocation();
 		Packet->ObjectType = static_cast<int>(EObjectType::WaterBomb);
+		Packet->Bomb = true;
 		Send(Packet);
 	}
 }

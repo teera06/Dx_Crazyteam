@@ -21,30 +21,7 @@ void UMoveObject::MoveSetOwner(ABlock* _Owner)
 
 		if (GetOwner()->GetIsPush()) return;
 
-		POINT PlayerIndex = GetOwner()->GetGameMode()->GetPlayer()->GetPlayerInfo()->CurIndex;
-
-		if (PlayerIndex.x == GetOwner()->GetCurPos().x)
-		{
-			if (PlayerIndex.y < GetOwner()->GetCurPos().y)
-			{
-				GetOwner()->SetPushDir(ECADir::Down);
-			}
-			else
-			{
-				GetOwner()->SetPushDir(ECADir::Up);
-			}
-		}
-		else if (PlayerIndex.y == GetOwner()->GetCurPos().y)
-		{
-			if (PlayerIndex.x < GetOwner()->GetCurPos().x)
-			{
-				GetOwner()->SetPushDir(ECADir::Right);
-			}
-			else
-			{
-				GetOwner()->SetPushDir(ECADir::Left);
-			}
-		}
+		POINT PlayerIndex = PlayerDirCheck();
 
 		if (GetOwner()->GetType() == EMapObjectType::Bush)
 		{
@@ -61,10 +38,45 @@ void UMoveObject::MoveSetOwner(ABlock* _Owner)
 		}
 		else
 		{
+			if (GetOwner()->GetIsPossessed())
+			{
+				ABush* Bush = dynamic_cast<ABush*>(GetOwner()->GetGameMode()->GetCurMap()->GetMapObject(GetOwner()->GetCurPos().y, GetOwner()->GetCurPos().x).get());
+				Bush->SetPossessBlock(nullptr);
+			}
 			GetOwner()->SetIsPush(true);
 		}
 
 
 		};
+}
+
+POINT UMoveObject::PlayerDirCheck()
+{
+	POINT PlayerIndex = GetOwner()->GetGameMode()->GetPlayer()->GetPlayerInfo()->CurIndex;
+
+	if (PlayerIndex.x == GetOwner()->GetCurPos().x)
+	{
+		if (PlayerIndex.y < GetOwner()->GetCurPos().y)
+		{
+			GetOwner()->SetPushDir(ECADir::Down);
+		}
+		else
+		{
+			GetOwner()->SetPushDir(ECADir::Up);
+		}
+	}
+	else if (PlayerIndex.y == GetOwner()->GetCurPos().y)
+	{
+		if (PlayerIndex.x < GetOwner()->GetCurPos().x)
+		{
+			GetOwner()->SetPushDir(ECADir::Right);
+		}
+		else
+		{
+			GetOwner()->SetPushDir(ECADir::Left);
+		}
+	}
+
+	return PlayerIndex;
 }
 

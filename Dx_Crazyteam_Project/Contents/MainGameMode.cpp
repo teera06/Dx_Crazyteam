@@ -119,6 +119,26 @@ void AMainGameMode::GameModeActorInit()
 		Camp->AddMapObject(1, 9, EMapObject::CampHPBlock);
 		Camp->AddMapObject(3, 9, EMapObject::CampHPBlock);
 
+		{//Block Bush
+			Camp->AddMapObject(9, 0, EMapObject::TownBush);
+			Camp->AddMapObject(10, 0, EMapObject::TownBush);
+			Camp->AddMapObject(11, 0, EMapObject::TownBush);
+			Camp->AddMapObject(12, 0, EMapObject::TownBush);
+
+			Camp->AddMapObject(9, 1, EMapObject::TownBush);
+			Camp->AddMapObject(9, 2, EMapObject::TownBush);
+			Camp->AddMapObject(9, 3, EMapObject::TownBush);
+			Camp->AddMapObject(9, 4, EMapObject::TownBush);
+
+			Camp->AddMapObject(10, 4, EMapObject::TownBush);
+			Camp->AddMapObject(11, 4, EMapObject::TownBush);
+			Camp->AddMapObject(12, 4, EMapObject::TownBush);
+
+
+			Camp->AddMapObject(12, 1, EMapObject::TownBush);
+			Camp->AddMapObject(12, 2, EMapObject::TownBush);
+			Camp->AddMapObject(12, 3, EMapObject::TownBush);
+		}
 		//Item
 		Camp->AddMapObject(5, 1,EMapObject::Item,EItemType::ItemBubble);
 		Camp->AddMapObject(1, 2, EMapObject::Item, EItemType::ItemNiddle);
@@ -126,6 +146,9 @@ void AMainGameMode::GameModeActorInit()
 		Camp->AddMapObject(2, 2, EMapObject::Item, EItemType::ItemShoes);
 		Camp->AddMapObject(8, 6, EMapObject::Item, EItemType::ItemRoller);
 		Camp->AddMapObject(6, 8, EMapObject::Item, EItemType::ItemFluid);
+
+
+
 
 		//Camp 내 Object 그대로하려면 아래코드로
 		//Camp->AddObjectInit();

@@ -515,6 +515,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 						AWaterBomb* NextBomb = dynamic_cast<AWaterBomb*>(NextMapObject.get());
 						NextBomb->SetWaterToBomg(true);
 					}
+
 				}
 
 				if (NextMapObject == nullptr && UpEnd == false)

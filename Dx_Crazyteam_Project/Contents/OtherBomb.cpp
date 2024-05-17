@@ -52,6 +52,8 @@ void AOtherBomb::Tick(float _DeltaTime)
 			{
 				SetActorLocation(UpdatePacket->Pos);
 			}
+
+			BombServer = UpdatePacket->Bomb;
 			//else if (UpdatePacket->ObjectType == static_cast<int>(EObjectType::WaterBomb))
 			//{
 			//	AWaterBomb::SetActorLocation(UpdatePacket->Pos);

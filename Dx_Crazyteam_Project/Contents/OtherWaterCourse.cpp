@@ -29,6 +29,8 @@ void AOtherWaterCourse::BeginPlay()
 
 void AOtherWaterCourse::Tick(float _DeltaTime)
 {
+	AWaterCourse::Tick(_DeltaTime);
+
 	std::shared_ptr<UEngineProtocol> Protocol = nullptr;
 
 	do
@@ -59,6 +61,6 @@ void AOtherWaterCourse::Tick(float _DeltaTime)
 	} while (nullptr != Protocol);
 
 
-	AWaterCourse::Tick(_DeltaTime);
+
 }
 

@@ -73,6 +73,7 @@ public:
 		UEngineProtocol::Serialize(_Ser);
 		_Ser << Pos;
 		_Ser << ObjectType;
+		_Ser << Bomb;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -80,11 +81,13 @@ public:
 		UEngineProtocol::DeSerialize(_Ser);
 		_Ser >> Pos;
 		_Ser >> ObjectType;
+		_Ser >> Bomb;
 	}
 
 public:
 	float4 Pos = float4::Zero;
 	int ObjectType = 0;
+	bool Bomb = false;
 };
 
 
