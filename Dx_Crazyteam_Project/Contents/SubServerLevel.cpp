@@ -151,6 +151,7 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 					Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
 					//Bomb = dynamic_cast<AOtherBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(MainPlayer->GetActorLocation()));
 					Bomb->SetObjectToken(_Packet->GetObjectToken());
+					Bomb->CreateWaterBomb();
 				}
 				Bomb->PushProtocol(_Packet);
 			});
@@ -185,6 +186,7 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 			{
 				Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
 				Bomb->SetObjectToken(_Packet->GetObjectToken());
+				Bomb->CreateWaterBomb();
 			}
 			Bomb->PushProtocol(_Packet);
 		});

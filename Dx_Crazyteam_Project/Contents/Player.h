@@ -119,7 +119,6 @@ private:
 	float TrapToDieTime = 5.f;
 	FVector TrapDir = FVector::Up;
 
-	bool DieAnimationChange = false;
 	bool DieAniTwinkleActive = false;
 	float DieAnimationTime = 2.f;
 	float DieTwinkleTime = 0.1f;
