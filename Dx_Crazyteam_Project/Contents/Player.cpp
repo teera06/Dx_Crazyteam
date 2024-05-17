@@ -48,16 +48,7 @@ void APlayer::MainPlayerInit()
 
 void APlayer::MainPlayerSetting()
 {
-	if (ConstValue::MainPlayerCharacterType == ECharacterType::None)
-	{
-		// UI에서 캐릭터 타입 선택되지 않은 경우
-		SetCharacterType(ECharacterType::Random);
-	}
-	else
-	{
-		// UI에서 캐릭터 타입 선택된 경우
-		SetCharacterType(ConstValue::MainPlayerCharacterType);
-	}
+	SetCharacterType(ConstValue::MainPlayerCharacterType);
 
 	if (ConstValue::MainPlayerTeamType == ETeamType::None)
 	{
@@ -208,7 +199,7 @@ std::string APlayer::GetAnimationName(std::string_view _StateName)
 
 void APlayer::SetCharacterType(ECharacterType _Type)
 {
-	if (_Type == ECharacterType::Random)
+	if (_Type == ECharacterType::None || _Type == ECharacterType::Random)
 	{
 		int RandomCharacter = UEngineRandom::MainRandom.RandomInt(static_cast<int>(ECharacterType::Bazzi), static_cast<int>(ECharacterType::Marid));
 		_Type = static_cast<ECharacterType>(RandomCharacter);
