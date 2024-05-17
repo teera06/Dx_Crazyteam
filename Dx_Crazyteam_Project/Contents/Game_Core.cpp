@@ -126,6 +126,20 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("bazzi_trap_long.png", 5, 7);
 		UEngineSprite::CreateCutting("bazzi_rescue.png", 3, 1);
 		UEngineSprite::CreateCutting("bazzi_die.png", 5, 2);
+		UEngineSprite::CreateCutting("bazzi_1_red.png", 5, 18);
+
+		// Blue Bazzi
+		UEngineSprite::CreateCutting("Bazzi_1_blue.png", 5, 18);
+		UEngineSprite::CreateCutting("Bazzi_2_blue.png", 5, 2);
+		UEngineSprite::CreateCutting("Bazzi_3_blue.png", 5, 4);
+		UEngineSprite::CreateCutting("Bazzi_4_blue.png", 5, 7);
+
+		// Red Dao
+		UEngineSprite::CreateCutting("Dao_1_red.png", 5, 12);
+		UEngineSprite::CreateCutting("Dao_2_red.png", 5, 2);
+		UEngineSprite::CreateCutting("Dao_3_red.png", 5, 4);
+		UEngineSprite::CreateCutting("Dao_4_red.png", 5, 4);
+		UEngineSprite::CreateCutting("Dao_5_red.png", 5, 6);
 
 		// Blue Dao 
 		UEngineSprite::CreateCutting("dao_right.png", 4, 1);
@@ -137,26 +151,26 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("dao_trap_long.png", 5, 7);
 		UEngineSprite::CreateCutting("dao_rescue.png", 3, 1);
 		UEngineSprite::CreateCutting("dao_die.png", 5, 2);
+		UEngineSprite::CreateCutting("dao_1_blue.png", 5, 12);
 
-		//Red Dao
-		UEngineSprite::CreateCutting("Dao_1_red.png", 5, 12);
-		UEngineSprite::CreateCutting("Dao_2_red.png", 5, 2);
-		UEngineSprite::CreateCutting("Dao_3_red.png", 5, 4);
-		UEngineSprite::CreateCutting("Dao_4_red.png", 5, 4);
-		UEngineSprite::CreateCutting("Dao_5_red.png", 5, 6);
-
-		//Red Marid
+		// Red Marid
 		UEngineSprite::CreateCutting("luxMarid_1.png", 5, 12);
 		UEngineSprite::CreateCutting("luxMarid_2.png", 5, 2);
 		UEngineSprite::CreateCutting("luxMarid_3.png", 5, 4);
 		UEngineSprite::CreateCutting("luxMarid_4.png", 5, 4);
 		UEngineSprite::CreateCutting("luxMarid_5.png", 5, 6);
 
+		// Blue Marid
+		UEngineSprite::CreateCutting("luxMarid_1_blue.png", 5, 12);
+		UEngineSprite::CreateCutting("luxMarid_2_blue.png", 5, 2);
+		UEngineSprite::CreateCutting("luxMarid_3_blue.png", 5, 4);
+		UEngineSprite::CreateCutting("luxMarid_4_blue.png", 5, 4);
+		UEngineSprite::CreateCutting("luxMarid_5_blue.png", 5, 6);
 	}
 
 	// æ∆¿Ã≈€
 	{
-		//Item
+		// Item
 		UEngineSprite::CreateCutting("Bubble(1).png", 6, 1);
 		UEngineSprite::CreateCutting("Roller.png", 6, 1);
 		UEngineSprite::CreateCutting("Fluid.png", 6, 1);
@@ -165,7 +179,7 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("Owl.png", 6, 1);
 		UEngineSprite::CreateCutting("Shoes.png", 6, 1);
 
-		//Item Shadow
+		// Item Shadow
 		UEngineSprite::CreateCutting("ItemShadow.png", 2, 1);
 
 	}

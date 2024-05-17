@@ -27,6 +27,7 @@ void APlayerTestMode::BeginPlay()
 	Player1 = GetWorld()->SpawnActor<APlayer>("Player1");
 	Player1->SetCurGameMode(this);
 	SetMainPlayer(Player1);
+	Player1->SetTeamType(ETeamType::BTeam);
 	//Player1->SetCharacterType(ECharacterType::Marid);
 
 	std::shared_ptr<AItemBubble> Bubble = GetWorld()->SpawnActor<AItemBubble>("ItemTest");

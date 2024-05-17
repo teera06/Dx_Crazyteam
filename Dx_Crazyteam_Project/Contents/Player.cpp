@@ -35,7 +35,8 @@ void APlayer::BeginPlay()
 	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 1));
 
 	Info = std::make_shared<PlayerInfo>();
-	SetCharacterType(ECharacterType::Marid);
+	SetCharacterType(ECharacterType::Bazzi);
+	SetTeamType(ETeamType::BTeam);
 	StateInit();
 	
 }
