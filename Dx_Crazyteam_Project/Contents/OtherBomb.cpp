@@ -24,6 +24,8 @@ void AOtherBomb::BeginPlay()
 
 	Sub_MilliSecond = OherBomb_MilliSecond - Bomb_MilliSecond;
 	Sub_Second = OherBomb_Second - Bomb_Second;
+	OtherCreate = true;
+
 }
 
 void AOtherBomb::Tick(float _DeltaTime)
