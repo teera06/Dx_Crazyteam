@@ -25,29 +25,112 @@ void APlayLobby::BeginPlay()
 	PlayLobbyUI->SetScale({ 800, 600 });
 	PlayLobbyUI->SetActive(true);
 
-	for (int i = 0; i < 4; i++)
-	{
-		UImage* Room = CreateWidget<UImage>(GetWorld(), "Room");
-		Room->AddToViewPort(12);
-		Room->SetSprite("Room_0.png");
-		Room->SetAutoSize(1.0f, true);
-		Room->SetPosition(FVector(-324.f + 106.f * i, 157.f));
-		Room->SetActive(true);
-		RoomVector.push_back(Room);
-		RoomVectorNumber.push_back(false);
-	}
+	//플레이어 Room
+	Room1 = CreateWidget<UImage>(GetWorld(), "Room1");
+	Room1->CreateAnimation("UnHover", "Room_0.png", 0.1f, false, 0, 0);
+	Room1->CreateAnimation("Hover", "Room_1.png", 0.1f, false, 0, 0);
+	Room1->CreateAnimation("Down", "Room_2.png", 0.1f, false, 0, 0);
+	Room1->CreateAnimation("Up", "RoomX_0.png", 0.1f, false, 0, 0);
+	Room1->CreateAnimation("XUnHover", "RoomX_0.png", 0.1f, false, 0, 0);
+	Room1->CreateAnimation("XHover", "RoomX_1.png", 0.1f, false, 0, 0);
+	Room1->CreateAnimation("XDown", "RoomX_2.png", 0.1f, false, 0, 0);
+	Room1->CreateAnimation("XUp", "Room_0.png", 0.1f, false, 0, 0);
+	Room1->AddToViewPort(12);
+	Room1->SetSprite("Room_0.png");
+	Room1->SetAutoSize(1.0f, true);
+	Room1->SetPosition(FVector(-218.f, 157.f));
+	Room1->SetActive(true);
 
-	for (int i = 0; i < 4; i++)
-	{
-		UImage* Room = CreateWidget<UImage>(GetWorld(), "Room");
-		Room->AddToViewPort(12);
-		Room->SetSprite("Room_0.png");
-		Room->SetAutoSize(1.0f, true);
-		Room->SetPosition(FVector(-324.f + 106.f * i, 11.f));
-		Room->SetActive(true);
-		RoomVector.push_back(Room);
-		RoomVectorNumber.push_back(false);
-	}
+	Room2 = CreateWidget<UImage>(GetWorld(), "Room2");
+	Room2->CreateAnimation("UnHover", "Room_0.png", 0.1f, false, 0, 0);
+	Room2->CreateAnimation("Hover", "Room_1.png", 0.1f, false, 0, 0);
+	Room2->CreateAnimation("Down", "Room_2.png", 0.1f, false, 0, 0);
+	Room2->CreateAnimation("Up", "RoomX_0.png", 0.1f, false, 0, 0);
+	Room2->CreateAnimation("XUnHover", "RoomX_0.png", 0.1f, false, 0, 0);
+	Room2->CreateAnimation("XHover", "RoomX_1.png", 0.1f, false, 0, 0);
+	Room2->CreateAnimation("XDown", "RoomX_2.png", 0.1f, false, 0, 0);
+	Room2->CreateAnimation("XUp", "Room_0.png", 0.1f, false, 0, 0);
+	Room2->AddToViewPort(12);
+	Room2->SetSprite("Room_0.png");
+	Room2->SetAutoSize(1.0f, true);
+	Room2->SetPosition(FVector(-112.f, 157.f));
+	Room2->SetActive(true);
+
+	Room3 = CreateWidget<UImage>(GetWorld(), "Room3");
+	Room3->CreateAnimation("UnHover", "Room_0.png", 0.1f, false, 0, 0);
+	Room3->CreateAnimation("Hover", "Room_1.png", 0.1f, false, 0, 0);
+	Room3->CreateAnimation("Down", "Room_2.png", 0.1f, false, 0, 0);
+	Room3->CreateAnimation("Up", "RoomX_0.png", 0.1f, false, 0, 0);
+	Room3->CreateAnimation("XUnHover", "RoomX_0.png", 0.1f, false, 0, 0);
+	Room3->CreateAnimation("XHover", "RoomX_1.png", 0.1f, false, 0, 0);
+	Room3->CreateAnimation("XDown", "RoomX_2.png", 0.1f, false, 0, 0);
+	Room3->CreateAnimation("XUp", "Room_0.png", 0.1f, false, 0, 0);
+	Room3->AddToViewPort(12);
+	Room3->SetSprite("Room_0.png");
+	Room3->SetAutoSize(1.0f, true);
+	Room3->SetPosition(FVector(-6.f, 157.f));
+	Room3->SetActive(true);
+
+	Room4 = CreateWidget<UImage>(GetWorld(), "Room4");
+	Room4->CreateAnimation("UnHover", "Room_0.png", 0.1f, false, 0, 0);
+	Room4->CreateAnimation("Hover", "Room_1.png", 0.1f, false, 0, 0);
+	Room4->CreateAnimation("Down", "Room_2.png", 0.1f, false, 0, 0);
+	Room4->CreateAnimation("Up", "RoomX_0.png", 0.1f, false, 0, 0);
+	Room4->CreateAnimation("XUnHover", "RoomX_0.png", 0.1f, false, 0, 0);
+	Room4->CreateAnimation("XHover", "RoomX_1.png", 0.1f, false, 0, 0);
+	Room4->CreateAnimation("XDown", "RoomX_2.png", 0.1f, false, 0, 0);
+	Room4->CreateAnimation("XUp", "Room_0.png", 0.1f, false, 0, 0);
+	Room4->AddToViewPort(12);
+	Room4->SetSprite("Room_0.png");
+	Room4->SetAutoSize(1.0f, true);
+	Room4->SetPosition(FVector(-324.f, 11.f));
+	Room4->SetActive(true);
+
+	Room5 = CreateWidget<UImage>(GetWorld(), "Room5");
+	Room5->CreateAnimation("UnHover", "Room_0.png", 0.1f, false, 0, 0);
+	Room5->CreateAnimation("Hover", "Room_1.png", 0.1f, false, 0, 0);
+	Room5->CreateAnimation("Down", "Room_2.png", 0.1f, false, 0, 0);
+	Room5->CreateAnimation("Up", "RoomX_0.png", 0.1f, false, 0, 0);
+	Room5->CreateAnimation("XUnHover", "RoomX_0.png", 0.1f, false, 0, 0);
+	Room5->CreateAnimation("XHover", "RoomX_1.png", 0.1f, false, 0, 0);
+	Room5->CreateAnimation("XDown", "RoomX_2.png", 0.1f, false, 0, 0);
+	Room5->CreateAnimation("XUp", "Room_0.png", 0.1f, false, 0, 0);
+	Room5->AddToViewPort(12);
+	Room5->SetSprite("Room_0.png");
+	Room5->SetAutoSize(1.0f, true);
+	Room5->SetPosition(FVector(-218.f, 11.f));
+	Room5->SetActive(true);
+
+	Room6 = CreateWidget<UImage>(GetWorld(), "Room6");
+	Room6->CreateAnimation("UnHover", "Room_0.png", 0.1f, false, 0, 0);
+	Room6->CreateAnimation("Hover", "Room_1.png", 0.1f, false, 0, 0);
+	Room6->CreateAnimation("Down", "Room_2.png", 0.1f, false, 0, 0);
+	Room6->CreateAnimation("Up", "RoomX_0.png", 0.1f, false, 0, 0);
+	Room6->CreateAnimation("XUnHover", "RoomX_0.png", 0.1f, false, 0, 0);
+	Room6->CreateAnimation("XHover", "RoomX_1.png", 0.1f, false, 0, 0);
+	Room6->CreateAnimation("XDown", "RoomX_2.png", 0.1f, false, 0, 0);
+	Room6->CreateAnimation("XUp", "Room_0.png", 0.1f, false, 0, 0);
+	Room6->AddToViewPort(12);
+	Room6->SetSprite("Room_0.png");
+	Room6->SetAutoSize(1.0f, true);
+	Room6->SetPosition(FVector(-112.f, 11.f));
+	Room6->SetActive(true);
+
+	Room7 = CreateWidget<UImage>(GetWorld(), "Room7");
+	Room7->CreateAnimation("UnHover", "Room_0.png", 0.1f, false, 0, 0);
+	Room7->CreateAnimation("Hover", "Room_1.png", 0.1f, false, 0, 0);
+	Room7->CreateAnimation("Down", "Room_2.png", 0.1f, false, 0, 0);
+	Room7->CreateAnimation("Up", "RoomX_0.png", 0.1f, false, 0, 0);
+	Room7->CreateAnimation("XUnHover", "RoomX_0.png", 0.1f, false, 0, 0);
+	Room7->CreateAnimation("XHover", "RoomX_1.png", 0.1f, false, 0, 0);
+	Room7->CreateAnimation("XDown", "RoomX_2.png", 0.1f, false, 0, 0);
+	Room7->CreateAnimation("XUp", "Room_0.png", 0.1f, false, 0, 0);
+	Room7->AddToViewPort(12);
+	Room7->SetSprite("Room_0.png");
+	Room7->SetAutoSize(1.0f, true);
+	Room7->SetPosition(FVector(-6.f, 11.f));
+	Room7->SetActive(true);
+
 
 	//시작 버튼
 	GameStart = CreateWidget<UImage>(GetWorld(), "GameStart");
@@ -56,10 +139,23 @@ void APlayLobby::BeginPlay()
 	GameStart->CreateAnimation("Down", "StartBt_3.png", 0.1f, false, 0, 0);
 	GameStart->AddToViewPort(10);
 	GameStart->SetSprite("StartBt_1.png");
-	GameStart->SetScale({ 190,52  });
+	GameStart->SetScale({ 190,52 });
 	GameStart->SetPosition({ 209,-223 });
 	GameStart->SetActive(true);
 	GameStart->ChangeAnimation("UnHover");
+
+	//맵선택 버튼
+
+	SelectMap = CreateWidget<UImage>(GetWorld(), "SelectMap");
+	SelectMap->CreateAnimation("UnHover", "SelectMap_0.png", 0.1f, false, 0, 0);
+	SelectMap->CreateAnimation("Hover", "SelectMap", 0.1f, true, 1, 2);
+	SelectMap->CreateAnimation("Down", "SelectMap_3.png", 0.1f, false, 0, 0);
+	SelectMap->AddToViewPort(12);
+	SelectMap->SetSprite("SelectMap_0.png");
+	SelectMap->SetAutoSize(1.0f, true);
+	SelectMap->SetPosition({ 306.0f,-152.0f });
+	SelectMap->SetActive(true);
+	SelectMap->ChangeAnimation("UnHover");
 
 	//캐릭터 선택창
 	RandomBT = CreateWidget<UImage>(GetWorld(), "RandomBT");
@@ -72,7 +168,7 @@ void APlayLobby::BeginPlay()
 	RandomBT->SetScale({ 65.f,43.f });
 	RandomBT->SetPosition({ 122.0f,163.0f });
 	RandomBT->SetActive(true);
-	
+
 	DaoBT = CreateWidget<UImage>(GetWorld(), "DaoBT");
 	DaoBT->CreateAnimation("UnHover", "CharatorSelect_Button_Dao_Normal.bmp", 0.1f, false, 0, 0);
 	DaoBT->CreateAnimation("Hover", "CharatorSelect_Button_Dao_Hover.bmp", 0.1f, false, 0, 0);
@@ -195,7 +291,7 @@ void APlayLobby::BeginPlay()
 	LobbyCharacterBanner->SetActive(true);
 
 	//팀 선택
-	
+
 	TeamA = CreateWidget<UImage>(GetWorld(), "TeamA");
 	TeamA->CreateAnimation("UnHover", "ATeam.png", 0.1f, false, 0, 0);
 	TeamA->CreateAnimation("Hover", "ATeam.png", 0.1f, false, 0, 0);
@@ -227,8 +323,8 @@ void APlayLobby::BeginPlay()
 	checkUI->SetSprite("check.png");
 	checkUI->SetAutoSize(1.0f, true);
 	checkUI->SetPosition({ 222.0f,183.0f });
-	checkUI->SetActive(false);
-	
+	checkUI->SetActive(true);
+
 }
 
 void APlayLobby::Tick(float _DeltaTime)
@@ -319,12 +415,32 @@ void APlayLobby::Tick(float _DeltaTime)
 	}
 
 	{
+		SelectMap->SetUnHover([=] {
+			SelectMap->ChangeAnimation("UnHover");
+			SwitchON = false;
+			});
+		SelectMap->SetHover([=] {
+			if (SelectMap->IsCurAnimationEnd() == true)
+			{
+				SelectMap->ChangeAnimation("Hover");
+			}
+			});
+		SelectMap->SetDown([=] {
+			SelectMap->ChangeAnimation("Down");
+			});
+
+
+
+	}
+
+
+	{
 		RandomBT->SetUnHover([=] {
 			if ("UP" != RandomBT->GetUiAniName())
 			{
 				RandomBT->ChangeAnimation("UnHover");
 			}
-				SwitchON = false;
+			SwitchON = false;
 			});
 		RandomBT->SetHover([=] {
 			{
@@ -354,7 +470,7 @@ void APlayLobby::Tick(float _DeltaTime)
 			{
 				DaoBT->ChangeAnimation("UnHover");
 			}
-				SwitchON = false;
+			SwitchON = false;
 			});
 		DaoBT->SetHover([=] {
 			{
@@ -451,91 +567,352 @@ void APlayLobby::Tick(float _DeltaTime)
 	}
 
 
-	for (int i = 1; i < 8; i++)
+	// Room Hover
 	{
-		{
+		Room1->SetUnHover([=] {
+			if (true == RoomO && false == RoomSwitch && "UP" != Room1->GetUiAniName())
+			{
+				Room1->ChangeAnimation("UnHover");
+				RoomO = true;
+			}
+			else if (true == RoomX && "UP" == Room1->GetUiAniName())
+			{
+				Room1->ChangeAnimation("UP");
+				RoomO = false;
+				RoomX = true;
+			}
+			});
 
-			RoomVector[i]->SetHover([=] {
-
-				if (false == RoomVectorNumber[i])
+		Room1->SetHover([=] {
+			{
+				if (true == RoomO && false == RoomSwitch && "UP" != Room1->GetUiAniName())
 				{
-					RoomVector[i]->SetSprite("Room_1.png");
+					Room1->ChangeAnimation("Hover");
+					RoomSwitch = true;
+
 				}
-				else if(true == RoomVectorNumber[i])
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO)
 				{
-					RoomVector[i]->SetSprite("RoomX_1.png");
+					Room1->ChangeAnimation("Down");
+
 				}
-				}
-			);
-
-
-			RoomVector[i]->SetUnHover([=] {
-
-				if (false == RoomVectorNumber[i])
+				else if (IsUp(VK_LBUTTON) && true == RoomO)
 				{
-					RoomVector[i]->SetSprite("Room_0.png");
-				}
-				else if(true == RoomVectorNumber[i])
-				{
-					RoomVector[i]->SetSprite("RoomX_0.png");
-				}
-				}
-			);
-
-
-			RoomVector[i]->SetDown([=] {
-
-				if (false == RoomVectorNumber[i])
-				{
-					RoomVectorNumber[i] = false;
-				}
-				else
-				{
-					RoomVectorNumber[i] = true;
-				}
-
-				if (true == RoomO && false == RoomX && IsDown(VK_LBUTTON))
-				{
-					RoomVector[i]->SetSprite("Room_2.png");
+					IsSelectSharacter = false;
+					Room1->ChangeAnimation("UP");
+					RoomX = true;
+					RoomSwitch = true;
 					RoomO = false;
+				}
+				else if (false == RoomSwitch && true == RoomX && false == RoomO && "UP" == Room1->GetUiAniName())
+				{
+					Room1->ChangeAnimation("XHover");
 					RoomX = true;
 				}
-				else
+				else if (true == RoomX && false == RoomO && IsDown(VK_LBUTTON))
 				{
-					RoomVector[i]->SetSprite("RoomX_2.png");
-					RoomO = true;
+					Room1->ChangeAnimation("XDown");
+					RoomX = true;
+					RoomSwitch = true;
+				}
+				else if (true == RoomX && false == RoomO && IsUp(VK_LBUTTON))
+				{
+					IsSelectSharacter = false;
+					Room1->ChangeAnimation("XUp");
 					RoomX = false;
+					RoomO = true;
 				}
-				}	
-			);
+			}
+			});
 
-
-			
-			/*RoomVector[i]->SetHover([=] {
-				{
-					if (false == SwitchON)
-					{
-						RoomVector[i]->SetSprite("Room_1.png");
-						SwitchON = true;
-
-					}
-					else if (IsDown(VK_LBUTTON) && true == SwitchON)
-					{
-						RoomVector[i]->SetSprite("Room_2.png");
-					}
-		
-				}
-				});
-			RoomVector[i]->SetDown([=] {
-				{
-					RoomVector[i]->SetSprite("RoomX_0.png");
-				}
-
-
-				});*/
-
-		}
 	}
+	{
+		Room2->SetUnHover([=] {
+			if (true == RoomO && false == RoomSwitch && "UP" != Room1->GetUiAniName())
+			{
+				Room2->ChangeAnimation("UnHover");
+				RoomO = true;
+			}
+			else if (true == RoomX && "UP" == Room2->GetUiAniName())
+			{
+				Room2->ChangeAnimation("UP");
+				RoomO = false;
+				RoomX = true;
+			}
+			});
+
+		Room2->SetHover([=] {
+			{
+				if (true == RoomO && false == RoomSwitch && "UP" != Room2->GetUiAniName())
+				{
+					Room2->ChangeAnimation("Hover");
+					RoomSwitch = true;
+
+				}
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO)
+				{
+					Room2->ChangeAnimation("Down");
+
+				}
+				else if (IsUp(VK_LBUTTON) && true == RoomO)
+				{
+					IsSelectSharacter = false;
+					Room2->ChangeAnimation("UP");
+					RoomX = true;
+					RoomSwitch = true;
+					RoomO = false;
+				}
+				else if (false == RoomSwitch && true == RoomX && false == RoomO && "UP" == Room2->GetUiAniName())
+				{
+					Room2->ChangeAnimation("XHover");
+					RoomX = true;
+				}
+				else if (true == RoomX && false == RoomO && IsDown(VK_LBUTTON))
+				{
+					Room2->ChangeAnimation("XDown");
+					RoomX = true;
+					RoomSwitch = true;
+				}
+				else if (true == RoomX && false == RoomO && IsUp(VK_LBUTTON))
+				{
+					IsSelectSharacter = false;
+					Room2->ChangeAnimation("XUp");
+					RoomX = false;
+					RoomO = true;
+				}
+			}
+			});
+	}
+
+	{
+		Room3->SetHover([=] {
+			{
+				if (true == RoomO && false == RoomSwitch && "UP" != Room3->GetUiAniName())
+				{
+					Room3->ChangeAnimation("Hover");
+					RoomSwitch = true;
+
+				}
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO)
+				{
+					Room3->ChangeAnimation("Down");
+
+				}
+				else if (IsUp(VK_LBUTTON) && true == RoomO)
+				{
+					IsSelectSharacter = false;
+					Room3->ChangeAnimation("UP");
+					RoomX = true;
+					RoomSwitch = true;
+					RoomO = false;
+				}
+				else if (false == RoomSwitch && true == RoomX && false == RoomO && "UP" == Room3->GetUiAniName())
+				{
+					Room3->ChangeAnimation("XHover");
+					RoomX = true;
+				}
+				else if (true == RoomX && false == RoomO && IsDown(VK_LBUTTON))
+				{
+					Room3->ChangeAnimation("XDown");
+					RoomX = true;
+					RoomSwitch = true;
+				}
+				else if (true == RoomX && false == RoomO && IsUp(VK_LBUTTON))
+				{
+					IsSelectSharacter = false;
+					Room3->ChangeAnimation("XUp");
+					RoomX = false;
+					RoomO = true;
+				}
+			}
+			});
+	}
+	{
+		Room4->SetHover([=] {
+			{
+				if (true == RoomO && false == RoomSwitch && "UP" != Room4->GetUiAniName())
+				{
+					Room4->ChangeAnimation("Hover");
+					RoomSwitch = true;
+
+				}
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO)
+				{
+					Room4->ChangeAnimation("Down");
+
+				}
+				else if (IsUp(VK_LBUTTON) && true == RoomO)
+				{
+					IsSelectSharacter = false;
+					Room4->ChangeAnimation("UP");
+					RoomX = true;
+					RoomSwitch = true;
+					RoomO = false;
+				}
+				else if (false == RoomSwitch && true == RoomX && false == RoomO && "UP" == Room4->GetUiAniName())
+				{
+					Room4->ChangeAnimation("XHover");
+					RoomX = true;
+				}
+				else if (true == RoomX && false == RoomO && IsDown(VK_LBUTTON))
+				{
+					Room4->ChangeAnimation("XDown");
+					RoomX = true;
+					RoomSwitch = true;
+				}
+				else if (true == RoomX && false == RoomO && IsUp(VK_LBUTTON))
+				{
+					IsSelectSharacter = false;
+					Room4->ChangeAnimation("XUp");
+					RoomX = false;
+					RoomO = true;
+				}
+			}
+			});
+	}
+
+	{
+		Room5->SetHover([=] {
+			{
+				if (true == RoomO && false == RoomSwitch && "UP" != Room5->GetUiAniName())
+				{
+					Room5->ChangeAnimation("Hover");
+					RoomSwitch = true;
+
+				}
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO)
+				{
+					Room5->ChangeAnimation("Down");
+
+				}
+				else if (IsUp(VK_LBUTTON) && true == RoomO)
+				{
+					IsSelectSharacter = false;
+					Room5->ChangeAnimation("UP");
+					RoomX = true;
+					RoomSwitch = true;
+					RoomO = false;
+				}
+				else if (false == RoomSwitch && true == RoomX && false == RoomO && "UP" == Room5->GetUiAniName())
+				{
+					Room5->ChangeAnimation("XHover");
+					RoomX = true;
+				}
+				else if (true == RoomX && false == RoomO && IsDown(VK_LBUTTON))
+				{
+					Room5->ChangeAnimation("XDown");
+					RoomX = true;
+					RoomSwitch = true;
+				}
+				else if (true == RoomX && false == RoomO && IsUp(VK_LBUTTON))
+				{
+					IsSelectSharacter = false;
+					Room5->ChangeAnimation("XUp");
+					RoomX = false;
+					RoomO = true;
+				}
+			}
+			});
+	}
+
+	{
+		Room6->SetHover([=] {
+			{
+				if (true == RoomO && false == RoomSwitch && "UP" != Room6->GetUiAniName())
+				{
+					Room6->ChangeAnimation("Hover");
+					RoomSwitch = true;
+
+				}
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO)
+				{
+					Room6->ChangeAnimation("Down");
+
+				}
+				else if (IsUp(VK_LBUTTON) && true == RoomO)
+				{
+					IsSelectSharacter = false;
+					Room6->ChangeAnimation("UP");
+					RoomX = true;
+					RoomSwitch = true;
+					RoomO = false;
+				}
+				else if (false == RoomSwitch && true == RoomX && false == RoomO && "UP" == Room6->GetUiAniName())
+				{
+					Room6->ChangeAnimation("XHover");
+					RoomX = true;
+				}
+				else if (true == RoomX && false == RoomO && IsDown(VK_LBUTTON))
+				{
+					Room6->ChangeAnimation("XDown");
+					RoomX = true;
+					RoomSwitch = true;
+				}
+				else if (true == RoomX && false == RoomO && IsUp(VK_LBUTTON))
+				{
+					IsSelectSharacter = false;
+					Room6->ChangeAnimation("XUp");
+					RoomX = false;
+					RoomO = true;
+				}
+			}
+			});
+	}
+
+	{
+		Room7->SetHover([=] {
+			{
+				if (true == RoomO && false == RoomSwitch && "UP" != Room7->GetUiAniName())
+				{
+					Room7->ChangeAnimation("Hover");
+					RoomSwitch = true;
+
+				}
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO)
+				{
+					Room7->ChangeAnimation("Down");
+
+				}
+				else if (IsUp(VK_LBUTTON) && true == RoomO)
+				{
+					IsSelectSharacter = false;
+					Room7->ChangeAnimation("UP");
+					RoomX = true;
+					RoomSwitch = true;
+					RoomO = false;
+				}
+				else if (false == RoomSwitch && true == RoomX && false == RoomO && "UP" == Room7->GetUiAniName())
+				{
+					Room7->ChangeAnimation("XHover");
+					RoomX = true;
+				}
+				else if (true == RoomX && false == RoomO && IsDown(VK_LBUTTON))
+				{
+					Room7->ChangeAnimation("XDown");
+					RoomX = true;
+					RoomSwitch = true;
+				}
+				else if (true == RoomX && false == RoomO && IsUp(VK_LBUTTON))
+				{
+					IsSelectSharacter = false;
+					Room7->ChangeAnimation("XUp");
+					RoomX = false;
+					RoomO = true;
+				}
+			}
+			});
+	}
+
+
+
+
+
+
+
+
+
+
+
 
 	if (IsDown('P') && 3 >= PlayerCount)
 	{
@@ -543,12 +920,12 @@ void APlayLobby::Tick(float _DeltaTime)
 		LobbyPlayer[PlayerCount]->AddToViewPort(15);
 		LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
 		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
-		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f ));
+		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
 		++PlayerCount;
 	}
 	else if (IsDown('P') && 3 < PlayerCount)
 	{
-		if (8 < PlayerCount)
+		if (7 < PlayerCount)
 		{
 			return;
 		}

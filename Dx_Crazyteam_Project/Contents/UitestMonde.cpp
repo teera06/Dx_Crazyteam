@@ -26,11 +26,13 @@ void AUitestMonde::BeginPlay()
 	MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
 	PlayLobby = GetWorld()->SpawnActor<APlayLobby>("PlayLobby");
 	Intro = GetWorld()->SpawnActor <AIntro> ("Intro");
+
 }
 
 void AUitestMonde::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
 }
 
 void AUitestMonde::LevelStart(ULevel* _PrevLevel)
