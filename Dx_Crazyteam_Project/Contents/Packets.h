@@ -12,6 +12,7 @@ enum class EObjectType
 
 enum EContentPacket
 {
+	UIPacket = 96,
 	WaterCourseUpdatePacket = 97,
 	WaterBombUpdatePacket = 98,
 	ActorUpdatePacket = 99,
@@ -109,6 +110,35 @@ public:
 		UEngineProtocol::DeSerialize(_Ser);
 		_Ser >> Pos;
 		_Ser >> ObjectType;
+	}
+
+public:
+	float4 Pos = float4::Zero;
+	int ObjectType = 0;
+};
+
+
+
+class UUIUpdatePacket : public UEngineProtocol
+{
+public:
+	static const EContentPacket Type = EContentPacket::UIPacket;
+public:
+	UUIUpdatePacket()
+	{
+		SetType(EContentPacket::UIPacket);
+	}
+
+	void Serialize(UEngineSerializer& _Ser) override
+	{
+		UEngineProtocol::Serialize(_Ser);
+		_Ser << Pos;
+	}
+
+	void DeSerialize(UEngineSerializer& _Ser) override
+	{
+		UEngineProtocol::DeSerialize(_Ser);
+		_Ser >> Pos;
 	}
 
 public:
