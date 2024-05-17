@@ -13,7 +13,7 @@ class PlayerInfo
 public:
 	POINT CurIndex = POINT(0, 0);
 	ECharacterType MyType = ECharacterType::Bazzi;
-	ETeamType Team = ETeamType::None;
+	ETeamType Team = ETeamType::ATeam;
 	EPlayerRideType RideType = EPlayerRideType::None;
 
 	int Speed = -1;					// 속도 단계 (1씩 증가시켜주면 속도 계수와 곱해서 적용됨)
