@@ -53,6 +53,7 @@ protected:
 
 	int Sub_MilliSecond = 0;
 	int Sub_Second = 0;
+	bool BombServer = false;
 
 	bool OtherCreate = false;
 	

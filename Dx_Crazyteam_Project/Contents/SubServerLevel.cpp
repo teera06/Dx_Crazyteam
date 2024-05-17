@@ -164,8 +164,7 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 						Bomb = this->GetWorld()->SpawnActor<AOtherWaterCourse>("WATER", 0).get();
 						Bomb->SetObjectToken(_Packet->GetObjectToken());
 						Bomb->SetCurGameMode(this);
-						Bomb->CreateWaterCenter();
-					
+						Bomb->CreateWaterCenter();					
 					}
 					Bomb->PushProtocol(_Packet);
 				});
@@ -242,7 +241,6 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 						Bomb->CreateWaterCenter();
 					}
 					Bomb->PushProtocol(_Packet);
-
 				});
 		});
 

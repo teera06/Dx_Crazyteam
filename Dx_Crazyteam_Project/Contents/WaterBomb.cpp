@@ -8,6 +8,7 @@
 #include "Game_Core.h"
 #include "MapDebugGUI.h"
 #include <EngineBase/EngineTime.h>
+#include <EngineCore/EngineDebugMsgWindow.h>
 #include "MapStateValue.h"
 
 
@@ -42,29 +43,30 @@ void AWaterBomb::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 	State.Update(_DeltaTime);
 
-	if (true == b_ServerBomb)
-	{
-		std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));
-		
-		if (SetWaterCourseToken == false)
-		{
-			WaterCourse->WaterCourseToken = WaterCourse_Token;
-			SetWaterCourseToken = true;
-		}
-		WaterCourse_Token = WaterCourse->WaterCourseToken;
-		WaterCourse->SetObjectToken(WaterCourse_Token++);
+	std::string MSg = GetActorLocation().ToString();
+	UEngineDebugMsgWindow::PushMsg(MSg);
 
-		std::shared_ptr<UWaterWaterCourseUpdatePacket> Packet = std::make_shared<UWaterWaterCourseUpdatePacket>();
-		Packet->Pos = GetActorLocation();
-		Packet->ObjectType = static_cast<int>(EObjectType::WaterCourse);
-		Send(Packet);
+	//if (true == b_ServerBomb)
+	//{
+	//	std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));
 
-		b_ServerBomb = false;
-	}
+	//	if (SetWaterCourseToken == false)
+	//	{
+	//		WaterCourse->WaterCourseToken = WaterCourse_Token;
+	//		SetWaterCourseToken = true;
+	//	}
+	//	WaterCourse_Token = WaterCourse->WaterCourseToken;
+	//	WaterCourse->SetObjectToken(WaterCourse_Token++);
 
+	//	std::shared_ptr<UWaterWaterCourseUpdatePacket> Packet = std::make_shared<UWaterWaterCourseUpdatePacket>();
+	//	std::string MSg = GetActorLocation().ToString();
+	//	UEngineDebugMsgWindow::PushMsg(MSg);
+	//	Packet->Pos = GetActorLocation();
+	//	Packet->ObjectType = static_cast<int>(EObjectType::WaterCourse);
+	//	Send(Packet);
 
-
-
+	//	b_ServerBomb = false;
+	//}
 }
 
 float AWaterBomb::GetCreateTime()
@@ -179,12 +181,12 @@ void AWaterBomb::CreateExit()
 void AWaterBomb::BombBegin()
 {
 	Renderer->SetActive(false);
-	b_ServerBomb = true;
+	b_ServerBomb = BombServer;
 }
 
 void AWaterBomb::BombTick(float _DeltaTime)
 {
-	/*if (true == b_ServerBomb)
+	if (true == b_ServerBomb)
 	{
 		std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));
 
@@ -197,12 +199,14 @@ void AWaterBomb::BombTick(float _DeltaTime)
 		WaterCourse->SetObjectToken(WaterCourse_Token++);
 
 		std::shared_ptr<UWaterWaterCourseUpdatePacket> Packet = std::make_shared<UWaterWaterCourseUpdatePacket>();
+		std::string MSg = GetActorLocation().ToString();
+		UEngineDebugMsgWindow::PushMsg(MSg);
 		Packet->Pos = GetActorLocation();
 		Packet->ObjectType = static_cast<int>(EObjectType::WaterCourse);
 		Send(Packet);
 
 		b_ServerBomb = false;
-	}*/
+	}
 	//Destroy();
 	//GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 }
