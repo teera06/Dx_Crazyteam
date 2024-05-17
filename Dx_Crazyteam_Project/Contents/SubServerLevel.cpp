@@ -17,7 +17,7 @@
 #include "Camp.h"
 #include "WaterBomb.h"
 #include "OtherBomb.h"
-#include "OtherBomb.h"
+#include "OtherUI.h"
 #include "OtherWaterCourse.h"
 #include "CAGameMode.h"
 #include "BaseMap.h"
@@ -170,23 +170,22 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 				});
 		});	
 
-	//Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
-	//	{
-	//		// 다른 사람들한테 이 오브젝트에 대해서 알리고
-	//		UGame_Core::Net->Send(_Packet);
+	Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
+		{
+			// 다른 사람들한테 이 오브젝트에 대해서 알리고
+			UGame_Core::Net->Send(_Packet);
 
-	//		GetWorld()->PushFunction([=]()
-	//			{
-	//				AOtherBomb* Bomb = UNetObject::GetNetObject<AOtherBomb>(_Packet->GetObjectToken());
-	//				if (nullptr == Bomb)
-	//				{
-	//					Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
-	//					Bomb->SetObjectToken(_Packet->GetObjectToken());
-	//					Bomb->CreateWaterBomb();
-	//				}
-	//				Bomb->PushProtocol(_Packet);
-	//			});
-	//	});
+			GetWorld()->PushFunction([=]()
+				{
+					AOtherUI* Time = UNetObject::GetNetObject<AOtherUI>(_Packet->GetObjectToken());
+					if (nullptr == Time)
+					{
+						Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
+						Time->SetObjectToken(_Packet->GetObjectToken());
+					}
+					Time->PushProtocol(_Packet);
+				});
+		});
 
 }
 
@@ -245,7 +244,24 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 				});
 		});
 
-	
+
+	Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
+		{
+			// 다른 사람들한테 이 오브젝트에 대해서 알리고
+			GetWorld()->PushFunction([=]()
+				{
+					int Test = _Packet->GetObjectToken();
+
+					AOtherUI* Time = UNetObject::GetNetObject<AOtherUI>(_Packet->GetObjectToken());
+					if (nullptr == Time)
+					{
+						Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
+						Time->SetObjectToken(_Packet->GetObjectToken());
+					}
+					Time->PushProtocol(_Packet);
+
+				});
+		});	
 }
 
 void ASubServerLevel::LevelEnd(ULevel* _DeltaTime)

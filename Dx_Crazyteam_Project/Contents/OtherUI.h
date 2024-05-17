@@ -6,18 +6,18 @@
 
 // Ό³Έν :
 class USpriteRenderer;
-class OtherUI : public AMapUI
+class AOtherUI : public AMapUI
 {
 public:
 	// constrcuter destructer
-	OtherUI();
-	~OtherUI();
+	AOtherUI();
+	~AOtherUI();
 
 	// delete Function
-	OtherUI(const OtherUI& _Other) = delete;
-	OtherUI(OtherUI&& _Other) noexcept = delete;
-	OtherUI& operator=(const OtherUI& _Other) = delete;
-	OtherUI& operator=(OtherUI&& _Other) noexcept = delete;
+	AOtherUI(const AOtherUI& _Other) = delete;
+	AOtherUI(AOtherUI&& _Other) noexcept = delete;
+	AOtherUI& operator=(const AOtherUI& _Other) = delete;
+	AOtherUI& operator=(AOtherUI&& _Other) noexcept = delete;
 
 protected:
 	void BeginPlay() override;
