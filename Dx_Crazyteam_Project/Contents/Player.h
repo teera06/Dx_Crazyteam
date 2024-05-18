@@ -54,9 +54,19 @@ public:
 		Info->Team = _Team;
 	}
 	
-	void SetSpeed(int _speed)
+	void SetSpeed(int _Speed)
 	{
-		Info->Speed = _speed;
+		Info->Speed = _Speed;
+	}
+
+	void SetCtrlItem(EItemType _Item)
+	{
+		CtrlItem = _Item;
+	}
+
+	EItemType GetCtrlItem()
+	{
+		return CtrlItem;
 	}
 
 	int GetWBCount()
@@ -101,6 +111,8 @@ protected:
 
 
 private:
+	EItemType CtrlItem = EItemType::None;
+
 	void StateInit();
 
 	void GameOnStart();
@@ -137,7 +149,7 @@ private:
 	float TrapToDieTime = 5.f;
 	FVector TrapDir = FVector::Up;
 
-	bool DieAniTwinkleActive = false;
+	int DieAniTwinkleActive = 0;
 	float DieAnimationTime = 2.f;
 	float DieTwinkleTime = 0.1f;
 

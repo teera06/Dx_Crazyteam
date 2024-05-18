@@ -265,9 +265,19 @@ void APlayer::TrapStart()
 
 void APlayer::Trap(float _DeltaTime)
 {
-	// 이벤트 발생 시 구출 상태로 변경
-	if (true == IsDown(VK_F2))	
+	// 치트키 : F2키 누르면 Rescue 상태로 변경
+	if (true == IsDown(VK_F2))
 	{
+		Renderer->SetPosition(FVector::Zero);
+		State.ChangeState("Rescue");
+		return;
+	}
+
+	// Trap 상태에서 바늘 아이템 사용 시 Rescue 상태로 변경, 바늘 아이템 소거
+	if (true == IsDown(VK_CONTROL) && CtrlItem == EItemType::ItemNiddle)
+	{
+		CtrlItem = EItemType::None;
+
 		Renderer->SetPosition(FVector::Zero);
 		State.ChangeState("Rescue");
 		return;
@@ -330,7 +340,7 @@ void APlayer::DieStart()
 {
 	Renderer->ChangeAnimation(GetAnimationName("Die"));
 
-	DieAniTwinkleActive = false;
+	DieAniTwinkleActive = 0;
 	DieTwinkleTime = 0.1f;
 	DieAnimationTime = 2.f;
 }
@@ -344,8 +354,8 @@ void APlayer::Die(float _DeltaTime)
 
 		if (DieTwinkleTime < 0.f)
 		{
-			Renderer->SetActive(DieAniTwinkleActive);
-			DieAniTwinkleActive = !DieAniTwinkleActive;
+			Renderer->SetAlpha(static_cast<float>(DieAniTwinkleActive));
+			DieAniTwinkleActive = static_cast<int>(!(static_cast<bool>(DieAniTwinkleActive)));
 			DieTwinkleTime = 0.1f;
 		}
 
@@ -360,7 +370,7 @@ void APlayer::Die(float _DeltaTime)
 void APlayer::RealDieStart()
 {
 	// 진짜 죽음 처리
-	Shadow->SetActive(false);
+	Shadow->ShadowRenderOff();
 	Renderer->SetActive(false);
 }
 
