@@ -36,6 +36,8 @@ void AWaterCourse::WaterSend(std::shared_ptr<AWaterCourse> _SET)
 	std::shared_ptr<UWaterCourseUpdatePacket> Packet = std::make_shared<UWaterCourseUpdatePacket>();
 	Packet->Pos = _SET->GetActorLocation();
 	Packet->ObjectType = static_cast<int>(EObjectType::WaterCourse);
+	Packet->Dir = static_cast<int>(_SET->Getdir());
+	Packet->SetCourse = true;	
 	Send(Packet);
 }
 

@@ -106,6 +106,8 @@ public:
 		UEngineProtocol::Serialize(_Ser);
 		_Ser << Pos;
 		_Ser << ObjectType;
+		_Ser << Dir;
+		_Ser >> SetCourse;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -113,11 +115,15 @@ public:
 		UEngineProtocol::DeSerialize(_Ser);
 		_Ser >> Pos;
 		_Ser >> ObjectType;
+		_Ser >> Dir;
+		_Ser >> SetCourse;
 	}
 
 public:
 	float4 Pos = float4::Zero;
 	int ObjectType = 0;
+	int Dir = 0;
+	bool SetCourse = false;
 };
 
 
