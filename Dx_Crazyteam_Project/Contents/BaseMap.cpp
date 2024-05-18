@@ -65,7 +65,6 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 		{
 			std::shared_ptr<APlayer> Player = GetGameMode()->GetPlayer();
 			POINT PlayerPoint = Player->GetPlayerInfo()->CurIndex;
-			POINT CheckPoint = PosToPoint(_CheckPos);
 			if (CheckPoint.x != PlayerPoint.x ||
 				CheckPoint.y != PlayerPoint.y)
 			{
@@ -73,6 +72,7 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 			}
 			else return true;
 		}
+		break;
 		case EMapObjectType::Block:
 		{
 			FVector TilePosition = MapStatus[CheckPoint.y][CheckPoint.x]->GetActorLocation();
@@ -102,8 +102,31 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 		break;
 		case EMapObjectType::Bush:
 		{
-			POINT CheckPoint = PosToPoint(_CheckPos);
-			MapStatus[CheckPoint.y][CheckPoint.x]->PlayerInteract();
+			ABush* Bush = dynamic_cast<ABush*>(MapStatus[CheckPoint.y][CheckPoint.x].get());
+			if (Bush->GetPossessBlock() == nullptr)
+			{
+				return true;
+			}
+			else if (Bush->GetPossessBlock()->GetType() == EMapObjectType::WaterBalloon)
+			{
+				return false;
+			}
+
+			FVector TilePosition = Bush->GetPossessBlock()->GetActorLocation();
+
+			if (TilePosition.X + ConstValue::TileSize.X / 2.f > _CheckPos.X &&
+				TilePosition.X - ConstValue::TileSize.X / 2.f < _CheckPos.X &&
+				TilePosition.Y + ConstValue::TileSize.Y / 2.f > _CheckPos.Y &&
+				TilePosition.Y - ConstValue::TileSize.Y / 2.f < _CheckPos.Y)
+			{
+				POINT CheckPoint = PosToPoint(_CheckPos);
+
+				if (MapStatus[CheckPoint.y][CheckPoint.x] == nullptr) return true;
+
+				MapStatus[CheckPoint.y][CheckPoint.x]->PlayerInteract();
+				return false;
+			}
+
 			return true;
 		}
 		break;
@@ -203,8 +226,45 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 {
 	FVector PushPos = PointToPos(_Y, _X);
 
+	std::shared_ptr<AMapObject> MapObj = SpawnMapObject(_Y,_X,_MapObjectType, _Item);
 
+	if (MapObj == nullptr) 
+	{
+		return nullptr;
+	}
+
+	MapObj->SetActorLocation(PushPos);
+	MapObj->SetCurPos(POINT(_X, _Y));
+	MapObj->SetCurGameMode(GetGameMode());
+
+	if (MapStatus[_Y][_X] != nullptr)
+	{
+		if (MapStatus[_Y][_X]->GetType() == EMapObjectType::Bush)
+		{
+			ABush* Bush = dynamic_cast<ABush*>(MapStatus[_Y][_X].get());
+			Bush->SetPossessBlock(MapObj);
+			MapObj->SetIsPossessed(true);
+		}
+		else
+		{
+			MapStatus[_Y][_X]->Destroy();
+			MapStatus[_Y][_X] = MapObj;
+		}
+	}
+	else
+	{
+		MapStatus[_Y][_X] = MapObj;
+	}
+
+
+	return MapObj;
+}
+
+std::shared_ptr<AMapObject> ABaseMap::SpawnMapObject(int _Y, int _X, EMapObject _MapObjectType, EItemType _Item)
+{
 	std::shared_ptr<AMapObject> MapObj = nullptr;
+	FVector PushPos = PointToPos(_Y, _X);
+
 	switch (_MapObjectType)
 	{
 	case EMapObject::Default:
@@ -238,15 +298,15 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 	}
 	case EMapObject::CampBlock2:
 	{
-		
+
 	}
 	case EMapObject::CampBlock3:
 	{
-		
+
 	}
 	case EMapObject::CampBlock4:
 	{
-		
+
 	}
 	case EMapObject::TownBush:
 	{
@@ -283,22 +343,6 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 	default:
 		break;
 	}
-
-	if (MapObj == nullptr) 
-	{
-		return nullptr;
-	}
-
-	MapObj->SetActorLocation(PushPos);
-	MapObj->SetCurPos(POINT(_X, _Y));
-	MapObj->SetCurGameMode(GetGameMode());
-
-	if (MapStatus[_Y][_X] != nullptr)
-	{
-		MapStatus[_Y][_X]->Destroy();
-	}
-
-	MapStatus[_Y][_X] = MapObj;
 
 	return MapObj;
 }
@@ -393,8 +437,11 @@ void ABaseMap::MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX,
 			{
 				MapStatus[_PY][_PX] = nullptr; 
 			}
-
-
+		}
+		else if (MapStatus[_NY][_NX]->GetType() == EMapObjectType::Item)
+		{
+			PushMapObject(_Obj, _NY, _NX);
+			MapStatus[_PY][_PX] = nullptr;
 		}
 	}
 }
