@@ -42,7 +42,8 @@ public:
 		return WaterBombThisGameMode;
 	}
 
-	void SetToken(int _Set) { WaterBomb_Token = _Set; }
+	void SetWaterBombToken(int _Set) { WaterBomb_Token = _Set; }
+	void SetWaterCourseToken(int _Set) { WaterCourse_Token = _Set; }
 
 protected:
 	void BeginPlay() override;
@@ -61,7 +62,7 @@ protected:
 
 	int WaterBomb_Token = 0;
 	static int WaterCourse_Token;
-	static bool SetWaterCourseToken;
+	static bool SetWater_CourseToken;
 
 private :
 	void StateInit();
