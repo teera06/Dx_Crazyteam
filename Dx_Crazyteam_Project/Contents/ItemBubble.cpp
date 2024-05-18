@@ -42,7 +42,7 @@ void AItemBubble::Action()
 	}
 
 	//{
-	//	USendPacketManager::SendItemReleasePacket(GetObjectToken(), GetCurPos());
+	//	USendPacketManager::SendItemReleasePacket(this, GetCurPos());
 	//}
 
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);

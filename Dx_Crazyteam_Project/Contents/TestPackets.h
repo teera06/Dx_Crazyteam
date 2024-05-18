@@ -35,7 +35,7 @@ public:
 
 public:
 	POINT Pos = { 0,0 };
-	bool IsDestroy = true;
+	bool IsDestroy = false;
 
 protected:
 

@@ -33,11 +33,20 @@ void USendPacketManager::SendItemSpawnPacket(std::shared_ptr<AMapObject> _NetObj
 	_NetObject->Send(Packet);
 }
 
-void USendPacketManager::SendItemReleasePacket(int _ObjectToken, POINT _CurPos)
+void USendPacketManager::SendItemReleasePacket(AMapObject* _NetObject, POINT _CurPos)
 {
+	if (false == _NetObject->IsNetInit())
+	{
+		// 네트워크 통신준비가 아직 안된 오브젝트다.
+		if (nullptr != UGame_Core::Net)
+		{
+			_NetObject->InitNet(UGame_Core::Net);
+		}
+	}
+
 	std::shared_ptr<UMapObjectUpdatePacket> Packet = std::make_shared<UMapObjectUpdatePacket>();
-	Packet->SetObjectToken(_ObjectToken);
+	Packet->SetObjectToken(_NetObject->GetObjectToken());
 	Packet->IsDestroy = true;
 	Packet->Pos = _CurPos;
-	UGame_Core::Net->Send(Packet);
+	_NetObject->Send(Packet);
 }

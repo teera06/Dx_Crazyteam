@@ -139,9 +139,6 @@ void AServerGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 				{
 					POINT Pos = _Packet->Pos;
 					GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
-					//OtherItem = GetCurMap()->GetMapObject(Pos.y, Pos.x).get();
-					//OtherItem->Destroy();
-					//OtherItem = nullptr;
 				}
 				return;
 			}
