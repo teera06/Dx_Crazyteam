@@ -65,5 +65,5 @@ void AServerTestPlayer::SpawnItem()
 {
 	std::shared_ptr<AMapObject> BubbleItem = GetGameMode()->GetCurMap()->AddMapObject(6, 1, EMapObject::Item, EItemType::ItemBubble);
 
-	USendPacketManager::SendItemPacket(BubbleItem, true);
+	USendPacketManager::SendItemSpawnPacket(BubbleItem);
 }

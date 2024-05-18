@@ -285,6 +285,9 @@
     <ClInclude Include="ServerTestOtherPlayer.h">
       <Filter>Level\Surver\PublicOBJ\Test</Filter>
     </ClInclude>
+    <ClInclude Include="TestPackets.h">
+      <Filter>Level\Surver\PublicOBJ\Test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -464,6 +467,9 @@
       <Filter>Option</Filter>
     </ClCompile>
     <ClCompile Include="ServerTestOtherPlayer.cpp">
+      <Filter>Level\Surver\PublicOBJ\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="TestPackets.cpp">
       <Filter>Level\Surver\PublicOBJ\Test</Filter>
     </ClCompile>
   </ItemGroup>

@@ -15,7 +15,8 @@ public:
 	USendPacketManager& operator=(const USendPacketManager& _Other) = delete;
 	USendPacketManager& operator=(USendPacketManager&& _Other) noexcept = delete;
 
-	static void SendItemPacket(std::shared_ptr<AMapObject> _NetObject, bool _IsSpawn);
+	static void SendItemSpawnPacket(std::shared_ptr<AMapObject> _NetObject);
+	static void SendItemReleasePacket(int _ObjectToken, POINT _CurPos);
 
 protected:
 

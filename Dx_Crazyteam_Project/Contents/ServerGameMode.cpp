@@ -124,7 +124,7 @@ void AServerGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 					{
 						if (true == _Packet->IsDestroy)
 						{
-							int a = 0;
+							break;
 						}
 
 						// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
@@ -167,10 +167,8 @@ void AServerGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 					{
 						if (true == _Packet->IsDestroy)
 						{
-							int a = 0;
-							//AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
-							//OtherItem->Destroy();
-							//OtherItem = nullptr;
+							//GetCurMap()->DestroyMapObject(_Packet->Pos.Y, _Packet->Pos.X);
+							break;
 						}
 
 						// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현

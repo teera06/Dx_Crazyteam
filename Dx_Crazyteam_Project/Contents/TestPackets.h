@@ -1,0 +1,49 @@
+#pragma once
+#include <EngineBase/EngineMath.h>
+#include <EngineBase/EngineProtocol.h>
+
+
+enum ETestContentPacket
+{
+	UIPacket = 96,
+	WaterCourseUpdatePacket = 97,
+	WaterBombUpdatePacket = 98,
+	ActorUpdatePacket = 99,
+	MapObjectUpdatePacket = 100,
+};
+
+// Ό³Έν :
+class UMapObjectUpdatePacket : public UEngineProtocol
+{
+public:
+	static const ETestContentPacket Type = ETestContentPacket::MapObjectUpdatePacket;
+public:
+	UMapObjectUpdatePacket()
+	{
+		SetType(ETestContentPacket::MapObjectUpdatePacket);
+	}
+
+	void Serialize(UEngineSerializer& _Ser) override
+	{
+		UEngineProtocol::Serialize(_Ser);
+		_Ser << Pos;
+		_Ser << IsDestroy;
+	}
+
+	void DeSerialize(UEngineSerializer& _Ser) override
+	{
+		UEngineProtocol::DeSerialize(_Ser);
+		_Ser >> Pos;
+		_Ser >> IsDestroy;
+	}
+
+public:
+	float4 Pos = float4::Zero;
+	bool IsDestroy = true;
+
+protected:
+
+private:
+
+};
+
