@@ -47,7 +47,7 @@ void AOtherWaterCourse::Tick(float _DeltaTime)
 		case WaterCourseUpdatePacket:
 		{
 
-			std::shared_ptr<UWaterWaterCourseUpdatePacket> UpdatePacket = std::dynamic_pointer_cast<UWaterWaterCourseUpdatePacket>(Protocol);
+			std::shared_ptr<UWaterCourseUpdatePacket> UpdatePacket = std::dynamic_pointer_cast<UWaterCourseUpdatePacket>(Protocol);
 
 			if (UpdatePacket->ObjectType == static_cast<int>(EObjectType::WaterCourse))
 			{

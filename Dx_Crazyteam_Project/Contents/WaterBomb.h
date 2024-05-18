@@ -60,7 +60,7 @@ protected:
 	float GetCreateTime();
 
 	int WaterBomb_Token = 0;
-	int WaterCourse_Token = 0;
+	static int WaterCourse_Token;
 	static bool SetWaterCourseToken;
 
 private :
