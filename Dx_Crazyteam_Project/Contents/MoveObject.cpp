@@ -38,14 +38,8 @@ void UMoveObject::MoveSetOwner(ABlock* _Owner)
 		}
 		else
 		{
-			if (GetOwner()->GetIsPossessed())
-			{
-				ABush* Bush = dynamic_cast<ABush*>(GetOwner()->GetGameMode()->GetCurMap()->GetMapObject(GetOwner()->GetCurPos().y, GetOwner()->GetCurPos().x).get());
-				Bush->SetPossessBlock(nullptr);
-			}
 			GetOwner()->SetIsPush(true);
 		}
-
 
 		};
 }

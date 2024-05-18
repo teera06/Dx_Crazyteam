@@ -359,17 +359,23 @@ void ABaseMap::MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX,
 	{
 		PushMapObject(_Obj, _NY, _NX);
 		_Obj->SetIsPossessed(false);
-		if (!(MapStatus[_PY][_PX]->GetType() == EMapObjectType::Bush))
+		if (MapStatus[_PY][_PX]->GetType() == EMapObjectType::Bush)
+		{
+			ABush* PrevBush = dynamic_cast<ABush*>(MapStatus[_PY][_PX].get());
+			PrevBush->SetPossessBlock(nullptr);
+		}
+		else
 		{
 			MapStatus[_PY][_PX] = nullptr;
+
 		}
 	}
 	else
 	{
 		if (MapStatus[_NY][_NX]->GetType() == EMapObjectType::Bush)
 		{
-			ABush* Bush = dynamic_cast<ABush*>(MapStatus[_NY][_NX].get());
-			Bush->SetPossessBlock(_Obj);
+			ABush* NextBush = dynamic_cast<ABush*>(MapStatus[_NY][_NX].get());
+			NextBush->SetPossessBlock(_Obj);
 
 			FVector PushPos = PointToPos(_NY, _NX);
 
@@ -378,9 +384,14 @@ void ABaseMap::MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX,
 			_Obj->SetCurGameMode(GetGameMode());
 			_Obj->SetIsPossessed(true);
 
-			if (!(MapStatus[_PY][_PX]->GetType() == EMapObjectType::Bush))
+			if (MapStatus[_PY][_PX]->GetType() == EMapObjectType::Bush)
 			{
-				MapStatus[_PY][_PX] = nullptr;
+				ABush* PrevBush = dynamic_cast<ABush*>(MapStatus[_PY][_PX].get());
+				PrevBush->SetPossessBlock(nullptr);
+			}
+			else
+			{
+				MapStatus[_PY][_PX] = nullptr; 
 			}
 
 
