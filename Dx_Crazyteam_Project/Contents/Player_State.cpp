@@ -3,6 +3,8 @@
 #include "BaseMap.h"
 #include "CAGameMode.h"
 #include "Player_Shadow.h"
+#include "WaterBomb.h"
+#include "Packets.h"
 
 void APlayer::StateInit()
 {
@@ -165,7 +167,6 @@ void APlayer::GameOn(float _DeltaTime)
 
 }
 
-
 void APlayer::IdleStart()
 {
 	Renderer->ChangeAnimation(GetAnimationName("Idle"));
@@ -183,6 +184,23 @@ void  APlayer::Idle(float _DeltaTime)
 	{
 		State.ChangeState("Trap");
 		return;
+	}
+
+	if (true == IsDown(VK_SPACE))
+	{
+		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
+		Bomb->SetObjectToken(WaterBomb_Token++);
+		Bomb->SetWaterBombToken(WaterBomb_Token++);
+		if (SetWater_Token == false)
+		{
+			Bomb->SetWaterCourseToken(WaterCourse_Token);
+			SetWater_Token = true;
+		}
+		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
+		Packet->Pos = GetActorLocation();
+		Packet->ObjectType = static_cast<int>(EObjectType::WaterBomb);
+		Packet->Bomb = true;
+		Send(Packet);
 	}
 }
 
@@ -203,6 +221,23 @@ void APlayer::Move(float _DeltaTime)
 	{
 		State.ChangeState("Trap");
 		return;
+	}
+
+	if (true == IsDown(VK_SPACE))
+	{
+		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
+		Bomb->SetObjectToken(WaterBomb_Token++);
+		Bomb->SetWaterBombToken(WaterBomb_Token++);
+		if (SetWater_Token == false)
+		{
+			Bomb->SetWaterCourseToken(WaterCourse_Token);
+			SetWater_Token = true;
+		}
+		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
+		Packet->Pos = GetActorLocation();
+		Packet->ObjectType = static_cast<int>(EObjectType::WaterBomb);
+		Packet->Bomb = true;
+		Send(Packet);
 	}
 
 	FVector MovePos = FVector::Zero;

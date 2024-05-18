@@ -7,7 +7,6 @@
 #include "Player_Shadow.h"
 #include "BaseMap.h"
 #include "CAGameMode.h"
-#include "WaterBomb.h"
 #include <EngineBase/EngineRandom.h>
 
 int APlayer::WaterBomb_Token = 0;
@@ -124,24 +123,6 @@ void APlayer::Tick(float _DeltaTime)
 	if (true == GetIsSendPacket())
 	{
 		PlayerSendPacket(_DeltaTime);
-	}
-
-
-	if (true == IsDown(VK_SPACE))
-	{
-		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
-		Bomb->SetObjectToken(WaterBomb_Token++);
-		Bomb->SetWaterBombToken(WaterBomb_Token++);
-		if (SetWater_Token == false)
-		{
-			Bomb->SetWaterCourseToken(WaterCourse_Token);
-			SetWater_Token = true;
-		}
-		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
-		Packet->Pos = GetActorLocation();
-		Packet->ObjectType = static_cast<int>(EObjectType::WaterBomb);
-		Packet->Bomb = true;
-		Send(Packet);
 	}
 }
 
