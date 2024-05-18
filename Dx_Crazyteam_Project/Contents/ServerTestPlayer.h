@@ -3,6 +3,7 @@
 
 // Ό³Έν :
 class AItem;
+class AMapObject;
 class AServerTestPlayer : public APlayer
 {
 	GENERATED_BODY(APlayer)
@@ -27,6 +28,7 @@ private:
 
 private:
 	void SpawnItem();
+	void SendPacket(std::shared_ptr<AMapObject> _NetObject);
 
 };
 
