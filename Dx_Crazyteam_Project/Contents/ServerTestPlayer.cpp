@@ -68,21 +68,21 @@ void AServerTestPlayer::SpawnItem()
 	if (nullptr != Server)
 	{
 		std::shared_ptr<AMapObject> NiddleItem = GetGameMode()->GetCurMap()->AddMapObject(8, 1, EMapObject::Item, EItemType::ItemNiddle);
-		USendPacketManager::SendItemSpawnPacket(NiddleItem);
+		USendPacketManager::SendItemSpawnPacket(NiddleItem, EItemType::ItemNiddle, { 8,1 });
 
 		std::shared_ptr<AMapObject> ShoesItem = GetGameMode()->GetCurMap()->AddMapObject(7, 1, EMapObject::Item, EItemType::ItemShoes);
-		USendPacketManager::SendItemSpawnPacket(ShoesItem);
+		USendPacketManager::SendItemSpawnPacket(ShoesItem, EItemType::ItemShoes, { 7,1 });
 
 		std::shared_ptr<AMapObject> BubbleItem = GetGameMode()->GetCurMap()->AddMapObject(6, 1, EMapObject::Item, EItemType::ItemBubble);
-		USendPacketManager::SendItemSpawnPacket(BubbleItem);
+		USendPacketManager::SendItemSpawnPacket(BubbleItem, EItemType::ItemBubble, { 6,1 });
 
 		std::shared_ptr<AMapObject> FluidItem = GetGameMode()->GetCurMap()->AddMapObject(5, 1, EMapObject::Item, EItemType::ItemFluid);
-		USendPacketManager::SendItemSpawnPacket(FluidItem);
+		USendPacketManager::SendItemSpawnPacket(FluidItem, EItemType::ItemFluid, { 5,1 });
 
 		std::shared_ptr<AMapObject> RollerItem = GetGameMode()->GetCurMap()->AddMapObject(4, 1, EMapObject::Item, EItemType::ItemRoller);
-		USendPacketManager::SendItemSpawnPacket(RollerItem);
+		USendPacketManager::SendItemSpawnPacket(RollerItem, EItemType::ItemRoller, { 4,1 });
 
 		std::shared_ptr<AMapObject> OwlItem = GetGameMode()->GetCurMap()->AddMapObject(3, 1, EMapObject::Item, EItemType::ItemOwl);
-		USendPacketManager::SendItemSpawnPacket(OwlItem);
+		USendPacketManager::SendItemSpawnPacket(OwlItem, EItemType::ItemOwl, { 3,1 });
 	}
 }

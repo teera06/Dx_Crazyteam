@@ -143,14 +143,43 @@ void AServerGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 				return;
 			}
 
+
 			// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
 			AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 			if (nullptr == OtherItem)
 			{
 				ABaseMap* CurMap = GetCurMap().get();
-				OtherItem = CurMap->AddMapObject(6, 1, EMapObject::Item, EItemType::ItemBubble).get();
+				POINT PosValue = _Packet->Pos;
+				int ItemType = _Packet->ItemType;
+
+				switch (ItemType)
+				{
+				case static_cast<int>(EItemType::ItemBubble):
+					OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, EItemType::ItemBubble).get();
+					break;
+				case static_cast<int>(EItemType::ItemFluid):
+					OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, EItemType::ItemFluid).get();
+					break;
+				case static_cast<int>(EItemType::ItemNiddle):
+					OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, EItemType::ItemNiddle).get();
+					break;
+				case static_cast<int>(EItemType::ItemOwl):
+					OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, EItemType::ItemOwl).get();
+					break;
+				case static_cast<int>(EItemType::ItemRoller):
+					OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, EItemType::ItemRoller).get();
+					break;
+				case static_cast<int>(EItemType::ItemShoes):
+					OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, EItemType::ItemShoes).get();
+					break;
+				default:
+					MsgBoxAssert("지정되지 않은 타입입니다. 아이템 타입을 확인하세요.");
+					return;
+				}
+
 				OtherItem->SetObjectToken(_Packet->GetObjectToken());
-			}		
+			}
+			
 		});
 }
 
@@ -197,7 +226,34 @@ void AServerGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 			if (nullptr == OtherItem)
 			{
 				ABaseMap* CurMap = GetCurMap().get();
-				OtherItem = CurMap->AddMapObject(6, 1, EMapObject::Item, EItemType::ItemBubble).get();
+				POINT PosValue = _Packet->Pos;
+				int ItemType = _Packet->ItemType;
+
+				switch (ItemType)
+				{
+				case static_cast<int>(EItemType::ItemBubble):
+					OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, EItemType::ItemBubble).get();
+					break;
+				case static_cast<int>(EItemType::ItemFluid):
+					OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, EItemType::ItemFluid).get();
+					break;
+				case static_cast<int>(EItemType::ItemNiddle):
+					OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, EItemType::ItemNiddle).get();
+					break;
+				case static_cast<int>(EItemType::ItemOwl):
+					OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, EItemType::ItemOwl).get();
+					break;
+				case static_cast<int>(EItemType::ItemRoller):
+					OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, EItemType::ItemRoller).get();
+					break;
+				case static_cast<int>(EItemType::ItemShoes):
+					OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, EItemType::ItemShoes).get();
+					break;
+				default:
+					MsgBoxAssert("지정되지 않은 타입입니다. 아이템 타입을 확인하세요.");
+					return;
+				}
+
 				OtherItem->SetObjectToken(_Packet->GetObjectToken());
 			}
 		});

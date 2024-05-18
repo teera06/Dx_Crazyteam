@@ -24,6 +24,7 @@ public:
 		UEngineProtocol::Serialize(_Ser);
 		_Ser << Pos;
 		_Ser << IsDestroy;
+		_Ser << ItemType;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -31,11 +32,13 @@ public:
 		UEngineProtocol::DeSerialize(_Ser);
 		_Ser >> Pos;
 		_Ser >> IsDestroy;
+		_Ser >> ItemType;
 	}
 
 public:
 	POINT Pos = { 0,0 };
 	bool IsDestroy = false;
+	int ItemType = static_cast<int>(EItemType::None);
 
 protected:
 
