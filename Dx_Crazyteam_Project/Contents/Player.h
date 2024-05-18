@@ -90,7 +90,8 @@ public:
 	}
 
 	static int WaterBomb_Token;
-	int WaterCourse_Token;
+	static int WaterCourse_Token;
+	static bool SetWater_Token;
 
 protected:
 	std::shared_ptr<PlayerInfo> Info = nullptr;
