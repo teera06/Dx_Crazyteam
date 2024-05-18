@@ -91,12 +91,12 @@ public:
 };
 
 
-class UWaterWaterCourseUpdatePacket : public UEngineProtocol
+class UWaterCourseUpdatePacket : public UEngineProtocol
 {
 public:
 	static const EContentPacket Type = EContentPacket::WaterCourseUpdatePacket;
 public:
-	UWaterWaterCourseUpdatePacket()
+	UWaterCourseUpdatePacket()
 	{
 		SetType(EContentPacket::WaterCourseUpdatePacket);
 	}

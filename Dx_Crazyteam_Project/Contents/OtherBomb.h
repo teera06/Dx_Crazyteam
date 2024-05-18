@@ -3,7 +3,6 @@
 #include <EngineBase/NetObject.h>
 #include <EngineCore/DefaultSceneComponent.h>
 #include "WaterBomb.h"
-#include "WaterCourse.h"
 // Ό³Έν :
 class USpriteRenderer;
 class AOtherBomb : public AWaterBomb
