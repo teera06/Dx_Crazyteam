@@ -219,7 +219,7 @@
     <ClInclude Include="ServerTestPlayer.h">
       <Filter>Level\Surver\PublicOBJ\Test</Filter>
     </ClInclude>
-    <ClInclude Include="ServerPlayMode.h">
+    <ClInclude Include="SendPacketManager.h">
       <Filter>Level\Surver\ServerLevel</Filter>
     </ClInclude>
     <ClInclude Include="MoveObject.h">
@@ -403,7 +403,7 @@
     <ClCompile Include="ServerTestPlayer.cpp">
       <Filter>Level\Surver\PublicOBJ\Test</Filter>
     </ClCompile>
-    <ClCompile Include="ServerPlayMode.cpp">
+    <ClCompile Include="SendPacketManager.cpp">
       <Filter>Level\Surver\ServerLevel</Filter>
     </ClCompile>
     <ClCompile Include="MoveObject.cpp">

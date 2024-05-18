@@ -28,7 +28,6 @@ private:
 
 private:
 	void SpawnItem();
-	void SendPacket(std::shared_ptr<AMapObject> _NetObject);
 
 };
 

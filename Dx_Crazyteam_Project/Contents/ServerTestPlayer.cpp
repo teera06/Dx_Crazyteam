@@ -8,6 +8,7 @@
 #include "Packets.h"
 #include "CAGameMode.h"
 #include "BaseMap.h"
+#include "SendPacketManager.h"
 
 
 
@@ -64,17 +65,5 @@ void AServerTestPlayer::SpawnItem()
 {
 	std::shared_ptr<AMapObject> BubbleItem = GetGameMode()->GetCurMap()->AddMapObject(6, 1, EMapObject::Item, EItemType::ItemBubble);
 
-	SendPacket(BubbleItem);
-}
-
-void AServerTestPlayer::SendPacket(std::shared_ptr<AMapObject> _NetObject)
-{
-	_NetObject->SetObjectToken(UNetObject::GetNewObjectToken());
-
-	std::shared_ptr<UActorUpdatePacket> Packet = std::make_shared<UActorUpdatePacket>();
-	Packet->SetObjectToken(_NetObject->GetObjectToken());
-	Packet->Pos = _NetObject->GetActorLocation();
-	Packet->IsDestroy = false;
-	Packet->ObjectType = static_cast<int>(EObjectType::Item);
-	UGame_Core::Net->Send(Packet);
+	USendPacketManager::SendItemPacket(BubbleItem, true);
 }

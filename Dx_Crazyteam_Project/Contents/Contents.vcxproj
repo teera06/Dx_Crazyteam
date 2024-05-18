@@ -179,7 +179,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="ServerPlayMode.h">
+    <ClInclude Include="SendPacketManager.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -387,7 +387,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="ServerPlayMode.cpp">
+    <ClCompile Include="SendPacketManager.cpp">
       <SubType>
       </SubType>
     </ClCompile>
