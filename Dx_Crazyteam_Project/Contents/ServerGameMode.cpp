@@ -111,12 +111,11 @@ void AServerGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 					{	
 					case static_cast<int>(EObjectType::Player):
 					{
-						AServerTestOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AServerTestOtherPlayer>(_Packet->GetObjectToken());
+						AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
 						if (nullptr == OtherPlayer)
 						{
-							OtherPlayer = this->GetWorld()->SpawnActor<AServerTestOtherPlayer>("OtherPlayer", 0).get();
+							OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
 							OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
-							OtherPlayer->SetCurGameMode(this);
 						}
 						OtherPlayer->PushProtocol(_Packet);
 						break;
@@ -155,12 +154,11 @@ void AServerGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 					{
 					case static_cast<int>(EObjectType::Player):
 					{
-						AServerTestOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AServerTestOtherPlayer>(_Packet->GetObjectToken());
+						AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
 						if (nullptr == OtherPlayer)
 						{
-							OtherPlayer = this->GetWorld()->SpawnActor<AServerTestOtherPlayer>("OtherPlayer", 0).get();
+							OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
 							OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
-							OtherPlayer->SetCurGameMode(this);
 						}
 						OtherPlayer->PushProtocol(_Packet);
 						break;
