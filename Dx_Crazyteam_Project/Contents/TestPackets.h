@@ -34,7 +34,7 @@ public:
 	}
 
 public:
-	float4 Pos = float4::Zero;
+	POINT Pos = { 0,0 };
 	bool IsDestroy = true;
 
 protected:

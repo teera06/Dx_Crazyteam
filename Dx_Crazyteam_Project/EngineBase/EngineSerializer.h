@@ -47,6 +47,11 @@ public:
 		Write(&_Data, sizeof(float4));
 	}
 
+	void operator<<(const POINT& _Data)
+	{
+		Write(&_Data, sizeof(POINT));
+	}
+
 
 	void operator<<(const std::string& _Data)
 	{
@@ -90,6 +95,11 @@ public:
 	void operator>>(float4& _Data)
 	{
 		Read(&_Data, sizeof(float4));
+	}
+
+	void operator>>(POINT& _Data)
+	{
+		Read(&_Data, sizeof(POINT));
 	}
 
 

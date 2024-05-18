@@ -19,6 +19,7 @@
 #include "Camp.h"
 #include "ItemBubble.h"
 #include "MapObject.h"
+#include "BaseMap.h"
 
 #include "TitleMenu.h"
 #include "PlayLobby.h"
@@ -121,23 +122,6 @@ void AServerGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 						OtherPlayer->PushProtocol(_Packet);
 						break;
 					}
-					//case static_cast<int>(EObjectType::Item):
-					//{
-					//	if (true == _Packet->IsDestroy)
-					//	{
-					//		break;
-					//	}
-
-					//	// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
-					//	AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
-					//	if (nullptr == OtherItem)
-					//	{
-					//		ABaseMap* CurMap = GetCurMap().get();
-					//		OtherItem = CurMap->AddMapObject(6, 1, EMapObject::Item, EItemType::ItemBubble).get();
-					//		OtherItem->SetObjectToken(_Packet->GetObjectToken());
-					//	}
-					//	break;
-					//}
 					default:
 						break;
 					}
@@ -150,7 +134,15 @@ void AServerGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 					
 			if (true == _Packet->IsDestroy)
 			{
-
+				AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+				if (nullptr != OtherItem)
+				{
+					POINT Pos = _Packet->Pos;
+					GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
+					//OtherItem = GetCurMap()->GetMapObject(Pos.y, Pos.x).get();
+					//OtherItem->Destroy();
+					//OtherItem = nullptr;
+				}
 				return;
 			}
 
@@ -184,24 +176,6 @@ void AServerGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 						OtherPlayer->PushProtocol(_Packet);
 						break;
 					}
-					//case static_cast<int>(EObjectType::Item):
-					//{
-					//	if (true == _Packet->IsDestroy)
-					//	{
-					//		//GetCurMap()->DestroyMapObject(_Packet->Pos.Y, _Packet->Pos.X);
-					//		break;
-					//	}
-
-					//	// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
-					//	AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
-					//	if (nullptr == OtherItem)
-					//	{
-					//		ABaseMap* CurMap = GetCurMap().get();
-					//		OtherItem = CurMap->AddMapObject(6, 1, EMapObject::Item, EItemType::ItemBubble).get();
-					//		OtherItem->SetObjectToken(_Packet->GetObjectToken());
-					//	}
-					//	break;
-					//}
 					default:
 						break;
 					}
@@ -212,7 +186,12 @@ void AServerGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 		{
 			if (true == _Packet->IsDestroy)
 			{
-
+				AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+				if (nullptr != OtherItem)
+				{
+					POINT Pos = _Packet->Pos;
+					GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
+				}
 				return;
 			}
 
