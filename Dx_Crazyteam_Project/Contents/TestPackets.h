@@ -5,10 +5,6 @@
 
 enum ETestContentPacket
 {
-	UIPacket = 96,
-	WaterCourseUpdatePacket = 97,
-	WaterBombUpdatePacket = 98,
-	ActorUpdatePacket = 99,
 	MapObjectUpdatePacket = 100,
 };
 

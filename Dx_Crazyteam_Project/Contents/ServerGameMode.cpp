@@ -13,6 +13,7 @@
 #include "ServerTestPlayer.h"
 #include "Game_Core.h"
 #include "Packets.h"
+#include "TestPackets.h"
 #include "OtherPlayer.h"
 #include "Village.h"
 #include "Camp.h"
@@ -120,27 +121,47 @@ void AServerGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 						OtherPlayer->PushProtocol(_Packet);
 						break;
 					}
-					case static_cast<int>(EObjectType::Item):
-					{
-						if (true == _Packet->IsDestroy)
-						{
-							break;
-						}
+					//case static_cast<int>(EObjectType::Item):
+					//{
+					//	if (true == _Packet->IsDestroy)
+					//	{
+					//		break;
+					//	}
 
-						// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
-						AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
-						if (nullptr == OtherItem)
-						{
-							ABaseMap* CurMap = GetCurMap().get();
-							OtherItem = CurMap->AddMapObject(6, 1, EMapObject::Item, EItemType::ItemBubble).get();
-							OtherItem->SetObjectToken(_Packet->GetObjectToken());
-						}
-						break;
-					}
+					//	// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
+					//	AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+					//	if (nullptr == OtherItem)
+					//	{
+					//		ABaseMap* CurMap = GetCurMap().get();
+					//		OtherItem = CurMap->AddMapObject(6, 1, EMapObject::Item, EItemType::ItemBubble).get();
+					//		OtherItem->SetObjectToken(_Packet->GetObjectToken());
+					//	}
+					//	break;
+					//}
 					default:
 						break;
 					}
 				});
+		});
+
+	Dis.AddHandler<UMapObjectUpdatePacket>([=](std::shared_ptr<UMapObjectUpdatePacket> _Packet)
+		{
+			UGame_Core::Net->Send(_Packet);
+					
+			if (true == _Packet->IsDestroy)
+			{
+
+				return;
+			}
+
+			// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
+			AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+			if (nullptr == OtherItem)
+			{
+				ABaseMap* CurMap = GetCurMap().get();
+				OtherItem = CurMap->AddMapObject(6, 1, EMapObject::Item, EItemType::ItemBubble).get();
+				OtherItem->SetObjectToken(_Packet->GetObjectToken());
+			}		
 		});
 }
 
@@ -163,28 +184,46 @@ void AServerGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 						OtherPlayer->PushProtocol(_Packet);
 						break;
 					}
-					case static_cast<int>(EObjectType::Item):
-					{
-						if (true == _Packet->IsDestroy)
-						{
-							//GetCurMap()->DestroyMapObject(_Packet->Pos.Y, _Packet->Pos.X);
-							break;
-						}
+					//case static_cast<int>(EObjectType::Item):
+					//{
+					//	if (true == _Packet->IsDestroy)
+					//	{
+					//		//GetCurMap()->DestroyMapObject(_Packet->Pos.Y, _Packet->Pos.X);
+					//		break;
+					//	}
 
-						// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
-						AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
-						if (nullptr == OtherItem)
-						{
-							ABaseMap* CurMap = GetCurMap().get();
-							OtherItem = CurMap->AddMapObject(6, 1, EMapObject::Item, EItemType::ItemBubble).get();
-							OtherItem->SetObjectToken(_Packet->GetObjectToken());
-						}
-						break;
-					}
+					//	// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
+					//	AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+					//	if (nullptr == OtherItem)
+					//	{
+					//		ABaseMap* CurMap = GetCurMap().get();
+					//		OtherItem = CurMap->AddMapObject(6, 1, EMapObject::Item, EItemType::ItemBubble).get();
+					//		OtherItem->SetObjectToken(_Packet->GetObjectToken());
+					//	}
+					//	break;
+					//}
 					default:
 						break;
 					}
 				});
+		});
+
+	Dis.AddHandler<UMapObjectUpdatePacket>([=](std::shared_ptr<UMapObjectUpdatePacket> _Packet)
+		{
+			if (true == _Packet->IsDestroy)
+			{
+
+				return;
+			}
+
+			// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
+			AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+			if (nullptr == OtherItem)
+			{
+				ABaseMap* CurMap = GetCurMap().get();
+				OtherItem = CurMap->AddMapObject(6, 1, EMapObject::Item, EItemType::ItemBubble).get();
+				OtherItem->SetObjectToken(_Packet->GetObjectToken());
+			}
 		});
 }
 
