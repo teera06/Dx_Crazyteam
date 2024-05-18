@@ -118,7 +118,7 @@ void AServerGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 							OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
 							OtherPlayer->SetCurGameMode(this);
 						}
-						//OtherPlayer->PushProtocol(_Packet);
+						OtherPlayer->PushProtocol(_Packet);
 						break;
 					}
 					case static_cast<int>(EObjectType::Item):
@@ -162,7 +162,7 @@ void AServerGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 							OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
 							OtherPlayer->SetCurGameMode(this);
 						}
-						//OtherPlayer->PushProtocol(_Packet);
+						OtherPlayer->PushProtocol(_Packet);
 						break;
 					}
 					case static_cast<int>(EObjectType::Item):
