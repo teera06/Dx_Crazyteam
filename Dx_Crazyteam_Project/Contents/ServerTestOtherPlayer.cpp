@@ -3,6 +3,8 @@
 #include "ServerTestOtherPlayer.h"
 #include "Game_Core.h"
 #include "Packets.h"
+#include "CAGameMode.h"
+#include "BaseMap.h"
 
 AServerTestOtherPlayer::AServerTestOtherPlayer()
 	:APlayer()
@@ -50,6 +52,9 @@ void AServerTestOtherPlayer::Tick(float _DeltaTime)
 			std::shared_ptr<UActorUpdatePacket> ActorUpdatePacket = std::dynamic_pointer_cast<UActorUpdatePacket>(Protocol);
 
 			SetActorLocation(ActorUpdatePacket->Pos);
+
+			GetGameMode()->GetCurMap()->IsMove(ActorUpdatePacket->Pos);
+
 			break;
 		}
 		default:
