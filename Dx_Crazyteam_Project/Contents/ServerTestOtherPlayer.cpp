@@ -3,9 +3,8 @@
 #include "ServerTestOtherPlayer.h"
 
 AServerTestOtherPlayer::AServerTestOtherPlayer()
-	:AServerTestPlayer()
+	:APlayer()
 {
-	OffIsSendPacket();
 }
 
 AServerTestOtherPlayer::~AServerTestOtherPlayer()
@@ -15,9 +14,13 @@ AServerTestOtherPlayer::~AServerTestOtherPlayer()
 void AServerTestOtherPlayer::BeginPlay()
 {
 	Super::BeginPlay();
+
+	OffIsSendPacket();
 }
 
 void AServerTestOtherPlayer::Tick(float _DeltaTime)
 {
+	InputOff();
+
 	Super::Tick(_DeltaTime);
 }

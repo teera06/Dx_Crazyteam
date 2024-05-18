@@ -9,6 +9,7 @@
 #include <EngineCore/EngineEditorGUI.h>
 
 
+#include "ServerTestOtherPlayer.h"
 #include "ServerTestPlayer.h"
 #include "Game_Core.h"
 #include "Packets.h"
@@ -110,13 +111,14 @@ void AServerGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 					{	
 					case static_cast<int>(EObjectType::Player):
 					{
-						AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
+						AServerTestOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AServerTestOtherPlayer>(_Packet->GetObjectToken());
 						if (nullptr == OtherPlayer)
 						{
-							OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
+							OtherPlayer = this->GetWorld()->SpawnActor<AServerTestOtherPlayer>("OtherPlayer", 0).get();
 							OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+							OtherPlayer->SetCurGameMode(this);
 						}
-						OtherPlayer->PushProtocol(_Packet);
+						//OtherPlayer->PushProtocol(_Packet);
 						break;
 					}
 					case static_cast<int>(EObjectType::Item):
@@ -153,13 +155,14 @@ void AServerGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 					{
 					case static_cast<int>(EObjectType::Player):
 					{
-						AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
+						AServerTestOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AServerTestOtherPlayer>(_Packet->GetObjectToken());
 						if (nullptr == OtherPlayer)
 						{
-							OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
+							OtherPlayer = this->GetWorld()->SpawnActor<AServerTestOtherPlayer>("OtherPlayer", 0).get();
 							OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+							OtherPlayer->SetCurGameMode(this);
 						}
-						OtherPlayer->PushProtocol(_Packet);
+						//OtherPlayer->PushProtocol(_Packet);
 						break;
 					}
 					case static_cast<int>(EObjectType::Item):
