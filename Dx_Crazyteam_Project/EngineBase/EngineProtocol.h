@@ -53,7 +53,7 @@ public:
 	{
 		ObjectToken = _ObjectToken;
 	}
-
+	
 	template<typename PType>
 	void SetType(PType _Type)
 	{

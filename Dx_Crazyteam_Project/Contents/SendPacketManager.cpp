@@ -14,7 +14,7 @@ USendPacketManager::~USendPacketManager()
 {
 }
 
-void USendPacketManager::SendItemSpawnPacket(std::shared_ptr<AMapObject> _NetObject)
+void USendPacketManager::SendItemSpawnPacket(std::shared_ptr<AMapObject> _NetObject, EItemType _ItemType, POINT _CurPos)
 {
 	if (false == _NetObject->IsNetInit())
 	{
@@ -30,6 +30,8 @@ void USendPacketManager::SendItemSpawnPacket(std::shared_ptr<AMapObject> _NetObj
 	std::shared_ptr<UMapObjectUpdatePacket> Packet = std::make_shared<UMapObjectUpdatePacket>();
 	Packet->SetObjectToken(_NetObject->GetObjectToken());
 	Packet->IsDestroy = false;
+	Packet->Pos = _CurPos;
+	Packet->ItemType = static_cast<int>(_ItemType);
 	_NetObject->Send(Packet);
 }
 
