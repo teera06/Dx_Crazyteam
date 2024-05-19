@@ -37,7 +37,7 @@ void AItemOwl::Action()
 
 	if (Type == EPlayerRideType::None)
 	{
-		GetGameMode()->GetPlayer()->GetPlayerInfo()->RideType = EPlayerRideType::Owl;
+		GetGameMode()->GetPlayer()->SetRideType(EPlayerRideType::Owl);
 	}
 
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
