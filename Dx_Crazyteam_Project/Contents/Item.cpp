@@ -2,6 +2,8 @@
 #include "Item.h"
 #include "BaseMap.h"
 #include "CAGameMode.h"
+#include "SendPacketManager.h"
+
 AItem::AItem()
 {
 
@@ -28,6 +30,10 @@ void AItem::BeginPlay()
 		};
 
 	PlayerInteract = [&] {
+
+		{
+			USendPacketManager::SendItemReleasePacket(this, GetCurPos());
+		}
 
 		Action();
 		};

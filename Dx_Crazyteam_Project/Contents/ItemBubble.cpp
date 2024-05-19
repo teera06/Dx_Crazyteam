@@ -4,8 +4,6 @@
 #include "CAGameMode.h"
 #include "BaseMap.h"
 
-#include "SendPacketManager.h"
-
 AItemBubble::AItemBubble()
 {
 	
@@ -40,10 +38,6 @@ void AItemBubble::Action()
 	{
 		++GetGameMode()->GetPlayer()->GetPlayerInfo()->WBCount;
 	}
-
-	//{
-	//	USendPacketManager::SendItemReleasePacket(this, GetCurPos());
-	//}
 
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 }
