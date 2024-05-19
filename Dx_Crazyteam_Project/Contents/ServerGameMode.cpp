@@ -172,6 +172,7 @@ void AServerGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 
 	Dis.AddHandler<UMapObjectUpdatePacket>([=](std::shared_ptr<UMapObjectUpdatePacket> _Packet)
 		{
+			// Other 오브젝트 소멸 관련
 			if (true == _Packet->IsDestroy)
 			{
 				AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
@@ -183,31 +184,80 @@ void AServerGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 				return;
 			}
 
-			// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
-			AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
-			if (nullptr == OtherItem)
+			// Other 오브젝트 생성 관련
+			EMapObject ObjType = static_cast<EMapObject>(_Packet->ObjectType);
+
+			switch (ObjType)
 			{
-				ABaseMap* CurMap = GetCurMap().get();
-				POINT PosValue = _Packet->Pos;
+			case EMapObject::DummyBlock:
+			case EMapObject::NormalBlock:
+			case EMapObject::CampBlock1:
+			case EMapObject::CampBlock2:
+			case EMapObject::CampBlock3:
+			case EMapObject::CampBlock4:
+			case EMapObject::CampMoveBlock1:
+			case EMapObject::CampMoveBlock2:
+			case EMapObject::CampHPBlock:
+			case EMapObject::WaterBomb:
+			case EMapObject::Water:
+			case EMapObject::TownBush:
+			{
+				AMapObject* OtherObject = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+
+				if (nullptr == OtherObject)
+				{
+					ABaseMap* CurMap = GetCurMap().get();
+					POINT PosValue = _Packet->Pos;
+
+					OtherObject = CurMap->AddMapObject(PosValue.x, PosValue.y, ObjType).get();
+
+					OtherObject->SetObjectToken(_Packet->GetObjectToken());
+				}
+				break;
+			}
+			case EMapObject::Item:
+			{
 				EItemType ItemType = static_cast<EItemType>(_Packet->ItemType);
 
-				switch (ItemType)
+				if (EItemType::None == ItemType)
 				{
-				case EItemType::ItemBubble:
-				case EItemType::ItemFluid:
-				case EItemType::ItemNiddle:
-				case EItemType::ItemOwl:
-				case EItemType::ItemRoller:
-				case EItemType::ItemShoes:
-					OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, ItemType).get();
-					break;
-				default:
-					MsgBoxAssert("지정되지 않은 타입입니다. 아이템 타입을 확인하세요.");
+					MsgBoxAssert("아이템 타입을 지정하지 않았습니다. 지정해주세요.");
 					return;
 				}
 
-				OtherItem->SetObjectToken(_Packet->GetObjectToken());
+				// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
+				AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+
+				if (nullptr == OtherItem)
+				{
+					ABaseMap* CurMap = GetCurMap().get();
+					POINT PosValue = _Packet->Pos;
+
+					switch (ItemType)
+					{
+					case EItemType::ItemBubble:
+					case EItemType::ItemFluid:
+					case EItemType::ItemNiddle:
+					case EItemType::ItemOwl:
+					case EItemType::ItemRoller:
+					case EItemType::ItemShoes:
+						OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, ItemType).get();
+						break;
+					default:
+						MsgBoxAssert("지정되지 않은 타입입니다. 아이템 타입을 확인하세요.");
+						return;
+					}
+
+					OtherItem->SetObjectToken(_Packet->GetObjectToken());
+				}
+				break;
 			}
+			case EMapObject::Default:
+			default:
+				MsgBoxAssert("Type이 Default타입이거나 지정되지 않은 타입입니다.");
+				return;
+			}
+			
 		});
 }
 

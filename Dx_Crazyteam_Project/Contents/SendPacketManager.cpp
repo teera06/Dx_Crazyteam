@@ -36,6 +36,7 @@ void USendPacketManager::SendMapObjectSpawnPacket(std::shared_ptr<AMapObject> _N
 	Packet->SetObjectToken(_NetObject->GetObjectToken());
 	Packet->IsDestroy = false;
 	Packet->Pos = _CurPos;
+	Packet->ObjectType = static_cast<int>(_MapObjectType);
 	Packet->ItemType = static_cast<int>(_ItemType);
 	_NetObject->Send(Packet);
 }

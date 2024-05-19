@@ -25,6 +25,7 @@ public:
 		_Ser << Pos;
 		_Ser << IsDestroy;
 		_Ser << ItemType;
+		_Ser << ObjectType;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -33,12 +34,14 @@ public:
 		_Ser >> Pos;
 		_Ser >> IsDestroy;
 		_Ser >> ItemType;
+		_Ser >> ObjectType;
 	}
 
 public:
 	POINT Pos = { 0,0 };
 	bool IsDestroy = false;
 	int ItemType = static_cast<int>(EItemType::None);
+	int ObjectType = static_cast<int>(EMapObject::Default);
 
 protected:
 
