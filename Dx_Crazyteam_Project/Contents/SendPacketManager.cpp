@@ -14,9 +14,7 @@ USendPacketManager::~USendPacketManager()
 {
 }
 
-
-
-void USendPacketManager::SendItemSpawnPacket(std::shared_ptr<AMapObject> _NetObject, EItemType _ItemType, POINT _CurPos)
+void USendPacketManager::SendMapObjectSpawnPacket(std::shared_ptr<AMapObject> _NetObject, POINT _CurPos, EMapObject _MapObjectType, EItemType _ItemType /*= EItemType::None*/)
 {
 	if (false == _NetObject->IsNetInit())
 	{
@@ -42,7 +40,7 @@ void USendPacketManager::SendItemSpawnPacket(std::shared_ptr<AMapObject> _NetObj
 	_NetObject->Send(Packet);
 }
 
-void USendPacketManager::SendItemReleasePacket(AMapObject* _NetObject, POINT _CurPos)
+void USendPacketManager::SendMapObjectReleasePacket(AMapObject* _NetObject, POINT _CurPos)
 {
 	if (false == _NetObject->IsNetInit())
 	{

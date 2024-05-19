@@ -32,7 +32,7 @@ void AItem::BeginPlay()
 	PlayerInteract = [&] {
 
 		{
-			USendPacketManager::SendItemReleasePacket(this, GetCurPos());
+			USendPacketManager::SendMapObjectReleasePacket(this, GetCurPos());
 		}
 
 		Action();

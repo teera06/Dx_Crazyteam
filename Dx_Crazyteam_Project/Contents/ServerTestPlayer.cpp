@@ -69,25 +69,28 @@ void AServerTestPlayer::SpawnItem()
 	{
 		// Item
 		std::shared_ptr<AMapObject> NiddleItem = GetGameMode()->GetCurMap()->AddMapObject(8, 1, EMapObject::Item, EItemType::ItemNiddle);
-		USendPacketManager::SendItemSpawnPacket(NiddleItem, EItemType::ItemNiddle, { 8,1 });
+		USendPacketManager::SendMapObjectSpawnPacket(NiddleItem, { 8,1 }, EMapObject::Item, EItemType::ItemNiddle);
 
 		std::shared_ptr<AMapObject> ShoesItem = GetGameMode()->GetCurMap()->AddMapObject(7, 1, EMapObject::Item, EItemType::ItemShoes);
-		USendPacketManager::SendItemSpawnPacket(ShoesItem, EItemType::ItemShoes, { 7,1 });
+		USendPacketManager::SendMapObjectSpawnPacket(ShoesItem, { 7,1 }, EMapObject::Item, EItemType::ItemShoes);
 
 		std::shared_ptr<AMapObject> BubbleItem = GetGameMode()->GetCurMap()->AddMapObject(6, 1, EMapObject::Item, EItemType::ItemBubble);
-		USendPacketManager::SendItemSpawnPacket(BubbleItem, EItemType::ItemBubble, { 6,1 });
+		USendPacketManager::SendMapObjectSpawnPacket(BubbleItem, { 6,1 }, EMapObject::Item, EItemType::ItemBubble);
 
 		std::shared_ptr<AMapObject> FluidItem = GetGameMode()->GetCurMap()->AddMapObject(5, 1, EMapObject::Item, EItemType::ItemFluid);
-		USendPacketManager::SendItemSpawnPacket(FluidItem, EItemType::ItemFluid, { 5,1 });
+		USendPacketManager::SendMapObjectSpawnPacket(FluidItem, { 5,1 }, EMapObject::Item, EItemType::ItemFluid);
 
 		std::shared_ptr<AMapObject> RollerItem = GetGameMode()->GetCurMap()->AddMapObject(4, 1, EMapObject::Item, EItemType::ItemRoller);
-		USendPacketManager::SendItemSpawnPacket(RollerItem, EItemType::ItemRoller, { 4,1 });
+		USendPacketManager::SendMapObjectSpawnPacket(RollerItem, { 4,1 }, EMapObject::Item, EItemType::ItemRoller);
 
 		std::shared_ptr<AMapObject> OwlItem = GetGameMode()->GetCurMap()->AddMapObject(3, 1, EMapObject::Item, EItemType::ItemOwl);
-		USendPacketManager::SendItemSpawnPacket(OwlItem, EItemType::ItemOwl, { 3,1 });
+		USendPacketManager::SendMapObjectSpawnPacket(OwlItem, { 3,1 }, EMapObject::Item, EItemType::ItemOwl);
 
 		// Block
 		std::shared_ptr<AMapObject> CampBlock1 = GetGameMode()->GetCurMap()->AddMapObject(3, 3, EMapObject::CampBlock1);
+		//USendPacketManager::SendBlockSpawnPacket(CampBlock1, EMapObject::CampBlock1, { 3, 3 });
+
+
 		std::shared_ptr<AMapObject> CampMoveBlock1 = GetGameMode()->GetCurMap()->AddMapObject(3, 6, EMapObject::CampMoveBlock1);
 		std::shared_ptr<AMapObject> CampHPBlock1 = GetGameMode()->GetCurMap()->AddMapObject(3, 9, EMapObject::CampHPBlock);
 		std::shared_ptr<AMapObject> TownBush = GetGameMode()->GetCurMap()->AddMapObject(9, 1, EMapObject::TownBush);
