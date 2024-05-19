@@ -35,6 +35,15 @@ void AServerTestPlayer::Tick(float _DeltaTime)
 		SpawnItem();
 	}
 
+	//// WaterBomb 생성 테스트
+	//if (true == IsDown('O'))
+	//{
+	//	POINT BombPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
+
+	//	std::shared_ptr<AMapObject> WoterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x);
+	//	USendPacketManager::SendMapObjectSpawnPacket(WoterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb);
+	//}
+
 	Super::Tick(_DeltaTime);
 
 	if (false == IsNetInit())
