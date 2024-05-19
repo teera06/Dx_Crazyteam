@@ -219,9 +219,10 @@ void ABlock::PushTick(float _DeltaTime)
 
 	AddActorLocation(MoveVector * MoveSpeed * _DeltaTime);
 
-	{
-		USendPacketManager::SendMapObjectMovePacket(this , GetActorLocation());
-	}
+	//// 블럭 이동 동기화
+	//{
+	//	USendPacketManager::SendMapObjectMovePacket(this , GetActorLocation());
+	//}
 
 	PushAccTime += _DeltaTime;
 	if (PushAccTime > MoveCompleteTime)
@@ -271,9 +272,10 @@ void ABlock::EndTick(float _DeltaTime)
 
 		IsPush = false;
 
-		{
-			USendPacketManager::SendMapObjectMovePacket(this, GetActorLocation(), true);
-		}
+		//// 블럭 이동 종료시 맵에서 좌표 동기화
+		//{
+		//	USendPacketManager::SendMapObjectMoveEndPacket(shared_from_this(), ny, nx, GetCurPos().y, GetCurPos().x);
+		//}
 
 		State.ChangeState("Idle");
 	}

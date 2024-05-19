@@ -150,13 +150,18 @@ void AServerGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 				AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 				if (nullptr != OtherBlock)
 				{
-					if (true == _Packet->IsMoveEnd)
-					{
-						int a = 0;
-						//GetGameMode()->GetCurMap()->MoveMapObject(shared_from_this(), ny, nx, GetCurPos().y, GetCurPos().x);
-						return;
-					}
 					OtherBlock->SetActorLocation(_Packet->MovePos);
+				}
+				return;
+			}
+
+			// Other 오브젝트 이동 종료
+			if (true == _Packet->IsMoveEnd)
+			{
+				AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+				if (nullptr != OtherBlock)
+				{
+					//GetCurMap()->MoveMapObject(OtherBlock->shared_from_this(), _Packet->MoveEndPos.y, _Packet->MoveEndPos.x, _Packet->MoveBeginPos.y, _Packet->MoveBeginPos.x);
 				}
 				return;
 			}
@@ -202,19 +207,24 @@ void AServerGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 				return;
 			}
 
-
 			// Other 오브젝트 이동
 			if (true == _Packet->IsMove)
 			{
 				AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 				if (nullptr != OtherBlock)
 				{
-					if (true == _Packet->IsMoveEnd)
-					{
-						int a = 0;
-						return;
-					}
 					OtherBlock->SetActorLocation(_Packet->MovePos);
+				}
+				return;
+			}
+
+			// Other 오브젝트 이동 종료
+			if (true == _Packet->IsMoveEnd)
+			{
+				AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+				if (nullptr != OtherBlock)
+				{
+					//GetCurMap()->MoveMapObject(OtherBlock->shared_from_this(), _Packet->MoveEndPos.y, _Packet->MoveEndPos.x, _Packet->MoveBeginPos.y, _Packet->MoveBeginPos.x);
 				}
 				return;
 			}

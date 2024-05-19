@@ -29,6 +29,8 @@ public:
 		_Ser << IsMove;
 		_Ser << MovePos;
 		_Ser << IsMoveEnd;
+		_Ser << MoveBeginPos;
+		_Ser << MoveEndPos;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -41,6 +43,8 @@ public:
 		_Ser >> IsMove;
 		_Ser >> MovePos;
 		_Ser >> IsMoveEnd;
+		_Ser >> MoveBeginPos;
+		_Ser >> MoveEndPos;
 	}
 
 public:
@@ -51,6 +55,8 @@ public:
 	bool IsMove = false;
 	FVector MovePos = FVector::Zero;
 	bool IsMoveEnd = false;
+	POINT MoveBeginPos = { 0,0 };
+	POINT MoveEndPos = { 0,0 };
 
 protected:
 
