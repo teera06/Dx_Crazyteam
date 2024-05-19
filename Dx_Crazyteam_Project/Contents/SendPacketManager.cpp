@@ -14,6 +14,8 @@ USendPacketManager::~USendPacketManager()
 {
 }
 
+
+
 void USendPacketManager::SendItemSpawnPacket(std::shared_ptr<AMapObject> _NetObject, EItemType _ItemType, POINT _CurPos)
 {
 	if (false == _NetObject->IsNetInit())
@@ -25,7 +27,7 @@ void USendPacketManager::SendItemSpawnPacket(std::shared_ptr<AMapObject> _NetObj
 		}
 		//else
 		//{
-		//	MsgBoxAssert("네트워크에 접근하지 않고 패킷을 보내려했습니다");
+		//	MsgBoxAssert("네트워크에 접근하지 않고 아이템 오브젝트 생성 패킷을 보내려고 했습니다");
 		//	return;
 		//}
 	}
@@ -51,7 +53,7 @@ void USendPacketManager::SendItemReleasePacket(AMapObject* _NetObject, POINT _Cu
 		}
 		//else
 		//{
-		//	MsgBoxAssert("네트워크에 접근하지 않고 패킷을 보내려했습니다");
+		//	MsgBoxAssert("네트워크에 접근하지 않고 오브젝트 릴리즈 패킷을 보내려고 했습니다");
 		//	return;
 		//}
 	}

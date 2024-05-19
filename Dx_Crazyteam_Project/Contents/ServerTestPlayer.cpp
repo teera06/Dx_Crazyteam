@@ -67,6 +67,7 @@ void AServerTestPlayer::SpawnItem()
 
 	if (nullptr != Server)
 	{
+		// Item
 		std::shared_ptr<AMapObject> NiddleItem = GetGameMode()->GetCurMap()->AddMapObject(8, 1, EMapObject::Item, EItemType::ItemNiddle);
 		USendPacketManager::SendItemSpawnPacket(NiddleItem, EItemType::ItemNiddle, { 8,1 });
 
@@ -84,5 +85,12 @@ void AServerTestPlayer::SpawnItem()
 
 		std::shared_ptr<AMapObject> OwlItem = GetGameMode()->GetCurMap()->AddMapObject(3, 1, EMapObject::Item, EItemType::ItemOwl);
 		USendPacketManager::SendItemSpawnPacket(OwlItem, EItemType::ItemOwl, { 3,1 });
+
+		// Block
+		std::shared_ptr<AMapObject> CampBlock1 = GetGameMode()->GetCurMap()->AddMapObject(3, 3, EMapObject::CampBlock1);
+		std::shared_ptr<AMapObject> CampMoveBlock1 = GetGameMode()->GetCurMap()->AddMapObject(3, 6, EMapObject::CampMoveBlock1);
+		std::shared_ptr<AMapObject> CampHPBlock1 = GetGameMode()->GetCurMap()->AddMapObject(3, 9, EMapObject::CampHPBlock);
+		std::shared_ptr<AMapObject> TownBush = GetGameMode()->GetCurMap()->AddMapObject(9, 1, EMapObject::TownBush);
+
 	}
 }
