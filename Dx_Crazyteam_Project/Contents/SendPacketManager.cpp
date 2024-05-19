@@ -23,6 +23,11 @@ void USendPacketManager::SendItemSpawnPacket(std::shared_ptr<AMapObject> _NetObj
 		{
 			_NetObject->InitNet(UGame_Core::Net);
 		}
+		//else
+		//{
+		//	MsgBoxAssert("네트워크에 접근하지 않고 패킷을 보내려했습니다");
+		//	return;
+		//}
 	}
 
 	_NetObject->SetObjectToken(UNetObject::GetNewObjectToken());
@@ -44,6 +49,11 @@ void USendPacketManager::SendItemReleasePacket(AMapObject* _NetObject, POINT _Cu
 		{
 			_NetObject->InitNet(UGame_Core::Net);
 		}
+		//else
+		//{
+		//	MsgBoxAssert("네트워크에 접근하지 않고 패킷을 보내려했습니다");
+		//	return;
+		//}
 	}
 
 	std::shared_ptr<UMapObjectUpdatePacket> Packet = std::make_shared<UMapObjectUpdatePacket>();
