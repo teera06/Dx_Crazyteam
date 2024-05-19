@@ -219,9 +219,9 @@ void ABlock::PushTick(float _DeltaTime)
 
 	AddActorLocation(MoveVector * MoveSpeed * _DeltaTime);
 
-	//{
-	//	USendPacketManager::SendMapObjectMovePacket(this , GetActorLocation());
-	//}
+	{
+		USendPacketManager::SendMapObjectMovePacket(this , GetActorLocation());
+	}
 
 	PushAccTime += _DeltaTime;
 	if (PushAccTime > MoveCompleteTime)
@@ -270,6 +270,10 @@ void ABlock::EndTick(float _DeltaTime)
 		GetGameMode()->GetCurMap()->MoveMapObject(shared_from_this(), ny, nx, GetCurPos().y, GetCurPos().x);
 
 		IsPush = false;
+
+		{
+			USendPacketManager::SendMapObjectMovePacket(this, GetActorLocation(), true);
+		}
 
 		State.ChangeState("Idle");
 	}

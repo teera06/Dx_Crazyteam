@@ -17,7 +17,7 @@ public:
 
 	static void SendMapObjectSpawnPacket(std::shared_ptr<AMapObject> _NetObject, POINT _CurPos, EMapObject _MapObjectType, EItemType _ItemType = EItemType::None);
 	static void SendMapObjectReleasePacket(AMapObject* _NetObject, POINT _CurPos);
-	static void SendMapObjectMovePacket(AMapObject* _NetObject, FVector _Position);
+	static void SendMapObjectMovePacket(AMapObject* _NetObject, FVector _Position, bool _IsMoveEnd = false);
 
 protected:
 

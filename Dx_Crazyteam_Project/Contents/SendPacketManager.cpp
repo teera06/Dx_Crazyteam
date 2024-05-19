@@ -64,7 +64,7 @@ void USendPacketManager::SendMapObjectReleasePacket(AMapObject* _NetObject, POIN
 	_NetObject->Send(Packet);
 }
 
-void USendPacketManager::SendMapObjectMovePacket(AMapObject* _NetObject, FVector _Position)
+void USendPacketManager::SendMapObjectMovePacket(AMapObject* _NetObject, FVector _Position, bool _IsMoveEnd /*= false*/)
 {
 	if (false == _NetObject->IsNetInit())
 	{
@@ -84,5 +84,6 @@ void USendPacketManager::SendMapObjectMovePacket(AMapObject* _NetObject, FVector
 	Packet->SetObjectToken(_NetObject->GetObjectToken());
 	Packet->IsMove = true;
 	Packet->MovePos = _Position;
+	Packet->IsMoveEnd = _IsMoveEnd;
 	_NetObject->Send(Packet);
 }

@@ -28,6 +28,7 @@ public:
 		_Ser << ObjectType;
 		_Ser << IsMove;
 		_Ser << MovePos;
+		_Ser << IsMoveEnd;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -39,6 +40,7 @@ public:
 		_Ser >> ObjectType;
 		_Ser >> IsMove;
 		_Ser >> MovePos;
+		_Ser >> IsMoveEnd;
 	}
 
 public:
@@ -48,6 +50,7 @@ public:
 	int ObjectType = static_cast<int>(EMapObject::Default);
 	bool IsMove = false;
 	FVector MovePos = FVector::Zero;
+	bool IsMoveEnd = false;
 
 protected:
 
