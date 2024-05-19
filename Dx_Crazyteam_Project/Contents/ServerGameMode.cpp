@@ -142,6 +142,16 @@ void AServerGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 				}
 				return;
 			}
+
+			if (true == _Packet->IsMove)
+			{
+				AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+				if (nullptr != OtherBlock)
+				{
+					OtherBlock->SetActorLocation(_Packet->MovePos);
+				}
+				return;
+			}
 		});
 }
 
@@ -180,6 +190,18 @@ void AServerGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 				{
 					POINT Pos = _Packet->Pos;
 					GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
+				}
+				return;
+			}
+
+
+			// Other 오브젝트 이동
+			if (true == _Packet->IsMove)
+			{
+				AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+				if (nullptr != OtherBlock)
+				{
+					OtherBlock->SetActorLocation(_Packet->MovePos);
 				}
 				return;
 			}

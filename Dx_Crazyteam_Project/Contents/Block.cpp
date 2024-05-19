@@ -4,6 +4,8 @@
 #include "BaseMap.h"
 #include "Bush.h"
 
+#include "SendPacketManager.h"
+
 ABlock::ABlock() 
 {
 }
@@ -217,6 +219,9 @@ void ABlock::PushTick(float _DeltaTime)
 
 	AddActorLocation(MoveVector * MoveSpeed * _DeltaTime);
 
+	//{
+	//	USendPacketManager::SendMapObjectMovePacket(this , GetActorLocation());
+	//}
 
 	PushAccTime += _DeltaTime;
 	if (PushAccTime > MoveCompleteTime)

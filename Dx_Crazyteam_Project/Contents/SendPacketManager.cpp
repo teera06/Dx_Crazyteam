@@ -63,3 +63,26 @@ void USendPacketManager::SendMapObjectReleasePacket(AMapObject* _NetObject, POIN
 	Packet->Pos = _CurPos;
 	_NetObject->Send(Packet);
 }
+
+void USendPacketManager::SendMapObjectMovePacket(AMapObject* _NetObject, FVector _Position)
+{
+	if (false == _NetObject->IsNetInit())
+	{
+		// 네트워크 통신준비가 아직 안된 오브젝트다.
+		if (nullptr != UGame_Core::Net)
+		{
+			_NetObject->InitNet(UGame_Core::Net);
+		}
+		//else
+		//{
+		//	MsgBoxAssert("네트워크에 접근하지 않고 오브젝트 이동 패킷을 보내려고 했습니다");
+		//	return;
+		//}
+	}
+
+	std::shared_ptr<UMapObjectUpdatePacket> Packet = std::make_shared<UMapObjectUpdatePacket>();
+	Packet->SetObjectToken(_NetObject->GetObjectToken());
+	Packet->IsMove = true;
+	Packet->MovePos = _Position;
+	_NetObject->Send(Packet);
+}

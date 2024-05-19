@@ -26,6 +26,8 @@ public:
 		_Ser << IsDestroy;
 		_Ser << ItemType;
 		_Ser << ObjectType;
+		_Ser << IsMove;
+		_Ser << MovePos;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -35,6 +37,8 @@ public:
 		_Ser >> IsDestroy;
 		_Ser >> ItemType;
 		_Ser >> ObjectType;
+		_Ser >> IsMove;
+		_Ser >> MovePos;
 	}
 
 public:
@@ -42,6 +46,8 @@ public:
 	bool IsDestroy = false;
 	int ItemType = static_cast<int>(EItemType::None);
 	int ObjectType = static_cast<int>(EMapObject::Default);
+	bool IsMove = false;
+	FVector MovePos = FVector::Zero;
 
 protected:
 
