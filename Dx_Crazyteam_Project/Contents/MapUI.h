@@ -48,7 +48,7 @@ private:
 	std::vector<UImage*> PlayerUI;
 	std::vector<UImage*> GameTimeerUI;
 
-	static float GameTimeCheck;
+	float GameTimeCheck = 1.f;
 	int MinUI = 2;
 	int SecondUI = 5;
 	int SecondUI2 = 9;

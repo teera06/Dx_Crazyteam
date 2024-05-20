@@ -111,6 +111,7 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 				MapUI->SetActorLocation(Pos);
 				MapUI->SetObjectToken(_Token->GetSessionToken() * 1000+1);
 				MapUI->ClientCreate();
+
 				//¹°ÆøÅº
 				MainPlayer->WaterBomb_Token = _Token->GetSessionToken() * 1000 + 2;
 				//¹°ÆøÅº¹°ÁÙ±â
