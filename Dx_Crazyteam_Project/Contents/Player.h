@@ -43,6 +43,7 @@ public:
 	void MainPlayerSetting();
 
 	void SetCharacterType(ECharacterType _Type);
+	void SetRideType(EPlayerRideType _Ride);
 
 	void SetWBCount(int _count)
 	{
@@ -54,9 +55,24 @@ public:
 		Info->Team = _Team;
 	}
 	
-	void SetSpeed(int _speed)
+	void SetSpeed(int _Speed)
 	{
-		Info->Speed = _speed;
+		Info->Speed = _Speed;
+	}
+
+	void SetCtrlItem(EItemType _Item)
+	{
+		CtrlItem = _Item;
+	}
+
+	EPlayerRideType GetRideType()
+	{
+		return Info->RideType;
+	}
+
+	EItemType GetCtrlItem()
+	{
+		return CtrlItem;
 	}
 
 	int GetWBCount()
@@ -90,7 +106,8 @@ public:
 	}
 
 	static int WaterBomb_Token;
-	int WaterCourse_Token;
+	static int WaterCourse_Token;
+	static bool SetWater_Token;
 
 protected:
 	std::shared_ptr<PlayerInfo> Info = nullptr;
@@ -100,6 +117,9 @@ protected:
 
 
 private:
+	EItemType CtrlItem = EItemType::None;
+	int BeforeSpeedData = -1;
+
 	void StateInit();
 
 	void GameOnStart();
@@ -120,6 +140,8 @@ private:
 	void RideIdle(float _DeltaTime);
 	void RideMoveStart();
 	void RideMove(float _DeltaTime);
+	void RideOffStart();
+	void RideOff(float _DeltaTime);
 
 	float GameOnTime = 1.5f;
 
@@ -136,9 +158,11 @@ private:
 	float TrapToDieTime = 5.f;
 	FVector TrapDir = FVector::Up;
 
-	bool DieAniTwinkleActive = false;
+	int DieAniTwinkleActive = 0;
 	float DieAnimationTime = 2.f;
 	float DieTwinkleTime = 0.1f;
+
+	float RideGodModeTime = 3.f; // 탈것에 타거나 내릴 때 몇초간 무적모드
 
 	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
 

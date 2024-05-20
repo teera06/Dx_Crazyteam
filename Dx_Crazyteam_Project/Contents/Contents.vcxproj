@@ -179,7 +179,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="ServerPlayMode.h">
+    <ClInclude Include="SendPacketManager.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -204,6 +204,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="TestLobbyPlayer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TestPackets.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -387,7 +391,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="ServerPlayMode.cpp">
+    <ClCompile Include="SendPacketManager.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -412,6 +416,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="TestLobbyPlayer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TestPackets.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -47,11 +47,34 @@ void AOtherWaterCourse::Tick(float _DeltaTime)
 		case WaterCourseUpdatePacket:
 		{
 
-			std::shared_ptr<UWaterWaterCourseUpdatePacket> UpdatePacket = std::dynamic_pointer_cast<UWaterWaterCourseUpdatePacket>(Protocol);
+			std::shared_ptr<UWaterCourseUpdatePacket> UpdatePacket = std::dynamic_pointer_cast<UWaterCourseUpdatePacket>(Protocol);
 
 			if (UpdatePacket->ObjectType == static_cast<int>(EObjectType::WaterCourse))
 			{
 				SetActorLocation(UpdatePacket->Pos);
+				SerVerCourse = UpdatePacket->SetCourse;
+
+				if (UpdatePacket->Dir == 0)
+				{
+					CourseDir = WatercourseDir::Left;
+					
+				}
+				else if (UpdatePacket->Dir == 1)
+				{
+					CourseDir = WatercourseDir::Right;
+				}
+				else if (UpdatePacket->Dir == 2)
+				{
+					CourseDir = WatercourseDir::Up;
+				}
+				else if (UpdatePacket->Dir == 3)
+				{
+					CourseDir = WatercourseDir::Down;
+				}
+				else if (UpdatePacket->Dir == 4)
+				{
+					CourseDir = WatercourseDir::Center;
+				}
 			}
 			break;
 		}

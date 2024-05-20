@@ -219,7 +219,7 @@
     <ClInclude Include="ServerTestPlayer.h">
       <Filter>Level\Surver\PublicOBJ\Test</Filter>
     </ClInclude>
-    <ClInclude Include="ServerPlayMode.h">
+    <ClInclude Include="SendPacketManager.h">
       <Filter>Level\Surver\ServerLevel</Filter>
     </ClInclude>
     <ClInclude Include="MoveObject.h">
@@ -283,6 +283,9 @@
       <Filter>Option</Filter>
     </ClInclude>
     <ClInclude Include="ServerTestOtherPlayer.h">
+      <Filter>Level\Surver\PublicOBJ\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="TestPackets.h">
       <Filter>Level\Surver\PublicOBJ\Test</Filter>
     </ClInclude>
   </ItemGroup>
@@ -403,7 +406,7 @@
     <ClCompile Include="ServerTestPlayer.cpp">
       <Filter>Level\Surver\PublicOBJ\Test</Filter>
     </ClCompile>
-    <ClCompile Include="ServerPlayMode.cpp">
+    <ClCompile Include="SendPacketManager.cpp">
       <Filter>Level\Surver\ServerLevel</Filter>
     </ClCompile>
     <ClCompile Include="MoveObject.cpp">
@@ -464,6 +467,9 @@
       <Filter>Option</Filter>
     </ClCompile>
     <ClCompile Include="ServerTestOtherPlayer.cpp">
+      <Filter>Level\Surver\PublicOBJ\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="TestPackets.cpp">
       <Filter>Level\Surver\PublicOBJ\Test</Filter>
     </ClCompile>
   </ItemGroup>

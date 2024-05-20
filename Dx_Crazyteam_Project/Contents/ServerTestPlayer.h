@@ -3,6 +3,7 @@
 
 // Ό³Έν :
 class AItem;
+class AMapObject;
 class AServerTestPlayer : public APlayer
 {
 	GENERATED_BODY(APlayer)

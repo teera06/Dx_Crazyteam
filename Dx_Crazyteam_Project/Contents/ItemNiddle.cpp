@@ -35,7 +35,7 @@ void AItemNiddle::Tick(float _DeltaTime)
 void AItemNiddle::Action()
 {
 	//++GetGameMode()->GetPlayer()->GetPlayerInfo()->NiddleCount;
-
+	GetGameMode()->GetPlayer()->SetCtrlItem(EItemType::ItemNiddle);
 
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 }

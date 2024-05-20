@@ -151,7 +151,7 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 			});
 	});
 
-	Dis.AddHandler<UWaterWaterCourseUpdatePacket>([=](std::shared_ptr<UWaterWaterCourseUpdatePacket> _Packet)
+	Dis.AddHandler<UWaterCourseUpdatePacket>([=](std::shared_ptr<UWaterCourseUpdatePacket> _Packet)
 		{
 			// 다른 사람들한테 이 오브젝트에 대해서 알리고
 			UGame_Core::Net->Send(_Packet);
@@ -170,22 +170,22 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 				});
 		});	
 
-	Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
-		{
-			// 다른 사람들한테 이 오브젝트에 대해서 알리고
-			UGame_Core::Net->Send(_Packet);
+	//Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
+	//	{
+	//		// 다른 사람들한테 이 오브젝트에 대해서 알리고
+	//		UGame_Core::Net->Send(_Packet);
 
-			GetWorld()->PushFunction([=]()
-				{
-					AOtherUI* Time = UNetObject::GetNetObject<AOtherUI>(_Packet->GetObjectToken());
-					if (nullptr == Time)
-					{
-						Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
-						Time->SetObjectToken(_Packet->GetObjectToken());
-					}
-					Time->PushProtocol(_Packet);
-				});
-		});
+	//		GetWorld()->PushFunction([=]()
+	//			{
+	//				AOtherUI* Time = UNetObject::GetNetObject<AOtherUI>(_Packet->GetObjectToken());
+	//				if (nullptr == Time)
+	//				{
+	//					Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
+	//					Time->SetObjectToken(_Packet->GetObjectToken());
+	//				}
+	//				Time->PushProtocol(_Packet);
+	//			});
+	//	});
 
 }
 
@@ -225,7 +225,7 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 		});
 	});
 
-	Dis.AddHandler<UWaterWaterCourseUpdatePacket>([=](std::shared_ptr<UWaterWaterCourseUpdatePacket> _Packet)
+	Dis.AddHandler<UWaterCourseUpdatePacket>([=](std::shared_ptr<UWaterCourseUpdatePacket> _Packet)
 		{
 			// 다른 사람들한테 이 오브젝트에 대해서 알리고
 			GetWorld()->PushFunction([=]()
@@ -245,23 +245,23 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 		});
 
 
-	Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
-		{
-			// 다른 사람들한테 이 오브젝트에 대해서 알리고
-			GetWorld()->PushFunction([=]()
-				{
-					int Test = _Packet->GetObjectToken();
+	//Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
+	//	{
+	//		// 다른 사람들한테 이 오브젝트에 대해서 알리고
+	//		GetWorld()->PushFunction([=]()
+	//			{
+	//				int Test = _Packet->GetObjectToken();
 
-					AOtherUI* Time = UNetObject::GetNetObject<AOtherUI>(_Packet->GetObjectToken());
-					if (nullptr == Time)
-					{
-						Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
-						Time->SetObjectToken(_Packet->GetObjectToken());
-					}
-					Time->PushProtocol(_Packet);
+	//				AOtherUI* Time = UNetObject::GetNetObject<AOtherUI>(_Packet->GetObjectToken());
+	//				if (nullptr == Time)
+	//				{
+	//					Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
+	//					Time->SetObjectToken(_Packet->GetObjectToken());
+	//				}
+	//				Time->PushProtocol(_Packet);
 
-				});
-		});	
+	//			});
+	//	});	
 }
 
 void ASubServerLevel::LevelEnd(ULevel* _DeltaTime)

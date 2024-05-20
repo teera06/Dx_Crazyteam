@@ -1,10 +1,10 @@
 #pragma once
-#include "ServerTestPlayer.h"
+#include "Player.h"
 
 // Ό³Έν :
-class AServerTestOtherPlayer : public AServerTestPlayer
+class AServerTestOtherPlayer : public APlayer
 {
-	GENERATED_BODY(AServerTestPlayer)
+	GENERATED_BODY(APlayer)
 public:
 	// constrcuter destructer
 	AServerTestOtherPlayer();

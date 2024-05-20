@@ -12,7 +12,8 @@
 #include "MapStateValue.h"
 
 
-bool AWaterBomb::SetWaterCourseToken = false;
+bool AWaterBomb::SetWater_CourseToken = false;
+int AWaterBomb::WaterCourse_Token;
 
 AWaterBomb::AWaterBomb()
 {
@@ -45,28 +46,6 @@ void AWaterBomb::Tick(float _DeltaTime)
 
 	std::string MSg = GetActorLocation().ToString();
 	UEngineDebugMsgWindow::PushMsg(MSg);
-
-	//if (true == b_ServerBomb)
-	//{
-	//	std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));
-
-	//	if (SetWaterCourseToken == false)
-	//	{
-	//		WaterCourse->WaterCourseToken = WaterCourse_Token;
-	//		SetWaterCourseToken = true;
-	//	}
-	//	WaterCourse_Token = WaterCourse->WaterCourseToken;
-	//	WaterCourse->SetObjectToken(WaterCourse_Token++);
-
-	//	std::shared_ptr<UWaterWaterCourseUpdatePacket> Packet = std::make_shared<UWaterWaterCourseUpdatePacket>();
-	//	std::string MSg = GetActorLocation().ToString();
-	//	UEngineDebugMsgWindow::PushMsg(MSg);
-	//	Packet->Pos = GetActorLocation();
-	//	Packet->ObjectType = static_cast<int>(EObjectType::WaterCourse);
-	//	Send(Packet);
-
-	//	b_ServerBomb = false;
-	//}
 }
 
 float AWaterBomb::GetCreateTime()
@@ -186,29 +165,36 @@ void AWaterBomb::BombBegin()
 
 void AWaterBomb::BombTick(float _DeltaTime)
 {
-	if (true == b_ServerBomb)
+	if (false == b_ServerBomb)
 	{
 		std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));
 
-		if (SetWaterCourseToken == false)
+		if (SetWater_CourseToken == false)
 		{
 			WaterCourse->WaterCourseToken = WaterCourse_Token;
-			SetWaterCourseToken = true;
+			SetWater_CourseToken = true;
 		}
-		WaterCourse_Token = WaterCourse->WaterCourseToken;
-		WaterCourse->SetObjectToken(WaterCourse_Token++);
+		WaterCourse_Token = WaterCourse->WaterCourseToken++;
+		WaterCourse->SetObjectToken(WaterCourse_Token);
 
-		std::shared_ptr<UWaterWaterCourseUpdatePacket> Packet = std::make_shared<UWaterWaterCourseUpdatePacket>();
-		std::string MSg = GetActorLocation().ToString();
-		UEngineDebugMsgWindow::PushMsg(MSg);
+		if (false == IsNetInit())
+		{
+			// 네트워크 통신준비가 아직 안된 오브젝트다.
+			if (nullptr != UGame_Core::Net)
+			{
+				InitNet(UGame_Core::Net);
+			}
+		}
+		std::shared_ptr<UWaterCourseUpdatePacket> Packet = std::make_shared<UWaterCourseUpdatePacket>();
 		Packet->Pos = GetActorLocation();
 		Packet->ObjectType = static_cast<int>(EObjectType::WaterCourse);
+		Packet->Dir = 4;
+		Packet->SetCourse = true;
 		Send(Packet);
 
 		b_ServerBomb = false;
 	}
-	//Destroy();
-	//GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+
 }
 
 void AWaterBomb::BombExit()

@@ -7,11 +7,11 @@
 #include "Player_Shadow.h"
 #include "BaseMap.h"
 #include "CAGameMode.h"
-#include "WaterBomb.h"
 #include <EngineBase/EngineRandom.h>
 
 int APlayer::WaterBomb_Token = 0;
-
+int APlayer::WaterCourse_Token = 0;
+bool APlayer::SetWater_Token = false;
 
 APlayer::APlayer()
 {
@@ -124,19 +124,6 @@ void APlayer::Tick(float _DeltaTime)
 	{
 		PlayerSendPacket(_DeltaTime);
 	}
-
-
-	if (true == IsDown(VK_SPACE))
-	{
-		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
-		Bomb->SetObjectToken(WaterBomb_Token++);
-		Bomb->SetToken(WaterBomb_Token);
-		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
-		Packet->Pos = GetActorLocation();
-		Packet->ObjectType = static_cast<int>(EObjectType::WaterBomb);
-		Packet->Bomb = true;
-		Send(Packet);
-	}
 }
 
 std::string APlayer::GetAnimationName(std::string_view _StateName)
@@ -238,7 +225,40 @@ void APlayer::SetCharacterType(ECharacterType _Type)
 	default:
 		break;
 	}
+}
 
+void APlayer::SetRideType(EPlayerRideType _Ride)
+{
+	Info->RideType = _Ride;
+
+	switch (_Ride)
+	{
+	case EPlayerRideType::None:
+	{
+		if (BeforeSpeedData >= 1)
+		{
+			Info->Speed = BeforeSpeedData;
+		}
+		State.ChangeState("RideOff");
+		return;
+	}
+	case EPlayerRideType::Owl:
+		BeforeSpeedData = Info->Speed;
+		Info->Speed = 5;
+		// 애니메이션 변경도 해야함
+		break;
+	case EPlayerRideType::Turtle:
+		BeforeSpeedData = Info->Speed;
+		Info->Speed = 1;
+		// 애니메이션 변경도 해야함
+		break;
+	default:
+		break;
+	}
+
+	// 처음 몇초간 무적
+	RideGodModeTime = 3.f;
+	State.ChangeState("RideIdle");
 }
 
 void APlayer::SettingZValue()

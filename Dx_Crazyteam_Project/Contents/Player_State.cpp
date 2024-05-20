@@ -3,6 +3,8 @@
 #include "BaseMap.h"
 #include "CAGameMode.h"
 #include "Player_Shadow.h"
+#include "WaterBomb.h"
+#include "Packets.h"
 
 void APlayer::StateInit()
 {
@@ -110,6 +112,7 @@ void APlayer::StateInit()
 	State.CreateState("RealDie");
 	State.CreateState("RideIdle");
 	State.CreateState("RideMove");
+	State.CreateState("RideOff");
 
 	// StartFunction
 	State.SetStartFunction("GameOn", std::bind(&APlayer::GameOnStart, this));
@@ -121,6 +124,7 @@ void APlayer::StateInit()
 	State.SetStartFunction("RealDie", std::bind(&APlayer::RealDieStart, this));
 	State.SetStartFunction("RideIdle", std::bind(&APlayer::RideIdleStart, this));
 	State.SetStartFunction("RideMove", std::bind(&APlayer::RideMoveStart, this));
+	State.SetStartFunction("RideOff", std::bind(&APlayer::RideOffStart, this));
 
 	// UpdateFunction
 	State.SetUpdateFunction("GameOn", std::bind(&APlayer::GameOn, this, std::placeholders::_1));
@@ -132,6 +136,7 @@ void APlayer::StateInit()
 	State.SetUpdateFunction("RealDie", std::bind(&APlayer::RealDie, this, std::placeholders::_1));
 	State.SetUpdateFunction("RideIdle", std::bind(&APlayer::RideIdle, this, std::placeholders::_1));
 	State.SetUpdateFunction("RideMove", std::bind(&APlayer::RideMove, this, std::placeholders::_1));
+	State.SetUpdateFunction("RideOff", std::bind(&APlayer::RideOff, this, std::placeholders::_1));
 
 	// Init
 	State.ChangeState("GameOn");
@@ -165,7 +170,6 @@ void APlayer::GameOn(float _DeltaTime)
 
 }
 
-
 void APlayer::IdleStart()
 {
 	Renderer->ChangeAnimation(GetAnimationName("Idle"));
@@ -179,10 +183,28 @@ void  APlayer::Idle(float _DeltaTime)
 		return;
 	}
 
+	// 물줄기에 맞았을 때
 	if (true == GetGameMode()->GetCurMap()->IsOnWater(GetActorLocation()))
 	{
 		State.ChangeState("Trap");
 		return;
+	}
+
+	if (true == IsDown(VK_SPACE))
+	{
+		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
+		Bomb->SetObjectToken(WaterBomb_Token++);
+		Bomb->SetWaterBombToken(WaterBomb_Token++);
+		if (SetWater_Token == false)
+		{
+			Bomb->SetWaterCourseToken(WaterCourse_Token);
+			SetWater_Token = true;
+		}
+		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
+		Packet->Pos = GetActorLocation();
+		Packet->ObjectType = static_cast<int>(EObjectType::WaterBomb);
+		Packet->Bomb = true;
+		Send(Packet);
 	}
 }
 
@@ -199,10 +221,34 @@ void APlayer::Move(float _DeltaTime)
 		return;
 	}
 
+	// 물줄기에 맞았을 때
 	if (true == GetGameMode()->GetCurMap()->IsOnWater(GetActorLocation()))
 	{
+		if (Info->RideType != EPlayerRideType::None)
+		{
+			// 탈 것에 타있었다면 내리기 (SetRideType 내에서 State변경까지 함)
+			SetRideType(EPlayerRideType::None);
+			return;
+		}
 		State.ChangeState("Trap");
 		return;
+	}
+
+	if (true == IsDown(VK_SPACE))
+	{
+		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
+		Bomb->SetObjectToken(WaterBomb_Token++);
+		Bomb->SetWaterBombToken(WaterBomb_Token++);
+		if (SetWater_Token == false)
+		{
+			Bomb->SetWaterCourseToken(WaterCourse_Token);
+			SetWater_Token = true;
+		}
+		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
+		Packet->Pos = GetActorLocation();
+		Packet->ObjectType = static_cast<int>(EObjectType::WaterBomb);
+		Packet->Bomb = true;
+		Send(Packet);
 	}
 
 	FVector MovePos = FVector::Zero;
@@ -265,9 +311,19 @@ void APlayer::TrapStart()
 
 void APlayer::Trap(float _DeltaTime)
 {
-	// 이벤트 발생 시 구출 상태로 변경
-	if (true == IsDown(VK_F2))	
+	// 치트키 : F2키 누르면 Rescue 상태로 변경
+	if (true == IsDown(VK_F2))
 	{
+		Renderer->SetPosition(FVector::Zero);
+		State.ChangeState("Rescue");
+		return;
+	}
+
+	// Trap 상태에서 바늘 아이템 사용 시 Rescue 상태로 변경, 바늘 아이템 소거
+	if (true == IsDown(VK_CONTROL) && CtrlItem == EItemType::ItemNiddle)
+	{
+		CtrlItem = EItemType::None;
+
 		Renderer->SetPosition(FVector::Zero);
 		State.ChangeState("Rescue");
 		return;
@@ -330,7 +386,7 @@ void APlayer::DieStart()
 {
 	Renderer->ChangeAnimation(GetAnimationName("Die"));
 
-	DieAniTwinkleActive = false;
+	DieAniTwinkleActive = 0;
 	DieTwinkleTime = 0.1f;
 	DieAnimationTime = 2.f;
 }
@@ -344,8 +400,8 @@ void APlayer::Die(float _DeltaTime)
 
 		if (DieTwinkleTime < 0.f)
 		{
-			Renderer->SetActive(DieAniTwinkleActive);
-			DieAniTwinkleActive = !DieAniTwinkleActive;
+			Renderer->SetAlpha(static_cast<float>(DieAniTwinkleActive));
+			DieAniTwinkleActive = static_cast<int>(!(static_cast<bool>(DieAniTwinkleActive)));
 			DieTwinkleTime = 0.1f;
 		}
 
@@ -360,7 +416,7 @@ void APlayer::Die(float _DeltaTime)
 void APlayer::RealDieStart()
 {
 	// 진짜 죽음 처리
-	Shadow->SetActive(false);
+	Shadow->ShadowRenderOff();
 	Renderer->SetActive(false);
 }
 
@@ -371,11 +427,48 @@ void APlayer::RealDie(float _DeltaTime)
 
 void APlayer::RideIdleStart()
 {
-
+	// 임시로 Idle 사용 (RideIdle 만들면 바꿔야 함)
+  	Renderer->ChangeAnimation(GetAnimationName("Idle"));	
 }
 
 void APlayer::RideIdle(float _DeltaTime)
 {
+	RideGodModeTime -= _DeltaTime;
+	if (RideGodModeTime > 0.f)
+	{
+		return;
+	}
+
+	if (true == IsPress(VK_UP) || true == IsPress(VK_DOWN) || true == IsPress(VK_RIGHT) || true == IsPress(VK_LEFT))
+	{
+		State.ChangeState("RideMove");
+		return;
+	}
+
+	// 물줄기에 맞았을 때
+	if (true == GetGameMode()->GetCurMap()->IsOnWater(GetActorLocation()))
+	{
+		// 탈것에서 내리기 (SetRideType 내에서 State변경까지 함)
+		SetRideType(EPlayerRideType::None);
+		return;
+	}
+
+	if (true == IsDown(VK_SPACE))
+	{
+		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
+		Bomb->SetObjectToken(WaterBomb_Token++);
+		Bomb->SetWaterBombToken(WaterBomb_Token++);
+		if (SetWater_Token == false)
+		{
+			Bomb->SetWaterCourseToken(WaterCourse_Token);
+			SetWater_Token = true;
+		}
+		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
+		Packet->Pos = GetActorLocation();
+		Packet->ObjectType = static_cast<int>(EObjectType::WaterBomb);
+		Packet->Bomb = true;
+		Send(Packet);
+	}
 
 }
 
@@ -386,5 +479,82 @@ void APlayer::RideMoveStart()
 
 void APlayer::RideMove(float _DeltaTime)
 {
+	// 물줄기에 맞았을 때
+	if (true == GetGameMode()->GetCurMap()->IsOnWater(GetActorLocation()))
+	{
+		// 탈것에서 내리기 (SetRideType 내에서 State변경까지 함)
+		SetRideType(EPlayerRideType::None);
+		return;
+	}
 
+	if (true == IsFree(VK_UP) && true == IsFree(VK_DOWN) && true == IsFree(VK_RIGHT) && true == IsFree(VK_LEFT))
+	{
+		State.ChangeState("RideIdle");
+		return;
+	}
+
+
+	FVector MovePos = FVector::Zero;
+	FVector NextPos1 = FVector::Zero;	// Center
+	FVector NextPos2 = FVector::Zero;	// 추가 체크포인트
+	FVector NextPos3 = FVector::Zero;	// 추가 체크포인트
+
+	float Speed = static_cast<float>(Info->Speed);
+
+	if (true == IsPress(VK_UP))
+	{
+		Dir = FVector::Up;
+		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
+		NextPos2 = NextPos1 + FVector(-15, 0, 0);
+		NextPos3 = NextPos1 + FVector(15, 0, 0);
+		MovePos = FVector::Up * Speed * MoveSpeed * _DeltaTime;
+	}
+	if (true == IsPress(VK_DOWN))
+	{
+		Dir = FVector::Down;
+		NextPos1 = GetActorLocation() + MovePos + Dir * 5.f;
+		NextPos2 = NextPos1 + FVector(-15, 0, 0);
+		NextPos3 = NextPos1 + FVector(15, 0, 0);
+		MovePos = FVector::Down * Speed * MoveSpeed * _DeltaTime;
+	}
+	if (true == IsPress(VK_RIGHT))
+	{
+		Dir = FVector::Right;
+		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
+		NextPos2 = NextPos1 + FVector(0, 10, 0);
+		NextPos3 = NextPos1 + FVector(0, 0, 0);
+		MovePos = FVector::Right * Speed * MoveSpeed * _DeltaTime;
+	}
+	if (true == IsPress(VK_LEFT))
+	{
+		Dir = FVector::Left;
+		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
+		NextPos2 = NextPos1 + FVector(0, 10, 0);
+		NextPos3 = NextPos1 + FVector(0, 0, 0);
+		MovePos = FVector::Left * Speed * MoveSpeed * _DeltaTime;
+	}
+
+	// 임시로 Move 애니메이션으로 함. (RideMove로 바꿔야 함)
+	Renderer->ChangeAnimation(GetAnimationName("Move"));
+	if (true == GetGameMode()->GetCurMap()->IsMove(NextPos1) && true == GetGameMode()->GetCurMap()->IsMove(NextPos2) && true == GetGameMode()->GetCurMap()->IsMove(NextPos3))
+	{
+		AddActorLocation(MovePos);
+		SettingZValue();
+		return;
+	}
+}
+
+void APlayer::RideOffStart()
+{
+	// 처음 몇초간 무적
+	RideGodModeTime = 3.f;
+}
+
+void APlayer::RideOff(float _DeltaTime)
+{
+	RideGodModeTime -= _DeltaTime;
+	if (RideGodModeTime < 0.f)
+	{
+		State.ChangeState("Idle");
+	}
 }

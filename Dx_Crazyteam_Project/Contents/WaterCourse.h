@@ -2,6 +2,16 @@
 #include <EngineCore/Actor.h>
 #include "Block.h"
 
+enum class WatercourseDir
+{
+	Left,
+	Right,
+	Up,
+	Down,
+	Center,
+	End,
+};
+
 class USpriteRenderer;
 class AWaterCourse : public AMapObject
 {
@@ -49,6 +59,13 @@ public :
 		WaterCourseDir = _Dir;
 	}
 
+	EEngineDir Getdir()
+	{
+		return WaterCourseDir;
+	}
+
+	void WaterSend(std::shared_ptr<AWaterCourse> _SET);
+	 
 	static int WaterCourseToken;
 	static bool SetToken;
 protected:
@@ -63,7 +80,9 @@ protected:
 
 	bool OtherCreate = false;
 
-
+	WatercourseDir CourseDir = WatercourseDir::Center;
+	bool SerVerCourse = false;
+	
 
 private :
 	void StateInit();
