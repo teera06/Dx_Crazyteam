@@ -1,12 +1,20 @@
 #include "PreCompile.h"
 #include "MapUI.h"
 #include "EngineCore/Image.h"
+#include "Game_Core.h"
+#include "Packets.h"
 
 float AMapUI::GameTimeCheck = 1.0f;
 
 AMapUI::AMapUI()
 {
-	GetCreateTime();
+	// 네트워크 통신준비가 아직 안된 오브젝트다.
+	if (nullptr != UGame_Core::Net)
+	{
+		InitNet(UGame_Core::Net);
+	}
+
+	CreateTime();
 }
 
 AMapUI::~AMapUI()
@@ -94,43 +102,82 @@ void AMapUI::Tick(float _DeltaTime)
 		}
 	}
 
-	if (0 <= GameTimeCheck)
+	//클라에서 신호보냄 (나만듬)
+	if (Client_Create == true)
 	{
-		GameTimeCheck -= _DeltaTime;
-		if (0 == MinUI && 0 == SecondUI && 0 == SecondUI2)
+		ClientSend();
+		Client_Create = false;
+	}
+
+	//클라에서 신호받은 서버가 시간차를 센드
+	if (Client_Send == true)
+	{
+		ServerSend();
+		Client_Send = false;
+	}
+
+
+	if (SerVer_Send == false)
+	{
+		if (0 <= GameTimeCheck)
+		{
+			GameTimeCheck -= _DeltaTime;
+			if (0 == MinUI && 0 == SecondUI && 0 == SecondUI2)
+			{
+				return;
+			}
+
+			if (0 > GameTimeCheck)
+			{
+				GameTimeCheck = 1.0f;
+
+				if (0 < SecondUI2)
+				{
+					--SecondUI2;
+					GameTimeerUI[3]->SetSprite("GameTimer.png", SecondUI2);
+				}
+				else if (0 == SecondUI2 && 0 < SecondUI)
+				{
+					SecondUI -= 1;
+					SecondUI2 = 9;
+
+					if (0 == SecondUI && 0 < MinUI)
+					{
+						MinUI -= 1;
+						SecondUI = 5;
+						GameTimeerUI[1]->SetSprite("GameTimer.png", MinUI);
+					}
+					GameTimeerUI[2]->SetSprite("GameTimer.png", SecondUI);
+					GameTimeerUI[3]->SetSprite("GameTimer.png", SecondUI2);
+				}
+			}
+		}
+		else
 		{
 			return;
-		}
-
-		if (0 > GameTimeCheck)
-		{
-			GameTimeCheck = 1.0f;
-
-			if (0 < SecondUI2)
-			{
-				--SecondUI2;
-				GameTimeerUI[3]->SetSprite("GameTimer.png", SecondUI2);
-			}
-			else if (0 == SecondUI2 && 0 < SecondUI)
-			{
-				SecondUI -= 1;
-				SecondUI2 = 9;
-
-				if (0 == SecondUI && 0 < MinUI)
-				{
-					MinUI -= 1;
-					SecondUI = 5;
-					GameTimeerUI[1]->SetSprite("GameTimer.png", MinUI);
-				}
-				GameTimeerUI[2]->SetSprite("GameTimer.png", SecondUI);
-				GameTimeerUI[3]->SetSprite("GameTimer.png", SecondUI2);
-			}
 		}
 	}
 	else
 	{
-		return;
+		Sub_Second;
+		SecondUI2 -= Sub_Second;		
+		SerVer_Send = false;
 	}
+}
+
+void AMapUI::ClientSend()
+{
+	std::shared_ptr<UUIUpdatePacket> Packet = std::make_shared<UUIUpdatePacket>();
+	Packet->ClientCreate = true;
+	Send(Packet);
+}
+
+void AMapUI::ServerSend()
+{
+	std::shared_ptr<UUIUpdatePacket> Packet = std::make_shared<UUIUpdatePacket>();
+	Packet->SerVerSend = true;
+	Packet->Second_Tens = GetCreateTime();
+	Send(Packet);
 }
 
 
@@ -139,7 +186,7 @@ void AMapUI::SetPlayItemUI(int _ItemNumber)
 	PlayerItemUI->SetSprite("Item", _ItemNumber);
 }
 
-float AMapUI::GetCreateTime()
+float AMapUI::CreateTime()
 {
 	UEngineTime Time;
 	MapTime_MilliSecond = Time.GetCurTime().MilliSecond;
