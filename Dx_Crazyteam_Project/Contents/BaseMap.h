@@ -28,6 +28,7 @@ public:
 	bool IsOnBush(int _Y, int _X);
 
 	std::shared_ptr<AMapObject> AddMapObject(int _Y, int _X, EMapObject _MapObjectType, EItemType _Item = EItemType::None);
+	std::shared_ptr<AMapObject> SpawnMapObject(int _Y, int _X, EMapObject _MapObjectType, EItemType _Item = EItemType::None);
 	std::shared_ptr<AMapObject> SpawnItemObject(int _Y, int _X, EItemType _Item);
 	std::shared_ptr<AMapObject> AddWaterCourse(int _Y, int _X, bool _IsEnd, EEngineDir _Dir);
 

@@ -134,6 +134,10 @@ void ABlock::IdleTick(float _DeltaTime)
 					return;
 				}
 			}
+			else if (GetGameMode()->GetCurMap()->GetMapObject(ny, nx)->GetType() == EMapObjectType::Item)
+			{
+				IsPush = true;
+			}
 			else
 			{
 				IsPush = false;
@@ -250,9 +254,11 @@ void ABlock::EndTick(float _DeltaTime)
 		{
 			if (GetIsPossessed())
 			{
-				GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x);
-				ABush* Bush = dynamic_cast<ABush*>(GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x).get());
+				AMapObject* MapObject = GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x).get();
+
+				ABush* Bush = dynamic_cast<ABush*>(MapObject);
 				Bush->SetPossessBlock(nullptr);
+
 				Destroy();
 			}
 			else
