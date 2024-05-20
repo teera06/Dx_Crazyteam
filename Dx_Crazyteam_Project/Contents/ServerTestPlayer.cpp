@@ -35,14 +35,15 @@ void AServerTestPlayer::Tick(float _DeltaTime)
 		SpawnItem();
 	}
 
-	//// WaterBomb 생성 테스트
-	//if (true == IsDown('O'))
-	//{
-	//	POINT BombPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
+	// WaterBomb 생성 테스트
+	if (true == IsDown('O'))
+	{
+		POINT BombPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
 
-	//	std::shared_ptr<AMapObject> WoterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x);
-	//	USendPacketManager::SendMapObjectSpawnPacket(WoterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb);
-	//}
+		std::shared_ptr<AMapObject> WaterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x);
+		WaterBomb->SetObjectToken((UGame_Core::Net->GetSessionToken() + 1) * 1000 + WaterBomb_Token++);
+		USendPacketManager::SendMapObjectSpawnPacket(WaterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb);
+	}
 
 	Super::Tick(_DeltaTime);
 

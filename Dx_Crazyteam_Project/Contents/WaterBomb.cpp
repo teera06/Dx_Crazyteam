@@ -11,6 +11,8 @@
 #include <EngineCore/EngineDebugMsgWindow.h>
 #include "MapStateValue.h"
 
+#include "SendPacketManager.h"
+
 
 bool AWaterBomb::SetWater_CourseToken = false;
 int AWaterBomb::WaterCourse_Token;
@@ -161,6 +163,10 @@ void AWaterBomb::BombBegin()
 {
 	Renderer->SetActive(false);
 	b_ServerBomb = BombServer;
+
+	//{
+	//	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+	//}
 }
 
 void AWaterBomb::BombTick(float _DeltaTime)
