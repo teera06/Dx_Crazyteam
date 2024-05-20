@@ -43,6 +43,7 @@ public:
 	void MainPlayerSetting();
 
 	void SetCharacterType(ECharacterType _Type);
+	void SetRideType(EPlayerRideType _Ride);
 
 	void SetWBCount(int _count)
 	{
@@ -62,6 +63,11 @@ public:
 	void SetCtrlItem(EItemType _Item)
 	{
 		CtrlItem = _Item;
+	}
+
+	EPlayerRideType GetRideType()
+	{
+		return Info->RideType;
 	}
 
 	EItemType GetCtrlItem()
@@ -112,6 +118,7 @@ protected:
 
 private:
 	EItemType CtrlItem = EItemType::None;
+	int BeforeSpeedData = -1;
 
 	void StateInit();
 
@@ -133,6 +140,8 @@ private:
 	void RideIdle(float _DeltaTime);
 	void RideMoveStart();
 	void RideMove(float _DeltaTime);
+	void RideOffStart();
+	void RideOff(float _DeltaTime);
 
 	float GameOnTime = 1.5f;
 
@@ -152,6 +161,8 @@ private:
 	int DieAniTwinkleActive = 0;
 	float DieAnimationTime = 2.f;
 	float DieTwinkleTime = 0.1f;
+
+	float RideGodModeTime = 3.f; // 탈것에 타거나 내릴 때 몇초간 무적모드
 
 	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
 

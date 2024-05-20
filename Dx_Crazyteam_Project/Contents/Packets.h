@@ -141,16 +141,23 @@ public:
 	void Serialize(UEngineSerializer& _Ser) override
 	{
 		UEngineProtocol::Serialize(_Ser);
-		_Ser << Pos;
+		_Ser << ClientCreate;
+		_Ser << Second_Tens;
+		_Ser << Seconds_Units;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
 	{
 		UEngineProtocol::DeSerialize(_Ser);
-		_Ser >> Pos;
+		_Ser >> ClientCreate;
+		_Ser >> Second_Tens;
+		_Ser >> Seconds_Units;
 	}
 
 public:
-	float4 Pos = float4::Zero;
-	int ObjectType = 0;
+	bool ClientCreate = false;
+	bool SerVerSend = false;
+	int Second_Tens = 0;
+	int Seconds_Units = 0;
+
 };

@@ -32,7 +32,7 @@ void AItemTurtle::Action()
 
 	if (Type == EPlayerRideType::None)
 	{
-		GetGameMode()->GetPlayer()->GetPlayerInfo()->RideType = EPlayerRideType::Turtle;
+		GetGameMode()->GetPlayer()->SetRideType(EPlayerRideType::Turtle);
 	}
 
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);

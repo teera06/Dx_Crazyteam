@@ -18,20 +18,27 @@ public:
 	AMapUI& operator=(AMapUI&& _Other) noexcept = delete;
 
 	void SetPlayItemUI(int _ItemNumber);
+	int GetCreateTime() { return MapTime_Second; }
+	
+	void ClientCreate() { Client_Create = true; }
 
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	void ClientSend();
+	void ServerSend();
+
 	int MapTime_MilliSecond = 0;
 	int MapTime_Second = 0;
-
 	int Sub_MilliSecond = 0;
 	int Sub_Second = 0;
+	bool Client_Create = false;
+	bool Client_Send = false;
+	bool SerVer_Send = false;
 
-	bool OtherCreate = false;
 
-	float GetCreateTime();
+	float CreateTime();
 
 private:
 	UImage* MapPlayUI = nullptr;
@@ -41,7 +48,7 @@ private:
 	std::vector<UImage*> PlayerUI;
 	std::vector<UImage*> GameTimeerUI;
 
-	static float GameTimeCheck;
+	float GameTimeCheck = 1.f;
 	int MinUI = 2;
 	int SecondUI = 5;
 	int SecondUI2 = 9;

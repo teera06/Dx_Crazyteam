@@ -225,7 +225,40 @@ void APlayer::SetCharacterType(ECharacterType _Type)
 	default:
 		break;
 	}
+}
 
+void APlayer::SetRideType(EPlayerRideType _Ride)
+{
+	Info->RideType = _Ride;
+
+	switch (_Ride)
+	{
+	case EPlayerRideType::None:
+	{
+		if (BeforeSpeedData >= 1)
+		{
+			Info->Speed = BeforeSpeedData;
+		}
+		State.ChangeState("RideOff");
+		return;
+	}
+	case EPlayerRideType::Owl:
+		BeforeSpeedData = Info->Speed;
+		Info->Speed = 5;
+		// 애니메이션 변경도 해야함
+		break;
+	case EPlayerRideType::Turtle:
+		BeforeSpeedData = Info->Speed;
+		Info->Speed = 1;
+		// 애니메이션 변경도 해야함
+		break;
+	default:
+		break;
+	}
+
+	// 처음 몇초간 무적
+	RideGodModeTime = 3.f;
+	State.ChangeState("RideIdle");
 }
 
 void APlayer::SettingZValue()

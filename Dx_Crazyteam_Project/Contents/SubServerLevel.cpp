@@ -53,20 +53,9 @@ void ASubServerLevel::BeginPlay()
 	Camp->SetCurGameMode(this);
 
 
-	MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
-	MapUI->SetCurGameMode(this);
-	SetUI(MapUI);
-	FVector Pos = MapUI->GetActorLocation();
-	Pos.Z = 100.f;
-	MapUI->SetActorLocation(Pos);
-
-
 	MainPlayer = GetWorld()->SpawnActor<APlayer>("Player");
 	MainPlayer->SetCurGameMode(this);
 	SetMainPlayer(MainPlayer);
-
-
-
 }
 
 void ASubServerLevel::Tick(float _DeltaTime)
@@ -92,6 +81,15 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 
 			MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
 
+			// 타임 유아이
+			MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
+			MapUI->SetCurGameMode(this);
+			SetUI(MapUI);
+			FVector Pos = MapUI->GetActorLocation();
+			Pos.Z = 100.f;
+			MapUI->SetActorLocation(Pos);
+			MapUI->SetObjectToken(UNetObject::GetNewObjectToken() + 1);
+
 			ServerPacketInit(UGame_Core::Net->Dispatcher);
 		});
 
@@ -103,8 +101,21 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 			UGame_Core::Net->SetTokenPacketFunction([=](USessionTokenPacket* _Token)
 			{
 				MainPlayer->SetObjectToken(_Token->GetSessionToken() * 1000);
-				MainPlayer->WaterBomb_Token = _Token->GetSessionToken() * 1000 + 1;
-				MainPlayer->WaterCourse_Token = _Token->GetSessionToken() * 10000 + 1;
+
+				//타임 유아이
+				MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
+				MapUI->SetCurGameMode(this);
+				SetUI(MapUI);
+				FVector Pos = MapUI->GetActorLocation();
+				Pos.Z = 100.f;
+				MapUI->SetActorLocation(Pos);
+				MapUI->SetObjectToken(_Token->GetSessionToken() * 1000+1);
+				MapUI->ClientCreate();
+
+				//물폭탄
+				MainPlayer->WaterBomb_Token = _Token->GetSessionToken() * 1000 + 2;
+				//물폭탄물줄기
+				MainPlayer->WaterCourse_Token = _Token->GetSessionToken() * 10000;
 			});
 			// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
 			ClientPacketInit(UGame_Core::Net->Dispatcher);
@@ -170,22 +181,22 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 				});
 		});	
 
-	//Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
-	//	{
-	//		// 다른 사람들한테 이 오브젝트에 대해서 알리고
-	//		UGame_Core::Net->Send(_Packet);
+	Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
+		{
+			// 다른 사람들한테 이 오브젝트에 대해서 알리고
+			UGame_Core::Net->Send(_Packet);
 
-	//		GetWorld()->PushFunction([=]()
-	//			{
-	//				AOtherUI* Time = UNetObject::GetNetObject<AOtherUI>(_Packet->GetObjectToken());
-	//				if (nullptr == Time)
-	//				{
-	//					Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
-	//					Time->SetObjectToken(_Packet->GetObjectToken());
-	//				}
-	//				Time->PushProtocol(_Packet);
-	//			});
-	//	});
+			GetWorld()->PushFunction([=]()
+				{
+					AOtherUI* Time = UNetObject::GetNetObject<AOtherUI>(_Packet->GetObjectToken());
+					if (nullptr == Time)
+					{
+						Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
+						Time->SetObjectToken(_Packet->GetObjectToken());
+					}
+					Time->PushProtocol(_Packet);
+				});
+		});
 
 }
 
@@ -245,23 +256,23 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 		});
 
 
-	//Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
-	//	{
-	//		// 다른 사람들한테 이 오브젝트에 대해서 알리고
-	//		GetWorld()->PushFunction([=]()
-	//			{
-	//				int Test = _Packet->GetObjectToken();
+	Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
+		{
+			// 다른 사람들한테 이 오브젝트에 대해서 알리고
+			GetWorld()->PushFunction([=]()
+				{
+					int Test = _Packet->GetObjectToken();
 
-	//				AOtherUI* Time = UNetObject::GetNetObject<AOtherUI>(_Packet->GetObjectToken());
-	//				if (nullptr == Time)
-	//				{
-	//					Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
-	//					Time->SetObjectToken(_Packet->GetObjectToken());
-	//				}
-	//				Time->PushProtocol(_Packet);
+					AOtherUI* Time = UNetObject::GetNetObject<AOtherUI>(_Packet->GetObjectToken());
+					if (nullptr == Time)
+					{
+						Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
+						Time->SetObjectToken(_Packet->GetObjectToken());
+					}
+					Time->PushProtocol(_Packet);
 
-	//			});
-	//	});	
+				});
+		});	
 }
 
 void ASubServerLevel::LevelEnd(ULevel* _DeltaTime)
