@@ -171,29 +171,22 @@ void AServerGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 
 			switch (ObjType)
 			{
-			//case EMapObject::Water:
+			case EMapObject::Water:
 			case EMapObject::WaterBomb:
 			{
 				AMapObject* OtherObject = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 
 				if (nullptr == OtherObject)
 				{
-					AMapObject* OtherObject = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+					ABaseMap* CurMap = GetCurMap().get();
+					POINT PosValue = _Packet->Pos;
 
-					if (nullptr == OtherObject)
-					{
-						ABaseMap* CurMap = GetCurMap().get();
-						POINT PosValue = _Packet->Pos;
+					OtherObject = CurMap->AddMapObject(PosValue.x, PosValue.y, ObjType).get();
 
-						OtherObject = CurMap->AddMapObject(PosValue.x, PosValue.y, ObjType).get();
-
-						OtherObject->SetObjectToken(_Packet->GetObjectToken());
-					}
-					break;
+					OtherObject->SetObjectToken(_Packet->GetObjectToken());
 				}
 				break;
 			}
-			case EMapObject::Default:
 			default:
 				MsgBoxAssert("Server가 아닌 곳에서 MapObject를 생성하려 했습니다.");
 				return;
