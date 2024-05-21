@@ -34,10 +34,11 @@ void AItemOwl::Action()
 {
 	//플레이어 상태변경
 	EPlayerRideType Type = GetGameMode()->GetPlayer()->GetPlayerInfo()->RideType;
-
+	FVector ItemCurPos = GetActorLocation();
 	if (Type == EPlayerRideType::None)
 	{
 		GetGameMode()->GetPlayer()->SetRideType(EPlayerRideType::Owl);
+		GetGameMode()->GetPlayer()->SetActorLocation(ItemCurPos);
 	}
 
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);

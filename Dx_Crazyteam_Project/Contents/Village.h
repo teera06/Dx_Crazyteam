@@ -16,6 +16,8 @@ public:
 	AVillage& operator=(const AVillage& _Other) = delete;
 	AVillage& operator=(AVillage&& _Other) noexcept = delete;
 
+	void AddObjectInit();
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

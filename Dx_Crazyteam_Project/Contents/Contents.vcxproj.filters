@@ -58,14 +58,8 @@
     <Filter Include="MapObject\Block">
       <UniqueIdentifier>{437f5415-8d39-4782-83b3-00225467a750}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MapObject\MoveBlock">
-      <UniqueIdentifier>{82eddbd3-8ea2-409f-8d2d-c4e6f60796aa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MapObject\Block\CampBlock">
       <UniqueIdentifier>{1145bd0a-29b7-4e09-a16e-4954f44a19a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MapObject\MoveBlock\CampMoveBlock">
-      <UniqueIdentifier>{6f4636d5-c4e8-4088-a3fc-23fdb34859f3}</UniqueIdentifier>
     </Filter>
     <Filter Include="MapObject\Block\DummyBlock">
       <UniqueIdentifier>{a1c84696-382a-4c01-b8e3-63fe528da440}</UniqueIdentifier>
@@ -100,10 +94,10 @@
     <Filter Include="MainGameLevel\Lobby">
       <UniqueIdentifier>{e8b38b9b-5555-4285-97e8-c1ffe29b05fd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MapObject\MoveBlock\CampHpBlock">
-      <UniqueIdentifier>{76bd974b-6be3-4d9d-bc97-6fc4077f063b}</UniqueIdentifier>
+    <Filter Include="MapObject\Block\VillageBlock">
+      <UniqueIdentifier>{2ad806ca-3b36-43d6-aeec-30c6139aeb7f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MapObject\HideBlock">
+    <Filter Include="MapObject\Bush">
       <UniqueIdentifier>{977ca052-993d-4aae-978b-21d340e48be2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -192,14 +186,8 @@
     <ClInclude Include="Player_Shadow.h">
       <Filter>Level\PlayertestLevel\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="CampMoveBlock1.h">
-      <Filter>MapObject\MoveBlock\CampMoveBlock</Filter>
-    </ClInclude>
     <ClInclude Include="DummyBlock.h">
       <Filter>MapObject\Block\DummyBlock</Filter>
-    </ClInclude>
-    <ClInclude Include="OtherBomb.h">
-      <Filter>Level\Surver\PublicOBJ</Filter>
     </ClInclude>
     <ClInclude Include="NetInterface.h">
       <Filter>Level\Surver\PublicOBJ</Filter>
@@ -261,20 +249,14 @@
     <ClInclude Include="ContentsMainDebugWin.h">
       <Filter>ContentsGUI</Filter>
     </ClInclude>
-    <ClInclude Include="CampHpBlock.h">
-      <Filter>MapObject\MoveBlock\CampHpBlock</Filter>
-    </ClInclude>
     <ClInclude Include="CampBlock1.h">
       <Filter>MapObject\Block\CampBlock</Filter>
     </ClInclude>
-    <ClInclude Include="OtherWaterCourse.h">
-      <Filter>Level\Surver\PublicOBJ</Filter>
-    </ClInclude>
     <ClInclude Include="Bush.h">
-      <Filter>MapObject\HideBlock</Filter>
+      <Filter>MapObject\Bush</Filter>
     </ClInclude>
     <ClInclude Include="TownBush.h">
-      <Filter>MapObject\HideBlock</Filter>
+      <Filter>MapObject\Bush</Filter>
     </ClInclude>
     <ClInclude Include="OtherUI.h">
       <Filter>Level\Surver\PublicOBJ</Filter>
@@ -295,6 +277,36 @@
       <Filter>MapObject\Block\CampBlock</Filter>
     </ClInclude>
     <ClInclude Include="FontActor.h" />
+    <ClInclude Include="VillageBlock1.h">
+      <Filter>MapObject\Block\VillageBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="VillageBlock2.h">
+      <Filter>MapObject\Block\VillageBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="VillageMoveBlock.h">
+      <Filter>MapObject\Block\VillageBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="YellowHouse.h">
+      <Filter>MapObject\Block\VillageBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="RedHouse.h">
+      <Filter>MapObject\Block\VillageBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="CampHpBlock.h">
+      <Filter>MapObject\Block\CampBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="CampMoveBlock1.h">
+      <Filter>MapObject\Block\CampBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="BlueHouse.h">
+      <Filter>MapObject\Block\VillageBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherLobbyPlayer.h">
+      <Filter>Level\Surver\PublicOBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="VillageTree.h">
+      <Filter>MapObject\Block\VillageBlock</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -386,9 +398,6 @@
     <ClCompile Include="DummyBlock.cpp">
       <Filter>MapObject\Block\DummyBlock</Filter>
     </ClCompile>
-    <ClCompile Include="OtherBomb.cpp">
-      <Filter>Level\Surver\PublicOBJ</Filter>
-    </ClCompile>
     <ClCompile Include="NetInterface.cpp">
       <Filter>Level\Surver\PublicOBJ</Filter>
     </ClCompile>
@@ -403,9 +412,6 @@
     </ClCompile>
     <ClCompile Include="TestLobbyPlayer.cpp">
       <Filter>Level\Surver\PublicOBJ\Test</Filter>
-    </ClCompile>
-    <ClCompile Include="CampMoveBlock1.cpp">
-      <Filter>MapObject\MoveBlock\CampMoveBlock</Filter>
     </ClCompile>
     <ClCompile Include="CampBlock1.cpp">
       <Filter>MapObject\Block\CampBlock</Filter>
@@ -455,17 +461,11 @@
     <ClCompile Include="ContentsMainDebugWin.cpp">
       <Filter>ContentsGUI</Filter>
     </ClCompile>
-    <ClCompile Include="CampHpBlock.cpp">
-      <Filter>MapObject\MoveBlock\CampHpBlock</Filter>
-    </ClCompile>
-    <ClCompile Include="OtherWaterCourse.cpp">
-      <Filter>Level\Surver\PublicOBJ</Filter>
-    </ClCompile>
     <ClCompile Include="Bush.cpp">
-      <Filter>MapObject\HideBlock</Filter>
+      <Filter>MapObject\Bush</Filter>
     </ClCompile>
     <ClCompile Include="TownBush.cpp">
-      <Filter>MapObject\HideBlock</Filter>
+      <Filter>MapObject\Bush</Filter>
     </ClCompile>
     <ClCompile Include="OtherUI.cpp">
       <Filter>Level\Surver\PublicOBJ</Filter>
@@ -486,5 +486,35 @@
       <Filter>MapObject\Block\CampBlock</Filter>
     </ClCompile>
     <ClCompile Include="FontActor.cpp" />
+    <ClCompile Include="VillageBlock1.cpp">
+      <Filter>MapObject\Block\VillageBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="VillageBlock2.cpp">
+      <Filter>MapObject\Block\VillageBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="VillageMoveBlock.cpp">
+      <Filter>MapObject\Block\VillageBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="YellowHouse.cpp">
+      <Filter>MapObject\Block\VillageBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="RedHouse.cpp">
+      <Filter>MapObject\Block\VillageBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="CampHpBlock.cpp">
+      <Filter>MapObject\Block\CampBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="CampMoveBlock1.cpp">
+      <Filter>MapObject\Block\CampBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="BlueHouse.cpp">
+      <Filter>MapObject\Block\VillageBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="VillageTree.cpp">
+      <Filter>MapObject\Block\VillageBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherLobbyPlayer.cpp">
+      <Filter>Level\Surver\PublicOBJ</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

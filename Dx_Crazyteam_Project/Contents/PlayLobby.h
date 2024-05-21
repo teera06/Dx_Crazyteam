@@ -103,5 +103,17 @@ private:
 	bool RoomSwitch= false;
 	int  PlayerCount = 0;
 	int TestCount = 0;
+
+private:
+	int MySessionToken = -1;
+	bool IsGetSessionToken = false;
+
+public:
+	inline void SetMySessionToken(int _Value)
+	{
+		MySessionToken = _Value;
+		IsGetSessionToken = true;
+	}
+
 };
 
