@@ -173,7 +173,7 @@ void AMapUI::Tick(float _DeltaTime)
 		SerVer_Send = false;
 	}
 
-	SetPlayItemUI();
+	//SetPlayItemUI();
 }
 
 void AMapUI::ClientSend()
