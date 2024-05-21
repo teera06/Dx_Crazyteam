@@ -16,8 +16,8 @@ void AItemTurtle::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->CreateAnimation("ItemOwl", "Owl.png", 0.3f, true, 0, 5);
-	Renderer->ChangeAnimation("ItemOwl");
+	Renderer->CreateAnimation("Turtle", "Turtle.png", 0.3f, true, 0, 5);
+	Renderer->ChangeAnimation("Turtle");
 	Renderer->SetAutoSize(1.0f, true);
 }
 
@@ -29,10 +29,11 @@ void AItemTurtle::Tick(float _DeltaTime)
 void AItemTurtle::Action()
 {
 	EPlayerRideType Type = GetGameMode()->GetPlayer()->GetPlayerInfo()->RideType;
-
+	FVector ItemCurPos = GetActorLocation();
 	if (Type == EPlayerRideType::None)
 	{
 		GetGameMode()->GetPlayer()->SetRideType(EPlayerRideType::Turtle);
+		GetGameMode()->GetPlayer()->SetActorLocation(ItemCurPos);
 	}
 
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);

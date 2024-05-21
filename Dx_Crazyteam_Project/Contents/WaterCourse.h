@@ -64,7 +64,6 @@ public :
 		return WaterCourseDir;
 	}
 
-	void WaterSend(std::shared_ptr<AWaterCourse> _SET);
 	 
 	static int WaterCourseToken;
 	static bool SetToken;
