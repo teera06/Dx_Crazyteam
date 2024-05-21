@@ -21,6 +21,7 @@ void ABlock::BeginPlay()
 	SetType(EMapObjectType::Block);
 
 	Renderer->SetPivot(EPivot::BOT);
+	Renderer->SetOrder(ERenderOrder::WaterBomb);
 	Renderer->AddPosition(FVector::Down * 20.f);
 	Renderer->SetAutoSize(1.f, true);
 
