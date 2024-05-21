@@ -7,7 +7,7 @@
 
 char UTextimeInput::Text[255]="";
 char UTextimeInput::Cstr[10]="";
-bool UTextimeInput::OnOff = true;
+bool UTextimeInput::OnOff = false;
 HWND UTextimeInput::hwnd;
 HIMC UTextimeInput::himc;
 

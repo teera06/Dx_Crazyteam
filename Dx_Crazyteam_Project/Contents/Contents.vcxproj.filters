@@ -294,6 +294,7 @@
     <ClInclude Include="CampBlock3.h">
       <Filter>MapObject\Block\CampBlock</Filter>
     </ClInclude>
+    <ClInclude Include="FontActor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -484,5 +485,6 @@
     <ClCompile Include="CampBlock3.cpp">
       <Filter>MapObject\Block\CampBlock</Filter>
     </ClCompile>
+    <ClCompile Include="FontActor.cpp" />
   </ItemGroup>
 </Project>
