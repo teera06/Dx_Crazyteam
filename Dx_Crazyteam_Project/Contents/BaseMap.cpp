@@ -572,6 +572,16 @@ void ABaseMap::DestroyMapObject(int _Y, int _X)
 	MapStatus[_Y][_X] = nullptr;
 }
 
+void ABaseMap::ChangeNull(int _Y, int _X)
+{
+	MapStatus[_Y][_X] = nullptr;
+}
+
+void ABaseMap::ConnectObject(std::shared_ptr<AMapObject> _Obj, int _Y, int _X)
+{
+	MapStatus[_Y][_X] = _Obj;
+}
+
 POINT ABaseMap::PosToPoint(FVector _PlayerPos)
 {
 	float MinDistance = 999999;
