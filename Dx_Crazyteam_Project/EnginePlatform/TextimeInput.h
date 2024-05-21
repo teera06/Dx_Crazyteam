@@ -18,7 +18,6 @@ private:
 	static char Cstr[10]; 
 
 	static bool OnOff;
-	static bool bHangeul;
 	
 	static void SetIme(HWND _hWnd, UINT _msg, WPARAM _wparam, LPARAM _lParam);
 	
