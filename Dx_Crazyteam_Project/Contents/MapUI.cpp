@@ -1,9 +1,13 @@
 #include "PreCompile.h"
 #include "MapUI.h"
-#include "EngineCore/Image.h"
 #include "Game_Core.h"
 #include "Packets.h"
+#include "Player.h"
+#include "ContentsEnum.h"
+#include "MainGameMode.h"
 
+
+#include "EngineCore/Image.h"
 //float AMapUI::GameTimeCheck = 1.0f;
 
 AMapUI::AMapUI()
@@ -30,19 +34,15 @@ void AMapUI::BeginPlay()
 	InputOn();
 	PlayerUI.resize(8);
 	GameTimeerUI.resize(4);
+	PlayerItemUI.resize(8);
+
+	MGM = dynamic_cast<AMainGameMode*>(GetWorld()->GetGameMode().get());
 
 	MapPlayUI = CreateWidget<UImage>(GetWorld(), "MapPlayUI");
 	MapPlayUI->AddToViewPort(3);
 	MapPlayUI->SetSprite("MapPlayUI.png");
 	MapPlayUI->SetPosition(FVector(0.0f, 0.0f, 0.0f));
 	MapPlayUI->SetAutoSize(1.0f, true);
-
-	PlayerItemUI = CreateWidget<UImage>(GetWorld(), "PlayerItemUI");
-	PlayerItemUI->AddToViewPort(3);
-	PlayerItemUI->SetAutoSize(1.0f, true);
-	PlayerItemUI->SetSprite("Niddle.png", 2);
-	PlayerItemUI->SetPosition(FVector(290.0f, -230.0f, 0.0f));
-	PlayerItemUI->SetActive(true);
 
 	GameStartUI = CreateWidget<UImage>(GetWorld(), "GameStartUI");
 	GameStartUI->AddToViewPort(3);
@@ -77,6 +77,16 @@ void AMapUI::BeginPlay()
 
 	for (size_t i = 0; i < GameTimeerUI.size(); ++i)
 	{
+		PlayerItemUI[i] = CreateWidget<UImage>(GetWorld(), "PlayerItemUI");
+		PlayerItemUI[i]->AddToViewPort(3);
+		PlayerItemUI[i]->SetAutoSize(1.0f, true);
+		PlayerItemUI[i]->SetSprite("ItemShadow.png");
+		PlayerItemUI[0]->SetPosition(FVector(290.0f, -230.0f, 0.0f));
+		PlayerItemUI[i]->SetActive(true);
+	}
+
+	for (size_t i = 0; i < GameTimeerUI.size(); ++i)
+	{
 		GameTimeerUI[i] = CreateWidget<UImage>(GetWorld(), "GameTimeerUI");
 		GameTimeerUI[i]->AddToViewPort(3);
 		GameTimeerUI[i]->SetPosition(FVector(315.0f + static_cast<float>((i * 17)), 220.0f, 0.0f));
@@ -92,9 +102,6 @@ void AMapUI::BeginPlay()
 void AMapUI::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
-
-
 
 	if (IsDown('P'))
 	{
@@ -169,6 +176,8 @@ void AMapUI::Tick(float _DeltaTime)
 		SecondUI2 -= Sub_Second;		
 		SerVer_Send = false;
 	}
+
+	SetPlayItemUI();
 }
 
 void AMapUI::ClientSend()
@@ -205,9 +214,19 @@ void AMapUI::ServerSend()
 }
 
 
-void AMapUI::SetPlayItemUI(int _ItemNumber)
+void AMapUI::SetPlayItemUI()
 {
-	PlayerItemUI->SetSprite("Item", _ItemNumber);
+	switch (MGM->GetPlayer()->GetCtrlItem())
+	{
+	case EItemType::None:
+		PlayerItemUI[0]->SetSprite("ItemShadow.png");
+		break;
+	case EItemType::ItemNiddle:
+		PlayerItemUI[0]->SetSprite("Niddle.png", 1);
+		break;
+	default:
+		break;
+	}
 }
 
 float AMapUI::CreateTime()

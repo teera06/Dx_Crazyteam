@@ -2,6 +2,8 @@
 #include "CAObject.h"
 
 class UImage;
+class APlayer;
+class AMainGameMode;
 class AMapUI : public ACAObject
 {
 	GENERATED_BODY(ACAObject)
@@ -17,7 +19,7 @@ public:
 	AMapUI& operator=(const AMapUI& _Other) = delete;
 	AMapUI& operator=(AMapUI&& _Other) noexcept = delete;
 
-	void SetPlayItemUI(int _ItemNumber);
+	void SetPlayItemUI();
 	int GetCreateTime() { return MapTime_Second; }
 	
 	void ClientCreate() { Client_Create = true; }
@@ -50,13 +52,15 @@ protected:
 
 private:
 	UImage* MapPlayUI = nullptr;
-	UImage* PlayerItemUI = nullptr;
 	UImage* GameStartUI = nullptr;
 	UImage* GameEndUI = nullptr;
 	UImage* GameResultUI = nullptr;
 	UImage* ColonUI = nullptr;
 	std::vector<UImage*> PlayerUI;
 	std::vector<UImage*> GameTimeerUI;
+	std::vector<UImage*> PlayerItemUI;
+
+	AMainGameMode* MGM = nullptr;
 
 	float GameTimeCheck = 1.f;
 	int MinUI = 2;
