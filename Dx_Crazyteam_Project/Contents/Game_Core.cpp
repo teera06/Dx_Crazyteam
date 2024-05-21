@@ -184,9 +184,10 @@ void UGame_Core::CuttingAni()
 
 	}
 
-
+	// UI
 	{
 		UEngineSprite::CreateCutting("GameTimer.png", 10, 1);
+		UEngineSprite::CreateCutting("START.png", 6, 1);
 	}
 }
 
