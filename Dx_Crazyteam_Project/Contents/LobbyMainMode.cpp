@@ -66,7 +66,7 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 				OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
 			}
 			OtherPlayer->SetRenderer(_Packet->SpriteName, _Packet->SpriteIndex);
-
+			OtherPlayer->SetActorLocation(float4(0.0f, 0.0f, 0.0f));
 		});
 }
 
@@ -81,5 +81,6 @@ void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
 				OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
 			}
 			OtherPlayer->SetRenderer(_Packet->SpriteName, _Packet->SpriteIndex);
+			OtherPlayer->SetActorLocation(float4(0.0f, 0.0f, 0.0f));
 		});
 }
