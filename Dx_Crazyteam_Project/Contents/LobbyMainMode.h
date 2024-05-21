@@ -27,7 +27,6 @@ protected:
 	void LevelStart(ULevel* _PrevLevel);
 private:
 	UEngineSoundPlayer LobbyBGM;
-
 	std::shared_ptr<APlayLobby> PlayLobby = nullptr;
 
 };
