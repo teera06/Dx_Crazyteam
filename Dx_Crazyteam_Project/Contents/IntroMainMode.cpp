@@ -27,10 +27,12 @@ void AIntroMainMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	if (true == UEngineInput::IsDown(VK_SPACE))
+	/*if (true == UEngineInput::IsDown(VK_SPACE))
 	{
 		GEngine->ChangeLevel("LobbyMainMode");
-	}
+	}*/
+	// 스페이스바->로비 진입 막아둠 
+	// [Start]클릭-> 로비 진입으로 변경
 }
 
 void AIntroMainMode::LevelEnd(ULevel* _NextLevel)
