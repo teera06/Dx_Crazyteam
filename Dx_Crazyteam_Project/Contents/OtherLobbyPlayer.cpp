@@ -19,6 +19,11 @@ AOtherLobbyPlayer::~AOtherLobbyPlayer()
 {
 }
 
+void AOtherLobbyPlayer::SetRenderer(std::string_view _SpriteName, int _Index)
+{
+	Renderer->SetSprite(_SpriteName, _Index);
+}
+
 void AOtherLobbyPlayer::BeginPlay()
 {
 	Super::BeginPlay();

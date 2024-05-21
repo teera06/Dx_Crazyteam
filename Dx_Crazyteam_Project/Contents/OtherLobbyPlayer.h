@@ -18,6 +18,8 @@ public:
 	AOtherLobbyPlayer& operator=(const AOtherLobbyPlayer& _Other) = delete;
 	AOtherLobbyPlayer& operator=(AOtherLobbyPlayer&& _Other) noexcept = delete;
 
+	void SetRenderer(std::string_view _SpriteName, int _Index);
+
 protected:
 
 private:
