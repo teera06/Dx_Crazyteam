@@ -307,6 +307,9 @@
     <ClInclude Include="BlueHouse.h">
       <Filter>MapObject\Block\VillageBlock</Filter>
     </ClInclude>
+    <ClInclude Include="VillageTree.h">
+      <Filter>MapObject\Block\VillageBlock</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -514,6 +517,9 @@
       <Filter>MapObject\Block\CampBlock</Filter>
     </ClCompile>
     <ClCompile Include="BlueHouse.cpp">
+      <Filter>MapObject\Block\VillageBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="VillageTree.cpp">
       <Filter>MapObject\Block\VillageBlock</Filter>
     </ClCompile>
   </ItemGroup>

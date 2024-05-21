@@ -1,22 +1,22 @@
 #include "PreCompile.h"
 #include "YellowHouse.h"
 
-YellowHouse::YellowHouse() 
+AYellowHouse::AYellowHouse() 
 {
 }
 
-YellowHouse::~YellowHouse() 
+AYellowHouse::~AYellowHouse() 
 {
 }
 
-void YellowHouse::BeginPlay()
+void AYellowHouse::BeginPlay()
 {
 	Super::BeginPlay();
 
 	Renderer->SetSprite("TownHouseYellow.png");
 }
 
-void YellowHouse::Tick(float _DeltaTime)
+void AYellowHouse::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }
