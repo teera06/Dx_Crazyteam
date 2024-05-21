@@ -2,6 +2,9 @@
 #include <EngineCore/GameMode.h>
 class UEngineSoundPlayer;
 
+
+class APlayLobby;
+
 class ALobbyMainMode : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
@@ -24,5 +27,8 @@ protected:
 	void LevelStart(ULevel* _PrevLevel);
 private:
 	UEngineSoundPlayer LobbyBGM;
+
+	std::shared_ptr<APlayLobby> PlayLobby = nullptr;
+
 };
 
