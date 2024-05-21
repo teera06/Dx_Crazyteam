@@ -187,8 +187,9 @@ void ACamp::AddObjectInit()
 		AddMapObject(12, 6, EMapObject::TownBush);
 		AddMapObject(12, 8, EMapObject::TownBush);
 		AddMapObject(12, 9, EMapObject::CampBlock2);
-		AddMapObject(12, 10, EMapObject::CampBlock1);
-		AddMapObject(12, 11, EMapObject::CampBlock2);
+		AddMapObject(12, 10, EMapObject::CampMoveBlock1);
+		AddMapObject(12, 11, EMapObject::CampBlock1);
+		AddMapObject(12, 12, EMapObject::CampBlock2);
 	}
 
 }
