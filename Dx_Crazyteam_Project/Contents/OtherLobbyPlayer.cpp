@@ -14,7 +14,7 @@ AOtherLobbyPlayer::AOtherLobbyPlayer()
 	SetActorScale3D(FVector(20, 20, 1));
 
 
-	ImageRenderer = CreateWidget<UImage>(GetWorld(), "Room1");
+	//ImageRenderer = CreateWidget<UImage>(GetWorld(), "Room1");
 	//Room1->CreateAnimation("UnHover", "Room_0.png", 0.1f, false, 0, 0);
 	//Room1->CreateAnimation("Hover", "Room_1.png", 0.1f, false, 0, 0);
 	//Room1->CreateAnimation("Down", "Room_2.png", 0.1f, false, 0, 0);
