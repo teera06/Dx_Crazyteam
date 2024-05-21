@@ -187,7 +187,7 @@ void ABlock::BreakTick(float _DeltaTime)
 		AccBlinkTime = 0.f;
 		if (BlinkOn)
 		{
-			Renderer->SetMulColor(FVector(1.f, 1.f, 1.f, 0.5f));
+			Renderer->SetMulColor(FVector(1.f, 1.f, 1.f, 0.3f));
 			BlinkOn = false;
 		}
 		else
