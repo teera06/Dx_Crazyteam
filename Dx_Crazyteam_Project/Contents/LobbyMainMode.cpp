@@ -52,10 +52,52 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 
 void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 {
-
+	//Dis.AddHandler<APlayLobby>([=](std::shared_ptr<APlayLobby> _Packet)
+	//	{
+	//		GetWorld()->PushFunction([=]()
+	//			{
+	//				switch (_Packet->ObjectType)
+	//				{
+	//				case static_cast<int>(EObjectType::Player):
+	//				{
+	//					AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
+	//					if (nullptr == OtherPlayer)
+	//					{
+	//						OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
+	//						OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+	//					}
+	//					OtherPlayer->PushProtocol(_Packet);
+	//					break;
+	//				}
+	//				default:
+	//					break;
+	//				}
+	//			});
+	//	});
 }
 
 void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
 {
-
+	//Dis.AddHandler<APlayLobby>([=](std::shared_ptr<APlayLobby> _Packet)
+	//	{
+	//		GetWorld()->PushFunction([=]()
+	//			{
+	//				switch (_Packet->ObjectType)
+	//				{
+	//				case static_cast<int>(EObjectType::Player):
+	//				{
+	//					AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
+	//					if (nullptr == OtherPlayer)
+	//					{
+	//						OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
+	//						OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+	//					}
+	//					OtherPlayer->PushProtocol(_Packet);
+	//					break;
+	//				}
+	//				default:
+	//					break;
+	//				}
+	//			});
+	//	});
 }
