@@ -16,8 +16,8 @@ void AItemTurtle::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->CreateAnimation("ItemOwl", "Owl.png", 0.3f, true, 0, 5);
-	Renderer->ChangeAnimation("ItemOwl");
+	Renderer->CreateAnimation("Turtle", "Turtle.png", 0.3f, true, 0, 5);
+	Renderer->ChangeAnimation("Turtle");
 	Renderer->SetAutoSize(1.0f, true);
 }
 
