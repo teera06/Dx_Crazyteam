@@ -161,49 +161,49 @@ void AWaterBomb::CreateExit()
 
 void AWaterBomb::BombBegin()
 {
-	Renderer->SetActive(false);
-	b_ServerBomb = BombServer;
+	//Renderer->SetActive(false);
+	//b_ServerBomb = BombServer;
 
-	//{
-	//	std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));		
-	//	WaterCourse->SetObjectToken(GetObjectToken() + 10000);
-	//	USendPacketManager::SendMapObjectSpawnPacket(WaterCourse, { GetCurPos().y, GetCurPos().x}, EMapObject::Water);
+	{
+		std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));		
+		WaterCourse->SetObjectToken(GetObjectToken() + 10000);
+		USendPacketManager::SendMapObjectSpawnPacket(WaterCourse, { GetCurPos().y, GetCurPos().x}, EMapObject::Water);
 
-	//	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
-	//}
+		//GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+	}
 }
 
 void AWaterBomb::BombTick(float _DeltaTime)
 {
-	if (false == b_ServerBomb)
-	{
-		std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));
+	//if (false == b_ServerBomb)
+	//{
+	//	std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));
 
-		if (SetWater_CourseToken == false)
-		{
-			WaterCourse->WaterCourseToken = WaterCourse_Token;
-			SetWater_CourseToken = true;
-		}
-		WaterCourse_Token = WaterCourse->WaterCourseToken++;
-		WaterCourse->SetObjectToken(WaterCourse_Token);
+	//	if (SetWater_CourseToken == false)
+	//	{
+	//		WaterCourse->WaterCourseToken = WaterCourse_Token;
+	//		SetWater_CourseToken = true;
+	//	}
+	//	WaterCourse_Token = WaterCourse->WaterCourseToken++;
+	//	WaterCourse->SetObjectToken(WaterCourse_Token);
 
-		if (false == IsNetInit())
-		{
-			// 네트워크 통신준비가 아직 안된 오브젝트다.
-			if (nullptr != UGame_Core::Net)
-			{
-				InitNet(UGame_Core::Net);
-			}
-		}
-		std::shared_ptr<UWaterCourseUpdatePacket> Packet = std::make_shared<UWaterCourseUpdatePacket>();
-		Packet->Pos = GetActorLocation();
-		Packet->ObjectType = static_cast<int>(EObjectType::WaterCourse);
-		Packet->Dir = 4;
-		Packet->SetCourse = true;
-		Send(Packet);
+	//	if (false == IsNetInit())
+	//	{
+	//		// 네트워크 통신준비가 아직 안된 오브젝트다.
+	//		if (nullptr != UGame_Core::Net)
+	//		{
+	//			InitNet(UGame_Core::Net);
+	//		}
+	//	}
+	//	std::shared_ptr<UWaterCourseUpdatePacket> Packet = std::make_shared<UWaterCourseUpdatePacket>();
+	//	Packet->Pos = GetActorLocation();
+	//	Packet->ObjectType = static_cast<int>(EObjectType::WaterCourse);
+	//	Packet->Dir = 4;
+	//	Packet->SetCourse = true;
+	//	Send(Packet);
 
-		b_ServerBomb = false;
-	}
+	//	b_ServerBomb = false;
+	//}
 
 }
 
