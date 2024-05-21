@@ -27,6 +27,13 @@
 #include "Game_Core.h"
 #include "TownBush.h"
 #include "MapStateValue.h"
+#include "VillageBlock1.h"
+#include "VillageBlock2.h"
+#include "VillageMoveBlock.h"
+#include "VillageTree.h"
+#include "BlueHouse.h"
+#include "YellowHouse.h"
+#include "RedHouse.h"
 #include "ItemTurtle.h"
 
 ABaseMap::ABaseMap()
@@ -286,10 +293,6 @@ std::shared_ptr<AMapObject> ABaseMap::SpawnMapObject(int _Y, int _X, EMapObject 
 		MapObj = GetWorld()->SpawnActor<ACampMoveBlock1>("CampMoveBlock1");
 		break;
 	}
-	case EMapObject::CampMoveBlock2:
-	{
-
-	}
 	case EMapObject::NormalBlock:
 	{
 		MapObj = GetWorld()->SpawnActor<ABlock>("Block");
@@ -310,9 +313,40 @@ std::shared_ptr<AMapObject> ABaseMap::SpawnMapObject(int _Y, int _X, EMapObject 
 		MapObj = GetWorld()->SpawnActor<ACampBlock3>("CampBlock3");
 		break;
 	}
-	case EMapObject::CampBlock4:
+	case EMapObject::VillageBlock1:
 	{
-
+		MapObj = GetWorld()->SpawnActor<AVillageBlock1>("VillageBlock1");
+		break;
+	}
+	case EMapObject::VillageBlock2:
+	{
+		MapObj = GetWorld()->SpawnActor<AVillageBlock2>("VillageBlock2");
+		break;
+	}
+	case EMapObject::VillageBlueHouse:
+	{
+		MapObj = GetWorld()->SpawnActor<ABlueHouse>("BlueHouse");
+		break;
+	}
+	case EMapObject::VillageRedHouse:
+	{
+		MapObj = GetWorld()->SpawnActor<ARedHouse>("RedHouse");
+		break;
+	}
+	case EMapObject::VillageYellowHouse:
+	{
+		MapObj = GetWorld()->SpawnActor<AYellowHouse>("YellowHouse");
+		break;
+	}
+	case EMapObject::VillageTree:
+	{
+		MapObj = GetWorld()->SpawnActor<AVillageTree>("VillageTree");
+		break;
+	}
+	case EMapObject::VillageMoveBlock:
+	{
+		MapObj = GetWorld()->SpawnActor<AVillageMoveBlock>("VillageMoveBlock");
+		break;
 	}
 	case EMapObject::TownBush:
 	{

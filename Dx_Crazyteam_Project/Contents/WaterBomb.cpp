@@ -165,10 +165,13 @@ void AWaterBomb::BombBegin()
 	//b_ServerBomb = BombServer;
 
 	{
+		if (GetIsPossessed()) GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+
 		std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));		
 		WaterCourse->SetObjectToken(GetObjectToken() + 10000);
 		USendPacketManager::SendMapObjectSpawnPacket(WaterCourse, { GetCurPos().y, GetCurPos().x}, EMapObject::Water);
 
+		if (GetIsPossessed()) Destroy();
 		//GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 	}
 }

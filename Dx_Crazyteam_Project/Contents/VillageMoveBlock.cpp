@@ -1,15 +1,15 @@
 #include "PreCompile.h"
 #include "VillageMoveBlock.h"
 
-VillageMoveBlock::VillageMoveBlock() 
+AVillageMoveBlock::AVillageMoveBlock() 
 {
 }
 
-VillageMoveBlock::~VillageMoveBlock() 
+AVillageMoveBlock::~AVillageMoveBlock() 
 {
 }
 
-void VillageMoveBlock::BeginPlay()
+void AVillageMoveBlock::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -19,7 +19,7 @@ void VillageMoveBlock::BeginPlay()
 	Renderer->SetSprite("TownBox.png");
 }
 
-void VillageMoveBlock::Tick(float _DeltaTime)
+void AVillageMoveBlock::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }

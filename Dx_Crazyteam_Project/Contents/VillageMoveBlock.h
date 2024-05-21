@@ -4,19 +4,19 @@
 #include "BreakObject.h"
 
 // Ό³Έν :
-class VillageMoveBlock : public ABlock, public UMoveObject, public UBreakObject
+class AVillageMoveBlock : public ABlock, public UMoveObject, public UBreakObject
 {
 	GENERATED_BODY(ABlock)
 public:
 	// constructor destructor
-	VillageMoveBlock();
-	~VillageMoveBlock();
+	AVillageMoveBlock();
+	~AVillageMoveBlock();
 
 	// delete Function
-	VillageMoveBlock(const VillageMoveBlock& _Other) = delete;
-	VillageMoveBlock(VillageMoveBlock&& _Other) noexcept = delete;
-	VillageMoveBlock& operator=(const VillageMoveBlock& _Other) = delete;
-	VillageMoveBlock& operator=(VillageMoveBlock&& _Other) noexcept = delete;
+	AVillageMoveBlock(const AVillageMoveBlock& _Other) = delete;
+	AVillageMoveBlock(AVillageMoveBlock&& _Other) noexcept = delete;
+	AVillageMoveBlock& operator=(const AVillageMoveBlock& _Other) = delete;
+	AVillageMoveBlock& operator=(AVillageMoveBlock&& _Other) noexcept = delete;
 
 protected:
 	void BeginPlay() override;

@@ -1,22 +1,22 @@
 #include "PreCompile.h"
 #include "RedHouse.h"
 
-RedHouse::RedHouse() 
+ARedHouse::ARedHouse() 
 {
 }
 
-RedHouse::~RedHouse() 
+ARedHouse::~ARedHouse() 
 {
 }
 
-void RedHouse::BeginPlay()
+void ARedHouse::BeginPlay()
 {
 	Super::BeginPlay();
 
 	Renderer->SetSprite("TownHouseRed.png");
 }
 
-void RedHouse::Tick(float _DeltaTime)
+void ARedHouse::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }

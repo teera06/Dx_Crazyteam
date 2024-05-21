@@ -1,22 +1,22 @@
 #include "PreCompile.h"
 #include "BlueHouse.h"
 
-BlueHouse::BlueHouse() 
+ABlueHouse::ABlueHouse() 
 {
 }
 
-BlueHouse::~BlueHouse() 
+ABlueHouse::~ABlueHouse() 
 {
 }
 
-void BlueHouse::BeginPlay()
+void ABlueHouse::BeginPlay()
 {
 	Super::BeginPlay();
 
 	Renderer->SetSprite("TownHouseBlue.png");
 }
 
-void BlueHouse::Tick(float _DeltaTime)
+void ABlueHouse::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }
