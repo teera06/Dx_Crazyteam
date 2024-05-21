@@ -55,6 +55,13 @@ void ASubServerLevel::BeginPlay()
 	MainPlayer = GetWorld()->SpawnActor<APlayer>("Player");
 	MainPlayer->SetCurGameMode(this);
 	SetMainPlayer(MainPlayer);
+
+	MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
+	MapUI->SetCurGameMode(this);
+	SetUI(MapUI);
+	FVector Pos = MapUI->GetActorLocation();
+	Pos.Z = 100.f;
+	MapUI->SetActorLocation(Pos);
 }
 
 void ASubServerLevel::Tick(float _DeltaTime)
@@ -62,7 +69,6 @@ void ASubServerLevel::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	UNetObject::AllNetObject;
-	int a = 0;
 }
 
 void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
@@ -81,12 +87,6 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 			MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
 
 			// 타임 유아이
-			MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
-			MapUI->SetCurGameMode(this);
-			SetUI(MapUI);
-			FVector Pos = MapUI->GetActorLocation();
-			Pos.Z = 100.f;
-			MapUI->SetActorLocation(Pos);
 			MapUI->SetObjectToken(UNetObject::GetNewObjectToken() + 1);
 
 			ServerPacketInit(UGame_Core::Net->Dispatcher);
@@ -102,14 +102,11 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 				MainPlayer->SetObjectToken(_Token->GetSessionToken() * 1000);
 
 				//타임 유아이
-				MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
-				MapUI->SetCurGameMode(this);
-				SetUI(MapUI);
-				FVector Pos = MapUI->GetActorLocation();
-				Pos.Z = 100.f;
-				MapUI->SetActorLocation(Pos);
 				MapUI->SetObjectToken(_Token->GetSessionToken() * 1000+1);
-				MapUI->ClientCreate();
+				if (nullptr != MapUI)
+				{
+					MapUI->ClientCreate();
+				}
 
 				//물폭탄
 				MainPlayer->WaterBomb_Token = _Token->GetSessionToken() * 1000 + 2;
@@ -118,6 +115,7 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 			});
 			// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
 			ClientPacketInit(UGame_Core::Net->Dispatcher);
+
 		});
 	}
 	subNetWindow->On();

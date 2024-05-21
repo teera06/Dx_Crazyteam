@@ -40,6 +40,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="CampBlock2.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="CampBlock3.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="CampHpBlock.h">
       <SubType>
       </SubType>
@@ -249,6 +257,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="CampBlock1.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="CampBlock2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="CampBlock3.cpp">
       <SubType>
       </SubType>
     </ClCompile>
