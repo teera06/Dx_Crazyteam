@@ -59,16 +59,14 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 		{
 			UGame_Core::Net->Send(_Packet);
 
-			GetWorld()->PushFunction([=]()
-				{
-					AOtherLobbyPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherLobbyPlayer>(_Packet->GetObjectToken());
-					if (nullptr == OtherPlayer)
-					{
-						OtherPlayer = this->GetWorld()->SpawnActor<AOtherLobbyPlayer>("OtherLobbyPlayer", 0).get();
-						OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
-					}
-					OtherPlayer->SetRenderer(_Packet->SpriteName, _Packet->SpriteIndex);
-				});
+			AOtherLobbyPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherLobbyPlayer>(_Packet->GetObjectToken());
+			if (nullptr == OtherPlayer)
+			{
+				OtherPlayer = this->GetWorld()->SpawnActor<AOtherLobbyPlayer>("OtherLobbyPlayer", 0).get();
+				OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+			}
+			OtherPlayer->SetRenderer(_Packet->SpriteName, _Packet->SpriteIndex);
+			OtherPlayer->SetActorLocation(float4(0.0f, 0.0f, 0.0f));
 		});
 }
 
@@ -76,15 +74,13 @@ void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
 {
 	Dis.AddHandler<ULobbyPlayerUpdatePacket>([=](std::shared_ptr<ULobbyPlayerUpdatePacket> _Packet)
 		{
-			GetWorld()->PushFunction([=]()
-				{
-					AOtherLobbyPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherLobbyPlayer>(_Packet->GetObjectToken());
-					if (nullptr == OtherPlayer)
-					{
-						OtherPlayer = this->GetWorld()->SpawnActor<AOtherLobbyPlayer>("OtherLobbyPlayer", 0).get();
-						OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
-					}
-					OtherPlayer->SetRenderer(_Packet->SpriteName, _Packet->SpriteIndex);
-				});
+			AOtherLobbyPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherLobbyPlayer>(_Packet->GetObjectToken());
+			if (nullptr == OtherPlayer)
+			{
+				OtherPlayer = this->GetWorld()->SpawnActor<AOtherLobbyPlayer>("OtherLobbyPlayer", 0).get();
+				OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+			}
+			OtherPlayer->SetRenderer(_Packet->SpriteName, _Packet->SpriteIndex);
+			OtherPlayer->SetActorLocation(float4(0.0f, 0.0f, 0.0f));
 		});
 }

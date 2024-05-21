@@ -121,7 +121,7 @@ void UEngineCore::EngineFrameUpdate()
 	}
 
 	// 이것도 옵션
-	if (1.0f / 60.0f <= DeltaTime)
+	if (1.0f / 60.0f <= DeltaTime && 1 <= Frame)
 	{
 		DeltaTime = 1.0f / 60.0f;
 	}

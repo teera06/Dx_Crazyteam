@@ -123,8 +123,9 @@ void AMainGameMode::GameModeActorInit()
 
 	//Item - Village
 	{
-		Village->AddMapObject(5, 1, EMapObject::Item, EItemType::ItemBubble);
-		Village->AddMapObject(1, 2, EMapObject::Item, EItemType::ItemNiddle);
+		Village->AddMapObject(0, 0, EMapObject::Item, EItemType::ItemBubble);
+		Village->AddMapObject(1, 0, EMapObject::Item, EItemType::ItemNiddle);
+		Village->AddMapObject(2, 0, EMapObject::Item, EItemType::ItemTurtle);
 		Village->AddMapObject(2, 1, EMapObject::Item, EItemType::ItemOwl);
 		Village->AddMapObject(2, 2, EMapObject::Item, EItemType::ItemShoes);
 		Village->AddMapObject(8, 6, EMapObject::Item, EItemType::ItemRoller);
