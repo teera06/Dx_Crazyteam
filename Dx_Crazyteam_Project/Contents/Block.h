@@ -24,7 +24,7 @@ public:
 		IsBreak = _IsBreak;
 	}
 
-	bool GetIsBreak()
+	bool GetIsBreak() const
 	{
 		return IsBreak;
 	}
@@ -34,7 +34,7 @@ public:
 		IsPush = _IsPush;
 	}
 
-	bool GetIsPush()
+	bool GetIsPush() const
 	{
 		return IsPush;
 	}
@@ -44,7 +44,7 @@ public:
 		MoveDir = _Dir;
 	}
 
-	ECADir GetPushDir()
+	ECADir GetPushDir() const
 	{
 		return MoveDir;
 	}
@@ -59,7 +59,7 @@ public:
 		--Hp;
 	}
 
-	int GetHp()
+	int GetHp() const
 	{
 		return Hp;
 	}
