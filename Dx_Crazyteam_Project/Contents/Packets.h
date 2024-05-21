@@ -12,6 +12,7 @@ enum class EObjectType
 
 enum EContentPacket
 {
+	Lobby_Player_Select= 95,
 	UIPacket = 96,
 	WaterCourseUpdatePacket = 97,
 	WaterBombUpdatePacket = 98,
@@ -220,3 +221,36 @@ protected:
 private:
 
 };
+
+
+
+
+class ULobbyPlayerUpdatePacket : public UEngineProtocol
+{
+public:
+	static const EContentPacket Type = EContentPacket::Lobby_Player_Select;
+public:
+	ULobbyPlayerUpdatePacket()
+	{
+		SetType(EContentPacket::Lobby_Player_Select);
+	}
+
+	void Serialize(UEngineSerializer& _Ser) override
+	{
+		UEngineProtocol::Serialize(_Ser);
+		_Ser << SpriteIndex;
+		_Ser << SpriteName;
+	}
+
+	void DeSerialize(UEngineSerializer& _Ser) override
+	{
+		UEngineProtocol::DeSerialize(_Ser);
+		_Ser >> SpriteIndex;
+		_Ser >> SpriteName;
+	}
+
+public:
+	int SpriteIndex = 0;
+	std::string SpriteName;
+};
+
