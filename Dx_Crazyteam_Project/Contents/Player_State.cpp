@@ -13,34 +13,34 @@ void APlayer::StateInit()
 
 	// CreateAnimation
 	//레드 배찌 애니메이션
-	Renderer->CreateAnimation("Red_Bazzi_Idle_Up", "bazzi_idle.png", AnimationInter, false, 0, 0);
-	Renderer->CreateAnimation("Red_Bazzi_Idle_Down", "bazzi_idle.png", AnimationInter, false, 1, 1);
-	Renderer->CreateAnimation("Red_Bazzi_Idle_Right", "bazzi_idle.png", AnimationInter, false, 2, 2);
-	Renderer->CreateAnimation("Red_Bazzi_Idle_Left", "bazzi_idle.png", AnimationInter, false, 3, 3);
-	Renderer->CreateAnimation("Red_Bazzi_Move_Left", "bazzi_left.png", AnimationInter,true, 0, 3);
-	Renderer->CreateAnimation("Red_Bazzi_Move_Right", "bazzi_right.png", AnimationInter, true, 0, 3);
-	Renderer->CreateAnimation("Red_Bazzi_Move_Up", "bazzi_up.png", AnimationInter, true, 0, 3);
-	Renderer->CreateAnimation("Red_Bazzi_Move_Down", "bazzi_down.png", AnimationInter, true, 0, 3);
-	Renderer->CreateAnimation("Red_Bazzi_Trap", "bazzi_trap_long.png", AnimationInter, false, 6, 31);
+	Renderer->CreateAnimation("Red_Bazzi_Idle_Up", "bazzi_1_red.png", AnimationInter,		false,	12,	12);
+	Renderer->CreateAnimation("Red_Bazzi_Idle_Down", "bazzi_1_red.png", AnimationInter,		false,	20,	20);
+	Renderer->CreateAnimation("Red_Bazzi_Idle_Right", "bazzi_1_red.png", AnimationInter,	false,	6,	6);
+	Renderer->CreateAnimation("Red_Bazzi_Idle_Left", "bazzi_1_red.png", AnimationInter,		false,	0,	0);
+	Renderer->CreateAnimation("Red_Bazzi_Move_Left", "bazzi_1_red.png", AnimationInter,		true,	0,	5);
+	Renderer->CreateAnimation("Red_Bazzi_Move_Right", "bazzi_1_red.png", AnimationInter,	true,	6,	11);
+	Renderer->CreateAnimation("Red_Bazzi_Move_Up", "bazzi_1_red.png", AnimationInter,		true,	12,	19);
+	Renderer->CreateAnimation("Red_Bazzi_Move_Down", "bazzi_1_red.png", AnimationInter,		true,	20,	27);
+	Renderer->CreateAnimation("Red_Bazzi_Trap", "bazzi_trap_long.png", AnimationInter,		false,	6, 31);
 	Renderer->CreateAnimation("Red_Bazzi_Rescue", "bazzi_rescue.png", 0.1f, false, 0, 2);
 	Renderer->CreateAnimation("Red_Bazzi_Die", "bazzi_die.png", 0.1f, false, 0, 5);
 	Renderer->CreateAnimation("Red_Bazzi_GameOn1", "bazzi_1_red.png", AnimationInter * 0.5f, true, 45, 48);
-	Renderer->CreateAnimation("Red_Bazzi_GameOn2", "bazzi_1_red.png", AnimationInter, false, 49, 58);
+	Renderer->CreateAnimation("Red_Bazzi_GameOn2", "bazzi_1_red.png", { 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f }, { 49, 50, 51, 52, 53, 52, 49, 49, 50, 50 }, false);
 	
 	//블루 배찌 애니메이션
-	Renderer->CreateAnimation("Blue_Bazzi_Idle_Up", "Bazzi_1_blue.png", AnimationInter, false, 12, 12);
-	Renderer->CreateAnimation("Blue_Bazzi_Idle_Down", "Bazzi_1_blue.png", AnimationInter, false, 20, 20);
-	Renderer->CreateAnimation("Blue_Bazzi_Idle_Right", "Bazzi_1_blue.png", AnimationInter, false, 6, 6);
-	Renderer->CreateAnimation("Blue_Bazzi_Idle_Left", "Bazzi_1_blue.png", AnimationInter, false, 0, 0);
-	Renderer->CreateAnimation("Blue_Bazzi_Move_Left", "Bazzi_1_blue.png", AnimationInter, true, 0, 5);
-	Renderer->CreateAnimation("Blue_Bazzi_Move_Right", "Bazzi_1_blue.png", AnimationInter, true, 6, 11);
-	Renderer->CreateAnimation("Blue_Bazzi_Move_Up", "Bazzi_1_blue.png", AnimationInter, true, 12, 19);
-	Renderer->CreateAnimation("Blue_Bazzi_Move_Down", "Bazzi_1_blue.png", AnimationInter, true, 20, 27);
-	Renderer->CreateAnimation("Blue_Bazzi_Trap", "Bazzi_4_blue.png", AnimationInter, false, 6, 31);
+	Renderer->CreateAnimation("Blue_Bazzi_Idle_Up", "Bazzi_1_blue.png", AnimationInter,		false,	12,	12);
+	Renderer->CreateAnimation("Blue_Bazzi_Idle_Down", "Bazzi_1_blue.png", AnimationInter,	false,	20,	20);
+	Renderer->CreateAnimation("Blue_Bazzi_Idle_Right", "Bazzi_1_blue.png", AnimationInter,	false,	6,	6);
+	Renderer->CreateAnimation("Blue_Bazzi_Idle_Left", "Bazzi_1_blue.png", AnimationInter,	false,	0,	0);
+	Renderer->CreateAnimation("Blue_Bazzi_Move_Left", "Bazzi_1_blue.png", AnimationInter,	true,	0,	5);
+	Renderer->CreateAnimation("Blue_Bazzi_Move_Right", "Bazzi_1_blue.png", AnimationInter,	true,	6,	11);
+	Renderer->CreateAnimation("Blue_Bazzi_Move_Up", "Bazzi_1_blue.png", AnimationInter,		true,	12,	19);
+	Renderer->CreateAnimation("Blue_Bazzi_Move_Down", "Bazzi_1_blue.png", AnimationInter,	true,	20,	27);
+	Renderer->CreateAnimation("Blue_Bazzi_Trap", "Bazzi_4_blue.png", AnimationInter,		false,	6,	31);
 	Renderer->CreateAnimation("Blue_Bazzi_Rescue", "Bazzi_2_blue.png", 0.1f, false, 6, 9);
 	Renderer->CreateAnimation("Blue_Bazzi_Die", "Bazzi_2_blue.png", 0.1f, false, 0, 5);
 	Renderer->CreateAnimation("Blue_Bazzi_GameOn1", "Bazzi_1_blue.png", AnimationInter * 0.5f, true, 45, 48);
-	Renderer->CreateAnimation("Blue_Bazzi_GameOn2", "Bazzi_1_blue.png", AnimationInter, false, 49, 58);
+	Renderer->CreateAnimation("Blue_Bazzi_GameOn2", "Bazzi_1_blue.png", { 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f}, { 49, 50, 51, 52, 53, 52, 49, 49, 50, 50 }, false);
 	
 	//레드 다오 애니메이션
 	Renderer->CreateAnimation("Red_Dao_Idle_Up", "Dao_4_red.png", AnimationInter, false, 2, 2);
@@ -476,6 +476,12 @@ void APlayer::RideMoveStart()
 
 void APlayer::RideMove(float _DeltaTime)
 {
+	if (true == IsFree(VK_UP) && true == IsFree(VK_DOWN) && true == IsFree(VK_RIGHT) && true == IsFree(VK_LEFT))
+	{
+		State.ChangeState("RideIdle");
+		return;
+	}
+
 	// 물줄기에 맞았을 때
 	if (true == GetGameMode()->GetCurMap()->IsOnWater(GetActorLocation()))
 	{
@@ -483,13 +489,6 @@ void APlayer::RideMove(float _DeltaTime)
 		SetRideType(EPlayerRideType::None);
 		return;
 	}
-
-	if (true == IsFree(VK_UP) && true == IsFree(VK_DOWN) && true == IsFree(VK_RIGHT) && true == IsFree(VK_LEFT))
-	{
-		State.ChangeState("RideIdle");
-		return;
-	}
-
 
 	FVector MovePos = FVector::Zero;
 	FVector NextPos1 = FVector::Zero;	// Center

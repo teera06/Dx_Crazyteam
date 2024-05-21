@@ -7,6 +7,7 @@
 #include "WaterBomb.h"
 #include "Packets.h"
 #include "Game_Core.h"
+#include "Bush.h"
 
 int AWaterCourse::WaterCourseToken = 0;
 bool AWaterCourse::SetToken = false;
@@ -386,7 +387,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject != nullptr)
 				{
 					EMapObjectType type = NextMapObject->GetType();
-					if (type == EMapObjectType::Block || type == EMapObjectType::Bush)
+					if (type == EMapObjectType::Block)
 					{
 						NextMapObject->WaterInteract();
 						UpEnd = true;
@@ -400,6 +401,25 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 						AWaterBomb* NextBomb = dynamic_cast<AWaterBomb*>(NextMapObject.get());
 						NextBomb->SetWaterToBomg(true);
 					}
+					else if (type == EMapObjectType::Bush)
+					{
+						// 부쉬안에 뭐가 있음?
+						std::shared_ptr<ABush> IsOn = std::dynamic_pointer_cast<ABush>(NextMapObject);
+
+						// 부쉬 안에 뭔가 있음.
+						if (nullptr != IsOn->GetPossessBlock())
+						{
+							NextMapObject->WaterInteract();
+
+							// 물줄기가 안나가도록 막아야 한다.
+							UpEnd = true;
+						}
+						else
+						{
+							// 부쉬 지움.
+							NextMapObject->WaterInteract();
+						}
+					}
 				}
 				
 				if (NextMapObject == nullptr && UpEnd == false)
@@ -409,8 +429,13 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				}
 				else if (EMapObjectType::Item == NextMapObject->GetType() && false == UpEnd)
 				{
+					// 아이템이 있던 곳에 아이템이 지워졌으니 물줄기 생성.
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y - DefaultPowerValue, GetCurPos().x, false, EEngineDir::Up));
 					//WaterSend(WaterCourse);
+				}
+				else if (EMapObjectType::Bush == NextMapObject->GetType() && false == UpEnd)
+				{
+					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y - DefaultPowerValue, GetCurPos().x, false, EEngineDir::Up));
 				}
 			}
 
@@ -434,6 +459,10 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 						AWaterBomb* NextBomb = dynamic_cast<AWaterBomb*>(NextMapObject.get());
 						NextBomb->SetWaterToBomg(true);
 					}
+					else if (type == EMapObjectType::Bush)
+					{
+						NextMapObject->WaterInteract();
+					}
 				}
 
 				if (NextMapObject == nullptr && DownEnd == false)
@@ -445,6 +474,10 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y + DefaultPowerValue, GetCurPos().x, false, EEngineDir::Down));
 					//WaterSend(WaterCourse);
+				}
+				else if (EMapObjectType::Bush == NextMapObject->GetType() && false == DownEnd)
+				{
+					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y + DefaultPowerValue, GetCurPos().x, false, EEngineDir::Down));
 				}
 			}
 
@@ -468,6 +501,10 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 						AWaterBomb* NextBomb = dynamic_cast<AWaterBomb*>(NextMapObject.get());
 						NextBomb->SetWaterToBomg(true);
 					}
+					else if (type == EMapObjectType::Bush)
+					{
+						NextMapObject->WaterInteract();
+					}
 				}
 
 				if (NextMapObject == nullptr && LeftEnd == false)
@@ -476,6 +513,11 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					//WaterSend(WaterCourse);
 				}
 				else if (EMapObjectType::Item == NextMapObject->GetType() && false == LeftEnd)
+				{
+					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x - DefaultPowerValue, false, EEngineDir::Left));
+					//WaterSend(WaterCourse);
+				}
+				else if (EMapObjectType::Bush == NextMapObject->GetType() && false == LeftEnd)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x - DefaultPowerValue, false, EEngineDir::Left));
 					//WaterSend(WaterCourse);
@@ -503,6 +545,10 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 						AWaterBomb* NextBomb = dynamic_cast<AWaterBomb*>(NextMapObject.get());
 						NextBomb->SetWaterToBomg(true);
 					}
+					else if (type == EMapObjectType::Bush)
+					{
+						NextMapObject->WaterInteract();
+					}
 				}
 
 				if (NextMapObject == nullptr && RightEnd == false)
@@ -511,6 +557,11 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					//WaterSend(WaterCourse);
 				}
 				else if (EMapObjectType::Item == NextMapObject->GetType() && false == RightEnd)
+				{
+					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x + DefaultPowerValue, false, EEngineDir::Right));
+					//WaterSend(WaterCourse);
+				}
+				else if (EMapObjectType::Bush == NextMapObject->GetType() && false == RightEnd)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x + DefaultPowerValue, false, EEngineDir::Right));
 					//WaterSend(WaterCourse);
@@ -533,10 +584,6 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					{
 						NextMapObject->WaterInteract();
 					}
-					else if (type == EMapObjectType::Bush)
-					{
-						NextMapObject->WaterInteract();
-					}
 					else if (type == EMapObjectType::Item)
 					{
 						NextMapObject->WaterInteract();
@@ -546,7 +593,10 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 						AWaterBomb* NextBomb = dynamic_cast<AWaterBomb*>(NextMapObject.get());
 						NextBomb->SetWaterToBomg(true);
 					}
-
+					else if (type == EMapObjectType::Bush)
+					{
+						NextMapObject->WaterInteract();
+					}
 				}
 
 				if (NextMapObject == nullptr && UpEnd == false)
