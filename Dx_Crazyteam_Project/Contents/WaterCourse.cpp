@@ -21,26 +21,7 @@ AWaterCourse::~AWaterCourse()
 {
 }
 
-void AWaterCourse::WaterSend(std::shared_ptr<AWaterCourse> _SET)
-{
-	int Token = WaterCourseToken++;
-	SetObjectToken(Token);
 
-	if (false == IsNetInit())
-	{
-		// 네트워크 통신준비가 아직 안된 오브젝트다.
-		if (nullptr != UGame_Core::Net)
-		{
-			InitNet(UGame_Core::Net);
-		}
-	}
-	std::shared_ptr<UWaterCourseUpdatePacket> Packet = std::make_shared<UWaterCourseUpdatePacket>();
-	Packet->Pos = _SET->GetActorLocation();
-	Packet->ObjectType = static_cast<int>(EObjectType::WaterCourse);
-	Packet->Dir = static_cast<int>(_SET->Getdir());
-	Packet->SetCourse = true;	
-	Send(Packet);
-}
 
 void AWaterCourse::BeginPlay()
 {

@@ -152,10 +152,12 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("dao_up.png", 4, 1);
 		UEngineSprite::CreateCutting("dao_idle.png", 4, 1);
 		UEngineSprite::CreateCutting("dao_trap.png", 4, 1);
-		UEngineSprite::CreateCutting("dao_trap_long.png", 5, 7);
+		UEngineSprite::CreateCutting("dao_trap_long.png", 5, 6);
 		UEngineSprite::CreateCutting("dao_rescue.png", 3, 1);
 		UEngineSprite::CreateCutting("dao_die.png", 5, 2);
 		UEngineSprite::CreateCutting("dao_1_blue.png", 5, 12);
+		UEngineSprite::CreateCutting("dao_3_blue.png", 5, 4);
+		UEngineSprite::CreateCutting("dao_4_blue.png", 5, 4);
 
 		// Red Marid
 		UEngineSprite::CreateCutting("luxMarid_1.png", 5, 12);
@@ -182,6 +184,7 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("Niddle.png", 6, 1);
 		UEngineSprite::CreateCutting("Owl.png", 6, 1);
 		UEngineSprite::CreateCutting("Shoes.png", 6, 1);
+		UEngineSprite::CreateCutting("Turtle.png", 6, 1);
 
 		// Item Shadow
 		UEngineSprite::CreateCutting("ItemShadow.png", 2, 1);
