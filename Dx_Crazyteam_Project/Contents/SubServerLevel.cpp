@@ -143,43 +143,43 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 			});
 	});
 
-	Dis.AddHandler<UWaterBombUpdatePacket>([=](std::shared_ptr<UWaterBombUpdatePacket> _Packet)
-	{
-		// 다른 사람들한테 이 오브젝트에 대해서 알리고
-		UGame_Core::Net->Send(_Packet);
+	//Dis.AddHandler<UWaterBombUpdatePacket>([=](std::shared_ptr<UWaterBombUpdatePacket> _Packet)
+	//{
+	//	// 다른 사람들한테 이 오브젝트에 대해서 알리고
+	//	UGame_Core::Net->Send(_Packet);
 
-		GetWorld()->PushFunction([=]()
-			{
-				AOtherBomb* Bomb = UNetObject::GetNetObject<AOtherBomb>(_Packet->GetObjectToken());
-				if (nullptr == Bomb)
-				{
-					Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
-					Bomb->SetObjectToken(_Packet->GetObjectToken());
-					Bomb->SetCurGameMode(this);
-					Bomb->CreateWaterBomb();
-				}
-				Bomb->PushProtocol(_Packet);
-			});
-	});
+	//	GetWorld()->PushFunction([=]()
+	//		{
+	//			AOtherBomb* Bomb = UNetObject::GetNetObject<AOtherBomb>(_Packet->GetObjectToken());
+	//			if (nullptr == Bomb)
+	//			{
+	//				Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
+	//				Bomb->SetObjectToken(_Packet->GetObjectToken());
+	//				Bomb->SetCurGameMode(this);
+	//				Bomb->CreateWaterBomb();
+	//			}
+	//			Bomb->PushProtocol(_Packet);
+	//		});
+	//});
 
-	Dis.AddHandler<UWaterCourseUpdatePacket>([=](std::shared_ptr<UWaterCourseUpdatePacket> _Packet)
-		{
-			// 다른 사람들한테 이 오브젝트에 대해서 알리고
-			UGame_Core::Net->Send(_Packet);
+	//Dis.AddHandler<UWaterCourseUpdatePacket>([=](std::shared_ptr<UWaterCourseUpdatePacket> _Packet)
+	//	{
+	//		// 다른 사람들한테 이 오브젝트에 대해서 알리고
+	//		UGame_Core::Net->Send(_Packet);
 
-			GetWorld()->PushFunction([=]()
-				{
-					AOtherWaterCourse* Bomb = UNetObject::GetNetObject<AOtherWaterCourse>(_Packet->GetObjectToken());
-					if (nullptr == Bomb)
-					{
-						Bomb = this->GetWorld()->SpawnActor<AOtherWaterCourse>("WATER", 0).get();
-						Bomb->SetObjectToken(_Packet->GetObjectToken());
-						Bomb->SetCurGameMode(this);
-						Bomb->CreateWaterCenter();					
-					}
-					Bomb->PushProtocol(_Packet);
-				});
-		});	
+	//		GetWorld()->PushFunction([=]()
+	//			{
+	//				AOtherWaterCourse* Bomb = UNetObject::GetNetObject<AOtherWaterCourse>(_Packet->GetObjectToken());
+	//				if (nullptr == Bomb)
+	//				{
+	//					Bomb = this->GetWorld()->SpawnActor<AOtherWaterCourse>("WATER", 0).get();
+	//					Bomb->SetObjectToken(_Packet->GetObjectToken());
+	//					Bomb->SetCurGameMode(this);
+	//					Bomb->CreateWaterCenter();					
+	//				}
+	//				Bomb->PushProtocol(_Packet);
+	//			});
+	//	});	
 
 	Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
 		{
@@ -216,44 +216,44 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 		});
 	});
 
-	Dis.AddHandler<UWaterBombUpdatePacket>([=](std::shared_ptr<UWaterBombUpdatePacket> _Packet)
-	{
-		// 다른 사람들한테 이 오브젝트에 대해서 알리고
-		GetWorld()->PushFunction([=]()
-		{
-			int Test = _Packet->GetObjectToken();
+	//Dis.AddHandler<UWaterBombUpdatePacket>([=](std::shared_ptr<UWaterBombUpdatePacket> _Packet)
+	//{
+	//	// 다른 사람들한테 이 오브젝트에 대해서 알리고
+	//	GetWorld()->PushFunction([=]()
+	//	{
+	//		int Test = _Packet->GetObjectToken();
 
-			AOtherBomb* Bomb = UNetObject::GetNetObject<AOtherBomb>(_Packet->GetObjectToken());
-			if (nullptr == Bomb)
-			{
-				Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
-				Bomb->SetObjectToken(_Packet->GetObjectToken());
-				Bomb->SetCurGameMode(this);
-				Bomb->CreateWaterBomb();
-			}
-			Bomb->PushProtocol(_Packet);
+	//		AOtherBomb* Bomb = UNetObject::GetNetObject<AOtherBomb>(_Packet->GetObjectToken());
+	//		if (nullptr == Bomb)
+	//		{
+	//			Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
+	//			Bomb->SetObjectToken(_Packet->GetObjectToken());
+	//			Bomb->SetCurGameMode(this);
+	//			Bomb->CreateWaterBomb();
+	//		}
+	//		Bomb->PushProtocol(_Packet);
 
-		});
-	});
+	//	});
+	//});
 
-	Dis.AddHandler<UWaterCourseUpdatePacket>([=](std::shared_ptr<UWaterCourseUpdatePacket> _Packet)
-		{
-			// 다른 사람들한테 이 오브젝트에 대해서 알리고
-			GetWorld()->PushFunction([=]()
-				{
-					int Test = _Packet->GetObjectToken();
+	//Dis.AddHandler<UWaterCourseUpdatePacket>([=](std::shared_ptr<UWaterCourseUpdatePacket> _Packet)
+	//	{
+	//		// 다른 사람들한테 이 오브젝트에 대해서 알리고
+	//		GetWorld()->PushFunction([=]()
+	//			{
+	//				int Test = _Packet->GetObjectToken();
 
-					AOtherWaterCourse* Bomb = UNetObject::GetNetObject<AOtherWaterCourse>(_Packet->GetObjectToken());
-					if (nullptr == Bomb)
-					{
-						Bomb = this->GetWorld()->SpawnActor<AOtherWaterCourse>("WATER", 0).get();
-						Bomb->SetObjectToken(_Packet->GetObjectToken());
-						Bomb->SetCurGameMode(this);
-						Bomb->CreateWaterCenter();
-					}
-					Bomb->PushProtocol(_Packet);
-				});
-		});
+	//				AOtherWaterCourse* Bomb = UNetObject::GetNetObject<AOtherWaterCourse>(_Packet->GetObjectToken());
+	//				if (nullptr == Bomb)
+	//				{
+	//					Bomb = this->GetWorld()->SpawnActor<AOtherWaterCourse>("WATER", 0).get();
+	//					Bomb->SetObjectToken(_Packet->GetObjectToken());
+	//					Bomb->SetCurGameMode(this);
+	//					Bomb->CreateWaterCenter();
+	//				}
+	//				Bomb->PushProtocol(_Packet);
+	//			});
+	//	});
 
 
 	Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
