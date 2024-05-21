@@ -233,10 +233,10 @@ void ABlock::PushTick(float _DeltaTime)
 
 	AddActorLocation(MoveVector * MoveSpeed * _DeltaTime);
 
-	//// 블럭 이동 동기화
-	//{
-	//	USendPacketManager::SendMapObjectMovePacket(this , GetActorLocation());
-	//}
+	// 블럭 이동 동기화
+	{
+		USendPacketManager::SendMapObjectMovePacket(this , GetActorLocation());
+	}
 
 	PushAccTime += _DeltaTime;
 	if (PushAccTime > MoveCompleteTime)
@@ -284,10 +284,10 @@ void ABlock::EndTick(float _DeltaTime)
 
 	if (IsPush)
 	{
-		//// 블럭 이동 종료시 맵에서 좌표 동기화
-		//{
-		//	USendPacketManager::SendMapObjectMoveEndPacket(shared_from_this(), ny, nx, GetCurPos().y, GetCurPos().x);
-		//}
+		// 블럭 이동 종료시 맵에서 좌표 동기화
+		{
+			USendPacketManager::SendMapObjectMoveEndPacket(shared_from_this(), ny, nx, GetCurPos().y, GetCurPos().x);
+		}
 
 		GetGameMode()->GetCurMap()->MoveMapObject(shared_from_this(), ny, nx, GetCurPos().y, GetCurPos().x);
 
