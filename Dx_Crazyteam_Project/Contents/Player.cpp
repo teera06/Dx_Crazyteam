@@ -272,7 +272,7 @@ void APlayer::SetRideType(EPlayerRideType _Ride)
 	}
 
 	// 처음 몇초간 무적
-	RideGodModeTime = 3.f;
+	RideGodModeTime = 2.f;
 	State.ChangeState("RideIdle");
 }
 

@@ -127,6 +127,8 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("bazzi_rescue.png", 3, 1);
 		UEngineSprite::CreateCutting("bazzi_die.png", 5, 2);
 		UEngineSprite::CreateCutting("bazzi_1_red.png", 5, 18);
+		UEngineSprite::CreateCutting("bazzi_3_red.png", 5, 4);
+		UEngineSprite::CreateCutting("Bazzi_3_blue.png", 5, 4);
 
 		// Blue Bazzi
 		UEngineSprite::CreateCutting("Bazzi_1_blue.png", 5, 18);
