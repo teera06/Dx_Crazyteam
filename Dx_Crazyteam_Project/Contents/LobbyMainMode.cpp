@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "LobbyMainMode.h"
+#include "PlayLobby.h"
 
 ALobbyMainMode::ALobbyMainMode()
 {
@@ -13,6 +14,7 @@ void ALobbyMainMode::BeginPlay()
 {
 	Super::BeginPlay();
 
+	PlayLobby = GetWorld()->SpawnActor<APlayLobby>("Lobby");
 }
 
 

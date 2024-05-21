@@ -12,7 +12,7 @@ void APlayer::StateInit()
 	InputOn();
 
 	// CreateAnimation
-	//레드 배찌 애니메이션
+	// 레드 배찌 애니메이션
 	Renderer->CreateAnimation("Red_Bazzi_Idle_Up", "bazzi_1_red.png", AnimationInter,		false,	12,	12);
 	Renderer->CreateAnimation("Red_Bazzi_Idle_Down", "bazzi_1_red.png", AnimationInter,		false,	20,	20);
 	Renderer->CreateAnimation("Red_Bazzi_Idle_Right", "bazzi_1_red.png", AnimationInter,	false,	6,	6);
@@ -27,7 +27,7 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Red_Bazzi_GameOn1", "bazzi_1_red.png", AnimationInter * 0.5f, true, 45, 48);
 	Renderer->CreateAnimation("Red_Bazzi_GameOn2", "bazzi_1_red.png", { 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f }, { 49, 50, 51, 52, 53, 52, 49, 49, 50, 50 }, false);
 	
-	//블루 배찌 애니메이션
+	// 블루 배찌 애니메이션
 	Renderer->CreateAnimation("Blue_Bazzi_Idle_Up", "Bazzi_1_blue.png", AnimationInter,		false,	12,	12);
 	Renderer->CreateAnimation("Blue_Bazzi_Idle_Down", "Bazzi_1_blue.png", AnimationInter,	false,	20,	20);
 	Renderer->CreateAnimation("Blue_Bazzi_Idle_Right", "Bazzi_1_blue.png", AnimationInter,	false,	6,	6);
@@ -41,8 +41,44 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Blue_Bazzi_Die", "Bazzi_2_blue.png", 0.1f, false, 0, 5);
 	Renderer->CreateAnimation("Blue_Bazzi_GameOn1", "Bazzi_1_blue.png", AnimationInter * 0.5f, true, 45, 48);
 	Renderer->CreateAnimation("Blue_Bazzi_GameOn2", "Bazzi_1_blue.png", { 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f}, { 49, 50, 51, 52, 53, 52, 49, 49, 50, 50 }, false);
+
+	// 배찌 Ride 애니메이션
+	Renderer->CreateAnimation("Red_Bazzi_Owl_Idle_Up",			"bazzi_3_red.png", AnimationInter, false, 4, 4);
+	Renderer->CreateAnimation("Red_Bazzi_Owl_Idle_Down",		"bazzi_3_red.png", AnimationInter, false, 6, 6);
+	Renderer->CreateAnimation("Red_Bazzi_Owl_Idle_Right",		"bazzi_3_red.png", AnimationInter, false, 2, 2);
+	Renderer->CreateAnimation("Red_Bazzi_Owl_Idle_Left",		"bazzi_3_red.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Red_Bazzi_Owl_Move_Left",		"bazzi_3_red.png", AnimationInter, true, 0, 1);
+	Renderer->CreateAnimation("Red_Bazzi_Owl_Move_Right",		"bazzi_3_red.png", AnimationInter, true, 2, 3);
+	Renderer->CreateAnimation("Red_Bazzi_Owl_Move_Up",			"bazzi_3_red.png", AnimationInter, true, 4, 5);
+	Renderer->CreateAnimation("Red_Bazzi_Owl_Move_Down",		"bazzi_3_red.png", AnimationInter, true, 6, 7);
+	Renderer->CreateAnimation("Red_Bazzi_Turtle_Idle_Up",		"bazzi_3_red.png", AnimationInter, false, 14, 14);
+	Renderer->CreateAnimation("Red_Bazzi_Turtle_Idle_Down",		"bazzi_3_red.png", AnimationInter, false, 12, 12);
+	Renderer->CreateAnimation("Red_Bazzi_Turtle_Idle_Right",	"bazzi_3_red.png", AnimationInter, false, 10, 10);
+	Renderer->CreateAnimation("Red_Bazzi_Turtle_Idle_Left",		"bazzi_3_red.png", AnimationInter, false, 8, 8);
+	Renderer->CreateAnimation("Red_Bazzi_Turtle_Move_Left",		"bazzi_3_red.png", AnimationInter, true, 8, 9);
+	Renderer->CreateAnimation("Red_Bazzi_Turtle_Move_Right",	"bazzi_3_red.png", AnimationInter, true, 10, 11);
+	Renderer->CreateAnimation("Red_Bazzi_Turtle_Move_Up",		"bazzi_3_red.png", AnimationInter, true, 14, 15);
+	Renderer->CreateAnimation("Red_Bazzi_Turtle_Move_Down",		"bazzi_3_red.png", AnimationInter, true, 12, 13);
+
+	Renderer->CreateAnimation("Blue_Bazzi_Owl_Idle_Up", "Bazzi_3_blue.png", AnimationInter, false, 4, 4);
+	Renderer->CreateAnimation("Blue_Bazzi_Owl_Idle_Down", "Bazzi_3_blue.png", AnimationInter, false, 6, 6);
+	Renderer->CreateAnimation("Blue_Bazzi_Owl_Idle_Right", "Bazzi_3_blue.png", AnimationInter, false, 2, 2);
+	Renderer->CreateAnimation("Blue_Bazzi_Owl_Idle_Left", "Bazzi_3_blue.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Blue_Bazzi_Owl_Move_Left", "Bazzi_3_blue.png", AnimationInter, true, 0, 1);
+	Renderer->CreateAnimation("Blue_Bazzi_Owl_Move_Right", "Bazzi_3_blue.png", AnimationInter, true, 2, 3);
+	Renderer->CreateAnimation("Blue_Bazzi_Owl_Move_Up", "Bazzi_3_blue.png", AnimationInter, true, 4, 5);
+	Renderer->CreateAnimation("Blue_Bazzi_Owl_Move_Down", "Bazzi_3_blue.png", AnimationInter, true, 6, 7);
+	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Idle_Up", "Bazzi_3_blue.png", AnimationInter, false, 14, 14);
+	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Idle_Down", "Bazzi_3_blue.png", AnimationInter, false, 12, 12);
+	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Idle_Right", "Bazzi_3_blue.png", AnimationInter, false, 10, 10);
+	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Idle_Left", "Bazzi_3_blue.png", AnimationInter, false, 8, 8);
+	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Move_Left", "Bazzi_3_blue.png", AnimationInter, true, 8, 9);
+	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Move_Right", "Bazzi_3_blue.png", AnimationInter, true, 10, 11);
+	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Move_Up", "Bazzi_3_blue.png", AnimationInter, true, 14, 15);
+	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Move_Down", "Bazzi_3_blue.png", AnimationInter, true, 12, 13);
+
 	
-	//레드 다오 애니메이션
+	// 레드 다오 애니메이션
 	Renderer->CreateAnimation("Red_Dao_Idle_Up", "Dao_4_red.png", AnimationInter, false, 2, 2);
 	Renderer->CreateAnimation("Red_Dao_Idle_Down", "Dao_4_red.png", AnimationInter, false, 0, 0);
 	Renderer->CreateAnimation("Red_Dao_Idle_Right", "Dao_4_red.png", AnimationInter, false, 1, 1);
@@ -57,7 +93,7 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Red_Dao_GameOn1", "Dao_1_red.png", AnimationInter * 0.5f, true, 24, 27);
 	Renderer->CreateAnimation("Red_Dao_GameOn2", "Dao_1_red.png", AnimationInter, false, 28, 37);
 
-	//블루 다오 애니메이션
+	// 블루 다오 애니메이션
 	Renderer->CreateAnimation("Blue_Dao_Idle_Up", "dao_idle.png", AnimationInter, false, 0, 0);
 	Renderer->CreateAnimation("Blue_Dao_Idle_Down", "dao_idle.png", AnimationInter, false, 1, 1);
 	Renderer->CreateAnimation("Blue_Dao_Idle_Right", "dao_idle.png", AnimationInter, false, 2, 2);
@@ -72,7 +108,42 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Blue_Dao_GameOn1", "dao_1_blue.png", AnimationInter * 0.5f, true, 24, 27);
 	Renderer->CreateAnimation("Blue_Dao_GameOn2", "dao_1_blue.png", AnimationInter, false, 28, 37);
 
-	//레드 마리드 애니메이션
+	// 다오 Ride 애니메이션
+	Renderer->CreateAnimation("Red_Dao_Owl_Idle_Up", "Dao_3_red.png", AnimationInter, false, 4, 4);
+	Renderer->CreateAnimation("Red_Dao_Owl_Idle_Down", "Dao_3_red.png", AnimationInter, false, 6, 6);
+	Renderer->CreateAnimation("Red_Dao_Owl_Idle_Right", "Dao_3_red.png", AnimationInter, false, 2, 2);
+	Renderer->CreateAnimation("Red_Dao_Owl_Idle_Left", "Dao_3_red.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Red_Dao_Owl_Move_Left", "Dao_3_red.png", AnimationInter, true, 0, 1);
+	Renderer->CreateAnimation("Red_Dao_Owl_Move_Right", "Dao_3_red.png", AnimationInter, true, 2, 3);
+	Renderer->CreateAnimation("Red_Dao_Owl_Move_Up", "Dao_3_red.png", AnimationInter, true, 4, 5);
+	Renderer->CreateAnimation("Red_Dao_Owl_Move_Down", "Dao_3_red.png", AnimationInter, true, 6, 7);
+	Renderer->CreateAnimation("Red_Dao_Turtle_Idle_Up", "Dao_3_red.png", AnimationInter, false, 14, 14);
+	Renderer->CreateAnimation("Red_Dao_Turtle_Idle_Down", "Dao_3_red.png", AnimationInter, false, 12, 12);
+	Renderer->CreateAnimation("Red_Dao_Turtle_Idle_Right", "Dao_3_red.png", AnimationInter, false, 10, 10);
+	Renderer->CreateAnimation("Red_Dao_Turtle_Idle_Left", "Dao_3_red.png", AnimationInter, false, 8, 8);
+	Renderer->CreateAnimation("Red_Dao_Turtle_Move_Left", "Dao_3_red.png", AnimationInter, true, 8, 9);
+	Renderer->CreateAnimation("Red_Dao_Turtle_Move_Right", "Dao_3_red.png", AnimationInter, true, 10, 11);
+	Renderer->CreateAnimation("Red_Dao_Turtle_Move_Up", "Dao_3_red.png", AnimationInter, true, 14, 15);
+	Renderer->CreateAnimation("Red_Dao_Turtle_Move_Down", "Dao_3_red.png", AnimationInter, true, 12, 13);
+	
+	Renderer->CreateAnimation("Blue_Dao_Owl_Idle_Up",		"Bazzi_3_blue.png", AnimationInter, false, 4, 4);
+	Renderer->CreateAnimation("Blue_Dao_Owl_Idle_Down",		"Bazzi_3_blue.png", AnimationInter, false, 6, 6);
+	Renderer->CreateAnimation("Blue_Dao_Owl_Idle_Right",	"Bazzi_3_blue.png", AnimationInter, false, 2, 2);
+	Renderer->CreateAnimation("Blue_Dao_Owl_Idle_Left",		"Bazzi_3_blue.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Blue_Dao_Owl_Move_Left",		"Bazzi_3_blue.png", AnimationInter, true, 0, 1);
+	Renderer->CreateAnimation("Blue_Dao_Owl_Move_Right",	"Bazzi_3_blue.png", AnimationInter, true, 2, 3);
+	Renderer->CreateAnimation("Blue_Dao_Owl_Move_Up",		"Bazzi_3_blue.png", AnimationInter, true, 4, 5);
+	Renderer->CreateAnimation("Blue_Dao_Owl_Move_Down",		"Bazzi_3_blue.png", AnimationInter, true, 6, 7);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Idle_Up",	"Bazzi_3_blue.png", AnimationInter, false, 14, 14);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Idle_Down",	"Bazzi_3_blue.png", AnimationInter, false, 12, 12);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Idle_Right", "Bazzi_3_blue.png", AnimationInter, false, 10, 10);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Idle_Left",	"Bazzi_3_blue.png", AnimationInter, false, 8, 8);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Move_Left",	"Bazzi_3_blue.png", AnimationInter, true, 8, 9);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Move_Right", "Bazzi_3_blue.png", AnimationInter, true, 10, 11);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Move_Up",	"Bazzi_3_blue.png", AnimationInter, true, 14, 15);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Move_Down",	"Bazzi_3_blue.png", AnimationInter, true, 12, 13);
+
+	// 레드 마리드 애니메이션
 	Renderer->CreateAnimation("Red_Marid_Idle_Up", "luxMarid_1.png", AnimationInter, false, 12, 12);
 	Renderer->CreateAnimation("Red_Marid_Idle_Down", "luxMarid_1.png", AnimationInter, false, 18, 18);
 	Renderer->CreateAnimation("Red_Marid_Idle_Right", "luxMarid_1.png", AnimationInter, false, 0, 0);
@@ -87,7 +158,7 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Red_Marid_GameOn1", "luxMarid_1.png", AnimationInter * 0.5f, true, 24, 27);
 	Renderer->CreateAnimation("Red_Marid_GameOn2", "luxMarid_1.png", AnimationInter, false, 28, 37);
 
-	//블루 마리드 애니메이션
+	// 블루 마리드 애니메이션
 	Renderer->CreateAnimation("Blue_Marid_Idle_Up", "luxMarid_4_blue.png", AnimationInter, false, 2, 2);
 	Renderer->CreateAnimation("Blue_Marid_Idle_Down", "luxMarid_4_blue.png", AnimationInter, false, 0, 0);
 	Renderer->CreateAnimation("Blue_Marid_Idle_Right", "luxMarid_4_blue.png", AnimationInter, false, 1, 1);
@@ -101,6 +172,41 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Blue_Marid_Die", "luxMarid_2_blue.png", 0.1f, false, 0, 5);
 	Renderer->CreateAnimation("Blue_Marid_GameOn1", "luxMarid_1_blue.png", AnimationInter * 0.5f, true, 24, 27);
 	Renderer->CreateAnimation("Blue_Marid_GameOn2", "luxMarid_1_blue.png", AnimationInter, false, 28, 37);
+
+	//Ride 애니메이션
+	Renderer->CreateAnimation("Red_Marid_Owl_Idle_Up", "luxMarid_3.png", AnimationInter, false, 4, 4);
+	Renderer->CreateAnimation("Red_Marid_Owl_Idle_Down", "luxMarid_3.png", AnimationInter, false, 6, 6);
+	Renderer->CreateAnimation("Red_Marid_Owl_Idle_Right", "luxMarid_3.png", AnimationInter, false, 2, 2);
+	Renderer->CreateAnimation("Red_Marid_Owl_Idle_Left", "luxMarid_3.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Red_Marid_Owl_Move_Left", "luxMarid_3.png", AnimationInter, true, 0, 1);
+	Renderer->CreateAnimation("Red_Marid_Owl_Move_Right", "luxMarid_3.png", AnimationInter, true, 2, 3);
+	Renderer->CreateAnimation("Red_Marid_Owl_Move_Up", "luxMarid_3.png", AnimationInter, true, 4, 5);
+	Renderer->CreateAnimation("Red_Marid_Owl_Move_Down", "luxMarid_3.png", AnimationInter, true, 6, 7);
+	Renderer->CreateAnimation("Red_Marid_Turtle_Idle_Up", "luxMarid_3.png", AnimationInter, false, 14, 14);
+	Renderer->CreateAnimation("Red_Marid_Turtle_Idle_Down", "luxMarid_3.png", AnimationInter, false, 12, 12);
+	Renderer->CreateAnimation("Red_Marid_Turtle_Idle_Right", "luxMarid_3.png", AnimationInter, false, 10, 10);
+	Renderer->CreateAnimation("Red_Marid_Turtle_Idle_Left", "luxMarid_3.png", AnimationInter, false, 8, 8);
+	Renderer->CreateAnimation("Red_Marid_Turtle_Move_Left", "luxMarid_3.png", AnimationInter, true, 8, 9);
+	Renderer->CreateAnimation("Red_Marid_Turtle_Move_Right", "luxMarid_3.png", AnimationInter, true, 10, 11);
+	Renderer->CreateAnimation("Red_Marid_Turtle_Move_Up", "luxMarid_3.png", AnimationInter, true, 14, 15);
+	Renderer->CreateAnimation("Red_Marid_Turtle_Move_Down", "luxMarid_3.png", AnimationInter, true, 12, 13);
+
+	Renderer->CreateAnimation("Blue_Marid_Owl_Idle_Up", "luxMarid_3_blue.png", AnimationInter, false, 4, 4);
+	Renderer->CreateAnimation("Blue_Marid_Owl_Idle_Down", "luxMarid_3_blue.png", AnimationInter, false, 6, 6);
+	Renderer->CreateAnimation("Blue_Marid_Owl_Idle_Right", "luxMarid_3_blue.png", AnimationInter, false, 2, 2);
+	Renderer->CreateAnimation("Blue_Marid_Owl_Idle_Left", "luxMarid_3_blue.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Blue_Marid_Owl_Move_Left", "luxMarid_3_blue.png", AnimationInter, true, 0, 1);
+	Renderer->CreateAnimation("Blue_Marid_Owl_Move_Right", "luxMarid_3_blue.png", AnimationInter, true, 2, 3);
+	Renderer->CreateAnimation("Blue_Marid_Owl_Move_Up", "luxMarid_3_blue.png", AnimationInter, true, 4, 5);
+	Renderer->CreateAnimation("Blue_Marid_Owl_Move_Down", "luxMarid_3_blue.png", AnimationInter, true, 6, 7);
+	Renderer->CreateAnimation("Blue_Marid_Turtle_Idle_Up", "luxMarid_3_blue.png", AnimationInter, false, 14, 14);
+	Renderer->CreateAnimation("Blue_Marid_Turtle_Idle_Down", "luxMarid_3_blue.png", AnimationInter, false, 12, 12);
+	Renderer->CreateAnimation("Blue_Marid_Turtle_Idle_Right", "luxMarid_3_blue.png", AnimationInter, false, 10, 10);
+	Renderer->CreateAnimation("Blue_Marid_Turtle_Idle_Left", "luxMarid_3_blue.png", AnimationInter, false, 8, 8);
+	Renderer->CreateAnimation("Blue_Marid_Turtle_Move_Left", "luxMarid_3_blue.png", AnimationInter, true, 8, 9);
+	Renderer->CreateAnimation("Blue_Marid_Turtle_Move_Right", "luxMarid_3_blue.png", AnimationInter, true, 10, 11);
+	Renderer->CreateAnimation("Blue_Marid_Turtle_Move_Up", "luxMarid_3_blue.png", AnimationInter, true, 14, 15);
+	Renderer->CreateAnimation("Blue_Marid_Turtle_Move_Down", "luxMarid_3_blue.png", AnimationInter, true, 12, 13);
 
 
 	// CreateState
@@ -426,15 +532,25 @@ void APlayer::RideIdleStart()
 {
 	// 임시로 Idle 사용 (RideIdle 만들면 바꿔야 함)
   	Renderer->ChangeAnimation(GetAnimationName("Idle"));	
+	RideTwinkleTime = 0.1f;
 }
 
 void APlayer::RideIdle(float _DeltaTime)
 {
 	RideGodModeTime -= _DeltaTime;
+	RideTwinkleTime -= _DeltaTime;
 	if (RideGodModeTime > 0.f)
 	{
+		if(RideTwinkleTime < 0.f)
+		{
+			Renderer->SetAlpha(static_cast<float>(RideAniTwinkleActive));
+			RideAniTwinkleActive = static_cast<int>(!static_cast<bool>(RideAniTwinkleActive));
+			RideTwinkleTime = 0.1f;
+		}
 		return;
 	}
+
+	Renderer->SetAlpha(1.f);
 
 	if (true == IsPress(VK_UP) || true == IsPress(VK_DOWN) || true == IsPress(VK_RIGHT) || true == IsPress(VK_LEFT))
 	{
@@ -543,14 +659,28 @@ void APlayer::RideMove(float _DeltaTime)
 void APlayer::RideOffStart()
 {
 	// 처음 몇초간 무적
-	RideGodModeTime = 3.f;
+	RideGodModeTime = 2.f;
+	RideTwinkleTime = 0.1f;
 }
 
 void APlayer::RideOff(float _DeltaTime)
 {
 	RideGodModeTime -= _DeltaTime;
+	RideTwinkleTime -= _DeltaTime;
+	if (RideGodModeTime > 0.f)
+	{
+		if (RideTwinkleTime < 0.f)
+		{
+			Renderer->SetAlpha(static_cast<float>(RideAniTwinkleActive));
+			RideAniTwinkleActive = static_cast<int>(!static_cast<bool>(RideAniTwinkleActive));
+			RideTwinkleTime = 0.1f;
+		}
+		return;
+	}
+
 	if (RideGodModeTime < 0.f)
 	{
 		State.ChangeState("Idle");
+		return;
 	}
 }
