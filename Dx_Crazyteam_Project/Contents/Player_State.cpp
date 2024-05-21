@@ -6,6 +6,7 @@
 #include "WaterBomb.h"
 #include "Packets.h"
 #include "SendPacketManager.h"
+#include <EngineCore/EngineDebugMsgWindow.h>
 
 void APlayer::StateInit()
 {
@@ -705,4 +706,12 @@ void APlayer::RideOff(float _DeltaTime)
 		State.ChangeState("Idle");
 		return;
 	}
+}
+
+void APlayer::DebugFunction(float _DeltaTime)
+{
+	std::string WaterBombCount = std::format("Water Count : {}\n", ConstValue::BazziDefaultWBCount);
+
+
+	UEngineDebugMsgWindow::PushMsg(WaterBombCount);
 }
