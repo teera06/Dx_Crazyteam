@@ -7,8 +7,7 @@
 
 char UTextimeInput::Text[255]="";
 char UTextimeInput::Cstr[10]="";
-bool UTextimeInput::OnOff = true;
-bool UTextimeInput::bHangeul=false;
+bool UTextimeInput::OnOff = false;
 HWND UTextimeInput::hwnd;
 HIMC UTextimeInput::himc;
 
@@ -27,9 +26,7 @@ std::string UTextimeInput::GetReadText()
 
 	strcpy(Text1 + strlen(Text1), "_");
 
-	std::string ch=Text1;
-
-	return ch;
+	return Text1;
 }
 
 void UTextimeInput::On()
@@ -40,6 +37,8 @@ void UTextimeInput::On()
 void UTextimeInput::Off()
 {
 	OnOff = false;
+	memset(Text, 0, 255);
+	memset(Cstr, 0, 10);
 }
 
 
@@ -78,7 +77,6 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 			}
 			
 		}
-		bHangeul = true;
 		ImmReleaseContext(hwnd, himc); 
 		break;
 	case WM_CHAR: // 영어랑 숫자 처리
@@ -124,10 +122,6 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 		}
 		break;
 	case WM_KEYDOWN:
-		if (_wparam == VK_SPACE)
-		{
-			bHangeul = true;
-		}
 		break;
 	default:
 		break;

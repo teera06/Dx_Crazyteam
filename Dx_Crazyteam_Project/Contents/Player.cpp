@@ -37,6 +37,7 @@ void APlayer::BeginPlay()
 	Info = std::make_shared<PlayerInfo>();
 
 	MainPlayerSetting();
+	SetCharacterType(ECharacterType::Bazzi);
 	StateInit();
 }
 
@@ -130,6 +131,20 @@ std::string APlayer::GetAnimationName(std::string_view _StateName)
 {
 	std::string _AniName = _StateName.data();
 
+	switch (Info->RideType)
+	{
+	case EPlayerRideType::None:
+		break;
+	case EPlayerRideType::Owl:
+		_AniName = std::string("Owl_") + _AniName;
+		break;
+	case EPlayerRideType::Turtle:
+		_AniName = std::string("Turtle") + _AniName;
+		break;
+	default:
+		break;
+	}
+
 	switch (Info->MyType)
 	{
 	case ECharacterType::Bazzi:
@@ -186,11 +201,11 @@ std::string APlayer::GetAnimationName(std::string_view _StateName)
 
 void APlayer::SetCharacterType(ECharacterType _Type)
 {
+	ConstValue::MainPlayerCharacterType = _Type;
 	if (_Type == ECharacterType::None || _Type == ECharacterType::Random)
 	{
 		int RandomCharacter = UEngineRandom::MainRandom.RandomInt(static_cast<int>(ECharacterType::Bazzi), static_cast<int>(ECharacterType::Marid));
 		_Type = static_cast<ECharacterType>(RandomCharacter);
-		ConstValue::MainPlayerCharacterType = _Type;
 	}
 
 	switch (_Type)

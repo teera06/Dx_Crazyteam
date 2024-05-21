@@ -40,9 +40,8 @@ ASubServerLevel::~ASubServerLevel()
 void ASubServerLevel::BeginPlay()
 {
 	Super::BeginPlay();
-	// TestThread.Start();
+
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
-	//Camera->SetActorLocation(FVector(90.0f, 0.0f, -400.0f));
 	Camera->SetActorLocation(FVector(80.0f, 1.0f, -1000.0f));
 
 	//Village = GetWorld()->SpawnActor<AVillage>("Village");
@@ -56,6 +55,13 @@ void ASubServerLevel::BeginPlay()
 	MainPlayer = GetWorld()->SpawnActor<APlayer>("Player");
 	MainPlayer->SetCurGameMode(this);
 	SetMainPlayer(MainPlayer);
+
+	MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
+	MapUI->SetCurGameMode(this);
+	SetUI(MapUI);
+	FVector Pos = MapUI->GetActorLocation();
+	Pos.Z = 100.f;
+	MapUI->SetActorLocation(Pos);
 }
 
 void ASubServerLevel::Tick(float _DeltaTime)
@@ -63,7 +69,6 @@ void ASubServerLevel::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	UNetObject::AllNetObject;
-	int a = 0;
 }
 
 void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
@@ -82,12 +87,6 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 			MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
 
 			// 타임 유아이
-			MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
-			MapUI->SetCurGameMode(this);
-			SetUI(MapUI);
-			FVector Pos = MapUI->GetActorLocation();
-			Pos.Z = 100.f;
-			MapUI->SetActorLocation(Pos);
 			MapUI->SetObjectToken(UNetObject::GetNewObjectToken() + 1);
 
 			ServerPacketInit(UGame_Core::Net->Dispatcher);
@@ -103,14 +102,11 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 				MainPlayer->SetObjectToken(_Token->GetSessionToken() * 1000);
 
 				//타임 유아이
-				MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
-				MapUI->SetCurGameMode(this);
-				SetUI(MapUI);
-				FVector Pos = MapUI->GetActorLocation();
-				Pos.Z = 100.f;
-				MapUI->SetActorLocation(Pos);
 				MapUI->SetObjectToken(_Token->GetSessionToken() * 1000+1);
-				MapUI->ClientCreate();
+				if (nullptr != MapUI)
+				{
+					MapUI->ClientCreate();
+				}
 
 				//물폭탄
 				MainPlayer->WaterBomb_Token = _Token->GetSessionToken() * 1000 + 2;
@@ -119,6 +115,7 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 			});
 			// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
 			ClientPacketInit(UGame_Core::Net->Dispatcher);
+
 		});
 	}
 	subNetWindow->On();
@@ -143,43 +140,71 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 			});
 	});
 
-	//Dis.AddHandler<UWaterBombUpdatePacket>([=](std::shared_ptr<UWaterBombUpdatePacket> _Packet)
-	//{
-	//	// 다른 사람들한테 이 오브젝트에 대해서 알리고
-	//	UGame_Core::Net->Send(_Packet);
+	Dis.AddHandler<UMapObjectUpdatePacket>([=](std::shared_ptr<UMapObjectUpdatePacket> _Packet)
+		{
+			UGame_Core::Net->Send(_Packet);
 
-	//	GetWorld()->PushFunction([=]()
-	//		{
-	//			AOtherBomb* Bomb = UNetObject::GetNetObject<AOtherBomb>(_Packet->GetObjectToken());
-	//			if (nullptr == Bomb)
-	//			{
-	//				Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
-	//				Bomb->SetObjectToken(_Packet->GetObjectToken());
-	//				Bomb->SetCurGameMode(this);
-	//				Bomb->CreateWaterBomb();
-	//			}
-	//			Bomb->PushProtocol(_Packet);
-	//		});
-	//});
+			// Other 오브젝트 릴리즈
+			if (true == _Packet->IsDestroy)
+			{
+				AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+				if (nullptr != OtherItem)
+				{
+					POINT Pos = _Packet->Pos;
+					GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
+				}
+				return;
+			}
 
-	//Dis.AddHandler<UWaterCourseUpdatePacket>([=](std::shared_ptr<UWaterCourseUpdatePacket> _Packet)
-	//	{
-	//		// 다른 사람들한테 이 오브젝트에 대해서 알리고
-	//		UGame_Core::Net->Send(_Packet);
+			// Other 오브젝트 이동
+			if (true == _Packet->IsMove)
+			{
+				AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+				if (nullptr != OtherBlock)
+				{
+					OtherBlock->SetActorLocation(_Packet->MovePos);
+				}
+				return;
+			}
 
-	//		GetWorld()->PushFunction([=]()
-	//			{
-	//				AOtherWaterCourse* Bomb = UNetObject::GetNetObject<AOtherWaterCourse>(_Packet->GetObjectToken());
-	//				if (nullptr == Bomb)
-	//				{
-	//					Bomb = this->GetWorld()->SpawnActor<AOtherWaterCourse>("WATER", 0).get();
-	//					Bomb->SetObjectToken(_Packet->GetObjectToken());
-	//					Bomb->SetCurGameMode(this);
-	//					Bomb->CreateWaterCenter();					
-	//				}
-	//				Bomb->PushProtocol(_Packet);
-	//			});
-	//	});	
+			// Other 오브젝트 이동 종료
+			if (true == _Packet->IsMoveEnd)
+			{
+				AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+				if (nullptr != OtherBlock)
+				{
+					GetCurMap()->MoveMapObject(OtherBlock->shared_from_this(), _Packet->MoveEndPos.y, _Packet->MoveEndPos.x, _Packet->MoveBeginPos.y, _Packet->MoveBeginPos.x);
+				}
+				return;
+			}
+
+			// 물풍선 관련 오브젝트 생성 관련
+			EMapObject ObjType = static_cast<EMapObject>(_Packet->ObjectType);
+
+			switch (ObjType)
+			{
+			case EMapObject::Water:
+			case EMapObject::WaterBomb:
+			{
+				AMapObject* OtherObject = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+
+				if (nullptr == OtherObject)
+				{
+					ABaseMap* CurMap = GetCurMap().get();
+					POINT PosValue = _Packet->Pos;
+
+					OtherObject = CurMap->AddMapObject(PosValue.x, PosValue.y, ObjType).get();
+
+					OtherObject->SetObjectToken(_Packet->GetObjectToken());
+				}
+				break;
+			}
+			default:
+				MsgBoxAssert("Server가 아닌 곳에서 MapObject를 생성하려 했습니다.");
+				return;
+			}
+
+		});
 
 	Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
 		{
@@ -216,45 +241,117 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 		});
 	});
 
-	//Dis.AddHandler<UWaterBombUpdatePacket>([=](std::shared_ptr<UWaterBombUpdatePacket> _Packet)
-	//{
-	//	// 다른 사람들한테 이 오브젝트에 대해서 알리고
-	//	GetWorld()->PushFunction([=]()
-	//	{
-	//		int Test = _Packet->GetObjectToken();
+	Dis.AddHandler<UMapObjectUpdatePacket>([=](std::shared_ptr<UMapObjectUpdatePacket> _Packet)
+		{
+			// Other 오브젝트 소멸 관련
+			if (true == _Packet->IsDestroy)
+			{
+				AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+				if (nullptr != OtherItem)
+				{
+					POINT Pos = _Packet->Pos;
+					GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
+				}
+				return;
+			}
 
-	//		AOtherBomb* Bomb = UNetObject::GetNetObject<AOtherBomb>(_Packet->GetObjectToken());
-	//		if (nullptr == Bomb)
-	//		{
-	//			Bomb = this->GetWorld()->SpawnActor<AOtherBomb>("Bomb", 0).get();
-	//			Bomb->SetObjectToken(_Packet->GetObjectToken());
-	//			Bomb->SetCurGameMode(this);
-	//			Bomb->CreateWaterBomb();
-	//		}
-	//		Bomb->PushProtocol(_Packet);
+			// Other 오브젝트 이동
+			if (true == _Packet->IsMove)
+			{
+				AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+				if (nullptr != OtherBlock)
+				{
+					OtherBlock->SetActorLocation(_Packet->MovePos);
+				}
+				return;
+			}
 
-	//	});
-	//});
+			// Other 오브젝트 이동 종료
+			if (true == _Packet->IsMoveEnd)
+			{
+				AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+				if (nullptr != OtherBlock)
+				{
+					GetCurMap()->MoveMapObject(OtherBlock->shared_from_this(), _Packet->MoveEndPos.y, _Packet->MoveEndPos.x, _Packet->MoveBeginPos.y, _Packet->MoveBeginPos.x);
+				}
+				return;
+			}
 
-	//Dis.AddHandler<UWaterCourseUpdatePacket>([=](std::shared_ptr<UWaterCourseUpdatePacket> _Packet)
-	//	{
-	//		// 다른 사람들한테 이 오브젝트에 대해서 알리고
-	//		GetWorld()->PushFunction([=]()
-	//			{
-	//				int Test = _Packet->GetObjectToken();
+			// Other 오브젝트 생성 관련
+			EMapObject ObjType = static_cast<EMapObject>(_Packet->ObjectType);
 
-	//				AOtherWaterCourse* Bomb = UNetObject::GetNetObject<AOtherWaterCourse>(_Packet->GetObjectToken());
-	//				if (nullptr == Bomb)
-	//				{
-	//					Bomb = this->GetWorld()->SpawnActor<AOtherWaterCourse>("WATER", 0).get();
-	//					Bomb->SetObjectToken(_Packet->GetObjectToken());
-	//					Bomb->SetCurGameMode(this);
-	//					Bomb->CreateWaterCenter();
-	//				}
-	//				Bomb->PushProtocol(_Packet);
-	//			});
-	//	});
+			switch (ObjType)
+			{
+			case EMapObject::DummyBlock:
+			case EMapObject::NormalBlock:
+			case EMapObject::CampBlock1:
+			case EMapObject::CampBlock2:
+			case EMapObject::CampBlock3:
+			case EMapObject::CampBlock4:
+			case EMapObject::CampMoveBlock1:
+			case EMapObject::CampMoveBlock2:
+			case EMapObject::CampHPBlock:
+			case EMapObject::WaterBomb:
+			case EMapObject::Water:
+			case EMapObject::TownBush:
+			{
+				AMapObject* OtherObject = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 
+				if (nullptr == OtherObject)
+				{
+					ABaseMap* CurMap = GetCurMap().get();
+					POINT PosValue = _Packet->Pos;
+
+					OtherObject = CurMap->AddMapObject(PosValue.x, PosValue.y, ObjType).get();
+
+					OtherObject->SetObjectToken(_Packet->GetObjectToken());
+				}
+				break;
+			}
+			case EMapObject::Item:
+			{
+				EItemType ItemType = static_cast<EItemType>(_Packet->ItemType);
+
+				if (EItemType::None == ItemType)
+				{
+					MsgBoxAssert("아이템 타입을 지정하지 않았습니다. 지정해주세요.");
+					return;
+				}
+
+				// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
+				AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+
+				if (nullptr == OtherItem)
+				{
+					ABaseMap* CurMap = GetCurMap().get();
+					POINT PosValue = _Packet->Pos;
+
+					switch (ItemType)
+					{
+					case EItemType::ItemBubble:
+					case EItemType::ItemFluid:
+					case EItemType::ItemNiddle:
+					case EItemType::ItemOwl:
+					case EItemType::ItemRoller:
+					case EItemType::ItemShoes:
+						OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, ItemType).get();
+						break;
+					default:
+						MsgBoxAssert("지정되지 않은 타입입니다. 아이템 타입을 확인하세요.");
+						return;
+					}
+
+					OtherItem->SetObjectToken(_Packet->GetObjectToken());
+				}
+				break;
+			}
+			case EMapObject::Default:
+			default:
+				MsgBoxAssert("Type이 Default타입이거나 지정되지 않은 타입입니다.");
+				return;
+			}
+
+		});
 
 	Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
 		{

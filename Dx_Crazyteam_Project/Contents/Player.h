@@ -45,6 +45,14 @@ public:
 	void SetCharacterType(ECharacterType _Type);
 	void SetRideType(EPlayerRideType _Ride);
 
+	void AddBeforeSpeedData()
+	{
+		if (BeforeSpeedData < 10)
+		{
+			++BeforeSpeedData;
+		}
+	}
+
 	void SetWBCount(int _count)
 	{
 		Info->WBCount = _count;
@@ -150,7 +158,7 @@ private:
 
 	FVector Dir = FVector::Down;
 	float AnimationInter = 0.1f;
-	float MoveSpeed = 20.f;		// 속도 계수
+	float MoveSpeed = 25.f;		// 속도 계수
 
 	float TrapMoveSpeed = 0.4f;
 	float TrapMoveTime = 1.f;
