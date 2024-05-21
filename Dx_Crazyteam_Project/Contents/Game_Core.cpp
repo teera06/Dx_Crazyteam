@@ -156,6 +156,7 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("dao_rescue.png", 3, 1);
 		UEngineSprite::CreateCutting("dao_die.png", 5, 2);
 		UEngineSprite::CreateCutting("dao_1_blue.png", 5, 12);
+		UEngineSprite::CreateCutting("dao_3_blue.png", 5, 4);
 
 		// Red Marid
 		UEngineSprite::CreateCutting("luxMarid_1.png", 5, 12);
