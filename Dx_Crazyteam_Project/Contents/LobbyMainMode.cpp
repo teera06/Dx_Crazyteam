@@ -39,4 +39,23 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 	Super::LevelStart(_PrevLevel);
 
 	PlayLobby->SetMySessionToken(UGame_Core::Net->GetSessionToken());
+
+	if (0 == UGame_Core::Net->GetSessionToken())
+	{
+		ServerPacketInit(UGame_Core::Net->Dispatcher);
+	}
+	else if (1 <= UGame_Core::Net->GetSessionToken())
+	{
+		ClientPacketInit(UGame_Core::Net->Dispatcher);
+	}
+}
+
+void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
+{
+
+}
+
+void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
+{
+
 }

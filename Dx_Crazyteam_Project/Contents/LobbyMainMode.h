@@ -4,7 +4,7 @@ class UEngineSoundPlayer;
 
 
 class APlayLobby;
-
+class UEngineDispatcher;
 class ALobbyMainMode : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
@@ -25,6 +25,10 @@ protected:
 
 	void LevelEnd(ULevel* _NextLevel);
 	void LevelStart(ULevel* _PrevLevel);
+
+	void ServerPacketInit(UEngineDispatcher& Dis);
+	void ClientPacketInit(UEngineDispatcher& Dis);
+
 private:
 	UEngineSoundPlayer LobbyBGM;
 	std::shared_ptr<APlayLobby> PlayLobby = nullptr;
