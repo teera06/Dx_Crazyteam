@@ -29,32 +29,6 @@ void ACamp::Tick(float _DeltaTime)
 void ACamp::AddObjectInit()
 {
 	{
-		ABlock* MapObject = dynamic_cast<ABlock*>(AddMapObject(1, 1, EMapObject::CampBlock1).get());
-		MapObject->SetPossessItem(EItemType::ItemBubble);
-	}
-
-	{
-		ABlock* MapObject = dynamic_cast<ABlock*>(AddMapObject(3, 1, EMapObject::CampBlock1).get());
-		MapObject->SetPossessItem(EItemType::ItemBubble);
-	}
-	
-	AddMapObject(1, 3, EMapObject::CampBlock1);
-	AddMapObject(3, 3, EMapObject::CampBlock1);
-
-	AddMapObject(6, 6, EMapObject::CampMoveBlock1);
-	AddMapObject(9, 6, EMapObject::CampMoveBlock1);
-	AddMapObject(6, 9, EMapObject::CampMoveBlock1);
-	AddMapObject(9, 9, EMapObject::CampMoveBlock1);
-
-	AddMapObject(1, 6, EMapObject::CampHPBlock);
-	AddMapObject(3, 6, EMapObject::CampHPBlock);
-	AddMapObject(1, 9, EMapObject::CampHPBlock);
-	AddMapObject(3, 9, EMapObject::CampHPBlock);
-
-	AddMapObject(9, 1, EMapObject::TownBush);
-	AddMapObject(10, 1, EMapObject::TownBush);
-
-	/*{
 		AddMapObject(0, 0, EMapObject::CampBlock2);
 		AddMapObject(0, 2, EMapObject::CampBlock1);
 		AddMapObject(0, 4, EMapObject::CampBlock1);
@@ -114,8 +88,108 @@ void ACamp::AddObjectInit()
 			hpblock1->SetHp(2);
 		}
 		AddMapObject(5, 1, EMapObject::CampMoveBlock1);
-		AddMapObject(5,5, EMapObject::CampBlock1)
-	}*/
+		AddMapObject(5, 5, EMapObject::CampBlock1);
+		AddMapObject(5, 6, EMapObject::CampMoveBlock1);
+		AddMapObject(5, 8, EMapObject::CampMoveBlock1);
+		AddMapObject(5, 9, EMapObject::CampBlock2);
+		AddMapObject(5, 10, EMapObject::TownBush);
+		AddMapObject(5, 13, EMapObject::CampMoveBlock1);
+		{
+			std::shared_ptr<ABlock> hpblock1 = std::dynamic_pointer_cast<ABlock>(AddMapObject(5, 14, EMapObject::CampHPBlock));
+
+			hpblock1->SetHp(2);
+		}
+
+		AddMapObject(6, 0, EMapObject::CampBlock1);
+		AddMapObject(6, 1, EMapObject::CampBlock3);
+		AddMapObject(6, 2, EMapObject::TownBush);
+		AddMapObject(6, 3, EMapObject::CampBlock1);
+		AddMapObject(6, 4, EMapObject::TownBush);
+		AddMapObject(6, 5, EMapObject::CampMoveBlock1);
+		AddMapObject(6, 6, EMapObject::CampBlock1);
+		AddMapObject(6, 8, EMapObject::CampBlock2);
+		AddMapObject(6, 9, EMapObject::CampMoveBlock1);
+		AddMapObject(6, 10, EMapObject::TownBush);
+		AddMapObject(6, 11, EMapObject::CampBlock2);
+		AddMapObject(6, 12, EMapObject::TownBush);
+		AddMapObject(6, 13, EMapObject::CampBlock3);
+		AddMapObject(6, 14, EMapObject::CampBlock2);
+
+		AddMapObject(7, 0, EMapObject::CampBlock1);
+		AddMapObject(7, 4, EMapObject::CampMoveBlock1);
+		AddMapObject(7, 5, EMapObject::CampBlock1);
+		AddMapObject(7, 6, EMapObject::TownBush);
+		AddMapObject(7, 8, EMapObject::TownBush);
+		AddMapObject(7, 9, EMapObject::CampBlock2);
+		AddMapObject(7, 10, EMapObject::CampMoveBlock1);
+		AddMapObject(7, 14, EMapObject::CampBlock2);
+
+		{
+			std::shared_ptr<ABlock> hpblock1 = std::dynamic_pointer_cast<ABlock>(AddMapObject(8, 0, EMapObject::CampHPBlock));
+
+			hpblock1->SetHp(2);
+		}
+		AddMapObject(8, 1, EMapObject::CampBlock1);
+		AddMapObject(8, 2, EMapObject::TownBush);
+		AddMapObject(8, 3, EMapObject::TownBush);
+		AddMapObject(8, 5, EMapObject::CampBlock1);
+		AddMapObject(8, 6, EMapObject::TownBush);
+		AddMapObject(8, 8, EMapObject::TownBush);
+		AddMapObject(8, 9, EMapObject::CampBlock2);
+		AddMapObject(8, 11, EMapObject::TownBush);
+		AddMapObject(8, 12, EMapObject::TownBush);
+		AddMapObject(8, 13, EMapObject::CampBlock2);
+		{
+			std::shared_ptr<ABlock> hpblock1 = std::dynamic_pointer_cast<ABlock>(AddMapObject(8, 14, EMapObject::CampHPBlock));
+
+			hpblock1->SetHp(2);
+		}
+
+		AddMapObject(9, 0, EMapObject::CampMoveBlock1);
+		AddMapObject(9, 1, EMapObject::CampMoveBlock1);
+		AddMapObject(9, 2, EMapObject::CampMoveBlock1);
+		AddMapObject(9, 3, EMapObject::CampBlock1);
+		AddMapObject(9, 5, EMapObject::CampBlock1);
+		AddMapObject(9, 6, EMapObject::TownBush);
+		AddMapObject(9, 8, EMapObject::TownBush);
+		AddMapObject(9, 9, EMapObject::CampBlock2);
+		AddMapObject(9, 11, EMapObject::CampBlock2);
+		AddMapObject(9, 12, EMapObject::CampMoveBlock1);
+		AddMapObject(9, 13, EMapObject::CampMoveBlock1);
+		AddMapObject(9, 14, EMapObject::CampMoveBlock1);
+
+		AddMapObject(10, 0, EMapObject::CampBlock1);
+		AddMapObject(10, 1, EMapObject::CampBlock1);
+		AddMapObject(10, 2, EMapObject::CampBlock1);
+		AddMapObject(10, 3, EMapObject::CampBlock3);
+		AddMapObject(10, 5, EMapObject::CampBlock1);
+		AddMapObject(10, 6, EMapObject::TownBush);
+		AddMapObject(10, 8, EMapObject::TownBush);
+		AddMapObject(10, 9, EMapObject::CampBlock2);
+		AddMapObject(10, 11, EMapObject::CampBlock3);
+		AddMapObject(10, 12, EMapObject::CampBlock2);
+		AddMapObject(10, 13, EMapObject::CampBlock2);
+		AddMapObject(10, 14, EMapObject::CampBlock2);
+
+		AddMapObject(11, 0, EMapObject::CampMoveBlock1);
+		AddMapObject(11, 4, EMapObject::CampBlock3);
+		AddMapObject(11, 5, EMapObject::CampHPBlock);
+		AddMapObject(11, 6, EMapObject::CampBlock1);
+		AddMapObject(11, 8, EMapObject::CampBlock2);
+		AddMapObject(11, 9, EMapObject::CampHPBlock);
+		AddMapObject(11, 10, EMapObject::CampBlock3);
+		AddMapObject(11, 14, EMapObject::CampMoveBlock1);
+
+		AddMapObject(12, 2, EMapObject::CampBlock1);
+		AddMapObject(12, 3, EMapObject::CampBlock1);
+		AddMapObject(12, 4, EMapObject::CampMoveBlock1);
+		AddMapObject(12, 5, EMapObject::CampBlock1);
+		AddMapObject(12, 6, EMapObject::TownBush);
+		AddMapObject(12, 8, EMapObject::TownBush);
+		AddMapObject(12, 9, EMapObject::CampBlock2);
+		AddMapObject(12, 10, EMapObject::CampBlock1);
+		AddMapObject(12, 11, EMapObject::CampBlock2);
+	}
 
 }
 
