@@ -29,10 +29,11 @@ void AItemTurtle::Tick(float _DeltaTime)
 void AItemTurtle::Action()
 {
 	EPlayerRideType Type = GetGameMode()->GetPlayer()->GetPlayerInfo()->RideType;
-
+	FVector ItemCurPos = GetActorLocation();
 	if (Type == EPlayerRideType::None)
 	{
 		GetGameMode()->GetPlayer()->SetRideType(EPlayerRideType::Turtle);
+		GetGameMode()->GetPlayer()->SetActorLocation(ItemCurPos);
 	}
 
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
