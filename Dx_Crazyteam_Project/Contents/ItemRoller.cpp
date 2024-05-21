@@ -35,13 +35,23 @@ void AItemRoller::Action()
 	int iSpeed = GetGameMode()->GetPlayer()->GetPlayerInfo()->Speed;
 	int iMaxSpeed = GetGameMode()->GetPlayer()->GetPlayerInfo()->MaxSpeed;
 
-	GetGameMode()->GetPlayer()->GetPlayerInfo()->Speed++;
-	iSpeed = GetGameMode()->GetPlayer()->GetPlayerInfo()->Speed;
-
-	if (iSpeed > iMaxSpeed)
+	EPlayerRideType Type = GetGameMode()->GetPlayer()->GetPlayerInfo()->RideType;
+	if (Type == EPlayerRideType::None)
 	{
-		GetGameMode()->GetPlayer()->GetPlayerInfo()->Speed = iMaxSpeed;
+		GetGameMode()->GetPlayer()->GetPlayerInfo()->Speed++;
+		iSpeed = GetGameMode()->GetPlayer()->GetPlayerInfo()->Speed;
+
+		if (iSpeed > iMaxSpeed)
+		{
+			GetGameMode()->GetPlayer()->GetPlayerInfo()->Speed = iMaxSpeed;
+		}
 	}
+	else // 탈것에 타있는 경우
+	{
+		GetGameMode()->GetPlayer()->AddBeforeSpeedData();
+	}
+
+
 
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 }
