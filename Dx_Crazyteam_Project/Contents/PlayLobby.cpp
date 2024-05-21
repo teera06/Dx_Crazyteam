@@ -368,6 +368,12 @@ void APlayLobby::Tick(float _DeltaTime)
 		USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
 
 
+		if (int SessionToken = 0; SessionToken < PlayerCount; SessionToken++)
+		{
+
+		}
+
+
 		IsGetSessionToken = false;
 	}
 
