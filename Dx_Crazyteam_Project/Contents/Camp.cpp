@@ -97,6 +97,24 @@ void ACamp::AddObjectInit()
 		
 		AddMapObject(4, 0, EMapObject::CampMoveBlock1);
 		AddMapObject(4, 1, EMapObject::TownBush);
+		AddMapObject(4, 2, EMapObject::TownBush);
+		AddMapObject(4, 3, EMapObject::CampBlock1);
+		AddMapObject(4, 5, EMapObject::CampMoveBlock1);
+		AddMapObject(4, 6, EMapObject::CampBlock1);
+		AddMapObject(4, 8, EMapObject::CampBlock2);
+		AddMapObject(4, 9, EMapObject::CampMoveBlock1);
+		AddMapObject(4, 10, EMapObject::TownBush);
+		AddMapObject(4, 11, EMapObject::CampBlock2);
+		AddMapObject(4, 12, EMapObject::TownBush);
+		AddMapObject(4, 14, EMapObject::CampMoveBlock1);
+
+		{
+			std::shared_ptr<ABlock> hpblock1 = std::dynamic_pointer_cast<ABlock>(AddMapObject(5, 0, EMapObject::CampHPBlock));
+
+			hpblock1->SetHp(2);
+		}
+		AddMapObject(5, 1, EMapObject::CampMoveBlock1);
+		AddMapObject(5,5, EMapObject::CampBlock1)
 	}*/
 
 }

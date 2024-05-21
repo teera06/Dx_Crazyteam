@@ -4,6 +4,7 @@
 // Ό³Έν :
 class ACampBlock2 : public ABlock, public UBreakObject
 {
+	GENERATED_BODY(ABlock)
 public:
 	// constructor destructor
 	ACampBlock2();

@@ -18,6 +18,6 @@ void ACampBlock3::BeginPlay()
 
 void ACampBlock3::Tick(float _DeltaTime)
 {
-	Super::Tick();
+	Super::Tick(_DeltaTime);
 }
 
