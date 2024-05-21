@@ -26,6 +26,11 @@ public:
 	AMainGameMode& operator=(const AMainGameMode& _Other) = delete; // 디폴트 대입 연산자
 	AMainGameMode& operator=(AMainGameMode&& _Other) noexcept = delete;
 
+	std::shared_ptr<APlayer> GetPlayer()
+	{
+		return Player1;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
