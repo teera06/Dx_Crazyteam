@@ -1,6 +1,7 @@
 #pragma once
 #include "Item.h"
 
+// 설명 : 속도 빨라지는 아이템
 class AItemRoller : public AItem
 {
 	GENERATED_BODY(AItem)

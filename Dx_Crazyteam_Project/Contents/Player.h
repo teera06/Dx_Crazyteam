@@ -45,6 +45,14 @@ public:
 	void SetCharacterType(ECharacterType _Type);
 	void SetRideType(EPlayerRideType _Ride);
 
+	void AddBeforeSpeedData()
+	{
+		if (BeforeSpeedData < 10)
+		{
+			++BeforeSpeedData;
+		}
+	}
+
 	void SetWBCount(int _count)
 	{
 		Info->WBCount = _count;
