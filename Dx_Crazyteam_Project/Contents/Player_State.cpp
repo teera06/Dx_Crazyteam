@@ -280,6 +280,7 @@ void APlayer::GameOn(float _DeltaTime)
 void APlayer::IdleStart()
 {
 	Renderer->ChangeAnimation(GetAnimationName("Idle"));
+	Renderer->SetPosition(FVector::Zero);
 }
 
 void  APlayer::Idle(float _DeltaTime)
