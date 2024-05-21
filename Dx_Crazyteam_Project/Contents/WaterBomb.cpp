@@ -13,6 +13,7 @@
 
 #include "SendPacketManager.h"
 
+#include "Player.h"
 
 bool AWaterBomb::SetWater_CourseToken = false;
 int AWaterBomb::WaterCourse_Token;
@@ -39,6 +40,54 @@ void AWaterBomb::BeginPlay()
 	//Renderer->SetActive(false);
 	SetType(EMapObjectType::WaterBalloon);
 	//Renderer->SetSprite("Balloon.png");
+
+	PlayerInteract = [&]
+		{
+			if (GetIsPush()) return;
+			SetIsPush(true);
+			POINT PlayerIndex = GetGameMode()->GetPlayer()->GetPlayerInfo()->CurIndex;
+
+			if (PlayerIndex.x == GetCurPos().x)
+			{
+				if (PlayerIndex.y < GetCurPos().y)
+				{
+					SetPushDir(ECADir::Down);
+				}
+				else if (PlayerIndex.y > GetCurPos().y)
+				{
+					SetPushDir(ECADir::Up);
+				}
+			}
+			else if (PlayerIndex.y == GetCurPos().y)
+			{
+				if (PlayerIndex.x < GetCurPos().x)
+				{
+					SetPushDir(ECADir::Right);
+				}
+				else if (PlayerIndex.x > GetCurPos().x)
+				{
+					SetPushDir(ECADir::Left);
+				}
+			}
+
+			switch (GetPushDir())
+			{
+			case ECADir::Up:
+				MoveVector = FVector::Up;
+				break;
+			case ECADir::Right:
+				MoveVector = FVector::Right;
+				break;
+			case ECADir::Down:
+				MoveVector = FVector::Down;
+				break;
+			case ECADir::Left:
+				MoveVector = FVector::Left;
+				break;
+			}
+
+			//State.ChangeState("Kick");
+		};
 }
 
 void AWaterBomb::Tick(float _DeltaTime)
@@ -62,6 +111,7 @@ void AWaterBomb::StateInit()
 {
 	State.CreateState("None");
 	State.CreateState("Create");
+	State.CreateState("Kick");
 	State.CreateState("Bomb");
 
 	State.SetStartFunction("None", std::bind(&AWaterBomb::NoneBegin, this));
@@ -71,6 +121,10 @@ void AWaterBomb::StateInit()
 		std::bind(&AWaterBomb::CreateBegin, this),
 		std::bind(&AWaterBomb::CreateTick, this, std::placeholders::_1),
 		std::bind(&AWaterBomb::CreateExit, this));
+	State.SetFunction("Kick",
+		std::bind(&AWaterBomb::KickBegin, this),
+		std::bind(&AWaterBomb::KickTick, this, std::placeholders::_1),
+		std::bind(&AWaterBomb::KickExit, this));
 	State.SetFunction("Bomb",
 		std::bind(&AWaterBomb::BombBegin, this),
 		std::bind(&AWaterBomb::BombTick, this, std::placeholders::_1),
@@ -95,6 +149,7 @@ void AWaterBomb::NoneBegin()
 
 void AWaterBomb::NoneTick(float _DeltaTime)
 {
+	int a = 0;
 }
 
 
@@ -157,6 +212,26 @@ void AWaterBomb::CreateExit()
 
 
 
+void AWaterBomb::KickBegin()
+{
+}
+void AWaterBomb::KickTick(float _DeltaTime)
+{
+	AddActorLocation(MoveVector * KickSpeed * _DeltaTime);
+
+	FVector CheckPos = GetActorLocation() + MoveVector * 30.f;
+
+	POINT CurPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
+	POINT CheckPoint = GetGameMode()->GetCurMap()->PosToPoint(CheckPos);
+
+	
+	
+}
+void AWaterBomb::KickExit()
+{
+}
+
+
 
 
 void AWaterBomb::BombBegin()
@@ -207,7 +282,7 @@ void AWaterBomb::BombTick(float _DeltaTime)
 
 	//	b_ServerBomb = false;
 	//}
-
+	int a = 0;
 }
 
 void AWaterBomb::BombExit()

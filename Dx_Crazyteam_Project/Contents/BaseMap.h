@@ -52,6 +52,8 @@ public:
 	std::shared_ptr<AMapObject> SpawnWaterBomb(FVector _SpawnPos);
 	std::shared_ptr<AMapObject> SpawnWaterBomb(int _Y, int _X);
 	void DestroyMapObject(int _Y, int _X);
+	void ChangeNull(int _Y, int _X);
+	void ConnectObject(std::shared_ptr<AMapObject> _Obj, int _Y, int _X);
 
 	POINT PosToPoint(FVector _PlayerPos);
 	FVector PointToPos(int _Y, int _X);
@@ -69,6 +71,7 @@ protected:
 
 	std::vector<std::vector<std::shared_ptr<AMapObject>>> MapStatus;
 	std::vector<std::vector<EGimmickType>> GimmickStatus;
+
 
 private:
 

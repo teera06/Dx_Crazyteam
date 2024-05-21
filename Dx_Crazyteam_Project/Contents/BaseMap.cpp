@@ -79,6 +79,8 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 			if (CheckPoint.x != PlayerPoint.x ||
 				CheckPoint.y != PlayerPoint.y)
 			{
+				MapStatus[CheckPoint.y][CheckPoint.x]->PlayerInteract();
+
 				return false;
 			}
 			else return true;
@@ -568,6 +570,16 @@ void ABaseMap::DestroyMapObject(int _Y, int _X)
 	
 	MapStatus[_Y][_X]->Destroy();
 	MapStatus[_Y][_X] = nullptr;
+}
+
+void ABaseMap::ChangeNull(int _Y, int _X)
+{
+	MapStatus[_Y][_X] = nullptr;
+}
+
+void ABaseMap::ConnectObject(std::shared_ptr<AMapObject> _Obj, int _Y, int _X)
+{
+	MapStatus[_Y][_X] = _Obj;
 }
 
 POINT ABaseMap::PosToPoint(FVector _PlayerPos)

@@ -44,6 +44,11 @@ public:
 		MoveDir = _Dir;
 	}
 
+	ECADir GetPushDir()
+	{
+		return MoveDir;
+	}
+
 	void SetPossessItem(EItemType _Item)
 	{
 		PossessItem = _Item;
