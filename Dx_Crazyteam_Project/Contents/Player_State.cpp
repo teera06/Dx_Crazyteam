@@ -678,3 +678,14 @@ void APlayer::WaterBombUpdate()
 		USendPacketManager::SendMapObjectSpawnPacket(WaterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb);
 	}
 }
+
+void APlayer::DebugFunction(float _DeltaTime)
+{
+	std::string BazziSpeed = std::format("Bazzi Speed : {}\n", Info->Speed);
+	std::string WaterCount = std::format("Water Count : {}\n", Info->WBCount);
+	std::string WaterPower= std::format("Water Power : {}\n", Info->WBPower);
+
+	UEngineDebugMsgWindow::PushMsg(BazziSpeed);
+	UEngineDebugMsgWindow::PushMsg(WaterCount);
+	UEngineDebugMsgWindow::PushMsg(WaterPower);
+}

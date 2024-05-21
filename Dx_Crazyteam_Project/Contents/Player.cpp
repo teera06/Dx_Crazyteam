@@ -131,7 +131,7 @@ void APlayer::Tick(float _DeltaTime)
 	}
 
 #ifdef _DEBUG
-	//DebugFunction(_DeltaTime);
+	DebugFunction(_DeltaTime);
 #endif
 }
 
