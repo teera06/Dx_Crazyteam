@@ -70,9 +70,8 @@ protected:
 	UDefaultSceneComponent* Root = nullptr;
 
 	std::vector<std::vector<std::shared_ptr<AMapObject>>> MapStatus;
-	//std::vector<std::vector<EGimmickType>> GimmickStatus;
+	std::vector<std::vector<EGimmickType>> GimmickStatus;
 
-	std::vector<std::shared_ptr<APlayer>> Players;
 
 private:
 
