@@ -46,7 +46,9 @@ void AIntro::BeginPlay()
 		{
 			if (IsDown(VK_LBUTTON))
 			{
-				ServerGameMode->GetPlayLobby()->SetIsActive(true);
+				//ServerGameMode->GetPlayLobby()->SetIsActive(true);
+
+				GEngine->ChangeLevel("UitestMonde");
 
 				if (nullptr == Function)
 				{
