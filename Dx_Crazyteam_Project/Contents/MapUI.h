@@ -3,7 +3,6 @@
 
 class UImage;
 class APlayer;
-class AMainGameMode;
 class AMapUI : public ACAObject
 {
 	GENERATED_BODY(ACAObject)
@@ -59,8 +58,6 @@ private:
 	std::vector<UImage*> PlayerUI;
 	std::vector<UImage*> GameTimeerUI;
 	std::vector<UImage*> PlayerItemUI;
-
-	AMainGameMode* MGM = nullptr;
 
 	float GameTimeCheck = 1.f;
 	int MinUI = 2;

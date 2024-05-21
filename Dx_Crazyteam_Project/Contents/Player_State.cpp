@@ -6,6 +6,7 @@
 #include "WaterBomb.h"
 #include "Packets.h"
 #include "SendPacketManager.h"
+#include <EngineCore/EngineDebugMsgWindow.h>
 
 void APlayer::StateInit()
 {

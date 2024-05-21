@@ -129,6 +129,10 @@ void APlayer::Tick(float _DeltaTime)
 	{
 		PlayerSendPacket(_DeltaTime);
 	}
+
+#ifdef _DEBUG
+	DebugFunction(_DeltaTime);
+#endif
 }
 
 std::string APlayer::GetAnimationName(std::string_view _StateName)

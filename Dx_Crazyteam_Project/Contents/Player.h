@@ -156,6 +156,8 @@ private:
 	void RideOffStart();
 	void RideOff(float _DeltaTime);
 
+	void DebugFunction(float _DeltaTime);
+
 	float GameOnTime = 1.5f;
 
 	std::string GetAnimationName(std::string_view _StateName);
