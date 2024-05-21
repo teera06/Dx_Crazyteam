@@ -5,6 +5,8 @@
 
 #include "EngineCore/Image.h"
 #include "EngineBase/EngineDebug.h"
+#include "SendPacketManager.h"
+#include "Game_Core.h"
 
 APlayLobby::APlayLobby()
 {
@@ -930,6 +932,9 @@ void APlayLobby::Tick(float _DeltaTime)
 		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
 		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
 
+
+		USendPacketManager::SendLPlayerPacket(this, UGame_Core::Net->GetSessionToken(), "bazzi_idle.png", 1);
+		
 		IsGetSessionToken = false;
 	}
 
