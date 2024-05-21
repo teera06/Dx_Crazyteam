@@ -73,6 +73,11 @@ public:
 		CtrlItem = _Item;
 	}
 
+	ETeamType GetTeamType()
+	{
+		return Info->Team;
+	}
+
 	EPlayerRideType GetRideType()
 	{
 		return Info->RideType;
