@@ -23,25 +23,20 @@ void APlayerTestMode::BeginPlay()
 
 	Village = GetWorld()->SpawnActor<AVillage>("Village");
 	SetCurMap(Village);
+	Village->SetCurGameMode(this);
 
 	Player1 = GetWorld()->SpawnActor<APlayer>("Player1");
 	Player1->SetCurGameMode(this);
 	SetMainPlayer(Player1);
 	Player1->MainPlayerSetting();
-	//Player1->SetCharacterType(ECharacterType::Marid);
 
-	std::shared_ptr<AItemBubble> Bubble = GetWorld()->SpawnActor<AItemBubble>("ItemTest");
-	Bubble->SetActorLocation(Player1->GetActorLocation());
 
-	std::shared_ptr<AItemRoller> Roller = GetWorld()->SpawnActor<AItemRoller>("ItemTest");
-	Roller->SetActorLocation(FVector(100.0f, 100.0f, 0.0f));
-
-	std::shared_ptr<AItemNiddle> Niddle = GetWorld()->SpawnActor<AItemNiddle>("ItemTest");
-	Niddle->SetActorLocation(FVector(50.0f, 50.0f, 0.0f));
-
-	std::shared_ptr<AItemOwl> Owl = GetWorld()->SpawnActor<AItemOwl>("ItemTest");
-	Owl->SetActorLocation(FVector(150.0f, 150.0f, 0.0f));
-
+	Village->AddMapObject(1, 1, EMapObject::Item, EItemType::ItemBubble);
+	Village->AddMapObject(2, 2, EMapObject::Item, EItemType::ItemNiddle);
+	Village->AddMapObject(3, 3, EMapObject::Item, EItemType::ItemFluid);
+	Village->AddMapObject(4, 4, EMapObject::Item, EItemType::ItemRoller);
+	Village->AddMapObject(5, 5, EMapObject::Item, EItemType::ItemOwl);
+	Village->AddMapObject(6, 6, EMapObject::Item, EItemType::ItemTurtle);
 }
 
 void APlayerTestMode::Tick(float _DeltaTime)
