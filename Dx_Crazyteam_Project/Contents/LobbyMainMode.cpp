@@ -2,6 +2,7 @@
 #include "LobbyMainMode.h"
 #include "PlayLobby.h"
 #include "FontActor.h"
+#include "Game_Core.h"
 
 ALobbyMainMode::ALobbyMainMode()
 {
@@ -37,4 +38,5 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
+	PlayLobby->SetMySessionToken(UGame_Core::Net->GetSessionToken());
 }
