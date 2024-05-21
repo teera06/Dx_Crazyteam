@@ -25,7 +25,7 @@ void ATestGameMode::BeginPlay()
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(80.0f, 1.0f, -1000.0f));
 
-	std::shared_ptr<AVillage> Camp = GetWorld()->SpawnActor<AVillage>("Camp");
+	std::shared_ptr<ACamp> Camp = GetWorld()->SpawnActor<ACamp>("Camp");
 	SetCurMap(Camp);
 	Camp->SetCurGameMode(this);
 	Camp->AddObjectInit();
