@@ -144,6 +144,12 @@ public:
 		return CurCreateLevel;
 	}
 
+	void SetFrame(int _Frame)
+	{
+		Frame = _Frame;
+		FrameTime = 1 / static_cast<float>(Frame);
+	}
+
 protected:
 
 private:
@@ -163,6 +169,11 @@ private:
 	std::shared_ptr<ULevel> NextLevel = nullptr;
 	std::shared_ptr<ULevel> CurLevel = nullptr;
 	std::vector<std::string> DestroyLevelName;
+
+	int Frame = -1;
+	float FrameTime = 0.0f;
+	float CurFrameTime = 0.0f;
+
 	void EngineOptionInit();
 
 	void EngineStart(HINSTANCE _Inst);

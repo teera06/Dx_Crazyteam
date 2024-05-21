@@ -104,6 +104,29 @@ void UEngineCore::EngineFrameUpdate()
 {
 	float DeltaTime = MainTimer.TimeCheck();
 
+	if (1 <= Frame)
+	{
+		//               5.0f
+		CurFrameTime += DeltaTime;
+
+		//  0.00001        0.016666675
+		if (CurFrameTime <= FrameTime)
+		{
+			return;
+		}
+
+		//  0.0167         0.016666675
+		CurFrameTime -= FrameTime;
+		DeltaTime = FrameTime;
+	}
+
+	// 이것도 옵션
+	if (1.0f / 60.0f <= DeltaTime)
+	{
+		DeltaTime = 1.0f / 60.0f;
+	}
+
+
 	UEngineSound::Update();
 
 	DeltaTime *= GlobalTimeScale;
