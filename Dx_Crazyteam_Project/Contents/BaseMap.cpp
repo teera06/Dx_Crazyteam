@@ -27,6 +27,7 @@
 #include "Game_Core.h"
 #include "TownBush.h"
 #include "MapStateValue.h"
+#include "ItemTurtle.h"
 
 ABaseMap::ABaseMap()
 {
@@ -479,6 +480,9 @@ std::shared_ptr<AMapObject> ABaseMap::SpawnItemObject(int _Y, int _X, EItemType 
 		break;
 	case EItemType::ItemNiddle:
 		Item = GetWorld()->SpawnActor<AItemNiddle>("Niddle");
+		break;
+	case EItemType::ItemTurtle:
+		Item = GetWorld()->SpawnActor<AItemTurtle>("Turtle");
 		break;
 	default:
 		break;
