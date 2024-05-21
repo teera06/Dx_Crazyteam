@@ -461,7 +461,22 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					}
 					else if (type == EMapObjectType::Bush)
 					{
-						NextMapObject->WaterInteract();
+						// 부쉬안에 뭐가 있음?
+						std::shared_ptr<ABush> IsOn = std::dynamic_pointer_cast<ABush>(NextMapObject);
+
+						// 부쉬 안에 뭔가 있음.
+						if (nullptr != IsOn->GetPossessBlock())
+						{
+							NextMapObject->WaterInteract();
+
+							// 물줄기가 안나가도록 막아야 한다.
+							UpEnd = true;
+						}
+						else
+						{
+							// 부쉬 지움.
+							NextMapObject->WaterInteract();
+						}
 					}
 				}
 
@@ -503,7 +518,22 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					}
 					else if (type == EMapObjectType::Bush)
 					{
-						NextMapObject->WaterInteract();
+						// 부쉬안에 뭐가 있음?
+						std::shared_ptr<ABush> IsOn = std::dynamic_pointer_cast<ABush>(NextMapObject);
+
+						// 부쉬 안에 뭔가 있음.
+						if (nullptr != IsOn->GetPossessBlock())
+						{
+							NextMapObject->WaterInteract();
+
+							// 물줄기가 안나가도록 막아야 한다.
+							UpEnd = true;
+						}
+						else
+						{
+							// 부쉬 지움.
+							NextMapObject->WaterInteract();
+						}
 					}
 				}
 
@@ -547,7 +577,22 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					}
 					else if (type == EMapObjectType::Bush)
 					{
-						NextMapObject->WaterInteract();
+						// 부쉬안에 뭐가 있음?
+						std::shared_ptr<ABush> IsOn = std::dynamic_pointer_cast<ABush>(NextMapObject);
+
+						// 부쉬 안에 뭔가 있음.
+						if (nullptr != IsOn->GetPossessBlock())
+						{
+							NextMapObject->WaterInteract();
+
+							// 물줄기가 안나가도록 막아야 한다.
+							UpEnd = true;
+						}
+						else
+						{
+							// 부쉬 지움.
+							NextMapObject->WaterInteract();
+						}
 					}
 				}
 
@@ -595,7 +640,22 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					}
 					else if (type == EMapObjectType::Bush)
 					{
-						NextMapObject->WaterInteract();
+						// 부쉬안에 뭐가 있음?
+						std::shared_ptr<ABush> IsOn = std::dynamic_pointer_cast<ABush>(NextMapObject);
+
+						// 부쉬 안에 뭔가 있음.
+						if (nullptr != IsOn->GetPossessBlock())
+						{
+							NextMapObject->WaterInteract();
+
+							// 물줄기가 안나가도록 막아야 한다.
+							UpEnd = true;
+						}
+						else
+						{
+							// 부쉬 지움.
+							NextMapObject->WaterInteract();
+						}
 					}
 				}
 
@@ -630,6 +690,25 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 						AWaterBomb* NextBomb = dynamic_cast<AWaterBomb*>(NextMapObject.get());
 						NextBomb->SetWaterToBomg(true);
 					}
+					else if (type == EMapObjectType::Bush)
+					{
+						// 부쉬안에 뭐가 있음?
+						std::shared_ptr<ABush> IsOn = std::dynamic_pointer_cast<ABush>(NextMapObject);
+
+						// 부쉬 안에 뭔가 있음.
+						if (nullptr != IsOn->GetPossessBlock())
+						{
+							NextMapObject->WaterInteract();
+
+							// 물줄기가 안나가도록 막아야 한다.
+							UpEnd = true;
+						}
+						else
+						{
+							// 부쉬 지움.
+							NextMapObject->WaterInteract();
+						}
+					}
 				}
 
 				if (NextMapObject == nullptr && DownEnd == false)
@@ -662,6 +741,25 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					{
 						AWaterBomb* NextBomb = dynamic_cast<AWaterBomb*>(NextMapObject.get());
 						NextBomb->SetWaterToBomg(true);
+					}
+					else if (type == EMapObjectType::Bush)
+					{
+						// 부쉬안에 뭐가 있음?
+						std::shared_ptr<ABush> IsOn = std::dynamic_pointer_cast<ABush>(NextMapObject);
+
+						// 부쉬 안에 뭔가 있음.
+						if (nullptr != IsOn->GetPossessBlock())
+						{
+							NextMapObject->WaterInteract();
+
+							// 물줄기가 안나가도록 막아야 한다.
+							UpEnd = true;
+						}
+						else
+						{
+							// 부쉬 지움.
+							NextMapObject->WaterInteract();
+						}
 					}
 				}
 
@@ -696,7 +794,27 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 						AWaterBomb* NextBomb = dynamic_cast<AWaterBomb*>(NextMapObject.get());
 						NextBomb->SetWaterToBomg(true);
 					}
+					else if (type == EMapObjectType::Bush)
+					{
+						// 부쉬안에 뭐가 있음?
+						std::shared_ptr<ABush> IsOn = std::dynamic_pointer_cast<ABush>(NextMapObject);
+
+						// 부쉬 안에 뭔가 있음.
+						if (nullptr != IsOn->GetPossessBlock())
+						{
+							NextMapObject->WaterInteract();
+
+							// 물줄기가 안나가도록 막아야 한다.
+							UpEnd = true;
+						}
+						else
+						{
+							// 부쉬 지움.
+							NextMapObject->WaterInteract();
+						}
+					}
 				}
+
 
 				if (NextMapObject == nullptr && RightEnd == false)
 				{
