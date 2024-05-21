@@ -28,7 +28,7 @@ class ULevel final : public UTickObject, public UNameObject
 	friend UCollision;
 	friend UEngineCore;
 	friend UWidget;
-	static bool IsActorConstructer;
+	static std::atomic_bool IsActorConstructer;
 
 public:
 	// constrcuter destructer

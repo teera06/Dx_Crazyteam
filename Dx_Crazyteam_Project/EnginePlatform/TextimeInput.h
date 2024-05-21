@@ -8,6 +8,11 @@ public:
 	static std::string GetReadText();
 	static void On();
 	static void Off();
+
+	static bool GetOnOff()
+	{
+		return OnOff;
+	}
 protected:
 private:
 	

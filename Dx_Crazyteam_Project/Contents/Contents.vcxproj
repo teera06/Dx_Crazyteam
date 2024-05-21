@@ -70,6 +70,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="FontActor.h" />
     <ClInclude Include="Game_Core.h">
       <SubType>
       </SubType>
@@ -289,6 +290,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="FontActor.cpp" />
     <ClCompile Include="Game_Core.cpp">
       <SubType>
       </SubType>

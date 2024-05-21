@@ -8,10 +8,18 @@
 
 AMapUI::AMapUI()
 {
-	// 네트워크 통신준비가 아직 안된 오브젝트다.
-	if (nullptr != UGame_Core::Net)
+	if (false == IsNetInit())
 	{
-		InitNet(UGame_Core::Net);
+		// 네트워크 통신준비가 아직 안된 오브젝트다.
+		if (nullptr != UGame_Core::Net)
+		{
+			InitNet(UGame_Core::Net);
+		}
+		//else
+		//{
+		//	MsgBoxAssert("네트워크에 접근하지 않고 오브젝트 릴리즈 패킷을 보내려고 했습니다");
+		//	return;
+		//}
 	}
 
 	CreateTime();

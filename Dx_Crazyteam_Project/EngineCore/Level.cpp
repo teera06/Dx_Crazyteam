@@ -11,7 +11,7 @@
 #include "Widget.h"
 #include <EngineBase/NetObject.h>
 
-bool ULevel::IsActorConstructer = true;
+std::atomic_bool ULevel::IsActorConstructer = true;
 
 ULevel::ULevel() 
 {
