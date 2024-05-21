@@ -170,7 +170,9 @@ private:
 	float DieAnimationTime = 2.f;
 	float DieTwinkleTime = 0.1f;
 
-	float RideGodModeTime = 3.f; // 탈것에 타거나 내릴 때 몇초간 무적모드
+	float RideGodModeTime = 2.f; // 탈것에 타거나 내릴 때 몇초간 무적모드
+	float RideTwinkleTime = 0.1f;
+	int RideAniTwinkleActive = 0;
 
 	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
 
