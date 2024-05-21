@@ -114,7 +114,7 @@ void USendPacketManager::SendMapObjectMoveEndPacket(std::shared_ptr<AMapObject> 
 	_NetObject->Send(Packet);
 }
 
-void USendPacketManager::SendLPlayerPacket(UNetObject* _NetObject, int _SessionToken, std::string_view _SpriteName, int _SpriteIndex)
+void USendPacketManager::SendLPlayerPacket(UNetObject* _NetObject, std::string_view _SpriteName, int _SpriteIndex)
 {
 	if (false == _NetObject->IsNetInit())
 	{
@@ -131,7 +131,6 @@ void USendPacketManager::SendLPlayerPacket(UNetObject* _NetObject, int _SessionT
 	}
 
 	std::shared_ptr<ULobbyPlayerUpdatePacket> Packet = std::make_shared<ULobbyPlayerUpdatePacket>();
-	Packet->SetObjectToken(_SessionToken * 110000 + 1);
 	Packet->SpriteName = _SpriteName;
 	Packet->SpriteIndex = _SpriteIndex;
 	_NetObject->Send(Packet);
