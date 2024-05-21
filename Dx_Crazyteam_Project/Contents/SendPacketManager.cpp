@@ -113,3 +113,26 @@ void USendPacketManager::SendMapObjectMoveEndPacket(std::shared_ptr<AMapObject> 
 	Packet->IsMoveEnd = true;
 	_NetObject->Send(Packet);
 }
+
+void USendPacketManager::SendLPlayerPacket(UNetObject* _NetObject, int _SessionToken, std::string_view _SpriteName, int _SpriteIndex)
+{
+	if (false == _NetObject->IsNetInit())
+	{
+		// 네트워크 통신준비가 아직 안된 오브젝트다.
+		if (nullptr != UGame_Core::Net)
+		{
+			_NetObject->InitNet(UGame_Core::Net);
+		}
+		//else
+		//{
+		//	MsgBoxAssert("네트워크에 접근하지 않고 아이템 오브젝트 생성 패킷을 보내려고 했습니다");
+		//	return;
+		//}
+	}
+
+	std::shared_ptr<ULobbyPlayerUpdatePacket> Packet = std::make_shared<ULobbyPlayerUpdatePacket>();
+	Packet->SetObjectToken(_SessionToken * 110000 + 1);
+	Packet->SpriteName = _SpriteName;
+	Packet->SpriteIndex = _SpriteIndex;
+	_NetObject->Send(Packet);
+}
