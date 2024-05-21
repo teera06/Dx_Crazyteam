@@ -16,9 +16,17 @@ public:
 	UContentsMainDebugWin& operator=(const UContentsMainDebugWin& _Other) = delete; // 디폴트 대입 연산자
 	UContentsMainDebugWin& operator=(UContentsMainDebugWin&& _Other) noexcept = delete;
 
+	static void SetIsLevel(bool _IsLevel)
+	{
+		IsLevel = _IsLevel;
+	}
+
+
 protected:
 	void Init() override;
 	void OnGui(ULevel* Level, float _Delta) override;
 private:
+
+	static bool IsLevel;
 };
 

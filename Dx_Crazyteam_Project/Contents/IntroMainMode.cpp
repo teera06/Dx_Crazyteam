@@ -5,6 +5,8 @@
 
 #include "LobbyMainMode.h"
 #include "FontActor.h"
+#include "ContentsMainDebugWin.h"
+
 AIntroMainMode::AIntroMainMode()
 {
 }
@@ -34,6 +36,8 @@ void AIntroMainMode::Tick(float _DeltaTime)
 void AIntroMainMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+	UContentsMainDebugWin::SetIsLevel(true);
+
 	GEngine->DestroyLevel("IntroMainMode");
 	//Intro->Destroy();
 }
