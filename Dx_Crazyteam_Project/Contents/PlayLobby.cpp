@@ -334,7 +334,7 @@ void APlayLobby::BeginPlay()
 
 	Teamtyp = dynamic_cast<ACAGameMode*>(GetWorld()->GetGameMode().get());
 
-	LobbyPlayerBegin();
+	//LobbyPlayerBegin();
 
 }
 
