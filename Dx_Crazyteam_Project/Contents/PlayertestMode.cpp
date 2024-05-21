@@ -36,6 +36,8 @@ void APlayerTestMode::BeginPlay()
 	Village->AddMapObject(3, 3, EMapObject::Item, EItemType::ItemFluid);
 	Village->AddMapObject(4, 4, EMapObject::Item, EItemType::ItemRoller);
 	Village->AddMapObject(5, 5, EMapObject::Item, EItemType::ItemOwl);
+	Village->AddMapObject(8, 8, EMapObject::Item, EItemType::ItemTurtle);
+	Village->AddMapObject(8, 9, EMapObject::Item, EItemType::ItemTurtle);
 	Village->AddMapObject(9, 9, EMapObject::Item, EItemType::ItemTurtle);
 
 }
