@@ -12,9 +12,8 @@ enum class EObjectType
 
 enum EContentPacket
 {
-	UIPacket = 96,
-	WaterCourseUpdatePacket = 97,
-	WaterBombUpdatePacket = 98,
+	Lobby_Player_Select= 97,
+	UIPacket = 98,
 	ActorUpdatePacket = 99,
 	MapObjectUpdatePacket = 100,
 };
@@ -57,77 +56,6 @@ public:
 	bool IsDestroy = true;
 	std::string SpriteName;
 };
-
-
-class UWaterBombUpdatePacket : public UEngineProtocol
-{
-public:
-	static const EContentPacket Type = EContentPacket::WaterBombUpdatePacket;
-public:
-	UWaterBombUpdatePacket()
-	{
-		SetType(EContentPacket::WaterBombUpdatePacket);
-	}
-
-	void Serialize(UEngineSerializer& _Ser) override
-	{
-		UEngineProtocol::Serialize(_Ser);
-		_Ser << Pos;
-		_Ser << ObjectType;
-		_Ser << Bomb;
-	}
-
-	void DeSerialize(UEngineSerializer& _Ser) override
-	{
-		UEngineProtocol::DeSerialize(_Ser);
-		_Ser >> Pos;
-		_Ser >> ObjectType;
-		_Ser >> Bomb;
-	}
-
-public:
-	float4 Pos = float4::Zero;
-	int ObjectType = 0;
-	bool Bomb = false;
-};
-
-
-class UWaterCourseUpdatePacket : public UEngineProtocol
-{
-public:
-	static const EContentPacket Type = EContentPacket::WaterCourseUpdatePacket;
-public:
-	UWaterCourseUpdatePacket()
-	{
-		SetType(EContentPacket::WaterCourseUpdatePacket);
-	}
-
-	void Serialize(UEngineSerializer& _Ser) override
-	{
-		UEngineProtocol::Serialize(_Ser);
-		_Ser << Pos;
-		_Ser << ObjectType;
-		_Ser << Dir;
-		_Ser >> SetCourse;
-	}
-
-	void DeSerialize(UEngineSerializer& _Ser) override
-	{
-		UEngineProtocol::DeSerialize(_Ser);
-		_Ser >> Pos;
-		_Ser >> ObjectType;
-		_Ser >> Dir;
-		_Ser >> SetCourse;
-	}
-
-public:
-	float4 Pos = float4::Zero;
-	int ObjectType = 0;
-	int Dir = 0;
-	bool SetCourse = false;
-};
-
-
 
 class UUIUpdatePacket : public UEngineProtocol
 {
@@ -220,3 +148,36 @@ protected:
 private:
 
 };
+
+
+
+
+class ULobbyPlayerUpdatePacket : public UEngineProtocol
+{
+public:
+	static const EContentPacket Type = EContentPacket::Lobby_Player_Select;
+public:
+	ULobbyPlayerUpdatePacket()
+	{
+		SetType(EContentPacket::Lobby_Player_Select);
+	}
+
+	void Serialize(UEngineSerializer& _Ser) override
+	{
+		UEngineProtocol::Serialize(_Ser);
+		_Ser << SpriteIndex;
+		_Ser << SpriteName;
+	}
+
+	void DeSerialize(UEngineSerializer& _Ser) override
+	{
+		UEngineProtocol::DeSerialize(_Ser);
+		_Ser >> SpriteIndex;
+		_Ser >> SpriteName;
+	}
+
+public:
+	int SpriteIndex = 0;
+	std::string SpriteName;
+};
+

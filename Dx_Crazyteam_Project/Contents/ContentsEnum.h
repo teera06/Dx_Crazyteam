@@ -44,6 +44,11 @@ enum class EItemType
 enum class EMapObject
 {
 	Default,
+	WaterBomb,
+	Water,
+	Item,
+	TownBush,
+
 	DummyBlock,
 	NormalBlock,
 	CampBlock1,
@@ -53,10 +58,14 @@ enum class EMapObject
 	CampMoveBlock1,
 	CampMoveBlock2,
 	CampHPBlock,
-	WaterBomb,
-	Water,
-	Item,
-	TownBush,
+
+	VillageBlock1,
+	VillageBlock2,
+	VillageMoveBlock,
+	VillageTree,
+	VillageBlueHouse,
+	VillageRedHouse,
+	VillageYellowHouse,
 };
 
 enum class EGimmickType

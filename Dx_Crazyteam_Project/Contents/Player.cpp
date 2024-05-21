@@ -143,7 +143,7 @@ std::string APlayer::GetAnimationName(std::string_view _StateName)
 		_AniName = std::string("Owl_") + _AniName;
 		break;
 	case EPlayerRideType::Turtle:
-		_AniName = std::string("Turtle") + _AniName;
+		_AniName = std::string("Turtle_") + _AniName;
 		break;
 	default:
 		break;

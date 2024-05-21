@@ -27,6 +27,9 @@
 #include "TestLobbyMode.h"
 
 
+std::shared_ptr<UEngineNetWindow> AServerGameMode::NetWindow = nullptr;
+bool AServerGameMode::IsServerOpen = false;
+
 AServerGameMode::AServerGameMode() 
 {
 }
@@ -47,14 +50,9 @@ void AServerGameMode::BeginPlay()
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 
-
-	Camp = GetWorld()->SpawnActor<ACamp>("Camp");
-	Camp->SetCurGameMode(this);
-	SetCurMap(Camp);
-
-	std::shared_ptr<APlayer> Player1 = GetWorld()->SpawnActor<AServerTestPlayer>("Player1", 0);
-	Player1->SetCurGameMode(this);
-	SetMainPlayer(Player1);
+	//std::shared_ptr<APlayer> Player1 = GetWorld()->SpawnActor<AServerTestPlayer>("Player1", 0);
+	//Player1->SetCurGameMode(this);
+	//SetMainPlayer(Player1);
 
 }
 
@@ -62,42 +60,42 @@ void AServerGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	UNetObject::AllNetObject;
+	//UNetObject::AllNetObject;
 }
 
 void AServerGameMode::LevelStart(ULevel* _PrevLevel)
 {
 
-	if (nullptr == NetWindow)
-	{
-		NetWindow = UEngineEditorGUI::CreateEditorWindow<UEngineNetWindow>("NetWindow");
+	//if (nullptr == NetWindow)
+	//{
+	//	NetWindow = UEngineEditorGUI::CreateEditorWindow<UEngineNetWindow>("NetWindow");
 
-		NetWindow->SetServerOpenFunction([&]()
-			{
-				UGame_Core::Net = std::make_shared<UEngineServer>();
-				UGame_Core::Net->ServerOpen(30000, 512);
+	//	NetWindow->SetServerOpenFunction([&]()
+	//		{
+	//			UGame_Core::Net = std::make_shared<UEngineServer>();
+	//			UGame_Core::Net->ServerOpen(30000, 512);
 
-				GetPlayer()->SetObjectToken(UNetObject::GetNewObjectToken());
-				
+	//			//GetPlayer()->SetObjectToken(UNetObject::GetNewObjectToken());
+	//			
 
-				ServerPacketInit(UGame_Core::Net->Dispatcher);
-			});
+	//			//ServerPacketInit(UGame_Core::Net->Dispatcher);
+	//		});
 
-		NetWindow->SetClientConnectFunction([&](std::string IP, short PORT)
-			{
-				UGame_Core::Net = std::make_shared<UEngineClient>();
-				UGame_Core::Net->Connect(IP, PORT);
+	//	NetWindow->SetClientConnectFunction([&](std::string IP, short PORT)
+	//		{
+	//			UGame_Core::Net = std::make_shared<UEngineClient>();
+	//			UGame_Core::Net->Connect(IP, PORT);
 
-				UGame_Core::Net->SetTokenPacketFunction([=](USessionTokenPacket* _Token)
-					{
-						GetPlayer()->SetObjectToken(_Token->GetObjectToken());
-					});
+	//			//UGame_Core::Net->SetTokenPacketFunction([=](USessionTokenPacket* _Token)
+	//			//	{
+	//			//		GetPlayer()->SetObjectToken(_Token->GetObjectToken());
+	//			//	});
 
-				// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
-				ClientPacketInit(UGame_Core::Net->Dispatcher);
-			});
-	}
-	NetWindow->On();
+	//			// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
+	//			//ClientPacketInit(UGame_Core::Net->Dispatcher);
+	//		});
+	//}
+	//NetWindow->Off();
 }
 
 void AServerGameMode::ServerPacketInit(UEngineDispatcher& Dis)
@@ -333,10 +331,46 @@ void AServerGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 		});
 }
 
-std::shared_ptr<APlayLobby> AServerGameMode::GetPlayLobby()
+void AServerGameMode::ServerOpen()
 {
-	return PlayLobby;
+	if (nullptr == NetWindow)
+	{
+		NetWindow = UEngineEditorGUI::CreateEditorWindow<UEngineNetWindow>("NetWindow");
+
+		NetWindow->SetServerOpenFunction([&]()
+			{
+				UGame_Core::Net = std::make_shared<UEngineServer>();
+				UGame_Core::Net->ServerOpen(30000, 512);
+				
+				SetIsServerOpen(true);
+				//GetPlayer()->SetObjectToken(UNetObject::GetNewObjectToken());
+
+
+				//ServerPacketInit(UGame_Core::Net->Dispatcher);
+			});
+
+		NetWindow->SetClientConnectFunction([&](std::string IP, short PORT)
+			{
+				UGame_Core::Net = std::make_shared<UEngineClient>();
+				UGame_Core::Net->Connect(IP, PORT);
+				
+				SetIsServerOpen(true);
+				//UGame_Core::Net->SetTokenPacketFunction([=](USessionTokenPacket* _Token)
+				//	{
+				//		GetPlayer()->SetObjectToken(_Token->GetObjectToken());
+				//	});
+
+				// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
+				//ClientPacketInit(UGame_Core::Net->Dispatcher);
+			});
+	}
+	NetWindow->On();
 }
+
+//std::shared_ptr<APlayLobby> AServerGameMode::GetPlayLobby()
+//{
+//	return PlayLobby;
+//}
 
 void AServerGameMode::LevelEnd(ULevel* _NextLevel)
 {

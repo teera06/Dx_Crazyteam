@@ -2,6 +2,10 @@
 #include "LobbyMainMode.h"
 #include "PlayLobby.h"
 #include "FontActor.h"
+#include "Game_Core.h"
+#include "OtherLobbyPlayer.h"
+#include "Packets.h"
+
 
 ALobbyMainMode::ALobbyMainMode()
 {
@@ -37,4 +41,50 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
+	PlayLobby->SetMySessionToken(UGame_Core::Net->GetSessionToken());
+
+	if (0 == UGame_Core::Net->GetSessionToken())
+	{
+		ServerPacketInit(UGame_Core::Net->Dispatcher);
+	}
+	else if (1 <= UGame_Core::Net->GetSessionToken())
+	{
+		ClientPacketInit(UGame_Core::Net->Dispatcher);
+	}
+}
+
+void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
+{
+	Dis.AddHandler<ULobbyPlayerUpdatePacket>([=](std::shared_ptr<ULobbyPlayerUpdatePacket> _Packet)
+		{
+			UGame_Core::Net->Send(_Packet);
+
+			GetWorld()->PushFunction([=]()
+				{
+					AOtherLobbyPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherLobbyPlayer>(_Packet->GetObjectToken());
+					if (nullptr == OtherPlayer)
+					{
+						OtherPlayer = this->GetWorld()->SpawnActor<AOtherLobbyPlayer>("OtherLobbyPlayer", 0).get();
+						OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+					}
+					OtherPlayer->SetRenderer(_Packet->SpriteName, _Packet->SpriteIndex);
+				});
+		});
+}
+
+void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
+{
+	Dis.AddHandler<ULobbyPlayerUpdatePacket>([=](std::shared_ptr<ULobbyPlayerUpdatePacket> _Packet)
+		{
+			GetWorld()->PushFunction([=]()
+				{
+					AOtherLobbyPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherLobbyPlayer>(_Packet->GetObjectToken());
+					if (nullptr == OtherPlayer)
+					{
+						OtherPlayer = this->GetWorld()->SpawnActor<AOtherLobbyPlayer>("OtherLobbyPlayer", 0).get();
+						OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+					}
+					OtherPlayer->SetRenderer(_Packet->SpriteName, _Packet->SpriteIndex);
+				});
+		});
 }

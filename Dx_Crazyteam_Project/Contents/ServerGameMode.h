@@ -35,14 +35,29 @@ public:
 
 	std::shared_ptr<APlayLobby> GetPlayLobby();
 
+
+	static void ServerOpen();
+	static bool GetIsServerOpen()
+	{
+		return IsServerOpen;
+	}
+
 protected:
-	std::shared_ptr<UEngineNetWindow> NetWindow;
-	std::shared_ptr<ACamp> Camp = nullptr;
-	std::shared_ptr<ATitleMenu> TitleMenu = nullptr;
-	std::shared_ptr<APlayLobby> PlayLobby = nullptr;
+	static std::shared_ptr<UEngineNetWindow> NetWindow;
+	//std::shared_ptr<ACamp> Camp = nullptr;
+	//std::shared_ptr<ATitleMenu> TitleMenu = nullptr;
+	//std::shared_ptr<APlayLobby> PlayLobby = nullptr;
 
 
 private:
+	static bool IsServerOpen;
+
+private:
+
+	static void SetIsServerOpen(bool _Value)
+	{
+		IsServerOpen = _Value;
+	}
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void LevelStart(ULevel* _PrevLevel) override;

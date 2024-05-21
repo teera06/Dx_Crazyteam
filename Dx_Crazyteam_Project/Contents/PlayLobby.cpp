@@ -5,6 +5,8 @@
 
 #include "EngineCore/Image.h"
 #include "EngineBase/EngineDebug.h"
+#include "SendPacketManager.h"
+#include "Game_Core.h"
 
 APlayLobby::APlayLobby()
 {
@@ -895,6 +897,18 @@ void APlayLobby::CharacterBegin()
 					DaoBT->ChangeAnimation("Hover");
 					SwitchON = true;
 
+
+
+	if (IsGetSessionToken == true)
+	{
+		PlayerCount = MySessionToken;
+
+		LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
+		LobbyPlayer[PlayerCount]->AddToViewPort(15);
+		LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
+		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
+		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
+
 				}
 				else if (IsDown(VK_LBUTTON) && true == SwitchON)
 				{
@@ -928,6 +942,10 @@ void APlayLobby::CharacterBegin()
 					MaridBT->ChangeAnimation("Hover");
 					SwitchON = true;
 
+		USendPacketManager::SendLPlayerPacket(this, UGame_Core::Net->GetSessionToken(), "bazzi_idle.png", 1);
+		
+		IsGetSessionToken = false;
+	}
 				}
 				else if (IsDown(VK_LBUTTON) && true == SwitchON)
 				{
@@ -1091,7 +1109,9 @@ void APlayLobby::SwapTeamSelectCharacter(UImage* _SelectTeam)
 	SelectTeam = _SelectTeam;
 }
 
+
 void APlayLobby::SetIsActive(bool _Active)
 {
 	PlayLobbyUI->SetActive(_Active);
 }
+

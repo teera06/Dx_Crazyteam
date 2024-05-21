@@ -8,6 +8,7 @@
 #include "MainGameMode.h"
 #include "SubServerLevel.h"
 #include "IntroMainMode.h"
+#include "LobbyMainMode.h"
 
 #include "ContentsDebugWindow.h"
 #include "ContentsMainDebugWin.h"
@@ -35,14 +36,15 @@ void UGame_Core::Initialize()
 	CuttingAni();
 	SoundLoad();
 	ForderLoadAni();
-
+	GEngine->CreateLevel<AServerGameMode>("ServerGameMode");
+	GEngine->CreateLevel<AIntroMainMode>("IntroMainMode");
+	GEngine->CreateLevel<ALobbyMainMode>("LobbyMainMode");
+	////////////
 	GEngine->CreateLevel<ATestGameMode>("testGameMode");
 	GEngine->CreateLevel<APlayerTestMode>("PlayertestMode");
-	GEngine->CreateLevel<AUitestMonde>("UitestMonde");
 	GEngine->CreateLevel<AMainGameMode>("MainGameMode");
-	GEngine->CreateLevel<AServerGameMode>("ServerGameMode");
 	GEngine->CreateLevel<ASubServerLevel>("SubServerLevel");
-	GEngine->CreateLevel<AIntroMainMode>("IntroMainMode");
+	GEngine->CreateLevel<AUitestMonde>("UitestMonde");
 	GEngine->ChangeLevel("MainGameMode");
 
 	UEngineEditorGUI::CreateEditorWindow<UContentsDebugWindow>("contentsHelpMe");
@@ -150,10 +152,12 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("dao_up.png", 4, 1);
 		UEngineSprite::CreateCutting("dao_idle.png", 4, 1);
 		UEngineSprite::CreateCutting("dao_trap.png", 4, 1);
-		UEngineSprite::CreateCutting("dao_trap_long.png", 5, 7);
+		UEngineSprite::CreateCutting("dao_trap_long.png", 5, 6);
 		UEngineSprite::CreateCutting("dao_rescue.png", 3, 1);
 		UEngineSprite::CreateCutting("dao_die.png", 5, 2);
 		UEngineSprite::CreateCutting("dao_1_blue.png", 5, 12);
+		UEngineSprite::CreateCutting("dao_3_blue.png", 5, 4);
+		UEngineSprite::CreateCutting("dao_4_blue.png", 5, 4);
 
 		// Red Marid
 		UEngineSprite::CreateCutting("luxMarid_1.png", 5, 12);
@@ -180,6 +184,7 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("Niddle.png", 6, 1);
 		UEngineSprite::CreateCutting("Owl.png", 6, 1);
 		UEngineSprite::CreateCutting("Shoes.png", 6, 1);
+		UEngineSprite::CreateCutting("Turtle.png", 6, 1);
 
 		// Item Shadow
 		UEngineSprite::CreateCutting("ItemShadow.png", 2, 1);

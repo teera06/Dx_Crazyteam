@@ -21,6 +21,7 @@ void ABlock::BeginPlay()
 	SetType(EMapObjectType::Block);
 
 	Renderer->SetPivot(EPivot::BOT);
+	Renderer->SetOrder(ERenderOrder::WaterBomb);
 	Renderer->AddPosition(FVector::Down * 20.f);
 	Renderer->SetAutoSize(1.f, true);
 
@@ -187,12 +188,14 @@ void ABlock::BreakTick(float _DeltaTime)
 		AccBlinkTime = 0.f;
 		if (BlinkOn)
 		{
-			Renderer->SetMulColor(FVector(1.f, 1.f, 1.f, 0.5f));
+			//Renderer->SetMulColor(FVector(1.f, 1.f, 1.f, 0.5f));
+			Renderer->SetAlpha(0.5f);
 			BlinkOn = false;
 		}
 		else
 		{
-			Renderer->SetMulColor(FVector(1.f, 1.f, 1.f, 1.f));
+			//Renderer->SetMulColor(FVector(1.f, 1.f, 1.f, 1.f));
+			Renderer->SetAlpha(1.0f);
 			BlinkOn = true;
 		}
 	}

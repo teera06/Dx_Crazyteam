@@ -13,14 +13,14 @@ void APlayer::StateInit()
 
 	// CreateAnimation
 	// 레드 배찌 애니메이션
-	Renderer->CreateAnimation("Red_Bazzi_Idle_Up", "bazzi_1_red.png", AnimationInter,		false,	12,	12);
-	Renderer->CreateAnimation("Red_Bazzi_Idle_Down", "bazzi_1_red.png", AnimationInter,		false,	20,	20);
-	Renderer->CreateAnimation("Red_Bazzi_Idle_Right", "bazzi_1_red.png", AnimationInter,	false,	6,	6);
-	Renderer->CreateAnimation("Red_Bazzi_Idle_Left", "bazzi_1_red.png", AnimationInter,		false,	0,	0);
-	Renderer->CreateAnimation("Red_Bazzi_Move_Left", "bazzi_1_red.png", AnimationInter,		true,	0,	5);
-	Renderer->CreateAnimation("Red_Bazzi_Move_Right", "bazzi_1_red.png", AnimationInter,	true,	6,	11);
-	Renderer->CreateAnimation("Red_Bazzi_Move_Up", "bazzi_1_red.png", AnimationInter,		true,	12,	19);
-	Renderer->CreateAnimation("Red_Bazzi_Move_Down", "bazzi_1_red.png", AnimationInter,		true,	20,	27);
+	Renderer->CreateAnimation("Red_Bazzi_Idle_Up",		"bazzi_1_red.png", AnimationInter,		false,	12,	12);
+	Renderer->CreateAnimation("Red_Bazzi_Idle_Down",	"bazzi_1_red.png", AnimationInter,		false,	20,	20);
+	Renderer->CreateAnimation("Red_Bazzi_Idle_Right",	"bazzi_1_red.png", AnimationInter,	false,	6,	6);
+	Renderer->CreateAnimation("Red_Bazzi_Idle_Left",	"bazzi_1_red.png", AnimationInter,		false,	0,	0);
+	Renderer->CreateAnimation("Red_Bazzi_Move_Left",	"bazzi_1_red.png", AnimationInter,		true,	0,	5);
+	Renderer->CreateAnimation("Red_Bazzi_Move_Right",	"bazzi_1_red.png", AnimationInter,	true,	6,	11);
+	Renderer->CreateAnimation("Red_Bazzi_Move_Up",		"bazzi_1_red.png", AnimationInter,		true,	12,	19);
+	Renderer->CreateAnimation("Red_Bazzi_Move_Down",	"bazzi_1_red.png", AnimationInter,		true,	20,	27);
 	Renderer->CreateAnimation("Red_Bazzi_Trap", "bazzi_trap_long.png", AnimationInter,		false,	6, 31);
 	Renderer->CreateAnimation("Red_Bazzi_Rescue", "bazzi_rescue.png", 0.1f, false, 0, 2);
 	Renderer->CreateAnimation("Red_Bazzi_Die", "bazzi_die.png", 0.1f, false, 0, 5);
@@ -51,14 +51,14 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Red_Bazzi_Owl_Move_Right",		"bazzi_3_red.png", AnimationInter, true, 2, 3);
 	Renderer->CreateAnimation("Red_Bazzi_Owl_Move_Up",			"bazzi_3_red.png", AnimationInter, true, 4, 5);
 	Renderer->CreateAnimation("Red_Bazzi_Owl_Move_Down",		"bazzi_3_red.png", AnimationInter, true, 6, 7);
-	Renderer->CreateAnimation("Red_Bazzi_Turtle_Idle_Up",		"bazzi_3_red.png", AnimationInter, false, 14, 14);
-	Renderer->CreateAnimation("Red_Bazzi_Turtle_Idle_Down",		"bazzi_3_red.png", AnimationInter, false, 12, 12);
+	Renderer->CreateAnimation("Red_Bazzi_Turtle_Idle_Up",		"bazzi_3_red.png", AnimationInter, false, 12, 12);
+	Renderer->CreateAnimation("Red_Bazzi_Turtle_Idle_Down",		"bazzi_3_red.png", AnimationInter, false, 14, 14);
 	Renderer->CreateAnimation("Red_Bazzi_Turtle_Idle_Right",	"bazzi_3_red.png", AnimationInter, false, 10, 10);
 	Renderer->CreateAnimation("Red_Bazzi_Turtle_Idle_Left",		"bazzi_3_red.png", AnimationInter, false, 8, 8);
 	Renderer->CreateAnimation("Red_Bazzi_Turtle_Move_Left",		"bazzi_3_red.png", AnimationInter, true, 8, 9);
 	Renderer->CreateAnimation("Red_Bazzi_Turtle_Move_Right",	"bazzi_3_red.png", AnimationInter, true, 10, 11);
-	Renderer->CreateAnimation("Red_Bazzi_Turtle_Move_Up",		"bazzi_3_red.png", AnimationInter, true, 14, 15);
-	Renderer->CreateAnimation("Red_Bazzi_Turtle_Move_Down",		"bazzi_3_red.png", AnimationInter, true, 12, 13);
+	Renderer->CreateAnimation("Red_Bazzi_Turtle_Move_Up",		"bazzi_3_red.png", AnimationInter, true, 12, 13);
+	Renderer->CreateAnimation("Red_Bazzi_Turtle_Move_Down",		"bazzi_3_red.png", AnimationInter, true, 14, 15);
 
 	Renderer->CreateAnimation("Blue_Bazzi_Owl_Idle_Up", "Bazzi_3_blue.png", AnimationInter, false, 4, 4);
 	Renderer->CreateAnimation("Blue_Bazzi_Owl_Idle_Down", "Bazzi_3_blue.png", AnimationInter, false, 6, 6);
@@ -68,14 +68,14 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Blue_Bazzi_Owl_Move_Right", "Bazzi_3_blue.png", AnimationInter, true, 2, 3);
 	Renderer->CreateAnimation("Blue_Bazzi_Owl_Move_Up", "Bazzi_3_blue.png", AnimationInter, true, 4, 5);
 	Renderer->CreateAnimation("Blue_Bazzi_Owl_Move_Down", "Bazzi_3_blue.png", AnimationInter, true, 6, 7);
-	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Idle_Up", "Bazzi_3_blue.png", AnimationInter, false, 14, 14);
-	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Idle_Down", "Bazzi_3_blue.png", AnimationInter, false, 12, 12);
+	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Idle_Up", "Bazzi_3_blue.png", AnimationInter, false, 12, 12);
+	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Idle_Down", "Bazzi_3_blue.png", AnimationInter, false, 14, 14);
 	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Idle_Right", "Bazzi_3_blue.png", AnimationInter, false, 10, 10);
 	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Idle_Left", "Bazzi_3_blue.png", AnimationInter, false, 8, 8);
 	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Move_Left", "Bazzi_3_blue.png", AnimationInter, true, 8, 9);
 	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Move_Right", "Bazzi_3_blue.png", AnimationInter, true, 10, 11);
-	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Move_Up", "Bazzi_3_blue.png", AnimationInter, true, 14, 15);
-	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Move_Down", "Bazzi_3_blue.png", AnimationInter, true, 12, 13);
+	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Move_Up", "Bazzi_3_blue.png", AnimationInter, true, 12, 13);
+	Renderer->CreateAnimation("Blue_Bazzi_Turtle_Move_Down", "Bazzi_3_blue.png", AnimationInter, true, 14, 15);
 
 	
 	// 레드 다오 애니메이션
@@ -94,19 +94,19 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Red_Dao_GameOn2", "Dao_1_red.png", AnimationInter, false, 28, 37);
 
 	// 블루 다오 애니메이션
-	Renderer->CreateAnimation("Blue_Dao_Idle_Up", "dao_idle.png", AnimationInter, false, 0, 0);
-	Renderer->CreateAnimation("Blue_Dao_Idle_Down", "dao_idle.png", AnimationInter, false, 1, 1);
-	Renderer->CreateAnimation("Blue_Dao_Idle_Right", "dao_idle.png", AnimationInter, false, 2, 2);
-	Renderer->CreateAnimation("Blue_Dao_Idle_Left", "dao_idle.png", AnimationInter, false, 3, 3);
-	Renderer->CreateAnimation("Blue_Dao_Move_Left", "dao_left.png", AnimationInter, true, 0, 3);
-	Renderer->CreateAnimation("Blue_Dao_Move_Right", "dao_right.png", AnimationInter, true, 0, 3);
-	Renderer->CreateAnimation("Blue_Dao_Move_Up", "dao_up.png", AnimationInter, true, 0, 3);
-	Renderer->CreateAnimation("Blue_Dao_Move_Down", "dao_down.png", AnimationInter, true, 0, 3);
-	Renderer->CreateAnimation("Blue_Dao_Trap", "dao_trap_long.png", AnimationInter, false, 0, 25);
-	Renderer->CreateAnimation("Blue_Dao_Rescue", "dao_rescue.png", 0.1f, false, 0, 2);
-	Renderer->CreateAnimation("Blue_Dao_Die", "dao_die.png", 0.1f, false, 0, 5);
-	Renderer->CreateAnimation("Blue_Dao_GameOn1", "dao_1_blue.png", AnimationInter * 0.5f, true, 24, 27);
-	Renderer->CreateAnimation("Blue_Dao_GameOn2", "dao_1_blue.png", AnimationInter, false, 28, 37);
+	Renderer->CreateAnimation("Blue_Dao_Idle_Up",	"dao_4_blue.png", AnimationInter, false, 2, 2);
+	Renderer->CreateAnimation("Blue_Dao_Idle_Down", "dao_4_blue.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Blue_Dao_Idle_Right","dao_4_blue.png", AnimationInter, false, 1, 1);
+	Renderer->CreateAnimation("Blue_Dao_Idle_Left", "dao_4_blue.png", AnimationInter, false, 3, 3);
+	Renderer->CreateAnimation("Blue_Dao_Move_Left", "dao_1_blue.png", AnimationInter, true, 6, 11);
+	Renderer->CreateAnimation("Blue_Dao_Move_Right","dao_1_blue.png", AnimationInter, true, 0, 5);
+	Renderer->CreateAnimation("Blue_Dao_Move_Up",	"dao_1_blue.png", AnimationInter, true, 12, 17);
+	Renderer->CreateAnimation("Blue_Dao_Move_Down", "dao_1_blue.png", AnimationInter, true, 18, 23);
+	Renderer->CreateAnimation("Blue_Dao_Trap",			"dao_trap_long.png", AnimationInter, false, 0, 25);
+	Renderer->CreateAnimation("Blue_Dao_Rescue",		"dao_rescue.png", 0.1f, false, 0, 2);
+	Renderer->CreateAnimation("Blue_Dao_Die",			"dao_die.png", 0.1f, false, 0, 5);
+	Renderer->CreateAnimation("Blue_Dao_GameOn1",		"dao_1_blue.png", AnimationInter * 0.5f, true, 24, 27);
+	Renderer->CreateAnimation("Blue_Dao_GameOn2",		"dao_1_blue.png", AnimationInter, false, 28, 37);
 
 	// 다오 Ride 애니메이션
 	Renderer->CreateAnimation("Red_Dao_Owl_Idle_Up", "Dao_3_red.png", AnimationInter, false, 4, 4);
@@ -117,14 +117,14 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Red_Dao_Owl_Move_Right", "Dao_3_red.png", AnimationInter, true, 2, 3);
 	Renderer->CreateAnimation("Red_Dao_Owl_Move_Up", "Dao_3_red.png", AnimationInter, true, 4, 5);
 	Renderer->CreateAnimation("Red_Dao_Owl_Move_Down", "Dao_3_red.png", AnimationInter, true, 6, 7);
-	Renderer->CreateAnimation("Red_Dao_Turtle_Idle_Up", "Dao_3_red.png", AnimationInter, false, 14, 14);
-	Renderer->CreateAnimation("Red_Dao_Turtle_Idle_Down", "Dao_3_red.png", AnimationInter, false, 12, 12);
+	Renderer->CreateAnimation("Red_Dao_Turtle_Idle_Up", "Dao_3_red.png", AnimationInter, false, 12, 12);
+	Renderer->CreateAnimation("Red_Dao_Turtle_Idle_Down", "Dao_3_red.png", AnimationInter, false, 14, 14);
 	Renderer->CreateAnimation("Red_Dao_Turtle_Idle_Right", "Dao_3_red.png", AnimationInter, false, 10, 10);
 	Renderer->CreateAnimation("Red_Dao_Turtle_Idle_Left", "Dao_3_red.png", AnimationInter, false, 8, 8);
 	Renderer->CreateAnimation("Red_Dao_Turtle_Move_Left", "Dao_3_red.png", AnimationInter, true, 8, 9);
 	Renderer->CreateAnimation("Red_Dao_Turtle_Move_Right", "Dao_3_red.png", AnimationInter, true, 10, 11);
-	Renderer->CreateAnimation("Red_Dao_Turtle_Move_Up", "Dao_3_red.png", AnimationInter, true, 14, 15);
-	Renderer->CreateAnimation("Red_Dao_Turtle_Move_Down", "Dao_3_red.png", AnimationInter, true, 12, 13);
+	Renderer->CreateAnimation("Red_Dao_Turtle_Move_Up", "Dao_3_red.png", AnimationInter, true, 12, 13);
+	Renderer->CreateAnimation("Red_Dao_Turtle_Move_Down", "Dao_3_red.png", AnimationInter, true, 14, 15);
 	
 	Renderer->CreateAnimation("Blue_Dao_Owl_Idle_Up",		"dao_3_blue.png", AnimationInter, false, 4, 4);
 	Renderer->CreateAnimation("Blue_Dao_Owl_Idle_Down",		"dao_3_blue.png", AnimationInter, false, 6, 6);
@@ -134,14 +134,14 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Blue_Dao_Owl_Move_Right",	"dao_3_blue.png", AnimationInter, true, 2, 3);
 	Renderer->CreateAnimation("Blue_Dao_Owl_Move_Up",		"dao_3_blue.png", AnimationInter, true, 4, 5);
 	Renderer->CreateAnimation("Blue_Dao_Owl_Move_Down",		"dao_3_blue.png", AnimationInter, true, 6, 7);
-	Renderer->CreateAnimation("Blue_Dao_Turtle_Idle_Up",	"dao_3_blue.png", AnimationInter, false, 14, 14);
-	Renderer->CreateAnimation("Blue_Dao_Turtle_Idle_Down",	"dao_3_blue.png", AnimationInter, false, 12, 12);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Idle_Up",	"dao_3_blue.png", AnimationInter, false, 12, 12);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Idle_Down",	"dao_3_blue.png", AnimationInter, false, 14, 14);
 	Renderer->CreateAnimation("Blue_Dao_Turtle_Idle_Right", "dao_3_blue.png", AnimationInter, false, 10, 10);
 	Renderer->CreateAnimation("Blue_Dao_Turtle_Idle_Left",	"dao_3_blue.png", AnimationInter, false, 8, 8);
 	Renderer->CreateAnimation("Blue_Dao_Turtle_Move_Left",	"dao_3_blue.png", AnimationInter, true, 8, 9);
 	Renderer->CreateAnimation("Blue_Dao_Turtle_Move_Right", "dao_3_blue.png", AnimationInter, true, 10, 11);
-	Renderer->CreateAnimation("Blue_Dao_Turtle_Move_Up",	"dao_3_blue.png", AnimationInter, true, 14, 15);
-	Renderer->CreateAnimation("Blue_Dao_Turtle_Move_Down",	"dao_3_blue.png", AnimationInter, true, 12, 13);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Move_Up",	"dao_3_blue.png", AnimationInter, true, 12, 13);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Move_Down",	"dao_3_blue.png", AnimationInter, true, 14, 15);
 
 	// 레드 마리드 애니메이션
 	Renderer->CreateAnimation("Red_Marid_Idle_Up", "luxMarid_1.png", AnimationInter, false, 12, 12);
@@ -159,14 +159,14 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Red_Marid_GameOn2", "luxMarid_1.png", AnimationInter, false, 28, 37);
 
 	// 블루 마리드 애니메이션
-	Renderer->CreateAnimation("Blue_Marid_Idle_Up", "luxMarid_4_blue.png", AnimationInter, false, 2, 2);
-	Renderer->CreateAnimation("Blue_Marid_Idle_Down", "luxMarid_4_blue.png", AnimationInter, false, 0, 0);
-	Renderer->CreateAnimation("Blue_Marid_Idle_Right", "luxMarid_4_blue.png", AnimationInter, false, 1, 1);
-	Renderer->CreateAnimation("Blue_Marid_Idle_Left", "luxMarid_4_blue.png", AnimationInter, false, 3, 3);
-	Renderer->CreateAnimation("Blue_Marid_Move_Left", "luxMarid_1_blue.png", AnimationInter, true, 6, 11);
-	Renderer->CreateAnimation("Blue_Marid_Move_Right", "luxMarid_1_blue.png", AnimationInter, true, 0, 5);
-	Renderer->CreateAnimation("Blue_Marid_Move_Up", "luxMarid_1_blue.png", AnimationInter, true, 12, 17);
-	Renderer->CreateAnimation("Blue_Marid_Move_Down", "luxMarid_1_blue.png", AnimationInter, true, 18, 23);
+	Renderer->CreateAnimation("Blue_Marid_Idle_Up",		"luxMarid_4_blue.png", AnimationInter, false, 2, 2);
+	Renderer->CreateAnimation("Blue_Marid_Idle_Down",	"luxMarid_4_blue.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Blue_Marid_Idle_Right",	"luxMarid_4_blue.png", AnimationInter, false, 1, 1);
+	Renderer->CreateAnimation("Blue_Marid_Idle_Left",	"luxMarid_4_blue.png", AnimationInter, false, 3, 3);
+	Renderer->CreateAnimation("Blue_Marid_Move_Left",	"luxMarid_1_blue.png", AnimationInter, true, 6, 11);
+	Renderer->CreateAnimation("Blue_Marid_Move_Right",	"luxMarid_1_blue.png", AnimationInter, true, 0, 5);
+	Renderer->CreateAnimation("Blue_Marid_Move_Up",		"luxMarid_1_blue.png", AnimationInter, true, 12, 17);
+	Renderer->CreateAnimation("Blue_Marid_Move_Down",	"luxMarid_1_blue.png", AnimationInter, true, 18, 23);
 	Renderer->CreateAnimation("Blue_Marid_Trap", "luxMarid_5_blue.png", AnimationInter, false, 0, 25);
 	Renderer->CreateAnimation("Blue_Marid_Rescue", "luxMarid_2_blue.png", 0.1f, false, 6, 9);
 	Renderer->CreateAnimation("Blue_Marid_Die", "luxMarid_2_blue.png", 0.1f, false, 0, 5);
@@ -280,6 +280,7 @@ void APlayer::GameOn(float _DeltaTime)
 void APlayer::IdleStart()
 {
 	Renderer->ChangeAnimation(GetAnimationName("Idle"));
+	Renderer->SetPosition(FVector::Zero);
 }
 
 void  APlayer::Idle(float _DeltaTime)
@@ -300,6 +301,10 @@ void  APlayer::Idle(float _DeltaTime)
 	if (true == IsDown(VK_SPACE))
 	{
 		POINT BombPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
+		if (GetGameMode()->GetCurMap()->GetMapObject(BombPoint.y, BombPoint.x) != nullptr)
+		{
+			if (GetGameMode()->GetCurMap()->GetMapObject(BombPoint.y, BombPoint.x)->GetType() == EMapObjectType::WaterBalloon) return;
+		}
 		std::shared_ptr<AMapObject> WaterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x);
 		WaterBomb->SetObjectToken(WaterBomb_Token++);
 		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(WaterBomb);
@@ -568,19 +573,17 @@ void APlayer::RideIdle(float _DeltaTime)
 
 	if (true == IsDown(VK_SPACE))
 	{
-		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
-		Bomb->SetObjectToken(WaterBomb_Token++);
+		POINT BombPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
+		std::shared_ptr<AMapObject> WaterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x);
+		WaterBomb->SetObjectToken(WaterBomb_Token++);
+		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(WaterBomb);
 		Bomb->SetWaterBombToken(WaterBomb_Token++);
 		if (SetWater_Token == false)
 		{
 			Bomb->SetWaterCourseToken(WaterCourse_Token);
 			SetWater_Token = true;
 		}
-		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
-		Packet->Pos = GetActorLocation();
-		Packet->ObjectType = static_cast<int>(EObjectType::WaterBomb);
-		Packet->Bomb = true;
-		Send(Packet);
+		USendPacketManager::SendMapObjectSpawnPacket(WaterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb);
 	}
 
 }
@@ -604,6 +607,25 @@ void APlayer::RideMove(float _DeltaTime)
 		// 탈것에서 내리기 (SetRideType 내에서 State변경까지 함)
 		SetRideType(EPlayerRideType::None);
 		return;
+	}
+
+	if (true == IsDown(VK_SPACE))
+	{
+		POINT BombPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
+		if (GetGameMode()->GetCurMap()->GetMapObject(BombPoint.y, BombPoint.x) != nullptr)
+		{
+			if (GetGameMode()->GetCurMap()->GetMapObject(BombPoint.y, BombPoint.x)->GetType() == EMapObjectType::WaterBalloon) return;
+		}
+		std::shared_ptr<AMapObject> WaterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x);
+		WaterBomb->SetObjectToken(WaterBomb_Token++);
+		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(WaterBomb);
+		Bomb->SetWaterBombToken(WaterBomb_Token++);
+		if (SetWater_Token == false)
+		{
+			Bomb->SetWaterCourseToken(WaterCourse_Token);
+			SetWater_Token = true;
+		}
+		USendPacketManager::SendMapObjectSpawnPacket(WaterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb);
 	}
 
 	FVector MovePos = FVector::Zero;
