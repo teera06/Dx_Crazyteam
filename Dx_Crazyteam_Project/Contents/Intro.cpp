@@ -48,14 +48,18 @@ void AIntro::BeginPlay()
 			{
 				//ServerGameMode->GetPlayLobby()->SetIsActive(true);
 
-				GEngine->ChangeLevel("UitestMonde");
+				AServerGameMode::ServerOpen();
 
-				if (nullptr == Function)
-				{
-					return;
-				}
 
-				Function();
+			
+				//GEngine->ChangeLevel("");
+
+				//if (nullptr == Function)
+				//{
+				//	return;
+				//}
+
+				//Function();
 			}
 		});
 }
@@ -63,6 +67,12 @@ void AIntro::BeginPlay()
 void AIntro::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	if (true == AServerGameMode::GetIsServerOpen())
+	{
+		GEngine->ChangeLevel("LobbyMainMode");
+		return;
+	}
 
 	if (true == IntroUI->IsCurAnimationEnd())
 	{

@@ -8,6 +8,7 @@
 #include "MainGameMode.h"
 #include "SubServerLevel.h"
 #include "IntroMainMode.h"
+#include "LobbyMainMode.h"
 
 #include "ContentsDebugWindow.h"
 #include "ContentsMainDebugWin.h"
@@ -35,14 +36,15 @@ void UGame_Core::Initialize()
 	CuttingAni();
 	SoundLoad();
 	ForderLoadAni();
-
+	GEngine->CreateLevel<AServerGameMode>("ServerGameMode");
+	GEngine->CreateLevel<AIntroMainMode>("IntroMainMode");
+	GEngine->CreateLevel<ALobbyMainMode>("LobbyMainMode");
+	////////////
 	GEngine->CreateLevel<ATestGameMode>("testGameMode");
 	GEngine->CreateLevel<APlayerTestMode>("PlayertestMode");
-	GEngine->CreateLevel<AUitestMonde>("UitestMonde");
 	GEngine->CreateLevel<AMainGameMode>("MainGameMode");
-	GEngine->CreateLevel<AServerGameMode>("ServerGameMode");
 	GEngine->CreateLevel<ASubServerLevel>("SubServerLevel");
-	GEngine->CreateLevel<AIntroMainMode>("IntroMainMode");
+	GEngine->CreateLevel<AUitestMonde>("UitestMonde");
 	GEngine->ChangeLevel("MainGameMode");
 
 	UEngineEditorGUI::CreateEditorWindow<UContentsDebugWindow>("contentsHelpMe");
