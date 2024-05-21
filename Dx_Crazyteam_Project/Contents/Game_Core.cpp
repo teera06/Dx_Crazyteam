@@ -188,6 +188,7 @@ void UGame_Core::CuttingAni()
 	{
 		UEngineSprite::CreateCutting("GameTimer.png", 10, 1);
 		UEngineSprite::CreateCutting("START.png", 6, 1);
+		UEngineSprite::CreateCutting("ui_coplayui_KCW.png", 1, 4);
 	}
 }
 
