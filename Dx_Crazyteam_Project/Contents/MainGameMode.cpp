@@ -101,44 +101,6 @@ void AMainGameMode::GameModeActorInit()
 		ShowText->AddToViewPort(11);
 	}
 
-	{//Camp 내 Item 및 Object
-	
-		//Block
-		Camp->AddMapObject(1, 1, EMapObject::CampBlock1);
-		Camp->AddMapObject(3, 1, EMapObject::CampBlock1);
-		Camp->AddMapObject(1, 3, EMapObject::CampBlock1);
-		Camp->AddMapObject(3, 3, EMapObject::CampBlock1);
-
-		Camp->AddMapObject(6, 6, EMapObject::CampMoveBlock1);
-		Camp->AddMapObject(9, 6, EMapObject::CampMoveBlock1);
-		Camp->AddMapObject(6, 9, EMapObject::CampMoveBlock1);
-		Camp->AddMapObject(9, 9, EMapObject::CampMoveBlock1);
-
-		Camp->AddMapObject(1, 6, EMapObject::CampHPBlock);
-		Camp->AddMapObject(3, 6, EMapObject::CampHPBlock);
-		Camp->AddMapObject(1, 9, EMapObject::CampHPBlock);
-		Camp->AddMapObject(3, 9, EMapObject::CampHPBlock);
-
-		{//Block Bush
-			Camp->AddMapObject(9, 0, EMapObject::TownBush);
-			Camp->AddMapObject(10, 0, EMapObject::TownBush);
-			Camp->AddMapObject(11, 0, EMapObject::TownBush);
-			Camp->AddMapObject(12, 0, EMapObject::TownBush);
-
-			Camp->AddMapObject(9, 1, EMapObject::TownBush);
-			Camp->AddMapObject(9, 2, EMapObject::TownBush);
-			Camp->AddMapObject(9, 3, EMapObject::TownBush);
-			Camp->AddMapObject(9, 4, EMapObject::TownBush);
-
-			Camp->AddMapObject(10, 4, EMapObject::TownBush);
-			Camp->AddMapObject(11, 4, EMapObject::TownBush);
-			Camp->AddMapObject(12, 4, EMapObject::TownBush);
-
-
-			Camp->AddMapObject(12, 1, EMapObject::TownBush);
-			Camp->AddMapObject(12, 2, EMapObject::TownBush);
-			Camp->AddMapObject(12, 3, EMapObject::TownBush);
-		}
 		//Item
 		Camp->AddMapObject(5, 1,EMapObject::Item,EItemType::ItemBubble);
 		Camp->AddMapObject(1, 2, EMapObject::Item, EItemType::ItemNiddle);
@@ -151,8 +113,51 @@ void AMainGameMode::GameModeActorInit()
 
 
 		//Camp 내 Object 그대로하려면 아래코드로
-		//Camp->AddObjectInit();
+		{
+			Camp->AddObjectInit();
+		}
 
-	}
+
+
+
+//{//Camp 내 Item 및 Object
+//
+//	//Block
+//	Camp->AddMapObject(1, 1, EMapObject::CampBlock1);
+//	Camp->AddMapObject(3, 1, EMapObject::CampBlock1);
+//	Camp->AddMapObject(1, 3, EMapObject::CampBlock1);
+//	Camp->AddMapObject(3, 3, EMapObject::CampBlock1);
+
+//	Camp->AddMapObject(6, 6, EMapObject::CampMoveBlock1);
+//	Camp->AddMapObject(9, 6, EMapObject::CampMoveBlock1);
+//	Camp->AddMapObject(6, 9, EMapObject::CampMoveBlock1);
+//	Camp->AddMapObject(9, 9, EMapObject::CampMoveBlock1);
+
+//	Camp->AddMapObject(1, 6, EMapObject::CampHPBlock);
+//	Camp->AddMapObject(3, 6, EMapObject::CampHPBlock);
+//	Camp->AddMapObject(1, 9, EMapObject::CampHPBlock);
+//	Camp->AddMapObject(3, 9, EMapObject::CampHPBlock);
+
+//	{//Block Bush
+//		Camp->AddMapObject(9, 0, EMapObject::TownBush);
+//		Camp->AddMapObject(10, 0, EMapObject::TownBush);
+//		Camp->AddMapObject(11, 0, EMapObject::TownBush);
+//		Camp->AddMapObject(12, 0, EMapObject::TownBush);
+
+//		Camp->AddMapObject(9, 1, EMapObject::TownBush);
+//		Camp->AddMapObject(9, 2, EMapObject::TownBush);
+//		Camp->AddMapObject(9, 3, EMapObject::TownBush);
+//		Camp->AddMapObject(9, 4, EMapObject::TownBush);
+
+//		Camp->AddMapObject(10, 4, EMapObject::TownBush);
+//		Camp->AddMapObject(11, 4, EMapObject::TownBush);
+//		Camp->AddMapObject(12, 4, EMapObject::TownBush);
+
+
+//		Camp->AddMapObject(12, 1, EMapObject::TownBush);
+//		Camp->AddMapObject(12, 2, EMapObject::TownBush);
+//		Camp->AddMapObject(12, 3, EMapObject::TownBush);
+//	}
 
 }
+
