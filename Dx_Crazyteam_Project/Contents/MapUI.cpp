@@ -48,8 +48,22 @@ void AMapUI::BeginPlay()
 	GameStartUI->AddToViewPort(3);
 	GameStartUI->SetSprite("GAMEStart.png");
 	GameStartUI->SetPosition(FVector(-50.0f, 100.0f, 0.0f));
-	GameStartUI->SetAutoSize(0.5f, true);
+	GameStartUI->SetAutoSize(1.0f, true);
 	GameStartUI->SetActive(false);
+
+	GameEndUI = CreateWidget<UImage>(GetWorld(), "GameEndUI");
+	GameEndUI->AddToViewPort(3);
+	GameEndUI->SetSprite("ui_coplayui_KCW.png", End);
+	GameEndUI->SetPosition(FVector(-50.0f, 230.0f, 0.0f));
+	GameEndUI->SetAutoSize(1.0f, true);
+	GameEndUI->SetActive(false);
+
+	GameResultUI = CreateWidget<UImage>(GetWorld(), "GameResultUI");
+	GameResultUI->AddToViewPort(3);
+	GameResultUI->SetSprite("GAMEStart.png");
+	GameResultUI->SetPosition(FVector(-50.0f, 150.0f, 0.0f));
+	GameResultUI->SetAutoSize(1.0f, true);
+	GameResultUI->SetActive(true);
 
 	ColonUI = CreateWidget<UImage>(GetWorld(), "GameStartUI");
 	ColonUI->AddToViewPort(3);
@@ -202,4 +216,10 @@ float AMapUI::CreateTime()
 	MapTime_MilliSecond = Time.GetCurTime().MilliSecond;
 	MapTime_Second = Time.GetCurTime().Second;
 	return 0.0f;
+}
+
+void AMapUI::SetActiveGameResultU(bool _Active)
+{
+	GameEndUI->SetActive(_Active);
+	GameResultUI->SetActive(_Active);
 }

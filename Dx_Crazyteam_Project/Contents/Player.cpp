@@ -85,11 +85,15 @@ void APlayer::Tick(float _DeltaTime)
 	{
 		Renderer->SetActive(false);
 		Shadow->ShadowRenderOff();
+
+		IsBushRenderOff = true;
 	}
-	else 
+	else if (true == IsBushRenderOff)
 	{
 		Renderer->SetActive(true);
 		Shadow->ShadowRenderOn();
+
+		IsBushRenderOff = false;
 	}
 
 	/* 테스트용 */
@@ -272,7 +276,7 @@ void APlayer::SetRideType(EPlayerRideType _Ride)
 	}
 
 	// 처음 몇초간 무적
-	RideGodModeTime = 3.f;
+	RideGodModeTime = 2.f;
 	State.ChangeState("RideIdle");
 }
 

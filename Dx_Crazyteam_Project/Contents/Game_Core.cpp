@@ -8,6 +8,7 @@
 #include "MainGameMode.h"
 #include "SubServerLevel.h"
 #include "IntroMainMode.h"
+#include "LobbyMainMode.h"
 
 #include "ContentsDebugWindow.h"
 #include "ContentsMainDebugWin.h"
@@ -35,14 +36,15 @@ void UGame_Core::Initialize()
 	CuttingAni();
 	SoundLoad();
 	ForderLoadAni();
-
+	GEngine->CreateLevel<AServerGameMode>("ServerGameMode");
+	GEngine->CreateLevel<AIntroMainMode>("IntroMainMode");
+	GEngine->CreateLevel<ALobbyMainMode>("LobbyMainMode");
+	////////////
 	GEngine->CreateLevel<ATestGameMode>("testGameMode");
 	GEngine->CreateLevel<APlayerTestMode>("PlayertestMode");
-	GEngine->CreateLevel<AUitestMonde>("UitestMonde");
 	GEngine->CreateLevel<AMainGameMode>("MainGameMode");
-	GEngine->CreateLevel<AServerGameMode>("ServerGameMode");
 	GEngine->CreateLevel<ASubServerLevel>("SubServerLevel");
-	GEngine->CreateLevel<AIntroMainMode>("IntroMainMode");
+	GEngine->CreateLevel<AUitestMonde>("UitestMonde");
 	GEngine->ChangeLevel("MainGameMode");
 
 	UEngineEditorGUI::CreateEditorWindow<UContentsDebugWindow>("contentsHelpMe");
@@ -127,6 +129,8 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("bazzi_rescue.png", 3, 1);
 		UEngineSprite::CreateCutting("bazzi_die.png", 5, 2);
 		UEngineSprite::CreateCutting("bazzi_1_red.png", 5, 18);
+		UEngineSprite::CreateCutting("bazzi_3_red.png", 5, 4);
+		UEngineSprite::CreateCutting("Bazzi_3_blue.png", 5, 4);
 
 		// Blue Bazzi
 		UEngineSprite::CreateCutting("Bazzi_1_blue.png", 5, 18);

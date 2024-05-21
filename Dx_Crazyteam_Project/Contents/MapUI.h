@@ -22,6 +22,14 @@ public:
 	
 	void ClientCreate() { Client_Create = true; }
 
+	void SetEnd(int _End)
+	{
+		End = _End;
+	}
+
+	void SetActiveGameResultU(bool _Active);
+
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -44,6 +52,8 @@ private:
 	UImage* MapPlayUI = nullptr;
 	UImage* PlayerItemUI = nullptr;
 	UImage* GameStartUI = nullptr;
+	UImage* GameEndUI = nullptr;
+	UImage* GameResultUI = nullptr;
 	UImage* ColonUI = nullptr;
 	std::vector<UImage*> PlayerUI;
 	std::vector<UImage*> GameTimeerUI;
@@ -52,5 +62,6 @@ private:
 	int MinUI = 2;
 	int SecondUI = 5;
 	int SecondUI2 = 9;
+	int End = 0;
 };
 
