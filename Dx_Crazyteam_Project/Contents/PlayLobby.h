@@ -29,53 +29,63 @@ protected:
 
 private:
 	void SwapSelectCharacter(UImage* _SelectCharacter);
+	void SwapTeamSelectCharacter(UImage* _SelectCharacter);
+
+
+	void TeamSelectBegin();
+	void RoomBegin();
+	void CharacterBegin();
+	void StartBegin();
+	void MapSelectBegin();
+	void LobbyPlayerBegin();
 
 	UImage* PlayLobbyUI = nullptr;
 	UImage* GameStart = nullptr;
 	UImage* SelectMap = nullptr;
 
 	//캐릭터 선택창
-	UImage* RandomBT;
-	UImage* DaoBT;
-	UImage* DizniBT;
-	UImage* MosBT;
-	UImage* EthiBT;
-	UImage* MaridBT;
-	UImage* BazziBT;
-	UImage* UniBT;
-	UImage* KephiBT;
-	UImage* SuBT;
-	UImage* HooUBT;
-	UImage* RayBT;
+	UImage* RandomBT = nullptr;
+	UImage* DaoBT = nullptr;
+	UImage* DizniBT = nullptr;
+	UImage* MosBT = nullptr;
+	UImage* EthiBT = nullptr;
+	UImage* MaridBT = nullptr;
+	UImage* BazziBT = nullptr;
+	UImage* UniBT = nullptr;
+	UImage* KephiBT = nullptr;
+	UImage* SuBT = nullptr;
+	UImage* HooUBT = nullptr;
+	UImage* RayBT = nullptr;
 
 	//캐릭터 설명
-	UImage* LobbyCharacterBanner;
-	UImage* Randomex;
-	UImage* Daoex;
-	UImage* Maridex;
-	UImage* Kephiex;
-	UImage* Bazziex;
+	UImage* LobbyCharacterBanner = nullptr;
+	UImage* Randomex = nullptr;
+	UImage* Daoex = nullptr;
+	UImage* Maridex = nullptr;
+	UImage* Kephiex = nullptr;
+	UImage* Bazziex = nullptr;
 	
 	//팀 선택
-	UImage* TeamA;
-	UImage* TeamB;
+	UImage* SelectTeam = nullptr;
+	UImage* TeamA = nullptr;
+	UImage* TeamB = nullptr;
 	
 	//선택한 캐릭터
-	UImage* SelectCharacter;
-	UImage* checkUI;
+	UImage* SelectCharacter = nullptr;
+	UImage* checkUI = nullptr;
 
 	//로비 플레이어 캐릭터
 	std::vector<UImage*> LobbyPlayer;
 	std::vector<UImage*> Rank;
 	
 	//플레이어 Room
-	UImage* Room1;
-	UImage* Room2;
-	UImage* Room3;
-	UImage* Room4;
-	UImage* Room5;
-	UImage* Room6;
-	UImage* Room7;
+	UImage* Room1 = nullptr;
+	UImage* Room2 = nullptr;
+	UImage* Room3 = nullptr;
+	UImage* Room4 = nullptr;
+	UImage* Room5 = nullptr;
+	UImage* Room6 = nullptr;
+	UImage* Room7 = nullptr;
 	
 	ACAGameMode* Teamtyp = nullptr;
 
@@ -84,6 +94,8 @@ private:
 	bool TeamSwitchON = false;
 	bool IsSelectSharacter = false;
 	bool IsTeamSelectSharacter = false;
+
+	bool RoomHoverChack = false;
 	bool RoomO1 = true;
 	bool RoomX1 = false;
 	bool RoomO2 = true;

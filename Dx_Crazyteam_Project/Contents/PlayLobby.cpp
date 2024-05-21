@@ -295,11 +295,12 @@ void APlayLobby::BeginPlay()
 
 	//팀 선택
 
+
 	TeamA = CreateWidget<UImage>(GetWorld(), "TeamA");
-	TeamA->CreateAnimation("UnHover", "ATeam.png", 0.1f, false, 0, 0);
-	TeamA->CreateAnimation("Hover", "ATeam.png", 0.1f, false, 0, 0);
-	TeamA->CreateAnimation("Down", "ATeam_Down.png", 0.1f, false, 0, 0);
-	TeamA->CreateAnimation("UP", "ATeam_Pick.png", 0.1f, false, 0, 0);
+	TeamA->CreateAnimation("TeamUnHover", "ATeam.png", 0.1f, false, 0, 0);
+	TeamA->CreateAnimation("TeamHover", "ATeam.png", 0.1f, false, 0, 0);
+	TeamA->CreateAnimation("TeamDown", "ATeam_Down.png", 0.1f, false, 0, 0);
+	TeamA->CreateAnimation("TeamUp", "ATeam_Pick.png", 0.1f, false, 0, 0);
 	TeamA->AddToViewPort(12);
 	TeamA->SetSprite("ATeam.png");
 	TeamA->SetScale({ 100.f, 50.f });
@@ -307,10 +308,10 @@ void APlayLobby::BeginPlay()
 	TeamA->SetActive(true);
 
 	TeamB = CreateWidget<UImage>(GetWorld(), "TeamB");
-	TeamB->CreateAnimation("UnHover", "BTeam.png", 0.1f, false, 0, 0);
-	TeamB->CreateAnimation("Hover", "BTeam.png", 0.1f, false, 0, 0);
-	TeamB->CreateAnimation("Down", "BTeam_Down.png", 0.1f, false, 0, 0);
-	TeamB->CreateAnimation("UP", "BTeam_Pick.png", 0.1f, false, 0, 0);
+	TeamB->CreateAnimation("TeamUnHover", "BTeam.png", 0.1f, false, 0, 0);
+	TeamB->CreateAnimation("TeamHover", "BTeam.png", 0.1f, false, 0, 0);
+	TeamB->CreateAnimation("TeamDown", "BTeam_Down.png", 0.1f, false, 0, 0);
+	TeamB->CreateAnimation("TeamUp", "BTeam_Pick.png", 0.1f, false, 0, 0);
 	TeamB->AddToViewPort(12);
 	TeamB->SetSprite("BTeam.png");
 	TeamB->SetScale({ 100.f, 50.f });
@@ -320,6 +321,7 @@ void APlayLobby::BeginPlay()
 
 	// 선택한 캐릭터
 	SelectCharacter = RandomBT;
+	SelectTeam = TeamA;
 
 	checkUI = CreateWidget<UImage>(GetWorld(), "checkUI");
 	checkUI->AddToViewPort(13);
@@ -330,6 +332,8 @@ void APlayLobby::BeginPlay()
 
 	Teamtyp = dynamic_cast<ACAGameMode*>(GetWorld()->GetGameMode().get());
 
+	LobbyPlayerBegin();
+
 }
 
 void APlayLobby::Tick(float _DeltaTime)
@@ -337,111 +341,512 @@ void APlayLobby::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 	PlayLobbyUI->SetActive(true);
 
-
 	//팀 선택
+	TeamSelectBegin();
+	// Room Hover
+	RoomBegin();
+	//캐릭터 선택
+	CharacterBegin();
+	//스타트 버튼
+	StartBegin();
+	//맵 선택 버튼
+	MapSelectBegin();
+
+
+	// 하나가 먼저 떠있어야 한다.
+	//
+}
+
+
+
+void APlayLobby::TeamSelectBegin()
+{
 	{
 		TeamA->SetUnHover([=] {
-			if ("UP" != TeamA->GetUiAniName())
+			if ("TEAMUP" != TeamA->GetUiAniName())
 			{
-				TeamA->ChangeAnimation("UnHover");
+				TeamA->ChangeAnimation("TeamUnHover");
 			}
 			TeamSwitchON = false;
 			});
 		TeamA->SetHover([=] {
 			{
-				if (false == TeamSwitchON && "UP" != TeamA->GetUiAniName())
+				if (false == TeamSwitchON && "TEAMUP" != TeamA->GetUiAniName())
 				{
-					TeamA->ChangeAnimation("Hover");
+					TeamA->ChangeAnimation("TeamHover");
 					TeamSwitchON = true;
 				}
 				else if (IsDown(VK_LBUTTON) && true == TeamSwitchON)
 				{
-					TeamA->ChangeAnimation("Down");
+					TeamA->ChangeAnimation("TeamDown");
 				}
 				else if (IsUp(VK_LBUTTON))
 				{
-					TeamA->ChangeAnimation("UP");
+					TeamA->ChangeAnimation("TeamUp");
 					IsTeamSelectSharacter = true;
-					SwapSelectCharacter(TeamA);
+					SwapTeamSelectCharacter(TeamA);
 					ConstValue::MainPlayerTeamType = ETeamType::ATeam;
 				}
 			}
 			});
-
 	}
+
 	{
 		TeamB->SetUnHover([=] {
-			if ("UP" != TeamB->GetUiAniName())
+			if ("TEAMUP" != TeamB->GetUiAniName())
 			{
-				TeamB->ChangeAnimation("UnHover");
+				TeamB->ChangeAnimation("TeamUnHover");
 			}
 			TeamSwitchON = false;
 			});
 		TeamB->SetHover([=] {
 			{
-				if (false == TeamSwitchON && "UP" != TeamB->GetUiAniName())
+				if (false == TeamSwitchON && "TEAMUP" != TeamB->GetUiAniName())
 				{
-					TeamB->ChangeAnimation("Hover");
+					TeamB->ChangeAnimation("TeamHover");
 					TeamSwitchON = true;
 				}
 				else if (IsDown(VK_LBUTTON) && true == TeamSwitchON)
 				{
-					TeamB->ChangeAnimation("Down");
+					TeamB->ChangeAnimation("TeamDown");
 				}
 
 				else if (IsUp(VK_LBUTTON))
 				{
-					TeamB->ChangeAnimation("UP");
+					TeamB->ChangeAnimation("TeamUp");
 					IsTeamSelectSharacter = true;
-					SwapSelectCharacter(TeamB);
+					SwapTeamSelectCharacter(TeamB);
 					ConstValue::MainPlayerTeamType = ETeamType::BTeam;
 				}
 			}
 			});
 	}
+}
 
-
-
+void APlayLobby::RoomBegin()
+{
 	{
-		GameStart->SetUnHover([=] {
-			GameStart->ChangeAnimation("UnHover");
-			SwitchON = false;
-			});
-		GameStart->SetHover([=] {
-			if (GameStart->IsCurAnimationEnd() == true)
+		Room1->SetUnHover([=] {
+			if (true == RoomO1 && false == RoomSwitch && "UP" != Room1->GetUiAniName())
 			{
-				GameStart->ChangeAnimation("Hover");
+				Room1->ChangeAnimation("UnHover");
+				RoomO1 = true;
+				RoomHoverChack = false;
+			}
+			else if (true == RoomX1 && "UP" == Room1->GetUiAniName())
+			{
+				Room1->ChangeAnimation("Up");
+				RoomO1 = false;
+				RoomX1 = true;
+				RoomHoverChack = false;
 			}
 			});
-		GameStart->SetDown([=] {
-			GameStart->ChangeAnimation("Down");
-			//GEngine->ChangeLevel("PlayertestMode");
-			GEngine->ChangeLevel("MainGameMode");
+
+		Room1->SetHover([=] {
+			{
+				if (false == RoomHoverChack && true == RoomO1 && false == RoomSwitch && "UP" != Room1->GetUiAniName())
+				{
+					Room1->ChangeAnimation("Hover");
+					RoomSwitch = true;
+					RoomHoverChack = true;
+
+				}
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO1)
+				{
+					Room1->ChangeAnimation("Down");
+
+				}
+				else if (IsUp(VK_LBUTTON) && true == RoomO1)
+				{
+					IsSelectSharacter = false;
+					Room1->ChangeAnimation("Up");
+					RoomX1 = true;
+					RoomSwitch = true;
+					RoomO1 = false;
+					RoomHoverChack = false;
+				}
+				else if (false == RoomHoverChack && false == RoomSwitch && true == RoomX1 && false == RoomO1 && "UP" == Room1->GetUiAniName())
+				{
+					Room1->ChangeAnimation("XHover");
+					RoomX1 = true;
+				}
+				else if (true == RoomX1 && false == RoomO1 && IsDown(VK_LBUTTON))
+				{
+					Room1->ChangeAnimation("XDown");
+					RoomX1 = true;
+					RoomSwitch = true;
+				}
+				else if (true == RoomX1 && false == RoomO1 && IsUp(VK_LBUTTON))
+				{
+					IsSelectSharacter = false;
+					Room1->ChangeAnimation("XUp");
+					RoomX1 = false;
+					RoomO1 = true;
+					RoomHoverChack = false;
+				}
+			}
 			});
-
-
 
 	}
 
 	{
-		SelectMap->SetUnHover([=] {
-			SelectMap->ChangeAnimation("UnHover");
-			SwitchON = false;
-			});
-		SelectMap->SetHover([=] {
-			if (SelectMap->IsCurAnimationEnd() == true)
+		Room2->SetUnHover([=] {
+			if (true == RoomO2 && false == RoomSwitch && "UP" != Room1->GetUiAniName())
 			{
-				SelectMap->ChangeAnimation("Hover");
+				Room2->ChangeAnimation("UnHover");
+				RoomO2 = true;
+			}
+			else if (true == RoomX2 && "UP" == Room2->GetUiAniName())
+			{
+				Room2->ChangeAnimation("Up");
+				RoomO2 = false;
+				RoomX2 = true;
 			}
 			});
-		SelectMap->SetDown([=] {
-			SelectMap->ChangeAnimation("Down");
+
+		Room2->SetHover([=] {
+			{
+				if (true == RoomO2 && false == RoomSwitch && "UP" != Room2->GetUiAniName())
+				{
+					Room2->ChangeAnimation("Hover");
+					RoomSwitch = true;
+
+				}
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO2)
+				{
+					Room2->ChangeAnimation("Down");
+
+				}
+				else if (IsUp(VK_LBUTTON) && true == RoomO2)
+				{
+					IsSelectSharacter = false;
+					Room2->ChangeAnimation("Up");
+					RoomX2 = true;
+					RoomSwitch = true;
+					RoomO2 = false;
+				}
+				else if (false == RoomSwitch && true == RoomX2 && false == RoomO2 && "UP" == Room2->GetUiAniName())
+				{
+					Room2->ChangeAnimation("XHover");
+					RoomX2 = true;
+				}
+				else if (true == RoomX2 && false == RoomO2 && IsDown(VK_LBUTTON))
+				{
+					Room2->ChangeAnimation("XDown");
+					RoomX2 = true;
+					RoomSwitch = true;
+				}
+				else if (true == RoomX2 && false == RoomO2 && IsUp(VK_LBUTTON))
+				{
+					IsSelectSharacter = false;
+					Room2->ChangeAnimation("XUp");
+					RoomX2 = false;
+					RoomO2 = true;
+				}
+			}
 			});
-
-
-
 	}
 
+	{
+		Room3->SetUnHover([=] {
+			if (true == RoomO3 && false == RoomSwitch && "UP" != Room3->GetUiAniName())
+			{
+				Room3->ChangeAnimation("UnHover");
+				RoomO3 = true;
+				RoomHoverChack = false;
+			}
+			else if (true == RoomX3 && "UP" == Room3->GetUiAniName())
+			{
+				Room3->ChangeAnimation("Up");
+				RoomO3 = false;
+				RoomX3 = true;
+				RoomHoverChack = false;
+			}
+			});
+
+		Room3->SetHover([=] {
+			{
+				if (true == RoomO3 && false == RoomSwitch && "UP" != Room3->GetUiAniName())
+				{
+					Room3->ChangeAnimation("Hover");
+					RoomSwitch = true;
+
+				}
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO3)
+				{
+					Room3->ChangeAnimation("Down");
+
+				}
+				else if (IsUp(VK_LBUTTON) && true == RoomO3)
+				{
+					IsSelectSharacter = false;
+					Room3->ChangeAnimation("Up");
+					RoomX3 = true;
+					RoomSwitch = true;
+					RoomO3 = false;
+				}
+				else if (false == RoomSwitch && true == RoomX3 && false == RoomO3 && "UP" == Room3->GetUiAniName())
+				{
+					Room3->ChangeAnimation("XHover");
+					RoomX3 = true;
+				}
+				else if (true == RoomX3 && false == RoomO3 && IsDown(VK_LBUTTON))
+				{
+					Room3->ChangeAnimation("XDown");
+					RoomX3 = true;
+					RoomSwitch = true;
+				}
+				else if (true == RoomX3 && false == RoomO3 && IsUp(VK_LBUTTON))
+				{
+					IsSelectSharacter = false;
+					Room3->ChangeAnimation("XUp");
+					RoomX3 = false;
+					RoomO3 = true;
+				}
+			}
+			});
+	}
+
+	{
+		Room4->SetUnHover([=] {
+			if (true == RoomO4 && false == RoomSwitch && "UP" != Room4->GetUiAniName())
+			{
+				Room4->ChangeAnimation("UnHover");
+				RoomO4 = true;
+				RoomHoverChack = false;
+			}
+			else if (true == RoomX4 && "UP" == Room4->GetUiAniName())
+			{
+				Room4->ChangeAnimation("Up");
+				RoomO4 = false;
+				RoomX4 = true;
+				RoomHoverChack = false;
+			}
+			});
+
+		Room4->SetHover([=] {
+			{
+				if (true == RoomO4 && false == RoomSwitch && "UP" != Room4->GetUiAniName())
+				{
+					Room4->ChangeAnimation("Hover");
+					RoomSwitch = true;
+
+				}
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO4)
+				{
+					Room4->ChangeAnimation("Down");
+
+				}
+				else if (IsUp(VK_LBUTTON) && true == RoomO4)
+				{
+					IsSelectSharacter = false;
+					Room4->ChangeAnimation("Up");
+					RoomX4 = true;
+					RoomSwitch = true;
+					RoomO4 = false;
+				}
+				else if (false == RoomSwitch && true == RoomX4 && false == RoomO4 && "UP" == Room4->GetUiAniName())
+				{
+					Room4->ChangeAnimation("XHover");
+					RoomX4 = true;
+				}
+				else if (true == RoomX4 && false == RoomO4 && IsDown(VK_LBUTTON))
+				{
+					Room4->ChangeAnimation("XDown");
+					RoomX4 = true;
+					RoomSwitch = true;
+				}
+				else if (true == RoomX4 && false == RoomO4 && IsUp(VK_LBUTTON))
+				{
+					IsSelectSharacter = false;
+					Room4->ChangeAnimation("XUp");
+					RoomX4 = false;
+					RoomO4 = true;
+				}
+			}
+			});
+	}
+
+	{
+		Room5->SetUnHover([=] {
+			if (true == RoomO5 && false == RoomSwitch && "UP" != Room5->GetUiAniName())
+			{
+				Room5->ChangeAnimation("UnHover");
+				RoomO5 = true;
+				RoomHoverChack = false;
+			}
+			else if (true == RoomX5 && "UP" == Room5->GetUiAniName())
+			{
+				Room5->ChangeAnimation("Up");
+				RoomO5 = false;
+				RoomX5 = true;
+				RoomHoverChack = false;
+			}
+			});
+		Room5->SetHover([=] {
+			{
+				if (true == RoomO5 && false == RoomSwitch && "UP" != Room5->GetUiAniName())
+				{
+					Room5->ChangeAnimation("Hover");
+					RoomSwitch = true;
+
+				}
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO5)
+				{
+					Room5->ChangeAnimation("Down");
+
+				}
+				else if (IsUp(VK_LBUTTON) && true == RoomO5)
+				{
+					IsSelectSharacter = false;
+					Room5->ChangeAnimation("Up");
+					RoomX5 = true;
+					RoomSwitch = true;
+					RoomO5 = false;
+				}
+				else if (false == RoomSwitch && true == RoomX5 && false == RoomO5 && "UP" == Room5->GetUiAniName())
+				{
+					Room5->ChangeAnimation("XHover");
+					RoomX5 = true;
+				}
+				else if (true == RoomX5 && false == RoomO5 && IsDown(VK_LBUTTON))
+				{
+					Room5->ChangeAnimation("XDown");
+					RoomX5 = true;
+					RoomSwitch = true;
+				}
+				else if (true == RoomX5 && false == RoomO5 && IsUp(VK_LBUTTON))
+				{
+					IsSelectSharacter = false;
+					Room5->ChangeAnimation("XUp");
+					RoomX5 = false;
+					RoomO5 = true;
+				}
+			}
+			});
+	}
+
+	{
+		Room6->SetUnHover([=] {
+			if (true == RoomO6 && false == RoomSwitch && "UP" != Room6->GetUiAniName())
+			{
+				Room6->ChangeAnimation("UnHover");
+				RoomO6 = true;
+				RoomHoverChack = false;
+			}
+			else if (true == RoomX6 && "UP" == Room6->GetUiAniName())
+			{
+				Room6->ChangeAnimation("Up");
+				RoomO6 = false;
+				RoomX6 = true;
+				RoomHoverChack = false;
+			}
+			});
+		Room6->SetHover([=] {
+			{
+				if (true == RoomO6 && false == RoomSwitch && "UP" != Room6->GetUiAniName())
+				{
+					Room6->ChangeAnimation("Hover");
+					RoomSwitch = true;
+
+				}
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO6)
+				{
+					Room6->ChangeAnimation("Down");
+
+				}
+				else if (IsUp(VK_LBUTTON) && true == RoomO6)
+				{
+					IsSelectSharacter = false;
+					Room6->ChangeAnimation("Up");
+					RoomX6 = true;
+					RoomSwitch = true;
+					RoomO6 = false;
+				}
+				else if (false == RoomSwitch && true == RoomX6 && false == RoomO6 && "UP" == Room6->GetUiAniName())
+				{
+					Room6->ChangeAnimation("XHover");
+					RoomX6 = true;
+				}
+				else if (true == RoomX6 && false == RoomO6 && IsDown(VK_LBUTTON))
+				{
+					Room6->ChangeAnimation("XDown");
+					RoomX6 = true;
+					RoomSwitch = true;
+				}
+				else if (true == RoomX6 && false == RoomO6 && IsUp(VK_LBUTTON))
+				{
+					IsSelectSharacter = false;
+					Room6->ChangeAnimation("XUp");
+					RoomX6 = false;
+					RoomO6 = true;
+				}
+			}
+			});
+	}
+
+	{
+		Room7->SetUnHover([=] {
+			if (true == RoomO7 && false == RoomSwitch && "UP" != Room7->GetUiAniName())
+			{
+				Room7->ChangeAnimation("UnHover");
+				RoomO7 = true;
+				RoomHoverChack = false;
+			}
+			else if (true == RoomX7 && "UP" == Room7->GetUiAniName())
+			{
+				Room7->ChangeAnimation("Up");
+				RoomO7 = false;
+				RoomX7 = true;
+				RoomHoverChack = false;
+			}
+			});
+		Room7->SetHover([=] {
+			{
+				if (true == RoomO7 && false == RoomSwitch && "UP" != Room7->GetUiAniName())
+				{
+					Room7->ChangeAnimation("Hover");
+					RoomSwitch = true;
+
+				}
+				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO7)
+				{
+					Room7->ChangeAnimation("Down");
+
+				}
+				else if (IsUp(VK_LBUTTON) && true == RoomO7)
+				{
+					IsSelectSharacter = false;
+					Room7->ChangeAnimation("Up");
+					RoomX7 = true;
+					RoomSwitch = true;
+					RoomO7 = false;
+				}
+				else if (false == RoomSwitch && true == RoomX7 && false == RoomO7 && "UP" == Room7->GetUiAniName())
+				{
+					Room7->ChangeAnimation("XHover");
+					RoomX7 = true;
+				}
+				else if (true == RoomX7 && false == RoomO7 && IsDown(VK_LBUTTON))
+				{
+					Room7->ChangeAnimation("XDown");
+					RoomX7 = true;
+					RoomSwitch = true;
+				}
+				else if (true == RoomX7 && false == RoomO7 && IsUp(VK_LBUTTON))
+				{
+					IsSelectSharacter = false;
+					Room7->ChangeAnimation("XUp");
+					RoomX7 = false;
+					RoomO7 = true;
+				}
+			}
+			});
+	}
+}
+
+void APlayLobby::CharacterBegin()
+{
 
 	{
 		RandomBT->SetUnHover([=] {
@@ -466,6 +871,7 @@ void APlayLobby::Tick(float _DeltaTime)
 				{
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Random.bmp");
 					SwapSelectCharacter(RandomBT);
+					LobbyPlayer[0]->SetSprite("RandomCha.png");
 					checkUI->SetPosition({ 152.0f,183.0f });
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Random;
@@ -498,12 +904,12 @@ void APlayLobby::Tick(float _DeltaTime)
 				{
 					IsSelectSharacter = true;
 					SwapSelectCharacter(DaoBT);
+					LobbyPlayer[0]->SetSprite("Room_Charcater_Dao.png");
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Dao.bmp");
 					checkUI->SetPosition({ 222.0f,183.0f });
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Dao;
 				}
-
 			}
 			});
 	}
@@ -532,15 +938,14 @@ void APlayLobby::Tick(float _DeltaTime)
 				{
 					IsSelectSharacter = true;
 					SwapSelectCharacter(MaridBT);
+					LobbyPlayer[0]->SetSprite("Room_Charcater_Marid.png");
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Marid.bmp");
 					checkUI->SetPosition({ 222.0f,133.0f });
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Marid;
 				}
-
 			}
 			});
-
 	}
 	{
 		BazziBT->SetUnHover([=] {
@@ -567,400 +972,109 @@ void APlayLobby::Tick(float _DeltaTime)
 				{
 					IsSelectSharacter = true;
 					SwapSelectCharacter(BazziBT);
+					LobbyPlayer[0]->SetSprite("Room_Charcater_Bazzi.png");
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Bazzi.bmp");
 					checkUI->SetPosition({ 292.0f,133.0f });
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Bazzi;
 				}
-
 			}
 			});
-
-
 	}
+}
 
-
-	// Room Hover
+void APlayLobby::StartBegin()
+{
 	{
-		Room1->SetUnHover([=] {
-			if (true == RoomO1 && false == RoomSwitch && "Up" != Room1->GetUiAniName())
+		GameStart->SetUnHover([=] {
+			GameStart->ChangeAnimation("UnHover");
+			SwitchON = false;
+			});
+		GameStart->SetHover([=] {
+			if (GameStart->IsCurAnimationEnd() == true)
 			{
-				Room1->ChangeAnimation("UnHover");
-				RoomO1 = true;
-			}
-			else if (true == RoomX1 && "Up" == Room1->GetUiAniName())
-			{
-				Room1->ChangeAnimation("Up");
-				RoomO1 = false;
-				RoomX1 = true;
+				GameStart->ChangeAnimation("Hover");
 			}
 			});
-
-		Room1->SetHover([=] {
-			{
-				if (true == RoomO1 && false == RoomSwitch && "Up" != Room1->GetUiAniName())
-				{
-					Room1->ChangeAnimation("Hover");
-					RoomSwitch = true;
-
-				}
-				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO1)
-				{
-					Room1->ChangeAnimation("Down");
-
-				}
-				else if (IsUp(VK_LBUTTON) && true == RoomO1)
-				{
-					IsSelectSharacter = false;
-					Room1->ChangeAnimation("Up");
-					RoomX1 = true;
-					RoomSwitch = true;
-					RoomO1 = false;
-				}
-				else if (false == RoomSwitch && true == RoomX1 && false == RoomO1 && "Up" == Room1->GetUiAniName())
-				{
-					Room1->ChangeAnimation("XHover");
-					RoomX1 = true;
-				}
-				else if (true == RoomX1 && false == RoomO1 && IsDown(VK_LBUTTON))
-				{
-					Room1->ChangeAnimation("XDown");
-					RoomX1 = true;
-					RoomSwitch = true;
-				}
-				else if (true == RoomX1 && false == RoomO1 && IsUp(VK_LBUTTON))
-				{
-					IsSelectSharacter = false;
-					Room1->ChangeAnimation("XUp");
-					RoomX1 = false;
-					RoomO1 = true;
-				}
-			}
+		GameStart->SetDown([=] {
+			GameStart->ChangeAnimation("Down");
+			//GEngine->ChangeLevel("PlayertestMode");
+			GEngine->ChangeLevel("MainGameMode");
 			});
-
 	}
+}
+
+void APlayLobby::MapSelectBegin()
+{
 	{
-		Room2->SetUnHover([=] {
-			if (true == RoomO2 && false == RoomSwitch && "Up" != Room1->GetUiAniName())
+		SelectMap->SetUnHover([=] {
+			SelectMap->ChangeAnimation("UnHover");
+			SwitchON = false;
+			});
+		SelectMap->SetHover([=] {
+			if (SelectMap->IsCurAnimationEnd() == true)
 			{
-				Room2->ChangeAnimation("UnHover");
-				RoomO2 = true;
-			}
-			else if (true == RoomX2 && "Up" == Room2->GetUiAniName())
-			{
-				Room2->ChangeAnimation("Up");
-				RoomO2 = false;
-				RoomX2 = true;
+				SelectMap->ChangeAnimation("Hover");
 			}
 			});
-
-		Room2->SetHover([=] {
-			{
-				if (true == RoomO2 && false == RoomSwitch && "Up" != Room2->GetUiAniName())
-				{
-					Room2->ChangeAnimation("Hover");
-					RoomSwitch = true;
-
-				}
-				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO2)
-				{
-					Room2->ChangeAnimation("Down");
-
-				}
-				else if (IsUp(VK_LBUTTON) && true == RoomO2)
-				{
-					IsSelectSharacter = false;
-					Room2->ChangeAnimation("Up");
-					RoomX2 = true;
-					RoomSwitch = true;
-					RoomO2 = false;
-				}
-				else if (false == RoomSwitch && true == RoomX2 && false == RoomO2 && "Up" == Room2->GetUiAniName())
-				{
-					Room2->ChangeAnimation("XHover");
-					RoomX2 = true;
-				}
-				else if (true == RoomX2 && false == RoomO2 && IsDown(VK_LBUTTON))
-				{
-					Room2->ChangeAnimation("XDown");
-					RoomX2 = true;
-					RoomSwitch = true;
-				}
-				else if (true == RoomX2 && false == RoomO2 && IsUp(VK_LBUTTON))
-				{
-					IsSelectSharacter = false;
-					Room2->ChangeAnimation("XUp");
-					RoomX2 = false;
-					RoomO2 = true;
-				}
-			}
+		SelectMap->SetDown([=] {
+			SelectMap->ChangeAnimation("Down");
 			});
 	}
+}
 
-	{
-		Room3->SetHover([=] {
-			{
-				if (true == RoomO3 && false == RoomSwitch && "Up" != Room3->GetUiAniName())
-				{
-					Room3->ChangeAnimation("Hover");
-					RoomSwitch = true;
+void APlayLobby::LobbyPlayerBegin()
+{
+	LobbyPlayer[0] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
+	LobbyPlayer[0]->AddToViewPort(15);
+	LobbyPlayer[0]->SetSprite("Room_Charcater_Dao.png");
+	LobbyPlayer[0]->SetAutoSize(1.2f, true);
+	LobbyPlayer[0]->AddPosition(FVector(static_cast<float>(-335 + PlayerCount * 105), 160.0f, 100.0f));
 
-				}
-				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO3)
-				{
-					Room3->ChangeAnimation("Down");
-
-				}
-				else if (IsUp(VK_LBUTTON) && true == RoomO3)
-				{
-					IsSelectSharacter = false;
-					Room3->ChangeAnimation("Up");
-					RoomX3 = true;
-					RoomSwitch = true;
-					RoomO3 = false;
-				}
-				else if (false == RoomSwitch && true == RoomX3 && false == RoomO3 && "Up" == Room3->GetUiAniName())
-				{
-					Room3->ChangeAnimation("XHover");
-					RoomX3 = true;
-				}
-				else if (true == RoomX3 && false == RoomO3 && IsDown(VK_LBUTTON))
-				{
-					Room3->ChangeAnimation("XDown");
-					RoomX3 = true;
-					RoomSwitch = true;
-				}
-				else if (true == RoomX3 && false == RoomO3 && IsUp(VK_LBUTTON))
-				{
-					IsSelectSharacter = false;
-					Room3->ChangeAnimation("XUp");
-					RoomX3= false;
-					RoomO3 = true;
-				}
-			}
-			});
-	}
-	{
-		Room4->SetHover([=] {
-			{
-				if (true == RoomO4 && false == RoomSwitch && "Up" != Room4->GetUiAniName())
-				{
-					Room4->ChangeAnimation("Hover");
-					RoomSwitch = true;
-
-				}
-				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO4)
-				{
-					Room4->ChangeAnimation("Down");
-
-				}
-				else if (IsUp(VK_LBUTTON) && true == RoomO4)
-				{
-					IsSelectSharacter = false;
-					Room4->ChangeAnimation("Up");
-					RoomX4 = true;
-					RoomSwitch = true;
-					RoomO4 = false;
-				}
-				else if (false == RoomSwitch && true == RoomX4 && false == RoomO4 && "Up" == Room4->GetUiAniName())
-				{
-					Room4->ChangeAnimation("XHover");
-					RoomX4 = true;
-				}
-				else if (true == RoomX4 && false == RoomO4 && IsDown(VK_LBUTTON))
-				{
-					Room4->ChangeAnimation("XDown");
-					RoomX4 = true;
-					RoomSwitch = true;
-				}
-				else if (true == RoomX4 && false == RoomO4 && IsUp(VK_LBUTTON))
-				{
-					IsSelectSharacter = false;
-					Room4->ChangeAnimation("XUp");
-					RoomX4 = false;
-					RoomO4 = true;
-				}
-			}
-			});
-	}
-
-	{
-		Room5->SetHover([=] {
-			{
-				if (true == RoomO5 && false == RoomSwitch && "Up" != Room5->GetUiAniName())
-				{
-					Room5->ChangeAnimation("Hover");
-					RoomSwitch = true;
-
-				}
-				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO5)
-				{
-					Room5->ChangeAnimation("Down");
-
-				}
-				else if (IsUp(VK_LBUTTON) && true == RoomO5)
-				{
-					IsSelectSharacter = false;
-					Room5->ChangeAnimation("Up");
-					RoomX5 = true;
-					RoomSwitch = true;
-					RoomO5 = false;
-				}
-				else if (false == RoomSwitch && true == RoomX5 && false == RoomO5 && "Up" == Room5->GetUiAniName())
-				{
-					Room5->ChangeAnimation("XHover");
-					RoomX5 = true;
-				}
-				else if (true == RoomX5 && false == RoomO5 && IsDown(VK_LBUTTON))
-				{
-					Room5->ChangeAnimation("XDown");
-					RoomX5 = true;
-					RoomSwitch = true;
-				}
-				else if (true == RoomX5 && false == RoomO5 && IsUp(VK_LBUTTON))
-				{
-					IsSelectSharacter = false;
-					Room5->ChangeAnimation("XUp");
-					RoomX5 = false;
-					RoomO5 = true;
-				}
-			}
-			});
-	}
-
-	{
-		Room6->SetHover([=] {
-			{
-				if (true == RoomO6 && false == RoomSwitch && "Up" != Room6->GetUiAniName())
-				{
-					Room6->ChangeAnimation("Hover");
-					RoomSwitch = true;
-
-				}
-				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO6)
-				{
-					Room6->ChangeAnimation("Down");
-
-				}
-				else if (IsUp(VK_LBUTTON) && true == RoomO6)
-				{
-					IsSelectSharacter = false;
-					Room6->ChangeAnimation("Up");
-					RoomX6 = true;
-					RoomSwitch = true;
-					RoomO6 = false;
-				}
-				else if (false == RoomSwitch && true == RoomX6 && false == RoomO6 && "Up" == Room6->GetUiAniName())
-				{
-					Room6->ChangeAnimation("XHover");
-					RoomX6 = true;
-				}
-				else if (true == RoomX6 && false == RoomO6 && IsDown(VK_LBUTTON))
-				{
-					Room6->ChangeAnimation("XDown");
-					RoomX6 = true;
-					RoomSwitch = true;
-				}
-				else if (true == RoomX6 && false == RoomO6 && IsUp(VK_LBUTTON))
-				{
-					IsSelectSharacter = false;
-					Room6->ChangeAnimation("XUp");
-					RoomX6 = false;
-					RoomO6 = true;
-				}
-			}
-			});
-	}
-
-	{
-		Room7->SetHover([=] {
-			{
-				if (true == RoomO7 && false == RoomSwitch && "Up" != Room7->GetUiAniName())
-				{
-					Room7->ChangeAnimation("Hover");
-					RoomSwitch = true;
-
-				}
-				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO7)
-				{
-					Room7->ChangeAnimation("Down");
-
-				}
-				else if (IsUp(VK_LBUTTON) && true == RoomO7)
-				{
-					IsSelectSharacter = false;
-					Room7->ChangeAnimation("Up");
-					RoomX7 = true;
-					RoomSwitch = true;
-					RoomO7 = false;
-				}
-				else if (false == RoomSwitch && true == RoomX7 && false == RoomO7 && "Up" == Room7->GetUiAniName())
-				{
-					Room7->ChangeAnimation("XHover");
-					RoomX7 = true;
-				}
-				else if (true == RoomX7 && false == RoomO7 && IsDown(VK_LBUTTON))
-				{
-					Room7->ChangeAnimation("XDown");
-					RoomX7 = true;
-					RoomSwitch = true;
-				}
-				else if (true == RoomX7 && false == RoomO7 && IsUp(VK_LBUTTON))
-				{
-					IsSelectSharacter = false;
-					Room7->ChangeAnimation("XUp");
-					RoomX7 = false;
-					RoomO7 = true;
-				}
-			}
-			});
-	}
+	Rank[0] = CreateWidget<UImage>(GetWorld(), "Rank");;
+	Rank[0]->AddToViewPort(15);
+	Rank[0]->SetSprite("CharacterRoom_Flag.png");
+	Rank[0]->SetAutoSize(1.0f, true);
+	Rank[0]->AddPosition(FVector(static_cast<float>(-300 + PlayerCount * 105), 145.0f, 100.0f));
 
 
+	//if (IsDown('P') && 3 >= PlayerCount)
+	//{
+	//	LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
+	//	LobbyPlayer[PlayerCount]->AddToViewPort(15);
+	//	LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
+	//	LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
+	//	LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
 
+	//	Rank[PlayerCount] = CreateWidget<UImage>(GetWorld(), "Rank");;
+	//	Rank[PlayerCount]->AddToViewPort(15);
+	//	Rank[PlayerCount]->SetSprite("CharacterRoom_Flag.png");
+	//	Rank[PlayerCount]->SetAutoSize(1.0f, true);
+	//	Rank[PlayerCount]->AddPosition(FVector(static_cast<float>(-300 + PlayerCount * 105), 145.0f, 100.0f));
 
+	//	++PlayerCount;
+	//}
 
+	//else if (IsDown('P') && 3 < PlayerCount)
+	//{
+	//	if (7 < PlayerCount)
+	//	{
+	//		return;
+	//	}
 
-	if (IsDown('P') && 3 >= PlayerCount)
-	{
-		LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
-		LobbyPlayer[PlayerCount]->AddToViewPort(15);
-		LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
-		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
-		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
+	//	LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
+	//	LobbyPlayer[PlayerCount]->AddToViewPort(15);
+	//	LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
+	//	LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
+	//	LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-750 + PlayerCount * 105), -20.0f, 100.0f));
 
-		Rank[PlayerCount] = CreateWidget<UImage>(GetWorld(), "Rank");;
-		Rank[PlayerCount]->AddToViewPort(15);
-		Rank[PlayerCount]->SetSprite("CharacterRoom_Flag.png");
-		Rank[PlayerCount]->SetAutoSize(0.5f, true);
-		Rank[PlayerCount]->AddPosition(FVector(static_cast<float>(-310 + PlayerCount * 105), 125.0f, 100.0f));
-
-		++PlayerCount;
-	}
-
-	else if (IsDown('P') && 3 < PlayerCount)
-	{
-		if (7 < PlayerCount)
-		{
-			return;
-		}
-
-		LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
-		LobbyPlayer[PlayerCount]->AddToViewPort(15);
-		LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
-		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
-		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-750 + PlayerCount * 105), -20.0f, 100.0f));
-
-		Rank[PlayerCount] = CreateWidget<UImage>(GetWorld(), "Rank");;
-		Rank[PlayerCount]->AddToViewPort(15);
-		Rank[PlayerCount]->SetSprite("CharacterRoom_Flag.png");
-		Rank[PlayerCount]->SetAutoSize(0.5f, true);
-		Rank[PlayerCount]->AddPosition(FVector(static_cast<float>(-730 + PlayerCount * 105), -20.0f, 100.0f));
-		++PlayerCount;
-	}
-
-
-
+	//	Rank[PlayerCount] = CreateWidget<UImage>(GetWorld(), "Rank");;
+	//	Rank[PlayerCount]->AddToViewPort(15);
+	//	Rank[PlayerCount]->SetSprite("CharacterRoom_Flag.png");
+	//	Rank[PlayerCount]->SetAutoSize(1.0f, true);
+	//	Rank[PlayerCount]->AddPosition(FVector(static_cast<float>(-720 + PlayerCount * 105), 0.0f, 100.0f));
+	//	++PlayerCount;
+	//}
 }
 
 void APlayLobby::SwapSelectCharacter(UImage* _SelectCharacter)
@@ -970,8 +1084,12 @@ void APlayLobby::SwapSelectCharacter(UImage* _SelectCharacter)
 	SelectCharacter = _SelectCharacter;
 }
 
-
-
+void APlayLobby::SwapTeamSelectCharacter(UImage* _SelectTeam)
+{
+	SelectTeam->ChangeAnimation("TeamUnHover");
+	_SelectTeam->ChangeAnimation("TeamUp");
+	SelectTeam = _SelectTeam;
+}
 
 void APlayLobby::SetIsActive(bool _Active)
 {
