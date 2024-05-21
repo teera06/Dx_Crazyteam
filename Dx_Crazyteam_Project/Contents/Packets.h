@@ -12,10 +12,8 @@ enum class EObjectType
 
 enum EContentPacket
 {
-	Lobby_Player_Select= 95,
-	UIPacket = 96,
-	WaterCourseUpdatePacket = 97,
-	WaterBombUpdatePacket = 98,
+	Lobby_Player_Select= 97,
+	UIPacket = 98,
 	ActorUpdatePacket = 99,
 	MapObjectUpdatePacket = 100,
 };
