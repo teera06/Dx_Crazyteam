@@ -63,7 +63,7 @@ void AMapUI::BeginPlay()
 	GameResultUI->SetSprite("GAMEStart.png");
 	GameResultUI->SetPosition(FVector(-50.0f, 150.0f, 0.0f));
 	GameResultUI->SetAutoSize(1.0f, true);
-	GameResultUI->SetActive(true);
+	GameResultUI->SetActive(false);
 
 	ColonUI = CreateWidget<UImage>(GetWorld(), "GameStartUI");
 	ColonUI->AddToViewPort(3);
