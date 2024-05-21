@@ -4,7 +4,7 @@
 #include "TitleMenu.h"
 
 #include "LobbyMainMode.h"
-
+#include "FontActor.h"
 AIntroMainMode::AIntroMainMode()
 {
 }
@@ -18,6 +18,7 @@ void AIntroMainMode::BeginPlay()
 	Super::BeginPlay();
 
 	Intro = GetWorld()->SpawnActor<AIntro>("Intro");
+	GetWorld()->SpawnActor<AFontActor>("FontActor");
 }
 
 void AIntroMainMode::Tick(float _DeltaTime)
