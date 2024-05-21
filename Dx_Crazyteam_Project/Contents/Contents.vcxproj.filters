@@ -189,9 +189,6 @@
     <ClInclude Include="DummyBlock.h">
       <Filter>MapObject\Block\DummyBlock</Filter>
     </ClInclude>
-    <ClInclude Include="OtherBomb.h">
-      <Filter>Level\Surver\PublicOBJ</Filter>
-    </ClInclude>
     <ClInclude Include="NetInterface.h">
       <Filter>Level\Surver\PublicOBJ</Filter>
     </ClInclude>
@@ -254,9 +251,6 @@
     </ClInclude>
     <ClInclude Include="CampBlock1.h">
       <Filter>MapObject\Block\CampBlock</Filter>
-    </ClInclude>
-    <ClInclude Include="OtherWaterCourse.h">
-      <Filter>Level\Surver\PublicOBJ</Filter>
     </ClInclude>
     <ClInclude Include="Bush.h">
       <Filter>MapObject\Bush</Filter>
@@ -398,9 +392,6 @@
     <ClCompile Include="DummyBlock.cpp">
       <Filter>MapObject\Block\DummyBlock</Filter>
     </ClCompile>
-    <ClCompile Include="OtherBomb.cpp">
-      <Filter>Level\Surver\PublicOBJ</Filter>
-    </ClCompile>
     <ClCompile Include="NetInterface.cpp">
       <Filter>Level\Surver\PublicOBJ</Filter>
     </ClCompile>
@@ -463,9 +454,6 @@
     </ClCompile>
     <ClCompile Include="ContentsMainDebugWin.cpp">
       <Filter>ContentsGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="OtherWaterCourse.cpp">
-      <Filter>Level\Surver\PublicOBJ</Filter>
     </ClCompile>
     <ClCompile Include="Bush.cpp">
       <Filter>MapObject\Bush</Filter>

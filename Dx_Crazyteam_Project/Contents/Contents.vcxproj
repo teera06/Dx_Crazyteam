@@ -142,19 +142,11 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="OtherBomb.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="OtherPlayer.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="OtherUI.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="OtherWaterCourse.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -383,19 +375,11 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="NetInterface.cpp" />
-    <ClCompile Include="OtherBomb.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="OtherPlayer.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="OtherUI.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="OtherWaterCourse.cpp">
       <SubType>
       </SubType>
     </ClCompile>
