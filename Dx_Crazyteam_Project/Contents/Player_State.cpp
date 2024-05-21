@@ -41,8 +41,7 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Blue_Bazzi_Die", "Bazzi_2_blue.png", 0.1f, false, 0, 5);
 	Renderer->CreateAnimation("Blue_Bazzi_GameOn1", "Bazzi_1_blue.png", AnimationInter * 0.5f, true, 45, 48);
 	Renderer->CreateAnimation("Blue_Bazzi_GameOn2", "Bazzi_1_blue.png", { 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f}, { 49, 50, 51, 52, 53, 52, 49, 49, 50, 50 }, false);
-	
-	Renderer->CreateAnimation("Blue_Bazzi_GameOn2", "Bazzi_1_blue.png", AnimationInter, false, 49, 58);
+
 	//Ride 애니메이션
 	Renderer->CreateAnimation("Blue_Bazzi_Owl_Idle_Up", "Bazzi_3_blue.png", AnimationInter, false, 4, 4);
 	Renderer->CreateAnimation("Blue_Bazzi_Owl_Idle_Down", "Bazzi_3_blue.png", AnimationInter, false, 6, 6);
