@@ -1,35 +1,13 @@
 ﻿#include "PreCompile.h"
-
+#include <EngineCore/Image.h>
 #include "OtherLobbyPlayer.h"
+#include "Game_Core.h"
+#include "Packets.h"
 
 AOtherLobbyPlayer::AOtherLobbyPlayer()
 {
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("RendererRoot");
 	SetRoot(Root);
-
-	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	Renderer->SetupAttachment(Root);
-	Renderer->SetAutoSize(0.05f, true);
-	Renderer->SetOrder(5);
-	SetActorScale3D(FVector(20, 20, 1));
-
-
-	//ImageRenderer = CreateWidget<UImage>(GetWorld(), "Room1");
-	//Room1->CreateAnimation("UnHover", "Room_0.png", 0.1f, false, 0, 0);
-	//Room1->CreateAnimation("Hover", "Room_1.png", 0.1f, false, 0, 0);
-	//Room1->CreateAnimation("Down", "Room_2.png", 0.1f, false, 0, 0);
-	//Room1->CreateAnimation("Up", "RoomX_0.png", 0.1f, false, 0, 0);
-	//Room1->CreateAnimation("XUnHover", "RoomX_0.png", 0.1f, false, 0, 0);
-	//Room1->CreateAnimation("XHover", "RoomX_1.png", 0.1f, false, 0, 0);
-	//Room1->CreateAnimation("XDown", "RoomX_2.png", 0.1f, false, 0, 0);
-	//Room1->CreateAnimation("XUp", "Room_0.png", 0.1f, false, 0, 0);
-	//Room1->AddToViewPort(12);
-	//Room1->SetSprite("Room_0.png");
-	//ImageRenderer->SetAutoSize(1.0f, true);
-	//ImageRenderer->SetPosition(FVector(-218.f, 157.f));
-	//ImageRenderer->SetActive(true);
-
-
 }
 
 AOtherLobbyPlayer::~AOtherLobbyPlayer()
@@ -38,11 +16,21 @@ AOtherLobbyPlayer::~AOtherLobbyPlayer()
 
 void AOtherLobbyPlayer::SetRenderer(std::string_view _SpriteName, int _Index)
 {
-	Renderer->SetSprite(_SpriteName, _Index);
+	ImageRenderer->SetSprite(_SpriteName, _Index);
+}
+
+void AOtherLobbyPlayer::SetPosition(int _SessionToken)
+{
+	ImageRenderer->AddPosition(FVector(static_cast<float>(-330 + _SessionToken * 105), 125.0f, 100.0f));
 }
 
 void AOtherLobbyPlayer::BeginPlay()
 {
+	ImageRenderer = CreateWidget<UImage>(GetWorld(), "Room1");
+	ImageRenderer->SetScale({ 150, 150 });
+	ImageRenderer->SetPosition(FVector(0.f, 0.f));
+	ImageRenderer->SetActive(true);
+	ImageRenderer->AddToViewPort(15);
 	Super::BeginPlay();
 }
 
@@ -50,4 +38,29 @@ void AOtherLobbyPlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	if (nullptr == UGame_Core::Net)
+	{
+		MsgBoxAssert("네트워크 연결이 안된상태에서 아더플레어를 만들었습니다.");
+	}
+
+	std::shared_ptr<UEngineProtocol> Protocol = nullptr;
+
+	do
+	{
+		Protocol = PopProtocol();
+		if (nullptr == Protocol)
+		{
+			break;
+		}
+
+		EContentPacket PacketType = Protocol->GetPacketType<EContentPacket>();
+			
+		std::shared_ptr<ULobbyPlayerUpdatePacket> UpdatePacket = std::dynamic_pointer_cast<ULobbyPlayerUpdatePacket>(Protocol);
+
+		std::string SpriteNames = UpdatePacket->SpriteName;
+		int Index = UpdatePacket->SpriteIndex;
+
+		SetRenderer(SpriteNames, Index);
+		SetPosition(UpdatePacket->GetSessionToken());		
+	} while (nullptr != Protocol);
 }

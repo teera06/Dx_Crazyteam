@@ -22,7 +22,7 @@ public:
 	APlayLobby& operator=(APlayLobby&& _Other) noexcept = delete;
 
 	void SetIsActive(bool _Active);
-
+	
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

@@ -20,13 +20,12 @@ public:
 	AOtherLobbyPlayer& operator=(AOtherLobbyPlayer&& _Other) noexcept = delete;
 
 	void SetRenderer(std::string_view _SpriteName, int _Index);
-
+	void SetPosition(int _SessionToken);
 protected:
 
 private:
 	UStateManager State;
 	UDefaultSceneComponent* Root = nullptr;
-	USpriteRenderer* Renderer = nullptr;
 	UImage* ImageRenderer = nullptr;
 
 

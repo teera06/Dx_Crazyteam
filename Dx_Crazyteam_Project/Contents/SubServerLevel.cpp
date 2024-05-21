@@ -113,7 +113,6 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 			});
 			// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
 			ClientPacketInit(UGame_Core::Net->Dispatcher);
-
 		});
 	}
 	subNetWindow->On();
@@ -220,7 +219,6 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 					Time->PushProtocol(_Packet);
 				});
 		});
-
 }
 
 void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)

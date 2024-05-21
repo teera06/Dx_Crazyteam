@@ -166,14 +166,14 @@ public:
 	{
 		UEngineProtocol::Serialize(_Ser);
 		_Ser << SpriteIndex;
-		_Ser << SpriteName;
+		_Ser << SpriteName;		
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
 	{
 		UEngineProtocol::DeSerialize(_Ser);
 		_Ser >> SpriteIndex;
-		_Ser >> SpriteName;
+		_Ser >> SpriteName;		
 	}
 
 public:

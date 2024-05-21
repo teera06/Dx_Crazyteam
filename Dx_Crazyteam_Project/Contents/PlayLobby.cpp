@@ -364,8 +364,9 @@ void APlayLobby::Tick(float _DeltaTime)
 		LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
 		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
 		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
-		SetObjectToken(UGame_Core::Net->GetSessionToken() * 110000 + 1);
+		SetObjectToken(UGame_Core::Net->GetSessionToken() + 110000);
 		USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
+
 
 		IsGetSessionToken = false;
 	}
@@ -1129,4 +1130,6 @@ void APlayLobby::SetIsActive(bool _Active)
 {
 	PlayLobbyUI->SetActive(_Active);
 }
+
+
 

@@ -98,6 +98,5 @@ void UEngineServer::Send(std::shared_ptr<UEngineProtocol> _Protocol)
 
 		User->Send(Ser);
 	}
-
 	// 다른 모든 접속자에게 이 프로토콜을 다 보낸다.
 }

@@ -58,15 +58,17 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 	Dis.AddHandler<ULobbyPlayerUpdatePacket>([=](std::shared_ptr<ULobbyPlayerUpdatePacket> _Packet)
 		{
 			UGame_Core::Net->Send(_Packet);
-
+	
 			AOtherLobbyPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherLobbyPlayer>(_Packet->GetObjectToken());
 			if (nullptr == OtherPlayer)
 			{
 				OtherPlayer = this->GetWorld()->SpawnActor<AOtherLobbyPlayer>("OtherLobbyPlayer", 0).get();
 				OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
 			}
-			OtherPlayer->SetRenderer(_Packet->SpriteName, _Packet->SpriteIndex);
-			OtherPlayer->SetActorLocation(float4(0.0f, 0.0f, 0.0f));
+			OtherPlayer->PushProtocol(_Packet);
+			//OtherPlayer->SetRenderer(_Packet->SpriteName, _Packet->SpriteIndex);
+			//OtherPlayer->SetPosition(_Packet->GetSessionToken());
+			
 		});
 }
 
@@ -80,7 +82,8 @@ void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
 				OtherPlayer = this->GetWorld()->SpawnActor<AOtherLobbyPlayer>("OtherLobbyPlayer", 0).get();
 				OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
 			}
-			OtherPlayer->SetRenderer(_Packet->SpriteName, _Packet->SpriteIndex);
-			OtherPlayer->SetActorLocation(float4(0.0f, 0.0f, 0.0f));
+			OtherPlayer->PushProtocol(_Packet);
+			//OtherPlayer->SetRenderer(_Packet->SpriteName, _Packet->SpriteIndex);
+			//OtherPlayer->SetPosition(_Packet->GetSessionToken());
 		});
 }
