@@ -56,6 +56,11 @@ public:
 	POINT PosToPoint(FVector _PlayerPos);
 	FVector PointToPos(int _Y, int _X);
 
+	void StartMapPlayerInit(int _PlayerCount);
+
+	// 0 1 2
+	int GetStartPlayerPos(int _PlayerIndex);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -64,6 +69,9 @@ protected:
 
 	std::vector<std::vector<std::shared_ptr<AMapObject>>> MapStatus;
 	std::vector<std::vector<EGimmickType>> GimmickStatus;
+
 private:
+
+	std::vector<POINT> PlayerStartPos;
 };
 

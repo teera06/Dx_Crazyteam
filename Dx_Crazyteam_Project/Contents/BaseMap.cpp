@@ -2,10 +2,13 @@
 
 #include <EngineCore/DefaultSceneComponent.h>
 #include <algorithm>
+#include <EngineBase/EngineRandom.h>
 
 #include "BaseMap.h"
 #include "Block.h"
 #include "CampBlock1.h"
+#include "CampBlock2.h"
+#include "CampBlock3.h"
 #include "WaterBomb.h"
 #include "WaterCourse.h"
 #include "Bush.h"
@@ -298,11 +301,13 @@ std::shared_ptr<AMapObject> ABaseMap::SpawnMapObject(int _Y, int _X, EMapObject 
 	}
 	case EMapObject::CampBlock2:
 	{
-
+		MapObj = GetWorld()->SpawnActor<ACampBlock2>("CampBlock2");
+		break;
 	}
 	case EMapObject::CampBlock3:
 	{
-
+		MapObj = GetWorld()->SpawnActor<ACampBlock3>("CampBlock3");
+		break;
 	}
 	case EMapObject::CampBlock4:
 	{
@@ -569,4 +574,15 @@ FVector ABaseMap::PointToPos(int _Y, int _X)
 	PushPos.Y = FirstPos.Y - ConstValue::TileSize.Y * _Y;
 
 	return PushPos;
+}
+
+void ABaseMap::StartMapPlayerInit(int _PlayerCount)
+{
+	
+}
+
+//서버가 사용할 인터페이스
+int ABaseMap::GetStartPlayerPos(int _PlayerIndex)
+{
+	return 0;
 }

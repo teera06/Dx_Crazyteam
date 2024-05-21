@@ -288,6 +288,12 @@
     <ClInclude Include="TestPackets.h">
       <Filter>Level\Surver\PublicOBJ\Test</Filter>
     </ClInclude>
+    <ClInclude Include="CampBlock2.h">
+      <Filter>MapObject\Block\CampBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="CampBlock3.h">
+      <Filter>MapObject\Block\CampBlock</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -471,6 +477,12 @@
     </ClCompile>
     <ClCompile Include="TestPackets.cpp">
       <Filter>Level\Surver\PublicOBJ\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="CampBlock2.cpp">
+      <Filter>MapObject\Block\CampBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="CampBlock3.cpp">
+      <Filter>MapObject\Block\CampBlock</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
