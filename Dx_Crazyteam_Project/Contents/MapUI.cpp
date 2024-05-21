@@ -4,8 +4,6 @@
 #include "Packets.h"
 #include "Player.h"
 #include "ContentsEnum.h"
-#include "MainGameMode.h"
-
 
 #include "EngineCore/Image.h"
 //float AMapUI::GameTimeCheck = 1.0f;
@@ -35,8 +33,6 @@ void AMapUI::BeginPlay()
 	PlayerUI.resize(8);
 	GameTimeerUI.resize(4);
 	PlayerItemUI.resize(8);
-
-	MGM = dynamic_cast<AMainGameMode*>(GetWorld()->GetGameMode().get());
 
 	MapPlayUI = CreateWidget<UImage>(GetWorld(), "MapPlayUI");
 	MapPlayUI->AddToViewPort(3);
@@ -216,7 +212,7 @@ void AMapUI::ServerSend()
 
 void AMapUI::SetPlayItemUI()
 {
-	switch (MGM->GetPlayer()->GetCtrlItem())
+	switch (GetGameMode()->GetPlayer()->GetCtrlItem())
 	{
 	case EItemType::None:
 		PlayerItemUI[0]->SetSprite("ItemShadow.png");
