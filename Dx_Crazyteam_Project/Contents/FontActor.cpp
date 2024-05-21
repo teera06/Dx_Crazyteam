@@ -22,7 +22,7 @@ void AFontActor::BeginPlay()
 		ShowText->SetFont("¸¼Àº °íµñ");
 		ShowText->SetScale(30.0f);
 		ShowText->SetColor(Color8Bit::Black);
-		ShowText->SetPosition({ -200.0f ,-100.0f });
+		ShowText->SetPosition({ -340.0f ,-200.0f });
 		ShowText->SetFlag(FW1_LEFT);
 		ShowText->AddToViewPort(11);
 	}
@@ -38,17 +38,30 @@ void AFontActor::Tick(float _DeltaTime)
 
 	if (true == IsDown(VK_RETURN))
 	{
-		UTextimeInput::On();
+		if (true == UTextimeInput::GetOnOff())
+		{
+			UTextimeInput::Off();
+		}
+		else
+		{
+			UTextimeInput::On();
+		}
 	}
 
-	std::string Text = UTextimeInput::GetReadText();
-	if (Text.size() > 0)
+	if (true == UTextimeInput::GetOnOff())
 	{
-		ShowText->SetText(Text);
+		std::string Text = UTextimeInput::GetReadText();
+		if (Text.size() > 0)
+		{
+			ShowText->SetText(Text);
+		}
+		else
+		{
+			ShowText->SetText(" ");
+		}
 	}
 	else
 	{
 		ShowText->SetText(" ");
 	}
-
 }
