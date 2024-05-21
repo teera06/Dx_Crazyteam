@@ -67,12 +67,15 @@ protected:
 private :
 	void StateInit();
 	void CreateAnimation();
-
+	
 	void NoneBegin();
 	void NoneTick(float _DeltaTime);
 	void CreateBegin();
 	void CreateTick(float _DeltaTime);
 	void CreateExit();
+	void KickBegin();
+	void KickTick(float _DeltaTime);
+	void KickExit();
 	void BombBegin();
 	void BombTick(float _DeltaTime);
 	void BombExit();
@@ -87,6 +90,10 @@ private :
 	float ServerBombTime = 0.0f;
 	bool b_WaterToBomb = false;
 	bool b_ServerBomb = false;
+
+	float KickSpeed = 50.f;
+	FVector MoveVector = FVector::Zero;
+
 
 };
 

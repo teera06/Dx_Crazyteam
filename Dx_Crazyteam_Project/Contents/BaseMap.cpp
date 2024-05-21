@@ -79,6 +79,8 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 			if (CheckPoint.x != PlayerPoint.x ||
 				CheckPoint.y != PlayerPoint.y)
 			{
+				MapStatus[CheckPoint.y][CheckPoint.x]->PlayerInteract();
+
 				return false;
 			}
 			else return true;
