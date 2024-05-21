@@ -91,7 +91,7 @@ void AMainGameMode::GameModeActorInit()
 	{//UI
 
 		std::shared_ptr<AMapUI> MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
-
+		MapUI->SetCurGameMode(this);
 	}
 
 

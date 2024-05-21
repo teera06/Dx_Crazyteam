@@ -4,7 +4,7 @@
 #include "Packets.h"
 #include "Player.h"
 #include "ContentsEnum.h"
-
+#include "CAGameMode.h"
 #include "EngineCore/Image.h"
 //float AMapUI::GameTimeCheck = 1.0f;
 
