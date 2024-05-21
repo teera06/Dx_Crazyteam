@@ -4,6 +4,7 @@
 #include <EngineCore/DefaultSceneComponent.h>
 
 // Ό³Έν :
+class UImage;
 class AOtherLobbyPlayer : public AActor, public UNetObject
 {
 	GENERATED_BODY(AActor)
@@ -26,6 +27,8 @@ private:
 	UStateManager State;
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
+	UImage* ImageRenderer = nullptr;
+
 
 private:
 	void BeginPlay() override;
