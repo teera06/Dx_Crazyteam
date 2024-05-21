@@ -15,7 +15,7 @@ void AVillageBlock2::BeginPlay()
 
 	BreakSetOwner(this);
 
-	Renderer->SetSprite("TownBlockRed.png");
+	Renderer->SetSprite("TownBlockYellow.png");
 }
 
 void AVillageBlock2::Tick(float _DeltaTime)

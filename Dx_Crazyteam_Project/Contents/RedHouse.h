@@ -2,19 +2,19 @@
 #include "Block.h"
 
 // Ό³Έν :
-class RedHouse : public ABlock
+class ARedHouse : public ABlock
 {
 	GENERATED_BODY(ABlock)
 public:
 	// constructor destructor
-	RedHouse();
-	~RedHouse();
+	ARedHouse();
+	~ARedHouse();
 
 	// delete Function
-	RedHouse(const RedHouse& _Other) = delete;
-	RedHouse(RedHouse&& _Other) noexcept = delete;
-	RedHouse& operator=(const RedHouse& _Other) = delete;
-	RedHouse& operator=(RedHouse&& _Other) noexcept = delete;
+	ARedHouse(const ARedHouse& _Other) = delete;
+	ARedHouse(ARedHouse&& _Other) noexcept = delete;
+	ARedHouse& operator=(const ARedHouse& _Other) = delete;
+	ARedHouse& operator=(ARedHouse&& _Other) noexcept = delete;
 
 protected:
 	void BeginPlay() override;
