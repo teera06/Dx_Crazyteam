@@ -117,7 +117,7 @@ private :
 	bool LeftEnd = false;
 	bool RightEnd = false;
 	float CenterLifeTime = 0.0f;
-	float LifeTime = 2.0f;
+	float LifeTime = 0.7f;
 	float CreateDeltaTime = 0.0f;
 	float CreateTime = 0.125f; // 0.125f
 	const size_t MaxPowerValue = 7;
