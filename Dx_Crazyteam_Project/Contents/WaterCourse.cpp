@@ -386,7 +386,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject != nullptr)
 				{
 					EMapObjectType type = NextMapObject->GetType();
-					if (type == EMapObjectType::Block || type == EMapObjectType::Bush)
+					if (type == EMapObjectType::Block)
 					{
 						NextMapObject->WaterInteract();
 						UpEnd = true;
@@ -399,6 +399,10 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 					{
 						AWaterBomb* NextBomb = dynamic_cast<AWaterBomb*>(NextMapObject.get());
 						NextBomb->SetWaterToBomg(true);
+					}
+					else if (type == EMapObjectType::Bush)
+					{
+						NextMapObject->WaterInteract();
 					}
 				}
 				

@@ -5,6 +5,7 @@
 #include "Player_Shadow.h"
 #include "WaterBomb.h"
 #include "Packets.h"
+#include "SendPacketManager.h"
 
 void APlayer::StateInit()
 {
@@ -192,19 +193,17 @@ void  APlayer::Idle(float _DeltaTime)
 
 	if (true == IsDown(VK_SPACE))
 	{
-		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
-		Bomb->SetObjectToken(WaterBomb_Token++);
+		POINT BombPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
+		std::shared_ptr<AMapObject> WaterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x);
+		WaterBomb->SetObjectToken(WaterBomb_Token++);
+		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(WaterBomb);
 		Bomb->SetWaterBombToken(WaterBomb_Token++);
 		if (SetWater_Token == false)
 		{
 			Bomb->SetWaterCourseToken(WaterCourse_Token);
 			SetWater_Token = true;
 		}
-		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
-		Packet->Pos = GetActorLocation();
-		Packet->ObjectType = static_cast<int>(EObjectType::WaterBomb);
-		Packet->Bomb = true;
-		Send(Packet);
+		USendPacketManager::SendMapObjectSpawnPacket(WaterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb);
 	}
 }
 
@@ -236,19 +235,17 @@ void APlayer::Move(float _DeltaTime)
 
 	if (true == IsDown(VK_SPACE))
 	{
-		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(GetGameMode()->GetCurMap()->SpawnWaterBomb(GetActorLocation()));
-		Bomb->SetObjectToken(WaterBomb_Token++);
+		POINT BombPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
+		std::shared_ptr<AMapObject> WaterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x);
+		WaterBomb->SetObjectToken(WaterBomb_Token++);
+		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(WaterBomb);
 		Bomb->SetWaterBombToken(WaterBomb_Token++);
 		if (SetWater_Token == false)
 		{
 			Bomb->SetWaterCourseToken(WaterCourse_Token);
 			SetWater_Token = true;
 		}
-		std::shared_ptr<UWaterBombUpdatePacket> Packet = std::make_shared<UWaterBombUpdatePacket>();
-		Packet->Pos = GetActorLocation();
-		Packet->ObjectType = static_cast<int>(EObjectType::WaterBomb);
-		Packet->Bomb = true;
-		Send(Packet);
+		USendPacketManager::SendMapObjectSpawnPacket(WaterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb);
 	}
 
 	FVector MovePos = FVector::Zero;

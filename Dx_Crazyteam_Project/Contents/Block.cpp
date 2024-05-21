@@ -166,6 +166,13 @@ void ABlock::BreakBegin()
 
 void ABlock::BreakTick(float _DeltaTime)
 {
+	if (GetType() == EMapObjectType::Bush)
+	{
+		State.ChangeState("End");
+		return;
+	}
+
+
 	BreakAccTime += _DeltaTime;
 	if (BreakAccTime > BreakBlockTime)
 	{

@@ -1,6 +1,8 @@
 #pragma once
 #include <EngineCore/GameMode.h>
 
+class AIntro;
+class ATitleMenu;
 class UEngineSoundPlayer;
 
 class AIntroMainMode : public AGameMode
@@ -25,5 +27,6 @@ protected:
 	void LevelStart(ULevel* _PrevLevel);
 private:
 	UEngineSoundPlayer BGM;
+	std::shared_ptr<AIntro> Intro = nullptr;
 };
 
