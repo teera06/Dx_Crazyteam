@@ -183,6 +183,8 @@ private:
 
 	bool IsSendPacket = true;
 
+	bool IsBushRenderOff = false;
+
 };
 
 

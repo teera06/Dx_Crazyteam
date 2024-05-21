@@ -85,11 +85,15 @@ void APlayer::Tick(float _DeltaTime)
 	{
 		Renderer->SetActive(false);
 		Shadow->ShadowRenderOff();
+
+		IsBushRenderOff = true;
 	}
-	else 
+	else if (true == IsBushRenderOff)
 	{
 		Renderer->SetActive(true);
 		Shadow->ShadowRenderOn();
+
+		IsBushRenderOff = false;
 	}
 
 	/* 테스트용 */

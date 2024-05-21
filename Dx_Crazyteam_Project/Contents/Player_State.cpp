@@ -126,22 +126,22 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Red_Dao_Turtle_Move_Up", "Dao_3_red.png", AnimationInter, true, 14, 15);
 	Renderer->CreateAnimation("Red_Dao_Turtle_Move_Down", "Dao_3_red.png", AnimationInter, true, 12, 13);
 	
-	Renderer->CreateAnimation("Blue_Dao_Owl_Idle_Up",		"Bazzi_3_blue.png", AnimationInter, false, 4, 4);
-	Renderer->CreateAnimation("Blue_Dao_Owl_Idle_Down",		"Bazzi_3_blue.png", AnimationInter, false, 6, 6);
-	Renderer->CreateAnimation("Blue_Dao_Owl_Idle_Right",	"Bazzi_3_blue.png", AnimationInter, false, 2, 2);
-	Renderer->CreateAnimation("Blue_Dao_Owl_Idle_Left",		"Bazzi_3_blue.png", AnimationInter, false, 0, 0);
-	Renderer->CreateAnimation("Blue_Dao_Owl_Move_Left",		"Bazzi_3_blue.png", AnimationInter, true, 0, 1);
-	Renderer->CreateAnimation("Blue_Dao_Owl_Move_Right",	"Bazzi_3_blue.png", AnimationInter, true, 2, 3);
-	Renderer->CreateAnimation("Blue_Dao_Owl_Move_Up",		"Bazzi_3_blue.png", AnimationInter, true, 4, 5);
-	Renderer->CreateAnimation("Blue_Dao_Owl_Move_Down",		"Bazzi_3_blue.png", AnimationInter, true, 6, 7);
-	Renderer->CreateAnimation("Blue_Dao_Turtle_Idle_Up",	"Bazzi_3_blue.png", AnimationInter, false, 14, 14);
-	Renderer->CreateAnimation("Blue_Dao_Turtle_Idle_Down",	"Bazzi_3_blue.png", AnimationInter, false, 12, 12);
-	Renderer->CreateAnimation("Blue_Dao_Turtle_Idle_Right", "Bazzi_3_blue.png", AnimationInter, false, 10, 10);
-	Renderer->CreateAnimation("Blue_Dao_Turtle_Idle_Left",	"Bazzi_3_blue.png", AnimationInter, false, 8, 8);
-	Renderer->CreateAnimation("Blue_Dao_Turtle_Move_Left",	"Bazzi_3_blue.png", AnimationInter, true, 8, 9);
-	Renderer->CreateAnimation("Blue_Dao_Turtle_Move_Right", "Bazzi_3_blue.png", AnimationInter, true, 10, 11);
-	Renderer->CreateAnimation("Blue_Dao_Turtle_Move_Up",	"Bazzi_3_blue.png", AnimationInter, true, 14, 15);
-	Renderer->CreateAnimation("Blue_Dao_Turtle_Move_Down",	"Bazzi_3_blue.png", AnimationInter, true, 12, 13);
+	Renderer->CreateAnimation("Blue_Dao_Owl_Idle_Up",		"dao_3_blue.png", AnimationInter, false, 4, 4);
+	Renderer->CreateAnimation("Blue_Dao_Owl_Idle_Down",		"dao_3_blue.png", AnimationInter, false, 6, 6);
+	Renderer->CreateAnimation("Blue_Dao_Owl_Idle_Right",	"dao_3_blue.png", AnimationInter, false, 2, 2);
+	Renderer->CreateAnimation("Blue_Dao_Owl_Idle_Left",		"dao_3_blue.png", AnimationInter, false, 0, 0);
+	Renderer->CreateAnimation("Blue_Dao_Owl_Move_Left",		"dao_3_blue.png", AnimationInter, true, 0, 1);
+	Renderer->CreateAnimation("Blue_Dao_Owl_Move_Right",	"dao_3_blue.png", AnimationInter, true, 2, 3);
+	Renderer->CreateAnimation("Blue_Dao_Owl_Move_Up",		"dao_3_blue.png", AnimationInter, true, 4, 5);
+	Renderer->CreateAnimation("Blue_Dao_Owl_Move_Down",		"dao_3_blue.png", AnimationInter, true, 6, 7);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Idle_Up",	"dao_3_blue.png", AnimationInter, false, 14, 14);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Idle_Down",	"dao_3_blue.png", AnimationInter, false, 12, 12);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Idle_Right", "dao_3_blue.png", AnimationInter, false, 10, 10);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Idle_Left",	"dao_3_blue.png", AnimationInter, false, 8, 8);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Move_Left",	"dao_3_blue.png", AnimationInter, true, 8, 9);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Move_Right", "dao_3_blue.png", AnimationInter, true, 10, 11);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Move_Up",	"dao_3_blue.png", AnimationInter, true, 14, 15);
+	Renderer->CreateAnimation("Blue_Dao_Turtle_Move_Down",	"dao_3_blue.png", AnimationInter, true, 12, 13);
 
 	// 레드 마리드 애니메이션
 	Renderer->CreateAnimation("Red_Marid_Idle_Up", "luxMarid_1.png", AnimationInter, false, 12, 12);
@@ -488,6 +488,7 @@ void APlayer::Rescue(float _DeltaTime)
 void APlayer::DieStart()
 {
 	Renderer->ChangeAnimation(GetAnimationName("Die"));
+	Shadow->ShadowRenderOff();
 
 	DieAniTwinkleActive = 0;
 	DieTwinkleTime = 0.1f;
@@ -519,7 +520,6 @@ void APlayer::Die(float _DeltaTime)
 void APlayer::RealDieStart()
 {
 	// 진짜 죽음 처리
-	Shadow->ShadowRenderOff();
 	Renderer->SetActive(false);
 }
 
