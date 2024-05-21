@@ -355,6 +355,21 @@ void APlayLobby::Tick(float _DeltaTime)
 	MapSelectBegin();
 
 
+	if (IsGetSessionToken == true)
+	{
+		PlayerCount = MySessionToken;
+
+		LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
+		LobbyPlayer[PlayerCount]->AddToViewPort(15);
+		LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
+		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
+		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
+
+		USendPacketManager::SendLPlayerPacket(this, UGame_Core::Net->GetSessionToken(), "bazzi_idle.png", 1);
+
+		IsGetSessionToken = false;
+	}
+
 	// 하나가 먼저 떠있어야 한다.
 	//
 }
@@ -896,19 +911,6 @@ void APlayLobby::CharacterBegin()
 				{
 					DaoBT->ChangeAnimation("Hover");
 					SwitchON = true;
-
-
-
-	if (IsGetSessionToken == true)
-	{
-		PlayerCount = MySessionToken;
-
-		LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
-		LobbyPlayer[PlayerCount]->AddToViewPort(15);
-		LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
-		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
-		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
-
 				}
 				else if (IsDown(VK_LBUTTON) && true == SwitchON)
 				{
@@ -941,11 +943,8 @@ void APlayLobby::CharacterBegin()
 				{
 					MaridBT->ChangeAnimation("Hover");
 					SwitchON = true;
-
-		USendPacketManager::SendLPlayerPacket(this, UGame_Core::Net->GetSessionToken(), "bazzi_idle.png", 1);
+				
 		
-		IsGetSessionToken = false;
-	}
 				}
 				else if (IsDown(VK_LBUTTON) && true == SwitchON)
 				{
@@ -999,6 +998,22 @@ void APlayLobby::CharacterBegin()
 			}
 			});
 	}
+
+	/*if (IsGetSessionToken == true)
+	{
+		PlayerCount = MySessionToken;
+
+		LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
+		LobbyPlayer[PlayerCount]->AddToViewPort(15);
+		LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
+		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
+		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
+
+		USendPacketManager::SendLPlayerPacket(this, UGame_Core::Net->GetSessionToken(), "bazzi_idle.png", 1);
+
+		IsGetSessionToken = false;
+	}*/
+
 }
 
 void APlayLobby::StartBegin()
