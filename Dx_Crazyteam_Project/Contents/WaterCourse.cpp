@@ -231,7 +231,7 @@ void AWaterCourse::CreateStreamTick(float _DeltaTime)
 {
 	CenterLifeTime += _DeltaTime;
 
-	if (2.0f <= CenterLifeTime)
+	if (LifeTime <= CenterLifeTime)
 	{
 		State.ChangeState("Delete");
 		return;
@@ -285,7 +285,7 @@ void AWaterCourse::CreateEndStemTick(float _DeltaTime)
 {
 	CenterLifeTime += _DeltaTime;
 
-	if (2.0f <= CenterLifeTime)
+	if (LifeTime <= CenterLifeTime)
 	{
 		State.ChangeState("Delete");
 		return;
@@ -470,7 +470,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 							NextMapObject->WaterInteract();
 
 							// 물줄기가 안나가도록 막아야 한다.
-							UpEnd = true;
+							DownEnd = true;
 						}
 						else
 						{
@@ -527,7 +527,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 							NextMapObject->WaterInteract();
 
 							// 물줄기가 안나가도록 막아야 한다.
-							UpEnd = true;
+							LeftEnd = true;
 						}
 						else
 						{
@@ -586,7 +586,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 							NextMapObject->WaterInteract();
 
 							// 물줄기가 안나가도록 막아야 한다.
-							UpEnd = true;
+							RightEnd = true;
 						}
 						else
 						{
@@ -706,7 +706,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 							NextMapObject->WaterInteract();
 
 							// 물줄기가 안나가도록 막아야 한다.
-							UpEnd = true;
+							DownEnd = true;
 						}
 						else
 						{
@@ -763,7 +763,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 							NextMapObject->WaterInteract();
 
 							// 물줄기가 안나가도록 막아야 한다.
-							UpEnd = true;
+							LeftEnd = true;
 						}
 						else
 						{
@@ -820,7 +820,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 							NextMapObject->WaterInteract();
 
 							// 물줄기가 안나가도록 막아야 한다.
-							UpEnd = true;
+							RightEnd = true;
 						}
 						else
 						{
