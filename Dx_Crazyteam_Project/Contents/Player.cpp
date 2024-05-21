@@ -131,6 +131,20 @@ std::string APlayer::GetAnimationName(std::string_view _StateName)
 {
 	std::string _AniName = _StateName.data();
 
+	switch (Info->RideType)
+	{
+	case EPlayerRideType::None:
+		break;
+	case EPlayerRideType::Owl:
+		_AniName = std::string("Owl_") + _AniName;
+		break;
+	case EPlayerRideType::Turtle:
+		_AniName = std::string("Turtle") + _AniName;
+		break;
+	default:
+		break;
+	}
+
 	switch (Info->MyType)
 	{
 	case ECharacterType::Bazzi:
