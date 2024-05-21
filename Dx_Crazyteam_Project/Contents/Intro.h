@@ -2,6 +2,7 @@
 #include <EngineCore/Actor.h>
 #include <EngineBase/NetObject.h>
 
+class AServerGameMode;
 class AUitestMonde;
 class UImage;
 class AIntro : public AActor, public UNetObject
@@ -18,6 +19,11 @@ public:
 	AIntro& operator=(const AIntro& _Other) = delete;
 	AIntro& operator=(AIntro&& _Other) noexcept = delete;
 
+	void SetFunction(std::function<void()> _Function)
+	{
+		Function = _Function;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -25,5 +31,9 @@ protected:
 private:
 	UImage* IntroUI = nullptr;
 	UImage* StartUI = nullptr;
+	UImage* GameStartButton = nullptr;
+
+	std::function<void()> Function = nullptr;
+	AServerGameMode* ServerGameMode = nullptr;
 };
 
