@@ -1081,11 +1081,11 @@ void APlayLobby::CharacterBegin()
 
 		if (IsClient == false)
 		{
-			for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
-			{
-				SetObjectToken(SessionToken + 110000);
-				USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
-			}
+			//for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
+			//{
+			//	SetObjectToken(SessionToken + 110000);
+			//	USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
+			//}
 		}
 
 	}
