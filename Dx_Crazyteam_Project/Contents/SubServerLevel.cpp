@@ -285,6 +285,8 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 
 					switch (ObjType)
 					{
+					case EMapObject::WaterBomb:
+					case EMapObject::TownBush:
 					case EMapObject::DummyBlock:
 					case EMapObject::NormalBlock:
 					case EMapObject::CampBlock1:
@@ -294,8 +296,13 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 					case EMapObject::CampMoveBlock1:
 					case EMapObject::CampMoveBlock2:
 					case EMapObject::CampHPBlock:
-					case EMapObject::WaterBomb:
-					case EMapObject::TownBush:
+					case EMapObject::VillageBlock1:
+					case EMapObject::VillageBlock2:
+					case EMapObject::VillageMoveBlock:
+					case EMapObject::VillageTree:
+					case EMapObject::VillageBlueHouse:
+					case EMapObject::VillageRedHouse:
+					case EMapObject::VillageYellowHouse:
 					{
 						AMapObject* OtherObject = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 

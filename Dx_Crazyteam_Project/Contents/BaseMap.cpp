@@ -136,6 +136,11 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 
 				return false;
 			}
+			else if (Bush->GetPossessBlock()->GetType() == EMapObjectType::Item)
+			{
+				Bush->GetPossessBlock()->PlayerInteract();
+				return true;
+			}
 
 			FVector TilePosition = Bush->GetPossessBlock()->GetActorLocation();
 

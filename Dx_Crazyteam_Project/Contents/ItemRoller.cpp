@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "CAGameMode.h"
 #include "BaseMap.h"
+#include "Bush.h"
 
 AItemRoller::AItemRoller()
 {
@@ -55,5 +56,19 @@ void AItemRoller::Action()
 
 
 
-	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+	if (GetIsPossessed())
+	{
+		std::shared_ptr<AMapObject> MapObj = GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x);
+		if (MapObj != nullptr)
+		{
+			ABush* Bush = dynamic_cast<ABush*>(GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x).get());
+
+			Bush->SetPossessBlock(nullptr);
+		}
+		Destroy();
+	}
+	else
+	{
+		GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+	}
 }
