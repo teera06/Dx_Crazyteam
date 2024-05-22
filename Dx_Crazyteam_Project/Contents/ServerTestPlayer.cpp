@@ -239,255 +239,279 @@ void AServerTestPlayer::SpawnItem()
 			std::shared_ptr<AMapObject> VillageMoveBlock11 = GetGameMode()->GetCurMap()->AddMapObject(3, 6, EMapObject::VillageMoveBlock);
 			USendPacketManager::SendMapObjectSpawnPacket(VillageMoveBlock11, { 3,6 }, EMapObject::VillageMoveBlock);
 
-			/*std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(3, 9, EMapObject::VillageTree);
+			std::shared_ptr<AMapObject> VillageTree4 = GetGameMode()->GetCurMap()->AddMapObject(3, 9, EMapObject::VillageTree);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageTree4, { 3,9 }, EMapObject::VillageTree);
 
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(3, 10, EMapObject::VillageBlock2);
+			std::shared_ptr<AMapObject> VillageBlock11 = GetGameMode()->GetCurMap()->AddMapObject(3, 10, EMapObject::VillageBlock2);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageBlock11, { 3,10 }, EMapObject::VillageBlock2);
 
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(3, 11, EMapObject::VillageBlock1);
+			std::shared_ptr<AMapObject> VillageBlock12 = GetGameMode()->GetCurMap()->AddMapObject(3, 11, EMapObject::VillageBlock1);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageBlock12, { 3,11 }, EMapObject::VillageBlock1);
 
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(3, 12, EMapObject::VillageBlock2);
+			std::shared_ptr<AMapObject> VillageBlock13 = GetGameMode()->GetCurMap()->AddMapObject(3, 12, EMapObject::VillageBlock2);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageBlock13, { 3,12 }, EMapObject::VillageBlock2);
 
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(3, 13, EMapObject::VillageBlock1);
 
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(3, 14, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(4, 0, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(4, 1, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(4, 2, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(4, 3, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(4, 4, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(4, 5, EMapObject::TownBush);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(4, 8, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(4, 9, EMapObject::TownBush);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(4, 10, EMapObject::VillageYellowHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(4, 11, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(4, 12, EMapObject::VillageYellowHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(4, 13, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(4, 14, EMapObject::VillageYellowHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 0, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 1, EMapObject::VillageRedHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 2, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 3, EMapObject::VillageRedHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 4, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 5, EMapObject::VillageTree);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 6, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 7, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 10, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 11, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 12, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 13, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 14, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 0, EMapObject::VillageTree);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 1, EMapObject::TownBush);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 2, EMapObject::VillageTree);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 3, EMapObject::TownBush);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 4, EMapObject::VillageTree);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 5, EMapObject::TownBush);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 8, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 9, EMapObject::TownBush);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 10, EMapObject::VillageTree);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 11, EMapObject::TownBush);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 12, EMapObject::VillageTree);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 13, EMapObject::TownBush);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 14, EMapObject::VillageTree);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 0, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 1, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 2, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 3, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 4, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 6, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 9, EMapObject::VillageTree);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 10, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 11, EMapObject::VillageRedHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 12, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 13, EMapObject::VillageRedHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 14, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 0, EMapObject::VillageBlueHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 1, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 2, EMapObject::VillageBlueHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 3, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 4, EMapObject::VillageBlueHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 5, EMapObject::TownBush);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 7, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 8, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 9, EMapObject::TownBush);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 10, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 11, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 12, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 13, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 14, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 0, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 1, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 2, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 3, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 4, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 5, EMapObject::VillageTree);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 6, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 9, EMapObject::VillageTree);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 10, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 11, EMapObject::VillageRedHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 12, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 13, EMapObject::VillageRedHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 14, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 0, EMapObject::VillageBlueHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 2, EMapObject::VillageBlueHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 3, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 4, EMapObject::VillageBlueHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 5, EMapObject::TownBush);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 8, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 9, EMapObject::TownBush);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 10, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 11, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 12, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 13, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 2, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 3, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 4, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 5, EMapObject::VillageTree);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 6, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 7, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 9, EMapObject::VillageTree);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 10, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 11, EMapObject::VillageRedHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 12, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 13, EMapObject::VillageRedHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 0, EMapObject::VillageBlueHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 2, EMapObject::VillageBlueHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 3, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 4, EMapObject::VillageBlueHouse);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 5, EMapObject::TownBush);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 8, EMapObject::VillageMoveBlock);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 9, EMapObject::TownBush);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 10, EMapObject::VillageBlock2);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 11, EMapObject::VillageBlock1);
-
-			std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 12, EMapObject::VillageBlock2);*/
+			std::shared_ptr<AMapObject> VillageBlock14 = GetGameMode()->GetCurMap()->AddMapObject(3, 13, EMapObject::VillageBlock1);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageBlock14, { 3,13 }, EMapObject::VillageBlock1);
+
+			std::shared_ptr<AMapObject>  VillageBlock15 = GetGameMode()->GetCurMap()->AddMapObject(3, 14, EMapObject::VillageBlock2);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageBlock15, { 3,14 }, EMapObject::VillageBlock2);
+
+			std::shared_ptr<AMapObject> VillageBlock16 = GetGameMode()->GetCurMap()->AddMapObject(4, 0, EMapObject::VillageBlock1);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageBlock16, { 4,0 }, EMapObject::VillageBlock1);
+
+			std::shared_ptr<AMapObject> VillageBlock17 = GetGameMode()->GetCurMap()->AddMapObject(4, 1, EMapObject::VillageBlock2);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageBlock17, { 4,1 }, EMapObject::VillageBlock2);
+
+			std::shared_ptr<AMapObject> VillageBlock18 = GetGameMode()->GetCurMap()->AddMapObject(4, 2, EMapObject::VillageBlock1);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageBlock18, { 4,2 }, EMapObject::VillageBlock1);
+
+			std::shared_ptr<AMapObject> VillageBlock19 = GetGameMode()->GetCurMap()->AddMapObject(4, 3, EMapObject::VillageBlock2);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageBlock19, { 4,3 }, EMapObject::VillageBlock2);
+
+			std::shared_ptr<AMapObject> VillageBlock20 = GetGameMode()->GetCurMap()->AddMapObject(4, 4, EMapObject::VillageBlock1);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageBlock20, { 4,4 }, EMapObject::VillageBlock1);
+
+
+			std::shared_ptr<AMapObject> TownBush5 = GetGameMode()->GetCurMap()->AddMapObject(4, 5, EMapObject::TownBush);
+			USendPacketManager::SendMapObjectSpawnPacket(TownBush5, { 4,5 }, EMapObject::TownBush);
+
+			std::shared_ptr<AMapObject> VillageMoveBlock12 = GetGameMode()->GetCurMap()->AddMapObject(4, 8, EMapObject::VillageMoveBlock);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageMoveBlock12, { 4,8 }, EMapObject::VillageMoveBlock);
+
+			std::shared_ptr<AMapObject> TownBush6 = GetGameMode()->GetCurMap()->AddMapObject(4, 9, EMapObject::TownBush);
+			USendPacketManager::SendMapObjectSpawnPacket(TownBush6, { 4,9 }, EMapObject::TownBush);
+
+			std::shared_ptr<AMapObject> VillageYellowHouse7= GetGameMode()->GetCurMap()->AddMapObject(4, 10, EMapObject::VillageYellowHouse);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageYellowHouse7, { 4,10 }, EMapObject::VillageYellowHouse);
+
+			std::shared_ptr<AMapObject> VillageMoveBlock13 = GetGameMode()->GetCurMap()->AddMapObject(4, 11, EMapObject::VillageMoveBlock);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageMoveBlock13, { 4,11 }, EMapObject::VillageMoveBlock);
+
+			std::shared_ptr<AMapObject> VillageYellowHouse8 = GetGameMode()->GetCurMap()->AddMapObject(4, 12, EMapObject::VillageYellowHouse);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageYellowHouse8, { 4,12 }, EMapObject::VillageYellowHouse);
+
+			std::shared_ptr<AMapObject> VillageMoveBlock14 = GetGameMode()->GetCurMap()->AddMapObject(4, 13, EMapObject::VillageMoveBlock);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageMoveBlock14, { 4,13 }, EMapObject::VillageMoveBlock);
+
+			std::shared_ptr<AMapObject> VillageYellowHouse9 = GetGameMode()->GetCurMap()->AddMapObject(4, 14, EMapObject::VillageYellowHouse);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageYellowHouse9, { 4,14 }, EMapObject::VillageYellowHouse);
+
+			std::shared_ptr<AMapObject> VillageBlock21 = GetGameMode()->GetCurMap()->AddMapObject(5, 0, EMapObject::VillageBlock2);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageBlock21, { 5,0 }, EMapObject::VillageBlock2);
+
+			std::shared_ptr<AMapObject> VillageRedHouse6 = GetGameMode()->GetCurMap()->AddMapObject(5, 1, EMapObject::VillageRedHouse);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageRedHouse6, { 5,1 }, EMapObject::VillageRedHouse);
+
+			std::shared_ptr<AMapObject> VillageBlock22 = GetGameMode()->GetCurMap()->AddMapObject(5, 2, EMapObject::VillageBlock2);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageBlock22, { 5,2 }, EMapObject::VillageBlock2);
+
+			std::shared_ptr<AMapObject> VillageRedHouse7 = GetGameMode()->GetCurMap()->AddMapObject(5, 3, EMapObject::VillageRedHouse);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageRedHouse7, { 5,3 }, EMapObject::VillageRedHouse);
+
+			std::shared_ptr<AMapObject> VillageBlock23 = GetGameMode()->GetCurMap()->AddMapObject(5, 4, EMapObject::VillageBlock2);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageBlock23, { 5,4 }, EMapObject::VillageBlock2);
+
+			std::shared_ptr<AMapObject> VillageTree5 = GetGameMode()->GetCurMap()->AddMapObject(5, 5, EMapObject::VillageTree);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageTree5, { 5,5 }, EMapObject::VillageTree);
+
+			std::shared_ptr<AMapObject> VillageMoveBlock15 = GetGameMode()->GetCurMap()->AddMapObject(5, 6, EMapObject::VillageMoveBlock);
+			USendPacketManager::SendMapObjectSpawnPacket(VillageMoveBlock15, { 5,6 }, EMapObject::VillageMoveBlock);
+
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 7, EMapObject::VillageMoveBlock);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 10, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 11, EMapObject::VillageBlock2);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 12, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 13, EMapObject::VillageBlock2);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(5, 14, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 0, EMapObject::VillageTree);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 1, EMapObject::TownBush);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 2, EMapObject::VillageTree);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 3, EMapObject::TownBush);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 4, EMapObject::VillageTree);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 5, EMapObject::TownBush);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 8, EMapObject::VillageMoveBlock);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 9, EMapObject::TownBush);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 10, EMapObject::VillageTree);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 11, EMapObject::TownBush);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 12, EMapObject::VillageTree);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 13, EMapObject::TownBush);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(6, 14, EMapObject::VillageTree);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 0, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 1, EMapObject::VillageBlock2);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 2, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 3, EMapObject::VillageBlock2);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 4, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 6, EMapObject::VillageMoveBlock);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 9, EMapObject::VillageTree);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 10, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 11, EMapObject::VillageRedHouse);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 12, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 13, EMapObject::VillageRedHouse);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(7, 14, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 0, EMapObject::VillageBlueHouse);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 1, EMapObject::VillageMoveBlock);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 2, EMapObject::VillageBlueHouse);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 3, EMapObject::VillageMoveBlock);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 4, EMapObject::VillageBlueHouse);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 5, EMapObject::TownBush);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 7, EMapObject::VillageMoveBlock);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 8, EMapObject::VillageMoveBlock);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 9, EMapObject::TownBush);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 10, EMapObject::VillageBlock2);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 11, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 12, EMapObject::VillageBlock2);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 13, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(8, 14, EMapObject::VillageBlock2);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 0, EMapObject::VillageBlock2);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 1, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 2, EMapObject::VillageBlock2);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 3, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 4, EMapObject::VillageBlock2);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 5, EMapObject::VillageTree);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 6, EMapObject::VillageMoveBlock);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 9, EMapObject::VillageTree);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 10, EMapObject::VillageMoveBlock);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 11, EMapObject::VillageRedHouse);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 12, EMapObject::VillageMoveBlock);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 13, EMapObject::VillageRedHouse);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(9, 14, EMapObject::VillageMoveBlock);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 0, EMapObject::VillageBlueHouse);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 2, EMapObject::VillageBlueHouse);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 3, EMapObject::VillageMoveBlock);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 4, EMapObject::VillageBlueHouse);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 5, EMapObject::TownBush);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 8, EMapObject::VillageMoveBlock);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 9, EMapObject::TownBush);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 10, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 11, EMapObject::VillageBlock2);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 12, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(10, 13, EMapObject::VillageBlock2);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 2, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 3, EMapObject::VillageBlock2);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 4, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 5, EMapObject::VillageTree);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 6, EMapObject::VillageMoveBlock);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 7, EMapObject::VillageMoveBlock);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 9, EMapObject::VillageTree);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 10, EMapObject::VillageMoveBlock);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 11, EMapObject::VillageRedHouse);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 12, EMapObject::VillageMoveBlock);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(11, 13, EMapObject::VillageRedHouse);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 0, EMapObject::VillageBlueHouse);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 2, EMapObject::VillageBlueHouse);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 3, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 4, EMapObject::VillageBlueHouse);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 5, EMapObject::TownBush);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 8, EMapObject::VillageMoveBlock);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 9, EMapObject::TownBush);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 10, EMapObject::VillageBlock2);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 11, EMapObject::VillageBlock1);
+			//
+			//std::shared_ptr<AMapObject> VillageYellowHouse4= GetGameMode()->GetCurMap()->AddMapObject(12, 12, EMapObject::VillageBlock2);*/
 
 		
 		
