@@ -9,6 +9,7 @@
 class ABaseMap;
 class APlayer;
 class AMapUI;
+class AOtherPlayer;
 class ACAGameMode : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
@@ -53,11 +54,17 @@ public:
 		return UI;
 	}
 
+	std::vector<AOtherPlayer*>& GetOtherPlayers()
+	{
+		return OtherPlayers;
+	}
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void LevelStart(ULevel* _PrevLevel) override;
 	void LevelEnd(ULevel* _NextLevel) override;
+
+	std::vector<AOtherPlayer*> OtherPlayers;
 private:
 	std::shared_ptr<ABaseMap> CurMap = nullptr;
 	std::shared_ptr<APlayer> MainPlayer = nullptr;

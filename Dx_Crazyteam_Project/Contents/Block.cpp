@@ -4,6 +4,7 @@
 #include "BaseMap.h"
 #include "Bush.h"
 #include "Player.h"
+#include "OtherPlayer.h"
 #include <EngineBase/EngineRandom.h>
 
 #include "Game_Core.h"
@@ -111,6 +112,19 @@ void ABlock::IdleTick(float _DeltaTime)
 			IsPush = false;
 			return;
 		}
+
+		for (int i = 0; i < GetGameMode()->GetOtherPlayers().size(); i++)
+		{
+			POINT CheckPos = GetGameMode()->GetCurMap()->PosToPoint(GetGameMode()->GetOtherPlayers()[i]->GetActorLocation());
+
+			if (ny == CheckPos.y &&
+				nx == CheckPos.x)
+			{
+				IsPush = false;
+				return;
+			}
+		}
+		
 
 		if (!GetGameMode()->GetCurMap()->IsEmpty(ny, nx))
 		{

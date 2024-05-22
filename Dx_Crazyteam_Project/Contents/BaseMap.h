@@ -40,15 +40,6 @@ public:
 	void PushMapObject(std::shared_ptr<AMapObject> _Obj, int _Y, int _X);
 	void MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX, int _PY, int _PX);
 
-	EGimmickType GetGimmickType(int _Y, int _X)
-	{
-		return GimmickStatus[_Y][_X];
-	}
-
-	void SetGimickType(int _Y, int _X, EGimmickType _Type)
-	{
-		GimmickStatus[_Y][_X] = _Type;
-	}
 
 	std::shared_ptr<AMapObject> SpawnWaterBomb(FVector _SpawnPos, int _Power);
 	std::shared_ptr<AMapObject> SpawnWaterBomb(int _Y, int _X, int _Power);
@@ -71,8 +62,6 @@ protected:
 	UDefaultSceneComponent* Root = nullptr;
 
 	std::vector<std::vector<std::shared_ptr<AMapObject>>> MapStatus;
-	std::vector<std::vector<EGimmickType>> GimmickStatus;
-
 
 private:
 

@@ -151,6 +151,7 @@ public:
 	{
 		return Dir;
 	}
+	bool IsOtherPlayer();
 
 	static int WaterBomb_Token;
 	static int WaterCourse_Token;

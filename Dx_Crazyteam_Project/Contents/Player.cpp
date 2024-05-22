@@ -9,6 +9,7 @@
 #include "BaseMap.h"
 #include "CAGameMode.h"
 #include <EngineBase/EngineRandom.h>
+#include "OtherPlayer.h"
 
 int APlayer::WaterBomb_Token = 0;
 int APlayer::WaterCourse_Token = 0;
@@ -23,6 +24,8 @@ APlayer::APlayer()
 APlayer::~APlayer()
 {
 }
+
+
 
 void APlayer::BeginPlay()
 {
@@ -342,4 +345,24 @@ void APlayer::SettingZValue()
 
 	Pos.Z += 0.1f;
 	Shadow->SetActorLocation(Pos);
+}
+
+bool APlayer::IsOtherPlayer()
+{
+	for (int i = 0; i < GetGameMode()->GetOtherPlayers().size(); i++)
+	{
+		POINT MyPos = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
+
+		if (GetObjectToken() == GetGameMode()->GetOtherPlayers()[i]->GetObjectToken()) continue;
+
+		POINT OtherPlayerPos = GetGameMode()->GetCurMap()->PosToPoint(GetGameMode()->GetOtherPlayers()[i]->GetActorLocation());
+
+		if (MyPos.y == OtherPlayerPos.y &&
+			MyPos.x == OtherPlayerPos.x)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }

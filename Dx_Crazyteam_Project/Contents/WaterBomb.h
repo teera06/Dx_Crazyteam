@@ -97,6 +97,7 @@ private :
 	float KickSpeed = 500.f;
 	FVector MoveVector = FVector::Zero;
 	POINT TargetPoint = { -99,-99 };
+	POINT PrevPoint = { -99,-99 };
 	bool IsKick = false;
 
 

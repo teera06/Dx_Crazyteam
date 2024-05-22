@@ -191,6 +191,7 @@ void AWaterBomb::CreateExit()
 void AWaterBomb::KickBegin()
 {
 	TargetPoint = SearchLogic(GetCurPos(), MoveVector);
+	PrevPoint = GetCurPos();
 
 	std::shared_ptr<AMapObject> MapObj = GetGameMode()->GetCurMap()->GetMapObject(TargetPoint.y, TargetPoint.x);
 	GetGameMode()->GetCurMap()->ChangeNull(GetCurPos().y, GetCurPos().x);
@@ -225,7 +226,7 @@ void AWaterBomb::KickTick(float _DeltaTime)
 
 		if(false == b_WaterToBomb)
 		{
-			USendPacketManager::SendMapObjectMoveEndPacket(shared_from_this(), CurPoint.y, CurPoint.x, GetCurPos().y, GetCurPos().x);
+			USendPacketManager::SendMapObjectMoveEndPacket(shared_from_this(), CurPoint.y, CurPoint.x, PrevPoint.y, PrevPoint.x);
 		}
 
 		State.ChangeState("Create");
