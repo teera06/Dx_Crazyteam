@@ -248,7 +248,7 @@ void ABlock::EndTick(float _DeltaTime)
 	{
 		if (GetPossessItem() == EItemType::None)
 		{
-			if (GetIsPossessed())
+			/*if (GetIsPossessed())
 			{
 				AMapObject* MapObject = GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x).get();
 				
@@ -259,8 +259,8 @@ void ABlock::EndTick(float _DeltaTime)
 			}
 			else
 			{
-				GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
-			}
+			}*/
+			GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 		}
 		else
 		{
@@ -275,17 +275,23 @@ void ABlock::EndTick(float _DeltaTime)
 			}
 
 		}
+
+		// 부서졌다면 푸시하지않음
+		Destroy();
+		return;
 	}
+
 
 	if (IsPush)
 	{
-		// 블럭 이동 종료시 맵에서 좌표 동기화
-		{
-			USendPacketManager::SendMapObjectMoveEndPacket(shared_from_this(), ny, nx, GetCurPos().y, GetCurPos().x);
-		}
-
+		//방지 if 코드
 		if (!IsBreak)
 		{
+			// 블럭 이동 종료시 맵에서 좌표 동기화
+			{
+				USendPacketManager::SendMapObjectMoveEndPacket(shared_from_this(), ny, nx, GetCurPos().y, GetCurPos().x);
+			}
+
 			GetGameMode()->GetCurMap()->MoveMapObject(shared_from_this(), ny, nx, GetCurPos().y, GetCurPos().x);
 		}
 

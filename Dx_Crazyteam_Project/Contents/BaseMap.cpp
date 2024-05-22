@@ -308,19 +308,20 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 		MapStatus[_Y][_X] = MapObj;
 	}
 
-	//if (MapStatus[_Y][_X] != nullptr && MapStatus[_Y][_X]->GetType() != EMapObjectType::Bush)
-	//{
-	//	int Random = UEngineRandom::MainRandom.RandomInt(1, 100);
-	//	if (Random <= 50)
-	//	{
-	//		int Min = static_cast<int>(EItemType::ItemBubble);
-	//		int Max = static_cast<int>(EItemType::ItemNiddle);
+	//블록 생성 시 랜덤아이템 넣어줌
+	if (MapStatus[_Y][_X] != nullptr && MapStatus[_Y][_X]->GetType() != EMapObjectType::Bush)
+	{
+		int Random = UEngineRandom::MainRandom.RandomInt(1, 100);
+		if (Random <= 50)
+		{
+			int Min = static_cast<int>(EItemType::ItemBubble);
+			int Max = static_cast<int>(EItemType::ItemNiddle);
 
-	//		int ItemRandom = UEngineRandom::MainRandom.RandomInt(Min, Max);
+			int ItemRandom = UEngineRandom::MainRandom.RandomInt(Min, Max);
 
-	//		MapObj->SetPossessItem(static_cast<EItemType>(ItemRandom));
-	//	}
-	//}
+			MapObj->SetPossessItem(static_cast<EItemType>(ItemRandom));
+		}
+	}
 
 
 	return MapObj;
@@ -629,9 +630,33 @@ void ABaseMap::DestroyMapObject(int _Y, int _X)
 	//}
 	if (MapStatus[_Y][_X] != nullptr)
 	{
-		MapStatus[_Y][_X]->Destroy();
+		if (MapStatus[_Y][_X]->GetType() == EMapObjectType::Bush)
+		{
+			ABush* Bush = dynamic_cast<ABush*>(MapStatus[_Y][_X].get());
+			
+			if (Bush->GetPossessBlock() == nullptr)
+			{
+				MapStatus[_Y][_X]->Destroy();
+				MapStatus[_Y][_X] = nullptr;
+			}
+			else if (Bush->GetPossessBlock()->GetType() == EMapObjectType::WaterBalloon)
+			{
+				MapStatus[_Y][_X]->Destroy();
+				MapStatus[_Y][_X] = nullptr;
+			}
+			else
+			{
+				Bush->GetPossessBlock()->Destroy();
+				Bush->SetPossessBlock(nullptr);
+			}
+		}
+		else
+		{
+			MapStatus[_Y][_X]->Destroy();
+			MapStatus[_Y][_X] = nullptr;
+		}
 	}
-	MapStatus[_Y][_X] = nullptr;
+
 }
 
 void ABaseMap::ChangeNull(int _Y, int _X)
