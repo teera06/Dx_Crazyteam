@@ -23,6 +23,7 @@
 #include "Game_Core.h"
 #include "Packets.h"
 #include "OtherUI.h"
+#include "ServerTestPlayer.h"
 
 
 AMainGameMode::AMainGameMode()
@@ -75,7 +76,7 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				//UGame_Core::Net = std::make_shared<UEngineServer>();
 				//UGame_Core::Net->ServerOpen(30000, 512);
 
-			MainPlayer = GetWorld()->SpawnActor<APlayer>("Player1", 0);
+			MainPlayer = GetWorld()->SpawnActor<AServerTestPlayer>("Player1", 0);
 			MainPlayer->SetCurGameMode(this);
 			SetMainPlayer(MainPlayer);
 
@@ -98,7 +99,7 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				//UGame_Core::Net->SetTokenPacketFunction([=](USessionTokenPacket* _Token)
 					//{
 
-			MainPlayer = GetWorld()->SpawnActor<APlayer>("Player1", 0);
+			MainPlayer = GetWorld()->SpawnActor<AServerTestPlayer>("Player1", 0);
 			MainPlayer->SetCurGameMode(this);
 			SetMainPlayer(MainPlayer);
 
@@ -183,20 +184,20 @@ void AMainGameMode::GameModeActorInit()
 	//}
 
 
-	//Item - Village
-	{
-		Village->AddMapObject(0, 0, EMapObject::Item, EItemType::ItemBubble);
-		Village->AddMapObject(1, 0, EMapObject::Item, EItemType::ItemNiddle);
-		Village->AddMapObject(2, 0, EMapObject::Item, EItemType::ItemTurtle);
-		Village->AddMapObject(2, 1, EMapObject::Item, EItemType::ItemOwl);
-		Village->AddMapObject(2, 2, EMapObject::Item, EItemType::ItemShoes);
-		Village->AddMapObject(8, 6, EMapObject::Item, EItemType::ItemRoller);
-		Village->AddMapObject(6, 8, EMapObject::Item, EItemType::ItemFluid);
-	}
-	//Camp 내 Object 그대로하려면 아래코드로
-	{
-		Village->AddObjectInit();
-	}
+	////Item - Village
+	//{
+	//	Village->AddMapObject(0, 0, EMapObject::Item, EItemType::ItemBubble);
+	//	Village->AddMapObject(1, 0, EMapObject::Item, EItemType::ItemNiddle);
+	//	Village->AddMapObject(2, 0, EMapObject::Item, EItemType::ItemTurtle);
+	//	Village->AddMapObject(2, 1, EMapObject::Item, EItemType::ItemOwl);
+	//	Village->AddMapObject(2, 2, EMapObject::Item, EItemType::ItemShoes);
+	//	Village->AddMapObject(8, 6, EMapObject::Item, EItemType::ItemRoller);
+	//	Village->AddMapObject(6, 8, EMapObject::Item, EItemType::ItemFluid);
+	//}
+	////Camp 내 Object 그대로하려면 아래코드로
+	//{
+	//	Village->AddObjectInit();
+	//}
 
 
 
