@@ -227,7 +227,7 @@ void APlayLobby::BeginPlay()
 	MapSelectCMinimap->SetPosition({ -169.f,89.f });
 	MapSelectCMinimap->SetActive(false);
 
-	MapSelectCinfo = CreateWidget<UImage>(GetWorld(), "MapSelectVPick");
+	MapSelectCinfo = CreateWidget<UImage>(GetWorld(), "MapSelectCinfo");
 	MapSelectCinfo->AddToViewPort(16);
 	MapSelectCinfo->SetSprite("Cam02_info.png");
 	MapSelectCinfo->SetAutoSize(1.0f, true);
@@ -235,21 +235,34 @@ void APlayLobby::BeginPlay()
 	MapSelectCinfo->SetActive(false);
 
 	
-	EnterButton = CreateWidget<UImage>(GetWorld(), "MapSelectVPick");
+	EnterButton = CreateWidget<UImage>(GetWorld(), "EnterButton");
 	EnterButton->AddToViewPort(16);
 	EnterButton->SetSprite("Cam02_info.png");
 	EnterButton->SetAutoSize(1.0f, true);
 	EnterButton->SetPosition({ 73.f,109.f });
 	EnterButton->SetActive(false);
 	
-	CancelButton = CreateWidget<UImage>(GetWorld(), "MapSelectVPick");
+	CancelButton = CreateWidget<UImage>(GetWorld(), "CancelButton");
 	CancelButton->AddToViewPort(16);
 	CancelButton->SetSprite("Cam02_info.png");
 	CancelButton->SetAutoSize(1.0f, true);
 	CancelButton->SetPosition({ 73.f,109.f });
 	CancelButton->SetActive(false);
 
-
+	
+	VillageFinMap = CreateWidget<UImage>(GetWorld(), "VillageFinMap");
+	VillageFinMap->AddToViewPort(16);
+	VillageFinMap->SetSprite("Village10_FinMap.png");
+	VillageFinMap->SetAutoSize(1.0f, true);
+	VillageFinMap->SetPosition({ 230.f,-113.f });
+	VillageFinMap->SetActive(true);
+		
+	CamFinMap = CreateWidget<UImage>(GetWorld(), "CamFinMap");
+	CamFinMap->AddToViewPort(16);
+	CamFinMap->SetSprite("Cam02_FinMap.png");
+	CamFinMap->SetAutoSize(1.0f, true);
+	CamFinMap->SetPosition({ 230.f,-113.f });
+	CamFinMap->SetActive(false);
 
 
 	//캐릭터 선택창
@@ -1165,7 +1178,7 @@ void APlayLobby::StartBegin()
 			//GEngine->ChangeLevel("PlayertestMode");
 			if (nullptr != MapChangeLogic)
 			{
-				MapChangeLogic(this);
+				MapChangeLogic(this, "MainGameMode");
 			}
 			});
 	}
@@ -1283,9 +1296,9 @@ void APlayLobby::MapSelectBegin()
 	
 }
 
-void APlayLobby::MapChange()
+void APlayLobby::MapChange(std::string_view _MapName)
 {
-	GEngine->ChangeLevel("MainGameMode");
+	GEngine->ChangeLevel(_MapName);
 }
 
 void APlayLobby::SwapSelectCharacter(UImage* _SelectCharacter)

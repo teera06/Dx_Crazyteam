@@ -107,6 +107,8 @@ private:
 	UImage* MapSelectCinfo = nullptr;
 	UImage* EnterButton = nullptr;
 	UImage* CancelButton = nullptr;
+	UImage* VillageFinMap = nullptr;
+	UImage* CamFinMap = nullptr;
 
 	ACAGameMode* Teamtyp = nullptr;
 
@@ -158,8 +160,8 @@ public:
 
 	// APlayLobby
 	std::function<void(APlayLobby*, int, std::string_view)> ChracterChangeLogic = nullptr;
-	std::function<void(APlayLobby*)> MapChangeLogic = nullptr;
+	std::function<void(APlayLobby*, std::string_view)> MapChangeLogic = nullptr;
 
-	void MapChange();
+	void MapChange(std::string_view _MapName);
 };
 
