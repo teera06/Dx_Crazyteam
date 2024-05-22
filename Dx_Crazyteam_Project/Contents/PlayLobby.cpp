@@ -975,10 +975,19 @@ void APlayLobby::CharacterBegin()
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Dao;
 
-					//if (IsClient == true)
+					if (IsClient == true)
 					{
 						SetObjectToken(PlayerCount + 110000);
 						USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
+					}
+					else
+					{
+						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
+						{
+							SetObjectToken(SessionToken + 110000);
+							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[SessionToken]->CurInfo.Texture->GetName(), 1, SessionToken);
+							continue;
+						}
 					}
 				}
 			}
@@ -1023,10 +1032,19 @@ void APlayLobby::CharacterBegin()
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Marid;
 
-					//if (IsClient == true)
+					if (IsClient == true)
 					{
 						SetObjectToken(PlayerCount + 110000);
 						USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
+					}
+					else
+					{
+						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
+						{
+							SetObjectToken(SessionToken + 110000);
+							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[SessionToken]->CurInfo.Texture->GetName(), 1, SessionToken);
+							continue;
+						}
 					}
 				}
 			}
@@ -1070,10 +1088,19 @@ void APlayLobby::CharacterBegin()
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Bazzi;
 
-					//if (IsClient == true)
+					if (IsClient == true)
 					{
 						SetObjectToken(PlayerCount + 110000);
 						USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
+					}
+					else
+					{
+						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
+						{
+							SetObjectToken(SessionToken + 110000);
+							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[SessionToken]->CurInfo.Texture->GetName(), 1, SessionToken);
+							continue;
+						}
 					}
 				}
 			}
