@@ -3,6 +3,7 @@
 #include "CAGameMode.h"
 #include "BaseMap.h"
 #include "Bush.h"
+#include <EngineBase/EngineRandom.h>
 
 #include "SendPacketManager.h"
 
@@ -24,6 +25,10 @@ void ABlock::BeginPlay()
 	Renderer->SetOrder(ERenderOrder::WaterBomb);
 	Renderer->AddPosition(FVector::Down * 20.f);
 	Renderer->SetAutoSize(1.f, true);
+
+	//int SpawnRandom = UEngineRandom::MainRandom.RandomInt(1, 100);
+
+
 
 	StateInit();
 }
