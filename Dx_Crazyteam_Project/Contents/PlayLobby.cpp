@@ -965,7 +965,7 @@ void APlayLobby::CharacterBegin()
 
 					if (nullptr != ChracterChangeLogic)
 					{
-						ChracterChangeLogic(this);
+						ChracterChangeLogic(this, ChangeUIIndex, "Room_Charcater_Dao.png");
 					}
 					int a = 0;
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Dao.bmp");
@@ -1005,7 +1005,7 @@ void APlayLobby::CharacterBegin()
 					LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Marid.png");
 					if (nullptr != ChracterChangeLogic)
 					{
-						ChracterChangeLogic(this);
+						ChracterChangeLogic(this, ChangeUIIndex, "Room_Charcater_Marid.png");
 					}
 					int a = 0;
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Marid.bmp");
@@ -1045,7 +1045,7 @@ void APlayLobby::CharacterBegin()
 
 					if (nullptr != ChracterChangeLogic)
 					{
-						ChracterChangeLogic(this);
+						ChracterChangeLogic(this, ChangeUIIndex, "Room_Charcater_Bazzi.png");
 					}
 					int a = 0;
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Bazzi.bmp");

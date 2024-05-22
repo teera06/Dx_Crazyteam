@@ -139,6 +139,6 @@ public:
 	}
 
 	// APlayLobby
-	std::function<void(APlayLobby*)> ChracterChangeLogic = nullptr;
+	std::function<void(APlayLobby*, int, std::string_view)> ChracterChangeLogic = nullptr;
 };
 
