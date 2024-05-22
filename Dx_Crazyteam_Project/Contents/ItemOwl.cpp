@@ -35,7 +35,8 @@ void AItemOwl::Action()
 	//플레이어 상태변경
 	EPlayerRideType Type = GetGameMode()->GetPlayer()->GetPlayerInfo()->RideType;
 	FVector ItemCurPos = GetActorLocation();
-	if (Type == EPlayerRideType::None)
+
+	if (Type == EPlayerRideType::None && false == GetGameMode()->GetPlayer()->GetIsPlayerTrap())
 	{
 		GetGameMode()->GetPlayer()->SetRideType(EPlayerRideType::Owl);
 		GetGameMode()->GetPlayer()->SetActorLocation(ItemCurPos);
