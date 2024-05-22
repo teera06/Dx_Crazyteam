@@ -348,12 +348,16 @@ void APlayLobby::Tick(float _DeltaTime)
 
 	//팀 선택
 	TeamSelectBegin();
+
 	// Room Hover
 	RoomBegin();
+
 	//캐릭터 선택
 	CharacterBegin();
+
 	//스타트 버튼
 	StartBegin();
+
 	//맵 선택 버튼
 	MapSelectBegin();
 
@@ -366,22 +370,22 @@ void APlayLobby::Tick(float _DeltaTime)
 		{
 			LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
 			LobbyPlayer[PlayerCount]->AddToViewPort(15);
-			LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
-			LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
-			LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
+			LobbyPlayer[PlayerCount]->SetSprite("Room_Charcater_Bazzi.png");
+			LobbyPlayer[PlayerCount]->SetAutoSize(1.2f, true);
+			LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-335 + PlayerCount * 105), 160.0f, 100.0f));
 			SetObjectToken(PlayerCount + 110000);
-			USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
+			USendPacketManager::SendLPlayerPacket(this, "Room_Charcater_Bazzi.png", 1);
 			Create = true;
 		}
 		else if (PlayerCount >= 1 && Create == false)
 		{
 			LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
 			LobbyPlayer[PlayerCount]->AddToViewPort(15);
-			LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
-			LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
-			LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
+			LobbyPlayer[PlayerCount]->SetSprite("Room_Charcater_Bazzi.png");
+			LobbyPlayer[PlayerCount]->SetAutoSize(1.2f, true);
+			LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-335 + PlayerCount * 105), 160.0f, 100.0f));
 			SetObjectToken(PlayerCount + 110000);
-			USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
+			USendPacketManager::SendLPlayerPacket(this, "Room_Charcater_Bazzi.png", 1);
 			Create = true;
 			IsClient = true;
 		}
@@ -394,20 +398,17 @@ void APlayLobby::Tick(float _DeltaTime)
 				{
 					LobbyPlayer[SessionToken] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
 					LobbyPlayer[SessionToken]->AddToViewPort(15);
-					LobbyPlayer[SessionToken]->SetSprite("bazzi_idle.png", 1);
-					LobbyPlayer[SessionToken]->SetScale({ 150, 150 });
-					LobbyPlayer[SessionToken]->SetPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
+					LobbyPlayer[SessionToken]->SetSprite("Room_Charcater_Bazzi.png");
+					LobbyPlayer[SessionToken]->SetAutoSize(1.2f, true);
+					LobbyPlayer[SessionToken]->SetPosition(FVector(static_cast<float>(-335 + PlayerCount * 105), 160.0f, 100.0f));
 				}
 				SetObjectToken(SessionToken + 110000);
-				USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
+				USendPacketManager::SendLPlayerPacket(this, "Room_Charcater_Bazzi.png", 1);
 			}
 		}
 		
 		IsGetSessionToken = false;
 	}
-
-	// 하나가 먼저 떠있어야 한다.
-	//
 }
 
 
@@ -900,7 +901,6 @@ void APlayLobby::RoomBegin()
 
 void APlayLobby::CharacterBegin()
 {
-
 	{
 		RandomBT->SetUnHover([=] {
 			if ("UP" != RandomBT->GetUiAniName())
@@ -924,7 +924,7 @@ void APlayLobby::CharacterBegin()
 				{
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Random.bmp");
 					SwapSelectCharacter(RandomBT);
-					LobbyPlayer[0]->SetSprite("RandomCha.png");
+					LobbyPlayer[PlayerCount]->SetSprite("RandomCha.png");
 					checkUI->SetPosition({ 152.0f,183.0f });
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Random;
@@ -956,11 +956,38 @@ void APlayLobby::CharacterBegin()
 				{
 					IsSelectSharacter = true;
 					SwapSelectCharacter(DaoBT);
-					LobbyPlayer[0]->SetSprite("Room_Charcater_Dao.png");
+					if (IsClient == false)
+					{
+						LobbyPlayer[0]->SetSprite("Room_Charcater_Dao.png");
+						std::string asd = LobbyPlayer[PlayerCount]->GetName();
+						int a = 0;
+					}
+					else
+					{
+						LobbyPlayer[PlayerCount]->SetSprite("Room_Charcater_Dao.png");
+					}
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Dao.bmp");
 					checkUI->SetPosition({ 222.0f,183.0f });
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Dao;
+
+
+					if (IsClient == false)
+					{
+						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
+						{
+							if (LobbyPlayer[SessionToken] == nullptr)
+							{
+								//LobbyPlayer[SessionToken] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
+								//LobbyPlayer[SessionToken]->AddToViewPort(15);
+								//LobbyPlayer[SessionToken]->SetSprite("bazzi_idle.png", 1);
+								//LobbyPlayer[SessionToken]->SetScale({ 150, 150 });
+								//LobbyPlayer[SessionToken]->SetPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
+							}
+							SetObjectToken(SessionToken + 110000);
+							USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
+						}
+					}
 				}
 			}
 			});
@@ -991,7 +1018,14 @@ void APlayLobby::CharacterBegin()
 				{
 					IsSelectSharacter = true;
 					SwapSelectCharacter(MaridBT);
-					LobbyPlayer[0]->SetSprite("Room_Charcater_Marid.png");
+					if (IsClient == false)
+					{
+						LobbyPlayer[0]->SetSprite("Room_Charcater_Marid.png");
+					}
+					else
+					{
+						LobbyPlayer[PlayerCount]->SetSprite("Room_Charcater_Marid.png");
+					}
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Marid.bmp");
 					checkUI->SetPosition({ 222.0f,133.0f });
 					checkUI->SetActive(true);
@@ -1025,7 +1059,14 @@ void APlayLobby::CharacterBegin()
 				{
 					IsSelectSharacter = true;
 					SwapSelectCharacter(BazziBT);
-					LobbyPlayer[0]->SetSprite("Room_Charcater_Bazzi.png");
+					if (IsClient == false)
+					{
+						LobbyPlayer[0]->SetSprite("Room_Charcater_Bazzi.png");
+					}
+					else
+					{
+						LobbyPlayer[PlayerCount]->SetSprite("Room_Charcater_Bazzi.png");
+					}			
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Bazzi.bmp");
 					checkUI->SetPosition({ 292.0f,133.0f });
 					checkUI->SetActive(true);
