@@ -587,16 +587,16 @@ std::shared_ptr<AMapObject> ABaseMap::SpawnItemObject(int _Y, int _X, EItemType 
 	return Item;
 }
 
-std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(FVector _SpawnPos)
+std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(FVector _SpawnPos, int _Power)
 {
 	POINT BombPoint = PosToPoint(_SpawnPos);
 
-	return AddMapObject(BombPoint.y, BombPoint.x, EMapObject::WaterBomb);
+	return AddMapObject(BombPoint.y, BombPoint.x, EMapObject::WaterBomb, EItemType::None, _Power);
 }
 
 std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(int _Y, int _X, int _Power)
 {
-	return AddMapObject(_Y, _X, EMapObject::WaterBomb, EItemType::None ,_Power);
+	return AddMapObject(_Y, _X, EMapObject::WaterBomb, EItemType::None, _Power);
 }
 
 void ABaseMap::DestroyMapObject(int _Y, int _X)

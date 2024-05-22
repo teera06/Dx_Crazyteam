@@ -50,7 +50,7 @@ public:
 		GimmickStatus[_Y][_X] = _Type;
 	}
 
-	std::shared_ptr<AMapObject> SpawnWaterBomb(FVector _SpawnPos);
+	std::shared_ptr<AMapObject> SpawnWaterBomb(FVector _SpawnPos, int _Power);
 	std::shared_ptr<AMapObject> SpawnWaterBomb(int _Y, int _X, int _Power);
 	void DestroyMapObject(int _Y, int _X);
 	void ChangeNull(int _Y, int _X);
