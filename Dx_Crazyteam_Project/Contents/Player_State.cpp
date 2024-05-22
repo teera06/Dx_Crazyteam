@@ -304,7 +304,7 @@ void  APlayer::Idle(float _DeltaTime)
 
 void APlayer::MoveStart()
 {
-	
+	Dir = FVector::Zero;
 }
 
 void APlayer::Move(float _DeltaTime)
@@ -371,7 +371,15 @@ void APlayer::Move(float _DeltaTime)
 	}
 
 	Renderer->ChangeAnimation(GetAnimationName("Move"));
-	if (true == GetGameMode()->GetCurMap()->IsMove(NextPos1) && true == GetGameMode()->GetCurMap()->IsMove(NextPos2) && true == GetGameMode()->GetCurMap()->IsMove(NextPos3))
+
+
+	bool aa= GetGameMode()->GetCurMap()->IsMove(NextPos1);
+	bool bb= GetGameMode()->GetCurMap()->IsMove(NextPos2);
+	bool cc= GetGameMode()->GetCurMap()->IsMove(NextPos3);
+
+	if (true == GetGameMode()->GetCurMap()->IsMove(NextPos1) &&
+		true == GetGameMode()->GetCurMap()->IsMove(NextPos2) &&
+		true == GetGameMode()->GetCurMap()->IsMove(NextPos3))
 	{
 		AddActorLocation(MovePos);
 		SettingZValue();

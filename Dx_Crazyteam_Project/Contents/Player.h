@@ -118,6 +118,11 @@ public:
 		IsSendPacket = false;
 	}
 
+	FVector GetDir()
+	{
+		return Dir;
+	}
+
 	static int WaterBomb_Token;
 	static int WaterCourse_Token;
 	static bool SetWater_Token;
