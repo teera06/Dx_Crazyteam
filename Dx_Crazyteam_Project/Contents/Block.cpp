@@ -28,18 +28,6 @@ void ABlock::BeginPlay()
 	Renderer->AddPosition(FVector::Down * 20.f);
 	Renderer->SetAutoSize(1.f, true);
 
-	int SpawnRandom = UEngineRandom::MainRandom.RandomInt(1, 100);
-	if (SpawnRandom <= 50)
-	{
-		int ItemMin = static_cast<int>(EItemType::ItemBubble);
-		int ItemMax = static_cast<int>(EItemType::ItemNiddle);
-
-		int ItemRandom = UEngineRandom::MainRandom.RandomInt(ItemMin, ItemMax);
-
-		PossessItem = static_cast<EItemType>(ItemRandom);
-	}
-
-
 	StateInit();
 }
 
@@ -244,7 +232,7 @@ void ABlock::EndTick(float _DeltaTime)
 {
 	if (IsBreak)
 	{
-		if (PossessItem == EItemType::None)
+		if (GetPossessItem() == EItemType::None)
 		{
 			if (GetIsPossessed())
 			{
