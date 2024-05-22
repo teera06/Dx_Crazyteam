@@ -32,13 +32,17 @@ public:
 		return MainPlayer;
 	}
 
+	void ServerPacketInit(UEngineDispatcher& Dis);
+	void ClientPacketInit(UEngineDispatcher& Dis);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void LevelStart(ULevel* _PrevLevel);
 	void LevelEnd(ULevel* _NextLevel);
-
+	
 	void GameModeActorInit();
+
 private:
 	UTextWidget* ShowText = nullptr;
 	std::shared_ptr<AVillage> Village = nullptr;

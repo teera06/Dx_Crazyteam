@@ -86,6 +86,21 @@ void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	//static bool PlayerCanMove = false;
+	//static float InitTime = 2.0f;
+	//InitTime -= _DeltaTime;
+
+	//if (false == PlayerCanMove && 0.0f >= InitTime)
+	//{
+	//	InitTime = 2.0f;
+	//	PlayerCanMove = true;
+	//}
+
+	//if (false == PlayerCanMove)
+	//{
+	//	return;
+	//}
+
 	//PlayerName->GetNameText()->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
 	//PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
 
