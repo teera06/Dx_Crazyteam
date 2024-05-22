@@ -26,9 +26,18 @@ void ABlock::BeginPlay()
 	Renderer->AddPosition(FVector::Down * 20.f);
 	Renderer->SetAutoSize(1.f, true);
 
-	//int SpawnRandom = UEngineRandom::MainRandom.RandomInt(1, 100);
+	/*int SpawnRandom = UEngineRandom::MainRandom.RandomInt(1, 100);
+	if (SpawnRandom <= 100)
+	{
+		int ItemMin = static_cast<int>(EItemType::ItemBubble);
+		int ItemMax = static_cast<int>(EItemType::ItemNiddle);
 
+		int ItemRandom = UEngineRandom::MainRandom.RandomInt(ItemMin, ItemMax);
 
+		PossessItem = static_cast<EItemType>(ItemRandom);
+	}*/
+
+	PossessItem = EItemType::ItemShoes;
 
 	StateInit();
 }
@@ -284,6 +293,7 @@ void ABlock::EndTick(float _DeltaTime)
 		else
 		{
 			GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Item, PossessItem);
+			Destroy();
 		}
 	}
 
