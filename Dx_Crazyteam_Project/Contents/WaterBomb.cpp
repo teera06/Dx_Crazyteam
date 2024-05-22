@@ -21,6 +21,10 @@ int AWaterBomb::WaterCourse_Token;
 AWaterBomb::AWaterBomb()
 {
 	GetCreateTime();
+	//UDefaultSceneComponent* wRoot = CreateDefaultSubObject<UDefaultSceneComponent>("RendererRoot");
+	//SetRoot(wRoot);
+	WaterBombRenderer = CreateDefaultSubObject<USpriteRenderer>("WaterBombRender");
+	WaterBombRenderer->SetupAttachment(Root);
 }
 
 AWaterBomb::~AWaterBomb()
@@ -33,8 +37,9 @@ void AWaterBomb::BeginPlay()
 	StateInit();
 	CreateAnimation();
 	//SetActorScale3D(FVector(20, 20, 1));
-	Renderer->SetPosition(FVector(0.0f, -55.0f)); // 기본값으로 +20.0f 가 되어있음
-	Renderer->SetAutoSize(1.0f, true);
+	//WaterBombRenderer->SetPosition(FVector(0.0f, -55.0f)); // 기본값으로 +20.0f 가 되어있음
+	WaterBombRenderer->SetPosition(FVector(0.0f, -20.0f));
+	WaterBombRenderer->SetAutoSize(1.0f, true);
 	//Renderer->SetOrder(ERenderOrder::Player);
 	//Renderer->SetPivot(EPivot::BOT);
 	//Renderer->SetActive(false);
@@ -136,9 +141,9 @@ void AWaterBomb::StateInit()
 void AWaterBomb::CreateAnimation()
 {
 	//WaterCourseRender->CreateAnimation("Create", "bomb.png", 0.125f, true);
-	Renderer->CreateAnimation("Create", "bomb.png", 0.125f, true);
+	WaterBombRenderer->CreateAnimation("Create", "bomb.png", 0.125f, true);
 
-	Renderer->ChangeAnimation("Create");
+	WaterBombRenderer->ChangeAnimation("Create");
 }
 
 
@@ -156,7 +161,7 @@ void AWaterBomb::NoneTick(float _DeltaTime)
 void AWaterBomb::CreateBegin()
 {
 	WaterBombThisGameMode = GetGameMode();
-	Renderer->SetActive(true);
+	WaterBombRenderer->SetActive(true);
 	
 	if (true == OtherCreate)
 	{
