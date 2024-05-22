@@ -624,6 +624,13 @@ void APlayer::WaterBombUpdate()
 		{
 			return;
 		}
+
+		POINT PlayerPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
+		if (GetGameMode()->GetCurMap()->GetMapObject(PlayerPoint.y, PlayerPoint.x) != nullptr &&
+			GetGameMode()->GetCurMap()->GetMapObject(PlayerPoint.y, PlayerPoint.x)->GetType() == EMapObjectType::Block)
+		{
+			return;
+		}
 		
 		// Player가 있는 위치에 물풍선이 없을 때.
 		if (true != GetGameMode()->GetCurMap()->IsOnWaterBomb(GetActorLocation()))
