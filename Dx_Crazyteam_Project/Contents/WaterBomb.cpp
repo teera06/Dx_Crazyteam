@@ -240,15 +240,10 @@ void AWaterBomb::KickExit()
 
 void AWaterBomb::BombBegin()
 {
-	//Renderer->SetActive(false);
-	//b_ServerBomb = BombServer;
-
 	{
 		if (GetIsPossessed()) GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 
 		std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));		
-		//WaterCourse->SetObjectToken(GetObjectToken() + 10000);
-		//USendPacketManager::SendMapObjectSpawnPacket(WaterCourse, { GetCurPos().y, GetCurPos().x}, EMapObject::Water);
 
 		if (GetIsPossessed()) Destroy();
 		//GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
@@ -257,36 +252,6 @@ void AWaterBomb::BombBegin()
 
 void AWaterBomb::BombTick(float _DeltaTime)
 {
-	//if (false == b_ServerBomb)
-	//{
-	//	std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));
-
-	//	if (SetWater_CourseToken == false)
-	//	{
-	//		WaterCourse->WaterCourseToken = WaterCourse_Token;
-	//		SetWater_CourseToken = true;
-	//	}
-	//	WaterCourse_Token = WaterCourse->WaterCourseToken++;
-	//	WaterCourse->SetObjectToken(WaterCourse_Token);
-
-	//	if (false == IsNetInit())
-	//	{
-	//		// 네트워크 통신준비가 아직 안된 오브젝트다.
-	//		if (nullptr != UGame_Core::Net)
-	//		{
-	//			InitNet(UGame_Core::Net);
-	//		}
-	//	}
-	//	std::shared_ptr<UWaterCourseUpdatePacket> Packet = std::make_shared<UWaterCourseUpdatePacket>();
-	//	Packet->Pos = GetActorLocation();
-	//	Packet->ObjectType = static_cast<int>(EObjectType::WaterCourse);
-	//	Packet->Dir = 4;
-	//	Packet->SetCourse = true;
-	//	Send(Packet);
-
-	//	b_ServerBomb = false;
-	//}
-	int a = 0;
 }
 
 void AWaterBomb::BombExit()
