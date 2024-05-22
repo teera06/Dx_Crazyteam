@@ -45,6 +45,7 @@ public :
 		State.ChangeState("CreateStream");
 		return;
 	}
+
 	/// <summary>
 	/// 물줄기 끝 생성.
 	/// </summary>
@@ -59,7 +60,7 @@ public :
 		WaterCourseDir = _Dir;
 	}
 
-	EEngineDir Getdir()
+	inline EEngineDir Getdir() const
 	{
 		return WaterCourseDir;
 	}
