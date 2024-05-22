@@ -32,6 +32,17 @@ ASubServerLevel::ASubServerLevel()
 		UGame_Core::Net->End();
 		UGame_Core::Net = nullptr;
 	}
+
+	// 빌리지 시작 지점.
+	{
+		StartPOINT.push_back(POINT(0, 0));
+		StartPOINT.push_back(POINT(0, 7));
+		StartPOINT.push_back(POINT(1, 13));
+		
+		StartPOINT.push_back(POINT(11, 1));
+		StartPOINT.push_back(POINT(12, 6));
+		StartPOINT.push_back(POINT(12, 14));
+	}
 }
 
 ASubServerLevel::~ASubServerLevel()
@@ -72,15 +83,19 @@ void ASubServerLevel::Tick(float _DeltaTime)
 
 	UNetObject::AllNetObject;
 
-	for (size_t i = 0; i < OtherPlayers.size(); i++)
+	size_t PlayerCount = OtherPlayers.size();
+	if (0 != PlayerCount)
 	{
+		for (size_t i = 0; i < PlayerCount; i++)
+		{
+			//bool x = OtherPlayers[i]->IsOtherPlayerDestroy();
+
 #ifdef _DEBUG
-		std::string PlayerPos = std::format("Player_{} Position : {}\n", i, OtherPlayers[i]->GetActorLocation().ToString());		
-		UEngineDebugMsgWindow::PushMsg(PlayerPos);
+			std::string PlayerPos = std::format("Player_{} Position : {}\n", i, OtherPlayers[i]->GetActorLocation().ToString());		
+			UEngineDebugMsgWindow::PushMsg(PlayerPos);
 #endif
-
+		}
 	}
-
 }
 
 void ASubServerLevel::LevelStart(ULevel* _DeltaTime)

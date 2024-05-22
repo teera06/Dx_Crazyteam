@@ -72,6 +72,8 @@ void AOtherPlayer::Tick(float _DeltaTime)
 				Renderer->SetPosition(ActorUpdatePacket->RendererPos);
 			}
 
+			IsOPDestroy = ActorUpdatePacket->IsDestroy;
+
 			break;
 		}
 		default:

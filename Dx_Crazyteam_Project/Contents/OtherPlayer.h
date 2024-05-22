@@ -17,6 +17,11 @@ public:
 	AOtherPlayer& operator=(const AOtherPlayer& _Other) = delete;
 	AOtherPlayer& operator=(AOtherPlayer&& _Other) noexcept = delete;
 
+	inline bool IsOtherPlayerDestroy() const
+	{
+		return IsOPDestroy;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -31,5 +36,6 @@ private:
 	UStateManager State;
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
+	bool IsOPDestroy = false;
 };
 
