@@ -3,6 +3,7 @@
 #include "CAGameMode.h"
 #include "BaseMap.h"
 #include "Bush.h"
+#include "Player.h"
 #include <EngineBase/EngineRandom.h>
 
 #include "SendPacketManager.h"
@@ -110,25 +111,11 @@ void ABlock::IdleTick(float _DeltaTime)
 
 	if (IsPush)
 	{
-		int Order = 0;
-		switch (MoveDir)
-		{
-		case ECADir::Up:
-			Order = 0;
-			break;
-		case ECADir::Right:
-			Order = 1;
-			break;
-		case ECADir::Down:
-			Order = 2;
-			break;
-		case ECADir::Left:
-			Order = 3;
-			break;
-		}
+		FVector PlayerDir = GetGameMode()->GetPlayer()->GetDir();
+		MoveDir = PlayerDir;
 
-		nx = GetCurPos().x + ConstValue::dx[Order];
-		ny = GetCurPos().y + ConstValue::dy[Order];
+		nx = GetCurPos().x + static_cast<int>(MoveDir.X);
+		ny = GetCurPos().y - static_cast<int>(MoveDir.Y);
 
 		if (nx < 0 || ny < 0 || nx >= ConstValue::TileX || ny >= ConstValue::TileY - 1)
 		{
@@ -221,30 +208,13 @@ void ABlock::BreakExit()
 
 void ABlock::PushBegin()
 {
-
+	
 }
 
 void ABlock::PushTick(float _DeltaTime)
 {
-	FVector MoveVector = FVector::Zero;
 
-	switch (MoveDir)
-	{
-	case ECADir::Up:
-		MoveVector = FVector::Up;
-		break;
-	case ECADir::Right:
-		MoveVector = FVector::Right;
-		break;
-	case ECADir::Down:
-		MoveVector = FVector::Down;
-		break;
-	case ECADir::Left:
-		MoveVector = FVector::Left;
-		break;
-	}
-
-	AddActorLocation(MoveVector * MoveSpeed * _DeltaTime);
+	AddActorLocation(MoveDir * MoveSpeed * _DeltaTime);
 
 	// 블럭 이동 동기화
 	{
@@ -303,7 +273,10 @@ void ABlock::EndTick(float _DeltaTime)
 			USendPacketManager::SendMapObjectMoveEndPacket(shared_from_this(), ny, nx, GetCurPos().y, GetCurPos().x);
 		}
 
-		GetGameMode()->GetCurMap()->MoveMapObject(shared_from_this(), ny, nx, GetCurPos().y, GetCurPos().x);
+		if (!IsBreak)
+		{
+			GetGameMode()->GetCurMap()->MoveMapObject(shared_from_this(), ny, nx, GetCurPos().y, GetCurPos().x);
+		}
 
 		IsPush = false;
 
