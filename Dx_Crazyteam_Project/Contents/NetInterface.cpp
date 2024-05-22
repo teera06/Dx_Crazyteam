@@ -55,6 +55,7 @@ void UNetInterface::PlayerSendPacket(float _DeltaTime)
 		Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
 		Packet->ObjectType = static_cast<int>(EObjectType::Player);
 		Packet->SpriteAlpha = Renderer->GetAlpha();
+		Packet->RendererIsActive = Renderer->IsActive();
 		Send(Packet);
 		CurTime += FrameTime;
 	}
