@@ -39,20 +39,6 @@ public:
 		return IsPush;
 	}
 
-	void SetPossessItem(EItemType _Item)
-	{
-		PossessItem = _Item;
-	}
-	void SetPushDir(ECADir _Dir)
-	{
-		MoveDir = _Dir;
-	}
-
-	ECADir GetPushDir() const
-	{
-		return MoveDir;
-	}
-
 	
 
 	void MinusHP()
