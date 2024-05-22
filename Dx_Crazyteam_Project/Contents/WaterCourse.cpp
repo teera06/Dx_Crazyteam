@@ -795,6 +795,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 						if (nullptr != IsOn->GetPossessBlock())
 						{
 							NextMapObject->WaterInteract();
+							IsOn->GetPossessBlock()->WaterInteract();
 
 							// 물줄기가 안나가도록 막아야 한다.
 							RightEnd = true;
