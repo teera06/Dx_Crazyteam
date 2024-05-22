@@ -30,7 +30,8 @@ void AItemTurtle::Action()
 {
 	EPlayerRideType Type = GetGameMode()->GetPlayer()->GetPlayerInfo()->RideType;
 	FVector ItemCurPos = GetActorLocation();
-	if (Type == EPlayerRideType::None)
+
+	if (Type == EPlayerRideType::None && false == GetGameMode()->GetPlayer()->GetIsPlayerTrap())
 	{
 		GetGameMode()->GetPlayer()->SetRideType(EPlayerRideType::Turtle);
 		GetGameMode()->GetPlayer()->SetActorLocation(ItemCurPos);

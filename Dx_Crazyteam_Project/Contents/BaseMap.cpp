@@ -371,7 +371,7 @@ std::shared_ptr<AMapObject> ABaseMap::SpawnMapObject(int _Y, int _X, EMapObject 
 	}
 	case EMapObject::Water:
 	{
-		std::shared_ptr<AWaterCourse> TempObj = GetWorld()->SpawnActor<AWaterCourse>("CampBlock");
+		std::shared_ptr<AWaterCourse> TempObj = GetWorld()->SpawnActor<AWaterCourse>("WaterCouse");
 		TempObj->SetActorLocation(PushPos);
 		TempObj->CreateWaterCenter();
 		MapObj = TempObj;

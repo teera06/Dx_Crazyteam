@@ -22,6 +22,10 @@ int AWaterBomb::WaterCourse_Token;
 AWaterBomb::AWaterBomb()
 {
 	GetCreateTime();
+	//UDefaultSceneComponent* wRoot = CreateDefaultSubObject<UDefaultSceneComponent>("RendererRoot");
+	//SetRoot(wRoot);
+	WaterBombRenderer = CreateDefaultSubObject<USpriteRenderer>("WaterBombRender");
+	WaterBombRenderer->SetupAttachment(Root);
 }
 
 AWaterBomb::~AWaterBomb()
@@ -34,8 +38,9 @@ void AWaterBomb::BeginPlay()
 	StateInit();
 	CreateAnimation();
 	//SetActorScale3D(FVector(20, 20, 1));
-	Renderer->SetPosition(FVector(0.0f, -55.0f)); // 기본값으로 +20.0f 가 되어있음
-	Renderer->SetAutoSize(1.0f, true);
+	//WaterBombRenderer->SetPosition(FVector(0.0f, -55.0f)); // 기본값으로 +20.0f 가 되어있음
+	WaterBombRenderer->SetPosition(FVector(0.0f, -20.0f));
+	WaterBombRenderer->SetAutoSize(1.0f, true);
 	//Renderer->SetOrder(ERenderOrder::Player);
 	//Renderer->SetPivot(EPivot::BOT);
 	//Renderer->SetActive(false);
@@ -101,9 +106,9 @@ void AWaterBomb::StateInit()
 void AWaterBomb::CreateAnimation()
 {
 	//WaterCourseRender->CreateAnimation("Create", "bomb.png", 0.125f, true);
-	Renderer->CreateAnimation("Create", "bomb.png", 0.125f, true);
+	WaterBombRenderer->CreateAnimation("Create", "bomb.png", 0.125f, true);
 
-	Renderer->ChangeAnimation("Create");
+	WaterBombRenderer->ChangeAnimation("Create");
 }
 
 
@@ -121,7 +126,7 @@ void AWaterBomb::NoneTick(float _DeltaTime)
 void AWaterBomb::CreateBegin()
 {
 	WaterBombThisGameMode = GetGameMode();
-	Renderer->SetActive(true);
+	WaterBombRenderer->SetActive(true);
 	
 	if (true == OtherCreate)
 	{
@@ -269,9 +274,6 @@ POINT AWaterBomb::SearchLogic(POINT _CurPoint, FVector _MoveVector)
 
 void AWaterBomb::BombBegin()
 {
-	//Renderer->SetActive(false);
-	//b_ServerBomb = BombServer;
-
 	{
 		if (GetIsPossessed()) GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 
@@ -286,36 +288,6 @@ void AWaterBomb::BombBegin()
 
 void AWaterBomb::BombTick(float _DeltaTime)
 {
-	//if (false == b_ServerBomb)
-	//{
-	//	std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));
-
-	//	if (SetWater_CourseToken == false)
-	//	{
-	//		WaterCourse->WaterCourseToken = WaterCourse_Token;
-	//		SetWater_CourseToken = true;
-	//	}
-	//	WaterCourse_Token = WaterCourse->WaterCourseToken++;
-	//	WaterCourse->SetObjectToken(WaterCourse_Token);
-
-	//	if (false == IsNetInit())
-	//	{
-	//		// 네트워크 통신준비가 아직 안된 오브젝트다.
-	//		if (nullptr != UGame_Core::Net)
-	//		{
-	//			InitNet(UGame_Core::Net);
-	//		}
-	//	}
-	//	std::shared_ptr<UWaterCourseUpdatePacket> Packet = std::make_shared<UWaterCourseUpdatePacket>();
-	//	Packet->Pos = GetActorLocation();
-	//	Packet->ObjectType = static_cast<int>(EObjectType::WaterCourse);
-	//	Packet->Dir = 4;
-	//	Packet->SetCourse = true;
-	//	Send(Packet);
-
-	//	b_ServerBomb = false;
-	//}
-	int a = 0;
 }
 
 void AWaterBomb::BombExit()

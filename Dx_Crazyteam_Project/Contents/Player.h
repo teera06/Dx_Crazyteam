@@ -73,6 +73,11 @@ public:
 		CtrlItem = _Item;
 	}
 
+	bool GetIsPlayerTrap()
+	{
+		return IsPlayerTrap;
+	}
+
 	ETeamType GetTeamType()
 	{
 		return Info->Team;
@@ -168,15 +173,17 @@ private:
 	std::string GetAnimationName(std::string_view _StateName);
 	void SettingZValue();
 	void WaterBombUpdate();
+	void MoveUpdate(float _DeltaTime);
 
 	FVector Dir = FVector::Down;
 	float AnimationInter = 0.1f;
 	float MoveSpeed = 25.f;		// 속도 계수
+	float TrapBubbleMoveSpeed = 10.f;
 
 	float TrapMoveSpeed = 0.4f;
 	float TrapMoveTime = 1.f;
 	float TrapAnimationTime = 3.f;
-	float TrapToDieTime = 5.f;
+	float TrapToDieTime = 6.f;
 	FVector TrapDir = FVector::Up;
 
 	int DieAniTwinkleActive = 0;
@@ -192,6 +199,8 @@ private:
 	bool IsSendPacket = true;
 
 	bool IsBushRenderOff = false;
+
+	bool IsPlayerTrap = false;
 
 };
 

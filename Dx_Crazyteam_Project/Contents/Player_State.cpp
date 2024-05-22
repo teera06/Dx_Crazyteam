@@ -329,62 +329,8 @@ void APlayer::Move(float _DeltaTime)
 	}
 
 	WaterBombUpdate();
+	MoveUpdate(_DeltaTime);
 
-	FVector MovePos = FVector::Zero;
-	FVector NextPos1 = FVector::Zero;	// Center
-	FVector NextPos2 = FVector::Zero;	// 추가 체크포인트
-	FVector NextPos3 = FVector::Zero;	// 추가 체크포인트
-
-	float Speed = static_cast<float>(Info->Speed);
-
-	if (true == IsPress(VK_UP))
-	{
-		Dir = FVector::Up;
-		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
-		NextPos2 = NextPos1 + FVector(-15, 0, 0);
-		NextPos3 = NextPos1 + FVector(15, 0, 0);
-		MovePos = FVector::Up * Speed * MoveSpeed * _DeltaTime;
-	}
-	if (true == IsPress(VK_DOWN))
-	{
-		Dir = FVector::Down;
-		NextPos1 = GetActorLocation() + MovePos + Dir * 5.f;
-		NextPos2 = NextPos1 + FVector(-15, 0, 0);
-		NextPos3 = NextPos1 + FVector(15, 0, 0);
-		MovePos = FVector::Down * Speed * MoveSpeed * _DeltaTime;
-	}
-	if (true == IsPress(VK_RIGHT))
-	{
-		Dir = FVector::Right;
-		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
-		NextPos2 = NextPos1 + FVector(0, 10, 0);
-		NextPos3 = NextPos1 + FVector(0, 0, 0);
-		MovePos = FVector::Right * Speed * MoveSpeed * _DeltaTime;
-	}
-	if (true == IsPress(VK_LEFT))
-	{
-		Dir = FVector::Left;
-		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
-		NextPos2 = NextPos1 + FVector(0, 10, 0);
-		NextPos3 = NextPos1 + FVector(0, 0, 0);
-		MovePos = FVector::Left * Speed * MoveSpeed * _DeltaTime;
-	}
-
-	Renderer->ChangeAnimation(GetAnimationName("Move"));
-
-
-	bool aa= GetGameMode()->GetCurMap()->IsMove(NextPos1);
-	bool bb= GetGameMode()->GetCurMap()->IsMove(NextPos2);
-	bool cc= GetGameMode()->GetCurMap()->IsMove(NextPos3);
-
-	if (true == GetGameMode()->GetCurMap()->IsMove(NextPos1) &&
-		true == GetGameMode()->GetCurMap()->IsMove(NextPos2) &&
-		true == GetGameMode()->GetCurMap()->IsMove(NextPos3))
-	{
-		AddActorLocation(MovePos);
-		SettingZValue();
-		return;
-	}
 }
 
 void APlayer::TrapStart()
@@ -406,6 +352,8 @@ void APlayer::Trap(float _DeltaTime)
 		return;
 	}
 
+	IsPlayerTrap = true;
+
 	// Trap 상태에서 바늘 아이템 사용 시 Rescue 상태로 변경, 바늘 아이템 소거
 	if (true == IsDown(VK_CONTROL) && CtrlItem == EItemType::ItemNiddle)
 	{
@@ -419,7 +367,6 @@ void APlayer::Trap(float _DeltaTime)
 	TrapMoveTime -= _DeltaTime;
 	//TrapAnimationTime -= _DeltaTime;
 	TrapToDieTime -= _DeltaTime;
-
 
 	// Renderer 상하로 움직이도록 Dir을 변경
 	if (TrapMoveTime < 0.f)
@@ -453,6 +400,53 @@ void APlayer::Trap(float _DeltaTime)
 		State.ChangeState("Die");
 		return;
 	}
+
+	//트랩상태 이동기능
+	FVector MovePos = FVector::Zero;
+	FVector NextPos1 = FVector::Zero;	// Center
+	FVector NextPos2 = FVector::Zero;	// 추가 체크포인트
+	FVector NextPos3 = FVector::Zero;	// 추가 체크포인트
+
+
+	if (true == IsPress(VK_UP))
+	{
+		Dir = FVector::Up;
+		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
+		NextPos2 = NextPos1 + FVector(-15, 0, 0);
+		NextPos3 = NextPos1 + FVector(15, 0, 0);
+		MovePos = FVector::Up * TrapBubbleMoveSpeed * _DeltaTime;
+	}
+	if (true == IsPress(VK_DOWN))
+	{
+		Dir = FVector::Down;
+		NextPos1 = GetActorLocation() + MovePos + Dir * 5.f;
+		NextPos2 = NextPos1 + FVector(-15, 0, 0);
+		NextPos3 = NextPos1 + FVector(15, 0, 0);
+		MovePos = FVector::Down * TrapBubbleMoveSpeed * _DeltaTime;
+	}
+	if (true == IsPress(VK_RIGHT))
+	{
+		Dir = FVector::Right;
+		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
+		NextPos2 = NextPos1 + FVector(0, 10, 0);
+		NextPos3 = NextPos1 + FVector(0, 0, 0);
+		MovePos = FVector::Right * TrapBubbleMoveSpeed * _DeltaTime;
+	}
+	if (true == IsPress(VK_LEFT))
+	{
+		Dir = FVector::Left;
+		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
+		NextPos2 = NextPos1 + FVector(0, 10, 0);
+		NextPos3 = NextPos1 + FVector(0, 0, 0);
+		MovePos = FVector::Left * TrapBubbleMoveSpeed * _DeltaTime;
+	}
+	if (true == GetGameMode()->GetCurMap()->IsMove(NextPos1) && true == GetGameMode()->GetCurMap()->IsMove(NextPos2) && true == GetGameMode()->GetCurMap()->IsMove(NextPos3))
+	{
+		AddActorLocation(MovePos);
+		SettingZValue();
+		return;
+	}
+
 }
 
 void APlayer::RescueStart()
@@ -462,6 +456,8 @@ void APlayer::RescueStart()
 
 void APlayer::Rescue(float _DeltaTime)
 {
+	IsPlayerTrap = false;
+
 	if (true == Renderer->IsCurAnimationEnd())
 	{
 		State.ChangeState("Idle");
@@ -575,55 +571,8 @@ void APlayer::RideMove(float _DeltaTime)
 	}
 
 	WaterBombUpdate();
-
-	FVector MovePos = FVector::Zero;
-	FVector NextPos1 = FVector::Zero;	// Center
-	FVector NextPos2 = FVector::Zero;	// 추가 체크포인트
-	FVector NextPos3 = FVector::Zero;	// 추가 체크포인트
-
-	float Speed = static_cast<float>(Info->Speed);
-
-	if (true == IsPress(VK_UP))
-	{
-		Dir = FVector::Up;
-		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
-		NextPos2 = NextPos1 + FVector(-15, 0, 0);
-		NextPos3 = NextPos1 + FVector(15, 0, 0);
-		MovePos = FVector::Up * Speed * MoveSpeed * _DeltaTime;
-	}
-	if (true == IsPress(VK_DOWN))
-	{
-		Dir = FVector::Down;
-		NextPos1 = GetActorLocation() + MovePos + Dir * 5.f;
-		NextPos2 = NextPos1 + FVector(-15, 0, 0);
-		NextPos3 = NextPos1 + FVector(15, 0, 0);
-		MovePos = FVector::Down * Speed * MoveSpeed * _DeltaTime;
-	}
-	if (true == IsPress(VK_RIGHT))
-	{
-		Dir = FVector::Right;
-		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
-		NextPos2 = NextPos1 + FVector(0, 10, 0);
-		NextPos3 = NextPos1 + FVector(0, 0, 0);
-		MovePos = FVector::Right * Speed * MoveSpeed * _DeltaTime;
-	}
-	if (true == IsPress(VK_LEFT))
-	{
-		Dir = FVector::Left;
-		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
-		NextPos2 = NextPos1 + FVector(0, 10, 0);
-		NextPos3 = NextPos1 + FVector(0, 0, 0);
-		MovePos = FVector::Left * Speed * MoveSpeed * _DeltaTime;
-	}
-
-	// 임시로 Move 애니메이션으로 함. (RideMove로 바꿔야 함)
-	Renderer->ChangeAnimation(GetAnimationName("Move"));
-	if (true == GetGameMode()->GetCurMap()->IsMove(NextPos1) && true == GetGameMode()->GetCurMap()->IsMove(NextPos2) && true == GetGameMode()->GetCurMap()->IsMove(NextPos3))
-	{
-		AddActorLocation(MovePos);
-		SettingZValue();
-		return;
-	}
+	MoveUpdate(_DeltaTime);
+	
 }
 
 void APlayer::RideOffStart()
@@ -670,21 +619,63 @@ void APlayer::WaterBombUpdate()
 		--Info->WBCount;
 
 		POINT BombPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
-		if (GetGameMode()->GetCurMap()->GetMapObject(BombPoint.y, BombPoint.x) != nullptr)
-		{
-			if (GetGameMode()->GetCurMap()->GetMapObject(BombPoint.y, BombPoint.x)->GetType() == EMapObjectType::WaterBalloon) return;
-		}
+	
 		std::shared_ptr<AMapObject> WaterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x);
 		WaterBomb->SetObjectToken(WaterBomb_Token++);
-		std::shared_ptr<AWaterBomb> Bomb = dynamic_pointer_cast<AWaterBomb>(WaterBomb);
-		Bomb->SetWaterBombToken(WaterBomb_Token++);
-		if (SetWater_Token == false)
-		{
-			Bomb->SetWaterCourseToken(WaterCourse_Token);
-			SetWater_Token = true;
-		}
 		USendPacketManager::SendMapObjectSpawnPacket(WaterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb);
 	}
+}
+
+void APlayer::MoveUpdate(float _DeltaTime)
+{
+	FVector MovePos = FVector::Zero;
+	FVector NextPos1 = FVector::Zero;	// Center
+	FVector NextPos2 = FVector::Zero;	// 추가 체크포인트
+	FVector NextPos3 = FVector::Zero;	// 추가 체크포인트
+
+	float Speed = static_cast<float>(Info->Speed);
+
+	if (true == IsPress(VK_UP))
+	{
+		Dir = FVector::Up;
+		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
+		NextPos2 = NextPos1 + FVector(-15, 0, 0);
+		NextPos3 = NextPos1 + FVector(15, 0, 0);
+		MovePos = FVector::Up * Speed * MoveSpeed * _DeltaTime;
+	}
+	if (true == IsPress(VK_DOWN))
+	{
+		Dir = FVector::Down;
+		NextPos1 = GetActorLocation() + MovePos + Dir * 5.f;
+		NextPos2 = NextPos1 + FVector(-15, 0, 0);
+		NextPos3 = NextPos1 + FVector(15, 0, 0);
+		MovePos = FVector::Down * Speed * MoveSpeed * _DeltaTime;
+	}
+	if (true == IsPress(VK_RIGHT))
+	{
+		Dir = FVector::Right;
+		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
+		NextPos2 = NextPos1 + FVector(0, 10, 0);
+		NextPos3 = NextPos1 + FVector(0, 0, 0);
+		MovePos = FVector::Right * Speed * MoveSpeed * _DeltaTime;
+	}
+	if (true == IsPress(VK_LEFT))
+	{
+		Dir = FVector::Left;
+		NextPos1 = GetActorLocation() + MovePos + Dir * 20.f;
+		NextPos2 = NextPos1 + FVector(0, 10, 0);
+		NextPos3 = NextPos1 + FVector(0, 0, 0);
+		MovePos = FVector::Left * Speed * MoveSpeed * _DeltaTime;
+	}
+
+	Renderer->ChangeAnimation(GetAnimationName("Move"));
+	if (true == GetGameMode()->GetCurMap()->IsMove(NextPos1) && true == GetGameMode()->GetCurMap()->IsMove(NextPos2) && true == GetGameMode()->GetCurMap()->IsMove(NextPos3))
+	{
+		AddActorLocation(MovePos);
+		SettingZValue();
+		return;
+	}
+
 }
 
 void APlayer::DebugFunction(float _DeltaTime)
