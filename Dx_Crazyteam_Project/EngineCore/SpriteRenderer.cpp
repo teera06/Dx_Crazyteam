@@ -113,6 +113,7 @@ void USpriteRenderer::Tick(float _DeltaTime)
 		CurAnimation->Update(_DeltaTime);
 
 		FSpriteInfo Info = CurAnimation->GetCurSpriteInfo();
+		Info.SpriteNum = CurAnimation->GetCurSpriteNumber();
 		SetSpriteInfo(Info);
 	}
 }

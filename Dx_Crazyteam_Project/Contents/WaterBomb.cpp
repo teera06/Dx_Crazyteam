@@ -10,6 +10,7 @@
 #include <EngineBase/EngineTime.h>
 #include <EngineCore/EngineDebugMsgWindow.h>
 #include "MapStateValue.h"
+#include "Bush.h"
 
 #include "SendPacketManager.h"
 
@@ -48,49 +49,14 @@ void AWaterBomb::BeginPlay()
 
 	PlayerInteract = [&]
 		{
-
-			POINT PlayerIndex = GetGameMode()->GetPlayer()->GetPlayerInfo()->CurIndex;
-
-			if (PlayerIndex.x == GetCurPos().x)
+			if (false == IsKick)
 			{
-				if (PlayerIndex.y < GetCurPos().y)
-				{
-					SetPushDir(ECADir::Down);
-				}
-				else if (PlayerIndex.y > GetCurPos().y)
-				{
-					SetPushDir(ECADir::Up);
-				}
-			}
-			else if (PlayerIndex.y == GetCurPos().y)
-			{
-				if (PlayerIndex.x < GetCurPos().x)
-				{
-					SetPushDir(ECADir::Right);
-				}
-				else if (PlayerIndex.x > GetCurPos().x)
-				{
-					SetPushDir(ECADir::Left);
-				}
-			}
+				FVector PlayerDir = GetGameMode()->GetPlayer()->GetDir();
+				MoveVector = PlayerDir;
 
-			switch (GetPushDir())
-			{
-			case ECADir::Up:
-				MoveVector = FVector::Up;
-				break;
-			case ECADir::Right:
-				MoveVector = FVector::Right;
-				break;
-			case ECADir::Down:
-				MoveVector = FVector::Down;
-				break;
-			case ECADir::Left:
-				MoveVector = FVector::Left;
-				break;
+				State.ChangeState("Kick");
+				IsKick = true;
 			}
-
-			//State.ChangeState("Kick");
 		};
 }
 
@@ -99,8 +65,12 @@ void AWaterBomb::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 	State.Update(_DeltaTime);
 
-	std::string MSg = GetActorLocation().ToString();
-	UEngineDebugMsgWindow::PushMsg(MSg);
+#ifdef _DEBUG
+	std::string WaterBombMsg = std::format("Water Bomb {}\n", GetActorLocation().ToString());
+
+
+	UMapDebugGUI::PushMsg(WaterBombMsg);
+#endif
 }
 
 float AWaterBomb::GetCreateTime()
@@ -216,77 +186,115 @@ void AWaterBomb::CreateExit()
 
 
 
+
+
 void AWaterBomb::KickBegin()
 {
+	TargetPoint = SearchLogic(GetCurPos(), MoveVector);
+
+	std::shared_ptr<AMapObject> MapObj = GetGameMode()->GetCurMap()->GetMapObject(TargetPoint.y, TargetPoint.x);
+	SetCurPos(TargetPoint);
+	/*if (MapObj != nullptr)
+	{
+		if (MapObj->GetType() == EMapObjectType::Bush)
+		{
+			ABush* Bush = dynamic_cast<ABush*>(MapObj.get());
+			SetIsPossessed(true);
+			Bush->SetPossessBlock(shared_from_this());
+		}
+	}
+	else
+	{
+	}*/
+
+	GetGameMode()->GetCurMap()->ConnectObject(shared_from_this(),TargetPoint.y, TargetPoint.x);
+	GetGameMode()->GetCurMap()->ChangeNull(GetCurPos().y, GetCurPos().x);
 }
 void AWaterBomb::KickTick(float _DeltaTime)
 {
 	AddActorLocation(MoveVector * KickSpeed * _DeltaTime);
 
-	FVector CheckPos = GetActorLocation() + MoveVector * 30.f;
-
 	POINT CurPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
-	POINT CheckPoint = GetGameMode()->GetCurMap()->PosToPoint(CheckPos);
 
-	
-	
+	if (CurPoint.y == TargetPoint.y &&
+		CurPoint.x == TargetPoint.x)
+	{
+		FVector Pos = GetGameMode()->GetCurMap()->PointToPos(CurPoint.y, CurPoint.x);
+		SetActorLocation(Pos);
+		State.ChangeState("Create");
+		return;
+	}
+
 }
 void AWaterBomb::KickExit()
 {
 }
 
+POINT AWaterBomb::SearchLogic(POINT _CurPoint, FVector _MoveVector)
+{
+	POINT NextPoint = _CurPoint;
+	NextPoint.x += static_cast<int>(_MoveVector.X);
+	NextPoint.y -= static_cast<int>(_MoveVector.Y);
 
+	if (NextPoint.x > ConstValue::TileX-1 ||
+		NextPoint.x < 0)
+	{
+		return _CurPoint;
+	}
+
+	if (NextPoint.y > ConstValue::TileY-2 ||
+		NextPoint.y < 0)
+	{
+		return _CurPoint;
+	}
+
+	std::shared_ptr<AMapObject> MapObj = GetGameMode()->GetCurMap()->GetMapObject(NextPoint.y, NextPoint.x);
+
+	if (MapObj != nullptr)
+	{
+		if (MapObj->GetType() == EMapObjectType::Block)
+		{
+			return _CurPoint;
+		}
+
+		if (MapObj->GetType() == EMapObjectType::WaterBalloon)
+		{
+			return _CurPoint;
+		}
+
+		if (MapObj->GetType() == EMapObjectType::Bush)
+		{
+			ABush* Bush = dynamic_cast<ABush*>(MapObj.get());
+			if (Bush->GetPossessBlock())
+			{
+				return _CurPoint;
+			}
+		}
+	}
+
+	return SearchLogic(NextPoint, _MoveVector);
+}
 
 
 void AWaterBomb::BombBegin()
 {
-	//Renderer->SetActive(false);
-	//b_ServerBomb = BombServer;
-
 	{
-		if (GetIsPossessed()) GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+		if (true == GetIsPossessed())
+		{
+			GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+		}
 
-		std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));		
-		//WaterCourse->SetObjectToken(GetObjectToken() + 10000);
-		//USendPacketManager::SendMapObjectSpawnPacket(WaterCourse, { GetCurPos().y, GetCurPos().x}, EMapObject::Water);
+		GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water);
 
-		if (GetIsPossessed()) Destroy();
-		//GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+		if (true == GetIsPossessed())
+		{
+			Destroy();
+		}
 	}
 }
 
 void AWaterBomb::BombTick(float _DeltaTime)
 {
-	//if (false == b_ServerBomb)
-	//{
-	//	std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water));
-
-	//	if (SetWater_CourseToken == false)
-	//	{
-	//		WaterCourse->WaterCourseToken = WaterCourse_Token;
-	//		SetWater_CourseToken = true;
-	//	}
-	//	WaterCourse_Token = WaterCourse->WaterCourseToken++;
-	//	WaterCourse->SetObjectToken(WaterCourse_Token);
-
-	//	if (false == IsNetInit())
-	//	{
-	//		// 네트워크 통신준비가 아직 안된 오브젝트다.
-	//		if (nullptr != UGame_Core::Net)
-	//		{
-	//			InitNet(UGame_Core::Net);
-	//		}
-	//	}
-	//	std::shared_ptr<UWaterCourseUpdatePacket> Packet = std::make_shared<UWaterCourseUpdatePacket>();
-	//	Packet->Pos = GetActorLocation();
-	//	Packet->ObjectType = static_cast<int>(EObjectType::WaterCourse);
-	//	Packet->Dir = 4;
-	//	Packet->SetCourse = true;
-	//	Send(Packet);
-
-	//	b_ServerBomb = false;
-	//}
-	int a = 0;
 }
 
 void AWaterBomb::BombExit()

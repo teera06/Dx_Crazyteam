@@ -25,6 +25,7 @@ struct FSpriteInfo
 	// 1,1 ±îÁö¸¦ 
 	FVector CuttingSize = FVector::One;
 	std::shared_ptr<UEngineTexture> Texture = nullptr;
+	int SpriteNum;
 };
 
 struct FBaseRenderValue 

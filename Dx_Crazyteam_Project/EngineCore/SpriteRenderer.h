@@ -29,6 +29,11 @@ public:
 		return Sprite->GetSpriteInfo(Frame[CurFrame]);
 	}
 
+	int GetCurSpriteNumber()
+	{
+		return Frame[CurFrame];
+	}
+
 	void Reset()
 	{
 		CurTime = 0.0f;

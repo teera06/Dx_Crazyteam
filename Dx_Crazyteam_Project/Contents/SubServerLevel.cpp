@@ -76,43 +76,44 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 		subNetWindow = UEngineEditorGUI::CreateEditorWindow<UEngineNetWindow>("subNetWindow");
 
 		subNetWindow->SetServerOpenFunction([&]()
-		{
-			UGame_Core::Net = std::make_shared<UEngineServer>();
-			UGame_Core::Net->ServerOpen(30000, 512);
+			{
+				UGame_Core::Net = std::make_shared<UEngineServer>();
+				UGame_Core::Net->ServerOpen(30000, 512);
 
-			// 여기에서 메인 플레이어한테 번호를 하나 줄겁니다.
+				// 여기에서 메인 플레이어한테 번호를 하나 줄겁니다.
 
-			MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
+				MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
 
-			// 타임 유아이
-			MapUI->SetObjectToken(UNetObject::GetNewObjectToken() + 1);
+				// 타임 유아이
+				MapUI->SetObjectToken(UNetObject::GetNewObjectToken());
 
-			ServerPacketInit(UGame_Core::Net->Dispatcher);
-		});
+				//물폭탄
+				MainPlayer->WaterBomb_Token = UGame_Core::Net->GetSessionToken() * 1000 + 2;
+
+				ServerPacketInit(UGame_Core::Net->Dispatcher);
+			});
 
 		subNetWindow->SetClientConnectFunction([&](std::string IP, short PORT)
-		{
-			UGame_Core::Net = std::make_shared<UEngineClient>();
-			UGame_Core::Net->Connect(IP, PORT);
-
-			UGame_Core::Net->SetTokenPacketFunction([=](USessionTokenPacket* _Token)
 			{
-				MainPlayer->SetObjectToken(_Token->GetSessionToken() * 1000);
+				UGame_Core::Net = std::make_shared<UEngineClient>();
+				UGame_Core::Net->Connect(IP, PORT);
 
-				//타임 유아이
-				MapUI->SetObjectToken(_Token->GetSessionToken() * 1000+1);
-				if (nullptr != MapUI)
-				{
-					MapUI->ClientCreate();
-				}
-				//물폭탄
-				MainPlayer->WaterBomb_Token = _Token->GetSessionToken() * 1000 + 2;
-				//물폭탄물줄기
-				MainPlayer->WaterCourse_Token = _Token->GetSessionToken() * 10000;
+				UGame_Core::Net->SetTokenPacketFunction([=](USessionTokenPacket* _Token)
+					{
+						MainPlayer->SetObjectToken(_Token->GetSessionToken() * 1000);
+
+						//타임 유아이
+						MapUI->SetObjectToken(_Token->GetSessionToken() * 1000 + 1);
+						if (nullptr != MapUI)
+						{
+							MapUI->ClientCreate();
+						}
+						//물폭탄
+						MainPlayer->WaterBomb_Token = _Token->GetSessionToken() * 1000 + 2;
+					});
+				// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
+				ClientPacketInit(UGame_Core::Net->Dispatcher);
 			});
-			// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
-			ClientPacketInit(UGame_Core::Net->Dispatcher);
-		});
 	}
 	subNetWindow->On();
 }
@@ -120,21 +121,21 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 {
 	Dis.AddHandler<UActorUpdatePacket>([=](std::shared_ptr<UActorUpdatePacket> _Packet)
-	{
-		// 다른 사람들한테 이 오브젝트에 대해서 알리고
-		UGame_Core::Net->Send(_Packet);		
-
-		GetWorld()->PushFunction([=]()
 		{
-			AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
-			if (nullptr == OtherPlayer)
-			{
-				OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
-				OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
-			}
-			OtherPlayer->PushProtocol(_Packet);
+			// 다른 사람들한테 이 오브젝트에 대해서 알리고
+			UGame_Core::Net->Send(_Packet);
+
+			GetWorld()->PushFunction([=]()
+				{
+					AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
+					if (nullptr == OtherPlayer)
+					{
+						OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
+						OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+					}
+					OtherPlayer->PushProtocol(_Packet);
+				});
 		});
-	});
 
 	Dis.AddHandler<UMapObjectUpdatePacket>([=](std::shared_ptr<UMapObjectUpdatePacket> _Packet)
 		{
@@ -181,7 +182,6 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 
 					switch (ObjType)
 					{
-					case EMapObject::Water:
 					case EMapObject::WaterBomb:
 					{
 						AMapObject* OtherObject = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
@@ -225,18 +225,18 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 {
 	Dis.AddHandler<UActorUpdatePacket>([=](std::shared_ptr<UActorUpdatePacket> _Packet)
-	{
-		GetWorld()->PushFunction([=]()
 		{
-			AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
-			if (nullptr == OtherPlayer)
-			{
-				OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
-				OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
-			}
-			OtherPlayer->PushProtocol(_Packet);
+			GetWorld()->PushFunction([=]()
+				{
+					AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
+					if (nullptr == OtherPlayer)
+					{
+						OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
+						OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+					}
+					OtherPlayer->PushProtocol(_Packet);
+				});
 		});
-	});
 
 	Dis.AddHandler<UMapObjectUpdatePacket>([=](std::shared_ptr<UMapObjectUpdatePacket> _Packet)
 		{
@@ -292,7 +292,6 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 					case EMapObject::CampMoveBlock2:
 					case EMapObject::CampHPBlock:
 					case EMapObject::WaterBomb:
-					case EMapObject::Water:
 					case EMapObject::TownBush:
 					{
 						AMapObject* OtherObject = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
@@ -345,7 +344,6 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 						}
 						break;
 					}
-					case EMapObject::Default:
 					default:
 						MsgBoxAssert("Type이 Default타입이거나 지정되지 않은 타입입니다.");
 						return;
@@ -369,7 +367,7 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 					Time->PushProtocol(_Packet);
 
 				});
-		});	
+		});
 }
 
 void ASubServerLevel::LevelEnd(ULevel* _DeltaTime)

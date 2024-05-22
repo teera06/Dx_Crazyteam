@@ -30,6 +30,11 @@ void USendPacketManager::SendMapObjectSpawnPacket(std::shared_ptr<AMapObject> _N
 		//}
 	}
 
+	if (EMapObject::Water == _MapObjectType)
+	{
+		int a = 0;
+	}
+
 	if (EMapObject::WaterBomb != _MapObjectType && EMapObject::Water != _MapObjectType)
 	{
 		_NetObject->SetObjectToken(UNetObject::GetNewObjectToken());

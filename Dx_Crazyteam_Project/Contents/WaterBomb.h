@@ -80,6 +80,8 @@ private :
 	void BombTick(float _DeltaTime);
 	void BombExit();
 
+	POINT SearchLogic(POINT _CurPoint, FVector _MoveVector);
+
 	UStateManager State;
 
 	USpriteRenderer* WaterBombRenderer = nullptr;
@@ -91,8 +93,10 @@ private :
 	bool b_WaterToBomb = false;
 	bool b_ServerBomb = false;
 
-	float KickSpeed = 50.f;
+	float KickSpeed = 500.f;
 	FVector MoveVector = FVector::Zero;
+	POINT TargetPoint = { -99,-99 };
+	bool IsKick = false;
 
 
 };
