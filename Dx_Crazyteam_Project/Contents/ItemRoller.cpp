@@ -32,6 +32,8 @@ void AItemRoller::Tick(float _DeltaTime)
 
 void AItemRoller::Action()
 {
+	UEngineSound::SoundPlay("ItemEat.wav");
+
 	int iSpeed = GetGameMode()->GetPlayer()->GetPlayerInfo()->Speed;
 	int iMaxSpeed = GetGameMode()->GetPlayer()->GetPlayerInfo()->MaxSpeed;
 

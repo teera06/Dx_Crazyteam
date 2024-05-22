@@ -28,6 +28,8 @@ void AItemFluid::Tick(float _DeltaTime)
 
 void AItemFluid::Action()
 {
+	UEngineSound::SoundPlay("ItemEat.wav");
+
 	int iWBPower = GetGameMode()->GetPlayer()->GetPlayerInfo()->WBPower;
 	int iMaxPower = GetGameMode()->GetPlayer()->GetPlayerInfo()->MaxWBPower;
 

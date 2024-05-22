@@ -28,6 +28,7 @@ void AItemShoes::Tick(float _DeltaTime)
 
 void AItemShoes::Action()
 {
+	UEngineSound::SoundPlay("ItemEat.wav");
 	//action
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 

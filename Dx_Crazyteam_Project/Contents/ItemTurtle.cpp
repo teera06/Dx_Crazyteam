@@ -28,6 +28,8 @@ void AItemTurtle::Tick(float _DeltaTime)
 
 void AItemTurtle::Action()
 {
+	UEngineSound::SoundPlay("ItemEat.wav");
+
 	EPlayerRideType Type = GetGameMode()->GetPlayer()->GetPlayerInfo()->RideType;
 	FVector ItemCurPos = GetActorLocation();
 
