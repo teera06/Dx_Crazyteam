@@ -65,29 +65,64 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 
 		// 방장 0번
 
-		PlayLobby->ChracterChangeLogic = [=](APlayLobby* _Lobby)
+		PlayLobby->ChracterChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
 			{
 				//_Lobby->
 				std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
 				NewPlayer->NewPlayer = true;
 				std::vector<std::string> SetSpriteNames = NewPlayer->SpriteNames;
-				//SpriteNames[0];
+				std::vector<UImage*>& PlayerUIImages = _Lobby->LobbyPlayer;
+				for (size_t i = 0; i < PlayerUIImages.size(); i++)
+				{
+					if (nullptr == PlayerUIImages[i])
+					{
+						NewPlayer->SpriteNames.push_back("None");
+						continue;
+					}
+					if (i == _Index)
+					{
+						NewPlayer->SpriteNames[i] = _SpriteName;
+					}
+					else
+					{
+						NewPlayer->SpriteNames[i] = _Lobby->LobbyPlayer[i]->CurInfo.Texture->GetName();
+					}
+
+				}
 				UGame_Core::Net->Send(NewPlayer);
 			};
 	}
 	else if (AServerGameMode::NetType == ENetType::Client)
 	{
 
-		PlayLobby->ChracterChangeLogic = [=](APlayLobby* _Lobby)
+		PlayLobby->ChracterChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
 			{
 				//_Lobby->
 				std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
 				NewPlayer->NewPlayer = true;
-				NewPlayer->SpriteNames;
-				//SpriteNames[0];
+				std::vector<std::string> SetSpriteNames = NewPlayer->SpriteNames;
+
+
+				std::vector<UImage*>& PlayerUIImages = _Lobby->LobbyPlayer;
+				for (size_t i = 0; i < PlayerUIImages.size(); i++)
+				{
+					if (nullptr == PlayerUIImages[i])
+					{
+						NewPlayer->SpriteNames.push_back("None");
+						continue;
+					}
+					if (i == _Index)
+					{
+						NewPlayer->SpriteNames[i] = _SpriteName;
+					}
+					else
+					{
+						NewPlayer->SpriteNames[i] = _Lobby->LobbyPlayer[i]->CurInfo.Texture->GetName();
+					}
+
+				}
 				UGame_Core::Net->Send(NewPlayer);
 			};
-
 
 		PlayLobby->ChangeUIIndex = UGame_Core::Net->GetSessionToken();
 		// 이미 네트워크 연결이 되어있기 때문에
@@ -135,19 +170,7 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 
 						UGame_Core::Net->Send(NewPlayer);
 					}
-				});
-
-
-			// PlayLobby->SetMySessionToken(_Packet->GetSessionToken());
-			//AOtherLobbyPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherLobbyPlayer>(_Packet->GetObjectToken());
-			//if (nullptr == OtherPlayer)
-			//{
-			//	OtherPlayer = this->GetWorld()->SpawnActor<AOtherLobbyPlayer>("OtherLobbyPlayer", 0).get();
-			//	OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
-			//	OtherPlayer->MySessionToken = _Packet->GetObjectToken() - 110000;
-			//}
-			// OtherPlayer->PushProtocol(_Packet);
-			
+				});			
 		});
 }
 
@@ -157,22 +180,7 @@ void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
 		{
 			GetWorld()->PushFunction([=]
 				{
-
 					PlayLobby->SettingUIPlayerName(_Packet->SpriteNames);
 				});
-
-			//UNetObject* OtherPlayer = UNetObject::GetNetObject<UNetObject>(_Packet->GetObjectToken());
-			//if (nullptr == OtherPlayer)
-			//{
-			//	if (PlayLobby->LobbyPlayer[_Packet->Token] == nullptr)
-			//	{
-			//		UImage* Sprite = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
-			//		PlayLobby->LobbyPlayer[_Packet->Token] = Sprite;
-			//		Sprite->SetActive(false);
-			//		OtherPlayer = this->GetWorld()->SpawnActor<AOtherLobbyPlayer>("OtherLobbyPlayer", 0).get();
-			//	}
-			//}
-			//OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
-			//OtherPlayer->PushProtocol(_Packet);
 		});
 }

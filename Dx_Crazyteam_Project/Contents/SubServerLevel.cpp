@@ -339,9 +339,10 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 							{
 							case EItemType::ItemBubble:
 							case EItemType::ItemFluid:
-							case EItemType::ItemNiddle:
-							case EItemType::ItemOwl:
 							case EItemType::ItemRoller:
+							case EItemType::ItemOwl:
+							case EItemType::ItemTurtle:
+							case EItemType::ItemNiddle:
 							case EItemType::ItemShoes:
 								OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, ItemType).get();
 								break;
@@ -349,7 +350,6 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 								MsgBoxAssert("지정되지 않은 타입입니다. 아이템 타입을 확인하세요.");
 								return;
 							}
-
 							OtherItem->SetObjectToken(_Packet->GetObjectToken());
 						}
 						break;

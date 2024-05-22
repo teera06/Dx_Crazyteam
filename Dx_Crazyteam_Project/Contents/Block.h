@@ -39,20 +39,7 @@ public:
 		return IsPush;
 	}
 
-	void SetPushDir(ECADir _Dir)
-	{
-		MoveDir = _Dir;
-	}
-
-	ECADir GetPushDir() const
-	{
-		return MoveDir;
-	}
-
-	void SetPossessItem(EItemType _Item)
-	{
-		PossessItem = _Item;
-	}
+	
 
 	void MinusHP()
 	{
@@ -115,10 +102,10 @@ private:
 	int ny = 0;
 	int nx = 0;
 
-	ECADir MoveDir = ECADir::None;
+	FVector MoveDir = FVector::Zero;
 	POINT PlayerIndex = { 0,0 };
 
-	EItemType PossessItem = EItemType::None;
+	
 
 	
 	

@@ -55,6 +55,7 @@ public:
 		IsPossessed = _IsPossess;
 	}
 
+
 	bool GetIsPossessed() const
 	{
 		return IsPossessed;
@@ -62,6 +63,15 @@ public:
 	
 	void DepthUpdate();
 
+	void SetPossessItem(EItemType _Item)
+	{
+		PossessItem = _Item;
+	}
+
+	EItemType GetPossessItem()
+	{
+		return PossessItem;
+	}
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -72,6 +82,8 @@ private:
 
 	//bush 관련 변수
 	bool IsPossessed = false;
+
+	EItemType PossessItem = EItemType::None;
 
 };
 

@@ -506,6 +506,7 @@ void APlayer::RealDieStart()
 {
 	// 진짜 죽음 처리
 	Renderer->SetActive(false);
+	SoloArrowRenderer->SetActive(false);
 }
 
 void APlayer::RealDie(float _DeltaTime)
@@ -622,7 +623,7 @@ void APlayer::WaterBombUpdate()
 		{
 			return;
 		}
-
+		
 		// Player가 있는 위치에 물풍선이 없을 때.
 		if (true != GetGameMode()->GetCurMap()->IsOnWaterBomb(GetActorLocation()))
 		{
