@@ -369,7 +369,7 @@ void APlayLobby::Tick(float _DeltaTime)
 			LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
 			LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
 			LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
-			SetObjectToken(UGame_Core::Net->GetSessionToken() + 110000);
+			SetObjectToken(PlayerCount + 110000);
 			USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
 			Create = true;
 		}
@@ -380,7 +380,7 @@ void APlayLobby::Tick(float _DeltaTime)
 			LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
 			LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
 			LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
-			SetObjectToken(UGame_Core::Net->GetSessionToken() + 110000);
+			SetObjectToken(PlayerCount + 110000);
 			USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
 			Create = true;
 		}
@@ -395,14 +395,12 @@ void APlayLobby::Tick(float _DeltaTime)
 					LobbyPlayer[SessionToken]->AddToViewPort(15);
 					LobbyPlayer[SessionToken]->SetSprite("bazzi_idle.png", 1);
 					LobbyPlayer[SessionToken]->SetScale({ 150, 150 });
-					LobbyPlayer[SessionToken]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
+					LobbyPlayer[SessionToken]->SetPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
 				}
 				SetObjectToken(UGame_Core::Net->GetSessionToken() + 110000);
 				USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
 			}
 		}
-
-
 		IsGetSessionToken = false;
 	}
 

@@ -60,7 +60,8 @@ void AOtherLobbyPlayer::Tick(float _DeltaTime)
 		std::string SpriteNames = UpdatePacket->SpriteName;
 		int Index = UpdatePacket->SpriteIndex;
 		SetRenderer(SpriteNames, Index);
-		SetPosition(UpdatePacket->GetSessionToken());
+		const int Token = 110000;
+		SetPosition(UpdatePacket->GetObjectToken()- Token);
 
 	} while (nullptr != Protocol);
 }
