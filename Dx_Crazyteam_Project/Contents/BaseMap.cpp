@@ -308,19 +308,19 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 		MapStatus[_Y][_X] = MapObj;
 	}
 
-	if (MapStatus[_Y][_X] != nullptr && MapStatus[_Y][_X]->GetType() != EMapObjectType::Bush)
-	{
-		int Random = UEngineRandom::MainRandom.RandomInt(1, 100);
-		if (Random <= 50)
-		{
-			int Min = static_cast<int>(EItemType::ItemBubble);
-			int Max = static_cast<int>(EItemType::ItemNiddle);
+	//if (MapStatus[_Y][_X] != nullptr && MapStatus[_Y][_X]->GetType() != EMapObjectType::Bush)
+	//{
+	//	int Random = UEngineRandom::MainRandom.RandomInt(1, 100);
+	//	if (Random <= 50)
+	//	{
+	//		int Min = static_cast<int>(EItemType::ItemBubble);
+	//		int Max = static_cast<int>(EItemType::ItemNiddle);
 
-			int ItemRandom = UEngineRandom::MainRandom.RandomInt(Min, Max);
+	//		int ItemRandom = UEngineRandom::MainRandom.RandomInt(Min, Max);
 
-			MapObj->SetPossessItem(static_cast<EItemType>(ItemRandom));
-		}
-	}
+	//		MapObj->SetPossessItem(static_cast<EItemType>(ItemRandom));
+	//	}
+	//}
 
 
 	return MapObj;
@@ -587,16 +587,16 @@ std::shared_ptr<AMapObject> ABaseMap::SpawnItemObject(int _Y, int _X, EItemType 
 	return Item;
 }
 
-std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(FVector _SpawnPos)
+std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(FVector _SpawnPos, int _Power)
 {
 	POINT BombPoint = PosToPoint(_SpawnPos);
 
-	return AddMapObject(BombPoint.y, BombPoint.x, EMapObject::WaterBomb);
+	return AddMapObject(BombPoint.y, BombPoint.x, EMapObject::WaterBomb, EItemType::None, _Power);
 }
 
 std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(int _Y, int _X, int _Power)
 {
-	return AddMapObject(_Y, _X, EMapObject::WaterBomb, EItemType::None ,_Power);
+	return AddMapObject(_Y, _X, EMapObject::WaterBomb, EItemType::None, _Power);
 }
 
 void ABaseMap::DestroyMapObject(int _Y, int _X)
