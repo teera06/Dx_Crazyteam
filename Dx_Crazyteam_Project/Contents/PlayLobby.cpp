@@ -1163,7 +1163,11 @@ void APlayLobby::StartBegin()
 		GameStart->SetDown([=] {
 			GameStart->ChangeAnimation("Down");
 			//GEngine->ChangeLevel("PlayertestMode");
-			GEngine->ChangeLevel("MainGameMode");
+			if (nullptr != MapChangeLogic)
+			{
+				MapChangeLogic(this, "MainGameMode");
+			}
+			//GEngine->ChangeLevel("MainGameMode");
 			});
 	}
 }
