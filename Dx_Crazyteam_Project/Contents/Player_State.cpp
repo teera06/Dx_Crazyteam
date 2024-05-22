@@ -463,6 +463,7 @@ void APlayer::Rescue(float _DeltaTime)
 
 	if (true == Renderer->IsCurAnimationEnd())
 	{
+		Dir = FVector::Down;
 		State.ChangeState("Idle");
 		return;
 	}
