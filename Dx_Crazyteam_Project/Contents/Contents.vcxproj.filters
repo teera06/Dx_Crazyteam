@@ -307,6 +307,9 @@
     <ClInclude Include="VillageTree.h">
       <Filter>MapObject\Block\VillageBlock</Filter>
     </ClInclude>
+    <ClInclude Include="Player_Name.h">
+      <Filter>Level\PlayertestLevel\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -515,6 +518,9 @@
     </ClCompile>
     <ClCompile Include="OtherLobbyPlayer.cpp">
       <Filter>Level\Surver\PublicOBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_Name.cpp">
+      <Filter>Level\PlayertestLevel\Actor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

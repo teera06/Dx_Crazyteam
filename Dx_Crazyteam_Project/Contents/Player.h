@@ -27,6 +27,7 @@ public:
 };
 
 class APlayer_Shadow;
+class APlayer_Name;
 
 class APlayer : public ACAObject
 {
@@ -206,6 +207,7 @@ private:
 	int RideAniTwinkleActive = 0;
 
 	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
+	std::shared_ptr<APlayer_Name> PlayerName = nullptr;
 
 	bool IsSendPacket = true;
 

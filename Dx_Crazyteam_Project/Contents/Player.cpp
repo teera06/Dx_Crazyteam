@@ -5,6 +5,7 @@
 #include "Game_Core.h"
 #include "Packets.h"
 #include "Player_Shadow.h"
+#include "Player_Name.h"
 #include "BaseMap.h"
 #include "CAGameMode.h"
 #include <EngineBase/EngineRandom.h>
@@ -33,6 +34,9 @@ void APlayer::BeginPlay()
 
 	Shadow = GetWorld()->SpawnActor<APlayer_Shadow>("Player_Shadow");
 	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 1));
+
+	PlayerName = GetWorld()->SpawnActor<APlayer_Name>("Player_Name");
+	PlayerName->SetActorLocation(GetActorLocation());
 
 	Info = std::make_shared<PlayerInfo>();
 
@@ -78,6 +82,7 @@ void APlayer::Tick(float _DeltaTime)
 
 	Info->CurIndex = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
 	
+
 	//Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 0));
 
 
@@ -295,4 +300,7 @@ void APlayer::SettingZValue()
 
 	Pos.Z += 0.1f;
 	Shadow->SetActorLocation(Pos);
+
+	PlayerName->GetNameText()->SetPosition(Pos);
+
 }
