@@ -60,7 +60,20 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 
 	if (AServerGameMode::NetType == ENetType::Server)
 	{
-		PlayLobby->NewPlayer();
+		//PlayLobby->NewPlayer();
+
+		std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
+		NewPlayer->SpriteNames.push_back("Room_Charcater_Bazzi.png");
+		NewPlayer->SpriteNames.push_back("Room_Charcater_Bazzi.png");
+		NewPlayer->SpriteNames.push_back("Room_Charcater_Bazzi.png");
+		NewPlayer->SpriteNames.push_back("Room_Charcater_Bazzi.png");
+		NewPlayer->SpriteNames.push_back("Room_Charcater_Bazzi.png");
+		NewPlayer->SpriteNames.push_back("Room_Charcater_Bazzi.png");
+		NewPlayer->SpriteNames.push_back("Room_Charcater_Bazzi.png");
+		NewPlayer->SpriteNames.push_back("Room_Charcater_Bazzi.png");
+
+		PlayLobby->SettingUIPlayerName(NewPlayer->SpriteNames);
+
 		PlayLobby->ChracterChangeLogic = [=](APlayLobby* Lobby)
 			{
 				
