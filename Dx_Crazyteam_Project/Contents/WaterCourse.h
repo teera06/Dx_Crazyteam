@@ -65,6 +65,11 @@ public :
 		return WaterCourseDir;
 	}
 
+	inline void SetWaterPower(int _Val)
+	{
+		GetPower = _Val;
+	}
+
 	 
 	static int WaterCourseToken;
 	static bool SetToken;
@@ -120,8 +125,9 @@ private :
 	float LifeTime = 0.7f;
 	float CreateDeltaTime = 0.0f;
 	float CreateTime = 0.125f; // 0.125f
-	const size_t MaxPowerValue = 7;
+	//const size_t MaxPowerValue = 7;
 	int DefaultPowerValue = 1;
+	int GetPower = 0;
 	std::string PreAniName = "";
 	EEngineDir WaterCourseDir = EEngineDir::MAX;
 };

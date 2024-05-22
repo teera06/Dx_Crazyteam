@@ -6,6 +6,7 @@
 #include "Player.h"
 #include <EngineBase/EngineRandom.h>
 
+#include "Game_Core.h"
 #include "SendPacketManager.h"
 
 ABlock::ABlock() 
@@ -26,18 +27,6 @@ void ABlock::BeginPlay()
 	Renderer->SetOrder(ERenderOrder::WaterBomb);
 	Renderer->AddPosition(FVector::Down * 20.f);
 	Renderer->SetAutoSize(1.f, true);
-
-	int SpawnRandom = UEngineRandom::MainRandom.RandomInt(1, 100);
-	if (SpawnRandom <= 50)
-	{
-		int ItemMin = static_cast<int>(EItemType::ItemBubble);
-		int ItemMax = static_cast<int>(EItemType::ItemNiddle);
-
-		int ItemRandom = UEngineRandom::MainRandom.RandomInt(ItemMin, ItemMax);
-
-		PossessItem = static_cast<EItemType>(ItemRandom);
-	}
-
 
 	StateInit();
 }
@@ -243,12 +232,12 @@ void ABlock::EndTick(float _DeltaTime)
 {
 	if (IsBreak)
 	{
-		if (PossessItem == EItemType::None)
+		if (GetPossessItem() == EItemType::None)
 		{
 			if (GetIsPossessed())
 			{
 				AMapObject* MapObject = GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x).get();
-
+				
 				ABush* Bush = dynamic_cast<ABush*>(MapObject);
 				Bush->SetPossessBlock(nullptr);
 
@@ -261,7 +250,14 @@ void ABlock::EndTick(float _DeltaTime)
 		}
 		else
 		{
-			GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Item, PossessItem);
+			std::shared_ptr<UEngineServer> IsServer = dynamic_pointer_cast<UEngineServer>(UGame_Core::Net);
+
+			if (nullptr != IsServer)
+			{
+				std::shared_ptr<AMapObject> Item = GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Item, GetPossessItem());
+				USendPacketManager::SendMapObjectSpawnPacket(Item, { GetCurPos().y,GetCurPos().x }, EMapObject::Item, GetPossessItem());
+			}
+
 			Destroy();
 		}
 	}

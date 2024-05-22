@@ -7,6 +7,7 @@
 #include <EngineCore/BlurEffect.h>
 #include <EngineCore/EngineEditorGUI.h>
 #include <EnginePlatform/EngineInput.h>
+#include <EngineCore/EngineDebugMsgWindow.h>
 
 #include "ServerPlayer.h"
 #include "Game_Core.h"
@@ -70,6 +71,16 @@ void ASubServerLevel::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	UNetObject::AllNetObject;
+
+	for (size_t i = 0; i < OtherPlayers.size(); i++)
+	{
+#ifdef _DEBUG
+		std::string PlayerPos = std::format("Player_{} Position : {}\n", i, OtherPlayers[i]->GetActorLocation().ToString());		
+		UEngineDebugMsgWindow::PushMsg(PlayerPos);
+#endif
+
+	}
+
 }
 
 void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
@@ -135,6 +146,7 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 					{
 						OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
 						OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+						OtherPlayers.push_back(OtherPlayer);
 					}
 					OtherPlayer->PushProtocol(_Packet);
 				});
@@ -236,6 +248,7 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 					{
 						OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
 						OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+						OtherPlayers.push_back(OtherPlayer);
 					}
 					OtherPlayer->PushProtocol(_Packet);
 				});
@@ -339,9 +352,10 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 							{
 							case EItemType::ItemBubble:
 							case EItemType::ItemFluid:
-							case EItemType::ItemNiddle:
-							case EItemType::ItemOwl:
 							case EItemType::ItemRoller:
+							case EItemType::ItemOwl:
+							case EItemType::ItemTurtle:
+							case EItemType::ItemNiddle:
 							case EItemType::ItemShoes:
 								OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, ItemType).get();
 								break;
@@ -349,7 +363,6 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 								MsgBoxAssert("지정되지 않은 타입입니다. 아이템 타입을 확인하세요.");
 								return;
 							}
-
 							OtherItem->SetObjectToken(_Packet->GetObjectToken());
 						}
 						break;

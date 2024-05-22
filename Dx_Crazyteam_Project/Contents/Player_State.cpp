@@ -506,6 +506,7 @@ void APlayer::RealDieStart()
 {
 	// 진짜 죽음 처리
 	Renderer->SetActive(false);
+	SoloArrowRenderer->SetActive(false);
 }
 
 void APlayer::RealDie(float _DeltaTime)
@@ -622,14 +623,14 @@ void APlayer::WaterBombUpdate()
 		{
 			return;
 		}
-
+		
 		// Player가 있는 위치에 물풍선이 없을 때.
 		if (true != GetGameMode()->GetCurMap()->IsOnWaterBomb(GetActorLocation()))
 		{
 			--Info->WBCount;
 			POINT BombPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
 	
-			std::shared_ptr<AMapObject> WaterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x);
+			std::shared_ptr<AMapObject> WaterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x, Info->WBPower);
 			WaterBomb->SetObjectToken(WaterBomb_Token++);
 			USendPacketManager::SendMapObjectSpawnPacket(WaterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb);
 

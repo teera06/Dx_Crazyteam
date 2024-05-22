@@ -23,10 +23,10 @@ public:
 		return;
 	}
 
-	//inline bool IsBomb() const
-	//{
-	//	return b_Bomb;
-	//}
+	inline void SetWaterPower(int _Value)
+	{
+		GetPower = _Value;
+	}
 
 	/// <summary>
 	/// 물줄기에 닿으면,
@@ -90,6 +90,7 @@ private :
 	float LifeTime = 0.0f; // ++DeltaTime
 	float BombTime = 2.0f; // 2.0
 	float ServerBombTime = 0.0f;
+	int GetPower = 0; // BaseMap
 	bool b_WaterToBomb = false;
 	bool b_ServerBomb = false;
 
