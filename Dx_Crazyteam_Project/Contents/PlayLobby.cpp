@@ -1165,9 +1165,8 @@ void APlayLobby::StartBegin()
 			//GEngine->ChangeLevel("PlayertestMode");
 			if (nullptr != MapChangeLogic)
 			{
-				MapChangeLogic(this, "MainGameMode");
+				MapChangeLogic(this);
 			}
-			//GEngine->ChangeLevel("MainGameMode");
 			});
 	}
 }
@@ -1282,6 +1281,11 @@ void APlayLobby::MapSelectBegin()
 		}
 		});
 	
+}
+
+void APlayLobby::MapChange()
+{
+	GEngine->ChangeLevel("MainGameMode");
 }
 
 void APlayLobby::SwapSelectCharacter(UImage* _SelectCharacter)
