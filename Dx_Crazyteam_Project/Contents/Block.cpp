@@ -37,7 +37,6 @@ void ABlock::BeginPlay()
 		PossessItem = static_cast<EItemType>(ItemRandom);
 	}
 
-	//PossessItem = EItemType::ItemShoes;
 
 	StateInit();
 }
