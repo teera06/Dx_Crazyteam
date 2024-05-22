@@ -37,7 +37,7 @@ void AMapUI::BeginPlay()
 	PlayerItemUI.resize(8);
 
 	MapPlayUI->SetSprite("MapPlayUI.png");
-	MapPlayUI->SetPosition(FVector(80.0f, 0.0f, 0.0f));
+	MapPlayUI->SetPosition(FVector(80.0f, 0.0f, 100.0f));
 	MapPlayUI->SetAutoSize(1.0f, true);
 	MapPlayUI->SetOrder(ERenderOrder::Map);
 
