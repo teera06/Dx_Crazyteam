@@ -18,6 +18,12 @@ USendPacketManager::~USendPacketManager()
 
 void USendPacketManager::SendMapObjectSpawnPacket(std::shared_ptr<AMapObject> _NetObject, POINT _CurPos, EMapObject _MapObjectType, EItemType _ItemType /*= EItemType::None*/)
 {
+	if (nullptr == _NetObject)
+	{
+		MsgBoxAssert("MapObject가 nullptr 입니다.");
+		return;
+	}
+
 	if (false == _NetObject->IsNetInit())
 	{
 		// 네트워크 통신준비가 아직 안된 오브젝트다.
@@ -32,14 +38,8 @@ void USendPacketManager::SendMapObjectSpawnPacket(std::shared_ptr<AMapObject> _N
 		//}
 	}
 
-	if (EMapObject::Water == _MapObjectType)
+	if (EMapObject::WaterBomb != _MapObjectType)
 	{
-		int a = 0;
-	}
-
-	if (EMapObject::WaterBomb != _MapObjectType && EMapObject::Water != _MapObjectType)
-	{
-		//_NetObject->SetObjectToken(UNetObject::GetNewObjectToken());
 		_NetObject->SetObjectToken(MapObjectToken++);
 	}
 
@@ -54,6 +54,12 @@ void USendPacketManager::SendMapObjectSpawnPacket(std::shared_ptr<AMapObject> _N
 
 void USendPacketManager::SendMapObjectReleasePacket(AMapObject* _NetObject, POINT _CurPos)
 {
+	if (nullptr == _NetObject)
+	{
+		MsgBoxAssert("MapObject가 nullptr 입니다.");
+		return;
+	}
+
 	if (false == _NetObject->IsNetInit())
 	{
 		// 네트워크 통신준비가 아직 안된 오브젝트다.
@@ -77,6 +83,12 @@ void USendPacketManager::SendMapObjectReleasePacket(AMapObject* _NetObject, POIN
 
 void USendPacketManager::SendMapObjectMovePacket(AMapObject* _NetObject, FVector _Position)
 {
+	if (nullptr == _NetObject)
+	{
+		MsgBoxAssert("MapObject가 nullptr 입니다.");
+		return;
+	}
+
 	if (false == _NetObject->IsNetInit())
 	{
 		// 네트워크 통신준비가 아직 안된 오브젝트다.
@@ -100,6 +112,12 @@ void USendPacketManager::SendMapObjectMovePacket(AMapObject* _NetObject, FVector
 
 void USendPacketManager::SendMapObjectMoveEndPacket(std::shared_ptr<AMapObject> _NetObject, int _NY, int _NX, int _PY, int _PX)
 {
+	if (nullptr == _NetObject)
+	{
+		MsgBoxAssert("MapObject가 nullptr 입니다.");
+		return;
+	}
+
 	if (false == _NetObject->IsNetInit())
 	{
 		// 네트워크 통신준비가 아직 안된 오브젝트다.
@@ -124,6 +142,12 @@ void USendPacketManager::SendMapObjectMoveEndPacket(std::shared_ptr<AMapObject> 
 
 void USendPacketManager::SendLPlayerPacket(UNetObject* _NetObject, std::string_view _SpriteName, int _SpriteIndex, int _Token)
 {
+	if (nullptr == _NetObject)
+	{
+		MsgBoxAssert("MapObject가 nullptr 입니다.");
+		return;
+	}
+
 	if (false == _NetObject->IsNetInit())
 	{
 		// 네트워크 통신준비가 아직 안된 오브젝트다.
