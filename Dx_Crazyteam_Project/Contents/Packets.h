@@ -176,6 +176,8 @@ public:
 		UEngineProtocol::Serialize(_Ser);
 		_Ser << NewPlayer;
 		_Ser << SpriteNames;
+		_Ser << MapName;
+		_Ser << ChangeMaP;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -183,12 +185,14 @@ public:
 		UEngineProtocol::DeSerialize(_Ser);
 		_Ser >> NewPlayer;
 		_Ser >> SpriteNames;
+		_Ser >> MapName;
+		_Ser >> ChangeMaP;
 	}
 
 public:
 	bool NewPlayer = false;
 	std::vector<std::string> SpriteNames;
-	bool ChChange = false;
-	std::string SpriteName = "";
+	std::string MapName = "";
+	bool ChangeMaP = false;
 };
 

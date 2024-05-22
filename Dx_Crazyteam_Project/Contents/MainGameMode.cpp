@@ -5,17 +5,23 @@
 #include <EnginePlatform/TextimeInput.h>
 
 #include "MapUI.h"
+#include "Player.h"
+#include "OtherPlayer.h"
+
 #include "Village.h"
 #include "Camp.h"
-#include "Player.h"
 #include "Player_Name.h"
 
 #include "ItemBubble.h"
 #include "ItemRoller.h"
 #include "ItemNiddle.h"
 #include "ItemOwl.h"
-
+#include <EngineBase/NetObject.h>
 #include "WaterCourse.h"
+
+#include "ServerGameMode.h"
+#include "Game_Core.h"
+
 
 AMainGameMode::AMainGameMode()
 {
@@ -59,6 +65,52 @@ void AMainGameMode::Tick(float _DeltaTime)
 void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
+
+
+
+	if (AServerGameMode::NetType == ENetType::Server)
+	{
+			{
+				//UGame_Core::Net = std::make_shared<UEngineServer>();
+				//UGame_Core::Net->ServerOpen(30000, 512);
+
+				// 여기에서 메인 플레이어한테 번호를 하나 줄겁니다.
+				MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
+
+				// 타임 유아이
+				//MapUI->SetObjectToken(UNetObject::GetNewObjectToken());
+				//물폭탄
+				//MainPlayer->WaterBomb_Token = UGame_Core::Net->GetSessionToken() * 1000 + 2;
+				//ServerPacketInit(UGame_Core::Net->Dispatcher);
+			};
+	}
+	else if (AServerGameMode::NetType == ENetType::Client)
+	{
+			{
+				//UGame_Core::Net = std::make_shared<UEngineClient>();
+				//UGame_Core::Net->Connect(IP, PORT);
+
+				//UGame_Core::Net->SetTokenPacketFunction([=](USessionTokenPacket* _Token)
+					//{
+					MainPlayer->SetObjectToken(UGame_Core::Net->GetSessionToken() * 1000);
+
+					//	//타임 유아이
+					//	MapUI->SetObjectToken(_Token->GetSessionToken() * 1000 + 1);
+					//	if (nullptr != MapUI)
+					//	{
+					//		MapUI->ClientCreate();
+					//	}
+					//	//물폭탄
+					//	MainPlayer->WaterBomb_Token = _Token->GetSessionToken() * 1000 + 2;
+					//});
+				// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
+				//ClientPacketInit(UGame_Core::Net->Dispatcher);
+			};
+	}
+
+
+
+
 }
 
 void AMainGameMode::LevelEnd(ULevel* _NextLevel)
@@ -83,9 +135,9 @@ void AMainGameMode::GameModeActorInit()
 	Village->SetCurGameMode(this);
 
 
-	Player1 = GetWorld()->SpawnActor<APlayer>("Player1", 0);
-	Player1->SetCurGameMode(this);
-	SetMainPlayer(Player1);
+	MainPlayer = GetWorld()->SpawnActor<APlayer>("Player1", 0);
+	MainPlayer->SetCurGameMode(this);
+	SetMainPlayer(MainPlayer);
 
 
 	{//UI

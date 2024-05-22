@@ -340,6 +340,13 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 							POINT PosValue = _Packet->Pos;
 
 							OtherObject = CurMap->AddMapObject(PosValue.x, PosValue.y, ObjType).get();
+							
+							EItemType ItemType = static_cast<EItemType>(_Packet->ItemType);
+
+							if (EItemType::None != ItemType)
+							{
+								OtherObject->SetPossessItem(ItemType);
+							}
 
 							OtherObject->SetObjectToken(_Packet->GetObjectToken());
 						}
