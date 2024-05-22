@@ -632,12 +632,11 @@ void APlayer::WaterBombUpdate()
 void APlayer::MoveUpdate(float _DeltaTime)
 {
 	FVector MovePos = FVector::Zero;
-	FVector NextPos1 = FVector::Zero;	// Center
-	FVector NextPos2 = FVector::Zero;	// 추가 체크포인트
-	FVector NextPos3 = FVector::Zero;	// 추가 체크포인트
+	FVector NextPos1 = GetActorLocation();	// Center
+	FVector NextPos2 = NextPos1;	// 추가 체크포인트
+	FVector NextPos3 = NextPos1;	// 추가 체크포인트
 
 	float Speed = static_cast<float>(Info->Speed);
-	NextPos1 = GetActorLocation();
 
 	if (true == IsPress(VK_UP))
 	{
