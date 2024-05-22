@@ -119,6 +119,8 @@ private:
 private:
 	int MySessionToken = -1;
 	bool IsGetSessionToken = false;
+	static bool ClientServer;
+	static bool Create;
 
 public:
 	inline void SetMySessionToken(int _Value)

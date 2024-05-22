@@ -57,7 +57,8 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 {
 	Dis.AddHandler<ULobbyPlayerUpdatePacket>([=](std::shared_ptr<ULobbyPlayerUpdatePacket> _Packet)
 		{
-			UGame_Core::Net->Send(_Packet);
+			//UGame_Core::Net->Send(_Packet);
+			PlayLobby->SetMySessionToken(UGame_Core::Net->GetSessionToken());
 	
 			AOtherLobbyPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherLobbyPlayer>(_Packet->GetObjectToken());
 			if (nullptr == OtherPlayer)

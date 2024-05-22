@@ -21,7 +21,7 @@ void AOtherLobbyPlayer::SetRenderer(std::string_view _SpriteName, int _Index)
 
 void AOtherLobbyPlayer::SetPosition(int _SessionToken)
 {
-	ImageRenderer->AddPosition(FVector(static_cast<float>(-330 + _SessionToken * 105), 125.0f, 100.0f));
+	ImageRenderer->SetPosition(FVector(static_cast<float>(-330 + _SessionToken * 105), 125.0f, 100.0f));
 }
 
 void AOtherLobbyPlayer::BeginPlay()
@@ -60,8 +60,7 @@ void AOtherLobbyPlayer::Tick(float _DeltaTime)
 		std::string SpriteNames = UpdatePacket->SpriteName;
 		int Index = UpdatePacket->SpriteIndex;
 		SetRenderer(SpriteNames, Index);
-		SetPosition(UpdatePacket->GetSessionToken());		
-
+		SetPosition(UpdatePacket->GetSessionToken());
 
 	} while (nullptr != Protocol);
 }
