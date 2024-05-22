@@ -356,8 +356,8 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 
 	POINT WaterBombPoint = GetCurPos();
 
-	int WaterPower = GetGameMode()->GetPlayer()->GetPlayerInfo()->WBPower;
-	size_t GetWaterPower_t = static_cast<size_t>(WaterPower);
+	//int WaterPower = GetGameMode()->GetPlayer()->GetPlayerInfo()->WBPower;
+	int WaterPower = GetPower;
 
 	if (WaterPower != DefaultPowerValue)
 	{

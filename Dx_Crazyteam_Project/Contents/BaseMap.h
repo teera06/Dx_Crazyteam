@@ -28,8 +28,8 @@ public:
 	bool IsOnBush(FVector _PlayerPos);
 	bool IsOnBush(int _Y, int _X);
 
-	std::shared_ptr<AMapObject> AddMapObject(int _Y, int _X, EMapObject _MapObjectType, EItemType _Item = EItemType::None);
-	std::shared_ptr<AMapObject> SpawnMapObject(int _Y, int _X, EMapObject _MapObjectType, EItemType _Item = EItemType::None);
+	std::shared_ptr<AMapObject> AddMapObject(int _Y, int _X, EMapObject _MapObjectType, EItemType _Item = EItemType::None, int _Power = 0);
+	std::shared_ptr<AMapObject> SpawnMapObject(int _Y, int _X, EMapObject _MapObjectType, EItemType _Item = EItemType::None, int _Power = 0);
 	std::shared_ptr<AMapObject> SpawnItemObject(int _Y, int _X, EItemType _Item);
 	std::shared_ptr<AMapObject> AddWaterCourse(int _Y, int _X, bool _IsEnd, EEngineDir _Dir);
 
@@ -50,8 +50,8 @@ public:
 		GimmickStatus[_Y][_X] = _Type;
 	}
 
-	std::shared_ptr<AMapObject> SpawnWaterBomb(FVector _SpawnPos);
-	std::shared_ptr<AMapObject> SpawnWaterBomb(int _Y, int _X);
+	std::shared_ptr<AMapObject> SpawnWaterBomb(FVector _SpawnPos, int _Power);
+	std::shared_ptr<AMapObject> SpawnWaterBomb(int _Y, int _X, int _Power);
 	void DestroyMapObject(int _Y, int _X);
 	void ChangeNull(int _Y, int _X);
 	void ConnectObject(std::shared_ptr<AMapObject> _Obj, int _Y, int _X);

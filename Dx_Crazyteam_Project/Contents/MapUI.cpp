@@ -6,6 +6,7 @@
 #include "ContentsEnum.h"
 #include "CAGameMode.h"
 #include "EngineCore/Image.h"
+#include "EngineCore/SpriteRenderer.h"
 //float AMapUI::GameTimeCheck = 1.0f;
 
 AMapUI::AMapUI()
@@ -18,6 +19,7 @@ AMapUI::AMapUI()
 			InitNet(UGame_Core::Net);
 		}
 	}
+	MapPlayUI = CreateDefaultSubObject<USpriteRenderer>("MapPlayUI");
 
 	CreateTime();
 }
@@ -34,39 +36,38 @@ void AMapUI::BeginPlay()
 	GameTimeerUI.resize(4);
 	PlayerItemUI.resize(8);
 
-	MapPlayUI = CreateWidget<UImage>(GetWorld(), "MapPlayUI");
-	MapPlayUI->AddToViewPort(3);
 	MapPlayUI->SetSprite("MapPlayUI.png");
-	MapPlayUI->SetPosition(FVector(0.0f, 0.0f, 0.0f));
+	MapPlayUI->SetPosition(FVector(80.0f, 0.0f, 100.0f));
 	MapPlayUI->SetAutoSize(1.0f, true);
+	MapPlayUI->SetOrder(ERenderOrder::Map);
 
 	GameStartUI = CreateWidget<UImage>(GetWorld(), "GameStartUI");
-	GameStartUI->AddToViewPort(3);
 	GameStartUI->SetSprite("GAMEStart.png");
 	GameStartUI->SetPosition(FVector(-50.0f, 100.0f, 0.0f));
 	GameStartUI->SetAutoSize(1.0f, true);
 	GameStartUI->SetActive(false);
+	GameStartUI->AddToViewPort(5);
 
 	GameEndUI = CreateWidget<UImage>(GetWorld(), "GameEndUI");
-	GameEndUI->AddToViewPort(3);
 	GameEndUI->SetSprite("ui_coplayui_KCW.png", End);
 	GameEndUI->SetPosition(FVector(-50.0f, 230.0f, 0.0f));
 	GameEndUI->SetAutoSize(1.0f, true);
 	GameEndUI->SetActive(false);
+	GameEndUI->AddToViewPort(5);
 
 	GameResultUI = CreateWidget<UImage>(GetWorld(), "GameResultUI");
-	GameResultUI->AddToViewPort(3);
 	GameResultUI->SetSprite("GAMEStart.png");
 	GameResultUI->SetPosition(FVector(-50.0f, 150.0f, 0.0f));
 	GameResultUI->SetAutoSize(1.0f, true);
 	GameResultUI->SetActive(false);
+	GameResultUI->AddToViewPort(5);
 
-	ColonUI = CreateWidget<UImage>(GetWorld(), "GameStartUI");
-	ColonUI->AddToViewPort(3);
+	ColonUI = CreateWidget<UImage>(GetWorld(), "ColonUI");
 	ColonUI->SetSprite("Time.png");
 	ColonUI->SetPosition(FVector(340.0f, 220.0f, 0.0f));
 	ColonUI->SetAutoSize(1.1f, true);
 	ColonUI->SetActive(true);
+	ColonUI->AddToViewPort(5);
 
 	DelayCallBack(2.0f, [this]() { GameStartUI->SetActive(true); });
 	DelayCallBack(4.0f, [this]() { GameStartUI->SetActive(false); });
@@ -74,11 +75,11 @@ void AMapUI::BeginPlay()
 	for (size_t i = 0; i < GameTimeerUI.size(); ++i)
 	{
 		PlayerItemUI[i] = CreateWidget<UImage>(GetWorld(), "PlayerItemUI");
-		PlayerItemUI[i]->AddToViewPort(3);
 		PlayerItemUI[i]->SetAutoSize(1.0f, true);
 		PlayerItemUI[i]->SetSprite("transparent.png");
 		PlayerItemUI[0]->SetPosition(FVector(290.0f, -230.0f, 0.0f));
 		PlayerItemUI[i]->SetActive(true);
+		PlayerItemUI[i]->AddToViewPort(20);
 	}
 
 	for (size_t i = 0; i < GameTimeerUI.size(); ++i)

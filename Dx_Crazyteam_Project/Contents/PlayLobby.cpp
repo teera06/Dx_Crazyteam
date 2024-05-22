@@ -153,7 +153,6 @@ void APlayLobby::BeginPlay()
 	GameStart->ChangeAnimation("UnHover");
 
 	//맵선택 버튼
-
 	SelectMap = CreateWidget<UImage>(GetWorld(), "SelectMap");
 	SelectMap->CreateAnimation("UnHover", "SelectMap_0.png", 0.1f, false, 0, 0);
 	SelectMap->CreateAnimation("Hover", "SelectMap", 0.1f, true, 1, 2);
@@ -164,6 +163,94 @@ void APlayLobby::BeginPlay()
 	SelectMap->SetPosition({ 306.0f,-152.0f });
 	SelectMap->SetActive(true);
 	SelectMap->ChangeAnimation("UnHover");
+
+	MapSelect = CreateWidget<UImage>(GetWorld(), "MapSelect");
+	MapSelect->AddToViewPort(16);
+	MapSelect->SetSprite("Village10.png");
+	MapSelect->SetAutoSize(1.0f, true);
+	MapSelect->SetPosition({ 0.f,0.f });
+	MapSelect->SetActive(false);
+	
+	MapSelectVName = CreateWidget<UImage>(GetWorld(), "MapSelectVName");
+	MapSelectVName->AddToViewPort(16);
+	MapSelectVName->SetSprite("Village10_name.png");
+	MapSelectVName->SetAutoSize(1.0f, true);
+	MapSelectVName->SetPosition({ 70.f,110.f });
+	MapSelectVName->SetActive(false);
+
+	MapSelectVTitle = CreateWidget<UImage>(GetWorld(), "MapSelectVTitle");
+	MapSelectVTitle->AddToViewPort(16);
+	MapSelectVTitle->SetSprite("Village10_title.png");
+	MapSelectVTitle->SetAutoSize(1.0f, true);
+	MapSelectVTitle->SetPosition({ -169.f,171.f });
+	MapSelectVTitle->SetActive(false);
+	
+	MapSelectVPick = CreateWidget<UImage>(GetWorld(), "MapSelectVPick");
+	MapSelectVPick->AddToViewPort(16);
+	MapSelectVPick->SetSprite("Village10_name_Pick.png");
+	MapSelectVPick->SetAutoSize(1.0f, true);
+	MapSelectVPick->SetPosition({ 73.f,109.f });
+	MapSelectVPick->SetActive(false);
+	
+	MapSelectVinfo = CreateWidget<UImage>(GetWorld(), "MapSelectVPick");
+	MapSelectVinfo->AddToViewPort(16);
+	MapSelectVinfo->SetSprite("Village10_info.png");
+	MapSelectVinfo->SetAutoSize(1.0f, true);
+	MapSelectVinfo->SetPosition({ -169.f,-82.f });
+	MapSelectVinfo->SetActive(false);
+
+	MapSelectCTitle = CreateWidget<UImage>(GetWorld(), "MapSelectCTitle");
+	MapSelectCTitle->AddToViewPort(16);
+	MapSelectCTitle->SetSprite("Cam02_title.png");
+	MapSelectCTitle->SetAutoSize(1.0f, true);
+	MapSelectCTitle->SetPosition({ -169.f,171.f });
+	MapSelectCTitle->SetActive(false);
+		
+	MapSelectCName = CreateWidget<UImage>(GetWorld(), "MapSelectCName");
+	MapSelectCName->AddToViewPort(16);
+	MapSelectCName->SetSprite("Cam02_name.png");
+	MapSelectCName->SetAutoSize(1.0f, true);
+	MapSelectCName->SetPosition({ 70.f,92.f });
+	MapSelectCName->SetActive(false);
+	
+	MapSelectCPick = CreateWidget<UImage>(GetWorld(), "MapSelectCName");
+	MapSelectCPick->AddToViewPort(16);
+	MapSelectCPick->SetSprite("Cam02_name_Pick.png");
+	MapSelectCPick->SetAutoSize(1.0f, true);
+	MapSelectCPick->SetPosition({ 65.f,91.f });
+	MapSelectCPick->SetActive(false);
+
+	MapSelectCMinimap = CreateWidget<UImage>(GetWorld(), "MapSelectCMinimap");
+	MapSelectCMinimap->AddToViewPort(16);
+	MapSelectCMinimap->SetSprite("Cam02_minimap.png");
+	MapSelectCMinimap->SetAutoSize(1.0f, true);
+	MapSelectCMinimap->SetPosition({ -169.f,89.f });
+	MapSelectCMinimap->SetActive(false);
+
+	MapSelectCinfo = CreateWidget<UImage>(GetWorld(), "MapSelectVPick");
+	MapSelectCinfo->AddToViewPort(16);
+	MapSelectCinfo->SetSprite("Cam02_info.png");
+	MapSelectCinfo->SetAutoSize(1.0f, true);
+	MapSelectCinfo->SetPosition({ 73.f,109.f });
+	MapSelectCinfo->SetActive(false);
+
+	
+	EnterButton = CreateWidget<UImage>(GetWorld(), "MapSelectVPick");
+	EnterButton->AddToViewPort(16);
+	EnterButton->SetSprite("Cam02_info.png");
+	EnterButton->SetAutoSize(1.0f, true);
+	EnterButton->SetPosition({ 73.f,109.f });
+	EnterButton->SetActive(false);
+	
+	CancelButton = CreateWidget<UImage>(GetWorld(), "MapSelectVPick");
+	CancelButton->AddToViewPort(16);
+	CancelButton->SetSprite("Cam02_info.png");
+	CancelButton->SetAutoSize(1.0f, true);
+	CancelButton->SetPosition({ 73.f,109.f });
+	CancelButton->SetActive(false);
+
+
+
 
 	//캐릭터 선택창
 	RandomBT = CreateWidget<UImage>(GetWorld(), "RandomBT");
@@ -299,8 +386,6 @@ void APlayLobby::BeginPlay()
 	LobbyCharacterBanner->SetActive(true);
 
 	//팀 선택
-
-
 	TeamA = CreateWidget<UImage>(GetWorld(), "TeamA");
 	TeamA->CreateAnimation("TeamUnHover", "ATeam.png", 0.1f, false, 0, 0);
 	TeamA->CreateAnimation("TeamHover", "ATeam.png", 0.1f, false, 0, 0);
@@ -336,6 +421,13 @@ void APlayLobby::BeginPlay()
 	checkUI->SetActive(true);
 
 	Teamtyp = dynamic_cast<ACAGameMode*>(GetWorld()->GetGameMode().get());
+
+
+	MapSelectButtonBegin();
+	StartBegin();
+	TeamSelectBegin();
+
+	CharacterBegin();
 }
 
 void APlayLobby::SettingUIPlayerName(std::vector<std::string> _Names)
@@ -401,19 +493,16 @@ void APlayLobby::Tick(float _DeltaTime)
 	PlayLobbyUI->SetActive(true);
 
 	//팀 선택
-	TeamSelectBegin();
 
 	// Room Hover
 	RoomBegin();
 
 	//캐릭터 선택
-	CharacterBegin();
+
 
 	//스타트 버튼
-	StartBegin();
 
 	//맵 선택 버튼
-	MapSelectBegin();	
 }
 
 
@@ -1074,12 +1163,15 @@ void APlayLobby::StartBegin()
 		GameStart->SetDown([=] {
 			GameStart->ChangeAnimation("Down");
 			//GEngine->ChangeLevel("PlayertestMode");
-			GEngine->ChangeLevel("MainGameMode");
+			if (nullptr != MapChangeLogic)
+			{
+				MapChangeLogic(this);
+			}
 			});
 	}
 }
 
-void APlayLobby::MapSelectBegin()
+void APlayLobby::MapSelectButtonBegin()
 {
 	{
 		SelectMap->SetUnHover([=] {
@@ -1091,10 +1183,16 @@ void APlayLobby::MapSelectBegin()
 			{
 				SelectMap->ChangeAnimation("Hover");
 			}
+			else if (true == IsDown(VK_LBUTTON) && "Hover" == SelectMap->GetUiAniName())
+			{
+				SelectMap->ChangeAnimation("Down");
+			}
+			else if (true == IsUp(VK_LBUTTON))
+			{
+				MapSelectBegin();
+			}
 			});
-		SelectMap->SetDown([=] {
-			SelectMap->ChangeAnimation("Down");
-			});
+
 	}
 }
 
@@ -1150,6 +1248,44 @@ void APlayLobby::LobbyPlayerBegin()
 	//	Rank[PlayerCount]->AddPosition(FVector(static_cast<float>(-720 + PlayerCount * 105), 0.0f, 100.0f));
 	//	++PlayerCount;
 	//}
+}
+
+void APlayLobby::MapSelectBegin()
+{
+	MapSelect->SetActive(true);
+	MapSelectVName->SetActive(true);
+	MapSelectVTitle->SetActive(true);
+	MapSelectVPick->SetActive(true);
+	MapSelectCName->SetActive(true);
+	MapSelectVinfo->SetActive(true);
+
+	MapSelectCName->SetHover([=] {
+		if (true == IsUp(VK_LBUTTON))
+		{
+			MapSelectCPick->SetActive(true);
+			MapSelectVPick->SetActive(false);
+			MapSelectCTitle->SetActive(true);
+			MapSelectCMinimap->SetActive(true);
+			MapSelectVinfo->SetActive(false);
+		}
+		});
+
+	MapSelectVName->SetHover([=] {
+		if (true == IsUp(VK_LBUTTON))
+		{
+			MapSelectCPick->SetActive(false);
+			MapSelectVPick->SetActive(true);
+			MapSelectCTitle->SetActive(false);
+			MapSelectCMinimap->SetActive(false);
+			MapSelectVinfo->SetActive(true);
+		}
+		});
+	
+}
+
+void APlayLobby::MapChange()
+{
+	GEngine->ChangeLevel("MainGameMode");
 }
 
 void APlayLobby::SwapSelectCharacter(UImage* _SelectCharacter)

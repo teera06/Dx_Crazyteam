@@ -463,6 +463,7 @@ void APlayer::Rescue(float _DeltaTime)
 
 	if (true == Renderer->IsCurAnimationEnd())
 	{
+		Dir = FVector::Down;
 		State.ChangeState("Idle");
 		return;
 	}
@@ -630,7 +631,7 @@ void APlayer::WaterBombUpdate()
 			--Info->WBCount;
 			POINT BombPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
 	
-			std::shared_ptr<AMapObject> WaterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x);
+			std::shared_ptr<AMapObject> WaterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x, Info->WBPower);
 			WaterBomb->SetObjectToken(WaterBomb_Token++);
 			USendPacketManager::SendMapObjectSpawnPacket(WaterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb);
 

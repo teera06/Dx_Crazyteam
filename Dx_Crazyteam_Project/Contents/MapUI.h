@@ -2,6 +2,7 @@
 #include "CAObject.h"
 
 class UImage;
+class USpriteRenderer;
 class APlayer;
 class AMapUI : public ACAObject
 {
@@ -50,7 +51,7 @@ protected:
 	float CreateTime();
 
 private:
-	UImage* MapPlayUI = nullptr;
+	USpriteRenderer* MapPlayUI = nullptr;
 	UImage* GameStartUI = nullptr;
 	UImage* GameEndUI = nullptr;
 	UImage* GameResultUI = nullptr;
