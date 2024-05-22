@@ -180,7 +180,10 @@ bool ABaseMap::IsOnWater(FVector _PlayerPos)
 
 	EMapObjectType Type = MapStatus[CheckPos.y][CheckPos.x]->GetType();
 	
-	if (Type == EMapObjectType::Water) return true;
+	if (Type == EMapObjectType::Water)
+	{
+		return true;
+	}
 	else return false;
 }
 

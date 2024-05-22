@@ -157,12 +157,6 @@ void AWaterCourse::CreateCenterTick(float _DeltaTime)
 		return;
 	}
 
-	if (true == GetIsPossessed())
-	{
-		std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x);
-		NextMapObject->WaterInteract();
-	}
-
 	if (false == b_BombCountUpdateOne)
 	{
 		std::shared_ptr<APlayer> TestPlayer = GetGameMode()->GetPlayer();
@@ -613,7 +607,7 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject != nullptr)
 				{
 					EMapObjectType type = NextMapObject->GetType();
-					if(type == EMapObjectType::Block)
+					if (type == EMapObjectType::Block)
 					{
 						NextMapObject->WaterInteract();
 					}

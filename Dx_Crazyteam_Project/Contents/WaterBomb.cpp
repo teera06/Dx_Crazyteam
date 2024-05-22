@@ -286,6 +286,7 @@ POINT AWaterBomb::SearchLogic(POINT _CurPoint, FVector _MoveVector)
 
 void AWaterBomb::BombBegin()
 {
+	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 	GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water);
 }
 
