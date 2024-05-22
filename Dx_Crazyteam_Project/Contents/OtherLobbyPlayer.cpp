@@ -16,18 +16,18 @@ AOtherLobbyPlayer::~AOtherLobbyPlayer()
 
 void AOtherLobbyPlayer::SetRenderer(std::string_view _SpriteName, int _Index)
 {
-	ImageRenderer->SetSprite(_SpriteName, _Index);
+	ImageRenderer->SetSprite(_SpriteName);
 }
 
 void AOtherLobbyPlayer::SetPosition(int _SessionToken)
 {
-	ImageRenderer->SetPosition(FVector(static_cast<float>(-330 + _SessionToken * 105), 125.0f, 100.0f));
+	ImageRenderer->SetPosition(FVector(static_cast<float>(-335 + _SessionToken * 105), 160.0f, 100.0f));
 }
 
 void AOtherLobbyPlayer::BeginPlay()
 {
 	ImageRenderer = CreateWidget<UImage>(GetWorld(), "Room1");
-	ImageRenderer->SetScale({ 150, 150 });
+	ImageRenderer->SetAutoSize(1.2f, true);
 	ImageRenderer->SetPosition(FVector(0.f, 0.f));
 	ImageRenderer->SetActive(true);
 	ImageRenderer->AddToViewPort(15);

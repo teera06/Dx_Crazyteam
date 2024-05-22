@@ -976,18 +976,24 @@ void APlayLobby::CharacterBegin()
 					{
 						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
 						{
-							if (LobbyPlayer[SessionToken] == nullptr)
-							{
-								//LobbyPlayer[SessionToken] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
-								//LobbyPlayer[SessionToken]->AddToViewPort(15);
-								//LobbyPlayer[SessionToken]->SetSprite("bazzi_idle.png", 1);
-								//LobbyPlayer[SessionToken]->SetScale({ 150, 150 });
-								//LobbyPlayer[SessionToken]->SetPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
-							}
+							//if (LobbyPlayer[SessionToken] == nullptr)
+							//{
+							//	//LobbyPlayer[SessionToken] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
+							//	//LobbyPlayer[SessionToken]->AddToViewPort(15);
+							//	//LobbyPlayer[SessionToken]->SetSprite("bazzi_idle.png", 1);
+							//	//LobbyPlayer[SessionToken]->SetScale({ 150, 150 });
+							//	//LobbyPlayer[SessionToken]->SetPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
+							//}
 							SetObjectToken(SessionToken + 110000);
-							USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
+							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
 						}
 					}
+					else if (IsClient == true)
+					{
+						SetObjectToken(PlayerCount + 110000);
+						USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
+					}
+
 				}
 			}
 			});

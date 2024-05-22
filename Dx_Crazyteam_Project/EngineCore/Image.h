@@ -94,7 +94,7 @@ public:
 		return UiAniName;
 	}
 
-
+	FSpriteInfo CurInfo;
 protected:
 	void MaterialSettingEnd() override;
 	void Tick(float _DetaTime) override;
@@ -105,7 +105,7 @@ private:
 
 	bool AutoSize = false;
 	float ScaleRatio = 1.0f;
-	FSpriteInfo CurInfo;
+
 	EPivot Pivot = EPivot::MAX;
 	std::shared_ptr<UEngineTexture> CurTexture = nullptr;
 	//추가한 부분
