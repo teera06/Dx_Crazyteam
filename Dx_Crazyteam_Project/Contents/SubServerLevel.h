@@ -14,6 +14,7 @@ class APlayer;
 class UEngineNetWindow;
 class AServerPlayer;
 class AVillage;
+class AOtherPlayer;
 class ASubServerLevel : public ACAGameMode
 {
 	GENERATED_BODY(ACAGameMode)
@@ -43,5 +44,6 @@ private:
 	//std::shared_ptr<APlayer> MainPlayer = nullptr;
 	std::shared_ptr<AServerTestPlayer> MainPlayer = nullptr;
 	std::shared_ptr<AMapUI> MapUI = nullptr;
+	std::vector<AOtherPlayer*> OtherPlayers;
 };
 
