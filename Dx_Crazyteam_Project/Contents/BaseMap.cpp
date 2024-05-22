@@ -79,6 +79,7 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 			if (CheckPoint.x != PlayerPoint.x ||
 				CheckPoint.y != PlayerPoint.y)
 			{
+				
 				MapStatus[CheckPoint.y][CheckPoint.x]->PlayerInteract();
 
 				return false;
@@ -122,6 +123,15 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 			}
 			else if (Bush->GetPossessBlock()->GetType() == EMapObjectType::WaterBalloon)
 			{
+				std::shared_ptr<APlayer> Player = GetGameMode()->GetPlayer();
+				POINT PlayerPoint = Player->GetPlayerInfo()->CurIndex;
+				if (CheckPoint.x == PlayerPoint.x &&
+					CheckPoint.y == PlayerPoint.y)
+				{
+					return true;
+				}
+
+
 				return false;
 			}
 
