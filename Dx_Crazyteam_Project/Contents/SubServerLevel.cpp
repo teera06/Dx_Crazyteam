@@ -85,7 +85,10 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 				MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
 
 				// 타임 유아이
-				MapUI->SetObjectToken(UNetObject::GetNewObjectToken() + 1);
+				MapUI->SetObjectToken(UNetObject::GetNewObjectToken());
+
+				//물폭탄
+				MainPlayer->WaterBomb_Token = UGame_Core::Net->GetSessionToken() * 1000 + 2;
 
 				ServerPacketInit(UGame_Core::Net->Dispatcher);
 			});
@@ -107,8 +110,6 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 						}
 						//물폭탄
 						MainPlayer->WaterBomb_Token = _Token->GetSessionToken() * 1000 + 2;
-						//물폭탄물줄기
-						MainPlayer->WaterCourse_Token = _Token->GetSessionToken() * 10000;
 					});
 				// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
 				ClientPacketInit(UGame_Core::Net->Dispatcher);
