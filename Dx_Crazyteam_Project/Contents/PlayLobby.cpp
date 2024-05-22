@@ -340,6 +340,7 @@ void APlayLobby::BeginPlay()
 
 void APlayLobby::SettingUIPlayerName(std::vector<std::string> _Names)
 {
+
 	if (8 != _Names.size())
 	{
 		MsgBoxAssert("8개의 스프라이드 데이터가 아닙니다.");
@@ -357,20 +358,21 @@ void APlayLobby::SettingUIPlayerName(std::vector<std::string> _Names)
 		if (nullptr == LobbyPlayer[i])
 		{
 			LobbyPlayer[i] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
-			LobbyPlayer[i]->AddToViewPort(16);
-			LobbyPlayer[i]->SetAutoSize(1.2f, true);
+			LobbyPlayer[i]->AddToViewPort(15);
 			if (i <= 3)
 			{
-				LobbyPlayer[i]->AddPosition(FVector(static_cast<float>(-335 + i * 105), 160.0f, 100.0f));
+				LobbyPlayer[i]->SetPosition(FVector(static_cast<float>(-335.f + i * 105), 160.0f, 100.0f));
+
 			}
 			else
 			{
-				LobbyPlayer[i]->AddPosition(FVector(static_cast<float>(-755 + i * 105), 10.0f, 100.0f));
+				LobbyPlayer[i]->SetPosition(FVector(static_cast<float>(-755.f + i * 105), 10.0f, 100.0f));
 			}
 		}
 
 
 		LobbyPlayer[i]->SetSprite(_Names[i]);
+		LobbyPlayer[i]->SetAutoSize(1.2f, true);
 	}
 }
 
@@ -384,11 +386,11 @@ void APlayLobby::NewPlayer()
 	LobbyPlayer[Cha_Count]->SetAutoSize(1.2f, true);
 	if (Cha_Count <= 3)
 	{
-		LobbyPlayer[Create_Count]->AddPosition(FVector(static_cast<float>(-335 + Create_Count * 105), 160.0f, 100.0f));
+		LobbyPlayer[Create_Count]->SetPosition(FVector(static_cast<float>(-335 + Create_Count * 105), 160.0f, 100.0f));
 	}
 	else
 	{
-		LobbyPlayer[Create_Count]->AddPosition(FVector(static_cast<float>(-755 + Create_Count * 105), 10.0f, 100.0f));
+		LobbyPlayer[Create_Count]->SetPosition(FVector(static_cast<float>(-755 + Create_Count * 105), 10.0f, 100.0f));
 	}
 	Create_Count++;
 }
