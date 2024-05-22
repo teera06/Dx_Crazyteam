@@ -164,6 +164,7 @@ protected:
 
 
 private:
+	USpriteRenderer* SoloArrowRenderer = nullptr;
 	EItemType CtrlItem = EItemType::None;
 	int BeforeSpeedData = -1;
 

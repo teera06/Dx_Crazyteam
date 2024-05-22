@@ -130,6 +130,8 @@ private:
 	int Cha_Count = 0;
 
 public:
+	int ChangeUIIndex = -1;
+
 	inline void SetMySessionToken(int _Value)
 	{
 		MySessionToken = _Value;
@@ -137,6 +139,6 @@ public:
 	}
 
 	// APlayLobby
-	std::function<void(APlayLobby*)> ChracterChangeLogic = nullptr;
+	std::function<void(APlayLobby*, int, std::string_view)> ChracterChangeLogic = nullptr;
 };
 

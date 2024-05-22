@@ -60,27 +60,36 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 
 	if (AServerGameMode::NetType == ENetType::Server)
 	{
-		//PlayLobby->NewPlayer();
+		PlayLobby->NewPlayer();
+		PlayLobby->ChangeUIIndex = 0;
 
-		std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
-		NewPlayer->SpriteNames.push_back("Room_Charcater_Bazzi.png");
-		NewPlayer->SpriteNames.push_back("Room_Charcater_Bazzi.png");
-		NewPlayer->SpriteNames.push_back("Room_Charcater_Bazzi.png");
-		NewPlayer->SpriteNames.push_back("Room_Charcater_Bazzi.png");
-		NewPlayer->SpriteNames.push_back("Room_Charcater_Bazzi.png");
-		NewPlayer->SpriteNames.push_back("Room_Charcater_Bazzi.png");
-		NewPlayer->SpriteNames.push_back("Room_Charcater_Bazzi.png");
-		NewPlayer->SpriteNames.push_back("Room_Charcater_Bazzi.png");
+		// 방장 0번
 
-		PlayLobby->SettingUIPlayerName(NewPlayer->SpriteNames);
-
-		PlayLobby->ChracterChangeLogic = [=](APlayLobby* Lobby)
+		PlayLobby->ChracterChangeLogic = [=](APlayLobby* _Lobby)
 			{
-				
+				//_Lobby->
+				std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
+				NewPlayer->NewPlayer = true;
+				std::vector<std::string> SetSpriteNames = NewPlayer->SpriteNames;
+				//SpriteNames[0];
+				UGame_Core::Net->Send(NewPlayer);
 			};
 	}
 	else if (AServerGameMode::NetType == ENetType::Client)
 	{
+
+		PlayLobby->ChracterChangeLogic = [=](APlayLobby* _Lobby)
+			{
+				//_Lobby->
+				std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
+				NewPlayer->NewPlayer = true;
+				NewPlayer->SpriteNames;
+				//SpriteNames[0];
+				UGame_Core::Net->Send(NewPlayer);
+			};
+
+
+		PlayLobby->ChangeUIIndex = UGame_Core::Net->GetSessionToken();
 		// 이미 네트워크 연결이 되어있기 때문에
 		// 클라이언트는 그냥 서버한테 쏠거야.
 		std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
@@ -148,6 +157,7 @@ void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
 		{
 			GetWorld()->PushFunction([=]
 				{
+
 					PlayLobby->SettingUIPlayerName(_Packet->SpriteNames);
 				});
 
