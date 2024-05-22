@@ -92,6 +92,7 @@ void APlayer::Tick(float _DeltaTime)
 	if (ConstValue::MainPlayerCharacterType != Info->MyType || ConstValue::MainPlayerTeamType != Info->Team)
 	{
 		// 변화가 있으면 다시 시작
+		ConstValue::MainPlayerTeamType = Info->Team;
 		MainPlayerInit();
 	}
 
@@ -135,12 +136,25 @@ void APlayer::Tick(float _DeltaTime)
 		return;
 	}
 
-
 	if (true == IsDown('M'))
 	{
 		SetCharacterType(ECharacterType::Marid);
 		State.ChangeState("Idle");
 		return;
+	}
+
+	if (true == IsDown(VK_TAB))
+	{
+		switch (Info->Team)
+		{
+		case ETeamType::None:
+		case ETeamType::ATeam:
+			SetTeamType(ETeamType::BTeam);
+			break;
+		case ETeamType::BTeam:
+			SetTeamType(ETeamType::ATeam);
+			break;
+		}
 	}
 
 	if (true == GetIsSendPacket())
