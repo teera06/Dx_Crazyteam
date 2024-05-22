@@ -64,7 +64,7 @@ void AWaterBomb::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	State.Update(_DeltaTime);
-
+	
 #ifdef _DEBUG
 	std::string WaterBombMsg = std::format("Water Bomb {}\n", GetActorLocation().ToString());
 
@@ -288,11 +288,13 @@ POINT AWaterBomb::SearchLogic(POINT _CurPoint, FVector _MoveVector)
 void AWaterBomb::BombBegin()
 {
 	GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water);
-	Destroy();
 }
 
 void AWaterBomb::BombTick(float _DeltaTime)
 {
+	//GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+	Renderer->SetActive(false);
+	Destroy();
 }
 
 void AWaterBomb::BombExit()

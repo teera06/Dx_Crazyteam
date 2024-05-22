@@ -637,6 +637,7 @@ void APlayer::MoveUpdate(float _DeltaTime)
 	FVector NextPos3 = FVector::Zero;	// 추가 체크포인트
 
 	float Speed = static_cast<float>(Info->Speed);
+	NextPos1 = GetActorLocation();
 
 	if (true == IsPress(VK_UP))
 	{
