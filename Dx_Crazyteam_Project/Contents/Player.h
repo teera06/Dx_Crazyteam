@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineBase/NetObject.h>
 #include <EngineCore/DefaultSceneComponent.h>
+#include <EngineCore/TextWidget.h>
 #include "ContentsEnum.h"
 #include "CAObject.h"
 #include "NetInterface.h"
@@ -11,6 +12,7 @@ class PlayerInfo
 	friend APlayer;
 
 public:
+	std::string PlayerName = "MyName";
 	POINT CurIndex = POINT(0, 0);
 	ECharacterType MyType = ECharacterType::Bazzi;
 	ETeamType Team = ETeamType::ATeam;
@@ -78,6 +80,16 @@ public:
 	void SetCanKick(bool _CanKick)
 	{
 		Info->CanKick = _CanKick;
+	}
+
+	void SetPlayerName(std::string_view _Name)
+	{
+		Info->PlayerName = _Name;
+	}
+
+	std::string GetPlayerName()
+	{
+		return Info->PlayerName;
 	}
 
 	bool GetPlayerCanKick()
@@ -152,6 +164,7 @@ protected:
 
 
 private:
+	USpriteRenderer* SoloArrowRenderer = nullptr;
 	EItemType CtrlItem = EItemType::None;
 	int BeforeSpeedData = -1;
 
@@ -207,7 +220,8 @@ private:
 	int RideAniTwinkleActive = 0;
 
 	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
-	std::shared_ptr<APlayer_Name> PlayerName = nullptr;
+	//std::shared_ptr<APlayer_Name> PlayerName = nullptr;
+	UTextWidget* PlayerNameUI = nullptr;
 
 	bool IsSendPacket = true;
 

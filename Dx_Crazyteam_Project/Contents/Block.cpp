@@ -3,8 +3,10 @@
 #include "CAGameMode.h"
 #include "BaseMap.h"
 #include "Bush.h"
+#include "Player.h"
 #include <EngineBase/EngineRandom.h>
 
+#include "Game_Core.h"
 #include "SendPacketManager.h"
 
 ABlock::ABlock() 
@@ -25,19 +27,6 @@ void ABlock::BeginPlay()
 	Renderer->SetOrder(ERenderOrder::WaterBomb);
 	Renderer->AddPosition(FVector::Down * 20.f);
 	Renderer->SetAutoSize(1.f, true);
-
-	int SpawnRandom = UEngineRandom::MainRandom.RandomInt(1, 100);
-	if (SpawnRandom <= 50)
-	{
-		int ItemMin = static_cast<int>(EItemType::ItemBubble);
-		int ItemMax = static_cast<int>(EItemType::ItemNiddle);
-
-		int ItemRandom = UEngineRandom::MainRandom.RandomInt(ItemMin, ItemMax);
-
-		PossessItem = static_cast<EItemType>(ItemRandom);
-	}
-
-	//PossessItem = EItemType::ItemShoes;
 
 	StateInit();
 }
@@ -111,25 +100,11 @@ void ABlock::IdleTick(float _DeltaTime)
 
 	if (IsPush)
 	{
-		int Order = 0;
-		switch (MoveDir)
-		{
-		case ECADir::Up:
-			Order = 0;
-			break;
-		case ECADir::Right:
-			Order = 1;
-			break;
-		case ECADir::Down:
-			Order = 2;
-			break;
-		case ECADir::Left:
-			Order = 3;
-			break;
-		}
+		FVector PlayerDir = GetGameMode()->GetPlayer()->GetDir();
+		MoveDir = PlayerDir;
 
-		nx = GetCurPos().x + ConstValue::dx[Order];
-		ny = GetCurPos().y + ConstValue::dy[Order];
+		nx = GetCurPos().x + static_cast<int>(MoveDir.X);
+		ny = GetCurPos().y - static_cast<int>(MoveDir.Y);
 
 		if (nx < 0 || ny < 0 || nx >= ConstValue::TileX || ny >= ConstValue::TileY - 1)
 		{
@@ -222,30 +197,13 @@ void ABlock::BreakExit()
 
 void ABlock::PushBegin()
 {
-
+	
 }
 
 void ABlock::PushTick(float _DeltaTime)
 {
-	FVector MoveVector = FVector::Zero;
 
-	switch (MoveDir)
-	{
-	case ECADir::Up:
-		MoveVector = FVector::Up;
-		break;
-	case ECADir::Right:
-		MoveVector = FVector::Right;
-		break;
-	case ECADir::Down:
-		MoveVector = FVector::Down;
-		break;
-	case ECADir::Left:
-		MoveVector = FVector::Left;
-		break;
-	}
-
-	AddActorLocation(MoveVector * MoveSpeed * _DeltaTime);
+	AddActorLocation(MoveDir * MoveSpeed * _DeltaTime);
 
 	// 블럭 이동 동기화
 	{
@@ -274,12 +232,12 @@ void ABlock::EndTick(float _DeltaTime)
 {
 	if (IsBreak)
 	{
-		if (PossessItem == EItemType::None)
+		if (GetPossessItem() == EItemType::None)
 		{
 			if (GetIsPossessed())
 			{
 				AMapObject* MapObject = GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x).get();
-
+				
 				ABush* Bush = dynamic_cast<ABush*>(MapObject);
 				Bush->SetPossessBlock(nullptr);
 
@@ -292,7 +250,14 @@ void ABlock::EndTick(float _DeltaTime)
 		}
 		else
 		{
-			GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Item, PossessItem);
+			std::shared_ptr<UEngineServer> IsServer = dynamic_pointer_cast<UEngineServer>(UGame_Core::Net);
+
+			if (nullptr != IsServer)
+			{
+				std::shared_ptr<AMapObject> Item = GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Item, GetPossessItem());
+				USendPacketManager::SendMapObjectSpawnPacket(Item, { GetCurPos().y,GetCurPos().x }, EMapObject::Item, GetPossessItem());
+			}
+
 			Destroy();
 		}
 	}
@@ -304,7 +269,10 @@ void ABlock::EndTick(float _DeltaTime)
 			USendPacketManager::SendMapObjectMoveEndPacket(shared_from_this(), ny, nx, GetCurPos().y, GetCurPos().x);
 		}
 
-		GetGameMode()->GetCurMap()->MoveMapObject(shared_from_this(), ny, nx, GetCurPos().y, GetCurPos().x);
+		if (!IsBreak)
+		{
+			GetGameMode()->GetCurMap()->MoveMapObject(shared_from_this(), ny, nx, GetCurPos().y, GetCurPos().x);
+		}
 
 		IsPush = false;
 

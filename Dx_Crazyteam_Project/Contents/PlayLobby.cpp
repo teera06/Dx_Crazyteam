@@ -10,6 +10,7 @@
 
 bool APlayLobby::IsClient = false;
 bool APlayLobby::Create = false;
+int APlayLobby::Create_Count =  0;
 
 APlayLobby::APlayLobby()
 {
@@ -23,8 +24,8 @@ void APlayLobby::BeginPlay()
 {
 	Super::BeginPlay();
 	InputOn();
-	LobbyPlayer.resize(9);
-	Rank.resize(9);
+	LobbyPlayer.resize(8);
+	Rank.resize(8);
 
 	PlayLobbyUI = CreateWidget<UImage>(GetWorld(), "PlayLobbyUI");
 	PlayLobbyUI->AddToViewPort(10);
@@ -337,6 +338,63 @@ void APlayLobby::BeginPlay()
 	Teamtyp = dynamic_cast<ACAGameMode*>(GetWorld()->GetGameMode().get());
 }
 
+void APlayLobby::SettingUIPlayerName(std::vector<std::string> _Names)
+{
+
+	if (8 != _Names.size())
+	{
+		MsgBoxAssert("8개의 스프라이드 데이터가 아닙니다.");
+	}
+
+	for (size_t i = 0; i < _Names.size(); i++)
+	{
+		std::string Name = _Names[i];
+
+		if (Name == "None")
+		{
+			continue;
+		}
+
+		if (nullptr == LobbyPlayer[i])
+		{
+			LobbyPlayer[i] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
+			LobbyPlayer[i]->AddToViewPort(15);
+			if (i <= 3)
+			{
+				LobbyPlayer[i]->SetPosition(FVector(static_cast<float>(-335.f + i * 105), 160.0f, 100.0f));
+
+			}
+			else
+			{
+				LobbyPlayer[i]->SetPosition(FVector(static_cast<float>(-755.f + i * 105), 10.0f, 100.0f));
+			}
+		}
+
+
+		LobbyPlayer[i]->SetSprite(_Names[i]);
+		LobbyPlayer[i]->SetAutoSize(1.2f, true);
+	}
+}
+
+void APlayLobby::NewPlayer()
+{
+	//PlayerCount
+	Cha_Count = Create_Count;
+	LobbyPlayer[Cha_Count] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
+	LobbyPlayer[Cha_Count]->AddToViewPort(15);
+	LobbyPlayer[Cha_Count]->SetSprite("Room_Charcater_Bazzi.png");
+	LobbyPlayer[Cha_Count]->SetAutoSize(1.2f, true);
+	if (Cha_Count <= 3)
+	{
+		LobbyPlayer[Create_Count]->SetPosition(FVector(static_cast<float>(-335 + Create_Count * 105), 160.0f, 100.0f));
+	}
+	else
+	{
+		LobbyPlayer[Create_Count]->SetPosition(FVector(static_cast<float>(-755 + Create_Count * 105), 10.0f, 100.0f));
+	}
+	Create_Count++;
+}
+
 void APlayLobby::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
@@ -355,64 +413,7 @@ void APlayLobby::Tick(float _DeltaTime)
 	StartBegin();
 
 	//맵 선택 버튼
-	MapSelectBegin();
-
-	if (IsGetSessionToken == true)
-	{
-		PlayerCount = MySessionToken;
-		 
-		if (PlayerCount == 0 && Create == false)
-		{
-			LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
-			LobbyPlayer[PlayerCount]->AddToViewPort(15);
-			LobbyPlayer[PlayerCount]->SetSprite("Room_Charcater_Bazzi.png");
-			LobbyPlayer[PlayerCount]->SetAutoSize(1.2f, true);
-			LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-335 + PlayerCount * 105), 160.0f, 100.0f));
-			SetObjectToken(PlayerCount + 110000);
-			USendPacketManager::SendLPlayerPacket(this, "Room_Charcater_Bazzi.png", 1);
-			Create = true;
-		}
-		else if (PlayerCount >= 1 && Create == false)
-		{
-			LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
-			LobbyPlayer[PlayerCount]->AddToViewPort(15);
-			LobbyPlayer[PlayerCount]->SetSprite("Room_Charcater_Bazzi.png");
-			LobbyPlayer[PlayerCount]->SetAutoSize(1.2f, true);
-			if (PlayerCount<=3)
-			{
-				LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-335 + PlayerCount * 105), 160.0f, 100.0f));
-			}
-			else
-			{
-				LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-755 + PlayerCount * 105), 10.0f, 100.0f));				
-			}
-
-			SetObjectToken(PlayerCount + 110000);
-			USendPacketManager::SendLPlayerPacket(this, "Room_Charcater_Bazzi.png", 1);
-			Create = true;
-			IsClient = true;
-		}
-
-		if (IsClient == false)
-		{
-			for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
-			{
-				if (LobbyPlayer[SessionToken] == nullptr)
-				{		
-					LobbyPlayer[SessionToken] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
-					LobbyPlayer[SessionToken]->AddToViewPort(15);
-					LobbyPlayer[SessionToken]->SetSprite("Room_Charcater_Bazzi.png");
-					LobbyPlayer[SessionToken]->SetAutoSize(1.2f, true);
-					LobbyPlayer[SessionToken]->SetPosition(FVector(static_cast<float>(-335 + PlayerCount * 105), 160.0f, 100.0f));
-					LobbyPlayer[SessionToken]->SetActive(false);
-				}
-				SetObjectToken(SessionToken + 110000);			
-				USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[SessionToken]->CurInfo.Texture->GetName(), 1, SessionToken);
-				continue;
-			}
-		}
-		IsGetSessionToken = false;
-	}
+	MapSelectBegin();	
 }
 
 
@@ -960,35 +961,17 @@ void APlayLobby::CharacterBegin()
 				{
 					IsSelectSharacter = true;
 					SwapSelectCharacter(DaoBT);
-					if (IsClient == false)
+					LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Dao.png");
+
+					if (nullptr != ChracterChangeLogic)
 					{
-						LobbyPlayer[0]->SetSprite("Room_Charcater_Dao.png");
-						std::string asd = LobbyPlayer[PlayerCount]->GetName();
-						int a = 0;
+						ChracterChangeLogic(this, ChangeUIIndex, "Room_Charcater_Dao.png");
 					}
-					else
-					{
-						LobbyPlayer[PlayerCount]->SetSprite("Room_Charcater_Dao.png");
-					}
+					int a = 0;
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Dao.bmp");
 					checkUI->SetPosition({ 222.0f,183.0f });
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Dao;
-
-					if (IsClient == true)
-					{
-						SetObjectToken(PlayerCount + 110000);
-						USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
-					}
-					else
-					{
-						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
-						{
-							SetObjectToken(SessionToken + 110000);
-							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[SessionToken]->CurInfo.Texture->GetName(), 1, SessionToken);
-							continue;
-						}
-					}
 				}
 			}
 			});
@@ -1019,33 +1002,16 @@ void APlayLobby::CharacterBegin()
 				{
 					IsSelectSharacter = true;
 					SwapSelectCharacter(MaridBT);
-					if (IsClient == false)
+					LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Marid.png");
+					if (nullptr != ChracterChangeLogic)
 					{
-						LobbyPlayer[0]->SetSprite("Room_Charcater_Marid.png");
+						ChracterChangeLogic(this, ChangeUIIndex, "Room_Charcater_Marid.png");
 					}
-					else
-					{
-						LobbyPlayer[PlayerCount]->SetSprite("Room_Charcater_Marid.png");
-					}
+					int a = 0;
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Marid.bmp");
 					checkUI->SetPosition({ 222.0f,133.0f });
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Marid;
-
-					if (IsClient == true)
-					{
-						SetObjectToken(PlayerCount + 110000);
-						USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
-					}
-					else
-					{
-						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
-						{
-							SetObjectToken(SessionToken + 110000);
-							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[SessionToken]->CurInfo.Texture->GetName(), 1, SessionToken);
-							continue;
-						}
-					}
 				}
 			}
 			});
@@ -1075,33 +1041,17 @@ void APlayLobby::CharacterBegin()
 				{
 					IsSelectSharacter = true;
 					SwapSelectCharacter(BazziBT);
-					if (IsClient == false)
+					LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Bazzi.png");
+
+					if (nullptr != ChracterChangeLogic)
 					{
-						LobbyPlayer[0]->SetSprite("Room_Charcater_Bazzi.png");
+						ChracterChangeLogic(this, ChangeUIIndex, "Room_Charcater_Bazzi.png");
 					}
-					else
-					{
-						LobbyPlayer[PlayerCount]->SetSprite("Room_Charcater_Bazzi.png");
-					}			
+					int a = 0;
 					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Bazzi.bmp");
 					checkUI->SetPosition({ 292.0f,133.0f });
 					checkUI->SetActive(true);
-					ConstValue::MainPlayerCharacterType = ECharacterType::Bazzi;
-
-					if (IsClient == true)
-					{
-						SetObjectToken(PlayerCount + 110000);
-						USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
-					}
-					else
-					{
-						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
-						{
-							SetObjectToken(SessionToken + 110000);
-							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[SessionToken]->CurInfo.Texture->GetName(), 1, SessionToken);
-							continue;
-						}
-					}
+					ConstValue::MainPlayerCharacterType = ECharacterType::Bazzi;				
 				}
 			}
 		});

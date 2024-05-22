@@ -19,7 +19,9 @@ class AServerGameMode : public ACAGameMode
 {
 	GENERATED_BODY(ACAGameMode)
 
+
 public:
+	static ENetType NetType;
 	// constrcuter destructer
 	AServerGameMode();
 	~AServerGameMode();

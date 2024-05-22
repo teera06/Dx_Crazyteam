@@ -308,6 +308,20 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 		MapStatus[_Y][_X] = MapObj;
 	}
 
+	if (MapStatus[_Y][_X] != nullptr && MapStatus[_Y][_X]->GetType() != EMapObjectType::Bush)
+	{
+		int Random = UEngineRandom::MainRandom.RandomInt(1, 100);
+		if (Random <= 50)
+		{
+			int Min = static_cast<int>(EItemType::ItemBubble);
+			int Max = static_cast<int>(EItemType::ItemNiddle);
+
+			int ItemRandom = UEngineRandom::MainRandom.RandomInt(Min, Max);
+
+			MapObj->SetPossessItem(static_cast<EItemType>(ItemRandom));
+		}
+	}
+
 
 	return MapObj;
 }
@@ -526,6 +540,11 @@ void ABaseMap::MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX,
 			PushMapObject(_Obj, _NY, _NX);
 			MapStatus[_PY][_PX] = nullptr;
 		}
+		else if (MapStatus[_NY][_NX]->GetType() == EMapObjectType::Water)
+		{
+			PushMapObject(_Obj, _NY, _NX);
+			MapStatus[_PY][_PX] = nullptr;
+		}
 	}
 }
 
@@ -608,8 +627,10 @@ void ABaseMap::DestroyMapObject(int _Y, int _X)
 	//default:
 	//	break;
 	//}
-	
-	MapStatus[_Y][_X]->Destroy();
+	if (MapStatus[_Y][_X] != nullptr)
+	{
+		MapStatus[_Y][_X]->Destroy();
+	}
 	MapStatus[_Y][_X] = nullptr;
 }
 

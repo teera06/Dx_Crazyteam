@@ -6,6 +6,7 @@
 #include "OtherLobbyPlayer.h"
 #include "Packets.h"
 #include <EngineCore/Image.h>
+#include "ServerGameMode.h"
 
 
 ALobbyMainMode::ALobbyMainMode()
@@ -22,6 +23,9 @@ void ALobbyMainMode::BeginPlay()
 
 	PlayLobby = GetWorld()->SpawnActor<APlayLobby>("Lobby");
 	GetWorld()->SpawnActor<AFontActor>("FontActor");
+
+	// 나 로비 들어왔어 샌드
+
 }
 
 
@@ -52,24 +56,152 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 	{
 		ClientPacketInit(UGame_Core::Net->Dispatcher);
 	}
+
+
+	if (AServerGameMode::NetType == ENetType::Server)
+	{
+		PlayLobby->NewPlayer();
+		PlayLobby->ChangeUIIndex = 0;
+
+		// 방장 0번
+
+		PlayLobby->ChracterChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
+			{
+				//_Lobby->
+				std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
+				//NewPlayer->NewPlayer = true;
+				std::vector<std::string> SetSpriteNames = NewPlayer->SpriteNames;
+				std::vector<UImage*>& PlayerUIImages = _Lobby->LobbyPlayer;
+				//PlayerUIImages[_Index]->SetSprite(_SpriteName);
+				for (size_t i = 0; i < PlayerUIImages.size(); i++)
+				{
+					if (nullptr == PlayerUIImages[i])
+					{
+						NewPlayer->SpriteNames.push_back("None");
+						continue;
+					}
+					if (i == _Index)
+					{
+						std::string SetName = _SpriteName.data();
+						NewPlayer->SpriteNames.push_back(SetName);
+					}
+					else
+					{
+						NewPlayer->SpriteNames.push_back(_Lobby->LobbyPlayer[i]->CurInfo.Texture->GetName());
+					}
+
+				}
+				UGame_Core::Net->Send(NewPlayer);
+			};
+	}
+	else if (AServerGameMode::NetType == ENetType::Client)
+	{
+
+		PlayLobby->ChracterChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
+			{
+				//_Lobby->
+				std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
+				//NewPlayer->NewPlayer = true;
+				std::vector<std::string> SetSpriteNames = NewPlayer->SpriteNames;
+
+
+				std::vector<UImage*>& PlayerUIImages = _Lobby->LobbyPlayer;
+				for (size_t i = 0; i < PlayerUIImages.size(); i++)
+				{
+					if (nullptr == PlayerUIImages[i])
+					{
+						NewPlayer->SpriteNames.push_back("None");
+						continue;
+					}
+					if (i == _Index)
+					{
+						std::string SetName = _SpriteName.data();
+						NewPlayer->SpriteNames.push_back(SetName);
+					}
+					else
+					{
+						NewPlayer->SpriteNames.push_back(_Lobby->LobbyPlayer[i]->CurInfo.Texture->GetName());
+					}
+				}
+				UGame_Core::Net->Send(NewPlayer);
+			};
+
+		PlayLobby->ChangeUIIndex = UGame_Core::Net->GetSessionToken();
+		// 이미 네트워크 연결이 되어있기 때문에
+		// 클라이언트는 그냥 서버한테 쏠거야.
+		std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
+		NewPlayer->NewPlayer = true;
+		UGame_Core::Net->Send(NewPlayer);
+	}
+	else
+	{
+		MsgBoxAssert("말도 안되는 상황임");
+	}
 }
 
 void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 {
 	Dis.AddHandler<ULobbyPlayerUpdatePacket>([=](std::shared_ptr<ULobbyPlayerUpdatePacket> _Packet)
 		{
-			//UGame_Core::Net->Send(_Packet);
-			PlayLobby->SetMySessionToken(_Packet->GetSessionToken());
+			GetWorld()->PushFunction([=]
+				{
+					if (true == _Packet->NewPlayer)
+					{
+						PlayLobby->NewPlayer();
+
+						if (8 != PlayLobby->LobbyPlayer.size())
+						{
+							MsgBoxAssert("UI가 이상함");
+						}
+
+						std::vector<UImage*>& PlayerUIImages = PlayLobby->LobbyPlayer;
+
+						std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
+
+						for (size_t i = 0; i < PlayerUIImages.size(); i++)
+						{
+							if (nullptr == PlayerUIImages[i])
+							{
+								NewPlayer->SpriteNames.push_back("None");
+								continue;
+							}
+
+							UImage* LobbyPlayerImage = PlayerUIImages[i];
+							NewPlayer->SpriteNames.push_back(LobbyPlayerImage->CurInfo.Texture->GetName());
+						}
+
+						UGame_Core::Net->Send(NewPlayer);
+					}
+					else
+					{
+						std::vector<UImage*>& PlayerUIImages = PlayLobby->LobbyPlayer;
+
+						std::string name = _Packet->SpriteNames[_Packet->GetSessionToken()];
+						int a = _Packet->GetSessionToken();
+						PlayerUIImages[_Packet->GetSessionToken()]->SetSprite(_Packet->SpriteNames[_Packet->GetSessionToken()]);
+
+						std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
+
+						for (size_t i = 0; i < PlayerUIImages.size(); i++)
+						{
+							if (nullptr == PlayerUIImages[i])
+							{
+								NewPlayer->SpriteNames.push_back("None");
+								continue;
+							}
+
+							
+							if (i != 0)
+							{
+								PlayerUIImages[i]->SetSprite(_Packet->SpriteNames[i]);
+							}
 	
-			AOtherLobbyPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherLobbyPlayer>(_Packet->GetObjectToken());
-			if (nullptr == OtherPlayer)
-			{
-				OtherPlayer = this->GetWorld()->SpawnActor<AOtherLobbyPlayer>("OtherLobbyPlayer", 0).get();
-				OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
-				OtherPlayer->MySessionToken = _Packet->GetObjectToken() - 110000;
-			}
-			OtherPlayer->PushProtocol(_Packet);
-			
+							NewPlayer->SpriteNames.push_back(_Packet->SpriteNames[i]);
+						}
+
+						UGame_Core::Net->Send(NewPlayer);
+					}					
+				});			
 		});
 }
 
@@ -77,18 +209,9 @@ void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
 {
 	Dis.AddHandler<ULobbyPlayerUpdatePacket>([=](std::shared_ptr<ULobbyPlayerUpdatePacket> _Packet)
 		{
-			UNetObject* OtherPlayer = UNetObject::GetNetObject<UNetObject>(_Packet->GetObjectToken());
-			if (nullptr == OtherPlayer)
-			{
-				if (PlayLobby->LobbyPlayer[_Packet->Token] == nullptr)
+			GetWorld()->PushFunction([=]
 				{
-					UImage* Sprite = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
-					PlayLobby->LobbyPlayer[_Packet->Token] = Sprite;
-					Sprite->SetActive(false);
-					OtherPlayer = this->GetWorld()->SpawnActor<AOtherLobbyPlayer>("OtherLobbyPlayer", 0).get();
-				}
-			}
-			OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
-			OtherPlayer->PushProtocol(_Packet);
+					PlayLobby->SettingUIPlayerName(_Packet->SpriteNames);
+				});
 		});
 }

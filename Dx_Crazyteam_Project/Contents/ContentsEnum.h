@@ -64,8 +64,8 @@ enum class EItemType
 	ItemRoller,	// 속도 + 1 아이템
 	ItemOwl,    // 속도 레벨6 아이템
 	ItemTurtle,	// 속도 레벨1 아이템	
-	ItemShoes,  // 물풍선 kick 아이템
 	ItemNiddle, // Trap 상태에서 Rescue 만들어주는 아이템
+	ItemShoes,  // 물풍선 kick 아이템
 };
 
 

@@ -28,6 +28,7 @@ private:
 
 private:
 	void SpawnItem();
+	void SpawnItem2();
 
 };
 
