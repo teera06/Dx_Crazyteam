@@ -524,6 +524,11 @@ void ABaseMap::MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX,
 			PushMapObject(_Obj, _NY, _NX);
 			MapStatus[_PY][_PX] = nullptr;
 		}
+		else if (MapStatus[_NY][_NX]->GetType() == EMapObjectType::Water)
+		{
+			PushMapObject(_Obj, _NY, _NX);
+			MapStatus[_PY][_PX] = nullptr;
+		}
 	}
 }
 

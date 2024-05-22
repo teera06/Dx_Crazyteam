@@ -21,8 +21,6 @@ void UMoveObject::MoveSetOwner(ABlock* _Owner)
 
 		if (GetOwner()->GetIsPush()) return;
 
-		POINT PlayerIndex = PlayerDirCheck();
-
 		if (GetOwner()->GetType() == EMapObjectType::Bush)
 		{
 			ABush* Bush = dynamic_cast<ABush*>(GetOwner());
@@ -44,33 +42,4 @@ void UMoveObject::MoveSetOwner(ABlock* _Owner)
 		};
 }
 
-POINT UMoveObject::PlayerDirCheck()
-{
-	POINT PlayerIndex = GetOwner()->GetGameMode()->GetPlayer()->GetPlayerInfo()->CurIndex;
-
-	if (PlayerIndex.x == GetOwner()->GetCurPos().x)
-	{
-		if (PlayerIndex.y < GetOwner()->GetCurPos().y)
-		{
-			GetOwner()->SetPushDir(ECADir::Down);
-		}
-		else if(PlayerIndex.y > GetOwner()->GetCurPos().y)
-		{
-			GetOwner()->SetPushDir(ECADir::Up);
-		}
-	}
-	else if (PlayerIndex.y == GetOwner()->GetCurPos().y)
-	{
-		if (PlayerIndex.x < GetOwner()->GetCurPos().x)
-		{
-			GetOwner()->SetPushDir(ECADir::Right);
-		}
-		else if(PlayerIndex.x > GetOwner()->GetCurPos().x)
-		{
-			GetOwner()->SetPushDir(ECADir::Left);
-		}
-	}
-
-	return PlayerIndex;
-}
 
