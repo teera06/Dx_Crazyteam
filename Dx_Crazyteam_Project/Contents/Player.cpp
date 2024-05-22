@@ -16,6 +16,8 @@ bool APlayer::SetWater_Token = false;
 
 APlayer::APlayer()
 {
+	SoloArrowRenderer = CreateDefaultSubObject<USpriteRenderer>("SoloArrowRenderer");
+	SoloArrowRenderer->SetupAttachment(Root);
 }
 
 APlayer::~APlayer()
@@ -32,19 +34,25 @@ void APlayer::BeginPlay()
 	Renderer->SetAutoSize(0.05f, true);
 	SetActorScale3D(FVector(20, 20, 1));
 
+
+	SoloArrowRenderer->SetSprite("solo_player.png");
+	SoloArrowRenderer->SetOrder(ERenderOrder::UI);
+	SoloArrowRenderer->SetAutoSize(0.05f, true);
+	SoloArrowRenderer->SetPosition(FVector(0, 4, 0));
+
 	Shadow = GetWorld()->SpawnActor<APlayer_Shadow>("Player_Shadow");
 	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 1));
 
 	Info = std::make_shared<PlayerInfo>();
 
-	PlayerNameUI = CreateWidget<UTextWidget>(GetWorld(), "PlayerName");
-	PlayerNameUI->SetFont("¸¼Àº °íµñ");
-	PlayerNameUI->SetText(GetPlayerName());
-	PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
-	PlayerNameUI->SetScale(10.0f);
-	PlayerNameUI->SetColor(Color8Bit::Black);
-	PlayerNameUI->SetOrder(1);
-	PlayerNameUI->AddToViewPort(11);
+	//PlayerNameUI = CreateWidget<UTextWidget>(GetWorld(), "PlayerName");
+	//PlayerNameUI->SetFont("¸¼Àº °íµñ");
+	//PlayerNameUI->SetText(GetPlayerName());
+	//PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
+	//PlayerNameUI->SetScale(10.0f);
+	//PlayerNameUI->SetColor(Color8Bit::Black);
+	//PlayerNameUI->SetOrder(1);
+	//PlayerNameUI->AddToViewPort(11);
 
 	MainPlayerSetting();
 	SetCharacterType(ECharacterType::Random);
@@ -79,7 +87,7 @@ void APlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	//PlayerName->GetNameText()->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
-	PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
+	//PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
 
 	if (ConstValue::MainPlayerCharacterType != Info->MyType || ConstValue::MainPlayerTeamType != Info->Team)
 	{

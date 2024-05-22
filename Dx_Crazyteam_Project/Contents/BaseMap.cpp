@@ -606,8 +606,10 @@ void ABaseMap::DestroyMapObject(int _Y, int _X)
 	//default:
 	//	break;
 	//}
-	
-	MapStatus[_Y][_X]->Destroy();
+	if (MapStatus[_Y][_X] != nullptr)
+	{
+		MapStatus[_Y][_X]->Destroy();
+	}
 	MapStatus[_Y][_X] = nullptr;
 }
 
