@@ -16,6 +16,8 @@ public:
 	ATestGameMode& operator=(const ATestGameMode& _Other) = delete; // 디폴트 대입 연산자
 	ATestGameMode& operator=(ATestGameMode&& _Other) noexcept = delete;
 
+
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

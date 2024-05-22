@@ -70,6 +70,8 @@ void ATestGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
+
+
 #ifdef _DEBUG
 	if (nullptr == MapDebugWindow)
 	{
