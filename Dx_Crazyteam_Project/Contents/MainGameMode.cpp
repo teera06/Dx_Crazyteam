@@ -75,6 +75,10 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				//UGame_Core::Net = std::make_shared<UEngineServer>();
 				//UGame_Core::Net->ServerOpen(30000, 512);
 
+			MainPlayer = GetWorld()->SpawnActor<APlayer>("Player1", 0);
+			MainPlayer->SetCurGameMode(this);
+			SetMainPlayer(MainPlayer);
+
 				// 여기에서 메인 플레이어한테 번호를 하나 줄겁니다.
 				MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
 
@@ -93,6 +97,11 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 
 				//UGame_Core::Net->SetTokenPacketFunction([=](USessionTokenPacket* _Token)
 					//{
+
+			MainPlayer = GetWorld()->SpawnActor<APlayer>("Player1", 0);
+			MainPlayer->SetCurGameMode(this);
+			SetMainPlayer(MainPlayer);
+
 					MainPlayer->SetObjectToken(UGame_Core::Net->GetSessionToken() * 1000);
 
 					//	//타임 유아이
@@ -136,9 +145,9 @@ void AMainGameMode::GameModeActorInit()
 	Village->SetCurGameMode(this);
 
 
-	MainPlayer = GetWorld()->SpawnActor<APlayer>("Player1", 0);
-	MainPlayer->SetCurGameMode(this);
-	SetMainPlayer(MainPlayer);
+	//MainPlayer = GetWorld()->SpawnActor<APlayer>("Player1", 0);
+	//MainPlayer->SetCurGameMode(this);
+	//SetMainPlayer(MainPlayer);
 
 
 	{//UI
