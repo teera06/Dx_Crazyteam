@@ -49,10 +49,7 @@ public:
 		return MoveDir;
 	}
 
-	void SetPossessItem(EItemType _Item)
-	{
-		PossessItem = _Item;
-	}
+	
 
 	void MinusHP()
 	{
@@ -118,7 +115,7 @@ private:
 	ECADir MoveDir = ECADir::None;
 	POINT PlayerIndex = { 0,0 };
 
-	EItemType PossessItem = EItemType::None;
+	
 
 	
 	
