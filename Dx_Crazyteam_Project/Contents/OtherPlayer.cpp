@@ -69,6 +69,7 @@ void AOtherPlayer::Tick(float _DeltaTime)
 				Renderer->SetActive(ActorUpdatePacket->RendererIsActive);
 				Renderer->SetSprite(SpriteNames, AnimationInFO);
 				Renderer->SetAlpha(ActorUpdatePacket->SpriteAlpha);
+				Renderer->SetPosition(ActorUpdatePacket->RendererPos);
 			}
 
 			break;
