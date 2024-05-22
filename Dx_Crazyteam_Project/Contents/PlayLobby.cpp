@@ -975,15 +975,7 @@ void APlayLobby::CharacterBegin()
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Dao;
 
-					if (IsClient == false)
-					{
-						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
-						{		
-							SetObjectToken(SessionToken + 110000);
-							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
-						}
-					}
-					else if (IsClient == true)
+					if (IsClient == true)
 					{
 						SetObjectToken(PlayerCount + 110000);
 						USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
@@ -1031,15 +1023,7 @@ void APlayLobby::CharacterBegin()
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Marid;
 
-					if (IsClient == false)
-					{
-						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
-						{
-							SetObjectToken(SessionToken + 110000);
-							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
-						}
-					}
-					else if (IsClient == true)
+					if (IsClient == true)
 					{
 						SetObjectToken(PlayerCount + 110000);
 						USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
@@ -1086,22 +1070,24 @@ void APlayLobby::CharacterBegin()
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Bazzi;
 
-					if (IsClient == false)
-					{
-						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
-						{
-							SetObjectToken(SessionToken + 110000);
-							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
-						}
-					}
-					else if (IsClient == true)
+					if (IsClient == true)
 					{
 						SetObjectToken(PlayerCount + 110000);
 						USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
 					}
 				}
 			}
-			});
+		});
+
+		if (IsClient == false)
+		{
+			for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
+			{
+				SetObjectToken(SessionToken + 110000);
+				USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
+			}
+		}
+
 	}
 }
 
