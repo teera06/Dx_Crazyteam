@@ -365,7 +365,7 @@ void APlayLobby::Tick(float _DeltaTime)
 	if (IsGetSessionToken == true)
 	{
 		PlayerCount = MySessionToken;
-
+		 
 		if (PlayerCount == 0 && Create == false)
 		{
 			LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
