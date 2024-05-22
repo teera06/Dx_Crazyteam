@@ -35,4 +35,6 @@ public:
 	static EMap SelectedMap;
 	static ETeamType MainPlayerTeamType;
 	static ECharacterType MainPlayerCharacterType;
+
+	static const FVector CameraPos;
 };

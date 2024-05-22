@@ -10,6 +10,7 @@ ABush::ABush()
 
 ABush::~ABush() 
 {
+
 }
 
 void ABush::SetPossessBlock(std::shared_ptr<AMapObject> _Block)
@@ -34,6 +35,7 @@ void ABush::BeginPlay()
 	MoveSetOwner(this);
 	
 	SetType(EMapObjectType::Bush);
+	SetPossessItem(EItemType::None);
 }
 
 void ABush::Tick(float _DeltaTime)

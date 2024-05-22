@@ -109,6 +109,11 @@ public:
 		ColorData.AlphaColor.A = _Alpha;
 	}
 
+	float GetAlpha()
+	{
+		return ColorData.AlphaColor.A;
+	}
+
 	void SetPivot(EPivot _Pivot)
 	{
 		Pivot = _Pivot;

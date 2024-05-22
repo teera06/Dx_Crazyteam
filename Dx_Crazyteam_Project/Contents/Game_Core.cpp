@@ -205,7 +205,7 @@ void UGame_Core::SoundLoad()
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("GameResource");
 		Dir.Move("Sound");
-		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".wav" });
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".wav", ".mp3"}, true);
 		for (UEngineFile& File : Files)
 		{
 			File.Open(EIOOpenMode::Read, EIODataType::Binary);
@@ -214,6 +214,7 @@ void UGame_Core::SoundLoad()
 			File.Read(Arr, 100);
 
 			UEngineSound::Load(File.GetFullPath());
+
 		}
 	}
 }

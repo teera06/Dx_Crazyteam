@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineBase/NetObject.h>
 #include <EngineCore/DefaultSceneComponent.h>
+#include <EngineCore/TextWidget.h>
 #include "ContentsEnum.h"
 #include "CAObject.h"
 #include "NetInterface.h"
@@ -11,10 +12,12 @@ class PlayerInfo
 	friend APlayer;
 
 public:
+	std::string PlayerName = "MyName";
 	POINT CurIndex = POINT(0, 0);
 	ECharacterType MyType = ECharacterType::Bazzi;
 	ETeamType Team = ETeamType::ATeam;
 	EPlayerRideType RideType = EPlayerRideType::None;
+	bool CanKick = false;	// Shoes 아이템 먹으면 물풍선 찰 수 있음
 
 	int Speed = -1;					// 속도 단계 (1씩 증가시켜주면 속도 계수와 곱해서 적용됨)
 	int WBCount = -1;				// 물폭탄 개수	
@@ -26,6 +29,7 @@ public:
 };
 
 class APlayer_Shadow;
+class APlayer_Name;
 
 class APlayer : public ACAObject
 {
@@ -71,6 +75,26 @@ public:
 	void SetCtrlItem(EItemType _Item)
 	{
 		CtrlItem = _Item;
+	}
+
+	void SetCanKick(bool _CanKick)
+	{
+		Info->CanKick = _CanKick;
+	}
+
+	void SetPlayerName(std::string_view _Name)
+	{
+		Info->PlayerName = _Name;
+	}
+
+	std::string GetPlayerName()
+	{
+		return Info->PlayerName;
+	}
+
+	bool GetPlayerCanKick()
+	{
+		return Info->CanKick;
 	}
 
 	bool GetIsPlayerTrap()
@@ -173,7 +197,7 @@ private:
 	std::string GetAnimationName(std::string_view _StateName);
 	void SettingZValue();
 	void WaterBombUpdate();
-	void MoveUpdate(float _DeltaTime);
+	void MoveUpdate(float _DeltaTime);	// 움직일 양 계산하는 함수
 
 	FVector Dir = FVector::Down;
 	float AnimationInter = 0.1f;
@@ -195,6 +219,8 @@ private:
 	int RideAniTwinkleActive = 0;
 
 	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
+	//std::shared_ptr<APlayer_Name> PlayerName = nullptr;
+	UTextWidget* PlayerNameUI = nullptr;
 
 	bool IsSendPacket = true;
 

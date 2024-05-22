@@ -32,6 +32,7 @@ void AItemOwl::Tick(float _DeltaTime)
 
 void AItemOwl::Action()
 {
+	UEngineSound::SoundPlay("ItemEat.wav");
 	//플레이어 상태변경
 	EPlayerRideType Type = GetGameMode()->GetPlayer()->GetPlayerInfo()->RideType;
 	FVector ItemCurPos = GetActorLocation();

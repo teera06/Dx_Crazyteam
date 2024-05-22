@@ -50,7 +50,7 @@ public:
 			return nullptr;
 		}
 
-		return dynamic_cast<ConvertType*>(AllNetObject[_ObjectToken]);
+		return dynamic_cast<ConvertType*>(AllNetObject[_ObjectToken]);;
 	}
 
 	// Net오브젝트가 만들어지면 딱 1번만 되어야 한다.

@@ -30,6 +30,8 @@ void AItemBubble::Tick(float _DeltaTime)
 
 void AItemBubble::Action()
 {
+	UEngineSound::SoundPlay("ItemEat.wav");
+
 	int iWBCount = GetGameMode()->GetPlayer()->GetPlayerInfo()->WBCount;
 	int iMaxCount = GetGameMode()->GetPlayer()->GetPlayerInfo()->MaxWBCount;
 

@@ -25,6 +25,7 @@ public:
 protected:
 
 private:
-
+	// Test ÅäÅ«
+	static int MapObjectToken;
 };
 

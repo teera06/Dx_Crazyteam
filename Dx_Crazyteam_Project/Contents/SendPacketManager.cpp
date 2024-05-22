@@ -6,6 +6,8 @@
 #include "Game_Core.h"
 
 
+int USendPacketManager::MapObjectToken = 9000;
+
 USendPacketManager::USendPacketManager()
 {
 }
@@ -37,7 +39,8 @@ void USendPacketManager::SendMapObjectSpawnPacket(std::shared_ptr<AMapObject> _N
 
 	if (EMapObject::WaterBomb != _MapObjectType && EMapObject::Water != _MapObjectType)
 	{
-		_NetObject->SetObjectToken(UNetObject::GetNewObjectToken());
+		//_NetObject->SetObjectToken(UNetObject::GetNewObjectToken());
+		_NetObject->SetObjectToken(MapObjectToken++);
 	}
 
 	std::shared_ptr<UMapObjectUpdatePacket> Packet = std::make_shared<UMapObjectUpdatePacket>();

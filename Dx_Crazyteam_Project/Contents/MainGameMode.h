@@ -7,6 +7,7 @@
 
 
 class APlayer;
+class APlayer_Name;
 class AVillage;
 class ACamp;
 class UTextWidget;
@@ -42,6 +43,7 @@ private:
 	UTextWidget* ShowText = nullptr;
 	std::shared_ptr<AVillage> Village = nullptr;
 	std::shared_ptr<APlayer> Player1 = nullptr;
+	std::shared_ptr<APlayer_Name> PlayerName = nullptr;
 
 };
 

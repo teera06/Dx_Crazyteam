@@ -79,7 +79,10 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 			if (CheckPoint.x != PlayerPoint.x ||
 				CheckPoint.y != PlayerPoint.y)
 			{
-				MapStatus[CheckPoint.y][CheckPoint.x]->PlayerInteract();
+				if (Player->GetPlayerCanKick())
+				{
+					MapStatus[CheckPoint.y][CheckPoint.x]->PlayerInteract();
+				}
 
 				return false;
 			}
@@ -122,7 +125,21 @@ bool ABaseMap::IsMove(FVector _CheckPos)
 			}
 			else if (Bush->GetPossessBlock()->GetType() == EMapObjectType::WaterBalloon)
 			{
+				std::shared_ptr<APlayer> Player = GetGameMode()->GetPlayer();
+				POINT PlayerPoint = Player->GetPlayerInfo()->CurIndex;
+				if (CheckPoint.x == PlayerPoint.x &&
+					CheckPoint.y == PlayerPoint.y)
+				{
+					return true;
+				}
+
+
 				return false;
+			}
+			else if (Bush->GetPossessBlock()->GetType() == EMapObjectType::Item)
+			{
+				Bush->GetPossessBlock()->PlayerInteract();
+				return true;
 			}
 
 			FVector TilePosition = Bush->GetPossessBlock()->GetActorLocation();
@@ -180,7 +197,10 @@ bool ABaseMap::IsOnWater(FVector _PlayerPos)
 
 	EMapObjectType Type = MapStatus[CheckPos.y][CheckPos.x]->GetType();
 	
-	if (Type == EMapObjectType::Water) return true;
+	if (Type == EMapObjectType::Water)
+	{
+		return true;
+	}
 	else return false;
 }
 

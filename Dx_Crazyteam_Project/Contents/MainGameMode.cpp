@@ -8,6 +8,7 @@
 #include "Village.h"
 #include "Camp.h"
 #include "Player.h"
+#include "Player_Name.h"
 
 #include "ItemBubble.h"
 #include "ItemRoller.h"
@@ -85,7 +86,6 @@ void AMainGameMode::GameModeActorInit()
 	Player1 = GetWorld()->SpawnActor<APlayer>("Player1", 0);
 	Player1->SetCurGameMode(this);
 	SetMainPlayer(Player1);
-
 
 
 	{//UI

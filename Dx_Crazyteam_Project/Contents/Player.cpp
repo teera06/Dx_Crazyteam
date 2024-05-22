@@ -5,6 +5,7 @@
 #include "Game_Core.h"
 #include "Packets.h"
 #include "Player_Shadow.h"
+#include "Player_Name.h"
 #include "BaseMap.h"
 #include "CAGameMode.h"
 #include <EngineBase/EngineRandom.h>
@@ -35,6 +36,15 @@ void APlayer::BeginPlay()
 	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 1));
 
 	Info = std::make_shared<PlayerInfo>();
+
+	PlayerNameUI = CreateWidget<UTextWidget>(GetWorld(), "PlayerName");
+	PlayerNameUI->SetFont("맑은 고딕");
+	PlayerNameUI->SetText(GetPlayerName());
+	PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
+	PlayerNameUI->SetScale(10.0f);
+	PlayerNameUI->SetColor(Color8Bit::Black);
+	PlayerNameUI->SetOrder(1);
+	PlayerNameUI->AddToViewPort(11);
 
 	MainPlayerSetting();
 	SetCharacterType(ECharacterType::Random);
@@ -68,6 +78,9 @@ void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	//PlayerName->GetNameText()->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
+	PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
+
 	if (ConstValue::MainPlayerCharacterType != Info->MyType || ConstValue::MainPlayerTeamType != Info->Team)
 	{
 		// 변화가 있으면 다시 시작
@@ -77,9 +90,6 @@ void APlayer::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 
 	Info->CurIndex = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
-	
-	//Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 0));
-
 
 	if (true == GetGameMode()->GetCurMap()->IsOnBush(GetActorLocation()))
 	{

@@ -37,6 +37,8 @@ public:
 		_Ser << ObjectType;
 		_Ser << SpriteName;
 		_Ser << IsDestroy;
+		_Ser << SpriteAlpha;
+		_Ser << RendererIsActive;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -47,6 +49,8 @@ public:
 		_Ser >> ObjectType;
 		_Ser >> SpriteName;
 		_Ser >> IsDestroy;
+		_Ser >> SpriteAlpha;
+		_Ser >> RendererIsActive;
 	}
 
 public:
@@ -55,6 +59,8 @@ public:
 	int ObjectType = 0;
 	bool IsDestroy = true;
 	std::string SpriteName;
+	float SpriteAlpha = 1.0f;
+	bool RendererIsActive = true;
 };
 
 class UUIUpdatePacket : public UEngineProtocol

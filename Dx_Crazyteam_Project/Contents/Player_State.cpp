@@ -339,6 +339,8 @@ void APlayer::TrapStart()
 	TrapDir = FVector::Up;
 	TrapMoveTime = 1.f;
 	TrapToDieTime = 5.f;
+
+	UEngineSound::SoundPlay("Damaged.wav");
 }
 
 
@@ -452,6 +454,7 @@ void APlayer::Trap(float _DeltaTime)
 void APlayer::RescueStart()
 {
 	Renderer->ChangeAnimation(GetAnimationName("Rescue"));
+	UEngineSound::SoundPlay("Revival.mp3");
 }
 
 void APlayer::Rescue(float _DeltaTime)
@@ -469,6 +472,8 @@ void APlayer::DieStart()
 {
 	Renderer->ChangeAnimation(GetAnimationName("Die"));
 	Shadow->ShadowRenderOff();
+
+	UEngineSound::SoundPlay("Die.mp3");
 
 	DieAniTwinkleActive = 0;
 	DieTwinkleTime = 0.1f;
@@ -625,6 +630,8 @@ void APlayer::WaterBombUpdate()
 			std::shared_ptr<AMapObject> WaterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x);
 			WaterBomb->SetObjectToken(WaterBomb_Token++);
 			USendPacketManager::SendMapObjectSpawnPacket(WaterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb);
+
+			UEngineSound::SoundPlay("SetBallon.wav");
 		}
 	}
 }
@@ -632,9 +639,9 @@ void APlayer::WaterBombUpdate()
 void APlayer::MoveUpdate(float _DeltaTime)
 {
 	FVector MovePos = FVector::Zero;
-	FVector NextPos1 = FVector::Zero;	// Center
-	FVector NextPos2 = FVector::Zero;	// 추가 체크포인트
-	FVector NextPos3 = FVector::Zero;	// 추가 체크포인트
+	FVector NextPos1 = GetActorLocation();	// Center
+	FVector NextPos2 = NextPos1;	// 추가 체크포인트
+	FVector NextPos3 = NextPos1;	// 추가 체크포인트
 
 	float Speed = static_cast<float>(Info->Speed);
 

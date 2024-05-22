@@ -64,7 +64,7 @@ void AWaterBomb::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	State.Update(_DeltaTime);
-
+	
 #ifdef _DEBUG
 	std::string WaterBombMsg = std::format("Water Bomb {}\n", GetActorLocation().ToString());
 
@@ -193,12 +193,13 @@ void AWaterBomb::KickBegin()
 	TargetPoint = SearchLogic(GetCurPos(), MoveVector);
 
 	std::shared_ptr<AMapObject> MapObj = GetGameMode()->GetCurMap()->GetMapObject(TargetPoint.y, TargetPoint.x);
+	GetGameMode()->GetCurMap()->ChangeNull(GetCurPos().y, GetCurPos().x);
+
 	if (MapObj != nullptr)
 	{
 		if (MapObj->GetType() == EMapObjectType::Bush)
 		{
 			ABush* Bush = dynamic_cast<ABush*>(MapObj.get());
-			SetIsPossessed(true);
 			Bush->SetPossessBlock(shared_from_this());
 		}
 	}
@@ -206,12 +207,13 @@ void AWaterBomb::KickBegin()
 	{
 		GetGameMode()->GetCurMap()->ConnectObject(shared_from_this(),TargetPoint.y, TargetPoint.x);
 	}
-	GetGameMode()->GetCurMap()->ChangeNull(GetCurPos().y, GetCurPos().x);
+
 	SetCurPos(TargetPoint);
 }
 void AWaterBomb::KickTick(float _DeltaTime)
 {
 	AddActorLocation(MoveVector * KickSpeed * _DeltaTime);
+
 
 	POINT CurPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
 
@@ -220,10 +222,19 @@ void AWaterBomb::KickTick(float _DeltaTime)
 	{
 		FVector Pos = GetGameMode()->GetCurMap()->PointToPos(CurPoint.y, CurPoint.x);
 		SetActorLocation(Pos);
+
+		if(false == b_WaterToBomb)
+		{
+			USendPacketManager::SendMapObjectMoveEndPacket(shared_from_this(), CurPoint.y, CurPoint.x, GetCurPos().y, GetCurPos().x);
+		}
+
 		State.ChangeState("Create");
 		return;
 	}
 
+	{
+		USendPacketManager::SendMapObjectMovePacket(this, GetActorLocation());
+	}
 }
 void AWaterBomb::KickExit()
 {
@@ -277,22 +288,15 @@ POINT AWaterBomb::SearchLogic(POINT _CurPoint, FVector _MoveVector)
 
 void AWaterBomb::BombBegin()
 {
-	{
-		if (GetIsPossessed()) {
-			GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
-		}
-
-		GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water);
-
-		if (true == GetIsPossessed())
-		{
-			Destroy();
-		}
-	}
+	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+	GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water);
 }
 
 void AWaterBomb::BombTick(float _DeltaTime)
 {
+	//GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+	Renderer->SetActive(false);
+	Destroy();
 }
 
 void AWaterBomb::BombExit()

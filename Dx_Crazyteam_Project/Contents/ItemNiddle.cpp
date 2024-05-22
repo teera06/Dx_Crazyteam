@@ -34,6 +34,8 @@ void AItemNiddle::Tick(float _DeltaTime)
 
 void AItemNiddle::Action()
 {
+	UEngineSound::SoundPlay("ItemEat.wav");
+
 	//++GetGameMode()->GetPlayer()->GetPlayerInfo()->NiddleCount;
 	GetGameMode()->GetPlayer()->SetCtrlItem(EItemType::ItemNiddle);
 
