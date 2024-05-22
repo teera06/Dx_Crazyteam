@@ -35,6 +35,7 @@ void ABush::BeginPlay()
 	MoveSetOwner(this);
 	
 	SetType(EMapObjectType::Bush);
+	SetPossessItem(EItemType::None);
 }
 
 void ABush::Tick(float _DeltaTime)
