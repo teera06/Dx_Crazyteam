@@ -406,13 +406,13 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject == nullptr && UpEnd == false)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y - DefaultPowerValue, GetCurPos().x, false, EEngineDir::Up));
-					//WaterSend(WaterCourse);
+					
 				}
 				else if (EMapObjectType::Item == NextMapObject->GetType() && false == UpEnd)
 				{
 					// 아이템이 있던 곳에 아이템이 지워졌으니 물줄기 생성.
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y - DefaultPowerValue, GetCurPos().x, false, EEngineDir::Up));
-					//WaterSend(WaterCourse);
+					
 				}
 				else if (EMapObjectType::Bush == NextMapObject->GetType() && false == UpEnd)
 				{
@@ -464,12 +464,12 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject == nullptr && DownEnd == false)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y + DefaultPowerValue, GetCurPos().x, false, EEngineDir::Down));
-					//WaterSend(WaterCourse);
+					
 				}
 				else if (EMapObjectType::Item == NextMapObject->GetType() && false == DownEnd)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y + DefaultPowerValue, GetCurPos().x, false, EEngineDir::Down));
-					//WaterSend(WaterCourse);
+					
 				}
 				else if (EMapObjectType::Bush == NextMapObject->GetType() && false == DownEnd)
 				{
@@ -521,17 +521,17 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject == nullptr && LeftEnd == false)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x - DefaultPowerValue, false, EEngineDir::Left));
-					//WaterSend(WaterCourse);
+					
 				}
 				else if (EMapObjectType::Item == NextMapObject->GetType() && false == LeftEnd)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x - DefaultPowerValue, false, EEngineDir::Left));
-					//WaterSend(WaterCourse);
+					
 				}
 				else if (EMapObjectType::Bush == NextMapObject->GetType() && false == LeftEnd)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x - DefaultPowerValue, false, EEngineDir::Left));
-					//WaterSend(WaterCourse);
+					
 				}
 			}
 
@@ -580,17 +580,17 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject == nullptr && RightEnd == false)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x + DefaultPowerValue, false, EEngineDir::Right));
-					//WaterSend(WaterCourse);
+					
 				}
 				else if (EMapObjectType::Item == NextMapObject->GetType() && false == RightEnd)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x + DefaultPowerValue, false, EEngineDir::Right));
-					//WaterSend(WaterCourse);
+					
 				}
 				else if (EMapObjectType::Bush == NextMapObject->GetType() && false == RightEnd)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x + DefaultPowerValue, false, EEngineDir::Right));
-					//WaterSend(WaterCourse);
+					
 				}
 			}
 		}
@@ -643,17 +643,17 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject == nullptr && UpEnd == false)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y - DefaultPowerValue, GetCurPos().x, true, EEngineDir::Up));
-					//WaterSend(WaterCourse);
+					
 				}
 				else if (NextMapObject != nullptr && EMapObjectType::Item == NextMapObject->GetType() && UpEnd == false)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y - DefaultPowerValue, GetCurPos().x, true, EEngineDir::Up));
-					//WaterSend(WaterCourse);
+					
 				}
 				else if (NextMapObject != nullptr && EMapObjectType::Bush == NextMapObject->GetType() && UpEnd == false)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y - DefaultPowerValue, GetCurPos().x, true, EEngineDir::Up));
-					//WaterSend(WaterCourse);
+					
 				}
 			}
 
@@ -700,17 +700,17 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject == nullptr && DownEnd == false)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y + DefaultPowerValue, GetCurPos().x, true, EEngineDir::Down));
-					//WaterSend(WaterCourse);
+					
 				}
 				else if (NextMapObject != nullptr && EMapObjectType::Item == NextMapObject->GetType() && DownEnd == false)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y + DefaultPowerValue, GetCurPos().x, true, EEngineDir::Down));
-					//WaterSend(WaterCourse);
+					
 				}
 				else if (NextMapObject != nullptr && EMapObjectType::Bush == NextMapObject->GetType() && DownEnd == false)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y + DefaultPowerValue, GetCurPos().x, true, EEngineDir::Down));
-					//WaterSend(WaterCourse);
+					
 				}
 			}
 
@@ -757,17 +757,17 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject == nullptr && LeftEnd == false)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x - DefaultPowerValue, true, EEngineDir::Left));
-					//WaterSend(WaterCourse);
+					
 				}
 				else if (NextMapObject != nullptr && EMapObjectType::Item == NextMapObject->GetType() && LeftEnd == false)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x - DefaultPowerValue, true, EEngineDir::Left));
-					//WaterSend(WaterCourse);
+					
 				}
 				else if (NextMapObject != nullptr && EMapObjectType::Bush == NextMapObject->GetType() && LeftEnd == false)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x - DefaultPowerValue, true, EEngineDir::Left));
-					//WaterSend(WaterCourse);
+					
 				}
 			}
 
@@ -815,17 +815,17 @@ void AWaterCourse::CreateWaterStream(float _DeltaTime)
 				if (NextMapObject == nullptr && RightEnd == false)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x + DefaultPowerValue, true, EEngineDir::Right));
-					//WaterSend(WaterCourse);
+					
 				}
 				else if (NextMapObject != nullptr && EMapObjectType::Item == NextMapObject->GetType() && RightEnd == false)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x + DefaultPowerValue, true, EEngineDir::Right));
-					//WaterSend(WaterCourse);
+					
 				}
 				else if (NextMapObject != nullptr && EMapObjectType::Bush == NextMapObject->GetType() && RightEnd == false)
 				{
 					std::shared_ptr<AWaterCourse> WaterCourse = dynamic_pointer_cast<AWaterCourse>(GetGameMode()->GetCurMap()->AddWaterCourse(GetCurPos().y, GetCurPos().x + DefaultPowerValue, true, EEngineDir::Right));
-					//WaterSend(WaterCourse);
+					
 				}
 			}
 		}
