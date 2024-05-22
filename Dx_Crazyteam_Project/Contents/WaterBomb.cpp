@@ -189,8 +189,7 @@ void AWaterBomb::KickBegin()
 	TargetPoint = SearchLogic(GetCurPos(), MoveVector);
 
 	std::shared_ptr<AMapObject> MapObj = GetGameMode()->GetCurMap()->GetMapObject(TargetPoint.y, TargetPoint.x);
-	SetCurPos(TargetPoint);
-	/*if (MapObj != nullptr)
+	if (MapObj != nullptr)
 	{
 		if (MapObj->GetType() == EMapObjectType::Bush)
 		{
@@ -201,10 +200,10 @@ void AWaterBomb::KickBegin()
 	}
 	else
 	{
-	}*/
-
-	GetGameMode()->GetCurMap()->ConnectObject(shared_from_this(),TargetPoint.y, TargetPoint.x);
+		GetGameMode()->GetCurMap()->ConnectObject(shared_from_this(),TargetPoint.y, TargetPoint.x);
+	}
 	GetGameMode()->GetCurMap()->ChangeNull(GetCurPos().y, GetCurPos().x);
+	SetCurPos(TargetPoint);
 }
 void AWaterBomb::KickTick(float _DeltaTime)
 {
@@ -275,7 +274,9 @@ POINT AWaterBomb::SearchLogic(POINT _CurPoint, FVector _MoveVector)
 void AWaterBomb::BombBegin()
 {
 	{
-		if (GetIsPossessed()) GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+		if (GetIsPossessed()) {
+			GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+		}
 
 		GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water);
 		//WaterCourse->SetObjectToken(GetObjectToken() + 10000);
