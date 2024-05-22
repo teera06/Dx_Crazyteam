@@ -8,7 +8,7 @@
 #include "SendPacketManager.h"
 #include "Game_Core.h"
 
-bool APlayLobby::ClientServer = false;
+bool APlayLobby::IsClient = false;
 bool APlayLobby::Create = false;
 
 APlayLobby::APlayLobby()
@@ -383,9 +383,10 @@ void APlayLobby::Tick(float _DeltaTime)
 			SetObjectToken(PlayerCount + 110000);
 			USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
 			Create = true;
+			IsClient = true;
 		}
 
-		if (PlayerCount == 0)
+		if (IsClient == false)
 		{
 			for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
 			{
@@ -397,10 +398,11 @@ void APlayLobby::Tick(float _DeltaTime)
 					LobbyPlayer[SessionToken]->SetScale({ 150, 150 });
 					LobbyPlayer[SessionToken]->SetPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
 				}
-				SetObjectToken(UGame_Core::Net->GetSessionToken() + 110000);
+				SetObjectToken(SessionToken + 110000);
 				USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
 			}
 		}
+		
 		IsGetSessionToken = false;
 	}
 

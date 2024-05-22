@@ -119,7 +119,7 @@ private:
 private:
 	int MySessionToken = -1;
 	bool IsGetSessionToken = false;
-	static bool ClientServer;
+	static bool IsClient;
 	static bool Create;
 
 public:
