@@ -6,6 +6,7 @@
 #include "Player.h"
 #include <EngineBase/EngineRandom.h>
 
+#include "Game_Core.h"
 #include "SendPacketManager.h"
 
 ABlock::ABlock() 
@@ -248,7 +249,7 @@ void ABlock::EndTick(float _DeltaTime)
 			if (GetIsPossessed())
 			{
 				AMapObject* MapObject = GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x).get();
-
+				
 				ABush* Bush = dynamic_cast<ABush*>(MapObject);
 				Bush->SetPossessBlock(nullptr);
 
@@ -261,7 +262,14 @@ void ABlock::EndTick(float _DeltaTime)
 		}
 		else
 		{
-			GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Item, PossessItem);
+			std::shared_ptr<UEngineServer> IsServer = dynamic_pointer_cast<UEngineServer>(UGame_Core::Net);
+
+			if (nullptr != IsServer)
+			{
+				std::shared_ptr<AMapObject> Item = GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Item, PossessItem);
+				USendPacketManager::SendMapObjectSpawnPacket(Item, { GetCurPos().y,GetCurPos().x }, EMapObject::Item, PossessItem);
+			}
+
 			Destroy();
 		}
 	}

@@ -623,7 +623,7 @@ void APlayer::WaterBombUpdate()
 		{
 			return;
 		}
-
+		
 		// Player가 있는 위치에 물풍선이 없을 때.
 		if (true != GetGameMode()->GetCurMap()->IsOnWaterBomb(GetActorLocation()))
 		{
