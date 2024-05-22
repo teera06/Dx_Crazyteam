@@ -69,9 +69,10 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 			{
 				//_Lobby->
 				std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
-				NewPlayer->NewPlayer = true;
+				//NewPlayer->NewPlayer = true;
 				std::vector<std::string> SetSpriteNames = NewPlayer->SpriteNames;
 				std::vector<UImage*>& PlayerUIImages = _Lobby->LobbyPlayer;
+				//PlayerUIImages[_Index]->SetSprite(_SpriteName);
 				for (size_t i = 0; i < PlayerUIImages.size(); i++)
 				{
 					if (nullptr == PlayerUIImages[i])
@@ -81,11 +82,12 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 					}
 					if (i == _Index)
 					{
-						NewPlayer->SpriteNames[i] = _SpriteName;
+						std::string SetName = _SpriteName.data();
+						NewPlayer->SpriteNames.push_back(SetName);
 					}
 					else
 					{
-						NewPlayer->SpriteNames[i] = _Lobby->LobbyPlayer[i]->CurInfo.Texture->GetName();
+						NewPlayer->SpriteNames.push_back(_Lobby->LobbyPlayer[i]->CurInfo.Texture->GetName());
 					}
 
 				}
@@ -99,7 +101,7 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 			{
 				//_Lobby->
 				std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
-				NewPlayer->NewPlayer = true;
+				//NewPlayer->NewPlayer = true;
 				std::vector<std::string> SetSpriteNames = NewPlayer->SpriteNames;
 
 
@@ -113,13 +115,13 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 					}
 					if (i == _Index)
 					{
-						NewPlayer->SpriteNames[i] = _SpriteName;
+						std::string SetName = _SpriteName.data();
+						NewPlayer->SpriteNames.push_back(SetName);
 					}
 					else
 					{
-						NewPlayer->SpriteNames[i] = _Lobby->LobbyPlayer[i]->CurInfo.Texture->GetName();
+						NewPlayer->SpriteNames.push_back(_Lobby->LobbyPlayer[i]->CurInfo.Texture->GetName());
 					}
-
 				}
 				UGame_Core::Net->Send(NewPlayer);
 			};
@@ -170,6 +172,35 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 
 						UGame_Core::Net->Send(NewPlayer);
 					}
+					else
+					{
+						std::vector<UImage*>& PlayerUIImages = PlayLobby->LobbyPlayer;
+
+						std::string name = _Packet->SpriteNames[_Packet->GetSessionToken()];
+						int a = _Packet->GetSessionToken();
+						PlayerUIImages[_Packet->GetSessionToken()]->SetSprite(_Packet->SpriteNames[_Packet->GetSessionToken()]);
+
+						std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
+
+						for (size_t i = 0; i < PlayerUIImages.size(); i++)
+						{
+							if (nullptr == PlayerUIImages[i])
+							{
+								NewPlayer->SpriteNames.push_back("None");
+								continue;
+							}
+
+							
+							if (i != 0)
+							{
+								PlayerUIImages[i]->SetSprite(_Packet->SpriteNames[i]);
+							}
+	
+							NewPlayer->SpriteNames.push_back(_Packet->SpriteNames[i]);
+						}
+
+						UGame_Core::Net->Send(NewPlayer);
+					}					
 				});			
 		});
 }
