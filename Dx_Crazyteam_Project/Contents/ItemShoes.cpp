@@ -30,4 +30,6 @@ void AItemShoes::Action()
 {
 	//action
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+
+	GetGameMode()->GetPlayer()->SetCanKick(true);
 }

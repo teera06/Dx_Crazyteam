@@ -193,12 +193,13 @@ void AWaterBomb::KickBegin()
 	TargetPoint = SearchLogic(GetCurPos(), MoveVector);
 
 	std::shared_ptr<AMapObject> MapObj = GetGameMode()->GetCurMap()->GetMapObject(TargetPoint.y, TargetPoint.x);
+	GetGameMode()->GetCurMap()->ChangeNull(GetCurPos().y, GetCurPos().x);
+
 	if (MapObj != nullptr)
 	{
 		if (MapObj->GetType() == EMapObjectType::Bush)
 		{
 			ABush* Bush = dynamic_cast<ABush*>(MapObj.get());
-			SetIsPossessed(true);
 			Bush->SetPossessBlock(shared_from_this());
 		}
 	}
@@ -206,7 +207,7 @@ void AWaterBomb::KickBegin()
 	{
 		GetGameMode()->GetCurMap()->ConnectObject(shared_from_this(),TargetPoint.y, TargetPoint.x);
 	}
-	GetGameMode()->GetCurMap()->ChangeNull(GetCurPos().y, GetCurPos().x);
+
 	SetCurPos(TargetPoint);
 }
 void AWaterBomb::KickTick(float _DeltaTime)
