@@ -56,6 +56,7 @@ void UNetInterface::PlayerSendPacket(float _DeltaTime)
 		Packet->ObjectType = static_cast<int>(EObjectType::Player);
 		Packet->SpriteAlpha = Renderer->GetAlpha();
 		Packet->RendererIsActive = Renderer->IsActive();
+		Packet->RendererPos = Renderer->GetLocalPosition();
 		Send(Packet);
 		CurTime += FrameTime;
 	}

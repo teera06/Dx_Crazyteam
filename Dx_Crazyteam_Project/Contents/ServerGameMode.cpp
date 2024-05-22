@@ -29,6 +29,8 @@
 
 std::shared_ptr<UEngineNetWindow> AServerGameMode::NetWindow = nullptr;
 bool AServerGameMode::IsServerOpen = false;
+ENetType AServerGameMode::NetType = ENetType::None;
+
 
 AServerGameMode::AServerGameMode() 
 {
@@ -341,8 +343,8 @@ void AServerGameMode::ServerOpen()
 			{
 				UGame_Core::Net = std::make_shared<UEngineServer>();
 				UGame_Core::Net->ServerOpen(30000, 512);
-				
 				SetIsServerOpen(true);
+				AServerGameMode::NetType = ENetType::Server;
 				//GetPlayer()->SetObjectToken(UNetObject::GetNewObjectToken());
 
 
@@ -354,6 +356,8 @@ void AServerGameMode::ServerOpen()
 				UGame_Core::Net = std::make_shared<UEngineClient>();
 				UGame_Core::Net->Connect(IP, PORT);
 				
+				AServerGameMode::NetType = ENetType::Client;
+
 				SetIsServerOpen(true);
 				//UGame_Core::Net->SetTokenPacketFunction([=](USessionTokenPacket* _Token)
 				//	{

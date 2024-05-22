@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore/Actor.h>
 #include <EngineBase/NetObject.h>
+#include <EngineCore/EngineNetWindow.h>
 
 class AServerGameMode;
 class AUitestMonde;
@@ -8,6 +9,8 @@ class UImage;
 class AIntro : public AActor, public UNetObject
 {
 	GENERATED_BODY(AActor)
+
+
 public:
 	// constrcuter destructer
 	AIntro();

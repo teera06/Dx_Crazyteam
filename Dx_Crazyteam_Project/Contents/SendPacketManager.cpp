@@ -138,9 +138,9 @@ void USendPacketManager::SendLPlayerPacket(UNetObject* _NetObject, std::string_v
 		//}
 	}
 	std::shared_ptr<ULobbyPlayerUpdatePacket> Packet = std::make_shared<ULobbyPlayerUpdatePacket>();
-	Packet->SpriteName = _SpriteName;
-	Packet->SpriteIndex = _SpriteIndex;	
-	Packet->Token = _Token;
+	//Packet->SpriteName = _SpriteName;
+	//Packet->SpriteIndex = _SpriteIndex;	
+	//Packet->Token = _Token;
 
 	int a = _NetObject->GetObjectToken();
 

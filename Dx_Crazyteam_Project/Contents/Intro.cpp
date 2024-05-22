@@ -50,7 +50,6 @@ void AIntro::BeginPlay()
 
 				AServerGameMode::ServerOpen();
 
-
 			
 				//GEngine->ChangeLevel("");
 
