@@ -167,6 +167,7 @@ public:
 		UEngineProtocol::Serialize(_Ser);
 		_Ser << SpriteIndex;
 		_Ser << SpriteName;		
+		_Ser << Token;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -174,10 +175,12 @@ public:
 		UEngineProtocol::DeSerialize(_Ser);
 		_Ser >> SpriteIndex;
 		_Ser >> SpriteName;		
+		_Ser >> Token;
 	}
 
 public:
 	int SpriteIndex = 0;
 	std::string SpriteName;
+	int Token = 0;
 };
 

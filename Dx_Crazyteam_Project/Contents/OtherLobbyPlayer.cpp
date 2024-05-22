@@ -57,11 +57,23 @@ void AOtherLobbyPlayer::Tick(float _DeltaTime)
 			
 		std::shared_ptr<ULobbyPlayerUpdatePacket> UpdatePacket = std::dynamic_pointer_cast<ULobbyPlayerUpdatePacket>(Protocol);
 
-		std::string SpriteNames = UpdatePacket->SpriteName;
-		int Index = UpdatePacket->SpriteIndex;
-		SetRenderer(SpriteNames, Index);
+		
+
 		const int Token = 110000;
-		SetPosition(UpdatePacket->GetObjectToken()- Token);
+		int a = UpdatePacket->GetSessionToken();
+		int aa = UpdatePacket->GetObjectToken() - Token;
+		UpdatePacket->Token;
+		MySessionToken;
+
+		int test = 0;
+		//if ((UpdatePacket->GetObjectToken() - Token != GetSessionToken()))
+		{
+			std::string SpriteNames = UpdatePacket->SpriteName;
+			int Index = UpdatePacket->SpriteIndex;
+			SetRenderer(SpriteNames, Index);
+			SetPosition(UpdatePacket->GetObjectToken() - Token);
+		}
+
 
 	} while (nullptr != Protocol);
 }

@@ -5,6 +5,7 @@
 #include "Game_Core.h"
 #include "OtherLobbyPlayer.h"
 #include "Packets.h"
+#include <EngineCore/Image.h>
 
 
 ALobbyMainMode::ALobbyMainMode()
@@ -65,6 +66,7 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 			{
 				OtherPlayer = this->GetWorld()->SpawnActor<AOtherLobbyPlayer>("OtherLobbyPlayer", 0).get();
 				OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+				OtherPlayer->MySessionToken = _Packet->GetObjectToken() - 110000;
 			}
 			OtherPlayer->PushProtocol(_Packet);
 			//OtherPlayer->SetRenderer(_Packet->SpriteName, _Packet->SpriteIndex);
@@ -77,14 +79,18 @@ void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
 {
 	Dis.AddHandler<ULobbyPlayerUpdatePacket>([=](std::shared_ptr<ULobbyPlayerUpdatePacket> _Packet)
 		{
-			AOtherLobbyPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherLobbyPlayer>(_Packet->GetObjectToken());
+			UNetObject* OtherPlayer = UNetObject::GetNetObject<UNetObject>(_Packet->GetObjectToken());
 			if (nullptr == OtherPlayer)
 			{
-				OtherPlayer = this->GetWorld()->SpawnActor<AOtherLobbyPlayer>("OtherLobbyPlayer", 0).get();
-				OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+				if (PlayLobby->LobbyPlayer[_Packet->Token] == nullptr)
+				{
+					UImage* Sprite = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
+					PlayLobby->LobbyPlayer[_Packet->Token] = Sprite;
+					Sprite->SetActive(false);
+					OtherPlayer = this->GetWorld()->SpawnActor<AOtherLobbyPlayer>("OtherLobbyPlayer", 0).get();
+				}
 			}
+			OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
 			OtherPlayer->PushProtocol(_Packet);
-			//OtherPlayer->SetRenderer(_Packet->SpriteName, _Packet->SpriteIndex);
-			//OtherPlayer->SetPosition(_Packet->GetSessionToken());
 		});
 }

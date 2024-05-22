@@ -13,7 +13,6 @@ bool APlayLobby::Create = false;
 
 APlayLobby::APlayLobby()
 {
-
 }
 
 APlayLobby::~APlayLobby()
@@ -336,9 +335,6 @@ void APlayLobby::BeginPlay()
 	checkUI->SetActive(true);
 
 	Teamtyp = dynamic_cast<ACAGameMode*>(GetWorld()->GetGameMode().get());
-
-	//LobbyPlayerBegin();
-
 }
 
 void APlayLobby::Tick(float _DeltaTime)
@@ -379,7 +375,7 @@ void APlayLobby::Tick(float _DeltaTime)
 		}
 		else if (PlayerCount >= 1 && Create == false)
 		{
-			LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
+			LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
 			LobbyPlayer[PlayerCount]->AddToViewPort(15);
 			LobbyPlayer[PlayerCount]->SetSprite("Room_Charcater_Bazzi.png");
 			LobbyPlayer[PlayerCount]->SetAutoSize(1.2f, true);
@@ -395,18 +391,19 @@ void APlayLobby::Tick(float _DeltaTime)
 			for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
 			{
 				if (LobbyPlayer[SessionToken] == nullptr)
-				{
-					LobbyPlayer[SessionToken] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
+				{		
+					LobbyPlayer[SessionToken] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
 					LobbyPlayer[SessionToken]->AddToViewPort(15);
 					LobbyPlayer[SessionToken]->SetSprite("Room_Charcater_Bazzi.png");
 					LobbyPlayer[SessionToken]->SetAutoSize(1.2f, true);
 					LobbyPlayer[SessionToken]->SetPosition(FVector(static_cast<float>(-335 + PlayerCount * 105), 160.0f, 100.0f));
+					LobbyPlayer[SessionToken]->SetActive(false);
 				}
-				SetObjectToken(SessionToken + 110000);
-				USendPacketManager::SendLPlayerPacket(this, "Room_Charcater_Bazzi.png", 1);
+				SetObjectToken(SessionToken + 110000);			
+				USendPacketManager::SendLPlayerPacket(this, "Room_Charcater_Bazzi.png", 1, SessionToken);
+				continue;
 			}
 		}
-		
 		IsGetSessionToken = false;
 	}
 }
@@ -971,19 +968,10 @@ void APlayLobby::CharacterBegin()
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Dao;
 
-
 					if (IsClient == false)
 					{
 						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
-						{
-							//if (LobbyPlayer[SessionToken] == nullptr)
-							//{
-							//	//LobbyPlayer[SessionToken] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
-							//	//LobbyPlayer[SessionToken]->AddToViewPort(15);
-							//	//LobbyPlayer[SessionToken]->SetSprite("bazzi_idle.png", 1);
-							//	//LobbyPlayer[SessionToken]->SetScale({ 150, 150 });
-							//	//LobbyPlayer[SessionToken]->SetPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
-							//}
+						{		
 							SetObjectToken(SessionToken + 110000);
 							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
 						}
@@ -993,7 +981,6 @@ void APlayLobby::CharacterBegin()
 						SetObjectToken(PlayerCount + 110000);
 						USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
 					}
-
 				}
 			}
 			});
