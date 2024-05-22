@@ -24,6 +24,7 @@ void ACAGameMode::Tick(float _DeltaTime)
 void ACAGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
+
 }
 
 void ACAGameMode::LevelEnd(ULevel* _NextLevel)

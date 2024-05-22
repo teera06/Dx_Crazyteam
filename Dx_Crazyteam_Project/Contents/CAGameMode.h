@@ -63,5 +63,6 @@ private:
 	std::shared_ptr<APlayer> MainPlayer = nullptr;
 	std::shared_ptr<AMapUI> UI = nullptr;
 
+	EMap CurMapType = EMap::Village;
 };
 
