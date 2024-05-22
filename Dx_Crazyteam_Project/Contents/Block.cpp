@@ -252,7 +252,7 @@ void ABlock::EndTick(float _DeltaTime)
 		{
 			std::shared_ptr<UEngineServer> IsServer = dynamic_pointer_cast<UEngineServer>(UGame_Core::Net);
 
-			GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+			//GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 
 			if (nullptr != IsServer)
 			{
