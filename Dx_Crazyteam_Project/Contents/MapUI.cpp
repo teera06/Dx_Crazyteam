@@ -39,7 +39,7 @@ void AMapUI::BeginPlay()
 	MapPlayUI->SetSprite("MapPlayUI.png");
 	MapPlayUI->SetPosition(FVector(80.0f, 0.0f, 0.0f));
 	MapPlayUI->SetAutoSize(1.0f, true);
-	MapPlayUI->SetOrder(ERenderOrder::BlockFront);
+	MapPlayUI->SetOrder(ERenderOrder::Map);
 
 	GameStartUI = CreateWidget<UImage>(GetWorld(), "GameStartUI");
 	GameStartUI->SetSprite("GAMEStart.png");
