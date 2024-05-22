@@ -21,7 +21,15 @@ void AOtherLobbyPlayer::SetRenderer(std::string_view _SpriteName, int _Index)
 
 void AOtherLobbyPlayer::SetPosition(int _SessionToken)
 {
-	ImageRenderer->SetPosition(FVector(static_cast<float>(-335 + _SessionToken * 105), 160.0f, 100.0f));
+	if (_SessionToken <= 3)
+	{
+		ImageRenderer->SetPosition(FVector(static_cast<float>(-335 + _SessionToken * 105), 160.0f, 100.0f));
+	}
+	else
+	{
+		ImageRenderer->SetPosition(FVector(static_cast<float>(-755 + _SessionToken * 105), 10.0f, 100.0f));
+	}
+	
 }
 
 void AOtherLobbyPlayer::BeginPlay()

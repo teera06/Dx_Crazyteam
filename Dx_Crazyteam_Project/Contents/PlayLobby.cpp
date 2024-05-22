@@ -378,7 +378,15 @@ void APlayLobby::Tick(float _DeltaTime)
 			LobbyPlayer[PlayerCount]->AddToViewPort(15);
 			LobbyPlayer[PlayerCount]->SetSprite("Room_Charcater_Bazzi.png");
 			LobbyPlayer[PlayerCount]->SetAutoSize(1.2f, true);
-			LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-335 + PlayerCount * 105), 160.0f, 100.0f));
+			if (PlayerCount<=3)
+			{
+				LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-335 + PlayerCount * 105), 160.0f, 100.0f));
+			}
+			else
+			{
+				LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-755 + PlayerCount * 105), 10.0f, 100.0f));				
+			}
+
 			SetObjectToken(PlayerCount + 110000);
 			USendPacketManager::SendLPlayerPacket(this, "Room_Charcater_Bazzi.png", 1);
 			Create = true;
