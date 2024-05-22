@@ -173,7 +173,7 @@ private:
 	std::string GetAnimationName(std::string_view _StateName);
 	void SettingZValue();
 	void WaterBombUpdate();
-	void MoveUpdate(float _DeltaTime);
+	void MoveUpdate(float _DeltaTime);	// 움직일 양 계산하는 함수
 
 	FVector Dir = FVector::Down;
 	float AnimationInter = 0.1f;
