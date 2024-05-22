@@ -506,6 +506,7 @@ void APlayer::RealDieStart()
 {
 	// 진짜 죽음 처리
 	Renderer->SetActive(false);
+	SoloArrowRenderer->SetActive(false);
 }
 
 void APlayer::RealDie(float _DeltaTime)
@@ -517,6 +518,7 @@ void APlayer::RideIdleStart()
 {
 	// 임시로 Idle 사용 (RideIdle 만들면 바꿔야 함)
   	Renderer->ChangeAnimation(GetAnimationName("Idle"));	
+	SoloArrowRenderer->SetPosition(FVector(0, 5, 0));
 	RideTwinkleTime = 0.1f;
 }
 
@@ -604,6 +606,7 @@ void APlayer::RideOff(float _DeltaTime)
 
 	if (RideGodModeTime < 0.f)
 	{
+		SoloArrowRenderer->SetPosition(FVector(0, 4, 0));
 		State.ChangeState("Idle");
 		return;
 	}
