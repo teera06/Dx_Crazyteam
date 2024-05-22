@@ -35,9 +35,16 @@ void APlayer::BeginPlay()
 	Shadow = GetWorld()->SpawnActor<APlayer_Shadow>("Player_Shadow");
 	Shadow->SetActorLocation(GetActorLocation() + FVector(0, 2, 1));
 
-	PlayerName = GetWorld()->SpawnActor<APlayer_Name>("Player_Name");
-
 	Info = std::make_shared<PlayerInfo>();
+
+	PlayerNameUI = CreateWidget<UTextWidget>(GetWorld(), "PlayerName");
+	PlayerNameUI->SetFont("¸¼Àº °íµñ");
+	PlayerNameUI->SetText(GetPlayerName());
+	PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
+	PlayerNameUI->SetScale(10.0f);
+	PlayerNameUI->SetColor(Color8Bit::Black);
+	PlayerNameUI->SetOrder(1);
+	PlayerNameUI->AddToViewPort(11);
 
 	MainPlayerSetting();
 	SetCharacterType(ECharacterType::Random);
@@ -71,7 +78,8 @@ void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	PlayerName->GetNameText()->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
+	//PlayerName->GetNameText()->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
+	PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
 
 	if (ConstValue::MainPlayerCharacterType != Info->MyType || ConstValue::MainPlayerTeamType != Info->Team)
 	{
