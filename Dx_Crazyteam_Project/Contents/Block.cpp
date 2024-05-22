@@ -254,8 +254,8 @@ void ABlock::EndTick(float _DeltaTime)
 
 			if (nullptr != IsServer)
 			{
-				std::shared_ptr<AMapObject> Item = GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Item, PossessItem);
-				USendPacketManager::SendMapObjectSpawnPacket(Item, { GetCurPos().y,GetCurPos().x }, EMapObject::Item, PossessItem);
+				std::shared_ptr<AMapObject> Item = GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Item, GetPossessItem());
+				USendPacketManager::SendMapObjectSpawnPacket(Item, { GetCurPos().y,GetCurPos().x }, EMapObject::Item, GetPossessItem());
 			}
 
 			Destroy();
