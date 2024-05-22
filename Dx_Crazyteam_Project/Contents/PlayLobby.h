@@ -130,6 +130,8 @@ private:
 	int Cha_Count = 0;
 
 public:
+	int ChangeUIIndex = -1;
+
 	inline void SetMySessionToken(int _Value)
 	{
 		MySessionToken = _Value;

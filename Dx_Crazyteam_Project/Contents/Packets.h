@@ -185,5 +185,7 @@ public:
 public:
 	bool NewPlayer = false;
 	std::vector<std::string> SpriteNames;
+	bool ChChange = false;
+	std::string SpriteName = "";
 };
 

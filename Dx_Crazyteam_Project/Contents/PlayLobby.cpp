@@ -961,7 +961,7 @@ void APlayLobby::CharacterBegin()
 				{
 					IsSelectSharacter = true;
 					SwapSelectCharacter(DaoBT);
-					LobbyPlayer[Cha_Count]->SetSprite("Room_Charcater_Dao.png");
+					LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Dao.png");
 
 					if (nullptr != ChracterChangeLogic)
 					{
@@ -1002,7 +1002,7 @@ void APlayLobby::CharacterBegin()
 				{
 					IsSelectSharacter = true;
 					SwapSelectCharacter(MaridBT);
-					LobbyPlayer[Cha_Count]->SetSprite("Room_Charcater_Marid.png");
+					LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Marid.png");
 					if (nullptr != ChracterChangeLogic)
 					{
 						ChracterChangeLogic(this);
@@ -1041,7 +1041,8 @@ void APlayLobby::CharacterBegin()
 				{
 					IsSelectSharacter = true;
 					SwapSelectCharacter(BazziBT);
-					LobbyPlayer[Cha_Count]->SetSprite("Room_Charcater_Bazzi.png");
+					LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Bazzi.png");
+
 					if (nullptr != ChracterChangeLogic)
 					{
 						ChracterChangeLogic(this);
