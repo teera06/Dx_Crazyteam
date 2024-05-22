@@ -407,9 +407,18 @@ void APlayLobby::Tick(float _DeltaTime)
 					LobbyPlayer[SessionToken]->SetActive(false);
 				}
 				SetObjectToken(SessionToken + 110000);			
-				USendPacketManager::SendLPlayerPacket(this, "Room_Charcater_Bazzi.png", 1, SessionToken);
+				USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[SessionToken]->CurInfo.Texture->GetName(), 1, SessionToken);
 				continue;
 			}
+
+			//if (IsClient == false)
+			//{
+			//	for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
+			//	{
+			//		SetObjectToken(SessionToken + 110000);
+			//		USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
+			//	}
+			//}
 		}
 		IsGetSessionToken = false;
 	}
@@ -1078,16 +1087,6 @@ void APlayLobby::CharacterBegin()
 				}
 			}
 		});
-
-		if (IsClient == false)
-		{
-			//for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
-			//{
-			//	SetObjectToken(SessionToken + 110000);
-			//	USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
-			//}
-		}
-
 	}
 }
 
