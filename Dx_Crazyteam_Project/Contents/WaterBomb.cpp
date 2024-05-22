@@ -43,8 +43,7 @@ void AWaterBomb::BeginPlay()
 
 	PlayerInteract = [&]
 		{
-			if (GetIsPush()) return;
-			SetIsPush(true);
+
 			POINT PlayerIndex = GetGameMode()->GetPlayer()->GetPlayerInfo()->CurIndex;
 
 			if (PlayerIndex.x == GetCurPos().x)
