@@ -73,6 +73,11 @@ public:
 		CtrlItem = _Item;
 	}
 
+	bool GetIsPlayerTrap()
+	{
+		return IsPlayerTrap;
+	}
+
 	ETeamType GetTeamType()
 	{
 		return Info->Team;
@@ -189,6 +194,8 @@ private:
 	bool IsSendPacket = true;
 
 	bool IsBushRenderOff = false;
+
+	bool IsPlayerTrap = false;
 
 };
 
