@@ -370,22 +370,22 @@ void APlayLobby::Tick(float _DeltaTime)
 		{
 			LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
 			LobbyPlayer[PlayerCount]->AddToViewPort(15);
-			LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
-			LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
-			LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
+			LobbyPlayer[PlayerCount]->SetSprite("Room_Charcater_Bazzi.png");
+			LobbyPlayer[PlayerCount]->SetAutoSize(1.2f, true);
+			LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-335 + PlayerCount * 105), 160.0f, 100.0f));
 			SetObjectToken(PlayerCount + 110000);
-			USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
+			USendPacketManager::SendLPlayerPacket(this, "Room_Charcater_Bazzi.png", 1);
 			Create = true;
 		}
 		else if (PlayerCount >= 1 && Create == false)
 		{
 			LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
 			LobbyPlayer[PlayerCount]->AddToViewPort(15);
-			LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
-			LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
-			LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
+			LobbyPlayer[PlayerCount]->SetSprite("Room_Charcater_Bazzi.png");
+			LobbyPlayer[PlayerCount]->SetAutoSize(1.2f, true);
+			LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-335 + PlayerCount * 105), 160.0f, 100.0f));
 			SetObjectToken(PlayerCount + 110000);
-			USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
+			USendPacketManager::SendLPlayerPacket(this, "Room_Charcater_Bazzi.png", 1);
 			Create = true;
 			IsClient = true;
 		}
@@ -398,20 +398,17 @@ void APlayLobby::Tick(float _DeltaTime)
 				{
 					LobbyPlayer[SessionToken] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
 					LobbyPlayer[SessionToken]->AddToViewPort(15);
-					LobbyPlayer[SessionToken]->SetSprite("bazzi_idle.png", 1);
-					LobbyPlayer[SessionToken]->SetScale({ 150, 150 });
-					LobbyPlayer[SessionToken]->SetPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
+					LobbyPlayer[SessionToken]->SetSprite("Room_Charcater_Bazzi.png");
+					LobbyPlayer[SessionToken]->SetAutoSize(1.2f, true);
+					LobbyPlayer[SessionToken]->SetPosition(FVector(static_cast<float>(-335 + PlayerCount * 105), 160.0f, 100.0f));
 				}
 				SetObjectToken(SessionToken + 110000);
-				USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
+				USendPacketManager::SendLPlayerPacket(this, "Room_Charcater_Bazzi.png", 1);
 			}
 		}
 		
 		IsGetSessionToken = false;
 	}
-
-	// 하나가 먼저 떠있어야 한다.
-	//
 }
 
 
