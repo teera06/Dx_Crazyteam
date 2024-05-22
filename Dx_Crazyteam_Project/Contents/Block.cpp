@@ -252,13 +252,14 @@ void ABlock::EndTick(float _DeltaTime)
 		{
 			std::shared_ptr<UEngineServer> IsServer = dynamic_pointer_cast<UEngineServer>(UGame_Core::Net);
 
+			GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+
 			if (nullptr != IsServer)
 			{
 				std::shared_ptr<AMapObject> Item = GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Item, GetPossessItem());
 				USendPacketManager::SendMapObjectSpawnPacket(Item, { GetCurPos().y,GetCurPos().x }, EMapObject::Item, GetPossessItem());
 			}
 
-			Destroy();
 		}
 	}
 
