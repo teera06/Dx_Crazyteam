@@ -76,17 +76,18 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				//UGame_Core::Net = std::make_shared<UEngineServer>();
 				//UGame_Core::Net->ServerOpen(30000, 512);
 
-			MainPlayer = GetWorld()->SpawnActor<AServerTestPlayer>("Player1", 0);
-			MainPlayer->SetCurGameMode(this);
-			SetMainPlayer(MainPlayer);
+				MainPlayer = GetWorld()->SpawnActor<AServerTestPlayer>("Player1", 0);
+				MainPlayer->SetCurGameMode(this);
+				SetMainPlayer(MainPlayer);
 
 				// 여기에서 메인 플레이어한테 번호를 하나 줄겁니다.
 				MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
 
 				// 타임 유아이
-				//MapUI->SetObjectToken(UNetObject::GetNewObjectToken());
+				MapUI->SetObjectToken(UNetObject::GetNewObjectToken());
+
 				//물폭탄
-				//MainPlayer->WaterBomb_Token = UGame_Core::Net->GetSessionToken() * 1000 + 2;
+				MainPlayer->WaterBomb_Token = UGame_Core::Net->GetSessionToken() * 1000 + 2;
 				ServerPacketInit(UGame_Core::Net->Dispatcher);
 			};
 	}
@@ -99,20 +100,20 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				//UGame_Core::Net->SetTokenPacketFunction([=](USessionTokenPacket* _Token)
 					//{
 
-			MainPlayer = GetWorld()->SpawnActor<AServerTestPlayer>("Player1", 0);
-			MainPlayer->SetCurGameMode(this);
-			SetMainPlayer(MainPlayer);
+				MainPlayer = GetWorld()->SpawnActor<AServerTestPlayer>("Player1", 0);
+				MainPlayer->SetCurGameMode(this);
+				SetMainPlayer(MainPlayer);
 
-					MainPlayer->SetObjectToken(UGame_Core::Net->GetSessionToken() * 1000);
+				MainPlayer->SetObjectToken(UGame_Core::Net->GetSessionToken() * 1000);
 
-					//	//타임 유아이
-					//	MapUI->SetObjectToken(_Token->GetSessionToken() * 1000 + 1);
-					//	if (nullptr != MapUI)
-					//	{
-					//		MapUI->ClientCreate();
-					//	}
-					//	//물폭탄
-					//	MainPlayer->WaterBomb_Token = _Token->GetSessionToken() * 1000 + 2;
+				//	//타임 유아이
+				MapUI->SetObjectToken(UGame_Core::Net->GetSessionToken() * 1000 + 1);
+				if (nullptr != MapUI)
+				{
+					MapUI->ClientCreate();
+				}
+				//	//물폭탄
+				MainPlayer->WaterBomb_Token = UGame_Core::Net->GetSessionToken() * 1000 + 2;
 					//});
 				// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다
 					ClientPacketInit(UGame_Core::Net->Dispatcher);
@@ -153,7 +154,7 @@ void AMainGameMode::GameModeActorInit()
 
 	{//UI
 
-		std::shared_ptr<AMapUI> MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
+		MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
 		MapUI->SetCurGameMode(this);
 	}
 
@@ -206,106 +207,106 @@ void AMainGameMode::GameModeActorInit()
 void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 {
 	Dis.AddHandler<UActorUpdatePacket>([=](std::shared_ptr<UActorUpdatePacket> _Packet)
-		{
-			// 다른 사람들한테 이 오브젝트에 대해서 알리고
-			UGame_Core::Net->Send(_Packet);
+	{
+		// 다른 사람들한테 이 오브젝트에 대해서 알리고
+		UGame_Core::Net->Send(_Packet);
 
-			GetWorld()->PushFunction([=]()
+		GetWorld()->PushFunction([=]()
+			{
+				AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
+				if (nullptr == OtherPlayer)
 				{
-					AOtherPlayer* OtherPlayer = UNetObject::GetNetObject<AOtherPlayer>(_Packet->GetObjectToken());
-					if (nullptr == OtherPlayer)
-					{
-						OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
-						OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
-						//OtherPlayers.push_back(OtherPlayer);
-					}
-					OtherPlayer->PushProtocol(_Packet);
-				});
-		});
+					OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
+					OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+					//OtherPlayers.push_back(OtherPlayer);
+				}
+				OtherPlayer->PushProtocol(_Packet);
+			});
+	});
 
 	Dis.AddHandler<UMapObjectUpdatePacket>([=](std::shared_ptr<UMapObjectUpdatePacket> _Packet)
-		{
-			UGame_Core::Net->Send(_Packet);
+	{
+		UGame_Core::Net->Send(_Packet);
 
-			GetWorld()->PushFunction([=]()
+		GetWorld()->PushFunction([=]()
+			{
+				// Other 오브젝트 릴리즈
+				if (true == _Packet->IsDestroy)
 				{
-					// Other 오브젝트 릴리즈
-					if (true == _Packet->IsDestroy)
+					AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+					if (nullptr != OtherItem)
 					{
-						AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
-						if (nullptr != OtherItem)
-						{
-							POINT Pos = _Packet->Pos;
-							GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
-						}
-						return;
+						POINT Pos = _Packet->Pos;
+						GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
 					}
+					return;
+				}
 
-					// Other 오브젝트 이동
-					if (true == _Packet->IsMove)
+				// Other 오브젝트 이동
+				if (true == _Packet->IsMove)
+				{
+					AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+					if (nullptr != OtherBlock)
 					{
-						AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
-						if (nullptr != OtherBlock)
-						{
-							OtherBlock->SetActorLocation(_Packet->MovePos);
-						}
-						return;
+						OtherBlock->SetActorLocation(_Packet->MovePos);
 					}
+					return;
+				}
 
-					// Other 오브젝트 이동 종료
-					if (true == _Packet->IsMoveEnd)
+				// Other 오브젝트 이동 종료
+				if (true == _Packet->IsMoveEnd)
+				{
+					AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+					if (nullptr != OtherBlock)
 					{
-						AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
-						if (nullptr != OtherBlock)
-						{
-							GetCurMap()->MoveMapObject(OtherBlock->shared_from_this(), _Packet->MoveEndPos.y, _Packet->MoveEndPos.x, _Packet->MoveBeginPos.y, _Packet->MoveBeginPos.x);
-						}
-						return;
+						GetCurMap()->MoveMapObject(OtherBlock->shared_from_this(), _Packet->MoveEndPos.y, _Packet->MoveEndPos.x, _Packet->MoveBeginPos.y, _Packet->MoveBeginPos.x);
 					}
+					return;
+				}
 
-					// 물풍선 관련 오브젝트 생성 관련
-					EMapObject ObjType = static_cast<EMapObject>(_Packet->ObjectType);
+				// 물풍선 관련 오브젝트 생성 관련
+				EMapObject ObjType = static_cast<EMapObject>(_Packet->ObjectType);
 
-					switch (ObjType)
+				switch (ObjType)
+				{
+				case EMapObject::WaterBomb:
+				{
+					AMapObject* OtherObject = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+
+					if (nullptr == OtherObject)
 					{
-					case EMapObject::WaterBomb:
-					{
-						AMapObject* OtherObject = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+						ABaseMap* CurMap = GetCurMap().get();
+						POINT PosValue = _Packet->Pos;
 
-						if (nullptr == OtherObject)
-						{
-							ABaseMap* CurMap = GetCurMap().get();
-							POINT PosValue = _Packet->Pos;
+						OtherObject = CurMap->AddMapObject(PosValue.x, PosValue.y, ObjType).get();
 
-							OtherObject = CurMap->AddMapObject(PosValue.x, PosValue.y, ObjType).get();
-
-							OtherObject->SetObjectToken(_Packet->GetObjectToken());
-						}
-						break;
+						OtherObject->SetObjectToken(_Packet->GetObjectToken());
 					}
-					default:
-						MsgBoxAssert("Server가 아닌 곳에서 MapObject를 생성하려 했습니다.");
-						return;
-					}
-				});
-		});
+					break;
+				}
+				default:
+					MsgBoxAssert("Server가 아닌 곳에서 MapObject를 생성하려 했습니다.");
+					return;
+				}
+			});
+	});
 
 	Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
-		{
-			// 다른 사람들한테 이 오브젝트에 대해서 알리고
-			UGame_Core::Net->Send(_Packet);
+	{
+		// 다른 사람들한테 이 오브젝트에 대해서 알리고
+		UGame_Core::Net->Send(_Packet);
 
-			GetWorld()->PushFunction([=]()
+		GetWorld()->PushFunction([=]()
+			{
+				AOtherUI* Time = UNetObject::GetNetObject<AOtherUI>(_Packet->GetObjectToken());
+				if (nullptr == Time)
 				{
-					AOtherUI* Time = UNetObject::GetNetObject<AOtherUI>(_Packet->GetObjectToken());
-					if (nullptr == Time)
-					{
-						Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
-						Time->SetObjectToken(_Packet->GetObjectToken());
-					}
-					Time->PushProtocol(_Packet);
-				});
-		});
+					Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
+					Time->SetObjectToken(_Packet->GetObjectToken());
+				}
+				Time->PushProtocol(_Packet);
+			});
+	});
 }
 
 void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
@@ -323,11 +324,10 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 					}
 					OtherPlayer->PushProtocol(_Packet);
 				});
-		});
+	});
 
 	Dis.AddHandler<UMapObjectUpdatePacket>([=](std::shared_ptr<UMapObjectUpdatePacket> _Packet)
 		{
-
 			GetWorld()->PushFunction([=]()
 				{
 					// Other 오브젝트 소멸 관련
@@ -452,21 +452,21 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 				});
 		});
 
-		Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
-			{
-				// 다른 사람들한테 이 오브젝트에 대해서 알리고
-				GetWorld()->PushFunction([=]()
+	Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
+		{
+			// 다른 사람들한테 이 오브젝트에 대해서 알리고
+			GetWorld()->PushFunction([=]()
+				{
+					int Test = _Packet->GetObjectToken();
+
+					AOtherUI* Time = UNetObject::GetNetObject<AOtherUI>(_Packet->GetObjectToken());
+					if (nullptr == Time)
 					{
-						int Test = _Packet->GetObjectToken();
+						Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
+						Time->SetObjectToken(_Packet->GetObjectToken());
+					}
+					Time->PushProtocol(_Packet);
 
-						AOtherUI* Time = UNetObject::GetNetObject<AOtherUI>(_Packet->GetObjectToken());
-						if (nullptr == Time)
-						{
-							Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
-							Time->SetObjectToken(_Packet->GetObjectToken());
-						}
-						Time->PushProtocol(_Packet);
-
-					});
-			});
+				});
+	});
 }
