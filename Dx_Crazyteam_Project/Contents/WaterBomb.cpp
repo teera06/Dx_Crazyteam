@@ -99,13 +99,10 @@ void AWaterBomb::StateInit()
 		std::bind(&AWaterBomb::KickBegin, this),
 		std::bind(&AWaterBomb::KickTick, this, std::placeholders::_1),
 		std::bind(&AWaterBomb::KickExit, this));
-
-	State.SetStartFunction("Bomb", std::bind(&AWaterBomb::BombBegin, this));
-	State.SetUpdateFunction("Bomb", std::bind(&AWaterBomb::BombTick, this, std::placeholders::_1));
-	//State.SetFunction("Bomb",
-	//	std::bind(&AWaterBomb::BombBegin, this),
-	//	std::bind(&AWaterBomb::BombTick, this, std::placeholders::_1),
-	//	std::bind(&AWaterBomb::BombExit, this));
+	State.SetFunction("Bomb",
+		std::bind(&AWaterBomb::BombBegin, this),
+		std::bind(&AWaterBomb::BombTick, this, std::placeholders::_1),
+		std::bind(&AWaterBomb::BombExit, this));
 
 	State.ChangeState("None");
 }
@@ -216,6 +213,7 @@ void AWaterBomb::KickTick(float _DeltaTime)
 {
 	AddActorLocation(MoveVector * KickSpeed * _DeltaTime);
 
+
 	POINT CurPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
 
 	if (CurPoint.y == TargetPoint.y &&
@@ -223,10 +221,18 @@ void AWaterBomb::KickTick(float _DeltaTime)
 	{
 		FVector Pos = GetGameMode()->GetCurMap()->PointToPos(CurPoint.y, CurPoint.x);
 		SetActorLocation(Pos);
+
+		{
+			USendPacketManager::SendMapObjectMoveEndPacket(shared_from_this(), CurPoint.y, CurPoint.x, GetCurPos().y, GetCurPos().x);
+		}
+
 		State.ChangeState("Create");
 		return;
 	}
 
+	{
+		USendPacketManager::SendMapObjectMovePacket(this, GetActorLocation());
+	}
 }
 void AWaterBomb::KickExit()
 {
