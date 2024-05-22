@@ -378,7 +378,15 @@ void APlayLobby::Tick(float _DeltaTime)
 			LobbyPlayer[PlayerCount]->AddToViewPort(15);
 			LobbyPlayer[PlayerCount]->SetSprite("Room_Charcater_Bazzi.png");
 			LobbyPlayer[PlayerCount]->SetAutoSize(1.2f, true);
-			LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-335 + PlayerCount * 105), 160.0f, 100.0f));
+			if (PlayerCount<=3)
+			{
+				LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-335 + PlayerCount * 105), 160.0f, 100.0f));
+			}
+			else
+			{
+				LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-755 + PlayerCount * 105), 10.0f, 100.0f));				
+			}
+
 			SetObjectToken(PlayerCount + 110000);
 			USendPacketManager::SendLPlayerPacket(this, "Room_Charcater_Bazzi.png", 1);
 			Create = true;
@@ -399,7 +407,7 @@ void APlayLobby::Tick(float _DeltaTime)
 					LobbyPlayer[SessionToken]->SetActive(false);
 				}
 				SetObjectToken(SessionToken + 110000);			
-				USendPacketManager::SendLPlayerPacket(this, "Room_Charcater_Bazzi.png", 1, SessionToken);
+				USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[SessionToken]->CurInfo.Texture->GetName(), 1, SessionToken);
 				continue;
 			}
 		}
@@ -967,18 +975,19 @@ void APlayLobby::CharacterBegin()
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Dao;
 
-					if (IsClient == false)
-					{
-						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
-						{		
-							SetObjectToken(SessionToken + 110000);
-							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
-						}
-					}
-					else if (IsClient == true)
+					if (IsClient == true)
 					{
 						SetObjectToken(PlayerCount + 110000);
 						USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
+					}
+					else
+					{
+						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
+						{
+							SetObjectToken(SessionToken + 110000);
+							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[SessionToken]->CurInfo.Texture->GetName(), 1, SessionToken);
+							continue;
+						}
 					}
 				}
 			}
@@ -1023,18 +1032,19 @@ void APlayLobby::CharacterBegin()
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Marid;
 
-					if (IsClient == false)
+					if (IsClient == true)
+					{
+						SetObjectToken(PlayerCount + 110000);
+						USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
+					}
+					else
 					{
 						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
 						{
 							SetObjectToken(SessionToken + 110000);
-							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
+							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[SessionToken]->CurInfo.Texture->GetName(), 1, SessionToken);
+							continue;
 						}
-					}
-					else if (IsClient == true)
-					{
-						SetObjectToken(PlayerCount + 110000);
-						USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
 					}
 				}
 			}
@@ -1078,22 +1088,23 @@ void APlayLobby::CharacterBegin()
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Bazzi;
 
-					if (IsClient == false)
-					{
-						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
-						{
-							SetObjectToken(SessionToken + 110000);
-							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
-						}
-					}
-					else if (IsClient == true)
+					if (IsClient == true)
 					{
 						SetObjectToken(PlayerCount + 110000);
 						USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
 					}
+					else
+					{
+						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
+						{
+							SetObjectToken(SessionToken + 110000);
+							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[SessionToken]->CurInfo.Texture->GetName(), 1, SessionToken);
+							continue;
+						}
+					}
 				}
 			}
-			});
+		});
 	}
 }
 

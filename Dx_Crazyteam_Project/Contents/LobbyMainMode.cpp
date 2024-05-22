@@ -69,8 +69,6 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 				OtherPlayer->MySessionToken = _Packet->GetObjectToken() - 110000;
 			}
 			OtherPlayer->PushProtocol(_Packet);
-			//OtherPlayer->SetRenderer(_Packet->SpriteName, _Packet->SpriteIndex);
-			//OtherPlayer->SetPosition(_Packet->GetSessionToken());
 			
 		});
 }

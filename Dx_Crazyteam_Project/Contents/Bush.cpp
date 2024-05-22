@@ -10,6 +10,7 @@ ABush::ABush()
 
 ABush::~ABush() 
 {
+
 }
 
 void ABush::SetPossessBlock(std::shared_ptr<AMapObject> _Block)

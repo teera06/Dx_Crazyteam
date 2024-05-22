@@ -157,6 +157,12 @@ void AWaterCourse::CreateCenterTick(float _DeltaTime)
 		return;
 	}
 
+	if (true == GetIsPossessed())
+	{
+		std::shared_ptr<AMapObject> NextMapObject = GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x);
+		NextMapObject->WaterInteract();
+	}
+
 	if (false == b_BombCountUpdateOne)
 	{
 		std::shared_ptr<APlayer> TestPlayer = GetGameMode()->GetPlayer();
@@ -337,6 +343,7 @@ void AWaterCourse::DeleteTick(float _DeltaTime)
 	// Animation Final Frame callback
 	Renderer->SetLastFrameCallback(PreAniName, [=]()
 		{
+			Renderer->SetActive(false);
 			GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 		}
 	);
