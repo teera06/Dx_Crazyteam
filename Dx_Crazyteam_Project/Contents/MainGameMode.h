@@ -5,7 +5,7 @@
 #include <EngineCore/EngineNetWindow.h>
 #include <EngineBase/EngineDispatcher.h>
 
-
+class AOtherPlayer;
 class APlayer;
 class APlayer_Name;
 class AVillage;
@@ -29,7 +29,7 @@ public:
 
 	std::shared_ptr<APlayer> GetPlayer()
 	{
-		return Player1;
+		return MainPlayer;
 	}
 
 protected:
@@ -42,8 +42,11 @@ protected:
 private:
 	UTextWidget* ShowText = nullptr;
 	std::shared_ptr<AVillage> Village = nullptr;
-	std::shared_ptr<APlayer> Player1 = nullptr;
+	std::shared_ptr<APlayer> MainPlayer = nullptr;
+	std::vector<AOtherPlayer*> OtherPlayers;
+	std::shared_ptr<AMapUI> MapUI = nullptr;
 	std::shared_ptr<APlayer_Name> PlayerName = nullptr;
+
 
 };
 
