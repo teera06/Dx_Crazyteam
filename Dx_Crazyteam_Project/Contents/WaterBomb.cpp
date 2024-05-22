@@ -289,7 +289,7 @@ POINT AWaterBomb::SearchLogic(POINT _CurPoint, FVector _MoveVector)
 void AWaterBomb::BombBegin()
 {
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
-	GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water);
+	GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water, EItemType::None, GetPower);
 }
 
 void AWaterBomb::BombTick(float _DeltaTime)

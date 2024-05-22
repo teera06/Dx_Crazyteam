@@ -274,11 +274,11 @@ void ABaseMap::Tick(float _DeltaTime)
 }
 
 
-std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _MapObjectType, EItemType _Item)
+std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _MapObjectType, EItemType _Item, int _Power)
 {
 	FVector PushPos = PointToPos(_Y, _X);
 
-	std::shared_ptr<AMapObject> MapObj = SpawnMapObject(_Y,_X,_MapObjectType, _Item);
+	std::shared_ptr<AMapObject> MapObj = SpawnMapObject(_Y,_X,_MapObjectType, _Item, _Power);
 
 	if (MapObj == nullptr) 
 	{
@@ -312,7 +312,7 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 	return MapObj;
 }
 
-std::shared_ptr<AMapObject> ABaseMap::SpawnMapObject(int _Y, int _X, EMapObject _MapObjectType, EItemType _Item)
+std::shared_ptr<AMapObject> ABaseMap::SpawnMapObject(int _Y, int _X, EMapObject _MapObjectType, EItemType _Item, int _Power)
 {
 	std::shared_ptr<AMapObject> MapObj = nullptr;
 	FVector PushPos = PointToPos(_Y, _X);
@@ -403,6 +403,7 @@ std::shared_ptr<AMapObject> ABaseMap::SpawnMapObject(int _Y, int _X, EMapObject 
 	{
 		std::shared_ptr<AWaterBomb> TempObj = GetWorld()->SpawnActor<AWaterBomb>("CampBlock");
 		TempObj->SetActorLocation(PushPos);
+		TempObj->SetWaterPower(_Power);
 		TempObj->CreateWaterBomb();
 		UMapStateValue::st_ACAGameMode = GetGameMode();
 		MapObj = TempObj;
@@ -412,6 +413,7 @@ std::shared_ptr<AMapObject> ABaseMap::SpawnMapObject(int _Y, int _X, EMapObject 
 	{
 		std::shared_ptr<AWaterCourse> TempObj = GetWorld()->SpawnActor<AWaterCourse>("WaterCouse");
 		TempObj->SetActorLocation(PushPos);
+		TempObj->SetWaterPower(_Power);
 		TempObj->CreateWaterCenter();
 		MapObj = TempObj;
 		break;
@@ -573,9 +575,9 @@ std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(FVector _SpawnPos)
 	return AddMapObject(BombPoint.y, BombPoint.x, EMapObject::WaterBomb);
 }
 
-std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(int _Y, int _X)
+std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(int _Y, int _X, int _Power)
 {
-	return AddMapObject(_Y, _X, EMapObject::WaterBomb);
+	return AddMapObject(_Y, _X, EMapObject::WaterBomb, EItemType::None ,_Power);
 }
 
 void ABaseMap::DestroyMapObject(int _Y, int _X)
