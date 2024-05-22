@@ -165,22 +165,19 @@ public:
 	void Serialize(UEngineSerializer& _Ser) override
 	{
 		UEngineProtocol::Serialize(_Ser);
-		_Ser << SpriteIndex;
-		_Ser << SpriteName;		
-		_Ser << Token;
+		_Ser << NewPlayer;
+		_Ser << SpriteNames;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
 	{
 		UEngineProtocol::DeSerialize(_Ser);
-		_Ser >> SpriteIndex;
-		_Ser >> SpriteName;		
-		_Ser >> Token;
+		_Ser >> NewPlayer;
+		_Ser >> SpriteNames;
 	}
 
 public:
-	int SpriteIndex = 0;
-	std::string SpriteName;
-	int Token = 0;
+	bool NewPlayer = false;
+	std::vector<std::string> SpriteNames;
 };
 

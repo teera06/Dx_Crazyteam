@@ -23,7 +23,11 @@ public:
 
 	void SetIsActive(bool _Active);
 
+	void NewPlayer();
+
 	std::vector<UImage*> LobbyPlayer;
+
+	void SettingUIPlayerName(std::vector<std::string> _Names);
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -122,6 +126,8 @@ private:
 	bool IsGetSessionToken = false;
 	static bool IsClient;
 	static bool Create;
+	static int Create_Count;
+	int Cha_Count = 0;
 
 public:
 	inline void SetMySessionToken(int _Value)
@@ -130,5 +136,7 @@ public:
 		IsGetSessionToken = true;
 	}
 
+	// APlayLobby
+	std::function<void(APlayLobby*)> ChracterChangeLogic = nullptr;
 };
 
