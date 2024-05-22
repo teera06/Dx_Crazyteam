@@ -506,6 +506,7 @@ void APlayer::RealDieStart()
 {
 	// 진짜 죽음 처리
 	Renderer->SetActive(false);
+	SoloArrowRenderer->SetActive(false);
 }
 
 void APlayer::RealDie(float _DeltaTime)
