@@ -41,8 +41,10 @@ private:
 	void RoomBegin();
 	void CharacterBegin();
 	void StartBegin();
-	void MapSelectBegin();
+	void MapSelectButtonBegin();
 	void LobbyPlayerBegin();
+	void MapSelectBegin();
+
 
 	UImage* PlayLobbyUI = nullptr;
 	UImage* GameStart = nullptr;
@@ -92,6 +94,20 @@ private:
 	UImage* Room6 = nullptr;
 	UImage* Room7 = nullptr;
 	
+	//MapSelect
+	UImage* MapSelect = nullptr;
+	UImage* MapSelectVName = nullptr;
+	UImage* MapSelectVTitle = nullptr;
+	UImage* MapSelectCTitle = nullptr;
+	UImage* MapSelectVPick = nullptr;
+	UImage* MapSelectCName = nullptr;
+	UImage* MapSelectCPick = nullptr;
+	UImage* MapSelectCMinimap = nullptr;
+	UImage* MapSelectVinfo = nullptr;
+	UImage* MapSelectCinfo = nullptr;
+	UImage* EnterButton = nullptr;
+	UImage* CancelButton = nullptr;
+
 	ACAGameMode* Teamtyp = nullptr;
 
 
@@ -120,6 +136,8 @@ private:
 	bool RoomSwitch= false;
 	int  PlayerCount = 0;
 	int TestCount = 0;
+
+	bool VillagePick = true;
 
 private:
 	int MySessionToken = -1;
