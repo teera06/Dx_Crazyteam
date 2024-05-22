@@ -22,7 +22,7 @@ public:
 	APlayLobby& operator=(APlayLobby&& _Other) noexcept = delete;
 
 	void SetIsActive(bool _Active);
-
+	
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -119,6 +119,8 @@ private:
 private:
 	int MySessionToken = -1;
 	bool IsGetSessionToken = false;
+	static bool IsClient;
+	static bool Create;
 
 public:
 	inline void SetMySessionToken(int _Value)

@@ -55,7 +55,7 @@ public:
 		IsPossessed = _IsPossess;
 	}
 
-	bool GetIsPossessed()
+	bool GetIsPossessed() const
 	{
 		return IsPossessed;
 	}

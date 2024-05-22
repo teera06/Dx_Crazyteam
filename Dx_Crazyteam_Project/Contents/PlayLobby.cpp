@@ -8,6 +8,9 @@
 #include "SendPacketManager.h"
 #include "Game_Core.h"
 
+bool APlayLobby::IsClient = false;
+bool APlayLobby::Create = false;
+
 APlayLobby::APlayLobby()
 {
 
@@ -359,14 +362,47 @@ void APlayLobby::Tick(float _DeltaTime)
 	{
 		PlayerCount = MySessionToken;
 
-		LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
-		LobbyPlayer[PlayerCount]->AddToViewPort(15);
-		LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
-		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
-		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
-		SetObjectToken(UGame_Core::Net->GetSessionToken() * 110000 + 1);
-		USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
+		if (PlayerCount == 0 && Create == false)
+		{
+			LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
+			LobbyPlayer[PlayerCount]->AddToViewPort(15);
+			LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
+			LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
+			LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
+			SetObjectToken(PlayerCount + 110000);
+			USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
+			Create = true;
+		}
+		else if (PlayerCount >= 1 && Create == false)
+		{
+			LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
+			LobbyPlayer[PlayerCount]->AddToViewPort(15);
+			LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
+			LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
+			LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
+			SetObjectToken(PlayerCount + 110000);
+			USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
+			Create = true;
+			IsClient = true;
+		}
 
+		if (IsClient == false)
+		{
+			for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
+			{
+				if (LobbyPlayer[SessionToken] == nullptr)
+				{
+					LobbyPlayer[SessionToken] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
+					LobbyPlayer[SessionToken]->AddToViewPort(15);
+					LobbyPlayer[SessionToken]->SetSprite("bazzi_idle.png", 1);
+					LobbyPlayer[SessionToken]->SetScale({ 150, 150 });
+					LobbyPlayer[SessionToken]->SetPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
+				}
+				SetObjectToken(SessionToken + 110000);
+				USendPacketManager::SendLPlayerPacket(this, "bazzi_idle.png", 1);
+			}
+		}
+		
 		IsGetSessionToken = false;
 	}
 
@@ -1129,4 +1165,6 @@ void APlayLobby::SetIsActive(bool _Active)
 {
 	PlayLobbyUI->SetActive(_Active);
 }
+
+
 

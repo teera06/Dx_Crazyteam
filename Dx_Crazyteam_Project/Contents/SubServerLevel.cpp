@@ -105,7 +105,6 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 				{
 					MapUI->ClientCreate();
 				}
-
 				//물폭탄
 				MainPlayer->WaterBomb_Token = _Token->GetSessionToken() * 1000 + 2;
 				//물폭탄물줄기
@@ -113,7 +112,6 @@ void ASubServerLevel::LevelStart(ULevel* _DeltaTime)
 			});
 			// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다.
 			ClientPacketInit(UGame_Core::Net->Dispatcher);
-
 		});
 	}
 	subNetWindow->On();
@@ -124,7 +122,7 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 	Dis.AddHandler<UActorUpdatePacket>([=](std::shared_ptr<UActorUpdatePacket> _Packet)
 	{
 		// 다른 사람들한테 이 오브젝트에 대해서 알리고
-		UGame_Core::Net->Send(_Packet);
+		UGame_Core::Net->Send(_Packet);		
 
 		GetWorld()->PushFunction([=]()
 		{
@@ -135,7 +133,7 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 				OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
 			}
 			OtherPlayer->PushProtocol(_Packet);
-			});
+		});
 	});
 
 	Dis.AddHandler<UMapObjectUpdatePacket>([=](std::shared_ptr<UMapObjectUpdatePacket> _Packet)
@@ -220,7 +218,6 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 					Time->PushProtocol(_Packet);
 				});
 		});
-
 }
 
 void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
