@@ -25,6 +25,10 @@ public:
 	{
 		return NameText;
 	}
+
+
+
+
 protected:
 
 	void InsertName(std::string_view _Name);

@@ -13,3 +13,5 @@ ETeamType ConstValue::MainPlayerTeamType = ETeamType::None;
 ECharacterType ConstValue::MainPlayerCharacterType = ECharacterType::None;
 
 EMap ConstValue::SelectedMap = EMap::Village;
+
+const FVector ConstValue::CameraPos = FVector(80.f, 1.0f, -1000.f);

@@ -19,14 +19,12 @@ void APlayer_Name::BeginPlay()
 	Super::BeginPlay();
 
 	InsertName("NONE");
-
+	
 }
 
 void APlayer_Name::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
-	//PlayerShadowPacket(_DeltaTime);
 }
 
 void APlayer_Name::InsertName(std::string_view _Name)
@@ -35,8 +33,7 @@ void APlayer_Name::InsertName(std::string_view _Name)
 
 	NameText = CreateWidget<UTextWidget>(GetWorld(), _Name);
 	NameText->SetFont("¸¼Àº °íµñ");
-//	NameText->SetPosition(FVector(-70.0f, 80.0f));
-
+	//NameText->SetPosition(-ConstValue::CameraPos);
 	NameText->SetScale(10.0f);
 	NameText->SetColor(Color8Bit::Black);
 	NameText->SetOrder(1);
