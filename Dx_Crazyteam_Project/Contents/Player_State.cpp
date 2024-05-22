@@ -339,6 +339,8 @@ void APlayer::TrapStart()
 	TrapDir = FVector::Up;
 	TrapMoveTime = 1.f;
 	TrapToDieTime = 5.f;
+
+	UEngineSound::SoundPlay("Damaged.wav");
 }
 
 
@@ -452,6 +454,7 @@ void APlayer::Trap(float _DeltaTime)
 void APlayer::RescueStart()
 {
 	Renderer->ChangeAnimation(GetAnimationName("Rescue"));
+	UEngineSound::SoundPlay("Revival.mp3");
 }
 
 void APlayer::Rescue(float _DeltaTime)
@@ -469,6 +472,8 @@ void APlayer::DieStart()
 {
 	Renderer->ChangeAnimation(GetAnimationName("Die"));
 	Shadow->ShadowRenderOff();
+
+	UEngineSound::SoundPlay("Die.mp3");
 
 	DieAniTwinkleActive = 0;
 	DieTwinkleTime = 0.1f;

@@ -223,6 +223,7 @@ void AWaterBomb::KickTick(float _DeltaTime)
 		FVector Pos = GetGameMode()->GetCurMap()->PointToPos(CurPoint.y, CurPoint.x);
 		SetActorLocation(Pos);
 
+		if(false == b_WaterToBomb)
 		{
 			USendPacketManager::SendMapObjectMoveEndPacket(shared_from_this(), CurPoint.y, CurPoint.x, GetCurPos().y, GetCurPos().x);
 		}
