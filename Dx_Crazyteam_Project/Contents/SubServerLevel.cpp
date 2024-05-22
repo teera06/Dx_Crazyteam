@@ -140,66 +140,68 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 		{
 			UGame_Core::Net->Send(_Packet);
 
-			// Other 오브젝트 릴리즈
-			if (true == _Packet->IsDestroy)
-			{
-				AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
-				if (nullptr != OtherItem)
+			GetWorld()->PushFunction([=]()
 				{
-					POINT Pos = _Packet->Pos;
-					GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
-				}
-				return;
-			}
+					// Other 오브젝트 릴리즈
+					if (true == _Packet->IsDestroy)
+					{
+						AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+						if (nullptr != OtherItem)
+						{
+							POINT Pos = _Packet->Pos;
+							GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
+						}
+						return;
+					}
 
-			// Other 오브젝트 이동
-			if (true == _Packet->IsMove)
-			{
-				AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
-				if (nullptr != OtherBlock)
-				{
-					OtherBlock->SetActorLocation(_Packet->MovePos);
-				}
-				return;
-			}
+					// Other 오브젝트 이동
+					if (true == _Packet->IsMove)
+					{
+						AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+						if (nullptr != OtherBlock)
+						{
+							OtherBlock->SetActorLocation(_Packet->MovePos);
+						}
+						return;
+					}
 
-			// Other 오브젝트 이동 종료
-			if (true == _Packet->IsMoveEnd)
-			{
-				AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
-				if (nullptr != OtherBlock)
-				{
-					GetCurMap()->MoveMapObject(OtherBlock->shared_from_this(), _Packet->MoveEndPos.y, _Packet->MoveEndPos.x, _Packet->MoveBeginPos.y, _Packet->MoveBeginPos.x);
-				}
-				return;
-			}
+					// Other 오브젝트 이동 종료
+					if (true == _Packet->IsMoveEnd)
+					{
+						AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+						if (nullptr != OtherBlock)
+						{
+							GetCurMap()->MoveMapObject(OtherBlock->shared_from_this(), _Packet->MoveEndPos.y, _Packet->MoveEndPos.x, _Packet->MoveBeginPos.y, _Packet->MoveBeginPos.x);
+						}
+						return;
+					}
 
-			// 물풍선 관련 오브젝트 생성 관련
-			EMapObject ObjType = static_cast<EMapObject>(_Packet->ObjectType);
+					// 물풍선 관련 오브젝트 생성 관련
+					EMapObject ObjType = static_cast<EMapObject>(_Packet->ObjectType);
 
-			switch (ObjType)
-			{
-			case EMapObject::Water:
-			case EMapObject::WaterBomb:
-			{
-				AMapObject* OtherObject = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+					switch (ObjType)
+					{
+					case EMapObject::Water:
+					case EMapObject::WaterBomb:
+					{
+						AMapObject* OtherObject = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 
-				if (nullptr == OtherObject)
-				{
-					ABaseMap* CurMap = GetCurMap().get();
-					POINT PosValue = _Packet->Pos;
+						if (nullptr == OtherObject)
+						{
+							ABaseMap* CurMap = GetCurMap().get();
+							POINT PosValue = _Packet->Pos;
 
-					OtherObject = CurMap->AddMapObject(PosValue.x, PosValue.y, ObjType).get();
+							OtherObject = CurMap->AddMapObject(PosValue.x, PosValue.y, ObjType).get();
 
-					OtherObject->SetObjectToken(_Packet->GetObjectToken());
-				}
-				break;
-			}
-			default:
-				MsgBoxAssert("Server가 아닌 곳에서 MapObject를 생성하려 했습니다.");
-				return;
-			}
-
+							OtherObject->SetObjectToken(_Packet->GetObjectToken());
+						}
+						break;
+					}
+					default:
+						MsgBoxAssert("Server가 아닌 곳에서 MapObject를 생성하려 했습니다.");
+						return;
+					}
+				});
 		});
 
 	Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
@@ -238,114 +240,117 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 
 	Dis.AddHandler<UMapObjectUpdatePacket>([=](std::shared_ptr<UMapObjectUpdatePacket> _Packet)
 		{
-			// Other 오브젝트 소멸 관련
-			if (true == _Packet->IsDestroy)
-			{
-				AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
-				if (nullptr != OtherItem)
+
+			GetWorld()->PushFunction([=]()
 				{
-					POINT Pos = _Packet->Pos;
-					GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
-				}
-				return;
-			}
-
-			// Other 오브젝트 이동
-			if (true == _Packet->IsMove)
-			{
-				AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
-				if (nullptr != OtherBlock)
-				{
-					OtherBlock->SetActorLocation(_Packet->MovePos);
-				}
-				return;
-			}
-
-			// Other 오브젝트 이동 종료
-			if (true == _Packet->IsMoveEnd)
-			{
-				AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
-				if (nullptr != OtherBlock)
-				{
-					GetCurMap()->MoveMapObject(OtherBlock->shared_from_this(), _Packet->MoveEndPos.y, _Packet->MoveEndPos.x, _Packet->MoveBeginPos.y, _Packet->MoveBeginPos.x);
-				}
-				return;
-			}
-
-			// Other 오브젝트 생성 관련
-			EMapObject ObjType = static_cast<EMapObject>(_Packet->ObjectType);
-
-			switch (ObjType)
-			{
-			case EMapObject::DummyBlock:
-			case EMapObject::NormalBlock:
-			case EMapObject::CampBlock1:
-			case EMapObject::CampBlock2:
-			case EMapObject::CampBlock3:
-			case EMapObject::CampBlock4:
-			case EMapObject::CampMoveBlock1:
-			case EMapObject::CampMoveBlock2:
-			case EMapObject::CampHPBlock:
-			case EMapObject::WaterBomb:
-			case EMapObject::Water:
-			case EMapObject::TownBush:
-			{
-				AMapObject* OtherObject = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
-
-				if (nullptr == OtherObject)
-				{
-					ABaseMap* CurMap = GetCurMap().get();
-					POINT PosValue = _Packet->Pos;
-
-					OtherObject = CurMap->AddMapObject(PosValue.x, PosValue.y, ObjType).get();
-
-					OtherObject->SetObjectToken(_Packet->GetObjectToken());
-				}
-				break;
-			}
-			case EMapObject::Item:
-			{
-				EItemType ItemType = static_cast<EItemType>(_Packet->ItemType);
-
-				if (EItemType::None == ItemType)
-				{
-					MsgBoxAssert("아이템 타입을 지정하지 않았습니다. 지정해주세요.");
-					return;
-				}
-
-				// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
-				AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
-
-				if (nullptr == OtherItem)
-				{
-					ABaseMap* CurMap = GetCurMap().get();
-					POINT PosValue = _Packet->Pos;
-
-					switch (ItemType)
+					// Other 오브젝트 소멸 관련
+					if (true == _Packet->IsDestroy)
 					{
-					case EItemType::ItemBubble:
-					case EItemType::ItemFluid:
-					case EItemType::ItemNiddle:
-					case EItemType::ItemOwl:
-					case EItemType::ItemRoller:
-					case EItemType::ItemShoes:
-						OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, ItemType).get();
-						break;
-					default:
-						MsgBoxAssert("지정되지 않은 타입입니다. 아이템 타입을 확인하세요.");
+						AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+						if (nullptr != OtherItem)
+						{
+							POINT Pos = _Packet->Pos;
+							GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
+						}
 						return;
 					}
 
-					OtherItem->SetObjectToken(_Packet->GetObjectToken());
-				}
-				break;
-			}
-			case EMapObject::Default:
-			default:
-				MsgBoxAssert("Type이 Default타입이거나 지정되지 않은 타입입니다.");
-				return;
-			}
+					// Other 오브젝트 이동
+					if (true == _Packet->IsMove)
+					{
+						AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+						if (nullptr != OtherBlock)
+						{
+							OtherBlock->SetActorLocation(_Packet->MovePos);
+						}
+						return;
+					}
 
+					// Other 오브젝트 이동 종료
+					if (true == _Packet->IsMoveEnd)
+					{
+						AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+						if (nullptr != OtherBlock)
+						{
+							GetCurMap()->MoveMapObject(OtherBlock->shared_from_this(), _Packet->MoveEndPos.y, _Packet->MoveEndPos.x, _Packet->MoveBeginPos.y, _Packet->MoveBeginPos.x);
+						}
+						return;
+					}
+
+					// Other 오브젝트 생성 관련
+					EMapObject ObjType = static_cast<EMapObject>(_Packet->ObjectType);
+
+					switch (ObjType)
+					{
+					case EMapObject::DummyBlock:
+					case EMapObject::NormalBlock:
+					case EMapObject::CampBlock1:
+					case EMapObject::CampBlock2:
+					case EMapObject::CampBlock3:
+					case EMapObject::CampBlock4:
+					case EMapObject::CampMoveBlock1:
+					case EMapObject::CampMoveBlock2:
+					case EMapObject::CampHPBlock:
+					case EMapObject::WaterBomb:
+					case EMapObject::Water:
+					case EMapObject::TownBush:
+					{
+						AMapObject* OtherObject = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+
+						if (nullptr == OtherObject)
+						{
+							ABaseMap* CurMap = GetCurMap().get();
+							POINT PosValue = _Packet->Pos;
+
+							OtherObject = CurMap->AddMapObject(PosValue.x, PosValue.y, ObjType).get();
+
+							OtherObject->SetObjectToken(_Packet->GetObjectToken());
+						}
+						break;
+					}
+					case EMapObject::Item:
+					{
+						EItemType ItemType = static_cast<EItemType>(_Packet->ItemType);
+
+						if (EItemType::None == ItemType)
+						{
+							MsgBoxAssert("아이템 타입을 지정하지 않았습니다. 지정해주세요.");
+							return;
+						}
+
+						// UActorUpdatePacket으로 아이템 정보가 날라왔을 때 자신에게도 Item이 보이는 기능 구현
+						AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+
+						if (nullptr == OtherItem)
+						{
+							ABaseMap* CurMap = GetCurMap().get();
+							POINT PosValue = _Packet->Pos;
+
+							switch (ItemType)
+							{
+							case EItemType::ItemBubble:
+							case EItemType::ItemFluid:
+							case EItemType::ItemNiddle:
+							case EItemType::ItemOwl:
+							case EItemType::ItemRoller:
+							case EItemType::ItemShoes:
+								OtherItem = CurMap->AddMapObject(PosValue.x, PosValue.y, EMapObject::Item, ItemType).get();
+								break;
+							default:
+								MsgBoxAssert("지정되지 않은 타입입니다. 아이템 타입을 확인하세요.");
+								return;
+							}
+
+							OtherItem->SetObjectToken(_Packet->GetObjectToken());
+						}
+						break;
+					}
+					case EMapObject::Default:
+					default:
+						MsgBoxAssert("Type이 Default타입이거나 지정되지 않은 타입입니다.");
+						return;
+					}
+				});
 		});
 
 	Dis.AddHandler<UUIUpdatePacket>([=](std::shared_ptr<UUIUpdatePacket> _Packet)
