@@ -357,7 +357,6 @@ void APlayLobby::Tick(float _DeltaTime)
 	//¸Ê ¼±ÅÃ ¹öÆ°
 	MapSelectBegin();
 
-
 	if (IsGetSessionToken == true)
 	{
 		PlayerCount = MySessionToken;
@@ -1023,6 +1022,20 @@ void APlayLobby::CharacterBegin()
 					checkUI->SetPosition({ 222.0f,133.0f });
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Marid;
+
+					if (IsClient == false)
+					{
+						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
+						{
+							SetObjectToken(SessionToken + 110000);
+							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
+						}
+					}
+					else if (IsClient == true)
+					{
+						SetObjectToken(PlayerCount + 110000);
+						USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
+					}
 				}
 			}
 			});
@@ -1064,26 +1077,24 @@ void APlayLobby::CharacterBegin()
 					checkUI->SetPosition({ 292.0f,133.0f });
 					checkUI->SetActive(true);
 					ConstValue::MainPlayerCharacterType = ECharacterType::Bazzi;
+
+					if (IsClient == false)
+					{
+						for (int SessionToken = 0; SessionToken <= PlayerCount; SessionToken++)
+						{
+							SetObjectToken(SessionToken + 110000);
+							USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
+						}
+					}
+					else if (IsClient == true)
+					{
+						SetObjectToken(PlayerCount + 110000);
+						USendPacketManager::SendLPlayerPacket(this, LobbyPlayer[PlayerCount]->CurInfo.Texture->GetName(), 1);
+					}
 				}
 			}
 			});
 	}
-
-	/*if (IsGetSessionToken == true)
-	{
-		PlayerCount = MySessionToken;
-
-		LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");;
-		LobbyPlayer[PlayerCount]->AddToViewPort(15);
-		LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
-		LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
-		LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
-
-		USendPacketManager::SendLPlayerPacket(this, UGame_Core::Net->GetSessionToken(), "bazzi_idle.png", 1);
-
-		IsGetSessionToken = false;
-	}*/
-
 }
 
 void APlayLobby::StartBegin()
@@ -1193,7 +1204,6 @@ void APlayLobby::SwapTeamSelectCharacter(UImage* _SelectTeam)
 	_SelectTeam->ChangeAnimation("TeamUp");
 	SelectTeam = _SelectTeam;
 }
-
 
 void APlayLobby::SetIsActive(bool _Active)
 {
