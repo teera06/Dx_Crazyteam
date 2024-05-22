@@ -76,7 +76,7 @@ void AMapUI::BeginPlay()
 		PlayerItemUI[i] = CreateWidget<UImage>(GetWorld(), "PlayerItemUI");
 		PlayerItemUI[i]->AddToViewPort(3);
 		PlayerItemUI[i]->SetAutoSize(1.0f, true);
-		PlayerItemUI[i]->SetSprite("ItemShadow.png");
+		PlayerItemUI[i]->SetSprite("transparent.png");
 		PlayerItemUI[0]->SetPosition(FVector(290.0f, -230.0f, 0.0f));
 		PlayerItemUI[i]->SetActive(true);
 	}
@@ -215,7 +215,7 @@ void AMapUI::SetPlayItemUI()
 	switch (GetGameMode()->GetPlayer()->GetCtrlItem())
 	{
 	case EItemType::None:
-		PlayerItemUI[0]->SetSprite("ItemShadow.png");
+		PlayerItemUI[0]->SetSprite("transparent.png.png");
 		break;
 	case EItemType::ItemNiddle:
 		PlayerItemUI[0]->SetSprite("Niddle.png", 1);
