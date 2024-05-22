@@ -184,6 +184,25 @@ bool ABaseMap::IsOnWater(FVector _PlayerPos)
 	else return false;
 }
 
+bool ABaseMap::IsOnWaterBomb(FVector _PlayerPos)
+{
+	POINT CheckPos = PosToPoint(_PlayerPos);
+	if (MapStatus[CheckPos.y][CheckPos.x] == nullptr)
+	{
+		return false;
+	}
+
+	EMapObjectType Type = MapStatus[CheckPos.y][CheckPos.x]->GetType();
+	if (Type == EMapObjectType::WaterBalloon)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 bool ABaseMap::IsOnBush(FVector _PlayerPos)
 {
 	POINT CheckPos = PosToPoint(_PlayerPos);

@@ -22,7 +22,8 @@ public:
 	APlayLobby& operator=(APlayLobby&& _Other) noexcept = delete;
 
 	void SetIsActive(bool _Active);
-	
+
+	std::vector<UImage*> LobbyPlayer;
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -75,7 +76,7 @@ private:
 	UImage* checkUI = nullptr;
 
 	//로비 플레이어 캐릭터
-	std::vector<UImage*> LobbyPlayer;
+	//std::vector<UImage*> LobbyPlayer;
 	std::vector<UImage*> Rank;
 	
 	//플레이어 Room

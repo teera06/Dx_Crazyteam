@@ -20,7 +20,7 @@ public:
 	static void SendMapObjectReleasePacket(AMapObject* _NetObject, POINT _CurPos);
 	static void SendMapObjectMovePacket(AMapObject* _NetObject, FVector _Position);
 	static void SendMapObjectMoveEndPacket(std::shared_ptr<AMapObject> _NetObject, int _NY, int _NX, int _PY, int _PX);
-	static void SendLPlayerPacket(UNetObject* _NetObject, std::string_view _SpriteName, int _SpriteIndex);
+	static void SendLPlayerPacket(UNetObject* _NetObject, std::string_view _SpriteName, int _SpriteIndex, int _Token =0);
 
 protected:
 

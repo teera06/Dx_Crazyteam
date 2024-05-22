@@ -21,6 +21,8 @@ public:
 
 	void SetRenderer(std::string_view _SpriteName, int _Index);
 	void SetPosition(int _SessionToken);
+	int MySessionToken = 0;
+
 protected:
 
 private:

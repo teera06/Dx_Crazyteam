@@ -65,8 +65,12 @@ void AWaterBomb::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 	State.Update(_DeltaTime);
 
-	std::string MSg = GetActorLocation().ToString();
-	UEngineDebugMsgWindow::PushMsg(MSg);
+#ifdef _DEBUG
+	std::string WaterBombMsg = std::format("Water Bomb {}\n", GetActorLocation().ToString());
+
+
+	UMapDebugGUI::PushMsg(WaterBombMsg);
+#endif
 }
 
 float AWaterBomb::GetCreateTime()
@@ -279,11 +283,11 @@ void AWaterBomb::BombBegin()
 		}
 
 		GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water);
-		//WaterCourse->SetObjectToken(GetObjectToken() + 10000);
-		//USendPacketManager::SendMapObjectSpawnPacket(WaterCourse, { GetCurPos().y, GetCurPos().x}, EMapObject::Water);
 
-		if (GetIsPossessed()) Destroy();
-		//GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
+		if (true == GetIsPossessed())
+		{
+			Destroy();
+		}
 	}
 }
 
