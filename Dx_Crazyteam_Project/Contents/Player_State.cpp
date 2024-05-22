@@ -304,7 +304,7 @@ void  APlayer::Idle(float _DeltaTime)
 
 void APlayer::MoveStart()
 {
-	Dir = FVector::Zero;
+	//Dir = FVector::Zero;
 }
 
 void APlayer::Move(float _DeltaTime)
