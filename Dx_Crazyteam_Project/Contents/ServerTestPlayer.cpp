@@ -35,6 +35,11 @@ void AServerTestPlayer::Tick(float _DeltaTime)
 		SpawnItem();
 	}
 
+	if (true == IsDown('O'))
+	{
+		SpawnItem2();
+	}
+
 	//// WaterBomb 생성 테스트
 	//if (true == IsDown('O'))
 	//{
@@ -603,5 +608,261 @@ void AServerTestPlayer::SpawnItem()
 		
 		}
 
+	}
+}
+
+void AServerTestPlayer::SpawnItem2()
+{
+	std::shared_ptr<UEngineServer> Server = dynamic_pointer_cast<UEngineServer>(UGame_Core::Net);
+
+	if (nullptr != Server)
+	{
+		std::shared_ptr<AMapObject> CampBlock1 = GetGameMode()->GetCurMap()->AddMapObject(0, 0, EMapObject::CampBlock2);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock1, { 0,0 }, EMapObject::CampBlock2);
+
+		std::shared_ptr<AMapObject> CampBlock2 = GetGameMode()->GetCurMap()->AddMapObject(0, 2, EMapObject::CampBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock2, { 0,2 }, EMapObject::CampBlock1);
+
+		std::shared_ptr<AMapObject> CampBlock3 = GetGameMode()->GetCurMap()->AddMapObject(0, 4, EMapObject::CampBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock3, { 0,4 }, EMapObject::CampBlock1);
+
+		std::shared_ptr<AMapObject> TownBush1 = GetGameMode()->GetCurMap()->AddMapObject(0, 6, EMapObject::TownBush);
+		USendPacketManager::SendMapObjectSpawnPacket(TownBush1, { 0,6 }, EMapObject::TownBush);
+
+		std::shared_ptr<AMapObject> TownBush2 = GetGameMode()->GetCurMap()->AddMapObject(0, 8, EMapObject::TownBush);
+		USendPacketManager::SendMapObjectSpawnPacket(TownBush2, { 0,8 }, EMapObject::TownBush);
+
+		std::shared_ptr<AMapObject> CampBlock4 = GetGameMode()->GetCurMap()->AddMapObject(0, 10, EMapObject::CampBlock2);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock4, { 0,10 }, EMapObject::CampBlock2);
+
+		std::shared_ptr<AMapObject> CampBlock5 = GetGameMode()->GetCurMap()->AddMapObject(0, 12, EMapObject::CampBlock2);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock5, { 0,12 }, EMapObject::CampBlock2);
+
+		std::shared_ptr<AMapObject> CampBlock6 = GetGameMode()->GetCurMap()->AddMapObject(0, 14, EMapObject::CampBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock6, { 0,14 }, EMapObject::CampBlock1);
+
+		std::shared_ptr<AMapObject> CampMoveBlock1 = GetGameMode()->GetCurMap()->AddMapObject(1, 0, EMapObject::CampMoveBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock1, { 1,0 }, EMapObject::CampMoveBlock1);
+
+		std::shared_ptr<AMapObject> CampBlock7 = GetGameMode()->GetCurMap()->AddMapObject(1, 4, EMapObject::CampBlock3);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock7, {1,4 }, EMapObject::CampBlock3);
+
+		std::shared_ptr<AMapObject> CampBlock8 = GetGameMode()->GetCurMap()->AddMapObject(1, 5, EMapObject::CampBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock8, { 1,5 }, EMapObject::CampBlock1);
+
+		std::shared_ptr<AMapObject> TownBush3 = GetGameMode()->GetCurMap()->AddMapObject(1, 6, EMapObject::TownBush);
+		USendPacketManager::SendMapObjectSpawnPacket(TownBush3, { 1,6 }, EMapObject::TownBush);
+
+		std::shared_ptr<AMapObject> TownBush4 = GetGameMode()->GetCurMap()->AddMapObject(1, 8, EMapObject::TownBush);
+		USendPacketManager::SendMapObjectSpawnPacket(TownBush4, { 1,8 }, EMapObject::TownBush);
+
+		std::shared_ptr<AMapObject> CampBlock9 = GetGameMode()->GetCurMap()->AddMapObject(1, 9, EMapObject::CampBlock2);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock9, { 1,9 }, EMapObject::CampBlock2);
+
+		std::shared_ptr<AMapObject> CampBlock10 = GetGameMode()->GetCurMap()->AddMapObject(1, 10, EMapObject::CampBlock3);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock10, { 1,10 }, EMapObject::CampBlock3);
+
+		std::shared_ptr<AMapObject> CampMoveBlock2 = GetGameMode()->GetCurMap()->AddMapObject(1, 14, EMapObject::CampMoveBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock2, { 1,14 }, EMapObject::CampMoveBlock1);
+
+
+		std::shared_ptr<AMapObject> CampBlock11 = GetGameMode()->GetCurMap()->AddMapObject(2, 0, EMapObject::CampBlock2);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock11, { 2,0 }, EMapObject::CampBlock2);
+
+		std::shared_ptr<AMapObject> CampBlock12 = GetGameMode()->GetCurMap()->AddMapObject(2, 2, EMapObject::CampBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock12, { 2,2 }, EMapObject::CampBlock1);
+		
+		std::shared_ptr<AMapObject> CampBlock13 = GetGameMode()->GetCurMap()->AddMapObject(2, 3, EMapObject::CampBlock3);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock13, { 2,3 }, EMapObject::CampBlock3);
+
+		std::shared_ptr<AMapObject> CampHPBlock1 = GetGameMode()->GetCurMap()->AddMapObject(2, 5, EMapObject::CampHPBlock);
+		USendPacketManager::SendMapObjectSpawnPacket(CampHPBlock1, { 2,5 }, EMapObject::CampHPBlock);
+
+		std::shared_ptr<AMapObject> CampBlock14 = GetGameMode()->GetCurMap()->AddMapObject(2, 6, EMapObject::CampBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock14, { 2,6 }, EMapObject::CampBlock1);
+
+		std::shared_ptr<AMapObject> CampBlock15 = GetGameMode()->GetCurMap()->AddMapObject(2, 8, EMapObject::CampBlock2);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock15, { 2,8 }, EMapObject::CampBlock2);
+
+		std::shared_ptr<AMapObject> CampHPBlock2 = GetGameMode()->GetCurMap()->AddMapObject(2, 9, EMapObject::CampHPBlock);
+		USendPacketManager::SendMapObjectSpawnPacket(CampHPBlock2, { 2,9 }, EMapObject::CampHPBlock);
+	
+		std::shared_ptr<AMapObject> CampBlock16 = GetGameMode()->GetCurMap()->AddMapObject(2, 11, EMapObject::CampBlock3);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock16, { 2,11 }, EMapObject::CampBlock3);
+
+		std::shared_ptr<AMapObject> CampBlock17 = GetGameMode()->GetCurMap()->AddMapObject(2, 12, EMapObject::CampBlock2);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock17, { 2,12 }, EMapObject::CampBlock2);
+
+		std::shared_ptr<AMapObject> CampBlock18 = GetGameMode()->GetCurMap()->AddMapObject(2, 14, EMapObject::CampBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock18, { 2,14 }, EMapObject::CampBlock1);
+
+		std::shared_ptr<AMapObject> CampBlock19 = GetGameMode()->GetCurMap()->AddMapObject(3,0, EMapObject::CampBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock19, { 3,0 }, EMapObject::CampBlock1);
+
+		std::shared_ptr<AMapObject> CampBlock20 = GetGameMode()->GetCurMap()->AddMapObject(3, 1, EMapObject::CampBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock20, { 3,1 }, EMapObject::CampBlock1);
+
+		std::shared_ptr<AMapObject> CampMoveBlock3 = GetGameMode()->GetCurMap()->AddMapObject(3, 4, EMapObject::CampMoveBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock3, { 3,4 }, EMapObject::CampMoveBlock1);
+
+		std::shared_ptr<AMapObject> CampBlock21 = GetGameMode()->GetCurMap()->AddMapObject(3, 5, EMapObject::CampBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock21, { 3,5 }, EMapObject::CampBlock1);
+		
+		std::shared_ptr<AMapObject> CampBlock221 = GetGameMode()->GetCurMap()->AddMapObject(3, 5, EMapObject::CampBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock221, { 3,5 }, EMapObject::CampBlock1);
+	
+		std::shared_ptr<AMapObject> TownBush5 = GetGameMode()->GetCurMap()->AddMapObject(3, 6, EMapObject::TownBush);
+		USendPacketManager::SendMapObjectSpawnPacket(TownBush5, { 3,6 }, EMapObject::TownBush);
+
+		std::shared_ptr<AMapObject> TownBush6 = GetGameMode()->GetCurMap()->AddMapObject(3, 8, EMapObject::TownBush);
+		USendPacketManager::SendMapObjectSpawnPacket(TownBush6, { 3,8 }, EMapObject::TownBush);
+
+		std::shared_ptr<AMapObject> CampBlock22 = GetGameMode()->GetCurMap()->AddMapObject(3, 9, EMapObject::CampBlock2);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock22, { 3,9 }, EMapObject::CampBlock2);
+		
+		std::shared_ptr<AMapObject> CampMoveBlock4 = GetGameMode()->GetCurMap()->AddMapObject(3, 10, EMapObject::CampMoveBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock4, { 3,10 }, EMapObject::CampMoveBlock1);
+
+		std::shared_ptr<AMapObject> CampBlock23 = GetGameMode()->GetCurMap()->AddMapObject(3, 13, EMapObject::CampBlock2);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock23, { 3,13 }, EMapObject::CampBlock2);
+
+		std::shared_ptr<AMapObject> CampBlock24 = GetGameMode()->GetCurMap()->AddMapObject(3, 14, EMapObject::CampBlock2);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock24, { 3,14 }, EMapObject::CampBlock2);
+		
+		std::shared_ptr<AMapObject> CampMoveBlock5 = GetGameMode()->GetCurMap()->AddMapObject(4, 0, EMapObject::CampMoveBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock5, { 4,0 }, EMapObject::CampMoveBlock1);
+		
+		std::shared_ptr<AMapObject> TownBush7 = GetGameMode()->GetCurMap()->AddMapObject(4, 1, EMapObject::TownBush);
+		USendPacketManager::SendMapObjectSpawnPacket(TownBush7, { 4,1 }, EMapObject::TownBush);
+
+		std::shared_ptr<AMapObject> TownBush8 = GetGameMode()->GetCurMap()->AddMapObject(4, 2, EMapObject::TownBush);
+		USendPacketManager::SendMapObjectSpawnPacket(TownBush8, { 4,2 }, EMapObject::TownBush);
+		
+		std::shared_ptr<AMapObject> CampBlock25 = GetGameMode()->GetCurMap()->AddMapObject(4, 3, EMapObject::CampBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock25, { 4,3 }, EMapObject::CampBlock1);
+		
+		std::shared_ptr<AMapObject> CampMoveBlock6 = GetGameMode()->GetCurMap()->AddMapObject(4, 5, EMapObject::CampMoveBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock6, { 4,5 }, EMapObject::CampMoveBlock1);
+
+		std::shared_ptr<AMapObject> CampBlock26 = GetGameMode()->GetCurMap()->AddMapObject(4, 6, EMapObject::CampBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock26, { 4,6 }, EMapObject::CampBlock1);
+		
+		std::shared_ptr<AMapObject> CampBlock27 = GetGameMode()->GetCurMap()->AddMapObject(4, 8, EMapObject::CampBlock2);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock27, { 4,8 }, EMapObject::CampBlock2);
+		
+		std::shared_ptr<AMapObject> CampMoveBlock7 = GetGameMode()->GetCurMap()->AddMapObject(4, 9, EMapObject::CampMoveBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock7, { 4,9 }, EMapObject::CampMoveBlock1);
+
+		std::shared_ptr<AMapObject> TownBush9 = GetGameMode()->GetCurMap()->AddMapObject(4, 10, EMapObject::TownBush);
+		USendPacketManager::SendMapObjectSpawnPacket(TownBush9, { 4,10 }, EMapObject::TownBush);
+		
+		std::shared_ptr<AMapObject> CampBlock28 = GetGameMode()->GetCurMap()->AddMapObject(4, 11, EMapObject::CampBlock2);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock28, { 4,11 }, EMapObject::CampBlock2);
+
+		std::shared_ptr<AMapObject> TownBush10 = GetGameMode()->GetCurMap()->AddMapObject(4, 12, EMapObject::TownBush);
+		USendPacketManager::SendMapObjectSpawnPacket(TownBush10, { 4,12 }, EMapObject::TownBush);
+		
+		std::shared_ptr<AMapObject> CampMoveBlock8 = GetGameMode()->GetCurMap()->AddMapObject(4, 14, EMapObject::CampMoveBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock8, { 4,14 }, EMapObject::CampMoveBlock1);
+
+		std::shared_ptr<AMapObject> CampMoveBlock9 = GetGameMode()->GetCurMap()->AddMapObject(5, 1, EMapObject::CampMoveBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock9, { 5,1 }, EMapObject::CampMoveBlock1);
+
+		std::shared_ptr<AMapObject> CampBlock29 = GetGameMode()->GetCurMap()->AddMapObject(5, 5, EMapObject::CampBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampBlock29, { 5,5 }, EMapObject::CampBlock1);
+	
+		std::shared_ptr<AMapObject> CampMoveBlock10 = GetGameMode()->GetCurMap()->AddMapObject(5, 6, EMapObject::CampMoveBlock1);
+		USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock10, { 5,6 }, EMapObject::CampMoveBlock1);
+
+		/*
+		AddMapObject(5, 6, EMapObject::CampMoveBlock1);
+		AddMapObject(5, 8, EMapObject::CampMoveBlock1);
+		AddMapObject(5, 9, EMapObject::CampBlock2);
+		AddMapObject(5, 10, EMapObject::TownBush);
+		AddMapObject(5, 13, EMapObject::CampMoveBlock1);
+		
+
+		AddMapObject(6, 0, EMapObject::CampBlock1);
+		AddMapObject(6, 1, EMapObject::CampBlock3);
+		AddMapObject(6, 2, EMapObject::TownBush);
+		AddMapObject(6, 3, EMapObject::CampBlock1);
+		AddMapObject(6, 4, EMapObject::TownBush);
+		AddMapObject(6, 5, EMapObject::CampMoveBlock1);
+		AddMapObject(6, 6, EMapObject::CampBlock1);
+		AddMapObject(6, 8, EMapObject::CampBlock2);
+		AddMapObject(6, 9, EMapObject::CampMoveBlock1);
+		AddMapObject(6, 10, EMapObject::TownBush);
+		AddMapObject(6, 11, EMapObject::CampBlock2);
+		AddMapObject(6, 12, EMapObject::TownBush);
+		AddMapObject(6, 13, EMapObject::CampBlock3);
+		AddMapObject(6, 14, EMapObject::CampBlock2);
+
+		AddMapObject(7, 0, EMapObject::CampBlock1);
+		AddMapObject(7, 4, EMapObject::CampMoveBlock1);
+		AddMapObject(7, 5, EMapObject::CampBlock1);
+		AddMapObject(7, 6, EMapObject::TownBush);
+		AddMapObject(7, 8, EMapObject::TownBush);
+		AddMapObject(7, 9, EMapObject::CampBlock2);
+		AddMapObject(7, 10, EMapObject::CampMoveBlock1);
+		AddMapObject(7, 14, EMapObject::CampBlock2);
+
+		
+		AddMapObject(8, 1, EMapObject::CampBlock1);
+		AddMapObject(8, 2, EMapObject::TownBush);
+		AddMapObject(8, 3, EMapObject::TownBush);
+		AddMapObject(8, 5, EMapObject::CampBlock1);
+		AddMapObject(8, 6, EMapObject::TownBush);
+		AddMapObject(8, 8, EMapObject::TownBush);
+		AddMapObject(8, 9, EMapObject::CampBlock2);
+		AddMapObject(8, 11, EMapObject::TownBush);
+		AddMapObject(8, 12, EMapObject::TownBush);
+		AddMapObject(8, 13, EMapObject::CampBlock2);
+		
+
+		AddMapObject(9, 0, EMapObject::CampMoveBlock1);
+		AddMapObject(9, 1, EMapObject::CampMoveBlock1);
+		AddMapObject(9, 2, EMapObject::CampMoveBlock1);
+		AddMapObject(9, 3, EMapObject::CampBlock1);
+		AddMapObject(9, 5, EMapObject::CampBlock1);
+		AddMapObject(9, 6, EMapObject::TownBush);
+		AddMapObject(9, 8, EMapObject::TownBush);
+		AddMapObject(9, 9, EMapObject::CampBlock2);
+		AddMapObject(9, 11, EMapObject::CampBlock2);
+		AddMapObject(9, 12, EMapObject::CampMoveBlock1);
+		AddMapObject(9, 13, EMapObject::CampMoveBlock1);
+		AddMapObject(9, 14, EMapObject::CampMoveBlock1);
+
+		AddMapObject(10, 0, EMapObject::CampBlock1);
+		AddMapObject(10, 1, EMapObject::CampBlock1);
+		AddMapObject(10, 2, EMapObject::CampBlock1);
+		AddMapObject(10, 3, EMapObject::CampBlock3);
+		AddMapObject(10, 5, EMapObject::CampBlock1);
+		AddMapObject(10, 6, EMapObject::TownBush);
+		AddMapObject(10, 8, EMapObject::TownBush);
+		AddMapObject(10, 9, EMapObject::CampBlock2);
+		AddMapObject(10, 11, EMapObject::CampBlock3);
+		AddMapObject(10, 12, EMapObject::CampBlock2);
+		AddMapObject(10, 13, EMapObject::CampBlock2);
+		AddMapObject(10, 14, EMapObject::CampBlock2);
+
+		AddMapObject(11, 0, EMapObject::CampMoveBlock1);
+		AddMapObject(11, 4, EMapObject::CampBlock3);
+		AddMapObject(11, 5, EMapObject::CampHPBlock);
+		AddMapObject(11, 6, EMapObject::CampBlock1);
+		AddMapObject(11, 8, EMapObject::CampBlock2);
+		AddMapObject(11, 9, EMapObject::CampHPBlock);
+		AddMapObject(11, 10, EMapObject::CampBlock3);
+		AddMapObject(11, 14, EMapObject::CampMoveBlock1);
+
+		AddMapObject(12, 2, EMapObject::CampBlock1);
+		AddMapObject(12, 3, EMapObject::CampBlock1);
+		AddMapObject(12, 4, EMapObject::CampMoveBlock1);
+		AddMapObject(12, 5, EMapObject::CampBlock1);
+		AddMapObject(12, 6, EMapObject::TownBush);
+		AddMapObject(12, 8, EMapObject::TownBush);
+		AddMapObject(12, 9, EMapObject::CampBlock2);
+		AddMapObject(12, 10, EMapObject::CampMoveBlock1);
+		AddMapObject(12, 11, EMapObject::CampBlock1);
+		AddMapObject(12, 12, EMapObject::CampBlock2);*/
 	}
 }

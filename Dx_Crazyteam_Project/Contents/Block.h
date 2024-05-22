@@ -39,10 +39,7 @@ public:
 		return IsPush;
 	}
 
-	void SetPossessItem(EItemType _Item)
-	{
-		PossessItem = _Item;
-	}
+	
 
 	void MinusHP()
 	{
@@ -108,7 +105,7 @@ private:
 	FVector MoveDir = FVector::Zero;
 	POINT PlayerIndex = { 0,0 };
 
-	EItemType PossessItem = EItemType::None;
+	
 
 	
 	

@@ -27,5 +27,6 @@ protected:
 private:
 	// Test ÅäÅ«
 	static int MapObjectToken;
+	static int MapObjectOffsetToken;
 };
 
