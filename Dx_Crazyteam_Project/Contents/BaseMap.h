@@ -24,6 +24,7 @@ public:
 	bool IsEmpty(FVector _PlayerPos);
 	bool IsEmpty(int _Y, int _X);
 	bool IsOnWater(FVector _PlayerPos);
+	bool IsOnWaterBomb(FVector _PlayerPos);
 	bool IsOnBush(FVector _PlayerPos);
 	bool IsOnBush(int _Y, int _X);
 

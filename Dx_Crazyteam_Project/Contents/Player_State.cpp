@@ -616,13 +616,16 @@ void APlayer::WaterBombUpdate()
 			return;
 		}
 
-		--Info->WBCount;
-
-		POINT BombPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
+		// Player가 있는 위치에 물풍선이 없을 때.
+		if (true != GetGameMode()->GetCurMap()->IsOnWaterBomb(GetActorLocation()))
+		{
+			--Info->WBCount;
+			POINT BombPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
 	
-		std::shared_ptr<AMapObject> WaterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x);
-		WaterBomb->SetObjectToken(WaterBomb_Token++);
-		USendPacketManager::SendMapObjectSpawnPacket(WaterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb);
+			std::shared_ptr<AMapObject> WaterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x);
+			WaterBomb->SetObjectToken(WaterBomb_Token++);
+			USendPacketManager::SendMapObjectSpawnPacket(WaterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb);
+		}
 	}
 }
 
