@@ -67,8 +67,9 @@ void AOtherPlayer::Tick(float _DeltaTime)
 			if (SpriteNames != "")
 			{
 				Renderer->SetSprite(SpriteNames, AnimationInFO);
+				Renderer->SetAlpha(ActorUpdatePacket->SpriteAlpha);
 			}
-			int a = 0;
+
 			break;
 		}
 		default:

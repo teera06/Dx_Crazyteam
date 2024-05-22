@@ -29,7 +29,6 @@ void APlayer::BeginPlay()
 
 	Renderer->SetOrder(ERenderOrder::Player);
 	Renderer->SetAutoSize(0.05f, true);
-	Renderer->SetAlpha();
 	SetActorScale3D(FVector(20, 20, 1));
 
 	Shadow = GetWorld()->SpawnActor<APlayer_Shadow>("Player_Shadow");
