@@ -352,6 +352,8 @@ void APlayer::Trap(float _DeltaTime)
 		return;
 	}
 
+	IsPlayerTrap = true;
+
 	// Trap 상태에서 바늘 아이템 사용 시 Rescue 상태로 변경, 바늘 아이템 소거
 	if (true == IsDown(VK_CONTROL) && CtrlItem == EItemType::ItemNiddle)
 	{
@@ -454,6 +456,8 @@ void APlayer::RescueStart()
 
 void APlayer::Rescue(float _DeltaTime)
 {
+	IsPlayerTrap = false;
+
 	if (true == Renderer->IsCurAnimationEnd())
 	{
 		State.ChangeState("Idle");
