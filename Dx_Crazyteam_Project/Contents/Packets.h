@@ -128,6 +128,7 @@ public:
 		_Ser << IsMoveEnd;
 		_Ser << MoveBeginPos;
 		_Ser << MoveEndPos;
+		_Ser << WaterPower;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -142,6 +143,7 @@ public:
 		_Ser >> IsMoveEnd;
 		_Ser >> MoveBeginPos;
 		_Ser >> MoveEndPos;
+		_Ser >> WaterPower;
 	}
 
 public:
@@ -154,6 +156,7 @@ public:
 	bool IsMoveEnd = false;
 	POINT MoveBeginPos = { 0,0 };
 	POINT MoveEndPos = { 0,0 };
+	int WaterPower = 1;
 
 protected:
 

@@ -101,7 +101,7 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 			return;
 		}
 
-		while(true)
+		while(_Net->IsActiveValue)
 		{
 			std::shared_ptr<UEngineProtocol> NewProtocal = Dis.ConvertProtocol(Protocol.GetPacketType(), Ser);
 			Dis.ProcessPacket(NewProtocal);

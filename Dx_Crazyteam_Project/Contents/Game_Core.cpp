@@ -31,6 +31,7 @@ void UGame_Core::Initialize()
 {
 	UEngineFont::Load("±Ã¼­");
 	UEngineFont::Load("¸¼Àº °íµñ");
+	UEngineFont::Load("Bold");
 	GEngine->EngineWindow.SetWindowTitle("Crazy Arcade");
 	MainLoad();
 	CuttingAni();
@@ -221,5 +222,9 @@ void UGame_Core::SoundLoad()
 
 void UGame_Core::End()
 {
-	Net->End();
+	if (nullptr != Net)
+	{
+		Net->End();
+		Net = nullptr;
+	}
 }

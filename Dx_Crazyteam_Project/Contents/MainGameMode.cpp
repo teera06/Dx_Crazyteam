@@ -78,8 +78,12 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				MainPlayer->SetCurGameMode(this);
 				SetMainPlayer(MainPlayer);
 
+				FVector InitPos = GetCurMap()->PointToPos(ConstValue::VillageStartPos[UGame_Core::Net->GetSessionToken()]);
+				MainPlayer->SetActorLocation(InitPos);
+
 				// 여기에서 메인 플레이어한테 번호를 하나 줄겁니다.
 				MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
+
 
 				// 타임 유아이
 				MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
@@ -92,12 +96,11 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 			};
 
 			MapUI->MapTimeLogic = [=](AMapUI* _Lobby)
-				{
-										
-					//std::shared_ptr<UUIUpdatePacket> TimeCreate= std::make_shared<UUIUpdatePacket>();
-					//TimeCreate->SerVerSend = true;
-					//TimeCreate->Second_Tens = MapUI->GetCreateTime();
-					//UGame_Core::Net->Send(TimeCreate);
+				{										
+		/*			std::shared_ptr<UUIUpdatePacket> TimeCreate= std::make_shared<UUIUpdatePacket>();
+					TimeCreate->SerVerSend = true;
+					TimeCreate->Second_Tens = MapUI->GetCreateTime();
+					UGame_Core::Net->Send(TimeCreate);*/
 				};
 
 
@@ -115,25 +118,31 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				MainPlayer->SetCurGameMode(this);
 				SetMainPlayer(MainPlayer);
 
+				FVector InitPos = GetCurMap()->PointToPos(ConstValue::VillageStartPos[UGame_Core::Net->GetSessionToken()]);
+				MainPlayer->SetActorLocation(InitPos);
+
 				MainPlayer->SetObjectToken(UGame_Core::Net->GetSessionToken() * 1000);
 
-				//	//타임 유아이
+				//타임 유아이
 
 				MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
 				MapUI->SetCurGameMode(this);
 				MapUI->SetObjectToken(UGame_Core::Net->GetSessionToken() * 1000 + 1);
 	
-				//	//물폭탄
+				//물폭탄
 				MainPlayer->WaterBomb_Token = UGame_Core::Net->GetSessionToken() * 1000 + 2;
 					//});
 				// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다
-					ClientPacketInit(UGame_Core::Net->Dispatcher);
+				ClientPacketInit(UGame_Core::Net->Dispatcher);
 			};
 
 			MapUI->MapTimeLogic = [=](AMapUI* _Lobby)
 			{
 				std::shared_ptr<UUIUpdatePacket> TimeCreate = std::make_shared<UUIUpdatePacket>();
 				TimeCreate->ClientCreate = true;
+				int a = UGame_Core::Net->GetSessionToken();
+				TimeCreate->SetSessionToken(UGame_Core::Net->GetSessionToken());
+				TimeCreate->SetObjectToken(MapUI->GetObjectToken());
 				UGame_Core::Net->Send(TimeCreate);	
 			};
 	}
@@ -219,7 +228,7 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 						ABaseMap* CurMap = GetCurMap().get();
 						POINT PosValue = _Packet->Pos;
 
-						OtherObject = CurMap->AddMapObject(PosValue.x, PosValue.y, ObjType).get();
+						OtherObject = CurMap->SpawnWaterBomb(PosValue.x, PosValue.y, _Packet->WaterPower).get();
 
 						OtherObject->SetObjectToken(_Packet->GetObjectToken());
 					}
@@ -237,27 +246,30 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 		// 다른 사람들한테 이 오브젝트에 대해서 알리고
 		//UGame_Core::Net->Send(_Packet);
 
-			GetWorld()->PushFunction([=]()
+		GetWorld()->PushFunction([=]()
+		{
+				int Test = _Packet->GetObjectToken();
+				AMapUI* Time = UNetObject::GetNetObject<AMapUI>(_Packet->GetObjectToken());
+				if (nullptr == Time)
 				{
-					int Test = _Packet->GetObjectToken();
-					AMapUI* Time = UNetObject::GetNetObject<AMapUI>(_Packet->GetObjectToken());
-					if (nullptr == Time)
+					int a = 0;
+					//Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
+					//Time->SetObjectToken(_Packet->GetObjectToken());
+				}
+				else
+				{
+					if (_Packet->ClientCreate == true)
 					{
-						int a = 0;
-						//Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
-						//Time->SetObjectToken(_Packet->GetObjectToken());
+						std::shared_ptr<UUIUpdatePacket> TimeCreate = std::make_shared<UUIUpdatePacket>();
+						TimeCreate->SerVerSend = true;
+						TimeCreate->Time_Second = MapUI->GetCreateTime();
+						TimeCreate->SetSessionToken(UGame_Core::Net->GetSessionToken());
+						TimeCreate->SetObjectToken(MapUI->GetObjectToken());
+
+						UGame_Core::Net->Send(TimeCreate);
 					}
-					else
-					{
-						if (_Packet->ClientCreate == true)
-						{
-							std::shared_ptr<UUIUpdatePacket> TimeCreate = std::make_shared<UUIUpdatePacket>();
-							TimeCreate->SerVerSend = true;
-							TimeCreate->Time_Second = MapUI->GetCreateTime();
-							UGame_Core::Net->Send(TimeCreate);
-						}
-					}//Time->PushProtocol(_Packet);					
-				});
+				}//Time->PushProtocol(_Packet);					
+		});
 	});
 }
 
@@ -323,6 +335,20 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 					switch (ObjType)
 					{
 					case EMapObject::WaterBomb:
+					{
+						AMapObject* OtherObject = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+
+						if (nullptr == OtherObject)
+						{
+							ABaseMap* CurMap = GetCurMap().get();
+							POINT PosValue = _Packet->Pos;
+
+							OtherObject = CurMap->SpawnWaterBomb(PosValue.x, PosValue.y, _Packet->WaterPower).get();
+
+							OtherObject->SetObjectToken(_Packet->GetObjectToken());
+						}
+						break;
+					}
 					case EMapObject::TownBush:
 					case EMapObject::DummyBlock:
 					case EMapObject::NormalBlock:
@@ -415,22 +441,15 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 				if (nullptr == Time)
 				{
 					int a = 0;
-					//Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
-					//Time->SetObjectToken(_Packet->GetObjectToken());
 				}
 				else
 				{
 					if (_Packet->ClientCreate == true)
-					{
-						//_Packet->Time_Second;
-						Time->ServerGetTime(_Packet->Time_Second);
-						//std::shared_ptr<UUIUpdatePacket> TimeCreate = std::make_shared<UUIUpdatePacket>();
-						//TimeCreate->SerVerSend = true;
-						//TimeCreate->Second_Tens = MapUI->GetCreateTime();
-						//UGame_Core::Net->Send(TimeCreate);
+					{			
+						Time->ServerGetTime(_Packet->Time_Second);	
 					}
 				}
-				//Time->PushProtocol(_Packet);
+				Time->PushProtocol(_Packet);
 		});
 	});
 }

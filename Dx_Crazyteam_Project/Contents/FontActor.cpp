@@ -19,12 +19,13 @@ void AFontActor::BeginPlay()
 
 	{//Text
 		ShowText = CreateWidget<UTextWidget>(GetWorld(), "ShowText");
+		//ShowText->SetOrder()
 		ShowText->SetFont("¸¼Àº °íµñ");
 		ShowText->SetScale(30.0f);
 		ShowText->SetColor(Color8Bit::Black);
-		ShowText->SetPosition({ -340.0f ,-200.0f });
+		ShowText->SetPosition({ 0.0f ,0.0f });
 		ShowText->SetFlag(FW1_LEFT);
-		ShowText->AddToViewPort(11);
+		ShowText->AddToViewPort(12);
 	}
 #ifdef _DEBUG
 	InputOn();
