@@ -234,6 +234,13 @@ void APlayLobby::BeginPlay()
 	MapSelectCinfo->SetPosition({ 73.f,109.f });
 	MapSelectCinfo->SetActive(false);
 
+	LobbyFinMap = CreateWidget<UImage>(GetWorld(), "VillageFinMap");
+	LobbyFinMap->AddToViewPort(15);
+	LobbyFinMap->SetSprite("Village10_FinMap.png");
+	LobbyFinMap->SetAutoSize(1.0f, true);
+	LobbyFinMap->SetPosition({ 229.f,-113.f });
+	LobbyFinMap->SetActive(true);
+
 	
 	EnterButton = CreateWidget<UImage>(GetWorld(), "EnterButton");
 	EnterButton->CreateAnimation("UnHover", "Button_MapSelect_Accept_UnHover.png", 0.1f, false, 0, 0);
@@ -261,7 +268,7 @@ void APlayLobby::BeginPlay()
 	VillageFinMap->SetSprite("Village10_FinMap.png");
 	VillageFinMap->SetAutoSize(1.0f, true);
 	VillageFinMap->SetPosition({ 229.f,-113.f });
-	VillageFinMap->SetActive(true);
+	VillageFinMap->SetActive(false);
 		
 	CamFinMap = CreateWidget<UImage>(GetWorld(), "CamFinMap");
 	CamFinMap->AddToViewPort(15);
@@ -1340,7 +1347,12 @@ void APlayLobby::MapSelectBegin()
 			MapSelectCTitle->SetActive(true);
 			MapSelectCMinimap->SetActive(true);
 			MapSelectVinfo->SetActive(false);
-			CamFinMap->SetActive(true);
+			//CamFinMap->SetActive(true);
+			LobbyFinMap->SetSprite("Cam02_FinMap.png");
+			if (nullptr != MapUILogic)
+			{
+				MapUILogic(this, "Cam02_FinMap.png");
+			}
 			VillagePick = false;
 			CamPick = true;
 		}
@@ -1354,8 +1366,13 @@ void APlayLobby::MapSelectBegin()
 			MapSelectCTitle->SetActive(false);
 			MapSelectCMinimap->SetActive(false);
 			MapSelectVinfo->SetActive(true);
-			CamFinMap->SetActive(false);
-			VillageFinMap->SetActive(true);
+			//CamFinMap->SetActive(false);
+			//VillageFinMap->SetActive(true);
+			LobbyFinMap->SetSprite("Village10_FinMap.png");
+			if (nullptr != MapUILogic)
+			{
+				MapUILogic(this, "Village10_FinMap.png");
+			}
 			VillagePick = true;
 			CamPick = false;
 		}
