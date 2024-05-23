@@ -1047,5 +1047,416 @@ void AMainGameMode::CreateVillageBlocks()
 
 void AMainGameMode::CreateCampBlocks()
 {
+	std::shared_ptr<AMapObject> CampBlock1 = GetCurMap()->AddMapObject(0, 0, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock1, { 0,0 }, EMapObject::CampBlock2, CampBlock1->GetPossessItem());
 
+	std::shared_ptr<AMapObject> CampBlock2 = GetCurMap()->AddMapObject(0, 2, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock2, { 0,2 }, EMapObject::CampBlock1, CampBlock2->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock3 = GetCurMap()->AddMapObject(0, 4, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock3, { 0,4 }, EMapObject::CampBlock1, CampBlock3->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush1 = GetCurMap()->AddMapObject(0, 6, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush1, { 0,6 }, EMapObject::TownBush, TownBush1->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush2 = GetCurMap()->AddMapObject(0, 8, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush2, { 0,8 }, EMapObject::TownBush, TownBush2->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock4 = GetCurMap()->AddMapObject(0, 10, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock4, { 0,10 }, EMapObject::CampBlock2, CampBlock4->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock5 = GetCurMap()->AddMapObject(0, 12, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock5, { 0,12 }, EMapObject::CampBlock2, CampBlock5->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock6 = GetCurMap()->AddMapObject(0, 14, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock6, { 0,14 }, EMapObject::CampBlock1, CampBlock6->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock1 = GetCurMap()->AddMapObject(1, 0, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock1, { 1,0 }, EMapObject::CampMoveBlock1, CampMoveBlock1->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock7 = GetCurMap()->AddMapObject(1, 4, EMapObject::CampBlock3);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock7, { 1,4 }, EMapObject::CampBlock3, CampBlock7->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock8 = GetCurMap()->AddMapObject(1, 5, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock8, { 1,5 }, EMapObject::CampBlock1, CampBlock8->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush3 = GetCurMap()->AddMapObject(1, 6, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush3, { 1,6 }, EMapObject::TownBush, TownBush3->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush4 = GetCurMap()->AddMapObject(1, 8, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush4, { 1,8 }, EMapObject::TownBush, TownBush4->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock9 = GetCurMap()->AddMapObject(1, 9, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock9, { 1,9 }, EMapObject::CampBlock2, CampBlock9->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock10 = GetCurMap()->AddMapObject(1, 10, EMapObject::CampBlock3);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock10, { 1,10 }, EMapObject::CampBlock3, CampBlock10->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock2 = GetCurMap()->AddMapObject(1, 14, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock2, { 1,14 }, EMapObject::CampMoveBlock1, CampMoveBlock2->GetPossessItem());
+
+
+	std::shared_ptr<AMapObject> CampBlock11 = GetCurMap()->AddMapObject(2, 0, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock11, { 2,0 }, EMapObject::CampBlock2, CampBlock11->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock12 = GetCurMap()->AddMapObject(2, 2, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock12, { 2,2 }, EMapObject::CampBlock1, CampBlock12->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock13 = GetCurMap()->AddMapObject(2, 3, EMapObject::CampBlock3);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock13, { 2,3 }, EMapObject::CampBlock3, CampBlock13->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampHPBlock1 = GetCurMap()->AddMapObject(2, 5, EMapObject::CampHPBlock);
+	USendPacketManager::SendMapObjectSpawnPacket(CampHPBlock1, { 2,5 }, EMapObject::CampHPBlock, CampHPBlock1->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock14 = GetCurMap()->AddMapObject(2, 6, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock14, { 2,6 }, EMapObject::CampBlock1, CampBlock14->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock15 = GetCurMap()->AddMapObject(2, 8, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock15, { 2,8 }, EMapObject::CampBlock2, CampBlock15->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampHPBlock2 = GetCurMap()->AddMapObject(2, 9, EMapObject::CampHPBlock);
+	USendPacketManager::SendMapObjectSpawnPacket(CampHPBlock2, { 2,9 }, EMapObject::CampHPBlock, CampHPBlock2->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock16 = GetCurMap()->AddMapObject(2, 11, EMapObject::CampBlock3);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock16, { 2,11 }, EMapObject::CampBlock3, CampBlock16->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock17 = GetCurMap()->AddMapObject(2, 12, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock17, { 2,12 }, EMapObject::CampBlock2, CampBlock17->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock18 = GetCurMap()->AddMapObject(2, 14, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock18, { 2,14 }, EMapObject::CampBlock1, CampBlock18->GetPossessItem());
+
+
+
+	std::shared_ptr<AMapObject> CampBlock19 = GetCurMap()->AddMapObject(3, 0, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock19, { 3,0 }, EMapObject::CampBlock1, CampBlock19->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock20 = GetCurMap()->AddMapObject(3, 1, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock20, { 3,1 }, EMapObject::CampBlock1, CampBlock20->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock3 = GetCurMap()->AddMapObject(3, 4, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock3, { 3,4 }, EMapObject::CampMoveBlock1, CampMoveBlock3->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock21 = GetCurMap()->AddMapObject(3, 5, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock21, { 3,5 }, EMapObject::CampBlock1, CampBlock21->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock221 = GetCurMap()->AddMapObject(3, 5, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock221, { 3,5 }, EMapObject::CampBlock1, CampBlock221->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush5 = GetCurMap()->AddMapObject(3, 6, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush5, { 3,6 }, EMapObject::TownBush, TownBush5->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush6 = GetCurMap()->AddMapObject(3, 8, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush6, { 3,8 }, EMapObject::TownBush, TownBush6->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock22 = GetCurMap()->AddMapObject(3, 9, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock22, { 3,9 }, EMapObject::CampBlock2, CampBlock22->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock4 = GetCurMap()->AddMapObject(3, 10, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock4, { 3,10 }, EMapObject::CampMoveBlock1, CampMoveBlock4->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock23 = GetCurMap()->AddMapObject(3, 13, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock23, { 3,13 }, EMapObject::CampBlock2, CampBlock23->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock24 = GetCurMap()->AddMapObject(3, 14, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock24, { 3,14 }, EMapObject::CampBlock2, CampBlock24->GetPossessItem());
+
+
+
+	std::shared_ptr<AMapObject> CampMoveBlock5 = GetCurMap()->AddMapObject(4, 0, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock5, { 4,0 }, EMapObject::CampMoveBlock1, CampMoveBlock5->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush7 = GetCurMap()->AddMapObject(4, 1, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush7, { 4,1 }, EMapObject::TownBush, TownBush7->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush8 = GetCurMap()->AddMapObject(4, 2, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush8, { 4,2 }, EMapObject::TownBush, TownBush8->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock25 = GetCurMap()->AddMapObject(4, 3, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock25, { 4,3 }, EMapObject::CampBlock1, CampBlock25->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock6 = GetCurMap()->AddMapObject(4, 5, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock6, { 4,5 }, EMapObject::CampMoveBlock1, CampMoveBlock6->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock26 = GetCurMap()->AddMapObject(4, 6, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock26, { 4,6 }, EMapObject::CampBlock1, CampBlock26->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock27 = GetCurMap()->AddMapObject(4, 8, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock27, { 4,8 }, EMapObject::CampBlock2, CampBlock27->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock7 = GetCurMap()->AddMapObject(4, 9, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock7, { 4,9 }, EMapObject::CampMoveBlock1, CampMoveBlock7->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush9 = GetCurMap()->AddMapObject(4, 10, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush9, { 4,10 }, EMapObject::TownBush, TownBush9->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock28 = GetCurMap()->AddMapObject(4, 11, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock28, { 4,11 }, EMapObject::CampBlock2, CampBlock28->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush10 = GetCurMap()->AddMapObject(4, 12, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush10, { 4,12 }, EMapObject::TownBush, TownBush10->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock8 = GetCurMap()->AddMapObject(4, 14, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock8, { 4,14 }, EMapObject::CampMoveBlock1, CampMoveBlock8->GetPossessItem());
+
+
+
+	std::shared_ptr<AMapObject> CampMoveBlock9 = GetCurMap()->AddMapObject(5, 1, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock9, { 5,1 }, EMapObject::CampMoveBlock1, CampMoveBlock9->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock29 = GetCurMap()->AddMapObject(5, 5, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock29, { 5,5 }, EMapObject::CampBlock1, CampBlock29->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock10 = GetCurMap()->AddMapObject(5, 6, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock10, { 5,6 }, EMapObject::CampMoveBlock1, CampMoveBlock10->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock11 = GetCurMap()->AddMapObject(5, 8, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock11, { 5,8 }, EMapObject::CampMoveBlock1, CampMoveBlock11->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock30 = GetCurMap()->AddMapObject(5, 9, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock30, { 5,9 }, EMapObject::CampBlock2, CampBlock30->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush11 = GetCurMap()->AddMapObject(5, 10, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush11, { 5,10 }, EMapObject::TownBush, TownBush11->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock12 = GetCurMap()->AddMapObject(5, 6, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock12, { 5,13 }, EMapObject::CampMoveBlock1, CampMoveBlock12->GetPossessItem());
+
+
+	std::shared_ptr<AMapObject> CampBlock31 = GetCurMap()->AddMapObject(6, 0, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock31, { 6,0 }, EMapObject::CampBlock1, CampBlock31->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock32 = GetCurMap()->AddMapObject(6, 1, EMapObject::CampBlock3);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock32, { 6, 1 }, EMapObject::CampBlock3, CampBlock32->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush12 = GetCurMap()->AddMapObject(6, 2, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush12, { 6, 2 }, EMapObject::TownBush, TownBush12->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock33 = GetCurMap()->AddMapObject(6, 3, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock33, { 6, 3 }, EMapObject::CampBlock1, CampBlock33->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush13 = GetCurMap()->AddMapObject(6, 4, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush13, { 6, 4 }, EMapObject::TownBush, TownBush13->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock13 = GetCurMap()->AddMapObject(6, 5, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock13, { 6, 5 }, EMapObject::CampMoveBlock1, CampMoveBlock13->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock34 = GetCurMap()->AddMapObject(6, 6, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock34, { 6, 6 }, EMapObject::CampBlock1, CampBlock34->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock35 = GetCurMap()->AddMapObject(6, 8, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock35, { 6, 8 }, EMapObject::CampBlock2, CampBlock35->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock14 = GetCurMap()->AddMapObject(6, 9, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock14, { 6, 9 }, EMapObject::CampMoveBlock1, CampMoveBlock14->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush14 = GetCurMap()->AddMapObject(6, 10, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush14, { 6, 10 }, EMapObject::TownBush, TownBush14->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock36 = GetCurMap()->AddMapObject(6, 11, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock36, { 6, 11 }, EMapObject::CampBlock2, CampBlock36->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush15 = GetCurMap()->AddMapObject(6, 12, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush15, { 6, 12 }, EMapObject::TownBush, TownBush15->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock37 = GetCurMap()->AddMapObject(6, 13, EMapObject::CampBlock3);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock37, { 6, 13 }, EMapObject::CampBlock3, CampBlock37->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock38 = GetCurMap()->AddMapObject(6, 14, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock38, { 6, 14 }, EMapObject::CampBlock2, CampBlock38->GetPossessItem());
+
+
+
+
+	std::shared_ptr<AMapObject> CampBlock39 = GetCurMap()->AddMapObject(7, 0, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock39, { 7, 0 }, EMapObject::CampBlock1, CampBlock39->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock15 = GetCurMap()->AddMapObject(7, 4, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock15, { 7, 4 }, EMapObject::CampMoveBlock1, CampMoveBlock15->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock40 = GetCurMap()->AddMapObject(7, 5, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock40, { 7, 5 }, EMapObject::CampBlock1, CampBlock40->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush16 = GetCurMap()->AddMapObject(7, 6, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush16, { 7, 6 }, EMapObject::TownBush, TownBush16->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush17 = GetCurMap()->AddMapObject(7, 8, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush17, { 7, 8 }, EMapObject::TownBush, TownBush17->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock41 = GetCurMap()->AddMapObject(7, 9, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock41, { 7, 9 }, EMapObject::CampBlock2, CampBlock41->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock16 = GetCurMap()->AddMapObject(7, 10, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock16, { 7, 10 }, EMapObject::CampMoveBlock1, CampMoveBlock16->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock42 = GetCurMap()->AddMapObject(7, 14, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock42, { 7, 14 }, EMapObject::CampBlock2, CampBlock42->GetPossessItem());
+
+
+
+
+
+	std::shared_ptr<AMapObject> CampBlock43 = GetCurMap()->AddMapObject(8, 1, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock43, { 8, 1 }, EMapObject::CampBlock1, CampBlock43->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush18 = GetCurMap()->AddMapObject(8, 2, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush18, { 8, 2 }, EMapObject::TownBush, TownBush18->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush19 = GetCurMap()->AddMapObject(8, 3, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush19, { 8, 3 }, EMapObject::TownBush, TownBush19->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock44 = GetCurMap()->AddMapObject(8, 5, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock44, { 8, 5 }, EMapObject::CampBlock1, CampBlock44->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush20 = GetCurMap()->AddMapObject(8, 6, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush20, { 8, 6 }, EMapObject::TownBush, TownBush20->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush21 = GetCurMap()->AddMapObject(8, 8, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush21, { 8, 8 }, EMapObject::TownBush, TownBush21->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock45 = GetCurMap()->AddMapObject(8, 9, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock45, { 8, 9 }, EMapObject::CampBlock2, CampBlock45->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush22 = GetCurMap()->AddMapObject(8, 11, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush22, { 8, 11 }, EMapObject::TownBush, TownBush22->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush23 = GetCurMap()->AddMapObject(8, 12, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush23, { 8, 12 }, EMapObject::TownBush, TownBush23->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock46 = GetCurMap()->AddMapObject(8, 13, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock46, { 8, 13 }, EMapObject::CampBlock2, CampBlock46->GetPossessItem());
+
+
+
+	std::shared_ptr<AMapObject> CampMoveBlock17 = GetCurMap()->AddMapObject(9, 0, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock17, { 9, 0 }, EMapObject::CampMoveBlock1, CampMoveBlock17->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock18 = GetCurMap()->AddMapObject(9, 1, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock18, { 9, 1 }, EMapObject::CampMoveBlock1, CampMoveBlock18->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock19 = GetCurMap()->AddMapObject(9, 2, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock19, { 9, 2 }, EMapObject::CampMoveBlock1, CampMoveBlock19->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock47 = GetCurMap()->AddMapObject(9, 3, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock47, { 9, 3 }, EMapObject::CampBlock1, CampBlock47->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock48 = GetCurMap()->AddMapObject(9, 5, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock48, { 9, 5 }, EMapObject::CampBlock1, CampBlock48->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush24 = GetCurMap()->AddMapObject(9, 6, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush24, { 9, 6 }, EMapObject::TownBush, TownBush24->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush25 = GetCurMap()->AddMapObject(9, 8, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush25, { 9, 8 }, EMapObject::TownBush, TownBush25->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock49 = GetCurMap()->AddMapObject(9, 9, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock49, { 9, 9 }, EMapObject::CampBlock2, CampBlock49->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock50 = GetCurMap()->AddMapObject(9, 11, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock50, { 9, 11 }, EMapObject::CampBlock2, CampBlock50->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock20 = GetCurMap()->AddMapObject(9, 12, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock20, { 9, 12 }, EMapObject::CampMoveBlock1, CampMoveBlock20->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock21 = GetCurMap()->AddMapObject(9, 13, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock21, { 9, 13 }, EMapObject::CampMoveBlock1, CampMoveBlock21->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock22 = GetCurMap()->AddMapObject(9, 14, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock22, { 9, 14 }, EMapObject::CampMoveBlock1, CampMoveBlock22->GetPossessItem());
+
+
+
+	std::shared_ptr<AMapObject> CampBlock51 = GetCurMap()->AddMapObject(10, 0, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock51, { 10, 0 }, EMapObject::CampBlock1, CampBlock51->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock52 = GetCurMap()->AddMapObject(10, 1, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock52, { 10, 1 }, EMapObject::CampBlock1, CampBlock52->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock53 = GetCurMap()->AddMapObject(10, 2, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock53, { 10, 2 }, EMapObject::CampBlock1, CampBlock53->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock59 = GetCurMap()->AddMapObject(10, 3, EMapObject::CampBlock3);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock59, { 10, 3 }, EMapObject::CampBlock3, CampBlock59->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock54 = GetCurMap()->AddMapObject(10, 5, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock54, { 10, 5 }, EMapObject::CampBlock1, CampBlock54->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush26 = GetCurMap()->AddMapObject(10, 6, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush26, { 10, 6 }, EMapObject::TownBush, TownBush26->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush27 = GetCurMap()->AddMapObject(10, 8, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush27, { 10, 8 }, EMapObject::TownBush, TownBush27->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock55 = GetCurMap()->AddMapObject(10, 9, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock55, { 10, 9 }, EMapObject::CampBlock2, CampBlock55->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock60 = GetCurMap()->AddMapObject(10, 11, EMapObject::CampBlock3);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock60, { 10, 11 }, EMapObject::CampBlock3, CampBlock60->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock56 = GetCurMap()->AddMapObject(10, 12, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock56, { 10, 12 }, EMapObject::CampBlock2, CampBlock56->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock57 = GetCurMap()->AddMapObject(10, 13, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock57, { 10, 13 }, EMapObject::CampBlock2, CampBlock57->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock58 = GetCurMap()->AddMapObject(10, 14, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock58, { 10, 14 }, EMapObject::CampBlock2, CampBlock58->GetPossessItem());
+
+
+
+	std::shared_ptr<AMapObject> CampMoveBlock23 = GetCurMap()->AddMapObject(11, 0, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock23, { 11, 0 }, EMapObject::CampMoveBlock1, CampMoveBlock23->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock61 = GetCurMap()->AddMapObject(11, 4, EMapObject::CampBlock3);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock61, { 11, 4 }, EMapObject::CampBlock3, CampBlock61->GetPossessItem());
+
+
+	std::shared_ptr<AMapObject> CampHPBlock3 = GetCurMap()->AddMapObject(11, 5, EMapObject::CampHPBlock);
+	USendPacketManager::SendMapObjectSpawnPacket(CampHPBlock3, { 11, 5 }, EMapObject::CampHPBlock, CampHPBlock3->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock62 = GetCurMap()->AddMapObject(11, 6, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock62, { 11, 6 }, EMapObject::CampBlock1, CampBlock62->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock63 = GetCurMap()->AddMapObject(11, 8, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock63, { 11, 8 }, EMapObject::CampBlock2, CampBlock63->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampHPBlock4 = GetCurMap()->AddMapObject(11, 9, EMapObject::CampHPBlock);
+	USendPacketManager::SendMapObjectSpawnPacket(CampHPBlock4, { 11 ,9 }, EMapObject::CampHPBlock, CampHPBlock4->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock64 = GetCurMap()->AddMapObject(11, 10, EMapObject::CampBlock3);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock64, { 11, 10 }, EMapObject::CampBlock3, CampBlock64->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock24 = GetCurMap()->AddMapObject(11, 14, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock24, { 11, 14 }, EMapObject::CampMoveBlock1, CampMoveBlock24->GetPossessItem());
+
+
+	std::shared_ptr<AMapObject> CampBlock65 = GetCurMap()->AddMapObject(12, 2, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock65, { 12, 2 }, EMapObject::CampBlock1, CampBlock65->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock66 = GetCurMap()->AddMapObject(12, 3, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock66, { 12, 3 }, EMapObject::CampBlock1, CampBlock66->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock25 = GetCurMap()->AddMapObject(12, 4, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock25, { 12, 4 }, EMapObject::CampMoveBlock1, CampMoveBlock25->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock67 = GetCurMap()->AddMapObject(12, 5, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock67, { 12, 5 }, EMapObject::CampBlock1, CampBlock67->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush28 = GetCurMap()->AddMapObject(12, 6, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush28, { 12, 6 }, EMapObject::TownBush, TownBush28->GetPossessItem());
+
+	std::shared_ptr<AMapObject> TownBush29 = GetCurMap()->AddMapObject(12, 8, EMapObject::TownBush);
+	USendPacketManager::SendMapObjectSpawnPacket(TownBush29, { 12, 8 }, EMapObject::TownBush, TownBush29->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock69 = GetCurMap()->AddMapObject(12, 9, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock69, { 12, 9 }, EMapObject::CampBlock2, CampBlock69->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampMoveBlock26 = GetCurMap()->AddMapObject(12, 10, EMapObject::CampMoveBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampMoveBlock26, { 12, 10 }, EMapObject::CampMoveBlock1, CampMoveBlock26->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock68 = GetCurMap()->AddMapObject(12, 11, EMapObject::CampBlock1);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock68, { 12, 11 }, EMapObject::CampBlock1, CampBlock68->GetPossessItem());
+
+	std::shared_ptr<AMapObject> CampBlock70 = GetCurMap()->AddMapObject(12, 12, EMapObject::CampBlock2);
+	USendPacketManager::SendMapObjectSpawnPacket(CampBlock70, { 12, 12 }, EMapObject::CampBlock2, CampBlock70->GetPossessItem());
 }
