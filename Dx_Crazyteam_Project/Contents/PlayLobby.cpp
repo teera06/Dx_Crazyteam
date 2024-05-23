@@ -278,7 +278,7 @@ void APlayLobby::BeginPlay()
 	RandomBT->CreateAnimation("Down", "CharatorSelect_Button_Random_Click.bmp", 0.1f, false, 0, 0);
 	RandomBT->CreateAnimation("Up", "CharatorSelect_Button_Random_Pick.bmp", 0.1f, false, 0, 0);
 	RandomBT->AddToViewPort(11);
-	RandomBT->SetSprite("CharatorSelect_Button_Random_X.bmp");
+	RandomBT->SetSprite("CharatorSelect_Button_Random_Normal.bmp");
 	RandomBT->SetScale({ 65.f,43.f });
 	RandomBT->SetPosition({ 122.0f,163.0f });
 	RandomBT->SetActive(true);
@@ -496,7 +496,6 @@ void APlayLobby::NewPlayer()
 	LobbyPlayer[Cha_Count] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
 	LobbyPlayer[Cha_Count]->AddToViewPort(15);
 	LobbyPlayer[Cha_Count]->SetSprite("Room_Charcater_Bazzi.png");
-
 	LobbyPlayer[Cha_Count]->SetAutoSize(1.2f, true);
 	if (Cha_Count <= 3)
 	{
@@ -547,17 +546,29 @@ void APlayLobby::TeamSelectBegin()
 					ATeam = true;
 					BTeam = false;
 
-					if ("Room_Charcater_Bazzi_B.png" == LobbyPlayer[Cha_Count]->CurInfo.Texture->GetName() && true == ATeam)
+					if ("Room_Charcater_Bazzi_B.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == ATeam)
 					{
-						LobbyPlayer[Cha_Count]->SetSprite("Room_Charcater_Bazzi.png");
+						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Bazzi.png");
+						if (nullptr != TeamChangeLogic)
+						{
+							TeamChangeLogic(this, ChangeUIIndex, "Room_Charcater_Bazzi.png");
+						}
 					}
-					if ("Room_Charcater_Dao_B.png" == LobbyPlayer[Cha_Count]->CurInfo.Texture->GetName() && true == ATeam)
+					if ("Room_Charcater_Dao_B.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == ATeam)
 					{
-						LobbyPlayer[Cha_Count]->SetSprite("Room_Charcater_Dao.png");
+						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Dao.png");
+						if (nullptr != TeamChangeLogic)
+						{
+							TeamChangeLogic(this, ChangeUIIndex, "Room_Charcater_Dao.png");
+						}
 					}
-					if ("Room_Charcater_Marid_B.png" == LobbyPlayer[Cha_Count]->CurInfo.Texture->GetName() && true == ATeam)
+					if ("Room_Charcater_Marid_B.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == ATeam)
 					{
-						LobbyPlayer[Cha_Count]->SetSprite("Room_Charcater_Marid.png");
+						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Marid.png");
+						if (nullptr != TeamChangeLogic)
+						{
+							TeamChangeLogic(this, ChangeUIIndex, "Room_Charcater_Marid.png");
+						}
 					}
 				}
 			}
@@ -593,17 +604,30 @@ void APlayLobby::TeamSelectBegin()
 					ATeam = false;
 					BTeam = true;
 
-					if ("Room_Charcater_Marid.png" == LobbyPlayer[Cha_Count]->CurInfo.Texture->GetName() && true == BTeam)
+					if ("Room_Charcater_Marid.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == BTeam)
 					{
-						LobbyPlayer[Cha_Count]->SetSprite("Room_Charcater_Marid_B.png");
+						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Marid_B.png");
+						if (nullptr != TeamChangeLogic)
+						{
+							TeamChangeLogic(this, ChangeUIIndex, "Room_Charcater_Marid_B.png");
+						}
+
 					}
-					if ("Room_Charcater_Bazzi.png" == LobbyPlayer[Cha_Count]->CurInfo.Texture->GetName() && true == BTeam)
+					if ("Room_Charcater_Bazzi.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == BTeam)
 					{
-						LobbyPlayer[Cha_Count]->SetSprite("Room_Charcater_Bazzi_B.png");
+						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Bazzi_B.png");
+						if (nullptr != TeamChangeLogic)
+						{
+							TeamChangeLogic(this, ChangeUIIndex, "Room_Charcater_Bazzi_B.png");
+						}
 					}
-					if ("Room_Charcater_Dao.png" == LobbyPlayer[Cha_Count]->CurInfo.Texture->GetName() && true == BTeam)
+					if ("Room_Charcater_Dao.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == BTeam)
 					{
-						LobbyPlayer[Cha_Count]->SetSprite("Room_Charcater_Dao_B.png");
+						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Dao_B.png");
+						if (nullptr != TeamChangeLogic)
+						{
+							TeamChangeLogic(this, ChangeUIIndex, "Room_Charcater_Dao_B.png");
+						}
 					}
 				}
 			}
@@ -1036,6 +1060,37 @@ void APlayLobby::RoomBegin()
 void APlayLobby::CharacterBegin()
 {
 	{
+		RandomBT->SetUnHover([=] {
+			if ("UP" != RandomBT->GetUiAniName())
+			{
+				RandomBT->ChangeAnimation("UnHover");
+			}
+			SwitchON = false;
+			});
+		RandomBT->SetHover([=] {
+			{
+				if (false == SwitchON && "UP" != RandomBT->GetUiAniName())
+				{
+					RandomBT->ChangeAnimation("Hover");
+					SwitchON = true;
+				}
+				else if (IsDown(VK_LBUTTON) && true == SwitchON)
+				{
+					RandomBT->ChangeAnimation("Down");
+				}
+				else if (IsUp(VK_LBUTTON))
+				{
+					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Random.bmp");
+					SwapSelectCharacter(RandomBT);
+					LobbyPlayer[PlayerCount]->SetSprite("RandomCha.png");
+					checkUI->SetPosition({ 152.0f,183.0f });
+					checkUI->SetActive(true);
+					ConstValue::MainPlayerCharacterType = ECharacterType::Random;
+				}
+			}
+			});
+	}
+	{
 		DaoBT->SetUnHover([=] {
 			if ("UP" != DaoBT->GetUiAniName())
 			{
@@ -1125,6 +1180,7 @@ void APlayLobby::CharacterBegin()
 						{
 							ChracterChangeLogic(this, ChangeUIIndex, "Room_Charcater_Marid.png");
 						}
+				
 						int a = 0;
 						LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Marid.bmp");
 						checkUI->SetPosition({ 222.0f,133.0f });

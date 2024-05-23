@@ -146,8 +146,6 @@ private:
 	bool BTeam = false;
 
 private:
-	int MySessionToken = -1;
-	bool IsGetSessionToken = false;
 	static bool IsClient;
 	static bool Create;
 	static int Create_Count;
@@ -156,15 +154,10 @@ private:
 public:
 	int ChangeUIIndex = -1;
 
-	inline void SetMySessionToken(int _Value)
-	{
-		MySessionToken = _Value;
-		IsGetSessionToken = true;
-	}
-
 	// APlayLobby
 	std::function<void(APlayLobby*, int, std::string_view)> ChracterChangeLogic = nullptr;
 	std::function<void(APlayLobby*, std::string_view)> MapChangeLogic = nullptr;
+	std::function<void(APlayLobby*, int, std::string_view)> TeamChangeLogic = nullptr;
 
 	void MapChange(std::string_view _MapName);
 

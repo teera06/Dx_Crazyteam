@@ -713,7 +713,7 @@ void APlayer::MoveUpdate(float _DeltaTime)
 	if (true == GetGameMode()->GetCurMap()->IsMove(NextPos1) && true == GetGameMode()->GetCurMap()->IsMove(NextPos2) && true == GetGameMode()->GetCurMap()->IsMove(NextPos3))
 	{
 		AddActorLocation(MovePos);
-		SettingZValue();
+		//SettingZValue();
 		return;
 	}
 

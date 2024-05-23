@@ -23,7 +23,7 @@ public:
 		return IsOPDestroy;
 	}
 
-	ETeamType GetTeamType()
+	inline ETeamType GetTeamType() const 
 	{
 		return TeamType;
 	}
