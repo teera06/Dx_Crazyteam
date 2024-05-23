@@ -9,6 +9,7 @@
 
 #include "Game_Core.h"
 #include "SendPacketManager.h"
+#include "ServerGameMode.h"
 
 ABlock::ABlock() 
 {
@@ -220,9 +221,14 @@ void ABlock::PushTick(float _DeltaTime)
 
 	AddActorLocation(MoveDir * MoveSpeed * _DeltaTime);
 
+
+	CurTime -= _DeltaTime;
+
 	// 블럭 이동 동기화
+	if (0.0f >= CurTime)
 	{
-		USendPacketManager::SendMapObjectMovePacket(this , GetActorLocation());
+		USendPacketManager::SendMapObjectMovePacket(this, GetActorLocation());
+		CurTime += FrameTime;
 	}
 
 	PushAccTime += _DeltaTime;
@@ -265,16 +271,11 @@ void ABlock::EndTick(float _DeltaTime)
 		}
 		else
 		{
-			std::shared_ptr<UEngineServer> IsServer = dynamic_pointer_cast<UEngineServer>(UGame_Core::Net);
-
-			//GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
-
-			if (nullptr != IsServer)
+			if (AServerGameMode::NetType == ENetType::Server)
 			{
 				std::shared_ptr<AMapObject> Item = GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Item, GetPossessItem());
 				USendPacketManager::SendMapObjectSpawnPacket(Item, { GetCurPos().y,GetCurPos().x }, EMapObject::Item, GetPossessItem());
 			}
-
 		}
 
 		// 부서졌다면 푸시하지않음
