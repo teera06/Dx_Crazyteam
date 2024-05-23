@@ -142,6 +142,7 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				TimeCreate->ClientCreate = true;
 				int a = UGame_Core::Net->GetSessionToken();
 				TimeCreate->SetSessionToken(UGame_Core::Net->GetSessionToken());
+				TimeCreate->SetObjectToken(MapUI->GetObjectToken());
 				UGame_Core::Net->Send(TimeCreate);	
 			};
 	}
@@ -262,6 +263,9 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 						std::shared_ptr<UUIUpdatePacket> TimeCreate = std::make_shared<UUIUpdatePacket>();
 						TimeCreate->SerVerSend = true;
 						TimeCreate->Time_Second = MapUI->GetCreateTime();
+						TimeCreate->SetSessionToken(UGame_Core::Net->GetSessionToken());
+						TimeCreate->SetObjectToken(MapUI->GetObjectToken());
+
 						UGame_Core::Net->Send(TimeCreate);
 					}
 				}//Time->PushProtocol(_Packet);					
