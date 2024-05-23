@@ -239,6 +239,13 @@ float AMapUI::CreateTime()
 	return 0.0f;
 }
 
+void AMapUI::ServerGetTime(int _Second_Tens)
+{
+	MapTime_Second = _Second_Tens;
+	Sub_Second = MapTime_Second - MapTime_Second;
+	SerVer_Send = true;
+}
+
 void AMapUI::SetActiveGameResultU(bool _Active)
 {
 	GameEndUI->SetActive(_Active);

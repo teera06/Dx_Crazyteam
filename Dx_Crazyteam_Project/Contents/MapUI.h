@@ -68,5 +68,6 @@ private:
 
 public:
 	std::function<void(AMapUI*)> MapTimeLogic = nullptr;
+	void ServerGetTime(int _Second_Tens);
 };
 
