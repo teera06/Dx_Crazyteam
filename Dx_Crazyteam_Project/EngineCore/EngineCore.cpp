@@ -13,6 +13,7 @@
 
 #include "EngineVertexBuffer.h"
 
+
 ULevel* UEngineCore::CurCreateLevel;
 
 UEngineCore::UEngineCore() 
@@ -29,6 +30,23 @@ UEngineCore::~UEngineCore()
 	EngineOption.Serialize(Ser);
 	File.Open(EIOOpenMode::Write, EIODataType::Text);
 	File.Save(Ser);
+}
+
+void UEngineCore::ChangeLevel(std::string_view _Name, EMapType _MapType)
+{
+	std::string UpperName = UEngineString::ToUpper(_Name);
+
+	if (true != Levels.contains(UpperName))
+	{
+		MsgBoxAssert("존재하지 않는 레벨을 지정하려고 했습니다.");
+		return;
+	}
+	NextLevel = Levels[UpperName];
+
+	if (_MapType != EMapType::None)
+	{
+		NextLevel->SetMayType(_MapType);
+	}
 }
 
 UEngineCore* GEngine = nullptr;
@@ -67,6 +85,7 @@ void UEngineCore::EngineStart(HINSTANCE _Inst)
 
 	UEngineEditorGUI::GUIRelease();
 }
+
 
 void UEngineCore::EngineOptionInit()
 {

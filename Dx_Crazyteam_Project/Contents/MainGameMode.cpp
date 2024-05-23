@@ -67,7 +67,6 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
-
 	if (AServerGameMode::NetType == ENetType::Server)
 	{
 			{
