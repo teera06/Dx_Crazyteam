@@ -56,13 +56,28 @@ void AMainGameMode::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	int PlayerNum = static_cast<int>(UContentsValue::PlayerIDs.size());
+	
+		
 
 	if (false == IsSpawnBlocks
 		&& AServerGameMode::NetType == ENetType::Server
 		&& PlayerNum == UContentsValue::LobbyPlayerNum
 		)
 	{
-		CreateBlocks();
+		EMapType MapType = GetWorld()->GetMapType();
+
+		switch (MapType)
+		{
+		case EMapType::Camp:
+			CreateCampBlocks();
+			break;
+		case EMapType::Village:
+			CreateVillageBlocks();
+			break;
+		default:
+			MsgBoxAssert("지정된 MapType이 아닙니다.");
+			return;
+		}
 		IsSpawnBlocks = true;
 	}
 
@@ -83,12 +98,6 @@ void AMainGameMode::Tick(float _DeltaTime)
 void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
-
-	switch (GetWorld()->GetMapType())
-	{
-	default:
-		break;
-	}
 
 	if (AServerGameMode::NetType == ENetType::Server)
 	{
@@ -176,6 +185,8 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 void AMainGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+
+	InfoRelease();
 }
 
 
@@ -542,7 +553,12 @@ void AMainGameMode::GameModeActorInit()
 
 }
 
-void AMainGameMode::CreateBlocks()
+void AMainGameMode::InfoRelease()
+{
+	IsSpawnBlocks = false;
+}
+
+void AMainGameMode::CreateVillageBlocks()
 {
 	// 빌리지
 	std::shared_ptr<AMapObject> vilBlock1 = GetCurMap()->AddMapObject(0, 1, EMapObject::VillageBlock2);
@@ -1027,4 +1043,9 @@ void AMainGameMode::CreateBlocks()
 
 	std::shared_ptr<AMapObject> VillageBlock58 = GetCurMap()->AddMapObject(12, 12, EMapObject::VillageBlock2);
 	USendPacketManager::SendMapObjectSpawnPacket(VillageBlock58, { 12,12 }, EMapObject::VillageBlock2, VillageBlock58->GetPossessItem());
+}
+
+void AMainGameMode::CreateCampBlocks()
+{
+
 }
