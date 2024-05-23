@@ -60,7 +60,6 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	UDefaultSceneComponent* Root = nullptr;
 
 	std::vector<std::vector<std::shared_ptr<AMapObject>>> MapStatus;
 

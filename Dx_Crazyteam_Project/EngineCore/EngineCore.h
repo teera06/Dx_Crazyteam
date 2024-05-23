@@ -10,6 +10,7 @@
 
 #include "EngineGraphicDevice.h"
 #include "EngineOption.h"
+#include "EngineEnums.h"
 
 #pragma comment (lib, "EngineBase.lib")
 #pragma comment (lib, "EnginePlatform.lib")
@@ -71,17 +72,8 @@ public:
 		return EngineDevice.GetContext();
 	}
 	
-	void ChangeLevel(std::string_view _Name)
-	{
-		std::string UpperName = UEngineString::ToUpper(_Name);
-
-		if (true != Levels.contains(UpperName))
-		{
-			MsgBoxAssert("존재하지 않는 레벨을 지정하려고 했습니다.");
-			return;
-		}
-		NextLevel = Levels[UpperName];
-	}
+	void ChangeLevel(std::string_view _Name, EMapType _MapType=EMapType::None);
+	
 
 	template<typename GameModeType>
 	void CreateLevel(std::string_view _Name)
@@ -151,6 +143,7 @@ public:
 		FrameTime = 1 / static_cast<float>(Frame);
 	}
 
+
 protected:
 
 private:
@@ -169,6 +162,7 @@ private:
 	std::map <std::string, std::shared_ptr<ULevel>> Levels;
 	std::shared_ptr<ULevel> NextLevel = nullptr;
 	std::shared_ptr<ULevel> CurLevel = nullptr;
+
 	std::vector<std::string> DestroyLevelName;
 
 	int Frame = -1;
