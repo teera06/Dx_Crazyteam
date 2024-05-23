@@ -28,6 +28,23 @@ public:
 	std::vector<UImage*> LobbyPlayer;
 
 	void SettingUIPlayerName(std::vector<std::string> _Names);
+
+	void SetMaster()
+	{
+		Master = true;
+	}
+
+	//////////////////////////////////////¼­¹ö¿ë ///////////////////////////////////////////////////////
+	int ChangeUIIndex = -1;
+
+	// APlayLobby
+	std::function<void(APlayLobby*, int, std::string_view)> ChracterChangeLogic = nullptr;
+	std::function<void(APlayLobby*, std::string_view)> MapChangeLogic = nullptr;
+	std::function<void(APlayLobby*, int, std::string_view)> TeamChangeLogic = nullptr;
+
+	void MapChange(std::string_view _MapName);
+	////////////////////////////////////////////////////////////////////////////////////////////
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -145,29 +162,13 @@ private:
 	bool ATeam = true;
 	bool BTeam = false;
 
+
 private:
-	int MySessionToken = -1;
-	bool IsGetSessionToken = false;
 	static bool IsClient;
 	static bool Create;
 	static int Create_Count;
 	int Cha_Count = 0;
-
-public:
-	int ChangeUIIndex = -1;
-
-	inline void SetMySessionToken(int _Value)
-	{
-		MySessionToken = _Value;
-		IsGetSessionToken = true;
-	}
-
-	// APlayLobby
-	std::function<void(APlayLobby*, int, std::string_view)> ChracterChangeLogic = nullptr;
-	std::function<void(APlayLobby*, std::string_view)> MapChangeLogic = nullptr;
-
-	void MapChange(std::string_view _MapName);
-
+	bool Master = false;
 
 };
 

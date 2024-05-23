@@ -3,7 +3,7 @@
 #include <EngineBase/NameObject.h>
 #include <set>
 #include <map>
-
+#include "EngineEnums.h"
 
 
 // final을 사용하면 이제 ULevel 상속받은 클래스를 만들수가 없어요.
@@ -118,6 +118,12 @@ public:
 		Functions.push_back(_Function);
 	}
 
+	void SetMayType(EMapType _MapType) 
+	{ 
+		MapType = _MapType;
+	};
+
+
 protected:
 	void Tick(float _DeltaTime) override;
 	void Render(float _DeltaTime);
@@ -147,6 +153,8 @@ private:
 
 	std::mutex FunctionLock;
 	std::list<std::function<void()>> Functions;
+
+	EMapType MapType = EMapType::None;
 
 	void ConstructorActor(std::shared_ptr<AActor> _Actor, std::string_view _Name, int Order);
 	void PushActor(std::shared_ptr<AActor> _Actor);

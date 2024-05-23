@@ -34,8 +34,18 @@ void AOtherPlayer::BeginPlay()
 	PlayerNameUI->SetText("");
 	//PlayerNameUI->SetText(stringHelper::GetPlayerName());
 	PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
-	PlayerNameUI->SetScale(10.0f);
+	PlayerNameUI->SetScale(15.0f);
+	
 	PlayerNameUI->SetColor(Color8Bit::Black);
+	//if (GetTeamType() == ETeamType::ATeam)
+	//{
+	//	PlayerNameUI->SetColor(Color8Bit::Red);
+	//}
+	//else if (GetTeamType() == ETeamType::BTeam)
+	//{
+	//	PlayerNameUI->SetColor(Color8Bit::Blue);
+	//}
+
 	PlayerNameUI->SetOrder(1);
 	PlayerNameUI->AddToViewPort(11);
 }
@@ -74,6 +84,14 @@ void AOtherPlayer::Tick(float _DeltaTime)
 			SetActorLocation(ActorUpdatePacket->Pos);
 
 			TeamType = static_cast<ETeamType>(ActorUpdatePacket->TeamType);
+			if (TeamType == ETeamType::ATeam)
+			{
+				PlayerNameUI->SetColor(Color8Bit::Red);
+			}
+			else if (TeamType == ETeamType::BTeam)
+			{
+				PlayerNameUI->SetColor(Color8Bit::Blue);
+			}
 
 			std::string SpriteNames = ActorUpdatePacket->SpriteName;
 			std::string UserNames = ActorUpdatePacket->UserName;

@@ -49,3 +49,10 @@ enum class EDebugRenderType
 	Rect,
 	CirCle
 };
+
+enum class EMapType
+{
+	None,
+	Camp,
+	Village
+};

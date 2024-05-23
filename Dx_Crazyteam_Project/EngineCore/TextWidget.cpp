@@ -28,6 +28,9 @@ bool UTextWidget::Render(float _DeltaTime)
 	Pos *= GetWorld()->GetUICamera()->GetProjection();
 	Pos *= GetWorld()->GetUICamera()->GetViewPort();
 
+
+	//Text.resize(1);
+
 	Font->TextDraw(Pos, Text, Scale, Color, Flag);
 	GEngine->GetDirectXContext()->GSSetShader(nullptr, nullptr, 0);
 

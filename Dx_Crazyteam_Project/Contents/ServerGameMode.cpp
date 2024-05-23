@@ -386,7 +386,12 @@ void AServerGameMode::ServerOpen()
 
 void AServerGameMode::LevelEnd(ULevel* _NextLevel)
 {
-	NetWindow->Off();
+	if (IsServerOpen != false)
+	{
+		NetWindow->Off();
+	}
+
+	
 }
 
 void AServerGameMode::CollectWindowAppear()
