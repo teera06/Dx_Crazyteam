@@ -7,6 +7,7 @@
 #include "Packets.h"
 #include <EngineCore/Image.h>
 #include "ServerGameMode.h"
+#include "ContentsValue.h"
 
 
 ALobbyMainMode::ALobbyMainMode()
@@ -33,7 +34,7 @@ void ALobbyMainMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-
+	UContentsValue::LobbyPlayerNum;
 }
 
 void ALobbyMainMode::LevelEnd(ULevel* _NextLevel)
@@ -46,10 +47,11 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
-	PlayLobby->SetMySessionToken(UGame_Core::Net->GetSessionToken());
-
 	if (0 == UGame_Core::Net->GetSessionToken())
 	{
+		// 서버가 들어왔기 때문에 로비 플레이어 추가
+		UContentsValue::LobbyPlayerNum++;
+
 		ServerPacketInit(UGame_Core::Net->Dispatcher);
 	}
 	else if (1 <= UGame_Core::Net->GetSessionToken())
@@ -64,6 +66,35 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 		PlayLobby->ChangeUIIndex = 0;
 
 		// 방장 0번
+		PlayLobby->TeamChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
+			{
+				//_Lobby->
+				std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
+				//NewPlayer->NewPlayer = true;
+				std::vector<std::string> SetSpriteNames = NewPlayer->SpriteNames;
+				std::vector<UImage*>& PlayerUIImages = _Lobby->LobbyPlayer;
+				//PlayerUIImages[_Index]->SetSprite(_SpriteName);
+				for (size_t i = 0; i < PlayerUIImages.size(); i++)
+				{
+					if (nullptr == PlayerUIImages[i])
+					{
+						NewPlayer->SpriteNames.push_back("None");
+						continue;
+					}
+					if (i == _Index)
+					{
+						std::string SetName = _SpriteName.data();
+						NewPlayer->SpriteNames.push_back(SetName);
+					}
+					else
+					{
+						NewPlayer->SpriteNames.push_back(_Lobby->LobbyPlayer[i]->CurInfo.Texture->GetName());
+					}
+				}
+				UGame_Core::Net->Send(NewPlayer);
+			};
+
+
 
 		PlayLobby->ChracterChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
 			{
@@ -116,6 +147,33 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 	}
 	else if (AServerGameMode::NetType == ENetType::Client)
 	{
+		PlayLobby->TeamChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
+			{
+				std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
+				std::vector<std::string> SetSpriteNames = NewPlayer->SpriteNames;
+
+				std::vector<UImage*>& PlayerUIImages = _Lobby->LobbyPlayer;
+				for (size_t i = 0; i < PlayerUIImages.size(); i++)
+				{
+					if (nullptr == PlayerUIImages[i])
+					{
+						NewPlayer->SpriteNames.push_back("None");
+						continue;
+					}
+					if (i == _Index)
+					{
+						std::string SetName = _SpriteName.data();
+						NewPlayer->SpriteNames.push_back(SetName);
+					}
+					else
+					{
+						NewPlayer->SpriteNames.push_back(_Lobby->LobbyPlayer[i]->CurInfo.Texture->GetName());
+					}
+				}
+				UGame_Core::Net->Send(NewPlayer);
+			};
+
+
 
 		PlayLobby->ChracterChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
 			{
@@ -169,6 +227,7 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 					{
 						PlayLobby->NewPlayer();
 
+
 						if (8 != PlayLobby->LobbyPlayer.size())
 						{
 							MsgBoxAssert("UI가 이상함");
@@ -189,6 +248,9 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 							UImage* LobbyPlayerImage = PlayerUIImages[i];
 							NewPlayer->SpriteNames.push_back(LobbyPlayerImage->CurInfo.Texture->GetName());
 						}
+
+						// client가 들어왔을 때 로비Player 수 추가
+						UContentsValue::LobbyPlayerNum++;
 
 						UGame_Core::Net->Send(NewPlayer);
 					}

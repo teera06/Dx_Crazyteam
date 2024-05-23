@@ -143,7 +143,7 @@ void APlayLobby::BeginPlay()
 	//시작 버튼
 	GameStart = CreateWidget<UImage>(GetWorld(), "GameStart");
 	GameStart->CreateAnimation("UnHover", "StartBt_1.png", 0.1f, false, 0, 0);
-	GameStart->CreateAnimation("Hover", "StartBT", 0.1f, true, 6, 7);
+	GameStart->CreateAnimation("Hover", "StartBT", 0.1f, true, 8, 9);
 	GameStart->CreateAnimation("Down", "StartBt_3.png", 0.1f, false, 0, 0);
 	GameStart->AddToViewPort(10);
 	GameStart->SetSprite("StartBt_1.png");
@@ -289,7 +289,7 @@ void APlayLobby::BeginPlay()
 	DaoBT->CreateAnimation("Down", "CharatorSelect_Button_Dao_Click.bmp", 0.1f, false, 0, 0);
 	DaoBT->CreateAnimation("Up", "CharatorSelect_Button_Dao_Pick.bmp", 0.1f, false, 0, 0);
 	DaoBT->AddToViewPort(11);
-	DaoBT->SetSprite("CharatorSelect_Button_Dao_Pick.bmp");
+	DaoBT->SetSprite("CharatorSelect_Button_Dao_Normal.bmp");
 	DaoBT->SetScale({ 65.f,43.f });
 	DaoBT->SetPosition({ 194.0f,163.0f });
 	DaoBT->SetActive(true);
@@ -299,7 +299,7 @@ void APlayLobby::BeginPlay()
 	DizniBT->CreateAnimation("Hover", "CharatorSelect_Button_Dizni_Hover.bmp", 0.1f, false, 0, 0);
 	DizniBT->CreateAnimation("Down", "CharatorSelect_Button_Dizni_Click.bmp", 0.1f, false, 0, 0);
 	DizniBT->AddToViewPort(11);
-	DizniBT->SetSprite("CharatorSelect_Button_Dizni_Normal.bmp");
+	DizniBT->SetSprite("CharatorSelect_Button_Dizni_X.bmp");
 	DizniBT->SetScale({ 65.f,43.f });
 	DizniBT->SetPosition({ 266.0f,163.0f });
 	DizniBT->SetActive(true);
@@ -309,7 +309,7 @@ void APlayLobby::BeginPlay()
 	MosBT->CreateAnimation("Hover", "CharatorSelect_Button_Mos_Hover.bmp", 0.1f, false, 0, 0);
 	MosBT->CreateAnimation("Down", "CharatorSelect_Button_Mos_Click.bmp", 0.1f, false, 0, 0);
 	MosBT->AddToViewPort(11);
-	MosBT->SetSprite("CharatorSelect_Button_Mos_Normal.bmp");
+	MosBT->SetSprite("CharatorSelect_Button_Mos_X.bmp");
 	MosBT->SetScale({ 65.f,43.f });
 	MosBT->SetPosition({ 338.0f,163.0f });
 	MosBT->SetActive(true);
@@ -319,7 +319,7 @@ void APlayLobby::BeginPlay()
 	EthiBT->CreateAnimation("Hover", "CharatorSelect_Button_Ethi_Hover.bmp", 0.1f, false, 0, 0);
 	EthiBT->CreateAnimation("Down", "CharatorSelect_Button_Ethi_Click.bmp", 0.1f, false, 0, 0);
 	EthiBT->AddToViewPort(11);
-	EthiBT->SetSprite("CharatorSelect_Button_Ethi_Normal.bmp");
+	EthiBT->SetSprite("CharatorSelect_Button_Ethi_X.bmp");
 	EthiBT->SetScale({ 65.f,43.f });
 	EthiBT->SetPosition({ 122.0f,114.0f });
 	EthiBT->SetActive(true);
@@ -341,7 +341,7 @@ void APlayLobby::BeginPlay()
 	BazziBT->CreateAnimation("Down", "CharatorSelect_Button_Bazzi_Click.bmp", 0.1f, false, 0, 0);
 	BazziBT->CreateAnimation("Up", "CharatorSelect_Button_Bazzi_Pick.bmp", 0.1f, false, 0, 0);
 	BazziBT->AddToViewPort(11);
-	BazziBT->SetSprite("CharatorSelect_Button_Bazzi_Normal.bmp");
+	BazziBT->SetSprite("CharatorSelect_Button_Bazzi_Pick.bmp");
 	BazziBT->SetScale({ 65.f,43.f });
 	BazziBT->SetPosition({ 266.0f,114.0f });
 	BazziBT->SetActive(true);
@@ -351,7 +351,7 @@ void APlayLobby::BeginPlay()
 	UniBT->CreateAnimation("Hover", "CharatorSelect_Button_Uni_Hover.bmp", 0.1f, false, 0, 0);
 	UniBT->CreateAnimation("Down", "CharatorSelect_Button_Uni_Click.bmp", 0.1f, false, 0, 0);
 	UniBT->AddToViewPort(11);
-	UniBT->SetSprite("CharatorSelect_Button_Uni_Normal.bmp");
+	UniBT->SetSprite("CharatorSelect_Button_Uni_X.bmp");
 	UniBT->SetScale({ 65.f,43.f });
 	UniBT->SetPosition({ 338.0f,114.0f });
 	UniBT->SetActive(true);
@@ -362,7 +362,7 @@ void APlayLobby::BeginPlay()
 	KephiBT->CreateAnimation("Down", "CharatorSelect_Button_Kephi_Click.bmp", 0.1f, false, 0, 0);
 	KephiBT->CreateAnimation("Up", "CharatorSelect_Button_Kephi_Pick.bmp", 0.1f, false, 0, 0);
 	KephiBT->AddToViewPort(11);
-	KephiBT->SetSprite("CharatorSelect_Button_Kephi_Normal.bmp");
+	KephiBT->SetSprite("CharatorSelect_Button_Kephi_X.bmp");
 	KephiBT->SetScale({ 65.f,43.f });
 	KephiBT->SetPosition({ 122.0f,65.0f });
 	KephiBT->SetActive(true);
@@ -372,7 +372,7 @@ void APlayLobby::BeginPlay()
 	SuBT->CreateAnimation("Hover", "CharatorSelect_Button_Su_Hover.bmp", 0.1f, false, 0, 0);
 	SuBT->CreateAnimation("Down", "CharatorSelect_Button_Su_Click.bmp", 0.1f, false, 0, 0);
 	SuBT->AddToViewPort(11);
-	SuBT->SetSprite("CharatorSelect_Button_Su_Normal.bmp");
+	SuBT->SetSprite("CharatorSelect_Button_Su_X.bmp");
 	SuBT->SetScale({ 65.f,43.f });
 	SuBT->SetPosition({ 194.0f,65.0f });
 	SuBT->SetActive(true);
@@ -382,7 +382,7 @@ void APlayLobby::BeginPlay()
 	HooUBT->CreateAnimation("Hover", "CharatorSelect_Button_HooU_Hover.bmp", 0.1f, false, 0, 0);
 	HooUBT->CreateAnimation("Down", "CharatorSelect_Button_HooU_Click.bmp", 0.1f, false, 0, 0);
 	HooUBT->AddToViewPort(11);
-	HooUBT->SetSprite("CharatorSelect_Button_HooU_Normal.bmp");
+	HooUBT->SetSprite("CharatorSelect_Button_HooU_X.bmp");
 	HooUBT->SetScale({ 65.f,43.f });
 	HooUBT->SetPosition({ 266.0f,65.0f });
 	HooUBT->SetActive(true);
@@ -392,7 +392,7 @@ void APlayLobby::BeginPlay()
 	RayBT->CreateAnimation("Hover", "CharatorSelect_Button_Ray_Hover.bmp", 0.1f, false, 0, 0);
 	RayBT->CreateAnimation("Down", "CharatorSelect_Button_Ray_Click.bmp", 0.1f, false, 0, 0);
 	RayBT->AddToViewPort(11);
-	RayBT->SetSprite("CharatorSelect_Button_Ray_Normal.bmp");
+	RayBT->SetSprite("CharatorSelect_Button_Ray_X.bmp");
 	RayBT->SetScale({ 65.f,43.f });
 	RayBT->SetPosition({ 338.0f,65.0f });
 	RayBT->SetActive(true);
@@ -407,18 +407,18 @@ void APlayLobby::BeginPlay()
 	//팀 선택
 	TeamA = CreateWidget<UImage>(GetWorld(), "TeamA");
 	TeamA->CreateAnimation("TeamUnHover", "ATeam.png", 0.1f, false, 0, 0);
-	TeamA->CreateAnimation("TeamHover", "ATeam.png", 0.1f, false, 0, 0);
+	TeamA->CreateAnimation("TeamHover", "ATeam_Hover.png", 0.1f, false, 0, 0);
 	TeamA->CreateAnimation("TeamDown", "ATeam_Down.png", 0.1f, false, 0, 0);
 	TeamA->CreateAnimation("TeamUp", "ATeam_Pick.png", 0.1f, false, 0, 0);
 	TeamA->AddToViewPort(12);
-	TeamA->SetSprite("ATeam.png");
+	TeamA->SetSprite("ATeam_Pick.png");
 	TeamA->SetScale({ 100.f, 50.f });
 	TeamA->SetPosition({ 160.0f,0.0f });
 	TeamA->SetActive(true);
 
 	TeamB = CreateWidget<UImage>(GetWorld(), "TeamB");
 	TeamB->CreateAnimation("TeamUnHover", "BTeam.png", 0.1f, false, 0, 0);
-	TeamB->CreateAnimation("TeamHover", "BTeam.png", 0.1f, false, 0, 0);
+	TeamB->CreateAnimation("TeamHover", "BTeam_Hover.png", 0.1f, false, 0, 0);
 	TeamB->CreateAnimation("TeamDown", "BTeam_Down.png", 0.1f, false, 0, 0);
 	TeamB->CreateAnimation("TeamUp", "BTeam_Pick.png", 0.1f, false, 0, 0);
 	TeamB->AddToViewPort(12);
@@ -429,14 +429,14 @@ void APlayLobby::BeginPlay()
 
 
 	// 선택한 캐릭터
-	SelectCharacter = RandomBT;
+	SelectCharacter = BazziBT;
 	SelectTeam = TeamA;
 
 	checkUI = CreateWidget<UImage>(GetWorld(), "checkUI");
 	checkUI->AddToViewPort(13);
 	checkUI->SetSprite("check.png");
 	checkUI->SetAutoSize(1.0f, true);
-	checkUI->SetPosition({ 222.0f,183.0f });
+	checkUI->SetPosition({ 292.0f,133.0f });
 	checkUI->SetActive(true);
 
 	Teamtyp = dynamic_cast<ACAGameMode*>(GetWorld()->GetGameMode().get());
@@ -543,6 +543,33 @@ void APlayLobby::TeamSelectBegin()
 					IsTeamSelectSharacter = true;
 					SwapTeamSelectCharacter(TeamA);
 					ConstValue::MainPlayerTeamType = ETeamType::ATeam;
+					ATeam = true;
+					BTeam = false;
+
+					if ("Room_Charcater_Bazzi_B.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == ATeam)
+					{
+						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Bazzi.png");
+						if (nullptr != TeamChangeLogic)
+						{
+							TeamChangeLogic(this, ChangeUIIndex, "Room_Charcater_Bazzi.png");
+						}
+					}
+					if ("Room_Charcater_Dao_B.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == ATeam)
+					{
+						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Dao.png");
+						if (nullptr != TeamChangeLogic)
+						{
+							TeamChangeLogic(this, ChangeUIIndex, "Room_Charcater_Dao.png");
+						}
+					}
+					if ("Room_Charcater_Marid_B.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == ATeam)
+					{
+						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Marid.png");
+						if (nullptr != TeamChangeLogic)
+						{
+							TeamChangeLogic(this, ChangeUIIndex, "Room_Charcater_Marid.png");
+						}
+					}
 				}
 			}
 			});
@@ -574,6 +601,34 @@ void APlayLobby::TeamSelectBegin()
 					IsTeamSelectSharacter = true;
 					SwapTeamSelectCharacter(TeamB);
 					ConstValue::MainPlayerTeamType = ETeamType::BTeam;
+					ATeam = false;
+					BTeam = true;
+
+					if ("Room_Charcater_Marid.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == BTeam)
+					{
+						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Marid_B.png");
+						if (nullptr != TeamChangeLogic)
+						{
+							TeamChangeLogic(this, ChangeUIIndex, "Room_Charcater_Marid_B.png");
+						}
+
+					}
+					if ("Room_Charcater_Bazzi.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == BTeam)
+					{
+						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Bazzi_B.png");
+						if (nullptr != TeamChangeLogic)
+						{
+							TeamChangeLogic(this, ChangeUIIndex, "Room_Charcater_Bazzi_B.png");
+						}
+					}
+					if ("Room_Charcater_Dao.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == BTeam)
+					{
+						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Dao_B.png");
+						if (nullptr != TeamChangeLogic)
+						{
+							TeamChangeLogic(this, ChangeUIIndex, "Room_Charcater_Dao_B.png");
+						}
+					}
 				}
 			}
 			});
@@ -1035,7 +1090,6 @@ void APlayLobby::CharacterBegin()
 			}
 			});
 	}
-
 	{
 		DaoBT->SetUnHover([=] {
 			if ("UP" != DaoBT->GetUiAniName())
@@ -1057,19 +1111,38 @@ void APlayLobby::CharacterBegin()
 				}
 				else if (IsUp(VK_LBUTTON))
 				{
-					IsSelectSharacter = true;
-					SwapSelectCharacter(DaoBT);
-					LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Dao.png");
-
-					if (nullptr != ChracterChangeLogic)
+					if (true == ATeam)
 					{
-						ChracterChangeLogic(this, ChangeUIIndex, "Room_Charcater_Dao.png");
+						IsSelectSharacter = true;
+						SwapSelectCharacter(DaoBT);
+						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Dao.png");
+
+						if (nullptr != ChracterChangeLogic)
+						{
+							ChracterChangeLogic(this, ChangeUIIndex, "Room_Charcater_Dao.png");
+						}
+						int a = 0;
+						LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Dao.bmp");
+						checkUI->SetPosition({ 222.0f,183.0f });
+						checkUI->SetActive(true);
+						ConstValue::MainPlayerCharacterType = ECharacterType::Dao;
 					}
-					int a = 0;
-					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Dao.bmp");
-					checkUI->SetPosition({ 222.0f,183.0f });
-					checkUI->SetActive(true);
-					ConstValue::MainPlayerCharacterType = ECharacterType::Dao;
+					else if (true == BTeam)
+					{
+						IsSelectSharacter = true;
+						SwapSelectCharacter(DaoBT);
+						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Dao_B.png");
+
+						if (nullptr != ChracterChangeLogic)
+						{
+							ChracterChangeLogic(this, ChangeUIIndex, "Room_Charcater_Dao_B.png");
+						}
+						int a = 0;
+						LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Dao.bmp");
+						checkUI->SetPosition({ 222.0f,183.0f });
+						checkUI->SetActive(true);
+						ConstValue::MainPlayerCharacterType = ECharacterType::Dao;
+					}
 				}
 			}
 			});
@@ -1098,18 +1171,37 @@ void APlayLobby::CharacterBegin()
 				}
 				else if (IsUp(VK_LBUTTON))
 				{
-					IsSelectSharacter = true;
-					SwapSelectCharacter(MaridBT);
-					LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Marid.png");
-					if (nullptr != ChracterChangeLogic)
+					if (true == ATeam)
 					{
-						ChracterChangeLogic(this, ChangeUIIndex, "Room_Charcater_Marid.png");
+						IsSelectSharacter = true;
+						SwapSelectCharacter(MaridBT);
+						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Marid.png");
+						if (nullptr != ChracterChangeLogic)
+						{
+							ChracterChangeLogic(this, ChangeUIIndex, "Room_Charcater_Marid.png");
+						}
+				
+						int a = 0;
+						LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Marid.bmp");
+						checkUI->SetPosition({ 222.0f,133.0f });
+						checkUI->SetActive(true);
+						ConstValue::MainPlayerCharacterType = ECharacterType::Marid;
 					}
-					int a = 0;
-					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Marid.bmp");
-					checkUI->SetPosition({ 222.0f,133.0f });
-					checkUI->SetActive(true);
-					ConstValue::MainPlayerCharacterType = ECharacterType::Marid;
+					else if (true == BTeam)
+					{
+						IsSelectSharacter = true;
+						SwapSelectCharacter(MaridBT);
+						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Marid_B.png");
+						if (nullptr != ChracterChangeLogic)
+						{
+							ChracterChangeLogic(this, ChangeUIIndex, "Room_Charcater_Marid_B.png");
+						}
+						int a = 0;
+						LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Marid.bmp");
+						checkUI->SetPosition({ 222.0f,133.0f });
+						checkUI->SetActive(true);
+						ConstValue::MainPlayerCharacterType = ECharacterType::Marid;
+					}
 				}
 			}
 			});
@@ -1137,19 +1229,38 @@ void APlayLobby::CharacterBegin()
 				}
 				else if (IsUp(VK_LBUTTON))
 				{
-					IsSelectSharacter = true;
-					SwapSelectCharacter(BazziBT);
-					LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Bazzi.png");
-
-					if (nullptr != ChracterChangeLogic)
+					if (true == ATeam)
 					{
-						ChracterChangeLogic(this, ChangeUIIndex, "Room_Charcater_Bazzi.png");
+						IsSelectSharacter = true;
+						SwapSelectCharacter(BazziBT);
+						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Bazzi.png");
+
+						if (nullptr != ChracterChangeLogic)
+						{
+							ChracterChangeLogic(this, ChangeUIIndex, "Room_Charcater_Bazzi.png");
+						}
+						int a = 0;
+						LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Bazzi.bmp");
+						checkUI->SetPosition({ 292.0f,133.0f });
+						checkUI->SetActive(true);
+						ConstValue::MainPlayerCharacterType = ECharacterType::Bazzi;
 					}
-					int a = 0;
-					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Bazzi.bmp");
-					checkUI->SetPosition({ 292.0f,133.0f });
-					checkUI->SetActive(true);
-					ConstValue::MainPlayerCharacterType = ECharacterType::Bazzi;				
+					else if (true == BTeam)
+					{
+						IsSelectSharacter = true;
+						SwapSelectCharacter(BazziBT);
+						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Bazzi_B.png");
+
+						if (nullptr != ChracterChangeLogic)
+						{
+							ChracterChangeLogic(this, ChangeUIIndex, "Room_Charcater_Bazzi_B.png");
+						}
+						int a = 0;
+						LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Bazzi.bmp");
+						checkUI->SetPosition({ 292.0f,133.0f });
+						checkUI->SetActive(true);
+						ConstValue::MainPlayerCharacterType = ECharacterType::Bazzi;
+					}
 				}
 			}
 		});
@@ -1182,25 +1293,28 @@ void APlayLobby::StartBegin()
 
 void APlayLobby::MapSelectButtonBegin()
 {
+	if (true == Master)
 	{
-		SelectMap->SetUnHover([=] {
-			SelectMap->ChangeAnimation("UnHover");
-			SwitchON = false;
-			});
-		SelectMap->SetHover([=] {
-			if (SelectMap->IsCurAnimationEnd() == true)
-			{
-				SelectMap->ChangeAnimation("Hover");
-			}
-			else if (true == IsDown(VK_LBUTTON) && "Hover" == SelectMap->GetUiAniName())
-			{
-				SelectMap->ChangeAnimation("Down");
-			}
-			else if (true == IsUp(VK_LBUTTON))
-			{
-				MapSelectBegin();
-			}
-			});
+		{
+			SelectMap->SetUnHover([=] {
+				SelectMap->ChangeAnimation("UnHover");
+				SwitchON = false;
+				});
+			SelectMap->SetHover([=] {
+				if (SelectMap->IsCurAnimationEnd() == true)
+				{
+					SelectMap->ChangeAnimation("Hover");
+				}
+				else if (true == IsDown(VK_LBUTTON) && "Hover" == SelectMap->GetUiAniName())
+				{
+					SelectMap->ChangeAnimation("Down");
+				}
+				else if (true == IsUp(VK_LBUTTON))
+				{
+					MapSelectBegin();
+				}
+				});
+		}
 	}
 }
 

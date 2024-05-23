@@ -4,6 +4,7 @@
 #include <EngineCore/DefaultSceneComponent.h>
 
 // Ό³Έν :
+class UTextWidget;
 class UImage;
 class AOtherLobbyPlayer : public AActor, public UNetObject
 {
@@ -29,6 +30,7 @@ private:
 	UStateManager State;
 	UDefaultSceneComponent* Root = nullptr;
 	UImage* ImageRenderer = nullptr;
+
 
 
 private:

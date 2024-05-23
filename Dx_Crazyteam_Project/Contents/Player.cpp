@@ -11,6 +11,7 @@
 #include <EngineBase/EngineRandom.h>
 #include "OtherPlayer.h"
 #include "stringHelper.h"
+#include <EngineCore/TextWidget.h>
 
 int APlayer::WaterBomb_Token = 0;
 int APlayer::WaterCourse_Token = 0;
@@ -49,17 +50,16 @@ void APlayer::BeginPlay()
 
 	Info = std::make_shared<PlayerInfo>();
 
-	PlayerNameUI = CreateWidget<UTextWidget>(GetWorld(), "PlayerName");
-	PlayerNameUI->SetFont("¸¼Àº °íµñ");
-	PlayerNameUI->SetText(GetPlayerName());
-	PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
-	PlayerNameUI->SetScale(10.0f);
-	PlayerNameUI->SetColor(Color8Bit::Black);
-	PlayerNameUI->SetOrder(1);
-	PlayerNameUI->AddToViewPort(11);
+	//PlayerNameUI = CreateWidget<UTextWidget>(GetWorld(), "PlayerName");
+	//PlayerNameUI->SetFont("¸¼Àº °íµñ");
+	//PlayerNameUI->SetText(stringHelper::GetPlayerName());
+	//PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
+	//PlayerNameUI->SetScale(10.0f);
+	//PlayerNameUI->SetColor(Color8Bit::Black);
+	//PlayerNameUI->SetOrder(1);
+	//PlayerNameUI->AddToViewPort(11);
 
 	MainPlayerSetting();
-	SetCharacterType(ECharacterType::Random);
 	StateInit();
 }
 
@@ -90,6 +90,8 @@ void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	SettingZValue();
+
 	//static bool PlayerCanMove = false;
 	//static float InitTime = 2.0f;
 	//InitTime -= _DeltaTime;
@@ -105,9 +107,8 @@ void APlayer::Tick(float _DeltaTime)
 	//	return;
 	//}
 
-	SetPlayerName(stringHelper::GetPlayerName());
-	PlayerNameUI->SetText(GetPlayerName());
-	PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
+	/*PlayerNameUI->SetText(stringHelper::GetPlayerName());
+	PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));*/
 
 	if (ConstValue::MainPlayerCharacterType != Info->MyType || ConstValue::MainPlayerTeamType != Info->Team)
 	{
@@ -141,6 +142,13 @@ void APlayer::Tick(float _DeltaTime)
 		State.ChangeState("Trap");
 		return;
 	}
+
+	if (true == IsDown(VK_F3))
+	{
+		State.ChangeState("Win");
+		return;
+	}
+
 
 	if (true == IsDown('B'))
 	{

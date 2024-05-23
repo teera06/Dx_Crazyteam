@@ -4,6 +4,7 @@
 #include <EngineCore/DefaultSceneComponent.h>
 
 // Ό³Έν :
+class UTextWidget;
 class AOtherPlayer : public AActor, public UNetObject
 {
 public:
@@ -22,7 +23,7 @@ public:
 		return IsOPDestroy;
 	}
 
-	ETeamType GetTeamType()
+	inline ETeamType GetTeamType() const 
 	{
 		return TeamType;
 	}
@@ -41,6 +42,7 @@ private:
 	UStateManager State;
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
+	UTextWidget* PlayerNameUI = nullptr;
 	bool IsOPDestroy = false;
 	ETeamType TeamType = ETeamType::None;
 };

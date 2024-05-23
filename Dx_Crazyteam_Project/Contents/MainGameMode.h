@@ -47,7 +47,6 @@ private:
 	UTextWidget* ShowText = nullptr;
 	std::shared_ptr<AVillage> Village = nullptr;
 	std::shared_ptr<APlayer> MainPlayer = nullptr;
-	std::vector<AOtherPlayer*> OtherPlayers;
 	std::shared_ptr<AMapUI> MapUI = nullptr;
 	std::shared_ptr<APlayer_Name> PlayerName = nullptr;
 
