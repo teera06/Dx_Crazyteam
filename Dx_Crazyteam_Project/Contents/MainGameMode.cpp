@@ -101,7 +101,7 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 
 	switch (ConstValue::SelectedMap)
 	{
-	case EMap::Camp:
+	case EMapType::Village:
 	{
 		std::shared_ptr<AVillage> Village = GetWorld()->SpawnActor<AVillage>("Village");
 		SetCurMap(Village);
@@ -109,7 +109,7 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 		break;
 
 	}
-	case EMap::Village:
+	case EMapType::Camp:
 	{
 		std::shared_ptr<ACamp> Camp = GetWorld()->SpawnActor<ACamp>("Camp");
 		SetCurMap(Camp);

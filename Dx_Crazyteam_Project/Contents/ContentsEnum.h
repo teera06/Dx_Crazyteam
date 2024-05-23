@@ -108,12 +108,6 @@ enum class EPlayerRideType
 	Turtle,
 };
 
-enum class EMap
-{
-	Camp,
-	Village,
-};
-
 enum class EGameResult
 {
 	None,

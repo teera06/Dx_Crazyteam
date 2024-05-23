@@ -13,7 +13,7 @@ ETeamType ConstValue::MainPlayerTeamType = ETeamType::None;
 ECharacterType ConstValue::MainPlayerCharacterType = ECharacterType::None;
 bool ConstValue::MainPlayerIsDie = false;
 
-EMap ConstValue::SelectedMap = EMap::Village;
+EMapType ConstValue::SelectedMap = EMapType::Village;
 
 const FVector ConstValue::CameraPos = FVector(80.f, 1.0f, -1000.f);
 

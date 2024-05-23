@@ -32,7 +32,7 @@ public:
 	static const int MaridMaxWBCount = 9;
 	static const int MaridMaxWBPower = 6;
 
-	static EMap SelectedMap;
+	static EMapType SelectedMap;
 	static ETeamType MainPlayerTeamType;
 	static ECharacterType MainPlayerCharacterType;
 	static bool MainPlayerIsDie;

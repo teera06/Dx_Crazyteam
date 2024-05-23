@@ -78,9 +78,6 @@ private:
 	int BTeamCount = 0;
 	bool IsBattleEnd = false;
 	EGameResult GameResult = EGameResult::None;
-
-	EMap CurMapType = EMap::Village;
-	
 };
 
 // UI에 팀의 승리 여부를 보내야함.(승리 조건에 따라 Win, Loss, Draw UI가 다르기 때문)
