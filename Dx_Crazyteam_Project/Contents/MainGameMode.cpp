@@ -82,6 +82,8 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
 
 				// Å¸ÀÓ À¯¾ÆÀÌ
+				MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
+				MapUI->SetCurGameMode(this);
 				MapUI->SetObjectToken(UNetObject::GetNewObjectToken());
 
 				//¹°ÆøÅº
