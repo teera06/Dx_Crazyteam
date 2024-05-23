@@ -61,6 +61,7 @@ private:
 	std::vector<UImage*> GameTimeerUI;
 	std::vector<UImage*> PlayerItemUI;
 
+	bool ServerConnect = false;
 	float GameTimeCheck = 1.f;
 	int MinUI = 2;
 	int SecondUI = 5;
