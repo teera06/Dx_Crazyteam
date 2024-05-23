@@ -95,7 +95,7 @@ void AMapUI::BeginPlay()
 	GameTimeerUI[2]->SetSprite("GameTimer.png", 5);
 	GameTimeerUI[3]->SetSprite("GameTimer.png", 9);
 
-	if (nullptr == MapTimeLogic)
+	if (nullptr != MapTimeLogic)
 	{
 		MapTimeLogic(this);
 	}

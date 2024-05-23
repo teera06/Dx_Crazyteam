@@ -713,6 +713,21 @@ FVector ABaseMap::PointToPos(int _Y, int _X)
 	return PushPos;
 }
 
+FVector ABaseMap::PointToPos(POINT _Point)
+{
+	FVector FirstPos = FVector::Zero;
+
+	FirstPos.X = -ConstValue::TileSize.X * static_cast<float>((ConstValue::TileX / 2));
+	FirstPos.Y = ConstValue::TileSize.Y * static_cast<float>((ConstValue::TileY - 1) / 2);
+
+	FVector PushPos = FVector::Zero;
+
+	PushPos.X = FirstPos.X + ConstValue::TileSize.X * _Point.x;
+	PushPos.Y = FirstPos.Y - ConstValue::TileSize.Y * _Point.y;
+
+	return PushPos;
+}
+
 void ABaseMap::StartMapPlayerInit(int _PlayerCount)
 {
 	
