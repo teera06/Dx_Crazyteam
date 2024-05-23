@@ -32,17 +32,6 @@ ASubServerLevel::ASubServerLevel()
 		UGame_Core::Net->End();
 		UGame_Core::Net = nullptr;
 	}
-
-	// 빌리지 시작 지점.
-	{
-		StartPOINT.push_back(POINT(0, 0));
-		StartPOINT.push_back(POINT(0, 7));
-		StartPOINT.push_back(POINT(1, 13));
-		
-		StartPOINT.push_back(POINT(11, 1));
-		StartPOINT.push_back(POINT(12, 6));
-		StartPOINT.push_back(POINT(12, 14));
-	}
 }
 
 ASubServerLevel::~ASubServerLevel()
@@ -161,7 +150,15 @@ void ASubServerLevel::ServerPacketInit(UEngineDispatcher& Dis)
 					{
 						OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
 						OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
-						OtherPlayers.push_back(OtherPlayer);
+
+						size_t size = OtherPlayers.size();
+
+						/*int Index = static_cast<int>(OtherPlayers.size());
+						FVector InitPos = GetCurMap()->PointToPos(StartPOINT[Index].y, StartPOINT[Index].x);
+
+						OtherPlayer->SetActorLocation(InitPos);
+
+						OtherPlayers.push_back(OtherPlayer);*/
 					}
 					OtherPlayer->PushProtocol(_Packet);
 				});
@@ -263,6 +260,11 @@ void ASubServerLevel::ClientPacketInit(UEngineDispatcher& Dis)
 					{
 						OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
 						OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
+
+						/*int Index = static_cast<int>(OtherPlayers.size());
+						FVector InitPos = GetCurMap()->PointToPos(StartPOINT[Index].y, StartPOINT[Index].x);
+
+						OtherPlayer->SetActorLocation(InitPos);*/
 						OtherPlayers.push_back(OtherPlayer);
 					}
 					OtherPlayer->PushProtocol(_Packet);

@@ -218,3 +218,8 @@ void UGame_Core::SoundLoad()
 		}
 	}
 }
+
+void UGame_Core::End()
+{
+	Net->End();
+}
