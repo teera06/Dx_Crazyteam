@@ -69,7 +69,7 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 		// ¹æÀå 0¹ø
 		PlayLobby->MapUILogic = [=](APlayLobby* _Lobby, std::string_view _MapName)
 			{
-
+				_MapName;
 				int a = 0;
 				//std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
 
@@ -159,7 +159,7 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 						continue;
 					}
 					NewPlayer->MapName = _MapName.data();
-					NewPlayer->ChangeMaP = true;
+					NewPlayer->ChangeLevel = true;
 					UGame_Core::Net->Send(NewPlayer);
 				}
 				_Lobby->MapChange(_MapName);
@@ -313,12 +313,20 @@ void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
 		{
 			GetWorld()->PushFunction([=]
 				{
-					if(_Packet->ChangeMaP ==true)
+					if (_Packet->ChangeMapUI ==true)
+					{
+						int a = 0;
+						PlayLobby;
+						return;
+					}
+
+					if(_Packet->ChangeLevel ==true)
 					{ 
 						PlayLobby->MapChange(_Packet->MapName);
 						return;
 					}
 					PlayLobby->SettingUIPlayerName(_Packet->SpriteNames);
+
 
 				});
 		});

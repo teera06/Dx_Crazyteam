@@ -186,7 +186,8 @@ public:
 		_Ser << NewPlayer;
 		_Ser << SpriteNames;
 		_Ser << MapName;
-		_Ser << ChangeMaP;
+		_Ser << ChangeLevel;
+		_Ser << ChangeMapUI;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -195,13 +196,15 @@ public:
 		_Ser >> NewPlayer;
 		_Ser >> SpriteNames;
 		_Ser >> MapName;
-		_Ser >> ChangeMaP;
+		_Ser >> ChangeLevel;
+		_Ser >> ChangeMapUI;
 	}
 
 public:
 	bool NewPlayer = false;
 	std::vector<std::string> SpriteNames;
 	std::string MapName = "";
-	bool ChangeMaP = false;
+	bool ChangeLevel = false;
+	bool ChangeMapUI = false;
 };
 
