@@ -1492,8 +1492,10 @@ void APlayLobby::MapUIChange(int _MapNumber)
 	{
 	case 0:
 		LobbyFinMap->SetSprite("Village10_FinMap.png");
+		break;
 	case 1:
 		LobbyFinMap->SetSprite("Cam02_FinMap.png");
+		break;
 	default:
 		break;
 	}
