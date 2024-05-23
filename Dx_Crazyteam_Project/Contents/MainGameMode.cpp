@@ -77,6 +77,10 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				MainPlayer = GetWorld()->SpawnActor<AServerTestPlayer>("Player1", 0);
 				MainPlayer->SetCurGameMode(this);
 				SetMainPlayer(MainPlayer);
+
+				FVector InitPos = GetCurMap()->PointToPos(ConstValue::VillageStartPos[UGame_Core::Net->GetSessionToken()]);
+				MainPlayer->SetActorLocation(InitPos);
+
 				// 여기에서 메인 플레이어한테 번호를 하나 줄겁니다.
 				MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
 
@@ -113,6 +117,9 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				MainPlayer = GetWorld()->SpawnActor<AServerTestPlayer>("Player1", 0);
 				MainPlayer->SetCurGameMode(this);
 				SetMainPlayer(MainPlayer);
+
+				FVector InitPos = GetCurMap()->PointToPos(ConstValue::VillageStartPos[UGame_Core::Net->GetSessionToken()]);
+				MainPlayer->SetActorLocation(InitPos);
 
 				MainPlayer->SetObjectToken(UGame_Core::Net->GetSessionToken() * 1000);
 

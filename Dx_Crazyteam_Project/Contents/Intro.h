@@ -6,6 +6,9 @@
 class AServerGameMode;
 class AUitestMonde;
 class UImage;
+class UTextWidget;
+
+
 class AIntro : public AActor, public UNetObject
 {
 	GENERATED_BODY(AActor)
@@ -36,8 +39,13 @@ private:
 	UImage* StartUI = nullptr;
 	UImage* TextInputUI = nullptr;
 	UImage* GameStartButton = nullptr;
+	UTextWidget* ShowText = nullptr;
+
+	bool IsTextInput = false;
+
 
 	std::function<void()> Function = nullptr;
 	AServerGameMode* ServerGameMode = nullptr;
+
 };
 
