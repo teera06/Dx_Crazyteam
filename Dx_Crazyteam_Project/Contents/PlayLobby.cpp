@@ -12,6 +12,7 @@
 #include <EngineCore/TextWidget.h>
 #include <EnginePlatform/TextimeInput.h>
 
+EMapType APlayLobby::MapType = EMapType::Village;
 bool APlayLobby::IsClient = false;
 bool APlayLobby::Create = false;
 int APlayLobby::Create_Count =  0;
@@ -1518,11 +1519,11 @@ void APlayLobby::MapUIChange(int _MapNumber)
 	{
 	case 0:
 		LobbyFinMap->SetSprite("Cam02_FinMap.png");
-		MapType = EMapType::Village;
+		MapType = EMapType::Camp;
 		break;
 	case 1:
 		LobbyFinMap->SetSprite("Village10_FinMap.png");
-		MapType = EMapType::Camp;
+		MapType = EMapType::Village;
 		break;
 	default:
 		break;
@@ -1540,11 +1541,11 @@ void APlayLobby::MapChange(std::string_view _MapName, int _MapNumber)
 	default:
 		break;
 	}
-	if (_MapNumber == 1)
+	if (_MapNumber == 0)
 	{
 		MapType = EMapType::Camp;
 	}
-	else if (_MapNumber == 2)
+	else if (_MapNumber == 1)
 	{
 		MapType = EMapType::Village;
 	}
