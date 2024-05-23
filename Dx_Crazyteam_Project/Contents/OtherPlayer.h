@@ -4,6 +4,7 @@
 #include <EngineCore/DefaultSceneComponent.h>
 
 // Ό³Έν :
+class UTextWidget;
 class AOtherPlayer : public AActor, public UNetObject
 {
 public:
@@ -41,6 +42,7 @@ private:
 	UStateManager State;
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
+	UTextWidget* PlayerNameUI = nullptr;
 	bool IsOPDestroy = false;
 	ETeamType TeamType = ETeamType::None;
 };

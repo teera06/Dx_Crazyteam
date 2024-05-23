@@ -145,6 +145,7 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("Dao_3_red.png", 5, 4);
 		UEngineSprite::CreateCutting("Dao_4_red.png", 5, 4);
 		UEngineSprite::CreateCutting("Dao_5_red.png", 5, 6);
+		UEngineSprite::CreateCutting("Dao_6_red.png", 2, 1);
 
 		// Blue Dao 
 		UEngineSprite::CreateCutting("dao_right.png", 4, 1);
@@ -159,6 +160,7 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("dao_1_blue.png", 5, 12);
 		UEngineSprite::CreateCutting("dao_3_blue.png", 5, 4);
 		UEngineSprite::CreateCutting("dao_4_blue.png", 5, 4);
+		UEngineSprite::CreateCutting("dao_6_blue.png", 2, 1);
 
 		// Red Marid
 		UEngineSprite::CreateCutting("luxMarid_1.png", 5, 12);
@@ -166,6 +168,7 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("luxMarid_3.png", 5, 4);
 		UEngineSprite::CreateCutting("luxMarid_4.png", 5, 4);
 		UEngineSprite::CreateCutting("luxMarid_5.png", 5, 6);
+		UEngineSprite::CreateCutting("luxMarid_6.png", 2, 1);
 
 		// Blue Marid
 		UEngineSprite::CreateCutting("luxMarid_1_blue.png", 5, 12);
@@ -173,6 +176,7 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("luxMarid_3_blue.png", 5, 4);
 		UEngineSprite::CreateCutting("luxMarid_4_blue.png", 5, 4);
 		UEngineSprite::CreateCutting("luxMarid_5_blue.png", 5, 6);
+		UEngineSprite::CreateCutting("luxMarid_6_blue.png", 2, 1);
 	}
 
 	// æ∆¿Ã≈€

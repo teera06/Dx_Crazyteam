@@ -4,6 +4,7 @@
 #include "NetInterface.h"
 #include "Game_Core.h"
 #include "Packets.h"
+#include "stringHelper.h"
 
 UNetInterface::UNetInterface()
 {
@@ -53,7 +54,7 @@ void UNetInterface::PlayerSendPacket(float _DeltaTime)
 		Packet->Pos = GetActorLocation();
 		Packet->AnimationInfo = Renderer->GetCurInfo().SpriteNum;
 		Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
-		//Packet->UserName = Renderer->GetCurInfo().Texture->GetName();
+		Packet->UserName = stringHelper::GetPlayerName();
 		Packet->IsDestroy = ConstValue::MainPlayerIsDie;
 		Packet->ObjectType = static_cast<int>(EObjectType::Player);
 		Packet->SpriteAlpha = Renderer->GetAlpha();
