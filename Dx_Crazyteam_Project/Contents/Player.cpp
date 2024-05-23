@@ -40,7 +40,7 @@ void APlayer::BeginPlay()
 	SetActorScale3D(FVector(20, 20, 1));
 
 
-	SoloArrowRenderer->SetSprite("solo_player.png");
+	SoloArrowRenderer->SetSprite("MyPlayer_Arrow.png");
 	SoloArrowRenderer->SetOrder(ERenderOrder::UI);
 	SoloArrowRenderer->SetAutoSize(0.05f, true);
 	SoloArrowRenderer->SetPosition(FVector(0, 4, 0));

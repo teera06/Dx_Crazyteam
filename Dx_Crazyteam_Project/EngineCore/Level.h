@@ -123,6 +123,11 @@ public:
 		MapType = _MapType;
 	};
 
+	EMapType GetMapType()
+	{
+		return MapType;
+	}
+
 
 protected:
 	void Tick(float _DeltaTime) override;

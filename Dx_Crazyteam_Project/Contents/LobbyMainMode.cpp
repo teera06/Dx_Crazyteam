@@ -67,6 +67,28 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 		PlayLobby->SetMaster();
 
 		// ¹æÀå 0¹ø
+		PlayLobby->MapUILogic = [=](APlayLobby* _Lobby, std::string_view _MapName)
+			{
+
+				int a = 0;
+				//std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
+
+				//std::vector<std::string> SetSpriteNames = NewPlayer->SpriteNames;
+				//std::vector<UImage*>& PlayerUIImages = _Lobby->LobbyPlayer;
+				//for (size_t i = 0; i < PlayerUIImages.size(); i++)
+				//{
+				//	if (nullptr == PlayerUIImages[i])
+				//	{
+				//		continue;
+				//	}
+				//	NewPlayer->MapName = _MapName.data();
+				//	NewPlayer->ChangeMaP = true;
+				//	UGame_Core::Net->Send(NewPlayer);
+				//}
+				//_Lobby->MapChange(_MapName);
+			};
+
+
 		PlayLobby->TeamChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
 			{
 				//_Lobby->
@@ -94,8 +116,6 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 				}
 				UGame_Core::Net->Send(NewPlayer);
 			};
-
-
 
 		PlayLobby->ChracterChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
 			{
@@ -126,7 +146,7 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 				UGame_Core::Net->Send(NewPlayer);
 			};
 		
-		PlayLobby->MapChangeLogic = [=](APlayLobby* _Lobby, std::string_view _MapName)
+		PlayLobby->MapChangeLogic = [=](APlayLobby* _Lobby, std::string_view _MapName, EMapType _MapType)
 			{
 				std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();		
 				
@@ -142,7 +162,6 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 					NewPlayer->ChangeMaP = true;
 					UGame_Core::Net->Send(NewPlayer);
 				}
-
 				_Lobby->MapChange(_MapName);
 			};				
 	}

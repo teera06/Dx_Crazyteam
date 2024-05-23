@@ -39,6 +39,6 @@ public:
 
 	static const FVector CameraPos;
 
-	static const std::vector<POINT> VillageStartPos;
-	//static const std::vector<POINT> CampStartPOINT;
+	static const std::vector<POINT> VillageStartPOINT;
+	static const std::vector<POINT> CampStartPOINT;
 };
