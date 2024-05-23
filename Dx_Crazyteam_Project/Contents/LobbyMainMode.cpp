@@ -7,6 +7,7 @@
 #include "Packets.h"
 #include <EngineCore/Image.h>
 #include "ServerGameMode.h"
+#include "ContentsValue.h"
 
 
 ALobbyMainMode::ALobbyMainMode()
@@ -33,7 +34,7 @@ void ALobbyMainMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-
+	ServerNum::LobbyPlayerNum;
 }
 
 void ALobbyMainMode::LevelEnd(ULevel* _NextLevel)
@@ -50,6 +51,9 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 
 	if (0 == UGame_Core::Net->GetSessionToken())
 	{
+		// 서버가 들어왔기 때문에 로비 플레이어 추가
+		ServerNum::LobbyPlayerNum++;
+
 		ServerPacketInit(UGame_Core::Net->Dispatcher);
 	}
 	else if (1 <= UGame_Core::Net->GetSessionToken())
@@ -189,6 +193,9 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 							UImage* LobbyPlayerImage = PlayerUIImages[i];
 							NewPlayer->SpriteNames.push_back(LobbyPlayerImage->CurInfo.Texture->GetName());
 						}
+
+						// client가 들어왔을 때 로비Player 수 추가
+						ServerNum::LobbyPlayerNum++;
 
 						UGame_Core::Net->Send(NewPlayer);
 					}
