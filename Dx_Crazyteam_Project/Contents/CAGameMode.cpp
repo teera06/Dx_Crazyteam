@@ -32,7 +32,10 @@ void ACAGameMode::Tick(float _DeltaTime)
 	}
 	else if (true == IsBattleEnd)
 	{
-		GMToUICallBack(GameResult);
+		if (nullptr != GMToUICallBack)
+		{
+			GMToUICallBack(GameResult);
+		}
 	}
 
 
@@ -56,6 +59,11 @@ void ACAGameMode::WinCheck(float _DeltaTime)
 	
 	ATeamCount = 0;
 	BTeamCount = 0;
+
+#ifdef _DEBUG
+	std::string GetUIToTime = std::format("Time : {}\n", BTeamCount);
+	UEngineDebugMsgWindow::PushMsg(GetUIToTime);
+#endif
 	
 	if (0 != PlayerCount)
 	{
