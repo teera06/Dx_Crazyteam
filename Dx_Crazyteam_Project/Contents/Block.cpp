@@ -279,7 +279,8 @@ void ABlock::EndTick(float _DeltaTime)
 
 		// 부서졌다면 푸시하지않음
 		if (GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x) != nullptr &&
-			GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x)->GetType() != EMapObjectType::Item)
+			GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x)->GetType() != EMapObjectType::Item &&
+			GetGameMode()->GetCurMap()->GetMapObject(GetCurPos().y, GetCurPos().x)->GetType() != EMapObjectType::Bush)
 		{
 			GetGameMode()->GetCurMap()->ChangeNull(GetCurPos().y, GetCurPos().x);
 		}
