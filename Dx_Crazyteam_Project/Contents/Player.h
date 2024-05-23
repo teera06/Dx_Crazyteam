@@ -1,11 +1,12 @@
 #pragma once
 #include <EngineBase/NetObject.h>
 #include <EngineCore/DefaultSceneComponent.h>
-#include <EngineCore/TextWidget.h>
+
 #include "ContentsEnum.h"
 #include "CAObject.h"
 #include "NetInterface.h"
 
+class UTextWidget;
 class AOtherPlayer;
 class APlayer;
 class PlayerInfo

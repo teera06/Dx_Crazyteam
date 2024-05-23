@@ -169,6 +169,7 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 					{
 						PlayLobby->NewPlayer();
 
+
 						if (8 != PlayLobby->LobbyPlayer.size())
 						{
 							MsgBoxAssert("UI가 이상함");

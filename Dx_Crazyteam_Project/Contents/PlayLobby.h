@@ -133,7 +133,7 @@ private:
 	bool RoomX6 = false;
 	bool RoomO7 = true;
 	bool RoomX7 = false;
-
+	
 
 	bool RoomSwitch= false;
 	int  PlayerCount = 0;
@@ -141,6 +141,9 @@ private:
 
 	bool VillagePick = true;
 	bool CamPick = false;
+
+	bool ATeam = true;
+	bool BTeam = false;
 
 private:
 	int MySessionToken = -1;
