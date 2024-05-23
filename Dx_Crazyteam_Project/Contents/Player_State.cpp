@@ -94,6 +94,7 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Red_Dao_Die", "Dao_2_red.png", 0.1f, false, 0, 5);
 	Renderer->CreateAnimation("Red_Dao_GameOn1", "Dao_1_red.png", AnimationInter * 0.5f, true, 24, 27);
 	Renderer->CreateAnimation("Red_Dao_GameOn2", "Dao_1_red.png", AnimationInter, false, 28, 37);
+	//Renderer->CreateAnimation("Red_Dao_Win", "Dao_6_red.png", AnimationInter, true, 0, 1);
 
 	// 블루 다오 애니메이션
 	Renderer->CreateAnimation("Blue_Dao_Idle_Up",	"dao_4_blue.png", AnimationInter, false, 2, 2);
@@ -109,6 +110,7 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Blue_Dao_Die",			"dao_die.png", 0.1f, false, 0, 5);
 	Renderer->CreateAnimation("Blue_Dao_GameOn1",		"dao_1_blue.png", AnimationInter * 0.5f, true, 24, 27);
 	Renderer->CreateAnimation("Blue_Dao_GameOn2",		"dao_1_blue.png", AnimationInter, false, 28, 37);
+	//Renderer->CreateAnimation("Blue_Dao_Win", "dao_6_blue.png", AnimationInter, true, 0, 1);
 
 	// 다오 Ride 애니메이션
 	Renderer->CreateAnimation("Red_Dao_Owl_Idle_Up", "Dao_3_red.png", AnimationInter, false, 4, 4);
@@ -222,6 +224,7 @@ void APlayer::StateInit()
 	State.CreateState("RideIdle");
 	State.CreateState("RideMove");
 	State.CreateState("RideOff");
+	State.CreateState("Win");
 
 	// StartFunction
 	State.SetStartFunction("GameOn", std::bind(&APlayer::GameOnStart, this));
@@ -234,6 +237,7 @@ void APlayer::StateInit()
 	State.SetStartFunction("RideIdle", std::bind(&APlayer::RideIdleStart, this));
 	State.SetStartFunction("RideMove", std::bind(&APlayer::RideMoveStart, this));
 	State.SetStartFunction("RideOff", std::bind(&APlayer::RideOffStart, this));
+	State.SetStartFunction("Win", std::bind(&APlayer::WinStart, this));
 
 	// UpdateFunction
 	State.SetUpdateFunction("GameOn", std::bind(&APlayer::GameOn, this, std::placeholders::_1));
@@ -246,6 +250,7 @@ void APlayer::StateInit()
 	State.SetUpdateFunction("RideIdle", std::bind(&APlayer::RideIdle, this, std::placeholders::_1));
 	State.SetUpdateFunction("RideMove", std::bind(&APlayer::RideMove, this, std::placeholders::_1));
 	State.SetUpdateFunction("RideOff", std::bind(&APlayer::RideOff, this, std::placeholders::_1));
+	State.SetUpdateFunction("Win", std::bind(&APlayer::Win, this, std::placeholders::_1));
 
 	// Init
 	State.ChangeState("GameOn");
@@ -343,7 +348,6 @@ void APlayer::TrapStart()
 
 	UEngineSound::SoundPlay("Damaged.wav");
 }
-
 
 void APlayer::Trap(float _DeltaTime)
 {
@@ -611,6 +615,16 @@ void APlayer::RideOff(float _DeltaTime)
 		State.ChangeState("Idle");
 		return;
 	}
+}
+
+void APlayer::WinStart()
+{
+	Renderer->ChangeAnimation(GetAnimationName("Win"));
+}
+
+void APlayer::Win(float _DeltaTime)
+{
+
 }
 
 // 물풍선 놓는 함수

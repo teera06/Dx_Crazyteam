@@ -193,6 +193,8 @@ private:
 	void RideMove(float _DeltaTime);
 	void RideOffStart();
 	void RideOff(float _DeltaTime);
+	void WinStart();
+	void Win(float _DeltaTime);
 
 	void DebugFunction(float _DeltaTime);
 
