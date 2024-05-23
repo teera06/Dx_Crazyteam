@@ -7,6 +7,7 @@
 #include "EngineBase/EngineDebug.h"
 #include "SendPacketManager.h"
 #include "Game_Core.h"
+#include "stringHelper.h"
 
 
 #include <EngineCore/TextWidget.h>
@@ -28,21 +29,12 @@ APlayLobby::~APlayLobby()
 void APlayLobby::BeginPlay()
 {
 	Super::BeginPlay();
-
-	//{//Text
-	//	ShowText = CreateWidget<UTextWidget>(GetWorld(), "ShowText");
-	//	//ShowText->SetOrder()
-	//	ShowText->SetFont("¸¼Àº °íµñ");
-	//	ShowText->SetScale(30.0f);
-	//	ShowText->SetColor(Color8Bit::Black);
-	//	ShowText->SetPosition({ 0.0f ,0.0f });
-	//	ShowText->SetFlag(FW1_LEFT);
-	//	ShowText->AddToViewPort(12);
-	//}
-
 	InputOn();
 	LobbyPlayer.resize(8);
 	Rank.resize(8);
+	PlayerName.resize(8);
+
+
 
 	PlayLobbyUI = CreateWidget<UImage>(GetWorld(), "PlayLobbyUI");
 	PlayLobbyUI->AddToViewPort(10);
@@ -517,6 +509,12 @@ void APlayLobby::NewPlayer()
 {
 	//PlayerCount
 	Cha_Count = Create_Count;
+	PlayerName[Cha_Count] = CreateWidget<UTextWidget>(GetWorld(), "ShowText");
+	PlayerName[Cha_Count]->AddToViewPort(15);
+	PlayerName[Cha_Count]->SetFont("¸¼Àº °íµñ");
+	PlayerName[Cha_Count]->SetScale(15.0f);
+	PlayerName[Cha_Count]->SetColor(Color8Bit::Black);
+
 	LobbyPlayer[Cha_Count] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
 	LobbyPlayer[Cha_Count]->AddToViewPort(15);
 	LobbyPlayer[Cha_Count]->SetSprite("Room_Charcater_Bazzi.png");
@@ -524,11 +522,26 @@ void APlayLobby::NewPlayer()
 	if (Cha_Count <= 3)
 	{
 		LobbyPlayer[Create_Count]->SetPosition(FVector(static_cast<float>(-335 + Create_Count * 105), 160.0f, 100.0f));
+		PlayerName[Create_Count]->SetPosition({ -348.0f + Create_Count * 103, 106.0f });
+	
 	}
 	else
 	{
 		LobbyPlayer[Create_Count]->SetPosition(FVector(static_cast<float>(-755 + Create_Count * 105), 10.0f, 100.0f));
+		PlayerName[Create_Count]->SetPosition({ -348.0f + Create_Count * 103, -40.0f });
 	}
+	
+//	//ShowText->SetPosition({ -348.0f ,106.0f });
+//	//ShowText->SetPosition({ -248.0f ,106.0f });
+//	//ShowText->SetPosition({ -144.0f ,106.0f });
+//	//ShowText->SetPosition({ -37.0f ,106.0f });
+
+//	//ShowText->SetPosition({ -348.0f ,-40.0f });
+//	//ShowText->SetPosition({ -248.0f ,-40.0f });
+//	//ShowText->SetPosition({ -144.0f ,-40.0f });
+//	//ShowText->SetPosition({ -37.0f ,-40.0f });
+	
+	
 	Create_Count++;
 }
 
@@ -536,6 +549,9 @@ void APlayLobby::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	PlayLobbyUI->SetActive(true);
+
+	//PlayerName[Cha_Count]->SetText(stringHelper::GetPlayerName());
+
 	// Room Hover
 	RoomBegin();
 }
