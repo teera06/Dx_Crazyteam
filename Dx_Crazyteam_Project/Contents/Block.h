@@ -107,7 +107,8 @@ private:
 	FVector MoveDir = FVector::Zero;
 	POINT PlayerIndex = { 0,0 };
 
-
+	float FrameTime = 1.0f / 60.0f;
+	float CurTime = FrameTime;
 	
 
 	

@@ -30,7 +30,7 @@ void AOtherPlayer::BeginPlay()
 	AActor::BeginPlay();
 
 	PlayerNameUI = CreateWidget<UTextWidget>(GetWorld(), "PlayerName");
-	PlayerNameUI->SetFont("¸¼Àº °íµñ");
+	PlayerNameUI->SetFont("±¼¸²");
 	PlayerNameUI->SetText("");
 	//PlayerNameUI->SetText(stringHelper::GetPlayerName());
 	PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
@@ -106,10 +106,16 @@ void AOtherPlayer::Tick(float _DeltaTime)
 				Renderer->SetPosition(ActorUpdatePacket->RendererPos);
 			}
 
-			PlayerNameUI->SetText(UserNames);
-			PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
-
 			IsOPDestroy = ActorUpdatePacket->IsDestroy;
+			if (true == IsOPDestroy)
+			{
+				PlayerNameUI->SetActive(false);
+			}
+			else
+			{
+				PlayerNameUI->SetText(UserNames);
+				PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
+			}
 
 			break;
 		}

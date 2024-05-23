@@ -30,6 +30,7 @@ UGame_Core::~UGame_Core()
 void UGame_Core::Initialize()
 {
 	UEngineFont::Load("±Ã¼­");
+	UEngineFont::Load("±¼¸²");
 	UEngineFont::Load("¸¼Àº °íµñ");
 	UEngineFont::Load("Bold");
 	GEngine->EngineWindow.SetWindowTitle("Crazy Arcade");

@@ -68,6 +68,7 @@ protected:
 	void LevelEnd(ULevel* _NextLevel) override;
 
 	std::vector<AOtherPlayer*> OtherPlayers;
+	bool BattleStart = false;
 private:
 	void WinCheck(float _DeltaTime);
 
@@ -77,6 +78,7 @@ private:
 	int ATeamCount = 0;
 	int BTeamCount = 0;
 	bool IsBattleEnd = false;
+	bool IsRefereeStart = false;
 	EGameResult GameResult = EGameResult::None;
 };
 
