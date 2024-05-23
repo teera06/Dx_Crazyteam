@@ -45,7 +45,7 @@ void AMainGameMode::BeginPlay()
 
 	GameModeActorInit();
 
-	ACAGameMode::OtherPlayers.clear();
+	//ACAGameMode::OtherPlayers.clear();
 #ifdef _DEBUG
 	InputOn();
 #endif
@@ -70,9 +70,11 @@ void AMainGameMode::Tick(float _DeltaTime)
 		{
 		case EMapType::Camp:
 			CreateCampBlocks();
+			ACAGameMode::BattleStart = true;
 			break;
 		case EMapType::Village:
 			CreateVillageBlocks();
+			ACAGameMode::BattleStart = true;
 			break;
 		default:
 			MsgBoxAssert("지정된 MapType이 아닙니다.");
@@ -119,7 +121,7 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 	default:
 		break;
 	}
-
+	
 	if (AServerGameMode::NetType == ENetType::Server)
 	{
 			{
@@ -226,7 +228,6 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 					OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
 					OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
 					ACAGameMode::OtherPlayers.push_back(OtherPlayer);
-					//OtherPlayers.push_back(OtherPlayer);
 					
 					// 클라이언트가 접속했을 때, 생성하면 PlayerIDs에 세션 토큰 넣어서 관리
 					UContentsValue::PlayerIDs.push_back(_Packet->GetSessionToken());
