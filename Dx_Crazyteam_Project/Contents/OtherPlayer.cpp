@@ -60,6 +60,8 @@ void AOtherPlayer::Tick(float _DeltaTime)
 
 			SetActorLocation(ActorUpdatePacket->Pos);
 
+			TeamType = static_cast<ETeamType>(ActorUpdatePacket->TeamType);
+
 			std::string SpriteNames = ActorUpdatePacket->SpriteName;
 
 			int AnimationInFO = ActorUpdatePacket->AnimationInfo;

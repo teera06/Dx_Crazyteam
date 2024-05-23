@@ -40,6 +40,7 @@ public:
 		_Ser << SpriteAlpha;
 		_Ser << RendererIsActive;
 		_Ser << RendererPos;
+		_Ser << TeamType;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -53,6 +54,7 @@ public:
 		_Ser >> SpriteAlpha;
 		_Ser >> RendererIsActive;
 		_Ser >> RendererPos;
+		_Ser >> TeamType;
 	}
 
 public:
@@ -64,6 +66,7 @@ public:
 	float SpriteAlpha = 1.0f;
 	bool RendererIsActive = true;
 	float4 RendererPos = float4::Zero;
+	int TeamType = 0;
 };
 
 class UUIUpdatePacket : public UEngineProtocol
@@ -80,7 +83,7 @@ public:
 	{
 		UEngineProtocol::Serialize(_Ser);
 		_Ser << ClientCreate;
-		_Ser << Second_Tens;
+		_Ser << Time_Second;
 		_Ser << Seconds_Units;
 	}
 
@@ -88,14 +91,14 @@ public:
 	{
 		UEngineProtocol::DeSerialize(_Ser);
 		_Ser >> ClientCreate;
-		_Ser >> Second_Tens;
+		_Ser >> Time_Second;
 		_Ser >> Seconds_Units;
 	}
 
 public:
 	bool ClientCreate = false;
 	bool SerVerSend = false;
-	int Second_Tens = 0;
+	int Time_Second = 0;
 	int Seconds_Units = 0;
 
 };

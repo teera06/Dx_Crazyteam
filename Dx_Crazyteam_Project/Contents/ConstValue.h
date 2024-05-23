@@ -35,6 +35,7 @@ public:
 	static EMap SelectedMap;
 	static ETeamType MainPlayerTeamType;
 	static ECharacterType MainPlayerCharacterType;
+	static bool MainPlayerIsDie;
 
 	static const FVector CameraPos;
 
