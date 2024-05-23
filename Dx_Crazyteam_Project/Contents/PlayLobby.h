@@ -6,6 +6,7 @@
 class UImage;
 class ACAObject;
 class ACAGameMode;
+class UTextWidget;
 class APlayLobby : public AActor, public UNetObject
 {
 	GENERATED_BODY(AActor)
@@ -28,6 +29,7 @@ public:
 	void NewPlayer();
 
 	std::vector<UImage*> LobbyPlayer;
+	std::vector<UTextWidget*> PlayerName;
 
 	void SettingUIPlayerName(std::vector<std::string> _Names);
 
@@ -169,11 +171,6 @@ private:
 
 
 private:
-
-
-
-	//UTextWidget* ShowText = nullptr;
-
 	static bool IsClient;
 	static bool Create;
 	static int Create_Count;

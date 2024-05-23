@@ -186,6 +186,7 @@ public:
 		_Ser << NewPlayer;
 		_Ser << SpriteNames;
 		_Ser << MapName;
+		_Ser << UserName;
 		_Ser << ChangeLevel;
 		_Ser << ChangeMapUI;
 		_Ser << MapChoiceIndex;
@@ -197,6 +198,7 @@ public:
 		_Ser >> NewPlayer;
 		_Ser >> SpriteNames;
 		_Ser >> MapName;
+		_Ser >> UserName;
 		_Ser >> ChangeLevel;
 		_Ser >> ChangeMapUI;
 		_Ser >> MapChoiceIndex;
@@ -206,6 +208,7 @@ public:
 	bool NewPlayer = false;
 	std::vector<std::string> SpriteNames;
 	std::string MapName = "";
+	std::string UserName = "";
 	bool ChangeLevel = false;
 	bool ChangeMapUI = false;
 	int MapChoiceIndex = -1;
