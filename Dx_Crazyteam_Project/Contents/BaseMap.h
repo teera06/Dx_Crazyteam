@@ -49,6 +49,7 @@ public:
 
 	POINT PosToPoint(FVector _PlayerPos);
 	FVector PointToPos(int _Y, int _X);
+	FVector PointToPos(POINT _Point);
 
 	void StartMapPlayerInit(int _PlayerCount);
 
