@@ -218,3 +218,12 @@ void UGame_Core::SoundLoad()
 		}
 	}
 }
+
+void UGame_Core::End()
+{
+	if (nullptr != Net)
+	{
+		Net->End();
+		Net = nullptr;
+	}
+}

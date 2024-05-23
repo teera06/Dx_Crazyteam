@@ -42,8 +42,8 @@ private:
 	void CharacterBegin();
 	void StartBegin();
 	void MapSelectButtonBegin();
-	void LobbyPlayerBegin();
 	void MapSelectBegin();
+
 
 
 	UImage* PlayLobbyUI = nullptr;
@@ -140,6 +140,7 @@ private:
 	int TestCount = 0;
 
 	bool VillagePick = true;
+	bool CamPick = false;
 
 private:
 	int MySessionToken = -1;
@@ -163,5 +164,7 @@ public:
 	std::function<void(APlayLobby*, std::string_view)> MapChangeLogic = nullptr;
 
 	void MapChange(std::string_view _MapName);
+
+
 };
 
