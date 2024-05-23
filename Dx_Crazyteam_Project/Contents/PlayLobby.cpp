@@ -8,6 +8,10 @@
 #include "SendPacketManager.h"
 #include "Game_Core.h"
 
+
+#include <EngineCore/TextWidget.h>
+#include <EnginePlatform/TextimeInput.h>
+
 bool APlayLobby::IsClient = false;
 bool APlayLobby::Create = false;
 int APlayLobby::Create_Count =  0;
@@ -23,6 +27,18 @@ APlayLobby::~APlayLobby()
 void APlayLobby::BeginPlay()
 {
 	Super::BeginPlay();
+
+	//{//Text
+	//	ShowText = CreateWidget<UTextWidget>(GetWorld(), "ShowText");
+	//	//ShowText->SetOrder()
+	//	ShowText->SetFont("¸¼Àº °íµñ");
+	//	ShowText->SetScale(30.0f);
+	//	ShowText->SetColor(Color8Bit::Black);
+	//	ShowText->SetPosition({ 0.0f ,0.0f });
+	//	ShowText->SetFlag(FW1_LEFT);
+	//	ShowText->AddToViewPort(12);
+	//}
+
 	InputOn();
 	LobbyPlayer.resize(8);
 	Rank.resize(8);
@@ -234,6 +250,13 @@ void APlayLobby::BeginPlay()
 	MapSelectCinfo->SetPosition({ 73.f,109.f });
 	MapSelectCinfo->SetActive(false);
 
+	LobbyFinMap = CreateWidget<UImage>(GetWorld(), "VillageFinMap");
+	LobbyFinMap->AddToViewPort(15);
+	LobbyFinMap->SetSprite("Village10_FinMap.png");
+	LobbyFinMap->SetAutoSize(1.0f, true);
+	LobbyFinMap->SetPosition({ 229.f,-113.f });
+	LobbyFinMap->SetActive(true);
+
 	
 	EnterButton = CreateWidget<UImage>(GetWorld(), "EnterButton");
 	EnterButton->CreateAnimation("UnHover", "Button_MapSelect_Accept_UnHover.png", 0.1f, false, 0, 0);
@@ -261,7 +284,7 @@ void APlayLobby::BeginPlay()
 	VillageFinMap->SetSprite("Village10_FinMap.png");
 	VillageFinMap->SetAutoSize(1.0f, true);
 	VillageFinMap->SetPosition({ 229.f,-113.f });
-	VillageFinMap->SetActive(true);
+	VillageFinMap->SetActive(false);
 		
 	CamFinMap = CreateWidget<UImage>(GetWorld(), "CamFinMap");
 	CamFinMap->AddToViewPort(15);
@@ -1285,7 +1308,7 @@ void APlayLobby::StartBegin()
 			//GEngine->ChangeLevel("PlayertestMode");
 			if (nullptr != MapChangeLogic)
 			{
-				MapChangeLogic(this, "MainGameMode");
+				MapChangeLogic(this, "MainGameMode", MapType);
 			}
 			});
 	}
@@ -1293,28 +1316,28 @@ void APlayLobby::StartBegin()
 
 void APlayLobby::MapSelectButtonBegin()
 {
-	if (true == Master)
 	{
-		{
-			SelectMap->SetUnHover([=] {
-				SelectMap->ChangeAnimation("UnHover");
-				SwitchON = false;
-				});
-			SelectMap->SetHover([=] {
-				if (SelectMap->IsCurAnimationEnd() == true)
-				{
-					SelectMap->ChangeAnimation("Hover");
-				}
-				else if (true == IsDown(VK_LBUTTON) && "Hover" == SelectMap->GetUiAniName())
-				{
-					SelectMap->ChangeAnimation("Down");
-				}
-				else if (true == IsUp(VK_LBUTTON))
+		SelectMap->SetUnHover([=] {
+			SelectMap->ChangeAnimation("UnHover");
+			SwitchON = false;
+			});
+		SelectMap->SetHover([=] {
+			if (SelectMap->IsCurAnimationEnd() == true)
+			{
+				SelectMap->ChangeAnimation("Hover");
+			}
+			else if (true == IsDown(VK_LBUTTON) && "Hover" == SelectMap->GetUiAniName())
+			{
+				SelectMap->ChangeAnimation("Down");
+			}
+			else if (true == IsUp(VK_LBUTTON))
+			{
+				if (true == Master)
 				{
 					MapSelectBegin();
 				}
-				});
-		}
+			}
+		});
 	}
 }
 
@@ -1340,7 +1363,8 @@ void APlayLobby::MapSelectBegin()
 			MapSelectCTitle->SetActive(true);
 			MapSelectCMinimap->SetActive(true);
 			MapSelectVinfo->SetActive(false);
-			CamFinMap->SetActive(true);
+			//CamFinMap->SetActive(true);
+			MapUIChange(1);
 			VillagePick = false;
 			CamPick = true;
 		}
@@ -1354,8 +1378,9 @@ void APlayLobby::MapSelectBegin()
 			MapSelectCTitle->SetActive(false);
 			MapSelectCMinimap->SetActive(false);
 			MapSelectVinfo->SetActive(true);
-			CamFinMap->SetActive(false);
-			VillageFinMap->SetActive(true);
+			//CamFinMap->SetActive(false);
+			//VillageFinMap->SetActive(true);
+			MapUIChange(0);
 			VillagePick = true;
 			CamPick = false;
 		}
@@ -1386,13 +1411,23 @@ void APlayLobby::MapSelectBegin()
 			{
 				//PickMapName = "Village";
 				//PickMapName = "MainGameMode";
+				MapType = EMapType::Village;
 				//ConstValue::SelectedMap = EMap::Village;
+				if (nullptr != MapUILogic)
+				{
+					MapUILogic(this, 0);
+				}
 			}
 			else if (false == VillagePick)
 			{
 				//PickMapName = "Camp";
 				//PickMapName = "MainGameMode";
+				MapType = EMapType::Camp;
 				//ConstValue::SelectedMap = EMap::Camp;
+				if (nullptr != MapUILogic)
+				{
+					MapUILogic(this, 1);
+				}
 			}
 		}
 		});
@@ -1449,6 +1484,21 @@ void APlayLobby::MapSelectBegin()
 void APlayLobby::MapChange(std::string_view _MapName)
 {
 	GEngine->ChangeLevel(_MapName);
+}
+
+void APlayLobby::MapUIChange(int _MapNumber)
+{
+	switch (_MapNumber)
+	{
+	case 0:
+		LobbyFinMap->SetSprite("Village10_FinMap.png");
+		break;
+	case 1:
+		LobbyFinMap->SetSprite("Cam02_FinMap.png");
+		break;
+	default:
+		break;
+	}
 }
 
 void APlayLobby::SwapSelectCharacter(UImage* _SelectCharacter)

@@ -64,8 +64,25 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 	{
 		PlayLobby->NewPlayer();
 		PlayLobby->ChangeUIIndex = 0;
+		PlayLobby->SetMaster();
 
 		// ¹æÀå 0¹ø
+		PlayLobby->MapUILogic = [=](APlayLobby* _Lobby, int _MapChoiceNumber)
+			{
+				std::shared_ptr<ULobbyPlayerUpdatePacket> MapInfo = std::make_shared<ULobbyPlayerUpdatePacket>();
+				std::vector<UImage*>& PlayerUIImages = _Lobby->LobbyPlayer;
+				for (size_t i = 0; i < PlayerUIImages.size(); i++)
+				{
+					if (nullptr == PlayerUIImages[i])
+					{
+						continue;
+					}
+					MapInfo->MapChoiceIndex = _MapChoiceNumber;
+					UGame_Core::Net->Send(MapInfo);
+				}				
+			};
+
+
 		PlayLobby->TeamChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
 			{
 				//_Lobby->
@@ -93,8 +110,6 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 				}
 				UGame_Core::Net->Send(NewPlayer);
 			};
-
-
 
 		PlayLobby->ChracterChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
 			{
@@ -125,7 +140,7 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 				UGame_Core::Net->Send(NewPlayer);
 			};
 		
-		PlayLobby->MapChangeLogic = [=](APlayLobby* _Lobby, std::string_view _MapName)
+		PlayLobby->MapChangeLogic = [=](APlayLobby* _Lobby, std::string_view _MapName, EMapType _MapType)
 			{
 				std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();		
 				
@@ -138,10 +153,9 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 						continue;
 					}
 					NewPlayer->MapName = _MapName.data();
-					NewPlayer->ChangeMaP = true;
+					NewPlayer->ChangeLevel = true;
 					UGame_Core::Net->Send(NewPlayer);
 				}
-
 				_Lobby->MapChange(_MapName);
 			};				
 	}
@@ -293,12 +307,20 @@ void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
 		{
 			GetWorld()->PushFunction([=]
 				{
-					if(_Packet->ChangeMaP ==true)
+					if (_Packet->ChangeMapUI ==true)
+					{
+						int a = 0;
+						PlayLobby->MapUIChange(_Packet->MapChoiceIndex);
+						return;
+					}
+
+					if(_Packet->ChangeLevel ==true)
 					{ 
 						PlayLobby->MapChange(_Packet->MapName);
 						return;
 					}
 					PlayLobby->SettingUIPlayerName(_Packet->SpriteNames);
+
 
 				});
 		});

@@ -44,12 +44,16 @@ protected:
 	void GameModeActorInit();
 
 private:
-	UTextWidget* ShowText = nullptr;
+	//UTextWidget* ShowText = nullptr;
 	std::shared_ptr<AVillage> Village = nullptr;
 	std::shared_ptr<APlayer> MainPlayer = nullptr;
 	std::shared_ptr<AMapUI> MapUI = nullptr;
 	std::shared_ptr<APlayer_Name> PlayerName = nullptr;
+	bool IsSpawnBlocks = false;
 
-
+private:
+	void CreateVillageBlocks();
+	void CreateCampBlocks();
+	void InfoRelease();
 };
 

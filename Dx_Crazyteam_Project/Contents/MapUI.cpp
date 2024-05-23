@@ -34,7 +34,7 @@ void AMapUI::BeginPlay()
 	InputOn();
 	PlayerUI.resize(8);
 	GameTimeerUI.resize(4);
-	PlayerItemUI.resize(8);
+	PlayerItemUI.resize(7);
 
 	MapPlayUI->SetSprite("MapPlayUI.png");
 	MapPlayUI->SetPosition(FVector(80.0f, 0.0f, 100.0f));
@@ -72,12 +72,17 @@ void AMapUI::BeginPlay()
 	DelayCallBack(2.0f, [this]() { GameStartUI->SetActive(true); });
 	DelayCallBack(4.0f, [this]() { GameStartUI->SetActive(false); });
 
-	for (size_t i = 0; i < GameTimeerUI.size(); ++i)
+	for (size_t i = 0; i < PlayerItemUI.size(); ++i)
 	{
 		PlayerItemUI[i] = CreateWidget<UImage>(GetWorld(), "PlayerItemUI");
 		PlayerItemUI[i]->SetAutoSize(1.0f, true);
 		PlayerItemUI[i]->SetSprite("transparent.png");
 		PlayerItemUI[0]->SetPosition(FVector(290.0f, -230.0f, 0.0f));
+		if (i > 0)
+		{
+			PlayerItemUI[i]->SetAutoSize(0.7f, true);
+			PlayerItemUI[i]->SetPosition(FVector((-175.0f + (i * 40)), -295.0f, 0.0f));
+		}
 		PlayerItemUI[i]->SetActive(true);
 		PlayerItemUI[i]->AddToViewPort(20);
 	}
@@ -186,7 +191,7 @@ void AMapUI::Tick(float _DeltaTime)
 		SerVer_Send = false;
 	}
 
-	//SetPlayItemUI();
+	SetPlayItemUI();
 }
 
 void AMapUI::ClientSend()
@@ -228,10 +233,11 @@ void AMapUI::SetPlayItemUI()
 	switch (GetGameMode()->GetPlayer()->GetCtrlItem())
 	{
 	case EItemType::None:
-		PlayerItemUI[0]->SetSprite("transparent.png.png");
+			PlayerItemUI[0]->SetSprite("transparent.png");
 		break;
 	case EItemType::ItemNiddle:
-		PlayerItemUI[0]->SetSprite("Niddle.png", 1);
+		for (size_t i = 0; i < PlayerItemUI.size(); ++i)
+			PlayerItemUI[0]->SetSprite("Niddle.png", 1);
 		break;
 	default:
 		break;
