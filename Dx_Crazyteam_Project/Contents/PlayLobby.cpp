@@ -569,6 +569,16 @@ void APlayLobby::TeamSelectBegin()
 					ATeam = true;
 					BTeam = false;
 
+					if ("RandomCha_B.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == BTeam)
+					{
+						LobbyPlayer[ChangeUIIndex]->SetSprite("RandomCha.png");
+						if (nullptr != TeamChangeLogic)
+						{
+							TeamChangeLogic(this, ChangeUIIndex, "RandomCha.png");
+						}
+
+					}
+
 					if ("Room_Charcater_Bazzi_B.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == ATeam)
 					{
 						LobbyPlayer[ChangeUIIndex]->SetSprite("Room_Charcater_Bazzi.png");
@@ -626,6 +636,16 @@ void APlayLobby::TeamSelectBegin()
 					ConstValue::MainPlayerTeamType = ETeamType::BTeam;
 					ATeam = false;
 					BTeam = true;
+
+					if ("RandomCha.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == BTeam)
+					{
+						LobbyPlayer[ChangeUIIndex]->SetSprite("RandomCha_B.png");
+						if (nullptr != TeamChangeLogic)
+						{
+							TeamChangeLogic(this, ChangeUIIndex, "RandomCha_B.png");
+						}
+
+					}
 
 					if ("Room_Charcater_Marid.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == BTeam)
 					{
@@ -1103,13 +1123,38 @@ void APlayLobby::CharacterBegin()
 				}
 				else if (IsUp(VK_LBUTTON))
 				{
-					LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Random.bmp");
-					SwapSelectCharacter(RandomBT);
-					LobbyPlayer[PlayerCount]->SetSprite("RandomCha.png");
-					checkUI->SetPosition({ 152.0f,183.0f });
-					checkUI->SetActive(true);
-					ConstValue::MainPlayerCharacterType = ECharacterType::Random;
+					if (true == ATeam)
+					{
+						IsSelectSharacter = true;
+						SwapSelectCharacter(RandomBT);
+						LobbyPlayer[ChangeUIIndex]->SetSprite("RandomCha.png");
+
+						if (nullptr != ChracterChangeLogic)
+						{
+							LobbyPlayer[ChangeUIIndex]->SetSprite("RandomCha.png");
+						}
+						LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Random.bmp");
+						checkUI->SetPosition({ 152.0f,183.0f });
+						checkUI->SetActive(true);
+						ConstValue::MainPlayerCharacterType = ECharacterType::Random;
+					}
+					else if (true == BTeam)
+					{
+						IsSelectSharacter = true;
+						SwapSelectCharacter(DaoBT);
+						LobbyPlayer[ChangeUIIndex]->SetSprite("RandomCha_B.png");
+
+						if (nullptr != ChracterChangeLogic)
+						{
+							LobbyPlayer[ChangeUIIndex]->SetSprite("RandomCha_B.png");
+						}
+						LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Random.bmp");
+						checkUI->SetPosition({ 152.0f,183.0f });
+						checkUI->SetActive(true);
+						ConstValue::MainPlayerCharacterType = ECharacterType::Random;
+					}
 				}
+
 			}
 			});
 	}
@@ -1305,7 +1350,6 @@ void APlayLobby::StartBegin()
 			});
 		GameStart->SetDown([=] {
 			GameStart->ChangeAnimation("Down");
-			//GEngine->ChangeLevel("PlayertestMode");
 			if (nullptr != MapChangeLogic)
 			{
 				MapChangeLogic(this, "MainGameMode", MapType);
@@ -1363,7 +1407,6 @@ void APlayLobby::MapSelectBegin()
 			MapSelectCTitle->SetActive(true);
 			MapSelectCMinimap->SetActive(true);
 			MapSelectVinfo->SetActive(false);
-			//CamFinMap->SetActive(true);
 			MapUIChange(1);
 			VillagePick = false;
 			CamPick = true;
@@ -1378,8 +1421,6 @@ void APlayLobby::MapSelectBegin()
 			MapSelectCTitle->SetActive(false);
 			MapSelectCMinimap->SetActive(false);
 			MapSelectVinfo->SetActive(true);
-			//CamFinMap->SetActive(false);
-			//VillageFinMap->SetActive(true);
 			MapUIChange(0);
 			VillagePick = true;
 			CamPick = false;
@@ -1409,10 +1450,7 @@ void APlayLobby::MapSelectBegin()
 
 			if (true == VillagePick)
 			{
-				//PickMapName = "Village";
-				//PickMapName = "MainGameMode";
 				MapType = EMapType::Village;
-				//ConstValue::SelectedMap = EMap::Village;
 				if (nullptr != MapUILogic)
 				{
 					MapUILogic(this, 0);
@@ -1420,10 +1458,7 @@ void APlayLobby::MapSelectBegin()
 			}
 			else if (false == VillagePick)
 			{
-				//PickMapName = "Camp";
-				//PickMapName = "MainGameMode";
 				MapType = EMapType::Camp;
-				//ConstValue::SelectedMap = EMap::Camp;
 				if (nullptr != MapUILogic)
 				{
 					MapUILogic(this, 1);

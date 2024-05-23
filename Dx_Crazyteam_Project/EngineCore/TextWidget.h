@@ -37,14 +37,6 @@ public:
 	}
 
 
-	size_t GetSize()
-	{
-		size_t size =Text.size();
-
-		return size;
-
-	}
-
 protected:
 	bool Render(float _DeltaTime) override;
 

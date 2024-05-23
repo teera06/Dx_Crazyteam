@@ -67,25 +67,20 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 		PlayLobby->SetMaster();
 
 		// ¹æÀå 0¹ø
-		PlayLobby->MapUILogic = [=](APlayLobby* _Lobby, std::string_view _MapName)
+		PlayLobby->MapUILogic = [=](APlayLobby* _Lobby, int _MapChoiceNumber)
 			{
-				_MapName;
-				int a = 0;
-				//std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
-
-				//std::vector<std::string> SetSpriteNames = NewPlayer->SpriteNames;
-				//std::vector<UImage*>& PlayerUIImages = _Lobby->LobbyPlayer;
-				//for (size_t i = 0; i < PlayerUIImages.size(); i++)
-				//{
-				//	if (nullptr == PlayerUIImages[i])
-				//	{
-				//		continue;
-				//	}
-				//	NewPlayer->MapName = _MapName.data();
-				//	NewPlayer->ChangeMaP = true;
-				//	UGame_Core::Net->Send(NewPlayer);
-				//}
-				//_Lobby->MapChange(_MapName);
+				std::shared_ptr<ULobbyPlayerUpdatePacket> MapInfo = std::make_shared<ULobbyPlayerUpdatePacket>();
+				std::vector<UImage*>& PlayerUIImages = _Lobby->LobbyPlayer;
+				for (size_t i = 0; i < PlayerUIImages.size(); i++)
+				{
+					if (nullptr == PlayerUIImages[i])
+					{
+						continue;
+					}
+					MapInfo->MapChoiceIndex = _MapChoiceNumber;
+					MapInfo->ChangeMapUI = true;
+					UGame_Core::Net->Send(MapInfo);
+				}				
 			};
 
 
@@ -316,7 +311,7 @@ void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
 					if (_Packet->ChangeMapUI ==true)
 					{
 						int a = 0;
-						PlayLobby;
+						PlayLobby->MapUIChange(_Packet->MapChoiceIndex);
 						return;
 					}
 
