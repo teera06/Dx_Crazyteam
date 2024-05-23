@@ -37,4 +37,7 @@ public:
 	static ECharacterType MainPlayerCharacterType;
 
 	static const FVector CameraPos;
+
+	static const std::vector<POINT> VillageStartPos;
+	//static const std::vector<POINT> CampStartPOINT;
 };
