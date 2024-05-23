@@ -24,6 +24,7 @@
 #include "Packets.h"
 #include "OtherUI.h"
 #include "ServerTestPlayer.h"
+#include "ContentsValue.h"
 
 
 AMainGameMode::AMainGameMode()
@@ -52,6 +53,10 @@ void AMainGameMode::BeginPlay()
 void AMainGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	int PlayerNum = static_cast<int>(UContentsValue::PlayerIDs.size());
+
+
 	//UTextimeInput::IMEInput();
 	std::string Text = UTextimeInput::GetReadText();
 	if (Text.size() > 0)
@@ -94,6 +99,9 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				//물폭탄
 				MainPlayer->WaterBomb_Token = UGame_Core::Net->GetSessionToken() * 1000 + 2;
 				ServerPacketInit(UGame_Core::Net->Dispatcher);
+
+				//세션토큰을 PlayerIDs에 넣어서 관리
+				UContentsValue::PlayerIDs.push_back(UGame_Core::Net->GetSessionToken());
 			};
 
 			MapUI->MapTimeLogic = [=](AMapUI* _Lobby)
@@ -170,6 +178,10 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 					OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
 					OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
 					ACAGameMode::OtherPlayers.push_back(OtherPlayer);
+					//OtherPlayers.push_back(OtherPlayer);
+					
+					// 클라이언트가 접속했을 때, 생성하면 PlayerIDs에 세션 토큰 넣어서 관리
+					UContentsValue::PlayerIDs.push_back(UGame_Core::Net->GetSessionToken());
 				}
 				OtherPlayer->PushProtocol(_Packet);
 			});
