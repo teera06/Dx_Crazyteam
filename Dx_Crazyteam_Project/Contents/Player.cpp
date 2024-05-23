@@ -142,6 +142,13 @@ void APlayer::Tick(float _DeltaTime)
 		return;
 	}
 
+	if (true == IsDown(VK_F3))
+	{
+		State.ChangeState("Win");
+		return;
+	}
+
+
 	if (true == IsDown('B'))
 	{
 		SetCharacterType(ECharacterType::Bazzi);
