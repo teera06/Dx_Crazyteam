@@ -101,6 +101,9 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
+	// Packet 처리 등록을 보장하기 위한 변수
+	UEngineDispatcher::IsPacketInit = false;
+
 	switch (ConstValue::SelectedMap)
 	{
 	case EMapType::Village:

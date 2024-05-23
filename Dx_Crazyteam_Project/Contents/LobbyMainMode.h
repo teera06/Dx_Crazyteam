@@ -12,7 +12,7 @@ public:
 	// constrcuter destructer
 	ALobbyMainMode(); // 디폴트 생성자
 	~ALobbyMainMode(); // 디폴트 소멸자
-
+	
 	// delete Function
 	ALobbyMainMode(const ALobbyMainMode& _Other) = delete; // 디폴트 복사 생성자
 	ALobbyMainMode(ALobbyMainMode&& _Other) noexcept = delete; 

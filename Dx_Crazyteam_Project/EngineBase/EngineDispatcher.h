@@ -23,7 +23,6 @@ public:
 	template<typename PacketType>
 	void AddHandler(std::function<void(std::shared_ptr<PacketType>)> _CallBack)
 	{
-		IsPacketInit = false;
 		int Type = static_cast<int>(PacketType::Type);
 		AddHandler(Type, _CallBack);
 	}

@@ -47,6 +47,9 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
+	// Packet 처리 등록을 보장하기 위한 변수
+	UEngineDispatcher::IsPacketInit = false;
+
 	if (0 == UGame_Core::Net->GetSessionToken())
 	{
 		// 서버가 들어왔기 때문에 로비 플레이어 추가

@@ -83,6 +83,7 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 
 		if (false == UEngineDispatcher::IsPacketInit)
 		{
+			Ser.Reset();
 			continue;
 		}
 
