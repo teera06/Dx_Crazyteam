@@ -47,7 +47,7 @@ protected:
 	bool Client_Create = false;
 	bool Client_Send = false;
 	bool SerVer_Send = false;
-
+	bool GameEndTime = true;
 
 	float CreateTime();
 
@@ -68,8 +68,11 @@ private:
 	int SecondUI2 = 9;
 	int End = 0;
 
+
 public:
 	std::function<void(AMapUI*)> MapTimeLogic = nullptr;
+	std::function<void(bool)> GameEndTimeLogic = nullptr;
 	void ServerGetTime(int _Second_Tens);
+	void SetPlayUI(int _PlayNumber, std::string_view _PlayerImage);
 };
 

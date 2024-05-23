@@ -101,6 +101,18 @@ void AMapUI::BeginPlay()
 	GameTimeerUI[3]->SetSprite("GameTimer.png", 9);
 
 
+	for (size_t i = 0; i < PlayerUI.size(); ++i)
+	{
+		for (size_t i = 0; i < PlayerUI.size(); ++i)
+		{
+			PlayerUI[i] = CreateWidget<UImage>(GetWorld(), "PlayerUI");
+			PlayerUI[i]->SetSprite("CharatorSelect_Button_Bazzi_Click.bmp");
+			PlayerUI[i]->AddToViewPort(20);
+			PlayerUI[i]->SetAutoSize(0.7f, true);
+			PlayerUI[i]->AddPosition(FVector(280.0f, 180 - static_cast<float>((i * 43)), 100.0f));
+		}
+	}
+
 }
 
 void AMapUI::Tick(float _DeltaTime)
@@ -117,17 +129,6 @@ void AMapUI::Tick(float _DeltaTime)
 	}
 
 
-	if (IsDown('P'))
-	{
-		for (size_t i = 0; i < PlayerUI.size(); ++i)
-		{
-			PlayerUI[i] = CreateWidget<UImage>(GetWorld(), "PlayerUI");
-			PlayerUI[i]->SetSprite("CharatorSelect_Button_Bazzi_Click.bmp");
-			PlayerUI[i]->AddToViewPort(20);
-			PlayerUI[i]->SetAutoSize(0.7f, true);
-			PlayerUI[i]->AddPosition(FVector(280.0f, 180 - static_cast<float>((i * 43)), 100.0f));
-		}
-	}
 
 	//클라에서 신호보냄 (나만듬)
 	if (Client_Create == true)
@@ -151,6 +152,7 @@ void AMapUI::Tick(float _DeltaTime)
 			GameTimeCheck -= _DeltaTime;
 			if (0 == MinUI && 0 == SecondUI && 0 == SecondUI2)
 			{
+				GameEndTimeLogic(true);
 				return;
 			}
 
@@ -273,6 +275,11 @@ float AMapUI::CreateTime()
 	MapTime_MilliSecond = Time.GetCurTime().MilliSecond;
 	MapTime_Second = Time.GetCurTime().Second;
 	return 0.0f;
+}
+
+void AMapUI::SetPlayUI(int _PlayNumber, std::string_view _PlayerImage)
+{
+	PlayerUI[_PlayNumber]->SetSprite(_PlayerImage);
 }
 
 void AMapUI::ServerGetTime(int _Second_Tens)
