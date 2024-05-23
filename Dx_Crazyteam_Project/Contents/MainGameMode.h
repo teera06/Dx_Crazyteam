@@ -52,6 +52,8 @@ private:
 	bool IsSpawnBlocks = false;
 
 private:
-	void CreateBlocks();
+	void CreateVillageBlocks();
+	void CreateCampBlocks();
+	void InfoRelease();
 };
 

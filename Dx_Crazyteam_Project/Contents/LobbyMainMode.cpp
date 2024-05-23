@@ -24,9 +24,7 @@ void ALobbyMainMode::BeginPlay()
 
 	PlayLobby = GetWorld()->SpawnActor<APlayLobby>("Lobby");
 	GetWorld()->SpawnActor<AFontActor>("FontActor");
-
 	// 나 로비 들어왔어 샌드
-
 }
 
 
@@ -67,27 +65,22 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 		PlayLobby->SetMaster();
 
 		// 방장 0번
-		PlayLobby->MapUILogic = [=](APlayLobby* _Lobby, std::string_view _MapName)
+		PlayLobby->MapUILogic = [=](APlayLobby* _Lobby, int _MapChoiceNumber)
 			{
-
-				int a = 0;
-				//std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
-
-				//std::vector<std::string> SetSpriteNames = NewPlayer->SpriteNames;
-				//std::vector<UImage*>& PlayerUIImages = _Lobby->LobbyPlayer;
-				//for (size_t i = 0; i < PlayerUIImages.size(); i++)
-				//{
-				//	if (nullptr == PlayerUIImages[i])
-				//	{
-				//		continue;
-				//	}
-				//	NewPlayer->MapName = _MapName.data();
-				//	NewPlayer->ChangeMaP = true;
-				//	UGame_Core::Net->Send(NewPlayer);
-				//}
-				//_Lobby->MapChange(_MapName);
+				std::shared_ptr<ULobbyPlayerUpdatePacket> MapInfo = std::make_shared<ULobbyPlayerUpdatePacket>();
+				std::vector<UImage*>& PlayerUIImages = _Lobby->LobbyPlayer;
+				for (size_t i = 0; i < PlayerUIImages.size(); i++)
+				{
+					if (nullptr == PlayerUIImages[i])
+					{
+						continue;
+					}
+					MapInfo->MapChoiceIndex = _MapChoiceNumber;
+					MapInfo->ChangeMapUI = true;
+					UGame_Core::Net->Send(MapInfo);
+				}				
+				PlayLobby->MapUIChange(_MapChoiceNumber);
 			};
-
 
 		PlayLobby->TeamChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
 			{
@@ -141,12 +134,11 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 					{
 						NewPlayer->SpriteNames.push_back(_Lobby->LobbyPlayer[i]->CurInfo.Texture->GetName());
 					}
-
 				}
 				UGame_Core::Net->Send(NewPlayer);
 			};
 		
-		PlayLobby->MapChangeLogic = [=](APlayLobby* _Lobby, std::string_view _MapName)
+		PlayLobby->MapChangeLogic = [=](APlayLobby* _Lobby, std::string_view _MapName, int MapIndex )
 			{
 				std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();		
 				
@@ -159,10 +151,11 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 						continue;
 					}
 					NewPlayer->MapName = _MapName.data();
-					NewPlayer->ChangeMaP = true;
+					NewPlayer->ChangeLevel = true;
+					NewPlayer->MapChoiceIndex = MapIndex;
 					UGame_Core::Net->Send(NewPlayer);
 				}
-				_Lobby->MapChange(_MapName);
+				_Lobby->MapChange(_MapName, MapIndex);
 			};				
 	}
 	else if (AServerGameMode::NetType == ENetType::Client)
@@ -192,8 +185,6 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 				}
 				UGame_Core::Net->Send(NewPlayer);
 			};
-
-
 
 		PlayLobby->ChracterChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
 			{
@@ -313,13 +304,18 @@ void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
 		{
 			GetWorld()->PushFunction([=]
 				{
-					if(_Packet->ChangeMaP ==true)
+					if(_Packet->ChangeLevel ==true)
 					{ 
-						PlayLobby->MapChange(_Packet->MapName);
+						PlayLobby->MapChange(_Packet->MapName, _Packet->MapChoiceIndex);
+						return;
+					}
+					if (_Packet->ChangeMapUI == true)
+					{
+						int a = 0;
+						PlayLobby->MapUIChange(_Packet->MapChoiceIndex);
 						return;
 					}
 					PlayLobby->SettingUIPlayerName(_Packet->SpriteNames);
-
 				});
 		});
 }

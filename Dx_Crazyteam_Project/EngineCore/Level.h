@@ -123,6 +123,11 @@ public:
 		MapType = _MapType;
 	};
 
+	EMapType GetMapType()
+	{
+		return MapType;
+	}
+
 
 protected:
 	void Tick(float _DeltaTime) override;
@@ -154,7 +159,7 @@ private:
 	std::mutex FunctionLock;
 	std::list<std::function<void()>> Functions;
 
-	EMapType MapType = EMapType::None;
+	EMapType MapType = EMapType::Village;
 
 	void ConstructorActor(std::shared_ptr<AActor> _Actor, std::string_view _Name, int Order);
 	void PushActor(std::shared_ptr<AActor> _Actor);
