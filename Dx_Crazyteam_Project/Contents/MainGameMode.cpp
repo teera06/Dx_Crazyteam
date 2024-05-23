@@ -84,6 +84,27 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
+	switch (ConstValue::SelectedMap)
+	{
+	case EMap::Camp:
+	{
+		std::shared_ptr<AVillage> Village = GetWorld()->SpawnActor<AVillage>("Village");
+		SetCurMap(Village);
+		Village->SetCurGameMode(this);
+		break;
+
+	}
+	case EMap::Village:
+	{
+		std::shared_ptr<ACamp> Camp = GetWorld()->SpawnActor<ACamp>("Camp");
+		SetCurMap(Camp);
+		Camp->SetCurGameMode(this);
+		break;
+	}
+	default:
+		break;
+	}
+
 	if (AServerGameMode::NetType == ENetType::Server)
 	{
 			{
@@ -481,11 +502,6 @@ void AMainGameMode::GameModeActorInit()
 {
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(80.0f, 1.0f, -1000.0f));
-
-
-	std::shared_ptr<AVillage> Village = GetWorld()->SpawnActor<AVillage>("Village");
-	SetCurMap(Village);
-	Village->SetCurGameMode(this);
 
 
 
