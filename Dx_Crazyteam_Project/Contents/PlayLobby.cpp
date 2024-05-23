@@ -1349,10 +1349,6 @@ void APlayLobby::MapSelectBegin()
 			MapSelectVinfo->SetActive(false);
 			//CamFinMap->SetActive(true);
 			LobbyFinMap->SetSprite("Cam02_FinMap.png");
-			if (nullptr != MapUILogic)
-			{
-				MapUILogic(this, "Cam02_FinMap.png");
-			}
 			VillagePick = false;
 			CamPick = true;
 		}
@@ -1369,10 +1365,6 @@ void APlayLobby::MapSelectBegin()
 			//CamFinMap->SetActive(false);
 			//VillageFinMap->SetActive(true);
 			LobbyFinMap->SetSprite("Village10_FinMap.png");
-			if (nullptr != MapUILogic)
-			{
-				MapUILogic(this, "Village10_FinMap.png");
-			}
 			VillagePick = true;
 			CamPick = false;
 		}
@@ -1404,12 +1396,20 @@ void APlayLobby::MapSelectBegin()
 				//PickMapName = "Village";
 				//PickMapName = "MainGameMode";
 				//ConstValue::SelectedMap = EMap::Village;
+				if (nullptr != MapUILogic)
+				{
+					MapUILogic(this, "Village10_FinMap.png");
+				}
 			}
 			else if (false == VillagePick)
 			{
 				//PickMapName = "Camp";
 				//PickMapName = "MainGameMode";
 				//ConstValue::SelectedMap = EMap::Camp;
+				if (nullptr != MapUILogic)
+				{
+					MapUILogic(this, "Cam02_FinMap.png");
+				}
 			}
 		}
 		});
