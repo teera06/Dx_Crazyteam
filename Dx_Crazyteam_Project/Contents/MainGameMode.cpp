@@ -251,7 +251,7 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 						{
 							std::shared_ptr<UUIUpdatePacket> TimeCreate = std::make_shared<UUIUpdatePacket>();
 							TimeCreate->SerVerSend = true;
-							TimeCreate->Second_Tens = MapUI->GetCreateTime();
+							TimeCreate->Time_Second = MapUI->GetCreateTime();
 							UGame_Core::Net->Send(TimeCreate);
 						}
 					}//Time->PushProtocol(_Packet);					
@@ -420,6 +420,7 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 				{
 					if (_Packet->ClientCreate == true)
 					{
+						//_Packet->
 						//std::shared_ptr<UUIUpdatePacket> TimeCreate = std::make_shared<UUIUpdatePacket>();
 						//TimeCreate->SerVerSend = true;
 						//TimeCreate->Second_Tens = MapUI->GetCreateTime();

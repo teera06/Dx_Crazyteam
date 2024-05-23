@@ -63,7 +63,7 @@ void AOtherUI::Tick(float _DeltaTime)
 				SerVer_Send = UpdatePacket->SerVerSend;
 				if (UpdatePacket->SerVerSend == false)
 				{
-					ServerMapTime_Second = UpdatePacket->Second_Tens;
+					ServerMapTime_Second = UpdatePacket->Time_Second;
 					Sub_Second = MapTime_Second - ServerMapTime_Second;
 					SerVer_Send = true;
 					check = true;
