@@ -1352,7 +1352,7 @@ void APlayLobby::StartBegin()
 			GameStart->ChangeAnimation("Down");
 			if (nullptr != MapChangeLogic)
 			{
-				MapChangeLogic(this, "MainGameMode", MapType);
+				MapChangeLogic(this, "MainGameMode", static_cast<int>(MapType));
 			}
 			});
 	}
@@ -1453,7 +1453,7 @@ void APlayLobby::MapSelectBegin()
 				MapType = EMapType::Village;
 				if (nullptr != MapUILogic)
 				{
-					MapUILogic(this, 0);
+					MapUILogic(this, 1);
 				}
 			}
 			else if (false == VillagePick)
@@ -1461,7 +1461,7 @@ void APlayLobby::MapSelectBegin()
 				MapType = EMapType::Camp;
 				if (nullptr != MapUILogic)
 				{
-					MapUILogic(this, 1);
+					MapUILogic(this, 0);
 				}
 			}
 		}
@@ -1509,16 +1509,7 @@ void APlayLobby::MapSelectBegin()
 			}
 		}
 		});
-
-
-
-
 	
-}
-
-void APlayLobby::MapChange(std::string_view _MapName)
-{
-	GEngine->ChangeLevel(_MapName);
 }
 
 void APlayLobby::MapUIChange(int _MapNumber)
@@ -1527,13 +1518,38 @@ void APlayLobby::MapUIChange(int _MapNumber)
 	{
 	case 0:
 		LobbyFinMap->SetSprite("Village10_FinMap.png");
+		MapType = EMapType::Village;
 		break;
 	case 1:
 		LobbyFinMap->SetSprite("Cam02_FinMap.png");
+		MapType = EMapType::Camp;
 		break;
 	default:
 		break;
 	}
+}
+
+void APlayLobby::MapChange(std::string_view _MapName, int _MapNumber)
+{
+	switch (MapType)
+	{
+	case EMapType::Camp:
+		break;
+	case EMapType::Village:
+		break;
+	default:
+		break;
+	}
+	if (_MapNumber == 1)
+	{
+		MapType = EMapType::Camp;
+	}
+	else if (_MapNumber == 2)
+	{
+		MapType = EMapType::Village;
+	}
+
+	GEngine->ChangeLevel(_MapName, MapType);
 }
 
 void APlayLobby::SwapSelectCharacter(UImage* _SelectCharacter)
