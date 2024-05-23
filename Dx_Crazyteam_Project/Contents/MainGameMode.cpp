@@ -58,15 +58,16 @@ void AMainGameMode::Tick(float _DeltaTime)
 
 
 	//UTextimeInput::IMEInput();
-	std::string Text = UTextimeInput::GetReadText();
-	if (Text.size() > 0)
-	{
-		ShowText->SetText(Text);
-	}
-	else
-	{
-		ShowText->SetText(" ");
-	}
+	
+	//std::string Text = UTextimeInput::GetReadText();
+	//if (Text.size() > 0)
+	//{
+	//	ShowText->SetText(Text);
+	//}
+	//else
+	//{
+	//	ShowText->SetText(" ");
+	//}
 }
 
 void AMainGameMode::LevelStart(ULevel* _PrevLevel)
@@ -478,18 +479,18 @@ void AMainGameMode::GameModeActorInit()
 
 
 
+	//{//Text
+	//	ShowText = CreateWidget<UTextWidget>(GetWorld(), "ShowText");
+	//	ShowText->SetFont("¸¼Àº °íµñ");
+	//	ShowText->SetScale(30.0f);
+	//	ShowText->SetColor(Color8Bit::Black);
+	//	ShowText->SetPosition({ 0.0f ,0.0f });
+	//	ShowText->SetFlag(FW1_LEFT);
+	//	ShowText->AddToViewPort(11);
+	//}
 
 
 
-	{//Text
-		ShowText = CreateWidget<UTextWidget>(GetWorld(), "ShowText");
-		ShowText->SetFont("¸¼Àº °íµñ");
-		ShowText->SetScale(30.0f);
-		ShowText->SetColor(Color8Bit::Black);
-		ShowText->SetPosition({ 0.0f ,0.0f });
-		ShowText->SetFlag(FW1_LEFT);
-		ShowText->AddToViewPort(11);
-	}
 
 	////Item - Camp
 	//{
