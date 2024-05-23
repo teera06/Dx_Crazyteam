@@ -562,13 +562,13 @@ void APlayLobby::NewPlayer()
 	if (Cha_Count <= 3)
 	{
 		LobbyPlayer[Create_Count]->SetPosition(FVector(static_cast<float>(-335 + Create_Count * 105), 160.0f, 100.0f));
-		PlayerName[Create_Count]->SetPosition({ -348.0f + Create_Count * 103, 106.0f });
+		PlayerName[Create_Count]->SetPosition({ -328.0f + Create_Count * 105, 106.0f });
 	
 	}
 	else
 	{
 		LobbyPlayer[Create_Count]->SetPosition(FVector(static_cast<float>(-755 + Create_Count * 105), 10.0f, 100.0f));
-		PlayerName[Create_Count]->SetPosition({ -348.0f + Create_Count * 103, -40.0f });
+		PlayerName[Create_Count]->SetPosition({ -328.0f + Create_Count * 105, -40.0f });
 	}
 	
 //	//ShowText->SetPosition({ -348.0f ,106.0f });
@@ -1184,10 +1184,9 @@ void APlayLobby::CharacterBegin()
 						IsSelectSharacter = true;
 						SwapSelectCharacter(RandomBT);
 						LobbyPlayer[ChangeUIIndex]->SetSprite("RandomCha.png");
-
 						if (nullptr != ChracterChangeLogic)
 						{
-							LobbyPlayer[ChangeUIIndex]->SetSprite("RandomCha.png");
+							ChracterChangeLogic(this, ChangeUIIndex, "RandomCha.png");
 						}
 						LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Random.bmp");
 						checkUI->SetPosition({ 152.0f,183.0f });
@@ -1202,7 +1201,7 @@ void APlayLobby::CharacterBegin()
 
 						if (nullptr != ChracterChangeLogic)
 						{
-							LobbyPlayer[ChangeUIIndex]->SetSprite("RandomCha_B.png");
+							ChracterChangeLogic(this, ChangeUIIndex, "RandomCha_B.png");
 						}
 						LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Random.bmp");
 						checkUI->SetPosition({ 152.0f,183.0f });
