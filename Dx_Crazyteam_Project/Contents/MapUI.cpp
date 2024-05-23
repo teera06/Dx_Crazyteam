@@ -211,7 +211,7 @@ void AMapUI::ServerSend()
 	}
 	std::shared_ptr<UUIUpdatePacket> Packet = std::make_shared<UUIUpdatePacket>();
 	Packet->SerVerSend = true;
-	Packet->Second_Tens = GetCreateTime();
+	Packet->Time_Second = GetCreateTime();
 	Send(Packet);
 }
 
