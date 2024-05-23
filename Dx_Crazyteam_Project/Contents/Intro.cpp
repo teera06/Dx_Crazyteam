@@ -7,6 +7,8 @@
 #include <EngineCore/TextWidget.h>
 #include <EnginePlatform/TextimeInput.h>
 
+#include "stringHelper.h"
+
 
 AIntro::AIntro()
 {
@@ -54,7 +56,7 @@ void AIntro::BeginPlay()
 	{//Text
 		ShowText = CreateWidget<UTextWidget>(GetWorld(), "ShowText");
 		//ShowText->SetOrder()
-		ShowText->SetFont("¸¼Àº °íµñ");
+		ShowText->SetFont("±Ã¼­");
 		ShowText->SetScale(20.0f);
 		ShowText->SetColor(Color8Bit::Black);
 		ShowText->SetPosition({ -100.0f ,-35.0f });
@@ -78,10 +80,11 @@ void AIntro::BeginPlay()
 
 			if (IsDown(VK_LBUTTON))
 			{
+
 				//ServerGameMode->GetPlayLobby()->SetIsActive(true);
-
+				stringHelper::SetPlayerName(UTextimeInput::GetReadText());
 				AServerGameMode::ServerOpen();
-
+				UTextimeInput::Off();
 			
 				//GEngine->ChangeLevel("");
 
@@ -113,7 +116,6 @@ void AIntro::Tick(float _DeltaTime)
 	{
 		IsTextInput = false;
 		TextInputUI->SetSprite("inputOff.png");
-		UTextimeInput::Off();
 	}
 
 	if (true == AServerGameMode::GetIsServerOpen())
