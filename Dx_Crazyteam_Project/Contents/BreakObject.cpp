@@ -21,6 +21,7 @@ void UBreakObject::BreakSetOwner(ABlock* _Owner)
 	BreakOwner->WaterInteract = [&]() {
 
 		if (BreakOwner->GetIsBreak() == true) return;
+		if (BreakOwner->GetIsPush()) return;
 
 		if (BreakOwner->GetType() == EMapObjectType::Bush)
 		{

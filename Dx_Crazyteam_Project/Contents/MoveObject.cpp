@@ -20,6 +20,7 @@ void UMoveObject::MoveSetOwner(ABlock* _Owner)
 	MoveOwner->PlayerInteract = [&]() {
 
 		if (GetOwner()->GetIsPush()) return;
+		if (GetOwner()->GetIsBreak()) return;
 
 		if (GetOwner()->GetType() == EMapObjectType::Bush)
 		{
