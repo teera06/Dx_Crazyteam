@@ -17,5 +17,5 @@ EMap ConstValue::SelectedMap = EMap::Village;
 
 const FVector ConstValue::CameraPos = FVector(80.f, 1.0f, -1000.f);
 
-const std::vector<POINT> ConstValue::VillageStartPos = { {0,0},{7,0},{13,1},{1,11},{6,12},{14,12},{0,0},{0,0},{0,0},{0,0},{0,0} };
-//const std::vector<POINT> ConstValue::CampStartPOINT;
+const std::vector<POINT> ConstValue::VillageStartPOINT = { {0,0},{7,0},{13,1},{1,11},{6,12},{14,12},{6,7},{6,7},{6,7},{6,7},{6,7} };
+const std::vector<POINT> ConstValue::CampStartPOINT = { {2,1},{3,3},{3,7},{2,11},{12,1},{11,3},{11,7},{12,11},{6,7},{6,7},{6,7} };
