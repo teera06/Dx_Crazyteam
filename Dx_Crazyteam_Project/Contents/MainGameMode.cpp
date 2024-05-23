@@ -84,11 +84,11 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
-	switch (GetWorld()->GetMapType())
-	{
-	default:
-		break;
-	}
+	//switch (GetWorld()->GetMapType())
+	//{
+	//default:
+	//	break;
+	//}
 
 	if (AServerGameMode::NetType == ENetType::Server)
 	{
