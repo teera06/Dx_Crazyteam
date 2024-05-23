@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "CAGameMode.h"
 #include "OtherPlayer.h"
+#include "Player.h"
 
 ACAGameMode::ACAGameMode() 
 {
@@ -65,11 +66,15 @@ void ACAGameMode::WinCheck(float _DeltaTime)
 	UEngineDebugMsgWindow::PushMsg(GetUIToTime);
 #endif
 	
-	if (0 != PlayerCount)
+	if (0 != PlayerCount && nullptr != MainPlayer)
 	{
 		for (size_t i = 0; i < PlayerCount; i++)
 		{
 			if (true == OtherPlayers[i]->IsOtherPlayerDestroy())
+			{
+				continue;
+			}
+			if (ETeamType::None == OtherPlayers[i]->GetTeamType())
 			{
 				continue;
 			}
@@ -78,10 +83,12 @@ void ACAGameMode::WinCheck(float _DeltaTime)
 			if (ETeamType::ATeam == Team)
 			{
 				ATeamCount++;
+				IsRefereeStart = true;
 			}
 			else if (ETeamType::BTeam == Team)
 			{
 				BTeamCount++;
+				IsRefereeStart = true;
 			}
 
 
@@ -94,21 +101,36 @@ void ACAGameMode::WinCheck(float _DeltaTime)
 #endif
 		} // end for
 
+		if (true == IsRefereeStart && nullptr != MainPlayer)
+		{
+			if (ETeamType::ATeam == MainPlayer->GetTeamType())
+			{
+				ATeamCount++;
+			}
+			else if(ETeamType::BTeam == MainPlayer->GetTeamType())
+			{
+				BTeamCount++;
+			}
+		}
 
-		if (ATeamCount == 0 && BTeamCount == 0)
+
+		if (true == BattleStart && 0 != PlayerCount && true == IsRefereeStart)
 		{
-			GameResult = EGameResult::Draw;
-			IsBattleEnd = true;
-		}
-		else if (BTeamCount == 0)
-		{
-			GameResult = EGameResult::ATeamWin;
-			IsBattleEnd = true;
-		}
-		else if (ATeamCount == 0)
-		{
-			GameResult = EGameResult::BTeamWin;
-			IsBattleEnd = true;
+			if (ATeamCount == 0 && BTeamCount == 0)
+			{
+				GameResult = EGameResult::Draw;
+				IsBattleEnd = true;
+			}
+			else if (BTeamCount == 0)
+			{
+				GameResult = EGameResult::ATeamWin;
+				IsBattleEnd = true;
+			}
+			else if (ATeamCount == 0)
+			{
+				GameResult = EGameResult::BTeamWin;
+				IsBattleEnd = true;
+			}
 		}
 	}
 }
