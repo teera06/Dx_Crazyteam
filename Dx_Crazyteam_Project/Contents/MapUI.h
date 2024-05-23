@@ -39,6 +39,7 @@ protected:
 	void ClientSend();
 	void ServerSend();
 
+	int ServerMapTime_Second = 0;
 	int MapTime_MilliSecond = 0;
 	int MapTime_Second = 0;
 	int Sub_MilliSecond = 0;
@@ -68,5 +69,6 @@ private:
 
 public:
 	std::function<void(AMapUI*)> MapTimeLogic = nullptr;
+	void ServerGetTime(int _Second_Tens);
 };
 

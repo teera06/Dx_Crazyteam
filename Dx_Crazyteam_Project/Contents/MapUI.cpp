@@ -211,7 +211,7 @@ void AMapUI::ServerSend()
 	}
 	std::shared_ptr<UUIUpdatePacket> Packet = std::make_shared<UUIUpdatePacket>();
 	Packet->SerVerSend = true;
-	Packet->Second_Tens = GetCreateTime();
+	Packet->Time_Second = GetCreateTime();
 	Send(Packet);
 }
 
@@ -237,6 +237,13 @@ float AMapUI::CreateTime()
 	MapTime_MilliSecond = Time.GetCurTime().MilliSecond;
 	MapTime_Second = Time.GetCurTime().Second;
 	return 0.0f;
+}
+
+void AMapUI::ServerGetTime(int _Second_Tens)
+{
+	ServerMapTime_Second = _Second_Tens;
+	Sub_Second = MapTime_Second - ServerMapTime_Second;
+	SerVer_Send = true;
 }
 
 void AMapUI::SetActiveGameResultU(bool _Active)

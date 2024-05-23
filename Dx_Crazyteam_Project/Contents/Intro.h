@@ -34,6 +34,7 @@ protected:
 private:
 	UImage* IntroUI = nullptr;
 	UImage* StartUI = nullptr;
+	UImage* TextInputUI = nullptr;
 	UImage* GameStartButton = nullptr;
 
 	std::function<void()> Function = nullptr;
