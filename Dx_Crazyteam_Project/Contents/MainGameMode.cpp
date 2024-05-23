@@ -461,26 +461,12 @@ void AMainGameMode::GameModeActorInit()
 	Camera->SetActorLocation(FVector(80.0f, 1.0f, -1000.0f));
 
 
-
-	/*std::shared_ptr<ACamp> Camp = GetWorld()->SpawnActor<ACamp>("Camp");
-	SetCurMap(Camp);
-	Camp->SetCurGameMode(this);*/
-
 	std::shared_ptr<AVillage> Village = GetWorld()->SpawnActor<AVillage>("Village");
 	SetCurMap(Village);
 	Village->SetCurGameMode(this);
 
 
-	//MainPlayer = GetWorld()->SpawnActor<APlayer>("Player1", 0);
-	//MainPlayer->SetCurGameMode(this);
-	//SetMainPlayer(MainPlayer);
 
-
-	{//UI
-
-		//MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
-		//MapUI->SetCurGameMode(this);
-	}
 
 
 

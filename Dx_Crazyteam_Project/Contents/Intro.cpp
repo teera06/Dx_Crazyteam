@@ -80,20 +80,10 @@ void AIntro::BeginPlay()
 
 			if (IsDown(VK_LBUTTON))
 			{
-
 				//ServerGameMode->GetPlayLobby()->SetIsActive(true);
-				stringHelper::SetPlayerName(UTextimeInput::GetReadText());
 				AServerGameMode::ServerOpen();
-				UTextimeInput::Off();
-			
-				//GEngine->ChangeLevel("");
-
-				//if (nullptr == Function)
-				//{
-				//	return;
-				//}
-
-				//Function();
+	/*			stringHelper::SetPlayerName(UTextimeInput::GetReadText());
+				UTextimeInput::Off();*/
 			}
 		});
 
