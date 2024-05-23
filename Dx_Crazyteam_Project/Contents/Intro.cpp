@@ -27,7 +27,6 @@ void AIntro::BeginPlay()
 	IntroUI->AddToViewPort(10);
 	IntroUI->SetActive(false);
 
-	
 	IntroUI->ChangeAnimation("IntroUser");
 
 	StartUI = CreateWidget<UImage>(GetWorld(), "StartUI");
@@ -35,6 +34,13 @@ void AIntro::BeginPlay()
 	StartUI->SetAutoSize(1.0f, true);
 	StartUI->AddToViewPort(10);
 	StartUI->SetActive(true);
+
+	TextInputUI = CreateWidget<UImage>(GetWorld(), "TextInputUI");
+	TextInputUI->SetSprite("Button_Start_2_1_11zon.png");
+	TextInputUI->SetAutoSize(1.0f, true);
+	TextInputUI->AddToViewPort(11);
+	TextInputUI->SetPosition(FVector(0.0f, -50.0f, 0.0f));
+	TextInputUI->SetActive(true);
 	
 	GameStartButton = CreateWidget<UImage>(GetWorld(), "TitleBackGround");
 	GameStartButton->AddToViewPort(11);
@@ -42,6 +48,14 @@ void AIntro::BeginPlay()
 	GameStartButton->SetAutoSize(1.0f, true);
 	GameStartButton->SetPosition(FVector(0.0f, -100.0f, 0.0f));
 	GameStartButton->SetActive(true);
+
+	TextInputUI->SetHover([=] 
+		{
+			if (IsDown(VK_LBUTTON))
+			{
+				// 입력 가능 상태
+			}
+		});
 
 	GameStartButton->SetHover([=]
 		{
@@ -62,6 +76,14 @@ void AIntro::BeginPlay()
 				//}
 
 				//Function();
+			}
+		});
+
+	TextInputUI->SetUnHover([=]
+		{
+			if (IsDown(VK_LBUTTON))
+			{
+				// 입력 불가능 상태
 			}
 		});
 
