@@ -523,15 +523,15 @@ void APlayLobby::SettingUIPlayerName(std::vector<std::string> _Names)
 			PlayerName[i]->AddToViewPort(15);
 			PlayerName[i]->SetFont("±¼¸²");
 			PlayerName[i]->SetScale(15.0f);
-			PlayerName[i]->SetColor(Color8Bit::Black);
+			PlayerName[i]->SetColor(Color8Bit::White);
 			if (i <= 3)
 			{
-				PlayerName[i]->SetPosition(FVector(static_cast<float>(-335.f + i * 105), 160.0f, 100.0f));
+				PlayerName[i]->SetPosition(FVector(static_cast<float>(-328.f + i * 105), 96.0f, 100.0f));
 
 			}
 			else
 			{
-				PlayerName[i]->SetPosition(FVector(static_cast<float>(-755.f + i * 105), 10.0f, 100.0f));
+				PlayerName[i]->SetPosition(FVector(static_cast<float>(-748.f + i * 105), -50.0f, 100.0f));
 			}
 		}
 		PlayerName[i]->SetText(_Names[i]);
@@ -547,7 +547,7 @@ void APlayLobby::NewPlayer()
 	PlayerName[Cha_Count]->AddToViewPort(15);
 	PlayerName[Cha_Count]->SetFont("±¼¸²");
 	PlayerName[Cha_Count]->SetScale(15.0f);
-	PlayerName[Cha_Count]->SetColor(Color8Bit::Black);
+	PlayerName[Cha_Count]->SetColor(Color8Bit::White);
 
 
 	LobbyPlayer[Cha_Count] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
@@ -557,13 +557,13 @@ void APlayLobby::NewPlayer()
 	if (Cha_Count <= 3)
 	{
 		LobbyPlayer[Create_Count]->SetPosition(FVector(static_cast<float>(-335 + Create_Count * 105), 160.0f, 100.0f));
-		PlayerName[Create_Count]->SetPosition({ -328.0f + Create_Count * 105, 106.0f });
+		PlayerName[Create_Count]->SetPosition({ -328.0f + Create_Count * 105, 96.0f });
 	
 	}
 	else
 	{
 		LobbyPlayer[Create_Count]->SetPosition(FVector(static_cast<float>(-755 + Create_Count * 105), 10.0f, 100.0f));
-		PlayerName[Create_Count]->SetPosition({ -328.0f + Create_Count * 105, -40.0f });
+		PlayerName[Create_Count]->SetPosition({ -748.0f + Create_Count * 105, -50.0f });
 	}
 	
 //	//ShowText->SetPosition({ -348.0f ,106.0f });
