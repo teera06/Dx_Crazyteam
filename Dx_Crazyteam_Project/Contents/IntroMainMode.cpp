@@ -45,6 +45,7 @@ void AIntroMainMode::LevelEnd(ULevel* _NextLevel)
 
 void AIntroMainMode::LevelStart(ULevel* _PrevLevel)
 {
+	UContentsMainDebugWin::SetIsLevel(true);
 	Super::LevelStart(_PrevLevel);
 	//GEngine->CreateLevel<ALobbyMainMode>("LobbyMainMode");
 }
