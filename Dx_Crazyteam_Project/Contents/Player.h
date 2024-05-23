@@ -225,7 +225,6 @@ private:
 	int RideAniTwinkleActive = 0;
 
 	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
-	//std::shared_ptr<APlayer_Name> PlayerName = nullptr;
 	UTextWidget* PlayerNameUI = nullptr;
 
 	bool IsSendPacket = true;
