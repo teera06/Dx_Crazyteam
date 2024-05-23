@@ -347,7 +347,7 @@ void APlayer::SettingZValue()
 	Shadow->SetActorLocation(Pos);
 }
 
-bool APlayer::IsOtherPlayer()
+AOtherPlayer* APlayer::IsOtherPlayer()
 {
 	for (int i = 0; i < GetGameMode()->GetOtherPlayers().size(); i++)
 	{
@@ -360,9 +360,9 @@ bool APlayer::IsOtherPlayer()
 		if (MyPos.y == OtherPlayerPos.y &&
 			MyPos.x == OtherPlayerPos.x)
 		{
-			return true;
+			return GetGameMode()->GetOtherPlayers()[i];
 		}
 	}
 
-	return false;
+	return nullptr;
 }

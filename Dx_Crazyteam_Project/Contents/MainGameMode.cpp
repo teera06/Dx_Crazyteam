@@ -82,6 +82,8 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
 
 				// Å¸ÀÓ À¯¾ÆÀÌ
+				MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
+				MapUI->SetCurGameMode(this);
 				MapUI->SetObjectToken(UNetObject::GetNewObjectToken());
 
 				//¹°ÆøÅº
@@ -116,11 +118,11 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				MainPlayer->SetObjectToken(UGame_Core::Net->GetSessionToken() * 1000);
 
 				//	//Å¸ÀÓ À¯¾ÆÀÌ
+
+				MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
+				MapUI->SetCurGameMode(this);
 				MapUI->SetObjectToken(UGame_Core::Net->GetSessionToken() * 1000 + 1);
-				if (nullptr != MapUI)
-				{
-					MapUI->ClientCreate();
-				}
+	
 				//	//¹°ÆøÅº
 				MainPlayer->WaterBomb_Token = UGame_Core::Net->GetSessionToken() * 1000 + 2;
 					//});
@@ -456,8 +458,8 @@ void AMainGameMode::GameModeActorInit()
 
 	{//UI
 
-		MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
-		MapUI->SetCurGameMode(this);
+		//MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
+		//MapUI->SetCurGameMode(this);
 	}
 
 

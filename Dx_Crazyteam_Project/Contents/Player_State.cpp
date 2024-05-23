@@ -7,6 +7,7 @@
 #include "Packets.h"
 #include "SendPacketManager.h"
 #include <EngineCore/EngineDebugMsgWindow.h>
+#include "OtherPlayer.h"
 
 void APlayer::StateInit()
 {
@@ -378,22 +379,20 @@ void APlayer::Trap(float _DeltaTime)
 	}
 	Renderer->AddPosition(TrapDir * TrapMoveSpeed * _DeltaTime);
 
-
-	// 예시 인터페이스
-	//APlayer* Other = IsOtherPlayer(GetActorLocation());
-	//if (nullptr != Other)	// 이 위치에 다른 플레이어가 있다면
-	//{
-	//	if (Other->Info->Team == Info->Team)	// 같은 팀
-	//	{
-	//		State.ChangeState("Rescue");
-	//		return;
-	//	}
-	//	else									// 다른 팀
-	//	{
-	//		State.ChangeState("Die");
-	//		return;
-	//	}
-	//}
+	AOtherPlayer* Other = IsOtherPlayer();
+	if (nullptr != Other)
+	{
+		if (Other->GetTeamType() == Info->Team)	// 같은 팀
+		{
+			State.ChangeState("Rescue");
+			return;
+		}
+		else									// 다른 팀
+		{
+			State.ChangeState("Die");
+			return;
+		}
+	}
 
 	// Trap 이후 DieTime 초과 시 Die 상태로 변경
 	if (TrapToDieTime < 0.f)
@@ -506,6 +505,7 @@ void APlayer::Die(float _DeltaTime)
 void APlayer::RealDieStart()
 {
 	// 진짜 죽음 처리
+	ConstValue::MainPlayerIsDie = true;
 	Renderer->SetActive(false);
 	SoloArrowRenderer->SetActive(false);
 }
