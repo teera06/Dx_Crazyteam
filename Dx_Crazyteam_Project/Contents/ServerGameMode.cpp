@@ -25,6 +25,8 @@
 #include "PlayLobby.h"
 
 #include "TestLobbyMode.h"
+#include "stringHelper.h"
+#include <EnginePlatform/TextimeInput.h>
 
 
 std::shared_ptr<UEngineNetWindow> AServerGameMode::NetWindow = nullptr;
@@ -345,6 +347,9 @@ void AServerGameMode::ServerOpen()
 				UGame_Core::Net->ServerOpen(30000, 512);
 				SetIsServerOpen(true);
 				AServerGameMode::NetType = ENetType::Server;
+				stringHelper::SetPlayerName(UTextimeInput::GetReadText());
+				UTextimeInput::Off();
+
 				//GetPlayer()->SetObjectToken(UNetObject::GetNewObjectToken());
 
 
@@ -359,6 +364,9 @@ void AServerGameMode::ServerOpen()
 				AServerGameMode::NetType = ENetType::Client;
 
 				SetIsServerOpen(true);
+				stringHelper::SetPlayerName(UTextimeInput::GetReadText());
+				UTextimeInput::Off();
+
 				//UGame_Core::Net->SetTokenPacketFunction([=](USessionTokenPacket* _Token)
 				//	{
 				//		GetPlayer()->SetObjectToken(_Token->GetObjectToken());
@@ -378,7 +386,12 @@ void AServerGameMode::ServerOpen()
 
 void AServerGameMode::LevelEnd(ULevel* _NextLevel)
 {
-	NetWindow->Off();
+	if (IsServerOpen != false)
+	{
+		NetWindow->Off();
+	}
+
+	
 }
 
 void AServerGameMode::CollectWindowAppear()

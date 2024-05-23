@@ -310,6 +310,10 @@
     <ClInclude Include="Player_Name.h">
       <Filter>Level\PlayertestLevel\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="stringHelper.h" />
+    <ClInclude Include="ContentsValue.h">
+      <Filter>Option</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -521,6 +525,10 @@
     </ClCompile>
     <ClCompile Include="Player_Name.cpp">
       <Filter>Level\PlayertestLevel\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="stringHelper.cpp" />
+    <ClCompile Include="ContentsValue.cpp">
+      <Filter>Option</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

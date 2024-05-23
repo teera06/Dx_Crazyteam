@@ -28,6 +28,23 @@ public:
 	std::vector<UImage*> LobbyPlayer;
 
 	void SettingUIPlayerName(std::vector<std::string> _Names);
+
+	void SetMaster()
+	{
+		Master = true;
+	}
+
+	//////////////////////////////////////¼­¹ö¿ë ///////////////////////////////////////////////////////
+	int ChangeUIIndex = -1;
+
+	// APlayLobby
+	std::function<void(APlayLobby*, int, std::string_view)> ChracterChangeLogic = nullptr;
+	std::function<void(APlayLobby*, std::string_view)> MapChangeLogic = nullptr;
+	std::function<void(APlayLobby*, int, std::string_view)> TeamChangeLogic = nullptr;
+
+	void MapChange(std::string_view _MapName);
+	////////////////////////////////////////////////////////////////////////////////////////////
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -42,8 +59,8 @@ private:
 	void CharacterBegin();
 	void StartBegin();
 	void MapSelectButtonBegin();
-	void LobbyPlayerBegin();
 	void MapSelectBegin();
+
 
 
 	UImage* PlayLobbyUI = nullptr;
@@ -133,35 +150,25 @@ private:
 	bool RoomX6 = false;
 	bool RoomO7 = true;
 	bool RoomX7 = false;
-
+	
 
 	bool RoomSwitch= false;
 	int  PlayerCount = 0;
 	int TestCount = 0;
 
 	bool VillagePick = true;
+	bool CamPick = false;
+
+	bool ATeam = true;
+	bool BTeam = false;
+
 
 private:
-	int MySessionToken = -1;
-	bool IsGetSessionToken = false;
 	static bool IsClient;
 	static bool Create;
 	static int Create_Count;
 	int Cha_Count = 0;
+	bool Master = false;
 
-public:
-	int ChangeUIIndex = -1;
-
-	inline void SetMySessionToken(int _Value)
-	{
-		MySessionToken = _Value;
-		IsGetSessionToken = true;
-	}
-
-	// APlayLobby
-	std::function<void(APlayLobby*, int, std::string_view)> ChracterChangeLogic = nullptr;
-	std::function<void(APlayLobby*, std::string_view)> MapChangeLogic = nullptr;
-
-	void MapChange(std::string_view _MapName);
 };
 

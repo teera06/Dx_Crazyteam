@@ -30,6 +30,11 @@ public:
 		return RandomCreate(MtGen);
 	}
 
+	void SetSeed(int _Seed)
+	{
+		MtGen = std::mt19937_64(_Seed);
+	}
+
 protected:
 
 private:

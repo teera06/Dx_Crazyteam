@@ -115,10 +115,10 @@ void AWaterCourse::CreateAnimation()
 
 	{
 		// 물 끝 사라짐.
-		Renderer->CreateAnimation("D_EndStemUp", "up12.png", 0.0625f, true, 1, 10);
-		Renderer->CreateAnimation("D_EndStemDown", "down12.png", 0.0625f, true, 1, 10);
-		Renderer->CreateAnimation("D_EndStemLeft", "left12.png", 0.0625f, true, 1, 10);
-		Renderer->CreateAnimation("D_EndStemRight", "right12.png", 0.0625f, true, 1, 10);
+		Renderer->CreateAnimation("D_EndStemUp", "up12.png", 0.03125f, true, 1, 10);
+		Renderer->CreateAnimation("D_EndStemDown", "down12.png", 0.03125f, true, 1, 10);
+		Renderer->CreateAnimation("D_EndStemLeft", "left12.png", 0.03125f, true, 1, 10);
+		Renderer->CreateAnimation("D_EndStemRight", "right12.png", 0.03125f, true, 1, 10);
 
 		// 물 줄기 사라짐.
 		Renderer->CreateAnimation("D_StreamUp", "up22.png", 0.0625f, true, 1, 10);

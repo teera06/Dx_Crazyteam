@@ -1,11 +1,12 @@
 #pragma once
 #include <EngineBase/NetObject.h>
 #include <EngineCore/DefaultSceneComponent.h>
-#include <EngineCore/TextWidget.h>
+
 #include "ContentsEnum.h"
 #include "CAObject.h"
 #include "NetInterface.h"
 
+class UTextWidget;
 class AOtherPlayer;
 class APlayer;
 class PlayerInfo
@@ -193,6 +194,8 @@ private:
 	void RideMove(float _DeltaTime);
 	void RideOffStart();
 	void RideOff(float _DeltaTime);
+	void WinStart();
+	void Win(float _DeltaTime);
 
 	void DebugFunction(float _DeltaTime);
 
@@ -223,8 +226,7 @@ private:
 	int RideAniTwinkleActive = 0;
 
 	std::shared_ptr<APlayer_Shadow> Shadow = nullptr;
-	//std::shared_ptr<APlayer_Name> PlayerName = nullptr;
-	UTextWidget* PlayerNameUI = nullptr;
+	//UTextWidget* PlayerNameUI = nullptr;
 
 	bool IsSendPacket = true;
 

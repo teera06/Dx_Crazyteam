@@ -84,7 +84,6 @@ private :
 
 	UStateManager State;
 
-	USpriteRenderer* WaterBombRenderer = nullptr;
 	ACAGameMode* CulGameMode = nullptr;
 	ACAGameMode* WaterBombThisGameMode = nullptr;
 	float LifeTime = 0.0f; // ++DeltaTime

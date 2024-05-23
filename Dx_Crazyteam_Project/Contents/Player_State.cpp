@@ -29,6 +29,8 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Red_Bazzi_GameOn1", "bazzi_1_red.png", AnimationInter * 0.5f, true, 45, 48);
 	Renderer->CreateAnimation("Red_Bazzi_GameOn2", "bazzi_1_red.png", { 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f }, { 49, 50, 51, 52, 53, 52, 49, 49, 50, 50 }, false);
 	
+	Renderer->CreateAnimation("Red_Bazzi_Win", "bazzi_1_red.png", { 0.2f, 0.2f }, { 20, 33 }, true);
+
 	// 블루 배찌 애니메이션
 	Renderer->CreateAnimation("Blue_Bazzi_Idle_Up", "Bazzi_1_blue.png", AnimationInter,		false,	12,	12);
 	Renderer->CreateAnimation("Blue_Bazzi_Idle_Down", "Bazzi_1_blue.png", AnimationInter,	false,	20,	20);
@@ -43,6 +45,8 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Blue_Bazzi_Die", "Bazzi_2_blue.png", 0.1f, false, 0, 5);
 	Renderer->CreateAnimation("Blue_Bazzi_GameOn1", "Bazzi_1_blue.png", AnimationInter * 0.5f, true, 45, 48);
 	Renderer->CreateAnimation("Blue_Bazzi_GameOn2", "Bazzi_1_blue.png", { 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f}, { 49, 50, 51, 52, 53, 52, 49, 49, 50, 50 }, false);
+
+	Renderer->CreateAnimation("Blue_Bazzi_Win", "Bazzi_1_blue.png", { 0.2f, 0.2f }, { 20, 33 }, true);
 
 	// 배찌 Ride 애니메이션
 	Renderer->CreateAnimation("Red_Bazzi_Owl_Idle_Up",			"bazzi_3_red.png", AnimationInter, false, 4, 4);
@@ -94,6 +98,7 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Red_Dao_Die", "Dao_2_red.png", 0.1f, false, 0, 5);
 	Renderer->CreateAnimation("Red_Dao_GameOn1", "Dao_1_red.png", AnimationInter * 0.5f, true, 24, 27);
 	Renderer->CreateAnimation("Red_Dao_GameOn2", "Dao_1_red.png", AnimationInter, false, 28, 37);
+	Renderer->CreateAnimation("Red_Dao_Win", "Dao_6_red.png", AnimationInter * 2, true, 0, 1);
 
 	// 블루 다오 애니메이션
 	Renderer->CreateAnimation("Blue_Dao_Idle_Up",	"dao_4_blue.png", AnimationInter, false, 2, 2);
@@ -109,6 +114,7 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Blue_Dao_Die",			"dao_die.png", 0.1f, false, 0, 5);
 	Renderer->CreateAnimation("Blue_Dao_GameOn1",		"dao_1_blue.png", AnimationInter * 0.5f, true, 24, 27);
 	Renderer->CreateAnimation("Blue_Dao_GameOn2",		"dao_1_blue.png", AnimationInter, false, 28, 37);
+	Renderer->CreateAnimation("Blue_Dao_Win", "dao_6_blue.png", AnimationInter * 2, true, 0, 1);
 
 	// 다오 Ride 애니메이션
 	Renderer->CreateAnimation("Red_Dao_Owl_Idle_Up", "Dao_3_red.png", AnimationInter, false, 4, 4);
@@ -159,7 +165,8 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Red_Marid_Die", "luxMarid_2.png", 0.1f, false, 0, 5);
 	Renderer->CreateAnimation("Red_Marid_GameOn1", "luxMarid_1.png", AnimationInter * 0.5f, true, 24, 27);
 	Renderer->CreateAnimation("Red_Marid_GameOn2", "luxMarid_1.png", AnimationInter, false, 28, 37);
-
+	Renderer->CreateAnimation("Red_Marid_Win", "luxMarid_6.png", AnimationInter * 2, true, 0, 1);
+	 
 	// 블루 마리드 애니메이션
 	Renderer->CreateAnimation("Blue_Marid_Idle_Up",		"luxMarid_4_blue.png", AnimationInter, false, 2, 2);
 	Renderer->CreateAnimation("Blue_Marid_Idle_Down",	"luxMarid_4_blue.png", AnimationInter, false, 0, 0);
@@ -174,6 +181,7 @@ void APlayer::StateInit()
 	Renderer->CreateAnimation("Blue_Marid_Die", "luxMarid_2_blue.png", 0.1f, false, 0, 5);
 	Renderer->CreateAnimation("Blue_Marid_GameOn1", "luxMarid_1_blue.png", AnimationInter * 0.5f, true, 24, 27);
 	Renderer->CreateAnimation("Blue_Marid_GameOn2", "luxMarid_1_blue.png", AnimationInter, false, 28, 37);
+	Renderer->CreateAnimation("Blue_Marid_Win", "luxMarid_6_blue.png", AnimationInter * 2, true, 0, 1);
 
 	//Ride 애니메이션
 	Renderer->CreateAnimation("Red_Marid_Owl_Idle_Up", "luxMarid_3.png", AnimationInter, false, 4, 4);
@@ -222,6 +230,7 @@ void APlayer::StateInit()
 	State.CreateState("RideIdle");
 	State.CreateState("RideMove");
 	State.CreateState("RideOff");
+	State.CreateState("Win");
 
 	// StartFunction
 	State.SetStartFunction("GameOn", std::bind(&APlayer::GameOnStart, this));
@@ -234,6 +243,7 @@ void APlayer::StateInit()
 	State.SetStartFunction("RideIdle", std::bind(&APlayer::RideIdleStart, this));
 	State.SetStartFunction("RideMove", std::bind(&APlayer::RideMoveStart, this));
 	State.SetStartFunction("RideOff", std::bind(&APlayer::RideOffStart, this));
+	State.SetStartFunction("Win", std::bind(&APlayer::WinStart, this));
 
 	// UpdateFunction
 	State.SetUpdateFunction("GameOn", std::bind(&APlayer::GameOn, this, std::placeholders::_1));
@@ -246,6 +256,7 @@ void APlayer::StateInit()
 	State.SetUpdateFunction("RideIdle", std::bind(&APlayer::RideIdle, this, std::placeholders::_1));
 	State.SetUpdateFunction("RideMove", std::bind(&APlayer::RideMove, this, std::placeholders::_1));
 	State.SetUpdateFunction("RideOff", std::bind(&APlayer::RideOff, this, std::placeholders::_1));
+	State.SetUpdateFunction("Win", std::bind(&APlayer::Win, this, std::placeholders::_1));
 
 	// Init
 	State.ChangeState("GameOn");
@@ -343,7 +354,6 @@ void APlayer::TrapStart()
 
 	UEngineSound::SoundPlay("Damaged.wav");
 }
-
 
 void APlayer::Trap(float _DeltaTime)
 {
@@ -613,6 +623,16 @@ void APlayer::RideOff(float _DeltaTime)
 	}
 }
 
+void APlayer::WinStart()
+{
+	Renderer->ChangeAnimation(GetAnimationName("Win"));
+}
+
+void APlayer::Win(float _DeltaTime)
+{
+
+}
+
 // 물풍선 놓는 함수
 void APlayer::WaterBombUpdate()
 {
@@ -640,7 +660,7 @@ void APlayer::WaterBombUpdate()
 	
 			std::shared_ptr<AMapObject> WaterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x, Info->WBPower);
 			WaterBomb->SetObjectToken(WaterBomb_Token++);
-			USendPacketManager::SendMapObjectSpawnPacket(WaterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb);
+			USendPacketManager::SendWaterBombSpawnPacket(WaterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb, Info->WBPower);
 
 			UEngineSound::SoundPlay("SetBallon.wav");
 		}
@@ -693,7 +713,7 @@ void APlayer::MoveUpdate(float _DeltaTime)
 	if (true == GetGameMode()->GetCurMap()->IsMove(NextPos1) && true == GetGameMode()->GetCurMap()->IsMove(NextPos2) && true == GetGameMode()->GetCurMap()->IsMove(NextPos3))
 	{
 		AddActorLocation(MovePos);
-		SettingZValue();
+		//SettingZValue();
 		return;
 	}
 

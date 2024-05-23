@@ -4,6 +4,11 @@
 #include "EngineCore/Image.h"
 
 #include "ServerGameMode.h"
+#include <EngineCore/TextWidget.h>
+#include <EnginePlatform/TextimeInput.h>
+
+#include "stringHelper.h"
+
 
 AIntro::AIntro()
 {
@@ -36,7 +41,7 @@ void AIntro::BeginPlay()
 	StartUI->SetActive(true);
 
 	TextInputUI = CreateWidget<UImage>(GetWorld(), "TextInputUI");
-	TextInputUI->SetSprite("Button_Start_2_1_11zon.png");
+	TextInputUI->SetSprite("inputOff.png");
 	TextInputUI->SetAutoSize(1.0f, true);
 	TextInputUI->AddToViewPort(11);
 	TextInputUI->SetPosition(FVector(0.0f, -50.0f, 0.0f));
@@ -48,12 +53,24 @@ void AIntro::BeginPlay()
 	GameStartButton->SetAutoSize(1.0f, true);
 	GameStartButton->SetPosition(FVector(0.0f, -100.0f, 0.0f));
 	GameStartButton->SetActive(true);
+	{//Text
+		ShowText = CreateWidget<UTextWidget>(GetWorld(), "ShowText");
+		//ShowText->SetOrder()
+		ShowText->SetFont("궁서");
+		ShowText->SetScale(20.0f);
+		ShowText->SetColor(Color8Bit::Black);
+		ShowText->SetPosition({ -100.0f ,-35.0f });
+		ShowText->SetFlag(FW1_LEFT);
+		ShowText->AddToViewPort(12);
+	}
 
 	TextInputUI->SetHover([=] 
 		{
-			if (IsDown(VK_LBUTTON))
+			if (IsDown(VK_LBUTTON) && false == IsTextInput)
 			{
 				// 입력 가능 상태
+				TextInputUI->SetSprite("inputOn.png");
+				UTextimeInput::On();
 			}
 		});
 
@@ -64,27 +81,15 @@ void AIntro::BeginPlay()
 			if (IsDown(VK_LBUTTON))
 			{
 				//ServerGameMode->GetPlayLobby()->SetIsActive(true);
-
 				AServerGameMode::ServerOpen();
-
-			
-				//GEngine->ChangeLevel("");
-
-				//if (nullptr == Function)
-				//{
-				//	return;
-				//}
-
-				//Function();
+	/*			stringHelper::SetPlayerName(UTextimeInput::GetReadText());
+				UTextimeInput::Off();*/
 			}
 		});
 
 	TextInputUI->SetUnHover([=]
 		{
-			if (IsDown(VK_LBUTTON))
-			{
-				// 입력 불가능 상태
-			}
+			IsTextInput = true;
 		});
 
 	GameStartButton->SetUnHover([=]
@@ -96,6 +101,12 @@ void AIntro::BeginPlay()
 void AIntro::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	if (IsDown(VK_LBUTTON) && true == IsTextInput)
+	{
+		IsTextInput = false;
+		TextInputUI->SetSprite("inputOff.png");
+	}
 
 	if (true == AServerGameMode::GetIsServerOpen())
 	{
@@ -114,6 +125,21 @@ void AIntro::Tick(float _DeltaTime)
 		}
 	}
 	
-
+	if (true == UTextimeInput::GetOnOff())
+	{
+		std::string Text = UTextimeInput::GetReadText();
+		if (Text.size() > 0)
+		{
+			ShowText->SetText(Text);
+		}
+		else
+		{
+			ShowText->SetText(" ");
+		}
+	}
+	else
+	{
+		ShowText->SetText(" ");
+	}
 
 }
