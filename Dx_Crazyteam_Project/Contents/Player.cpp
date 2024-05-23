@@ -60,7 +60,6 @@ void APlayer::BeginPlay()
 	PlayerNameUI->AddToViewPort(11);
 
 	MainPlayerSetting();
-	SetCharacterType(ECharacterType::Random);
 	StateInit();
 }
 
