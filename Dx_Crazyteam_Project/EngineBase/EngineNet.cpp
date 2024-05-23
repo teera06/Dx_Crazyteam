@@ -5,6 +5,7 @@
 #include "EngineClient.h"
 #include "EngineDebug.h"
 #include "EngineProtocol.h"
+#include "EngineDispatcher.h"
 
 UEngineNet::UEngineNet() 
 {
@@ -77,6 +78,11 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 				_Session->Send(Protocol);
 			}
 			Ser.Reset();
+			continue;
+		}
+
+		if (false == UEngineDispatcher::IsPacketInit)
+		{
 			continue;
 		}
 

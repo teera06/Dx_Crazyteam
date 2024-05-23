@@ -23,6 +23,7 @@ public:
 	template<typename PacketType>
 	void AddHandler(std::function<void(std::shared_ptr<PacketType>)> _CallBack)
 	{
+		IsPacketInit = false;
 		int Type = static_cast<int>(PacketType::Type);
 		AddHandler(Type, _CallBack);
 	}
@@ -52,6 +53,8 @@ public:
 
 				_CallBack(ConvertPacket);
 			};
+
+		IsPacketInit = true;
 	}
 
 	std::shared_ptr<UEngineProtocol> ConvertProtocol(int Type, UEngineSerializer& _Ser)
@@ -75,6 +78,8 @@ public:
 
 		return PacketHandlers[_Packet->GetPacketType()](_Packet);
 	}
+
+	static std::atomic_bool IsPacketInit;
 
 protected:
 

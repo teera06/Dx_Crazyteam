@@ -59,6 +59,7 @@ public:
 	virtual void SetSessionToken(int _SessionToken) = 0;
 
 	UEngineDispatcher Dispatcher;
+	static bool IsPacketInit;
 
 protected:
 
