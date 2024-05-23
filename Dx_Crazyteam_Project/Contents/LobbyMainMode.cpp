@@ -64,6 +64,7 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 	{
 		PlayLobby->NewPlayer();
 		PlayLobby->ChangeUIIndex = 0;
+		PlayLobby->SetMaster();
 
 		// ¹æÀå 0¹ø
 		PlayLobby->TeamChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
