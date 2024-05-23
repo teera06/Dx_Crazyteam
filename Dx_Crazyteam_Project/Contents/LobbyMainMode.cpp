@@ -8,6 +8,8 @@
 #include <EngineCore/Image.h>
 #include "ServerGameMode.h"
 #include "ContentsValue.h"
+#include "stringHelper.h"
+#include <EngineCore/TextWidget.h>
 
 
 ALobbyMainMode::ALobbyMainMode()
@@ -61,6 +63,7 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 	if (AServerGameMode::NetType == ENetType::Server)
 	{
 		PlayLobby->NewPlayer();
+		PlayLobby->PlayerName[0]->SetText(stringHelper::GetPlayerName());
 		PlayLobby->ChangeUIIndex = 0;
 		PlayLobby->SetMaster();
 
@@ -219,7 +222,8 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 		// 이미 네트워크 연결이 되어있기 때문에
 		// 클라이언트는 그냥 서버한테 쏠거야.
 		std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
-		NewPlayer->NewPlayer = true;
+		NewPlayer->NewPlayer = true;	
+		NewPlayer->UserName = stringHelper::GetPlayerName();
 		UGame_Core::Net->Send(NewPlayer);
 	}
 	else
@@ -237,6 +241,7 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 					if (true == _Packet->NewPlayer)
 					{
 						PlayLobby->NewPlayer();
+						PlayLobby->PlayerName[UContentsValue::LobbyPlayerNum]->SetText(_Packet->UserName);
 
 						if (8 != PlayLobby->LobbyPlayer.size())
 						{
@@ -244,6 +249,7 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 						}
 
 						std::vector<UImage*>& PlayerUIImages = PlayLobby->LobbyPlayer;
+						std::vector<UTextWidget*>& PlayerUINames = PlayLobby->PlayerName;
 
 						std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
 
@@ -258,6 +264,20 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 							UImage* LobbyPlayerImage = PlayerUIImages[i];
 							NewPlayer->SpriteNames.push_back(LobbyPlayerImage->CurInfo.Texture->GetName());
 						}
+
+						for (size_t i = 0; i < PlayerUINames.size(); i++)
+						{
+							if (nullptr == PlayerUINames[i])
+							{
+								NewPlayer->UserNames.push_back("sudal");
+								continue;
+							}
+
+							UTextWidget* LobbyPlayerName = PlayerUINames[i];
+							NewPlayer->UserNames.push_back(LobbyPlayerName->GetText());							
+						}
+
+						//
 
 						// client가 들어왔을 때 로비Player 수 추가
 						UContentsValue::LobbyPlayerNum++;
@@ -314,7 +334,8 @@ void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
 						PlayLobby->MapUIChange(_Packet->MapChoiceIndex);
 						return;
 					}
-					PlayLobby->SettingUIPlayerName(_Packet->SpriteNames);
+					PlayLobby->SettingUIPlayerSpriteName(_Packet->SpriteNames);
+					PlayLobby->SettingUIPlayerName(_Packet->UserNames);
 				});
 		});
 }

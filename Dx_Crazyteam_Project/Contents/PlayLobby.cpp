@@ -467,9 +467,8 @@ void APlayLobby::BeginPlay()
 	CharacterBegin();
 }
 
-void APlayLobby::SettingUIPlayerName(std::vector<std::string> _Names)
+void APlayLobby::SettingUIPlayerSpriteName(std::vector<std::string> _Names)
 {
-
 	if (8 != _Names.size())
 	{
 		MsgBoxAssert("8개의 스프라이드 데이터가 아닙니다.");
@@ -505,15 +504,56 @@ void APlayLobby::SettingUIPlayerName(std::vector<std::string> _Names)
 	}
 }
 
+
+void APlayLobby::SettingUIPlayerName(std::vector<std::string> _Names)
+{
+	if (8 != _Names.size())
+	{
+		MsgBoxAssert("8개의 스프라이드 데이터가 아닙니다.");
+	}
+
+	for (size_t i = 0; i < _Names.size(); i++)
+	{
+		std::string Name = _Names[i];
+
+		if (Name == "None")
+		{
+			continue;
+		}
+
+		if (nullptr == PlayerName[i])
+		{
+
+			PlayerName[i] = CreateWidget<UTextWidget>(GetWorld(), "ShowText");
+			PlayerName[i]->AddToViewPort(15);
+			PlayerName[i]->SetFont("굴림");
+			PlayerName[i]->SetScale(15.0f);
+			PlayerName[i]->SetColor(Color8Bit::Black);
+			if (i <= 3)
+			{
+				PlayerName[i]->SetPosition(FVector(static_cast<float>(-335.f + i * 105), 160.0f, 100.0f));
+
+			}
+			else
+			{
+				PlayerName[i]->SetPosition(FVector(static_cast<float>(-755.f + i * 105), 10.0f, 100.0f));
+			}
+		}
+		PlayerName[i]->SetText(_Names[i]);
+	}
+}
+
+
 void APlayLobby::NewPlayer()
 {
 	//PlayerCount
 	Cha_Count = Create_Count;
 	PlayerName[Cha_Count] = CreateWidget<UTextWidget>(GetWorld(), "ShowText");
 	PlayerName[Cha_Count]->AddToViewPort(15);
-	PlayerName[Cha_Count]->SetFont("맑은 고딕");
+	PlayerName[Cha_Count]->SetFont("굴림");
 	PlayerName[Cha_Count]->SetScale(15.0f);
 	PlayerName[Cha_Count]->SetColor(Color8Bit::Black);
+
 
 	LobbyPlayer[Cha_Count] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
 	LobbyPlayer[Cha_Count]->AddToViewPort(15);
@@ -551,7 +591,6 @@ void APlayLobby::Tick(float _DeltaTime)
 	PlayLobbyUI->SetActive(true);
 
 	//PlayerName[Cha_Count]->SetText(stringHelper::GetPlayerName());
-
 	// Room Hover
 	RoomBegin();
 }

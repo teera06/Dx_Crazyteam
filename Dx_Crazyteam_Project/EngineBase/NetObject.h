@@ -49,7 +49,6 @@ public:
 		{
 			return nullptr;
 		}
-
 		return dynamic_cast<ConvertType*>(AllNetObject[_ObjectToken]);;
 	}
 

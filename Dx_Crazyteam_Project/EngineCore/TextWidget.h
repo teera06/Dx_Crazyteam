@@ -35,6 +35,10 @@ public:
 	{
 		Text = _Text;
 	}
+	std::string GetText()
+	{
+		return Text;
+	}
 
 
 protected:

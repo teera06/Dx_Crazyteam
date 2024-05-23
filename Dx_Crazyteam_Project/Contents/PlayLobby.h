@@ -31,6 +31,7 @@ public:
 	std::vector<UImage*> LobbyPlayer;
 	std::vector<UTextWidget*> PlayerName;
 
+	void SettingUIPlayerSpriteName(std::vector<std::string> _Names);
 	void SettingUIPlayerName(std::vector<std::string> _Names);
 
 	void SetMaster()
