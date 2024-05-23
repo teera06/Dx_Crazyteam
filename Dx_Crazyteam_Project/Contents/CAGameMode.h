@@ -58,6 +58,9 @@ public:
 	{
 		return OtherPlayers;
 	}
+
+	std::function<void(EGameResult)> GMToUICallBack = nullptr;
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -66,10 +69,19 @@ protected:
 
 	std::vector<AOtherPlayer*> OtherPlayers;
 private:
+	void WinCheck(float _DeltaTime);
+
 	std::shared_ptr<ABaseMap> CurMap = nullptr;
 	std::shared_ptr<APlayer> MainPlayer = nullptr;
 	std::shared_ptr<AMapUI> UI = nullptr;
+	int ATeamCount = 0;
+	int BTeamCount = 0;
+	bool IsBattleEnd = false;
+	EGameResult GameResult = EGameResult::None;
 
 	EMap CurMapType = EMap::Village;
+	
 };
 
+// UI에 팀의 승리 여부를 보내야함.(승리 조건에 따라 Win, Loss, Draw UI가 다르기 때문)
+// UI에 해당 Player가 죽었는지 살았는지 보내야 함.(우측 UI 애니메이션[죽으면 울고 있음])
