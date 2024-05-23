@@ -221,5 +221,9 @@ void UGame_Core::SoundLoad()
 
 void UGame_Core::End()
 {
-	Net->End();
+	if (nullptr != Net)
+	{
+		Net->End();
+		Net = nullptr;
+	}
 }
