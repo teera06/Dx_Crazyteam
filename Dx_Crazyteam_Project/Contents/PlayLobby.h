@@ -144,12 +144,17 @@ private:
 
 	bool ATeam = true;
 	bool BTeam = false;
+	void SetMaster()
+	{
+		Master = true;
+	}
 
 private:
 	static bool IsClient;
 	static bool Create;
 	static int Create_Count;
 	int Cha_Count = 0;
+	bool Master = false;
 
 public:
 	int ChangeUIIndex = -1;

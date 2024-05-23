@@ -1293,25 +1293,28 @@ void APlayLobby::StartBegin()
 
 void APlayLobby::MapSelectButtonBegin()
 {
+	if (true == Master)
 	{
-		SelectMap->SetUnHover([=] {
-			SelectMap->ChangeAnimation("UnHover");
-			SwitchON = false;
-			});
-		SelectMap->SetHover([=] {
-			if (SelectMap->IsCurAnimationEnd() == true)
-			{
-				SelectMap->ChangeAnimation("Hover");
-			}
-			else if (true == IsDown(VK_LBUTTON) && "Hover" == SelectMap->GetUiAniName())
-			{
-				SelectMap->ChangeAnimation("Down");
-			}
-			else if (true == IsUp(VK_LBUTTON))
-			{
-				MapSelectBegin();
-			}
-			});
+		{
+			SelectMap->SetUnHover([=] {
+				SelectMap->ChangeAnimation("UnHover");
+				SwitchON = false;
+				});
+			SelectMap->SetHover([=] {
+				if (SelectMap->IsCurAnimationEnd() == true)
+				{
+					SelectMap->ChangeAnimation("Hover");
+				}
+				else if (true == IsDown(VK_LBUTTON) && "Hover" == SelectMap->GetUiAniName())
+				{
+					SelectMap->ChangeAnimation("Down");
+				}
+				else if (true == IsUp(VK_LBUTTON))
+				{
+					MapSelectBegin();
+				}
+				});
+		}
 	}
 }
 
