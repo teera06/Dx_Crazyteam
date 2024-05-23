@@ -37,6 +37,7 @@ void ABlock::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
+	BushCheck();
 }
 
 void ABlock::StateInit()
@@ -303,4 +304,16 @@ void ABlock::EndTick(float _DeltaTime)
 void ABlock::EndExit()
 {
 
+}
+
+void ABlock::BushCheck()
+{
+	if (GetIsPossessed())
+	{
+		Renderer->SetActive(false);
+	}
+	else
+	{
+		Renderer->SetActive(true);
+	}
 }

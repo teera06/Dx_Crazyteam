@@ -17,6 +17,11 @@ public:
 	AFontActor& operator=(const AFontActor& _Other) = delete; // 디폴트 대입 연산자
 	AFontActor& operator=(AFontActor&& _Other) noexcept = delete;
 
+	UTextWidget* GetShowText()
+	{
+		return ShowText;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

@@ -84,6 +84,8 @@ protected:
 	void EndExit();
 
 private:
+	void BushCheck();
+
 	//break 관련 변수
 	bool IsBreak = false;
 	float BreakBlockTime = 0.5f;
@@ -104,6 +106,7 @@ private:
 
 	FVector MoveDir = FVector::Zero;
 	POINT PlayerIndex = { 0,0 };
+
 
 	
 
