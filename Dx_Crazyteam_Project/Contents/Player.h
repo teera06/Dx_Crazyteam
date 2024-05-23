@@ -6,6 +6,7 @@
 #include "CAObject.h"
 #include "NetInterface.h"
 
+class AOtherPlayer;
 class APlayer;
 class PlayerInfo
 {
@@ -151,7 +152,8 @@ public:
 	{
 		return Dir;
 	}
-	bool IsOtherPlayer();
+
+	AOtherPlayer* IsOtherPlayer();
 
 	static int WaterBomb_Token;
 	static int WaterCourse_Token;
