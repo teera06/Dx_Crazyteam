@@ -107,20 +107,16 @@ void AServerTestPlayer::SpawnItem()
 		{
 			// 빌리지
 			std::shared_ptr<AMapObject> vilBlock1 = GetGameMode()->GetCurMap()->AddMapObject(0, 1, EMapObject::VillageBlock2);
-			vilBlock1->SetPossessItem(EItemType::ItemRoller);
-			USendPacketManager::SendMapObjectSpawnPacket(vilBlock1, { 0,1 }, EMapObject::VillageBlock2, EItemType::ItemRoller);
+			USendPacketManager::SendMapObjectSpawnPacket(vilBlock1, { 0,1 }, EMapObject::VillageBlock2, vilBlock1->GetPossessItem());
 
 			std::shared_ptr<AMapObject> vilBlock2 = GetGameMode()->GetCurMap()->AddMapObject(0, 2, EMapObject::VillageBlock1);
-			vilBlock2->SetPossessItem(EItemType::ItemFluid);
-			USendPacketManager::SendMapObjectSpawnPacket(vilBlock2, { 0,2 }, EMapObject::VillageBlock1, EItemType::ItemFluid);
+			USendPacketManager::SendMapObjectSpawnPacket(vilBlock2, { 0,2 }, EMapObject::VillageBlock1, vilBlock2->GetPossessItem());
 
 			std::shared_ptr<AMapObject> vilBlock3 = GetGameMode()->GetCurMap()->AddMapObject(0, 3, EMapObject::VillageBlock2);
-			vilBlock3->SetPossessItem(EItemType::ItemOwl);
-			USendPacketManager::SendMapObjectSpawnPacket(vilBlock3, { 0,3 }, EMapObject::VillageBlock2, EItemType::ItemOwl);
+			USendPacketManager::SendMapObjectSpawnPacket(vilBlock3, { 0,3 }, EMapObject::VillageBlock2, vilBlock3->GetPossessItem());
 
 			std::shared_ptr<AMapObject> vilBlock4 = GetGameMode()->GetCurMap()->AddMapObject(0, 4, EMapObject::VillageBlock1);
-			vilBlock4->SetPossessItem(EItemType::ItemTurtle);
-			USendPacketManager::SendMapObjectSpawnPacket(vilBlock4, { 0,4 }, EMapObject::VillageBlock1, EItemType::ItemTurtle);
+			USendPacketManager::SendMapObjectSpawnPacket(vilBlock4, { 0,4 }, EMapObject::VillageBlock1, vilBlock4->GetPossessItem());
 
 			//std::shared_ptr<AMapObject> TownBush1 = GetGameMode()->GetCurMap()->AddMapObject(0, 5, EMapObject::TownBush);
 			//USendPacketManager::SendMapObjectSpawnPacket(TownBush1, { 0,5 }, EMapObject::TownBush);
