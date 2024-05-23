@@ -236,32 +236,38 @@ void APlayLobby::BeginPlay()
 
 	
 	EnterButton = CreateWidget<UImage>(GetWorld(), "EnterButton");
+	EnterButton->CreateAnimation("UnHover", "Button_MapSelect_Accept_UnHover.png", 0.1f, false, 0, 0);
+	EnterButton->CreateAnimation("Hover", "SelectAccept", 0.1f, true, 0, 0);
+	EnterButton->CreateAnimation("Down", "Button_MapSelect_Accept_Click.bmp", 0.1f, false, 0, 0);
 	EnterButton->AddToViewPort(16);
-	EnterButton->SetSprite("Cam02_info.png");
+	EnterButton->SetSprite("Button_MapSelect_Accept_UnHover.png");
 	EnterButton->SetAutoSize(1.0f, true);
-	EnterButton->SetPosition({ 73.f,109.f });
+	EnterButton->SetPosition({ -58.f,-217.f });
 	EnterButton->SetActive(false);
 	
 	CancelButton = CreateWidget<UImage>(GetWorld(), "CancelButton");
+	CancelButton->CreateAnimation("UnHover", "Button_MapSelect_Cancel_UnHover.png", 0.1f, false, 0, 0);
+	CancelButton->CreateAnimation("Hover", "SelectCancel", 0.1f, true, 0, 0);
+	CancelButton->CreateAnimation("Down", "Button_MapSelect_Cancel_Click.bmp", 0.1f, false, 0, 0);
 	CancelButton->AddToViewPort(16);
-	CancelButton->SetSprite("Cam02_info.png");
+	CancelButton->SetSprite("Button_MapSelect_Cancel_UnHover.png");
 	CancelButton->SetAutoSize(1.0f, true);
-	CancelButton->SetPosition({ 73.f,109.f });
+	CancelButton->SetPosition({ 59.f,-217.f });
 	CancelButton->SetActive(false);
 
 	
 	VillageFinMap = CreateWidget<UImage>(GetWorld(), "VillageFinMap");
-	VillageFinMap->AddToViewPort(16);
+	VillageFinMap->AddToViewPort(15);
 	VillageFinMap->SetSprite("Village10_FinMap.png");
 	VillageFinMap->SetAutoSize(1.0f, true);
-	VillageFinMap->SetPosition({ 230.f,-113.f });
+	VillageFinMap->SetPosition({ 229.f,-113.f });
 	VillageFinMap->SetActive(true);
 		
 	CamFinMap = CreateWidget<UImage>(GetWorld(), "CamFinMap");
-	CamFinMap->AddToViewPort(16);
+	CamFinMap->AddToViewPort(15);
 	CamFinMap->SetSprite("Cam02_FinMap.png");
 	CamFinMap->SetAutoSize(1.0f, true);
-	CamFinMap->SetPosition({ 230.f,-113.f });
+	CamFinMap->SetPosition({ 229.f,-113.f });
 	CamFinMap->SetActive(false);
 
 
@@ -435,11 +441,13 @@ void APlayLobby::BeginPlay()
 
 	Teamtyp = dynamic_cast<ACAGameMode*>(GetWorld()->GetGameMode().get());
 
-
+	//맵 선택 버튼
 	MapSelectButtonBegin();
+	//스타트 버튼
 	StartBegin();
+	//팀 선택
 	TeamSelectBegin();
-
+	//캐릭터 선택
 	CharacterBegin();
 }
 
@@ -504,21 +512,9 @@ void APlayLobby::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	PlayLobbyUI->SetActive(true);
-
-	//팀 선택
-
 	// Room Hover
 	RoomBegin();
-
-	//캐릭터 선택
-
-
-	//스타트 버튼
-
-	//맵 선택 버튼
 }
-
-
 
 void APlayLobby::TeamSelectBegin()
 {
@@ -1205,72 +1201,22 @@ void APlayLobby::MapSelectButtonBegin()
 				MapSelectBegin();
 			}
 			});
-
 	}
 }
 
-void APlayLobby::LobbyPlayerBegin()
-{
-	LobbyPlayer[0] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
-	LobbyPlayer[0]->AddToViewPort(15);
-	LobbyPlayer[0]->SetSprite("Room_Charcater_Dao.png");
-	LobbyPlayer[0]->SetAutoSize(1.2f, true);
-	LobbyPlayer[0]->AddPosition(FVector(static_cast<float>(-335 + PlayerCount * 105), 160.0f, 100.0f));
-
-	Rank[0] = CreateWidget<UImage>(GetWorld(), "Rank");;
-	Rank[0]->AddToViewPort(15);
-	Rank[0]->SetSprite("CharacterRoom_Flag.png");
-	Rank[0]->SetAutoSize(1.0f, true);
-	Rank[0]->AddPosition(FVector(static_cast<float>(-300 + PlayerCount * 105), 145.0f, 100.0f));
-
-
-	//if (IsDown('P') && 3 >= PlayerCount)
-	//{
-	//	LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
-	//	LobbyPlayer[PlayerCount]->AddToViewPort(15);
-	//	LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
-	//	LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
-	//	LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-330 + PlayerCount * 105), 125.0f, 100.0f));
-
-	//	Rank[PlayerCount] = CreateWidget<UImage>(GetWorld(), "Rank");;
-	//	Rank[PlayerCount]->AddToViewPort(15);
-	//	Rank[PlayerCount]->SetSprite("CharacterRoom_Flag.png");
-	//	Rank[PlayerCount]->SetAutoSize(1.0f, true);
-	//	Rank[PlayerCount]->AddPosition(FVector(static_cast<float>(-300 + PlayerCount * 105), 145.0f, 100.0f));
-
-	//	++PlayerCount;
-	//}
-
-	//else if (IsDown('P') && 3 < PlayerCount)
-	//{
-	//	if (7 < PlayerCount)
-	//	{
-	//		return;
-	//	}
-
-	//	LobbyPlayer[PlayerCount] = CreateWidget<UImage>(GetWorld(), "LobbyPlayer");
-	//	LobbyPlayer[PlayerCount]->AddToViewPort(15);
-	//	LobbyPlayer[PlayerCount]->SetSprite("bazzi_idle.png", 1);
-	//	LobbyPlayer[PlayerCount]->SetScale({ 150, 150 });
-	//	LobbyPlayer[PlayerCount]->AddPosition(FVector(static_cast<float>(-750 + PlayerCount * 105), -20.0f, 100.0f));
-
-	//	Rank[PlayerCount] = CreateWidget<UImage>(GetWorld(), "Rank");;
-	//	Rank[PlayerCount]->AddToViewPort(15);
-	//	Rank[PlayerCount]->SetSprite("CharacterRoom_Flag.png");
-	//	Rank[PlayerCount]->SetAutoSize(1.0f, true);
-	//	Rank[PlayerCount]->AddPosition(FVector(static_cast<float>(-720 + PlayerCount * 105), 0.0f, 100.0f));
-	//	++PlayerCount;
-	//}
-}
 
 void APlayLobby::MapSelectBegin()
 {
+
 	MapSelect->SetActive(true);
 	MapSelectVName->SetActive(true);
 	MapSelectVTitle->SetActive(true);
 	MapSelectVPick->SetActive(true);
 	MapSelectCName->SetActive(true);
 	MapSelectVinfo->SetActive(true);
+	EnterButton->SetActive(true);
+	CancelButton->SetActive(true);
+
 
 	MapSelectCName->SetHover([=] {
 		if (true == IsUp(VK_LBUTTON))
@@ -1280,6 +1226,9 @@ void APlayLobby::MapSelectBegin()
 			MapSelectCTitle->SetActive(true);
 			MapSelectCMinimap->SetActive(true);
 			MapSelectVinfo->SetActive(false);
+			CamFinMap->SetActive(true);
+			VillagePick = false;
+			CamPick = true;
 		}
 		});
 
@@ -1291,8 +1240,95 @@ void APlayLobby::MapSelectBegin()
 			MapSelectCTitle->SetActive(false);
 			MapSelectCMinimap->SetActive(false);
 			MapSelectVinfo->SetActive(true);
+			CamFinMap->SetActive(false);
+			VillageFinMap->SetActive(true);
+			VillagePick = true;
+			CamPick = false;
 		}
 		});
+
+
+	EnterButton->SetUnHover([=] {
+		EnterButton->ChangeAnimation("UnHover");
+		});
+
+	EnterButton->SetHover([=] {
+		EnterButton->ChangeAnimation("Hover");
+		if (true == IsDown(VK_LBUTTON))
+		{
+			MapSelect->SetActive(false);
+			MapSelectVName->SetActive(false);
+			MapSelectVTitle->SetActive(false);
+			MapSelectVPick->SetActive(false);
+			MapSelectVinfo->SetActive(false);
+			EnterButton->SetActive(false);
+			CancelButton->SetActive(false);
+			MapSelectCName->SetActive(false);
+			MapSelectCMinimap->SetActive(false);
+			MapSelectCTitle->SetActive(false);
+			MapSelectCPick->SetActive(false);
+
+			if (true == VillagePick)
+			{
+				//PickMapName = "Village";
+				//PickMapName = "MainGameMode";
+				//ConstValue::SelectedMap = EMap::Village;
+			}
+			else if (false == VillagePick)
+			{
+				//PickMapName = "Camp";
+				//PickMapName = "MainGameMode";
+				//ConstValue::SelectedMap = EMap::Camp;
+			}
+		}
+		});
+
+	CancelButton->SetUnHover([=] {
+		CancelButton->ChangeAnimation("UnHover");
+		});
+
+	CancelButton->SetHover([=] {
+		CancelButton->ChangeAnimation("Hover");
+		if (true == IsDown(VK_LBUTTON))
+		{
+			MapSelect->SetActive(false);
+			MapSelectVName->SetActive(false);
+			MapSelectVTitle->SetActive(false);
+			MapSelectVPick->SetActive(false);
+			MapSelectVinfo->SetActive(false);
+			EnterButton->SetActive(false);
+			CancelButton->SetActive(false);
+			MapSelectCName->SetActive(false);
+			MapSelectCMinimap->SetActive(false);
+			MapSelectCTitle->SetActive(false);
+			MapSelectCPick->SetActive(false);
+
+			if (true == VillagePick)
+			{
+				VillageFinMap->SetActive(true);
+				CamFinMap->SetActive(false);
+			}
+			else if (false == VillagePick)
+			{
+				VillageFinMap->SetActive(true);
+				CamFinMap->SetActive(false);
+			}
+			else if (true == CamPick && false == VillagePick)
+			{
+				VillageFinMap->SetActive(false);
+				CamFinMap->SetActive(true);
+			}
+			else if (false == CamPick)
+			{
+				VillageFinMap->SetActive(false);
+				CamFinMap->SetActive(true);
+			}
+		}
+		});
+
+
+
+
 	
 }
 
