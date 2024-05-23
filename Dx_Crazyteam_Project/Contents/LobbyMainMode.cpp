@@ -78,6 +78,7 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 						continue;
 					}
 					MapInfo->MapChoiceIndex = _MapChoiceNumber;
+					MapInfo->ChangeMapUI = true;
 					UGame_Core::Net->Send(MapInfo);
 				}				
 			};
