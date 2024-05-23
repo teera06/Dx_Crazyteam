@@ -127,7 +127,7 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				MainPlayer->WaterBomb_Token = UGame_Core::Net->GetSessionToken() * 1000 + 2;
 					//});
 				// 어떤 패키싱 왔을때 어떻게 처리할건지를 정하는 걸 해야한다
-					ClientPacketInit(UGame_Core::Net->Dispatcher);
+				ClientPacketInit(UGame_Core::Net->Dispatcher);
 			};
 
 			MapUI->MapTimeLogic = [=](AMapUI* _Lobby)
@@ -240,23 +240,23 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 			GetWorld()->PushFunction([=]()
 				{
 					int Test = _Packet->GetObjectToken();
-					AMapUI* Time = UNetObject::GetNetObject<AMapUI>(_Packet->GetObjectToken());
-					if (nullptr == Time)
-					{
-						int a = 0;
-						//Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
-						//Time->SetObjectToken(_Packet->GetObjectToken());
-					}
-					else
-					{
-						if (_Packet->ClientCreate == true)
-						{
-							std::shared_ptr<UUIUpdatePacket> TimeCreate = std::make_shared<UUIUpdatePacket>();
-							TimeCreate->SerVerSend = true;
-							TimeCreate->Time_Second = MapUI->GetCreateTime();
-							UGame_Core::Net->Send(TimeCreate);
-						}
-					}//Time->PushProtocol(_Packet);					
+				//	//AMapUI* Time = UNetObject::GetNetObject<AMapUI>(_Packet->GetObjectToken());
+				//	if (nullptr == Time)
+				//	{
+				//		int a = 0;
+				//		//Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
+				//		//Time->SetObjectToken(_Packet->GetObjectToken());
+				//	}
+				//	else
+				//	{
+				//		if (_Packet->ClientCreate == true)
+				//		{
+				//			std::shared_ptr<UUIUpdatePacket> TimeCreate = std::make_shared<UUIUpdatePacket>();
+				//			TimeCreate->SerVerSend = true;
+				//			TimeCreate->Time_Second = MapUI->GetCreateTime();
+				//			UGame_Core::Net->Send(TimeCreate);
+				//		}
+				//	}//Time->PushProtocol(_Packet);					
 				});
 	});
 }
@@ -412,24 +412,24 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 		{
 				int Test = _Packet->GetObjectToken();
 				AMapUI* Time = UNetObject::GetNetObject<AMapUI>(_Packet->GetObjectToken());
-				if (nullptr == Time)
-				{
-					int a = 0;
-					//Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
-					//Time->SetObjectToken(_Packet->GetObjectToken());
-				}
-				else
-				{
-					if (_Packet->ClientCreate == true)
-					{
-						//_Packet->Time_Second;
-						Time->ServerGetTime(_Packet->Time_Second);
-						//std::shared_ptr<UUIUpdatePacket> TimeCreate = std::make_shared<UUIUpdatePacket>();
-						//TimeCreate->SerVerSend = true;
-						//TimeCreate->Second_Tens = MapUI->GetCreateTime();
-						//UGame_Core::Net->Send(TimeCreate);
-					}
-				}
+				//if (nullptr == Time)
+				//{
+				//	int a = 0;
+				//	//Time = this->GetWorld()->SpawnActor<AOtherUI>("UI", 0).get();
+				//	//Time->SetObjectToken(_Packet->GetObjectToken());
+				//}
+				//else
+				//{
+				//	if (_Packet->ClientCreate == true)
+				//	{
+				//		//_Packet->Time_Second;
+				//		Time->ServerGetTime(_Packet->Time_Second);
+				//		//std::shared_ptr<UUIUpdatePacket> TimeCreate = std::make_shared<UUIUpdatePacket>();
+				//		//TimeCreate->SerVerSend = true;
+				//		//TimeCreate->Second_Tens = MapUI->GetCreateTime();
+				//		//UGame_Core::Net->Send(TimeCreate);
+				//	}
+				//}
 				//Time->PushProtocol(_Packet);
 		});
 	});
