@@ -32,7 +32,10 @@ void ACAGameMode::Tick(float _DeltaTime)
 	}
 	else if (true == IsBattleEnd)
 	{
-		GMToUICallBack(GameResult);
+		if (nullptr != GMToUICallBack)
+		{
+			GMToUICallBack(GameResult);
+		}
 	}
 
 
