@@ -188,6 +188,7 @@ public:
 		_Ser << MapName;
 		_Ser << ChangeLevel;
 		_Ser << ChangeMapUI;
+		_Ser << MapChoiceIndex;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -198,6 +199,7 @@ public:
 		_Ser >> MapName;
 		_Ser >> ChangeLevel;
 		_Ser >> ChangeMapUI;
+		_Ser >> MapChoiceIndex;
 	}
 
 public:
@@ -206,5 +208,6 @@ public:
 	std::string MapName = "";
 	bool ChangeLevel = false;
 	bool ChangeMapUI = false;
+	int MapChoiceIndex = -1;
 };
 
