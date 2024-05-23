@@ -49,7 +49,9 @@ private:
 	std::shared_ptr<APlayer> MainPlayer = nullptr;
 	std::shared_ptr<AMapUI> MapUI = nullptr;
 	std::shared_ptr<APlayer_Name> PlayerName = nullptr;
+	bool IsSpawnBlocks = false;
 
-
+private:
+	void CreateBlocks();
 };
 
