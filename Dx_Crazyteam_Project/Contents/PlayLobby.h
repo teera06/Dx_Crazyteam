@@ -39,10 +39,10 @@ public:
 
 	// APlayLobby
 	std::function<void(APlayLobby*, int, std::string_view)> ChracterChangeLogic = nullptr;
-	std::function<void(APlayLobby*, std::string_view, EMapType _NewMapType )> MapChangeLogic = nullptr;
+	std::function<void(APlayLobby*, std::string_view, int )> MapChangeLogic = nullptr;
 	std::function<void(APlayLobby*, int, std::string_view)> TeamChangeLogic = nullptr;
 	std::function<void(APlayLobby*, int)> MapUILogic = nullptr;
-	void MapChange(std::string_view _MapName);
+	void MapChange(std::string_view _MapName, int _MapNumber);
 	void MapUIChange(int _MapNumber);
 	////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -167,7 +167,7 @@ private:
 
 
 private:
-	EMapType MapType = EMapType::None;
+	EMapType MapType = EMapType::Village;
 
 
 	//UTextWidget* ShowText = nullptr;

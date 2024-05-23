@@ -192,6 +192,29 @@ void AMapUI::Tick(float _DeltaTime)
 	}
 
 	SetPlayItemUI();
+
+	GetGameMode()->GMToUICallBack = [=](EGameResult _GameEnd)
+		{
+			switch (_GameEnd)
+			{
+			case EGameResult::None:
+				return;
+			case EGameResult::ATeamWin:
+				GameEndUI->SetActive(true);
+				GameEndUI->SetSprite("ui_coplayui_KCW.png", 2);
+				break;
+			case EGameResult::BTeamWin:
+				GameEndUI->SetActive(true);
+				GameEndUI->SetSprite("ui_coplayui_KCW.png", 2);
+				break;
+			case EGameResult::Draw:
+				GameEndUI->SetActive(true);
+				GameEndUI->SetSprite("ui_coplayui_KCW.png", 0);
+				break;
+			default:
+				break;
+			}
+		};
 }
 
 void AMapUI::ClientSend()
