@@ -78,6 +78,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="FadeEffect.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="FontActor.h" />
     <ClInclude Include="Game_Core.h">
       <SubType>
@@ -331,6 +335,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="DummyBlock.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FadeEffect.cpp">
       <SubType>
       </SubType>
     </ClCompile>

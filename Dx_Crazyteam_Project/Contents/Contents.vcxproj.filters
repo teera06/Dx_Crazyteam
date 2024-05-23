@@ -314,6 +314,7 @@
     <ClInclude Include="ContentsValue.h">
       <Filter>Option</Filter>
     </ClInclude>
+    <ClInclude Include="FadeEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -530,5 +531,6 @@
     <ClCompile Include="ContentsValue.cpp">
       <Filter>Option</Filter>
     </ClCompile>
+    <ClCompile Include="FadeEffect.cpp" />
   </ItemGroup>
 </Project>

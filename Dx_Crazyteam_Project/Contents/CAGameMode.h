@@ -5,11 +5,13 @@
 #include <EngineCore/EngineNetWindow.h>
 #include <EngineBase/EngineDispatcher.h>
 
+
 // Ό³Έν :
 class ABaseMap;
 class APlayer;
 class AMapUI;
 class AOtherPlayer;
+class FadeEffect;
 class ACAGameMode : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
@@ -75,6 +77,7 @@ private:
 	std::shared_ptr<ABaseMap> CurMap = nullptr;
 	std::shared_ptr<APlayer> MainPlayer = nullptr;
 	std::shared_ptr<AMapUI> UI = nullptr;
+	std::shared_ptr<FadeEffect> BlackFade = nullptr;
 	int ATeamCount = 0;
 	int BTeamCount = 0;
 	bool IsBattleEnd = false;

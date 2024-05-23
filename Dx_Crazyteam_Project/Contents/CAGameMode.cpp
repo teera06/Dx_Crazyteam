@@ -2,6 +2,7 @@
 #include "CAGameMode.h"
 #include "OtherPlayer.h"
 #include "Player.h"
+#include "FadeEffect.h"
 
 ACAGameMode::ACAGameMode() 
 {
@@ -45,11 +46,17 @@ void ACAGameMode::Tick(float _DeltaTime)
 void ACAGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
+	BlackFade = GetWorld()->GetLastTarget()->AddEffect<FadeEffect>();
+	BlackFade.get()->EffectON();
 }
 
 void ACAGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+	if (nullptr != BlackFade)
+	{
+		BlackFade.get()->EffectOff();
+	}
 }
 
 

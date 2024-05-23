@@ -29,6 +29,12 @@ UGame_Core::~UGame_Core()
 }
 void UGame_Core::Initialize()
 {
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsShader");
+		UEngineShader::AutoCompile(Dir);
+	}
+
 	UEngineFont::Load("±Ã¼­");
 	UEngineFont::Load("±¼¸²");
 	UEngineFont::Load("¸¼Àº °íµñ");
@@ -38,6 +44,12 @@ void UGame_Core::Initialize()
 	CuttingAni();
 	SoundLoad();
 	ForderLoadAni();
+
+	// Material
+	std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("FadeShader_Black");
+	Mat->SetPixelShader("FadeShader_Black.fx");
+	Mat->SetVertexShader("FadeShader_Black.fx");
+
 	std::shared_ptr<AIntroMainMode> IntroMainMode = GEngine->CreateLevel<AIntroMainMode>("IntroMainMode",0);
 	std::shared_ptr<ALobbyMainMode> LobbyMainMode = GEngine->CreateLevel<ALobbyMainMode>("LobbyMainMode",0);
 	std::shared_ptr<AMainGameMode> MainGameMode = GEngine->CreateLevel<AMainGameMode>("MainGameMode",0);

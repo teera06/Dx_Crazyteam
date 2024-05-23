@@ -5,7 +5,6 @@
 #include "ItemNiddle.h"
 #include "ItemOwl.h"
 
-
 APlayerTestMode::APlayerTestMode()
 {
 }
