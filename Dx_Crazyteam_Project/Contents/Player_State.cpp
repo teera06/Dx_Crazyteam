@@ -640,7 +640,7 @@ void APlayer::WaterBombUpdate()
 	
 			std::shared_ptr<AMapObject> WaterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x, Info->WBPower);
 			WaterBomb->SetObjectToken(WaterBomb_Token++);
-			USendPacketManager::SendMapObjectSpawnPacket(WaterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb);
+			USendPacketManager::SendWaterBombSpawnPacket(WaterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb, Info->WBPower);
 
 			UEngineSound::SoundPlay("SetBallon.wav");
 		}

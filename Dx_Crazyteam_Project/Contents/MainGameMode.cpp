@@ -228,7 +228,7 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 						ABaseMap* CurMap = GetCurMap().get();
 						POINT PosValue = _Packet->Pos;
 
-						OtherObject = CurMap->AddMapObject(PosValue.x, PosValue.y, ObjType).get();
+						OtherObject = CurMap->SpawnWaterBomb(PosValue.x, PosValue.y, _Packet->WaterPower).get();
 
 						OtherObject->SetObjectToken(_Packet->GetObjectToken());
 					}
@@ -335,6 +335,20 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 					switch (ObjType)
 					{
 					case EMapObject::WaterBomb:
+					{
+						AMapObject* OtherObject = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
+
+						if (nullptr == OtherObject)
+						{
+							ABaseMap* CurMap = GetCurMap().get();
+							POINT PosValue = _Packet->Pos;
+
+							OtherObject = CurMap->SpawnWaterBomb(PosValue.x, PosValue.y, _Packet->WaterPower).get();
+
+							OtherObject->SetObjectToken(_Packet->GetObjectToken());
+						}
+						break;
+					}
 					case EMapObject::TownBush:
 					case EMapObject::DummyBlock:
 					case EMapObject::NormalBlock:

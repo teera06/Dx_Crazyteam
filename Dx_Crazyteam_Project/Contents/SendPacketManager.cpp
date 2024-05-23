@@ -53,6 +53,36 @@ void USendPacketManager::SendMapObjectSpawnPacket(std::shared_ptr<AMapObject> _N
 	_NetObject->Send(Packet);
 }
 
+void USendPacketManager::SendWaterBombSpawnPacket(std::shared_ptr<AMapObject> _NetObject, POINT _CurPos, EMapObject _MapObjectType, int _WaterPower)
+{
+	if (nullptr == _NetObject)
+	{
+		MsgBoxAssert("MapObject가 nullptr 입니다.");
+		return;
+	}
+
+	if (false == _NetObject->IsNetInit())
+	{
+		// 네트워크 통신준비가 아직 안된 오브젝트다.
+		if (nullptr != UGame_Core::Net)
+		{
+			_NetObject->InitNet(UGame_Core::Net);
+		}
+		//else
+		//{
+		//	MsgBoxAssert("네트워크에 접근하지 않고 오브젝트 릴리즈 패킷을 보내려고 했습니다");
+		//	return;
+		//}
+	}
+
+	std::shared_ptr<UMapObjectUpdatePacket> Packet = std::make_shared<UMapObjectUpdatePacket>();
+	Packet->SetObjectToken(_NetObject->GetObjectToken());
+	Packet->Pos = _CurPos;
+	Packet->ObjectType = static_cast<int>(_MapObjectType);
+	Packet->WaterPower = _WaterPower;
+	_NetObject->Send(Packet);
+}
+
 void USendPacketManager::SendMapObjectReleasePacket(AMapObject* _NetObject, POINT _CurPos)
 {
 	if (nullptr == _NetObject)
