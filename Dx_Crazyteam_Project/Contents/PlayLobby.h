@@ -11,6 +11,8 @@ class APlayLobby : public AActor, public UNetObject
 	GENERATED_BODY(AActor)
 
 public:
+
+	static EMapType MapType;
 	// constrcuter destructer
 	APlayLobby();
 	~APlayLobby();
@@ -167,7 +169,7 @@ private:
 
 
 private:
-	EMapType MapType = EMapType::Village;
+
 
 
 	//UTextWidget* ShowText = nullptr;
