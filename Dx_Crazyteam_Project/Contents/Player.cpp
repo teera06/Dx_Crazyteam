@@ -90,6 +90,8 @@ void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	SettingZValue();
+
 	//static bool PlayerCanMove = false;
 	//static float InitTime = 2.0f;
 	//InitTime -= _DeltaTime;
