@@ -22,6 +22,11 @@ public:
 		return IsOPDestroy;
 	}
 
+	ETeamType GetTeamType()
+	{
+		return TeamType;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -37,5 +42,6 @@ private:
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
 	bool IsOPDestroy = false;
+	ETeamType TeamType = ETeamType::None;
 };
 
