@@ -65,5 +65,8 @@ private:
 	int SecondUI = 5;
 	int SecondUI2 = 9;
 	int End = 0;
+
+public:
+	std::function<void(AMapUI*)> MapTimeLogic = nullptr;
 };
 

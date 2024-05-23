@@ -94,6 +94,11 @@ void AMapUI::BeginPlay()
 	GameTimeerUI[1]->SetSprite("GameTimer.png", 2);
 	GameTimeerUI[2]->SetSprite("GameTimer.png", 5);
 	GameTimeerUI[3]->SetSprite("GameTimer.png", 9);
+
+	if (nullptr != MapTimeLogic)
+	{
+		MapTimeLogic(this);
+	}
 }
 
 void AMapUI::Tick(float _DeltaTime)
