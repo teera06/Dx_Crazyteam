@@ -165,6 +165,7 @@ public:
 	// APlayLobby
 	std::function<void(APlayLobby*, int, std::string_view)> ChracterChangeLogic = nullptr;
 	std::function<void(APlayLobby*, std::string_view)> MapChangeLogic = nullptr;
+	std::function<void(APlayLobby*, int, std::string_view)> TeamChangeLogic = nullptr;
 
 	void MapChange(std::string_view _MapName);
 

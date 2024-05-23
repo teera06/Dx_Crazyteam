@@ -113,3 +113,11 @@ enum class EMap
 	Camp,
 	Village,
 };
+
+enum class EGameResult
+{
+	None,
+	ATeamWin,
+	BTeamWin,
+	Draw,
+};
