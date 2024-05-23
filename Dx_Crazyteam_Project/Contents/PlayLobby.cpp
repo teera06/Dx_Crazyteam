@@ -507,11 +507,6 @@ void APlayLobby::SettingUIPlayerSpriteName(std::vector<std::string> _Names)
 
 void APlayLobby::SettingUIPlayerName(std::vector<std::string> _Names)
 {
-	if (8 != _Names.size())
-	{
-		MsgBoxAssert("8개의 스프라이드 데이터가 아닙니다.");
-	}
-
 	for (size_t i = 0; i < _Names.size(); i++)
 	{
 		std::string Name = _Names[i];
