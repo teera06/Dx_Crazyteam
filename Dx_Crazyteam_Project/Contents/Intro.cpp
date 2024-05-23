@@ -38,12 +38,15 @@ void AIntro::BeginPlay()
 	
 	GameStartButton = CreateWidget<UImage>(GetWorld(), "TitleBackGround");
 	GameStartButton->AddToViewPort(11);
-	GameStartButton->SetSprite("GAMEStart.png");
+	GameStartButton->SetSprite("Button_Start_2_1_11zon.png");
 	GameStartButton->SetAutoSize(1.0f, true);
+	GameStartButton->SetPosition(FVector(0.0f, -100.0f, 0.0f));
 	GameStartButton->SetActive(true);
 
 	GameStartButton->SetHover([=]
 		{
+			GameStartButton->SetSprite("Button_Start_1_2_11zon.png");
+
 			if (IsDown(VK_LBUTTON))
 			{
 				//ServerGameMode->GetPlayLobby()->SetIsActive(true);
@@ -60,6 +63,11 @@ void AIntro::BeginPlay()
 
 				//Function();
 			}
+		});
+
+	GameStartButton->SetUnHover([=]
+		{
+			GameStartButton->SetSprite("Button_Start_2_1_11zon.png");
 		});
 }
 
