@@ -1348,7 +1348,7 @@ void APlayLobby::MapSelectBegin()
 			MapSelectCMinimap->SetActive(true);
 			MapSelectVinfo->SetActive(false);
 			//CamFinMap->SetActive(true);
-			LobbyFinMap->SetSprite("Cam02_FinMap.png");
+			MapUIChange(1);
 			VillagePick = false;
 			CamPick = true;
 		}
@@ -1364,7 +1364,7 @@ void APlayLobby::MapSelectBegin()
 			MapSelectVinfo->SetActive(true);
 			//CamFinMap->SetActive(false);
 			//VillageFinMap->SetActive(true);
-			LobbyFinMap->SetSprite("Village10_FinMap.png");
+			MapUIChange(0);
 			VillagePick = true;
 			CamPick = false;
 		}
@@ -1398,7 +1398,7 @@ void APlayLobby::MapSelectBegin()
 				//ConstValue::SelectedMap = EMap::Village;
 				if (nullptr != MapUILogic)
 				{
-					MapUILogic(this, "Village10_FinMap.png");
+					MapUILogic(this, 0);
 				}
 			}
 			else if (false == VillagePick)
@@ -1408,7 +1408,7 @@ void APlayLobby::MapSelectBegin()
 				//ConstValue::SelectedMap = EMap::Camp;
 				if (nullptr != MapUILogic)
 				{
-					MapUILogic(this, "Cam02_FinMap.png");
+					MapUILogic(this, 1);
 				}
 			}
 		}
@@ -1466,6 +1466,19 @@ void APlayLobby::MapSelectBegin()
 void APlayLobby::MapChange(std::string_view _MapName)
 {
 	GEngine->ChangeLevel(_MapName);
+}
+
+void APlayLobby::MapUIChange(int _MapNumber)
+{
+	switch (_MapNumber)
+	{
+	case 0:
+		LobbyFinMap->SetSprite("Village10_FinMap.png");
+	case 1:
+		LobbyFinMap->SetSprite("Cam02_FinMap.png");
+	default:
+		break;
+	}
 }
 
 void APlayLobby::SwapSelectCharacter(UImage* _SelectCharacter)
