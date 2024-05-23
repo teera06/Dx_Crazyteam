@@ -1518,12 +1518,12 @@ void APlayLobby::MapUIChange(int _MapNumber)
 	switch (_MapNumber)
 	{
 	case 0:
-		LobbyFinMap->SetSprite("Village10_FinMap.png");
-		MapType = EMapType::Village;
-		break;
-	case 1:
 		LobbyFinMap->SetSprite("Cam02_FinMap.png");
 		MapType = EMapType::Camp;
+		break;
+	case 1:
+		LobbyFinMap->SetSprite("Village10_FinMap.png");
+		MapType = EMapType::Village;
 		break;
 	default:
 		break;
@@ -1541,11 +1541,11 @@ void APlayLobby::MapChange(std::string_view _MapName, int _MapNumber)
 	default:
 		break;
 	}
-	if (_MapNumber == 1)
+	if (_MapNumber == 0)
 	{
 		MapType = EMapType::Camp;
 	}
-	else if (_MapNumber == 2)
+	else if (_MapNumber == 1)
 	{
 		MapType = EMapType::Village;
 	}
