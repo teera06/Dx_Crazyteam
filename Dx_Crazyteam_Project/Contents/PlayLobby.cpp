@@ -1517,11 +1517,11 @@ void APlayLobby::MapUIChange(int _MapNumber)
 	switch (_MapNumber)
 	{
 	case 0:
-		LobbyFinMap->SetSprite("Village10_FinMap.png");
+		LobbyFinMap->SetSprite("Cam02_FinMap.png");
 		MapType = EMapType::Village;
 		break;
 	case 1:
-		LobbyFinMap->SetSprite("Cam02_FinMap.png");
+		LobbyFinMap->SetSprite("Village10_FinMap.png");
 		MapType = EMapType::Camp;
 		break;
 	default:

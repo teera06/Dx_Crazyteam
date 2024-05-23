@@ -79,6 +79,7 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 					MapInfo->ChangeMapUI = true;
 					UGame_Core::Net->Send(MapInfo);
 				}				
+				PlayLobby->MapUIChange(_MapChoiceNumber);
 			};
 
 		PlayLobby->TeamChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
@@ -137,7 +138,7 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 				UGame_Core::Net->Send(NewPlayer);
 			};
 		
-		PlayLobby->MapChangeLogic = [=](APlayLobby* _Lobby, std::string_view _MapName, EMapType _MapType, int MapIndex )
+		PlayLobby->MapChangeLogic = [=](APlayLobby* _Lobby, std::string_view _MapName, int MapIndex )
 			{
 				std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();		
 				
@@ -151,10 +152,10 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 					}
 					NewPlayer->MapName = _MapName.data();
 					NewPlayer->ChangeLevel = true;
-					NewPlayer->ChangeLevel = MapIndex;
+					NewPlayer->MapChoiceIndex = MapIndex;
 					UGame_Core::Net->Send(NewPlayer);
 				}
-				_Lobby->MapChange(_MapName);
+				_Lobby->MapChange(_MapName, MapIndex);
 			};				
 	}
 	else if (AServerGameMode::NetType == ENetType::Client)
@@ -305,7 +306,7 @@ void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
 				{
 					if(_Packet->ChangeLevel ==true)
 					{ 
-						PlayLobby->MapChange(_Packet->MapName);
+						PlayLobby->MapChange(_Packet->MapName, _Packet->MapChoiceIndex);
 						return;
 					}
 					if (_Packet->ChangeMapUI == true)

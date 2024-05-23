@@ -53,5 +53,6 @@ enum class EDebugRenderType
 enum class EMapType
 {
 	Camp,
-	Village
+	Village,
+	None =99,
 };
