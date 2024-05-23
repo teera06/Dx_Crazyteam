@@ -41,7 +41,7 @@ public:
 	std::function<void(APlayLobby*, int, std::string_view)> ChracterChangeLogic = nullptr;
 	std::function<void(APlayLobby*, std::string_view)> MapChangeLogic = nullptr;
 	std::function<void(APlayLobby*, int, std::string_view)> TeamChangeLogic = nullptr;
-
+	std::function<void(APlayLobby*, std::string_view)> MapUILogic = nullptr;
 	void MapChange(std::string_view _MapName);
 	////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -124,6 +124,8 @@ private:
 	UImage* MapSelectCinfo = nullptr;
 	UImage* EnterButton = nullptr;
 	UImage* CancelButton = nullptr;
+
+	UImage* LobbyFinMap = nullptr;
 	UImage* VillageFinMap = nullptr;
 	UImage* CamFinMap = nullptr;
 
