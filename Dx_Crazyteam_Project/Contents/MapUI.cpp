@@ -241,8 +241,8 @@ float AMapUI::CreateTime()
 
 void AMapUI::ServerGetTime(int _Second_Tens)
 {
-	MapTime_Second = _Second_Tens;
-	Sub_Second = MapTime_Second - MapTime_Second;
+	ServerMapTime_Second = _Second_Tens;
+	Sub_Second = MapTime_Second - ServerMapTime_Second;
 	SerVer_Send = true;
 }
 
