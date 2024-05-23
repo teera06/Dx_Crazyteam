@@ -23,6 +23,7 @@ protected:
 	void Initialize() override;
 	void WindowOpen(std::string& _OutWindowTitle, std::string& _SmallIconPath) override;
 
+
 private:
 
 	std::atomic_int MainLoadCount = -1;
@@ -31,6 +32,7 @@ private:
 	void ForderLoadAni();
 	void CuttingAni();
 
+	void End() override;
 	void SoundLoad();
 };
 
