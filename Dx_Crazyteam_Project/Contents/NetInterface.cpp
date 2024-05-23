@@ -53,6 +53,7 @@ void UNetInterface::PlayerSendPacket(float _DeltaTime)
 		Packet->Pos = GetActorLocation();
 		Packet->AnimationInfo = Renderer->GetCurInfo().SpriteNum;
 		Packet->SpriteName = Renderer->GetCurInfo().Texture->GetName();
+		//Packet->UserName = Renderer->GetCurInfo().Texture->GetName();
 		Packet->IsDestroy = ConstValue::MainPlayerIsDie;
 		Packet->ObjectType = static_cast<int>(EObjectType::Player);
 		Packet->SpriteAlpha = Renderer->GetAlpha();

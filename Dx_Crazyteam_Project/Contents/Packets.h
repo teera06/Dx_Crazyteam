@@ -36,6 +36,7 @@ public:
 		_Ser << AnimationInfo;
 		_Ser << ObjectType;
 		_Ser << SpriteName;
+		_Ser << UserName;
 		_Ser << IsDestroy;
 		_Ser << SpriteAlpha;
 		_Ser << RendererIsActive;
@@ -50,6 +51,7 @@ public:
 		_Ser >> AnimationInfo;
 		_Ser >> ObjectType;
 		_Ser >> SpriteName;
+		_Ser >> UserName;
 		_Ser >> IsDestroy;
 		_Ser >> SpriteAlpha;
 		_Ser >> RendererIsActive;
@@ -63,6 +65,7 @@ public:
 	int ObjectType = 0;
 	bool IsDestroy = true;
 	std::string SpriteName;
+	std::string UserName;
 	float SpriteAlpha = 1.0f;
 	bool RendererIsActive = true;
 	float4 RendererPos = float4::Zero;
