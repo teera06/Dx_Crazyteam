@@ -24,9 +24,7 @@ void ALobbyMainMode::BeginPlay()
 
 	PlayLobby = GetWorld()->SpawnActor<APlayLobby>("Lobby");
 	GetWorld()->SpawnActor<AFontActor>("FontActor");
-
 	// 나 로비 들어왔어 샌드
-
 }
 
 
@@ -83,7 +81,6 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 				}				
 			};
 
-
 		PlayLobby->TeamChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
 			{
 				//_Lobby->
@@ -136,12 +133,11 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 					{
 						NewPlayer->SpriteNames.push_back(_Lobby->LobbyPlayer[i]->CurInfo.Texture->GetName());
 					}
-
 				}
 				UGame_Core::Net->Send(NewPlayer);
 			};
 		
-		PlayLobby->MapChangeLogic = [=](APlayLobby* _Lobby, std::string_view _MapName, EMapType _MapType)
+		PlayLobby->MapChangeLogic = [=](APlayLobby* _Lobby, std::string_view _MapName, EMapType _MapType, int MapIndex )
 			{
 				std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();		
 				
@@ -155,6 +151,7 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 					}
 					NewPlayer->MapName = _MapName.data();
 					NewPlayer->ChangeLevel = true;
+					NewPlayer->ChangeLevel = MapIndex;
 					UGame_Core::Net->Send(NewPlayer);
 				}
 				_Lobby->MapChange(_MapName);
@@ -187,8 +184,6 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 				}
 				UGame_Core::Net->Send(NewPlayer);
 			};
-
-
 
 		PlayLobby->ChracterChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
 			{
@@ -308,21 +303,18 @@ void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
 		{
 			GetWorld()->PushFunction([=]
 				{
-					if (_Packet->ChangeMapUI ==true)
-					{
-						int a = 0;
-						PlayLobby->MapUIChange(_Packet->MapChoiceIndex);
-						return;
-					}
-
 					if(_Packet->ChangeLevel ==true)
 					{ 
 						PlayLobby->MapChange(_Packet->MapName);
 						return;
 					}
+					if (_Packet->ChangeMapUI == true)
+					{
+						int a = 0;
+						PlayLobby->MapUIChange(_Packet->MapChoiceIndex);
+						return;
+					}
 					PlayLobby->SettingUIPlayerName(_Packet->SpriteNames);
-
-
 				});
 		});
 }
