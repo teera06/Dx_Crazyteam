@@ -420,7 +420,8 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 				{
 					if (_Packet->ClientCreate == true)
 					{
-						//_Packet->
+						//_Packet->Time_Second;
+						Time->ServerGetTime(_Packet->Time_Second);
 						//std::shared_ptr<UUIUpdatePacket> TimeCreate = std::make_shared<UUIUpdatePacket>();
 						//TimeCreate->SerVerSend = true;
 						//TimeCreate->Second_Tens = MapUI->GetCreateTime();
