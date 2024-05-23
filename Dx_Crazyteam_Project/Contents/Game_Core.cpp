@@ -38,13 +38,16 @@ void UGame_Core::Initialize()
 	CuttingAni();
 	SoundLoad();
 	ForderLoadAni();
-	GEngine->CreateLevel<AServerGameMode>("ServerGameMode");
-	GEngine->CreateLevel<AIntroMainMode>("IntroMainMode");
-	GEngine->CreateLevel<ALobbyMainMode>("LobbyMainMode");
+	std::shared_ptr<AIntroMainMode> IntroMainMode = GEngine->CreateLevel<AIntroMainMode>("IntroMainMode",0);
+	std::shared_ptr<ALobbyMainMode> LobbyMainMode = GEngine->CreateLevel<ALobbyMainMode>("LobbyMainMode",0);
+	std::shared_ptr<AMainGameMode> MainGameMode = GEngine->CreateLevel<AMainGameMode>("MainGameMode",0);
+	std::shared_ptr<AServerGameMode> ServerGameMode = GEngine->CreateLevel<AServerGameMode>("ServerGameMode",0);
+	ServerGameMode->MainGame = MainGameMode;
+	ServerGameMode->MainLobby = LobbyMainMode;
+
 	////////////
 	GEngine->CreateLevel<ATestGameMode>("testGameMode");
 	GEngine->CreateLevel<APlayerTestMode>("PlayertestMode");
-	GEngine->CreateLevel<AMainGameMode>("MainGameMode");
 	GEngine->CreateLevel<ASubServerLevel>("SubServerLevel");
 	GEngine->CreateLevel<AUitestMonde>("UitestMonde");
 	GEngine->ChangeLevel("MainGameMode");

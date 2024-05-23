@@ -15,6 +15,8 @@ class ATitleMenu;
 class APlayLobby;
 class AServerTestPlayer;
 class ACamp;
+class AMainGameMode;
+class ALobbyMainMode;
 class AServerGameMode : public ACAGameMode
 {
 	GENERATED_BODY(ACAGameMode)
@@ -43,6 +45,11 @@ public:
 	{
 		return IsServerOpen;
 	}
+	
+
+	std::shared_ptr<AMainGameMode> MainGame = nullptr;
+	std::shared_ptr<ALobbyMainMode> MainLobby = nullptr;
+	//std::shared_ptr<ULevel> NetWindow;
 
 protected:
 	static std::shared_ptr<UEngineNetWindow> NetWindow;
