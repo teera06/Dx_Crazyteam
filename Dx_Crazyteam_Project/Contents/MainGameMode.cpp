@@ -42,7 +42,8 @@ void AMainGameMode::BeginPlay()
 	//깊이버퍼 실행시 DepthOn
 
 	GameModeActorInit();
-	
+
+	ACAGameMode::OtherPlayers.clear();
 #ifdef _DEBUG
 	InputOn();
 #endif
@@ -168,7 +169,7 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 				{
 					OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
 					OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
-					//OtherPlayers.push_back(OtherPlayer);
+					ACAGameMode::OtherPlayers.push_back(OtherPlayer);
 				}
 				OtherPlayer->PushProtocol(_Packet);
 			});
@@ -284,7 +285,7 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 					{
 						OtherPlayer = this->GetWorld()->SpawnActor<AOtherPlayer>("OtherPlayer", 0).get();
 						OtherPlayer->SetObjectToken(_Packet->GetObjectToken());
-						//OtherPlayers.push_back(OtherPlayer);
+						ACAGameMode::OtherPlayers.push_back(OtherPlayer);
 					}
 					OtherPlayer->PushProtocol(_Packet);
 				});
