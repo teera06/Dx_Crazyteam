@@ -58,6 +58,19 @@ void AWaterBomb::BeginPlay()
 				NextPoint.x += static_cast<int>(MoveVector.X);
 				NextPoint.y -= static_cast<int>(MoveVector.Y);
 
+				if (NextPoint.x > 14 ||
+					NextPoint.x < 0)
+				{
+					return;
+				}
+
+				if (NextPoint.y > 12 ||
+					NextPoint.y < 0)
+				{
+					return;
+				}
+
+
 				std::shared_ptr<AMapObject> MapObj = GetGameMode()->GetCurMap()->GetMapObject(NextPoint.y, NextPoint.x);
 
 				if (MapObj != nullptr && MapObj->GetType() == EMapObjectType::Block)
