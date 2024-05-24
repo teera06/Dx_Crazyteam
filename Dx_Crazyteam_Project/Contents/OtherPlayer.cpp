@@ -42,6 +42,7 @@ void AOtherPlayer::BeginPlay()
 	NameListUI = CreateWidget<UTextWidget>(GetWorld(), "PlayerNameList");
 	NameListUI->SetFont("±¼¸²");
 	NameListUI->SetText("");
+	NameListUI->SetFlag(FW1_LEFT);
 	NameListUI->SetPosition(FVector::Zero);
 	NameListUI->SetScale(15.0f);
 	NameListUI->SetColor(Color8Bit::White);
@@ -198,7 +199,7 @@ void AOtherPlayer::Tick(float _DeltaTime)
 
 	FVector Pos = FVector(280.0f, 180 - static_cast<float>((SessionToken * 43)), 100.0f);
 	PlayerListUI->SetPosition(Pos);
-	NameListUI->SetPosition(Pos + FVector(45,-10,0));
+	NameListUI->SetPosition(Pos + FVector(21,0,0));
 	if (TempBool != IsOPDestroy)
 	{
 		TempBool = IsOPDestroy;
