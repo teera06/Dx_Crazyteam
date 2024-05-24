@@ -41,6 +41,13 @@ void ACAGameMode::Tick(float _DeltaTime)
 			GEngine->ChangeLevel("EndingLevel");
 		}
 	}
+
+//#ifdef _DEBUG
+//	if (true == IsDown('E'))
+//	{
+//		GEngine->ChangeLevel("EndingLevel");
+//	}
+//#endif
 }
 
 void ACAGameMode::LevelStart(ULevel* _PrevLevel)

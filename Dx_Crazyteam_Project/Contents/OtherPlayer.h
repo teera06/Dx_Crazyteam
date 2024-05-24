@@ -54,6 +54,7 @@ private:
 	UImage* PlayerListUI = nullptr;
 
 	bool IsOPDestroy = false;
+	bool TempBool = false;
 	ETeamType TeamType = ETeamType::None;
 	ECharacterType CharacterType = ECharacterType::None;
 

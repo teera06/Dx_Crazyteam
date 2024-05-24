@@ -662,16 +662,14 @@ void APlayLobby::Tick(float _DeltaTime)
 				ChatLogic(this, stringHelper::GetPlayerName(), Chat);
 			}
 
-			if (count >= 6)
-			{
-				count = 0;
-			}
+			//if (count >= 6)
+			//{
+			//	count = 0;
+			//}
 
-			ChatName[count]->SetText(stringHelper::GetPlayerName());
-			HistoryText[count]->SetText(Chat);
-			++count;
-
-
+			//ChatName[count]->SetText(stringHelper::GetPlayerName());
+			//HistoryText[count]->SetText(Chat);
+			//++count;
 
 			UTextimeInput::Off();
 			UTextimeInput::On();
@@ -1676,7 +1674,7 @@ void APlayLobby::MapUIChange(int _MapNumber)
 
 void APlayLobby::SettingChat(std::string_view _Name, std::string_view _chat)
 {
-	if (7 >= count)
+	if (7 <= count)
 	{
 		count = 0;
 	}
