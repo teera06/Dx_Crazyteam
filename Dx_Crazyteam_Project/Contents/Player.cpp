@@ -51,14 +51,16 @@ void APlayer::BeginPlay()
 
 	Info = std::make_shared<PlayerInfo>();
 
-	//PlayerNameUI = CreateWidget<UTextWidget>(GetWorld(), "PlayerName");
-	//PlayerNameUI->SetFont("¸¼Àº °íµñ");
-	//PlayerNameUI->SetText(stringHelper::GetPlayerName());
-	//PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
-	//PlayerNameUI->SetScale(10.0f);
-	//PlayerNameUI->SetColor(Color8Bit::Black);
-	//PlayerNameUI->SetOrder(1);
-	//PlayerNameUI->AddToViewPort(11);
+	NameListUI = CreateWidget<UTextWidget>(GetWorld(), "PlayerNameList");
+	NameListUI->SetFont("±¼¸²");
+	NameListUI->SetText("");
+	NameListUI->SetFlag(FW1_LEFT);
+	NameListUI->SetPosition(FVector::Zero);
+	NameListUI->SetScale(15.0f);
+	NameListUI->SetColor(Color8Bit::White);
+	NameListUI->SetOrder(1);
+	NameListUI->AddToViewPort(11);
+
 	PlayerListUI = CreateWidget<UImage>(GetWorld(), "PlayerUIList");
 	PlayerListUI->AddToViewPort(15);
 	PlayerListUI->SetSprite("Play_Portrait_Bazzi_Normal_R.png");
@@ -165,10 +167,12 @@ void APlayer::Tick(float _DeltaTime)
 		if (nullptr != UGame_Core::Net)
 		{
 			SessionToken = UGame_Core::Net->GetSessionToken();
+			UIPos = FVector(280.0f, 180 - static_cast<float>((SessionToken * 43)), 100.0f);
+			NameListUI->SetText(stringHelper::GetPlayerName());
 		}
 	}
-	FVector Pos = FVector(280.0f, 180 - static_cast<float>((SessionToken * 43)), 100.0f);
-	PlayerListUI->SetPosition(Pos);
+	PlayerListUI->SetPosition(UIPos);
+	NameListUI->SetPosition(UIPos + FVector(24, 0, 0));
 
 	//static bool PlayerCanMove = false;
 	//static float InitTime = 2.0f;
