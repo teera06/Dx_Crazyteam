@@ -136,6 +136,26 @@ void APlayer::Tick(float _DeltaTime)
 		IsBushRenderOff = false;
 	}
 
+	GetGameMode()->GMToPlayerCallBack = [=](EGameResult _GameResult)
+		{
+			switch (_GameResult)
+			{
+			case EGameResult::None:
+				return;
+			case EGameResult::Win:
+				State.ChangeState("Win");
+				break;
+			case EGameResult::Loss:
+				State.ChangeState("Lose");
+				break;
+			case EGameResult::Draw:
+				State.ChangeState("Lose");
+				break;
+			default:
+				break;
+			}
+		};
+
 	/* 테스트용 */
 	if (true == IsDown(VK_F1))
 	{
@@ -149,6 +169,11 @@ void APlayer::Tick(float _DeltaTime)
 		return;
 	}
 
+	if (true == IsDown(VK_F4))
+	{
+		State.ChangeState("Lose");
+		return;
+	}
 
 	if (true == IsDown('B'))
 	{

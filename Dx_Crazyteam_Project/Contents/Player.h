@@ -196,6 +196,8 @@ private:
 	void RideOff(float _DeltaTime);
 	void WinStart();
 	void Win(float _DeltaTime);
+	void LoseStart();
+	void Lose(float _DeltaTime);
 
 	void DebugFunction(float _DeltaTime);
 

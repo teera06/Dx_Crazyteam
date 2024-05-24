@@ -231,6 +231,8 @@ void APlayer::StateInit()
 	State.CreateState("RideMove");
 	State.CreateState("RideOff");
 	State.CreateState("Win");
+	State.CreateState("Lose");
+
 
 	// StartFunction
 	State.SetStartFunction("GameOn", std::bind(&APlayer::GameOnStart, this));
@@ -244,6 +246,7 @@ void APlayer::StateInit()
 	State.SetStartFunction("RideMove", std::bind(&APlayer::RideMoveStart, this));
 	State.SetStartFunction("RideOff", std::bind(&APlayer::RideOffStart, this));
 	State.SetStartFunction("Win", std::bind(&APlayer::WinStart, this));
+	State.SetStartFunction("Lose", std::bind(&APlayer::LoseStart, this));
 
 	// UpdateFunction
 	State.SetUpdateFunction("GameOn", std::bind(&APlayer::GameOn, this, std::placeholders::_1));
@@ -257,6 +260,7 @@ void APlayer::StateInit()
 	State.SetUpdateFunction("RideMove", std::bind(&APlayer::RideMove, this, std::placeholders::_1));
 	State.SetUpdateFunction("RideOff", std::bind(&APlayer::RideOff, this, std::placeholders::_1));
 	State.SetUpdateFunction("Win", std::bind(&APlayer::Win, this, std::placeholders::_1));
+	State.SetUpdateFunction("Lose", std::bind(&APlayer::Lose, this, std::placeholders::_1));
 
 	// Init
 	State.ChangeState("GameOn");
@@ -627,6 +631,7 @@ void APlayer::RideOff(float _DeltaTime)
 
 void APlayer::WinStart()
 {
+	InputOff();
 	Renderer->ChangeAnimation(GetAnimationName("Win"));
 }
 
@@ -634,6 +639,20 @@ void APlayer::Win(float _DeltaTime)
 {
 
 }
+
+void APlayer::LoseStart()
+{
+	InputOff();
+	//우선 State Idle로 변경 후 , Dir_Down 으로만 보게..
+	Dir = FVector::Down;
+	Renderer->ChangeAnimation(GetAnimationName("Idle"));
+}
+
+void APlayer::Lose(float _DeltaTime)
+{
+
+}
+
 
 // 물풍선 놓는 함수
 void APlayer::WaterBombUpdate()
