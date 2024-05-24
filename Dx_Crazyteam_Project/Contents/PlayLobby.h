@@ -168,6 +168,7 @@ private:
 	bool RoomX7 = false;
 	
 	int count = 0;
+	bool SoundCheck = false;
 
 	bool RoomSwitch= false;
 	int  PlayerCount = 0;
