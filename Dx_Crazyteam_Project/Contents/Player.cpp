@@ -238,7 +238,7 @@ void APlayer::Tick(float _DeltaTime)
 			}
 		};
 
-	/* 테스트용 */
+#ifdef _DEBUG
 	if (true == IsDown(VK_F1))
 	{
 		State.ChangeState("Trap");
@@ -277,7 +277,7 @@ void APlayer::Tick(float _DeltaTime)
 		State.ChangeState("Idle");
 		return;
 	}
-
+#endif
 	//if (true == IsDown(VK_TAB))
 	//{
 	//	switch (Info->Team)

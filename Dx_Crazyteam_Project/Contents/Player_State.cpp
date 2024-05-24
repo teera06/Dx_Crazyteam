@@ -362,6 +362,7 @@ void APlayer::TrapStart()
 
 void APlayer::Trap(float _DeltaTime)
 {
+#ifdef _DEBUG
 	// 치트키 : F2키 누르면 Rescue 상태로 변경
 	if (true == IsDown(VK_F2))
 	{
@@ -369,6 +370,7 @@ void APlayer::Trap(float _DeltaTime)
 		State.ChangeState("Rescue");
 		return;
 	}
+#endif
 
 	IsPlayerTrap = true;
 
