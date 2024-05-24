@@ -67,7 +67,7 @@ void UGame_Core::Initialize()
 	GEngine->CreateLevel<ASubServerLevel>("SubServerLevel");
 	GEngine->CreateLevel<AUitestMonde>("UitestMonde");
 	GEngine->CreateLevel<AEndingGameMode>("EndingLevel");
-	GEngine->ChangeLevel("MainGameMode");
+	GEngine->ChangeLevel("SubServerLevel");
 
 	UEngineEditorGUI::CreateEditorWindow<UContentsDebugWindow>("contentsHelpMe");
 	UEngineEditorGUI::CreateEditorWindow<UContentsMainDebugWin>("MainStart");

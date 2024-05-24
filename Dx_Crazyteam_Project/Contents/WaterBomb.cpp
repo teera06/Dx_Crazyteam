@@ -30,6 +30,7 @@ AWaterBomb::AWaterBomb()
 
 AWaterBomb::~AWaterBomb()
 {
+	
 }
 
 void AWaterBomb::BeginPlay()
@@ -337,6 +338,8 @@ void AWaterBomb::BombBegin()
 {
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 	GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water, EItemType::None, GetPower);
+
+	UEngineSound::SoundPlay("Boom_[cut_0sec].mp3");
 }
 
 void AWaterBomb::BombTick(float _DeltaTime)
