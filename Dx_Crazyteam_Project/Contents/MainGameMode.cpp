@@ -57,7 +57,7 @@ void AMainGameMode::Tick(float _DeltaTime)
 
 	int PlayerNum = static_cast<int>(UContentsValue::PlayerIDs.size());
 	
-		
+	UNetObject::AllNetObject;
 
 	if (false == IsSpawnBlocks
 		&& AServerGameMode::NetType == ENetType::Server
@@ -103,7 +103,7 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 
 	// Packet 처리 등록을 보장하기 위한 변수
 	UEngineDispatcher::IsPacketInit = false;
-
+	UEngineSound::SoundPlay("GameStart.wav");
 	switch (GetWorld()->GetMapType())
 	{
 	case EMapType::Village:
@@ -111,6 +111,8 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 		std::shared_ptr<AVillage> Village = GetWorld()->SpawnActor<AVillage>("Village");
 		SetCurMap(Village);
 		Village->SetCurGameMode(this);
+		MainBGM = UEngineSound::SoundPlay("VillageBGM.mp3");
+		MainBGM.Loop();
 		break;
 
 	}
@@ -119,6 +121,8 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 		std::shared_ptr<ACamp> Camp = GetWorld()->SpawnActor<ACamp>("Camp");
 		SetCurMap(Camp);
 		Camp->SetCurGameMode(this);
+		MainBGM = UEngineSound::SoundPlay("CampBGM.mp3");
+		MainBGM.Loop();
 		break;
 	}
 	default:
@@ -244,6 +248,8 @@ void AMainGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
 
+	MainBGM.Off();
+
 	InfoRelease();
 }
 
@@ -285,6 +291,7 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 					{
 						POINT Pos = _Packet->Pos;
 						GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
+						UNetObject::ReleaseObjectToken(_Packet->GetObjectToken());
 					}
 					return;
 				}
@@ -400,6 +407,7 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 						{
 							POINT Pos = _Packet->Pos;
 							GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
+							UNetObject::ReleaseObjectToken(_Packet->GetObjectToken());
 						}
 						return;
 					}

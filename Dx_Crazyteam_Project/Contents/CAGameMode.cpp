@@ -140,6 +140,8 @@ void ACAGameMode::WinCheck(float _DeltaTime)
 				GMToUICallBack(EGameResult::Draw);
 				GMToPlayerCallBack(EGameResult::Draw);
 				IsBattleEnd = true;
+
+				UEngineSound::SoundPlay("Draw.wav");
 			}
 			else if (BTeamCount == 0) // A ½Â
 			{
@@ -147,11 +149,15 @@ void ACAGameMode::WinCheck(float _DeltaTime)
 				{
 					GMToUICallBack(EGameResult::Win);
 					GMToPlayerCallBack(EGameResult::Win);
+
+					UEngineSound::SoundPlay("Win.wav");
 				}
 				else if (ETeamType::BTeam == MainPlayer->GetTeamType())
 				{
 					GMToUICallBack(EGameResult::Loss);
 					GMToPlayerCallBack(EGameResult::Loss);
+
+					UEngineSound::SoundPlay("Lose.wav");
 				}
 				IsBattleEnd = true;
 			}
@@ -161,11 +167,15 @@ void ACAGameMode::WinCheck(float _DeltaTime)
 				{
 					GMToUICallBack(EGameResult::Loss);
 					GMToPlayerCallBack(EGameResult::Loss);
+
+					UEngineSound::SoundPlay("Lose.wav");
 				}
 				else if (ETeamType::BTeam == MainPlayer->GetTeamType())
 				{
 					GMToUICallBack(EGameResult::Win);
 					GMToPlayerCallBack(EGameResult::Win);
+
+					UEngineSound::SoundPlay("Win.wav");
 				}
 				IsBattleEnd = true;
 			}

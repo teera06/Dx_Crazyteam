@@ -48,6 +48,7 @@ void AItem::BeginPlay()
 
 		{
 			USendPacketManager::SendMapObjectReleasePacket(this, GetCurPos());
+			UNetObject::ReleaseObjectToken(this->GetObjectToken());
 		}
 
 		Action();
