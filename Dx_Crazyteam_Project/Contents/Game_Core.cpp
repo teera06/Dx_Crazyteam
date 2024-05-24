@@ -62,15 +62,15 @@ void UGame_Core::Initialize()
 	ServerGameMode->MainLobby = LobbyMainMode;
 
 	////////////
-	GEngine->CreateLevel<ATestGameMode>("testGameMode");
+	/*GEngine->CreateLevel<ATestGameMode>("testGameMode");
 	GEngine->CreateLevel<APlayerTestMode>("PlayertestMode");
 	GEngine->CreateLevel<ASubServerLevel>("SubServerLevel");
 	GEngine->CreateLevel<AUitestMonde>("UitestMonde");
-	GEngine->CreateLevel<AEndingGameMode>("EndingLevel");
-	GEngine->ChangeLevel("SubServerLevel");
+	GEngine->CreateLevel<AEndingGameMode>("EndingLevel");*/
+	GEngine->ChangeLevel("IntroMainMode");
 
-	UEngineEditorGUI::CreateEditorWindow<UContentsDebugWindow>("contentsHelpMe");
-	UEngineEditorGUI::CreateEditorWindow<UContentsMainDebugWin>("MainStart");
+	//UEngineEditorGUI::CreateEditorWindow<UContentsDebugWindow>("contentsHelpMe");
+	//UEngineEditorGUI::CreateEditorWindow<UContentsMainDebugWin>("MainStart");
 
 }
 
