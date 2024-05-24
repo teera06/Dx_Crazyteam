@@ -296,7 +296,7 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 					{
 						POINT Pos = _Packet->Pos;
 						GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
-						UNetObject::ReleaseObjectToken(_Packet->GetObjectToken());
+						//UNetObject::ReleaseObjectToken(_Packet->GetObjectToken());
 					}
 					return;
 				}
@@ -427,7 +427,7 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 						{
 							POINT Pos = _Packet->Pos;
 							GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
-							UNetObject::ReleaseObjectToken(_Packet->GetObjectToken());
+							//UNetObject::ReleaseObjectToken(_Packet->GetObjectToken());
 						}
 						return;
 					}
