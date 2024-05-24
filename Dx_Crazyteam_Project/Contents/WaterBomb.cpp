@@ -337,6 +337,14 @@ void AWaterBomb::BombBegin()
 {
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 	GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water, EItemType::None, GetPower);
+
+	std::shared_ptr<APlayer> Players = GetGameMode()->GetPlayer();
+	if (Players->GetObjectToken() == CreaterToken)
+	{
+		int WaterBombCount = Players->GetWBCount();
+		WaterBombCount++;
+		Players->SetWBCount(WaterBombCount);
+	}
 }
 
 void AWaterBomb::BombTick(float _DeltaTime)

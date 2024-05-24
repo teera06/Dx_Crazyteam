@@ -419,6 +419,7 @@ std::shared_ptr<AMapObject> ABaseMap::SpawnMapObject(int _Y, int _X, EMapObject 
 		std::shared_ptr<AWaterBomb> TempObj = GetWorld()->SpawnActor<AWaterBomb>("CampBlock");
 		TempObj->SetActorLocation(PushPos);
 		TempObj->SetWaterPower(_Power);
+		TempObj->SetCreaterToken(WaterBombIsCreaterToken);
 		TempObj->CreateWaterBomb();
 		UMapStateValue::st_ACAGameMode = GetGameMode();
 		MapObj = TempObj;
@@ -588,15 +589,16 @@ std::shared_ptr<AMapObject> ABaseMap::SpawnItemObject(int _Y, int _X, EItemType 
 	return Item;
 }
 
-std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(FVector _SpawnPos, int _Power)
+std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(FVector _SpawnPos, int _Power, int _Token)
 {
 	POINT BombPoint = PosToPoint(_SpawnPos);
-
+	WaterBombIsCreaterToken = _Token;
 	return AddMapObject(BombPoint.y, BombPoint.x, EMapObject::WaterBomb, EItemType::None, _Power);
 }
 
-std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(int _Y, int _X, int _Power)
+std::shared_ptr<AMapObject> ABaseMap::SpawnWaterBomb(int _Y, int _X, int _Power, int _Token)
 {
+	WaterBombIsCreaterToken = _Token;
 	return AddMapObject(_Y, _X, EMapObject::WaterBomb, EItemType::None, _Power);
 }
 

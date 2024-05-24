@@ -325,7 +325,7 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 						ABaseMap* CurMap = GetCurMap().get();
 						POINT PosValue = _Packet->Pos;
 
-						OtherObject = CurMap->SpawnWaterBomb(PosValue.x, PosValue.y, _Packet->WaterPower).get();
+						OtherObject = CurMap->SpawnWaterBomb(PosValue.x, PosValue.y, _Packet->WaterPower, _Packet->CreaterToken).get();
 
 						OtherObject->SetObjectToken(_Packet->GetObjectToken());
 					}
@@ -440,7 +440,7 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 							ABaseMap* CurMap = GetCurMap().get();
 							POINT PosValue = _Packet->Pos;
 
-							OtherObject = CurMap->SpawnWaterBomb(PosValue.x, PosValue.y, _Packet->WaterPower).get();
+							OtherObject = CurMap->SpawnWaterBomb(PosValue.x, PosValue.y, _Packet->WaterPower, _Packet->CreaterToken).get();
 
 							OtherObject->SetObjectToken(_Packet->GetObjectToken());
 						}

@@ -28,6 +28,11 @@ public:
 		GetPower = _Value;
 	}
 
+	inline void SetCreaterToken(int _Token)
+	{
+		CreaterToken = _Token;
+	}
+
 	/// <summary>
 	/// 물줄기에 닿으면,
 	/// </summary>
@@ -90,6 +95,7 @@ private :
 	float BombTime = 2.0f; // 2.0
 	float ServerBombTime = 0.0f;
 	int GetPower = 0; // BaseMap
+	int CreaterToken = 0;
 	bool b_WaterToBomb = false;
 	bool b_ServerBomb = false;
 

@@ -9,6 +9,7 @@
 #include "Game_Core.h"
 #include "Bush.h"
 #include "Item.h"
+//#include "OtherPlayer.h"
 
 int AWaterCourse::WaterCourseToken = 0;
 bool AWaterCourse::SetToken = false;
@@ -158,18 +159,18 @@ void AWaterCourse::CreateCenterTick(float _DeltaTime)
 		return;
 	}
 
-	if (false == b_BombCountUpdateOne)
-	{
-		std::shared_ptr<APlayer> TestPlayer = GetGameMode()->GetPlayer();
-		int WBCount = TestPlayer->GetWBCount();
-		WBCount += 1;
-		TestPlayer->SetWBCount(WBCount);
-		b_BombCountUpdateOne = true;
-	}
+	//if (false == b_BombCountUpdateOne)
+	//{
+		//int WBCount = Players->GetWBCount();
+		//WBCount += 1;
+		//Players->SetWBCount(WBCount);
+	//	b_BombCountUpdateOne = true;
+	//}
 }
 void AWaterCourse::CreateCenterExit()
 {
 	CenterLifeTime = 0.0f;
+	GetToken.clear();
 }
 #pragma endregion
 

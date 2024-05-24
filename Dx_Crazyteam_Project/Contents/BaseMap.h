@@ -41,8 +41,8 @@ public:
 	void MoveMapObject(std::shared_ptr<AMapObject> _Obj, int _NY, int _NX, int _PY, int _PX);
 
 
-	std::shared_ptr<AMapObject> SpawnWaterBomb(FVector _SpawnPos, int _Power);
-	std::shared_ptr<AMapObject> SpawnWaterBomb(int _Y, int _X, int _Power);
+	std::shared_ptr<AMapObject> SpawnWaterBomb(FVector _SpawnPos, int _Power, int _Token);
+	std::shared_ptr<AMapObject> SpawnWaterBomb(int _Y, int _X, int _Power, int _Token);
 	void DestroyMapObject(int _Y, int _X);
 	void ChangeNull(int _Y, int _X);
 	void ConnectObject(std::shared_ptr<AMapObject> _Obj, int _Y, int _X);
@@ -66,5 +66,6 @@ protected:
 private:
 
 	std::vector<POINT> PlayerStartPos;
+	int WaterBombIsCreaterToken = 0;
 };
 

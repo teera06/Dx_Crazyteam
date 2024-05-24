@@ -679,7 +679,7 @@ void APlayer::WaterBombUpdate()
 			--Info->WBCount;
 			POINT BombPoint = GetGameMode()->GetCurMap()->PosToPoint(GetActorLocation());
 	
-			std::shared_ptr<AMapObject> WaterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x, Info->WBPower);
+			std::shared_ptr<AMapObject> WaterBomb = GetGameMode()->GetCurMap()->SpawnWaterBomb(BombPoint.y, BombPoint.x, Info->WBPower, GetObjectToken());
 			WaterBomb->SetObjectToken(WaterBomb_Token++);
 			USendPacketManager::SendWaterBombSpawnPacket(WaterBomb, { BombPoint.y, BombPoint.x }, EMapObject::WaterBomb, Info->WBPower);
 

@@ -136,6 +136,7 @@ public:
 		_Ser << MoveBeginPos;
 		_Ser << MoveEndPos;
 		_Ser << WaterPower;
+		_Ser << CreaterToken;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -151,6 +152,7 @@ public:
 		_Ser >> MoveBeginPos;
 		_Ser >> MoveEndPos;
 		_Ser >> WaterPower;
+		_Ser >> CreaterToken;
 	}
 
 public:
@@ -164,7 +166,7 @@ public:
 	POINT MoveBeginPos = { 0,0 };
 	POINT MoveEndPos = { 0,0 };
 	int WaterPower = 1;
-
+	int CreaterToken = 0;
 protected:
 
 private:

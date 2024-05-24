@@ -116,7 +116,7 @@ private :
 	UStateManager State;
 	//USpriteRenderer* Renderer = nullptr; // 수정해야 함. TODO
 	bool CreateStart = false;
-	bool b_BombCountUpdateOne = false;
+	//bool b_BombCountUpdateOne = false;
 	bool UpEnd = false;
 	bool DownEnd = false;
 	bool LeftEnd = false;
@@ -130,5 +130,6 @@ private :
 	int GetPower = 0;
 	std::string PreAniName = "";
 	EEngineDir WaterCourseDir = EEngineDir::MAX;
+	std::vector<int> GetToken;
 };
 
