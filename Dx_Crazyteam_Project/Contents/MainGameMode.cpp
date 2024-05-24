@@ -57,7 +57,7 @@ void AMainGameMode::Tick(float _DeltaTime)
 
 	int PlayerNum = static_cast<int>(UContentsValue::PlayerIDs.size());
 	
-		
+	UNetObject::AllNetObject;
 
 	if (false == IsSpawnBlocks
 		&& AServerGameMode::NetType == ENetType::Server
@@ -283,6 +283,7 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 					{
 						POINT Pos = _Packet->Pos;
 						GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
+						UNetObject::ReleaseObjectToken(_Packet->GetObjectToken());
 					}
 					return;
 				}
@@ -398,6 +399,7 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 						{
 							POINT Pos = _Packet->Pos;
 							GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
+							UNetObject::ReleaseObjectToken(_Packet->GetObjectToken());
 						}
 						return;
 					}
