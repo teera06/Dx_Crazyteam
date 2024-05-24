@@ -24,6 +24,11 @@ private:
 	UImage* Img = nullptr;
 	std::shared_ptr<FadeEffectLongVer> BlackFade = nullptr;
 
-	float GameOffTime = 5.f;
+	UImage* Credit = nullptr;
+
+	float GameOffTime = 10.f;
+	float CreditOnTime = 4.0f;
+	float EffectOnTime = 5.f;
+	bool EndingShader = false;
 };
 

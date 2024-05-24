@@ -75,6 +75,7 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 			{
 				std::shared_ptr<UChattingUpdatePacket> ChatInfo = std::make_shared<UChattingUpdatePacket>();
 				std::vector<UImage*>& PlayerUIImages = _Lobby->LobbyPlayer;
+				PlayLobby->SettingChat(_Name, _Chat);
 				for (size_t i = 0; i < PlayerUIImages.size(); i++)
 				{
 					if (nullptr == PlayerUIImages[i])
@@ -358,7 +359,7 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 					{
 						std::shared_ptr<UChattingUpdatePacket> ChatInfo = std::make_shared<UChattingUpdatePacket>();
 						std::vector<UImage*>& PlayerUIImages = PlayLobby->LobbyPlayer;
-
+						PlayLobby->SettingChat(_Packet->UserName, _Packet->Chat);
 
 						for (size_t i = 0; i < PlayerUIImages.size(); i++)
 						{
@@ -405,7 +406,7 @@ void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
 				{
 					if (_Packet->Chat_On == true)
 					{
-						PlayLobby;
+						PlayLobby->SettingChat(_Packet->UserName, _Packet->Chat);
 						//PlayLobby->MapChange(_Packet->MapName, _Packet->MapChoiceIndex);
 						return;
 					}
