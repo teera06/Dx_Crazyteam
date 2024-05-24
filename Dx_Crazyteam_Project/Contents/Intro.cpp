@@ -29,8 +29,8 @@ void AIntro::BeginPlay()
 	IntroUI->CreateAnimation("IntroUser", "IntroUser", 0.1f, false ,0 , 19);
 	IntroUI->CreateAnimation("IntroNexen", "IntroUser", 0.1f, false, 20, 92);
 	IntroUI->SetAutoSize(1.0f, true);
-	IntroUI->AddToViewPort(10);
-	IntroUI->SetActive(false);
+	IntroUI->AddToViewPort(17);
+	IntroUI->SetActive(true);
 
 	IntroUI->ChangeAnimation("IntroUser");
 
