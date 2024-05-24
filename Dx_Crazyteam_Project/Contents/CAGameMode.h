@@ -86,6 +86,8 @@ private:
 	//bool IsTimeOut = false;
 	float ChangeLevelTime = 0.0f;
 	float DelayTime = 0.0f;
+	float GameEndTime = 0.0f;
+	float TimeOutTime = 0.0f;
 
 	std::shared_ptr<MouseUI> Mouse = nullptr;
 };

@@ -22,6 +22,8 @@ void ACAGameMode::BeginPlay()
 
 	ChangeLevelTime = 0.0f;
 	DelayTime = 0.0f;
+	GameEndTime = 0.0f;
+	TimeOutTime = 0.0f;
 #ifdef _DEBUG
 	InputOn();
 #endif
@@ -49,13 +51,6 @@ void ACAGameMode::Tick(float _DeltaTime)
 			GEngine->ChangeLevel("EndingLevel");
 		}
 	}
-
-//#ifdef _DEBUG
-//	if (true == IsDown('E'))
-//	{
-//		GEngine->ChangeLevel("EndingLevel");
-//	}
-//#endif
 }
 
 void ACAGameMode::LevelStart(ULevel* _PrevLevel)
@@ -143,6 +138,11 @@ void ACAGameMode::WinCheck(float _DeltaTime)
 		// 게임 결과
 		if (true == BattleStart && 0 != PlayerCount && true == IsRefereeStart /*&& false == IsTimeOut*/)
 		{
+			GameEndTime += _DeltaTime;
+			if (1.0f >= GameEndTime)
+			{
+				return;
+			}
 			if (ATeamCount == 0 && BTeamCount == 0)
 			{
 				GMToUICallBack(EGameResult::Draw);
@@ -197,6 +197,11 @@ void ACAGameMode::WinCheck(float _DeltaTime)
 			{
 				if (true == _TimeOut)
 				{
+					TimeOutTime += _DeltaTime;
+					if (1.0f >= TimeOutTime)
+					{
+						return;
+					}
 					//GMToUICallBack(EGameResult::Draw);
 					//GMToPlayerCallBack(EGameResult::Draw);
 					//IsTimeOut = true;
