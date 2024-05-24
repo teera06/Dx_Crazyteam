@@ -54,10 +54,16 @@ private:
 	UImage* PlayerListUI = nullptr;
 
 	bool IsOPDestroy = false;
+
+	//1회 실행하기 위한 임시 변수
 	bool TempBool = false;
+	bool TempBool2 = false;
+
 	ETeamType TeamType = ETeamType::None;
 	ECharacterType CharacterType = ECharacterType::None;
 
 	int SessionToken = -1;
+
+	std::string GetAnimationName(std::string_view _name);
 };
 

@@ -83,6 +83,14 @@ void AMainGameMode::Tick(float _DeltaTime)
 		}
 		IsSpawnBlocks = true;
 	}
+	else if (false == IsSpawnBlocks
+		&& AServerGameMode::NetType == ENetType::Client
+		&& PlayerNum == UContentsValue::LobbyPlayerNum)
+	{
+		ACAGameMode::BattleStart = true;
+
+		IsSpawnBlocks = true;
+	}
 
 
 	//UTextimeInput::IMEInput();

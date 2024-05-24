@@ -71,8 +71,8 @@ private:
 	void MapSelectButtonBegin();
 	void MapSelectBegin();
 
-	UTextWidget* ShowText;
-	UTextWidget* InsertText;
+	UTextWidget* ShowText = nullptr;
+	UTextWidget* InsertText = nullptr;
 	std::vector<UTextWidget*> HistoryText;
 	std::vector< UTextWidget*> ChatName;
 
