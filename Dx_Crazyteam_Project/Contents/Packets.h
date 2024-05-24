@@ -235,6 +235,7 @@ public:
 	{
 		UEngineProtocol::Serialize(_Ser);
 		_Ser << Chat;
+		_Ser << UserName;
 		_Ser << Chat_On;
 	}
 
@@ -242,10 +243,12 @@ public:
 	{
 		UEngineProtocol::DeSerialize(_Ser);
 		_Ser >> Chat;
+		_Ser >> UserName;
 		_Ser >> Chat_On;
 	}
 
 public:
 	std::string Chat = "";
+	std::string UserName = "";
 	bool Chat_On = false;
 };
