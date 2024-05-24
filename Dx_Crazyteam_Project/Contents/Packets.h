@@ -12,6 +12,7 @@ enum class EObjectType
 
 enum EContentPacket
 {
+	ChatPacket = 96,
 	Lobby_Player_Select= 97,
 	UIPacket = 98,
 	ActorUpdatePacket = 99,
@@ -42,6 +43,7 @@ public:
 		_Ser << RendererIsActive;
 		_Ser << RendererPos;
 		_Ser << TeamType;
+		_Ser << CharacterType;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -57,6 +59,7 @@ public:
 		_Ser >> RendererIsActive;
 		_Ser >> RendererPos;
 		_Ser >> TeamType;
+		_Ser >> CharacterType;
 	}
 
 public:
@@ -70,6 +73,7 @@ public:
 	bool RendererIsActive = true;
 	float4 RendererPos = float4::Zero;
 	int TeamType = 0;
+	int CharacterType = 0;
 };
 
 class UUIUpdatePacket : public UEngineProtocol
@@ -217,3 +221,31 @@ public:
 	int MapChoiceIndex = -1;
 };
 
+class UChattingUpdatePacket : public UEngineProtocol
+{
+public:
+	static const EContentPacket Type = EContentPacket::ChatPacket;
+public:
+	UChattingUpdatePacket()
+	{
+		SetType(EContentPacket::ChatPacket);
+	}
+
+	void Serialize(UEngineSerializer& _Ser) override
+	{
+		UEngineProtocol::Serialize(_Ser);
+		_Ser << Chat;
+		_Ser << Chat_On;
+	}
+
+	void DeSerialize(UEngineSerializer& _Ser) override
+	{
+		UEngineProtocol::DeSerialize(_Ser);
+		_Ser >> Chat;
+		_Ser >> Chat_On;
+	}
+
+public:
+	std::string Chat = "";
+	bool Chat_On = false;
+};

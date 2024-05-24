@@ -33,6 +33,7 @@ void APlayLobby::BeginPlay()
 	LobbyPlayer.resize(8);
 	Rank.resize(8);
 	PlayerName.resize(8);
+	HistoryText.resize(6);
 
 	UTextimeInput::On();
 
@@ -418,7 +419,7 @@ void APlayLobby::BeginPlay()
 
 	LobbyCharacterBanner = CreateWidget<UImage>(GetWorld(), "Randomex");
 	LobbyCharacterBanner->AddToViewPort(11);
-	LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Random.bmp");
+	LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Bazzi.bmp");
 	LobbyCharacterBanner->SetScale({ 281.f, 80.f });
 	LobbyCharacterBanner->SetPosition({ 230.0f,237.0f });
 	LobbyCharacterBanner->SetActive(true);
@@ -547,15 +548,38 @@ void APlayLobby::InsertChat(std::string_view _Chats)
 {
 
 	//ShowText
+	ShowText = CreateWidget<UTextWidget>(GetWorld(), _Chats);
+	ShowText->SetFont("±¼¸²");
+	ShowText->SetScale(12.0f);
+	ShowText->SetColor(Color8Bit::White);
+	ShowText->SetPosition({ -208.0f ,-226.0f });
+	ShowText->SetFlag(FW1_LEFT);
+	ShowText->AddToViewPort(12);
+
 	InsertText = CreateWidget<UTextWidget>(GetWorld(), _Chats);
 	InsertText->SetFont("±¼¸²");
 	InsertText->SetScale(12.0f);
 	InsertText->SetColor(Color8Bit::White);
-	InsertText->SetPosition({ -208.0f ,-226.0f });
+	//InsertText->SetPosition({ -208.0f ,-226.0f });
 	InsertText->SetFlag(FW1_LEFT);
 	InsertText->AddToViewPort(12);
 
+	{
+		for (size_t i = 0; i < HistoryText.size(); ++i)
+		{
+			HistoryText[i] = CreateWidget<UTextWidget>(GetWorld(), "HistoryText");
+			HistoryText[i]->SetText(" ");
+			HistoryText[i]->SetFont("±¼¸²");
+			HistoryText[i]->SetScale(12.0f);
+			HistoryText[i]->SetColor(Color8Bit::Yellow);
+			HistoryText[i]->SetPosition({ -328.0f ,  (-198.0f + (15 * i))});
+			HistoryText[i]->SetFlag(FW1_LEFT);
+			HistoryText[i]->AddToViewPort(12);
+		}
+	}
+
 }
+
 
 void APlayLobby::UpperChat(UTextWidget* _InsertChat)
 {
@@ -603,6 +627,8 @@ void APlayLobby::NewPlayer()
 	Create_Count++;
 }
 
+
+
 void APlayLobby::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
@@ -617,16 +643,36 @@ void APlayLobby::Tick(float _DeltaTime)
 		std::string Chat = UTextimeInput::GetReadText();
 		if (Chat.size() > 0)
 		{
-			InsertText->SetText(Chat);
+			ShowText->SetText(Chat);
 		}
 		else
 		{
-			InsertText->SetText(" ");
+			ShowText->SetText(" ");
+		}
+
+		if (true == UEngineInput::IsDown(VK_RETURN) && Chat.size() > 0)
+		{
+			if (nullptr != ChatLogic)
+			{
+				ChatLogic(this, stringHelper::GetPlayerName(), Chat);
+			}
+
+			if (count >= 6)
+			{
+				count = 0;
+			}
+
+			HistoryText[count]->SetText(Chat);
+			++count;
+
+			UTextimeInput::Off();
+			UTextimeInput::On();
 		}
 	}
 	else
 	{
-		InsertText->SetText(" ");
+		ShowText->SetText(" ");
+		UTextimeInput::On();
 	}
 
 }
@@ -661,7 +707,7 @@ void APlayLobby::TeamSelectBegin()
 					ATeam = true;
 					BTeam = false;
 
-					if ("RandomCha_B.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == BTeam)
+					if ("RandomCha_B.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == ATeam)
 					{
 						LobbyPlayer[ChangeUIIndex]->SetSprite("RandomCha.png");
 						if (nullptr != TeamChangeLogic)

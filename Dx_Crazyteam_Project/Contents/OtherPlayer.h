@@ -5,6 +5,7 @@
 
 // Ό³Έν :
 class UTextWidget;
+class UImage;
 class AOtherPlayer : public AActor, public UNetObject
 {
 public:
@@ -28,6 +29,11 @@ public:
 		return TeamType;
 	}
 
+	inline ECharacterType GetCharacterType() const
+	{
+		return CharacterType;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -43,7 +49,11 @@ private:
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
 	UTextWidget* PlayerNameUI = nullptr;
+	UTextWidget* NameListUI = nullptr;
+	UImage* PlayerListUI = nullptr;
+
 	bool IsOPDestroy = false;
 	ETeamType TeamType = ETeamType::None;
+	ECharacterType CharacterType = ECharacterType::None;
 };
 
