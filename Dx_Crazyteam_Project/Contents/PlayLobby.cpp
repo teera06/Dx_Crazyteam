@@ -662,16 +662,14 @@ void APlayLobby::Tick(float _DeltaTime)
 				ChatLogic(this, stringHelper::GetPlayerName(), Chat);
 			}
 
-			if (count >= 6)
-			{
-				count = 0;
-			}
+			//if (count >= 6)
+			//{
+			//	count = 0;
+			//}
 
-			ChatName[count]->SetText(stringHelper::GetPlayerName());
-			HistoryText[count]->SetText(Chat);
-			++count;
-
-
+			//ChatName[count]->SetText(stringHelper::GetPlayerName());
+			//HistoryText[count]->SetText(Chat);
+			//++count;
 
 			UTextimeInput::Off();
 			UTextimeInput::On();
