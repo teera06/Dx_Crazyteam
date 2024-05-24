@@ -103,7 +103,7 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 
 	// Packet 처리 등록을 보장하기 위한 변수
 	UEngineDispatcher::IsPacketInit = false;
-
+	UEngineSound::SoundPlay("GameStart.wav");
 	switch (GetWorld()->GetMapType())
 	{
 	case EMapType::Village:
@@ -286,6 +286,11 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 				// Other 오브젝트 릴리즈
 				if (true == _Packet->IsDestroy)
 				{
+					if (false == UNetObject::IsNetObject(_Packet->GetObjectToken()))
+					{
+						return;
+					}
+
 					AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 					if (nullptr != OtherItem)
 					{
@@ -299,6 +304,11 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 				// Other 오브젝트 이동
 				if (true == _Packet->IsMove)
 				{
+					if (false == UNetObject::IsNetObject(_Packet->GetObjectToken()))
+					{
+						return;
+					}
+
 					AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 					if (nullptr != OtherBlock)
 					{
@@ -310,6 +320,11 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 				// Other 오브젝트 이동 종료
 				if (true == _Packet->IsMoveEnd)
 				{
+					if (false == UNetObject::IsNetObject(_Packet->GetObjectToken()))
+					{
+						return;
+					}
+
 					AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 					if (nullptr != OtherBlock)
 					{
@@ -402,6 +417,11 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 					// Other 오브젝트 소멸 관련
 					if (true == _Packet->IsDestroy)
 					{
+						if (false == UNetObject::IsNetObject(_Packet->GetObjectToken()))
+						{
+							return;
+						}
+
 						AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 						if (nullptr != OtherItem)
 						{
@@ -415,6 +435,11 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 					// Other 오브젝트 이동
 					if (true == _Packet->IsMove)
 					{
+						if (false == UNetObject::IsNetObject(_Packet->GetObjectToken()))
+						{
+							return;
+						}
+
 						AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 						if (nullptr != OtherBlock)
 						{
@@ -426,6 +451,11 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 					// Other 오브젝트 이동 종료
 					if (true == _Packet->IsMoveEnd)
 					{
+						if (false == UNetObject::IsNetObject(_Packet->GetObjectToken()))
+						{
+							return;
+						}
+
 						AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 						if (nullptr != OtherBlock)
 						{
