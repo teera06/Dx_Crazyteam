@@ -104,7 +104,7 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 	// Packet 처리 등록을 보장하기 위한 변수
 	UEngineDispatcher::IsPacketInit = false;
 
-	switch (ConstValue::SelectedMap)
+	switch (GetWorld()->GetMapType())
 	{
 	case EMapType::Village:
 	{
@@ -135,8 +135,23 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				MainPlayer->SetCurGameMode(this);
 				SetMainPlayer(MainPlayer);
 
-				FVector InitPos = GetCurMap()->PointToPos(ConstValue::VillageStartPOINT[UGame_Core::Net->GetSessionToken()]);
-				MainPlayer->SetActorLocation(InitPos);
+				switch (GetWorld()->GetMapType())
+				{
+				case EMapType::Village:
+				{
+					FVector InitPos = GetCurMap()->PointToPos(ConstValue::VillageStartPOINT[UGame_Core::Net->GetSessionToken()]);
+					MainPlayer->SetActorLocation(InitPos);
+					break;
+				}
+				case EMapType::Camp:
+				{
+					FVector InitPos = GetCurMap()->PointToPos(ConstValue::CampStartPOINT[UGame_Core::Net->GetSessionToken()]);
+					MainPlayer->SetActorLocation(InitPos);
+					break;
+				}
+				default:
+					break;
+				}
 
 				// 여기에서 메인 플레이어한테 번호를 하나 줄겁니다.
 				MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
@@ -178,8 +193,23 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				MainPlayer->SetCurGameMode(this);
 				SetMainPlayer(MainPlayer);
 
-				FVector InitPos = GetCurMap()->PointToPos(ConstValue::VillageStartPOINT[UGame_Core::Net->GetSessionToken()]);
-				MainPlayer->SetActorLocation(InitPos);
+				switch (GetWorld()->GetMapType())
+				{
+				case EMapType::Village:
+				{
+					FVector InitPos = GetCurMap()->PointToPos(ConstValue::VillageStartPOINT[UGame_Core::Net->GetSessionToken()]);
+					MainPlayer->SetActorLocation(InitPos);
+					break;
+				}
+				case EMapType::Camp:
+				{
+					FVector InitPos = GetCurMap()->PointToPos(ConstValue::CampStartPOINT[UGame_Core::Net->GetSessionToken()]);
+					MainPlayer->SetActorLocation(InitPos);
+					break;
+				}
+				default:
+					break;
+				}
 
 				MainPlayer->SetObjectToken(UGame_Core::Net->GetSessionToken() * 1000);
 

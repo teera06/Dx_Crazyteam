@@ -1,17 +1,17 @@
 #include "PreCompile.h"
-#include "FadeEffect.h"
+#include "FadeEffectLongVer.h"
 
-FadeEffect::FadeEffect()
+FadeEffectLongVer::FadeEffectLongVer()
 {
 }
 
-FadeEffect::~FadeEffect()
+FadeEffectLongVer::~FadeEffectLongVer()
 {
 }
 
-void FadeEffect::Init()
+void FadeEffectLongVer::Init()
 {
-	SetMaterial("FadeShader_Black");
+	SetMaterial("FadeShader_LongVer");
 
 	CopyTarget = UEngineRenderTarget::Create();
 
@@ -19,7 +19,7 @@ void FadeEffect::Init()
 	CopyTarget->CreateTexture(DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, Scale, float4::Zero);
 }
 
-void FadeEffect::Effect(std::shared_ptr<UEngineRenderTarget> EffectTarget)
+void FadeEffectLongVer::Effect(std::shared_ptr<UEngineRenderTarget> EffectTarget)
 {
 	CopyTarget->Copy(EffectTarget);
 	EffectTarget->Clear();
@@ -31,17 +31,17 @@ void FadeEffect::Effect(std::shared_ptr<UEngineRenderTarget> EffectTarget)
 
 }
 
-void FadeEffect::EffectON()
+void FadeEffectLongVer::EffectON()
 {
 	Active(true);
 }
 
-void FadeEffect::EffectOff()
+void FadeEffectLongVer::EffectOff()
 {
 	Active(false);
 }
 
-void FadeEffect::SetEffect(bool _Triger)
+void FadeEffectLongVer::SetEffect(bool _Triger)
 {
 	Active(_Triger);
 }

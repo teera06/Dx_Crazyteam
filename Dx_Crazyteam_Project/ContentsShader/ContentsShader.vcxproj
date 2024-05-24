@@ -136,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FadeShader_Black.fx" />
+    <FxCompile Include="FadeShader_LongVer.fx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

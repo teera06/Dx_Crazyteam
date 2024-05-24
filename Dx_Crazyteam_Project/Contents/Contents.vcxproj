@@ -78,7 +78,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EndingGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="FadeEffect.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="FadeEffectLongVer.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -338,7 +346,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EndingGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="FadeEffect.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FadeEffectLongVer.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -8,25 +8,54 @@
 char UTextimeInput::Text[255]="";
 char UTextimeInput::Cstr[10]="";
 bool UTextimeInput::OnOff = false;
+bool UTextimeInput::FontLen = false;
+bool UTextimeInput::FontOnOff = true;
+
 HWND UTextimeInput::hwnd;
 HIMC UTextimeInput::himc;
 
 
 std::string UTextimeInput::GetReadText()
 {
-	char Text1[255];
-	memset(Text1, 0, 255);
 
-	strcpy(Text1, Text);
-
-	if (Cstr[0] != 0)
+	if (true == FontLen)
 	{
-		strcpy(Text1 + strlen(Text), Cstr);
+		char Text1[255];
+		memset(Text1, 0, 255);
+
+		strcpy(Text1, Text);
+
+		if (strlen(Text1) == 254)
+		{
+			FontOnOff = false;
+		}
+
+		if (Cstr[0] != 0)
+		{
+			strcpy(Text1 + strlen(Text), Cstr);
+		}
+
+		return Text1;
 	}
+	else
+	{
+		char Text1[15];
+		memset(Text1, 0, 15);
 
-	strcpy(Text1 + strlen(Text1), "_");
+		strcpy(Text1, Text);
 
-	return Text1;
+		if (strlen(Text1) == 14)
+		{
+			FontOnOff = false;
+		}
+
+		if (Cstr[0] != 0)
+		{
+			strcpy(Text1 + strlen(Text), Cstr);
+		}
+
+		return Text1;
+	}
 }
 
 void UTextimeInput::On()
@@ -46,6 +75,7 @@ void UTextimeInput::Off()
 void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 {
 
+
 	if (false == OnOff)
 	{
 		return;
@@ -53,11 +83,15 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 
 	hwnd = _hWnd;
 	himc = ImmGetContext(_hWnd);
-
 	int len = 0;
 	switch (_msg)
 	{
 	case WM_IME_COMPOSITION:
+		if (false == FontOnOff)
+		{
+			return;
+		}
+
 		if (_lParam & GCS_COMPSTR) // 조합중 글자 
 		{
 			len = ImmGetCompositionString(himc, GCS_COMPSTR, NULL, 0);
@@ -80,8 +114,10 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 		ImmReleaseContext(hwnd, himc); 
 		break;
 	case WM_CHAR: // 영어랑 숫자 처리
+
 		if (_wparam == 8)
 		{
+			FontOnOff = true;
 			if (strlen(Text) > 0) // 한글 지울때 
 			{
 				
@@ -112,6 +148,12 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 		}
 		else
 		{
+
+			if (false == FontOnOff)
+			{
+				return;
+			}
+
 			if (_wparam == VK_RETURN)
 			{
 				break;

@@ -26,12 +26,13 @@ TextureSet(Image, 0)
 ImagePSOutPut FadeInOut_PS(ImageVSOutPut _Input)
 {
     ImagePSOutPut Out = (ImagePSOutPut) 0;
-    Out.COLOR.rgba = float4(0.f, 0.f, 0.f, 1.f);
+    Out.COLOR.rgba = Image.Sample(Image_Sampler, _Input.TEXCOORD.xy);
 
-    Out.COLOR.rgb += Image.Sample(Image_Sampler, _Input.TEXCOORD.xy) * AccTime * 1.2f;
-    if (Out.COLOR.r > Image.Sample(Image_Sampler, _Input.TEXCOORD.xy).r || Out.COLOR.g > Image.Sample(Image_Sampler, _Input.TEXCOORD.xy).g || Out.COLOR.b > Image.Sample(Image_Sampler, _Input.TEXCOORD.xy).b)
+
+    Out.COLOR.rgb -= Image.Sample(Image_Sampler, _Input.TEXCOORD.xy) * AccTime * 0.3f;
+    if (Out.COLOR.r < float(0.f) || Out.COLOR.g < float(0.f) || Out.COLOR.b < float(0.f))
     {
-         Out.COLOR.rgba = Image.Sample(Image_Sampler, _Input.TEXCOORD.xy);
+         Out.COLOR.rgba = float4(0.f, 0.f, 0.f, 1.f);
     }
     
     
