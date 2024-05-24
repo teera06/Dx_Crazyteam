@@ -23,11 +23,36 @@ void AEndingGameMode::BeginPlay()
 	Img->AddToViewPort(11);
 	Img->SetPosition(FVector(0.0f, 0.0f, 0.0f));
 	Img->SetActive(true);
+
+	Credit = CreateWidget<UImage>(GetWorld(), "Credit");
+	Credit->SetSprite("Ending.png");
+	Credit->SetAutoSize(1.f, true);
+	Credit->AddToViewPort(12);
+	Credit->SetPosition(FVector(0.0f, 0.0f, 0.0f));
+	Credit->SetActive(false);
 }
 
 void AEndingGameMode::Tick(float _DeltaTime)
 {
+	CreditOnTime -= _DeltaTime;
 	GameOffTime -= _DeltaTime;
+	if (EndingShader == true)
+	{
+		EffectOnTime -= _DeltaTime;
+	}	
+
+	if (0.0f >= CreditOnTime)
+	{
+		EndingShader = true;
+		Img->SetActive(false);
+		Credit->SetActive(true);
+	}
+
+	if (0.0f >= EffectOnTime)
+	{
+		BlackFade = GetWorld()->GetLastTarget()->AddEffect<FadeEffectLongVer>();
+		BlackFade.get()->EffectON();
+	}
 
 	if (GameOffTime < 0.f)
 	{
@@ -37,10 +62,7 @@ void AEndingGameMode::Tick(float _DeltaTime)
 
 void AEndingGameMode::LevelStart(ULevel* _DeltaTime)
 {
-	BlackFade = GetWorld()->GetLastTarget()->AddEffect<FadeEffectLongVer>();
-	BlackFade.get()->EffectON();
 
-	GameOffTime = 5.f;
 }
 
 void AEndingGameMode::LevelEnd(ULevel* _DeltaTime)
