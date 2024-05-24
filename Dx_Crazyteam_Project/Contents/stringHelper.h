@@ -14,10 +14,21 @@ public:
 		Name = _Name;
 	}
 
+	static void SetChat(const std::string& _Chat)
+	{
+		Chat = _Chat;
+	}
+
+	static std::string GetChat()
+	{
+		return Chat;
+	}
+
 protected:
 
 private:
 
 	static std::string Name;
+	static std::string Chat;
 };
 
