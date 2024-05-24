@@ -65,6 +65,7 @@ void UTextimeInput::On()
 
 void UTextimeInput::Off()
 {
+	FontOnOff = true;
 	OnOff = false;
 	memset(Text, 0, 255);
 	memset(Cstr, 0, 10);
