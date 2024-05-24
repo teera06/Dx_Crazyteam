@@ -13,6 +13,14 @@ public:
 	{
 		return OnOff;
 	}
+
+	static void SetFontLen(bool _FontLen)
+	{
+		// FontLen true -> 챗팅용
+		// false -> 닉네임 용
+		FontLen = _FontLen;
+	}
+
 protected:
 private:
 	
