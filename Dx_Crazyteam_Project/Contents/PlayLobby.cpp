@@ -706,6 +706,7 @@ void APlayLobby::TeamSelectBegin()
 				else if (IsDown(VK_LBUTTON) && true == TeamSwitchON)
 				{
 					TeamA->ChangeAnimation("TeamDown");
+					UEngineSound::SoundPlay("Click_01.wav");
 				}
 				else if (IsUp(VK_LBUTTON))
 				{
@@ -774,6 +775,7 @@ void APlayLobby::TeamSelectBegin()
 				else if (IsDown(VK_LBUTTON) && true == TeamSwitchON)
 				{
 					TeamB->ChangeAnimation("TeamDown");
+					UEngineSound::SoundPlay("Click_01.wav");
 				}
 
 				else if (IsUp(VK_LBUTTON))
@@ -1546,13 +1548,13 @@ void APlayLobby::MapSelectButtonBegin()
 			}
 			else if (true == IsDown(VK_LBUTTON) && "Hover" == SelectMap->GetUiAniName())
 			{
-				UEngineSound::SoundPlay("Click_01.wav");
 				SelectMap->ChangeAnimation("Down");
 			}
 			else if (true == IsUp(VK_LBUTTON))
 			{
 				if (true == Master)
 				{
+					UEngineSound::SoundPlay("Click_01.wav");
 					MapSelectBegin();
 				}
 			}
