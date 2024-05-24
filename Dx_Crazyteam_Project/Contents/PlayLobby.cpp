@@ -686,7 +686,7 @@ void APlayLobby::TeamSelectBegin()
 					ATeam = true;
 					BTeam = false;
 
-					if ("RandomCha_B.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == BTeam)
+					if ("RandomCha_B.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == ATeam)
 					{
 						LobbyPlayer[ChangeUIIndex]->SetSprite("RandomCha.png");
 						if (nullptr != TeamChangeLogic)
