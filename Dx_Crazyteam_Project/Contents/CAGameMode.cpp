@@ -40,7 +40,10 @@ void ACAGameMode::Tick(float _DeltaTime)
 		}
 	}
 
-
+	if (true == IsPress('E'))
+	{
+		GEngine->ChangeLevel("EndingLevel");
+	}
 }
 
 void ACAGameMode::LevelStart(ULevel* _PrevLevel)

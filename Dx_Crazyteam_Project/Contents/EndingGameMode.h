@@ -1,6 +1,8 @@
 #pragma once
 #include "CAGameMode.h"
 
+class FadeEffectLongVer;
+class UImage;
 class AEndingGameMode : public ACAGameMode
 {
 	GENERATED_BODY(ACAGameMode)
@@ -19,6 +21,7 @@ protected:
 	void LevelEnd(ULevel* _DeltaTime) override;
 
 private:
-
+	UImage* Img = nullptr;
+	std::shared_ptr<FadeEffectLongVer> BlackFade = nullptr;
 };
 
