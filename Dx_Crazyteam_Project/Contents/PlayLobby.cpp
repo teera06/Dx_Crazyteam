@@ -418,7 +418,7 @@ void APlayLobby::BeginPlay()
 
 	LobbyCharacterBanner = CreateWidget<UImage>(GetWorld(), "Randomex");
 	LobbyCharacterBanner->AddToViewPort(11);
-	LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Random.bmp");
+	LobbyCharacterBanner->SetSprite("CharatorSelect_Outline_Bazzi.bmp");
 	LobbyCharacterBanner->SetScale({ 281.f, 80.f });
 	LobbyCharacterBanner->SetPosition({ 230.0f,237.0f });
 	LobbyCharacterBanner->SetActive(true);
@@ -686,7 +686,7 @@ void APlayLobby::TeamSelectBegin()
 					ATeam = true;
 					BTeam = false;
 
-					if ("RandomCha_B.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == BTeam)
+					if ("RandomCha_B.png" == LobbyPlayer[ChangeUIIndex]->CurInfo.Texture->GetName() && true == ATeam)
 					{
 						LobbyPlayer[ChangeUIIndex]->SetSprite("RandomCha.png");
 						if (nullptr != TeamChangeLogic)
