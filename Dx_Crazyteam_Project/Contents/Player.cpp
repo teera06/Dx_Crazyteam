@@ -160,7 +160,7 @@ void APlayer::Tick(float _DeltaTime)
 		UITempBool = true;
 	}
 
-	if(SessionToken == -1)
+	if(SessionToken == -1000)
 	{
 		if (nullptr != UGame_Core::Net)
 		{

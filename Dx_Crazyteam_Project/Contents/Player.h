@@ -239,7 +239,7 @@ private:
 	bool IsPlayerTrap = false;
 
 	UImage* PlayerListUI = nullptr;
-	int SessionToken = -1;
+	int SessionToken = -1000;
 	bool UITempBool = false;
 };
 
