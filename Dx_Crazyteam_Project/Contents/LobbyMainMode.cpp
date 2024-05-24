@@ -166,6 +166,9 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 	}
 	else if (AServerGameMode::NetType == ENetType::Client)
 	{
+
+
+
 		PlayLobby->TeamChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
 			{
 				std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
@@ -279,9 +282,6 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 							UTextWidget* LobbyPlayerName = PlayerUINames[i];
 							NewPlayer->UserNames.push_back(LobbyPlayerName->GetText());							
 						}
-
-						//
-
 						// client가 들어왔을 때 로비Player 수 추가
 						UContentsValue::LobbyPlayerNum++;
 
@@ -318,6 +318,18 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 					}					
 				});			
 		});
+
+	Dis.AddHandler<UChattingUpdatePacket>([=](std::shared_ptr<UChattingUpdatePacket> _Packet)
+		{
+			GetWorld()->PushFunction([=]
+				{
+					if (_Packet->Chat_On == true)
+					{
+						//PlayLobby->MapChange(_Packet->MapName, _Packet->MapChoiceIndex);
+						return;
+					}
+				});
+		});
 }
 
 void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
@@ -341,4 +353,17 @@ void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
 					PlayLobby->SettingUIPlayerName(_Packet->UserNames);
 				});
 		});
+
+	Dis.AddHandler<UChattingUpdatePacket>([=](std::shared_ptr<UChattingUpdatePacket> _Packet)
+		{
+			GetWorld()->PushFunction([=]
+				{
+					if (_Packet->Chat_On == true)
+					{
+						//PlayLobby->MapChange(_Packet->MapName, _Packet->MapChoiceIndex);
+						return;
+					}
+				});
+		});
+
 }

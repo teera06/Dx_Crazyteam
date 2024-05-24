@@ -217,3 +217,31 @@ public:
 	int MapChoiceIndex = -1;
 };
 
+class UChattingUpdatePacket : public UEngineProtocol
+{
+public:
+	static const EContentPacket Type = EContentPacket::UIPacket;
+public:
+	UChattingUpdatePacket()
+	{
+		SetType(EContentPacket::UIPacket);
+	}
+
+	void Serialize(UEngineSerializer& _Ser) override
+	{
+		UEngineProtocol::Serialize(_Ser);
+		_Ser << Chat;
+		_Ser << Chat_On;
+	}
+
+	void DeSerialize(UEngineSerializer& _Ser) override
+	{
+		UEngineProtocol::DeSerialize(_Ser);
+		_Ser >> Chat;
+		_Ser >> Chat_On;
+	}
+
+public:
+	std::string Chat = "";
+	bool Chat_On = false;
+};
