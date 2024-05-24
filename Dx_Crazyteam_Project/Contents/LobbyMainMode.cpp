@@ -25,7 +25,7 @@ void ALobbyMainMode::BeginPlay()
 	Super::BeginPlay();
 
 	PlayLobby = GetWorld()->SpawnActor<APlayLobby>("Lobby");
-	GetWorld()->SpawnActor<AFontActor>("FontActor");
+	//GetWorld()->SpawnActor<AFontActor>("FontActor");
 	// 나 로비 들어왔어 샌드
 }
 
