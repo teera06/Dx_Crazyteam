@@ -61,6 +61,7 @@ void UNetInterface::PlayerSendPacket(float _DeltaTime)
 		Packet->RendererIsActive = Renderer->IsActive();
 		Packet->RendererPos = Renderer->GetLocalPosition();
 		Packet->TeamType = static_cast<int>(ConstValue::MainPlayerTeamType);
+		Packet->CharacterType = static_cast<int>(ConstValue::MainPlayerCharacterType);
 		Send(Packet);
 		CurTime += FrameTime;
 	}

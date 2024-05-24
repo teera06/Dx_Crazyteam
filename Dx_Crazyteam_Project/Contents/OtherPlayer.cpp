@@ -93,6 +93,8 @@ void AOtherPlayer::Tick(float _DeltaTime)
 				PlayerNameUI->SetColor(Color8Bit::Blue);
 			}
 
+			CharacterType = static_cast<ECharacterType>(ActorUpdatePacket->CharacterType);
+
 			std::string SpriteNames = ActorUpdatePacket->SpriteName;
 			std::string UserNames = ActorUpdatePacket->UserName;
 

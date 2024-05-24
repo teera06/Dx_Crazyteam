@@ -28,6 +28,11 @@ public:
 		return TeamType;
 	}
 
+	inline ECharacterType GetCharacterType() const
+	{
+		return CharacterType;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -45,5 +50,6 @@ private:
 	UTextWidget* PlayerNameUI = nullptr;
 	bool IsOPDestroy = false;
 	ETeamType TeamType = ETeamType::None;
+	ECharacterType CharacterType = ECharacterType::None;
 };
 
