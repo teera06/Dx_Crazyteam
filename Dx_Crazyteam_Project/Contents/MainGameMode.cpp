@@ -55,6 +55,7 @@ void AMainGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+
 	int PlayerNum = static_cast<int>(UContentsValue::PlayerIDs.size());
 	
 	UNetObject::AllNetObject;
@@ -593,6 +594,7 @@ void AMainGameMode::GameModeActorInit()
 {
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(80.0f, 1.0f, -1000.0f));
+
 
 
 

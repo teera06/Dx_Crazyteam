@@ -4,7 +4,7 @@
 #include <EngineBase/EngineNetHeader.h>
 #include <EngineCore/EngineNetWindow.h>
 #include <EngineBase/EngineDispatcher.h>
-
+#include "MouseUI.h"
 
 // 설명 :
 class ABaseMap;
@@ -85,7 +85,8 @@ private:
 	bool IsRefereeStart = false;
 	//bool IsTimeOut = false;
 	float ChangeLevelTime = 0.0f;
-};
 
+	std::shared_ptr<MouseUI> Mouse = nullptr;
+};
 // UI에 팀의 승리 여부를 보내야함.(승리 조건에 따라 Win, Loss, Draw UI가 다르기 때문)
 // UI에 해당 Player가 죽었는지 살았는지 보내야 함.(우측 UI 애니메이션[죽으면 울고 있음])

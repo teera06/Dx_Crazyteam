@@ -1,5 +1,6 @@
 #pragma once
 #include <EngineCore/GameMode.h>
+#include "MouseUI.h"
 
 class AIntro;
 class ATitleMenu;
@@ -28,5 +29,7 @@ protected:
 private:
 	UEngineSoundPlayer BGM;
 	std::shared_ptr<AIntro> Intro = nullptr;
+
+	std::shared_ptr<MouseUI> Mouse = nullptr;
 };
 
