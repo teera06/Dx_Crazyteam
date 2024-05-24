@@ -100,6 +100,12 @@
     <Filter Include="MapObject\Bush">
       <UniqueIdentifier>{977ca052-993d-4aae-978b-21d340e48be2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\EndingLevel">
+      <UniqueIdentifier>{6857779c-c953-4a09-85a8-494da6446710}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect">
+      <UniqueIdentifier>{1419b764-0cec-4eef-9a47-dcf9ad7bb011}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
@@ -314,7 +320,15 @@
     <ClInclude Include="ContentsValue.h">
       <Filter>Option</Filter>
     </ClInclude>
-    <ClInclude Include="FadeEffect.h" />
+    <ClInclude Include="EndingGameMode.h">
+      <Filter>Level\EndingLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeEffect.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeEffectLongVer.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -531,6 +545,14 @@
     <ClCompile Include="ContentsValue.cpp">
       <Filter>Option</Filter>
     </ClCompile>
-    <ClCompile Include="FadeEffect.cpp" />
+    <ClCompile Include="EndingGameMode.cpp">
+      <Filter>Level\EndingLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeEffect.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeEffectLongVer.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
