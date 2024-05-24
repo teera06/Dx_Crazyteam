@@ -111,7 +111,7 @@ enum class EPlayerRideType
 enum class EGameResult
 {
 	None,
-	ATeamWin,
-	BTeamWin,
+	Win,
+	Loss,
 	Draw,
 };

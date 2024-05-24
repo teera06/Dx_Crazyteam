@@ -30,17 +30,8 @@ void ACAGameMode::Tick(float _DeltaTime)
 
 	if (false == IsBattleEnd)
 	{
-		WinCheck(_DeltaTime);
 	}
-	else if (true == IsBattleEnd)
-	{
-		if (nullptr != GMToUICallBack)
-		{
-			GMToUICallBack(GameResult);
-		}
-	}
-
-
+	WinCheck(_DeltaTime);
 }
 
 void ACAGameMode::LevelStart(ULevel* _PrevLevel)
@@ -100,15 +91,14 @@ void ACAGameMode::WinCheck(float _DeltaTime)
 
 
 
-#ifdef _DEBUG
-			std::string TeamCount = std::format("A Team : {} | B Team : {}\n", ATeamCount, BTeamCount);
-			std::string PlayerPos = std::format("Player_{} Position : {}\n", i, OtherPlayers[i]->GetActorLocation().ToString());
-			UEngineDebugMsgWindow::PushMsg(TeamCount);
+#ifdef _DEBUG			
+			std::string PlayerPos = std::format("Player_{} Position : {}\n", i, OtherPlayers[i]->GetActorLocation().ToString());			
 			UEngineDebugMsgWindow::PushMsg(PlayerPos);
 #endif
 		} // end for
 
-		if (true == IsRefereeStart && nullptr != MainPlayer)
+		// Main
+		if (true == IsRefereeStart && nullptr != MainPlayer && false == ConstValue::MainPlayerIsDie)
 		{
 			if (ETeamType::ATeam == MainPlayer->GetTeamType())
 			{
@@ -120,22 +110,46 @@ void ACAGameMode::WinCheck(float _DeltaTime)
 			}
 		}
 
+#ifdef _DEBUG
+		std::string TeamCount = std::format("A Team : {} | B Team : {}\n", ATeamCount, BTeamCount);
+		UEngineDebugMsgWindow::PushMsg(TeamCount);
+#endif
 
-		if (true == BattleStart && 0 != PlayerCount && true == IsRefereeStart)
+
+		// °ÔÀÓ °á°ú
+		if (/*true == BattleStart &&*/ 0 != PlayerCount && true == IsRefereeStart)
 		{
 			if (ATeamCount == 0 && BTeamCount == 0)
 			{
-				GameResult = EGameResult::Draw;
+				GMToUICallBack(EGameResult::Draw);
 				IsBattleEnd = true;
 			}
-			else if (BTeamCount == 0)
+			else if (BTeamCount == 0) // A ½Â
 			{
-				GameResult = EGameResult::ATeamWin;
+				if (ETeamType::ATeam == MainPlayer->GetTeamType())
+				{
+					GMToUICallBack(EGameResult::Win);
+					GMToPlayerCallBack(EGameResult::Win);
+				}
+				else if (ETeamType::BTeam == MainPlayer->GetTeamType())
+				{
+					GMToUICallBack(EGameResult::Loss);
+					GMToPlayerCallBack(EGameResult::Loss);
+				}
 				IsBattleEnd = true;
 			}
-			else if (ATeamCount == 0)
+			else if (ATeamCount == 0) // B ½Â
 			{
-				GameResult = EGameResult::BTeamWin;
+				if (ETeamType::ATeam == MainPlayer->GetTeamType())
+				{
+					GMToUICallBack(EGameResult::Loss);
+					GMToPlayerCallBack(EGameResult::Loss);
+				}
+				else if (ETeamType::BTeam == MainPlayer->GetTeamType())
+				{
+					GMToUICallBack(EGameResult::Win);
+					GMToPlayerCallBack(EGameResult::Win);
+				}
 				IsBattleEnd = true;
 			}
 		}

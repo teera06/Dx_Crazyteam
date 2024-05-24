@@ -62,6 +62,7 @@ public:
 	}
 
 	std::function<void(EGameResult)> GMToUICallBack = nullptr;
+	std::function<void(EGameResult)> GMToPlayerCallBack = nullptr;
 
 protected:
 	void BeginPlay() override;
@@ -82,7 +83,6 @@ private:
 	int BTeamCount = 0;
 	bool IsBattleEnd = false;
 	bool IsRefereeStart = false;
-	EGameResult GameResult = EGameResult::None;
 };
 
 // UI에 팀의 승리 여부를 보내야함.(승리 조건에 따라 Win, Loss, Draw UI가 다르기 때문)

@@ -34,6 +34,9 @@ void APlayLobby::BeginPlay()
 	Rank.resize(8);
 	PlayerName.resize(8);
 
+	UTextimeInput::On();
+
+	InsertChat("ChatBox");
 
 
 	PlayLobbyUI = CreateWidget<UImage>(GetWorld(), "PlayLobbyUI");
@@ -539,6 +542,26 @@ void APlayLobby::SettingUIPlayerName(std::vector<std::string> _Names)
 }
 
 
+
+void APlayLobby::InsertChat(std::string_view _Chats)
+{
+
+	//ShowText
+	InsertText = CreateWidget<UTextWidget>(GetWorld(), _Chats);
+	InsertText->SetFont("±¼¸²");
+	InsertText->SetScale(12.0f);
+	InsertText->SetColor(Color8Bit::White);
+	InsertText->SetPosition({ -208.0f ,-226.0f });
+	InsertText->SetFlag(FW1_LEFT);
+	InsertText->AddToViewPort(12);
+
+}
+
+void APlayLobby::UpperChat(UTextWidget* _InsertChat)
+{
+
+}
+
 void APlayLobby::NewPlayer()
 {
 	//PlayerCount
@@ -588,6 +611,24 @@ void APlayLobby::Tick(float _DeltaTime)
 	//PlayerName[Cha_Count]->SetText(stringHelper::GetPlayerName());
 	// Room Hover
 	RoomBegin();
+
+	if (true == UTextimeInput::GetOnOff())
+	{
+		std::string Chat = UTextimeInput::GetReadText();
+		if (Chat.size() > 0)
+		{
+			InsertText->SetText(Chat);
+		}
+		else
+		{
+			InsertText->SetText(" ");
+		}
+	}
+	else
+	{
+		InsertText->SetText(" ");
+	}
+
 }
 
 void APlayLobby::TeamSelectBegin()

@@ -8,6 +8,7 @@ FadeEffect::FadeEffect()
 FadeEffect::~FadeEffect()
 {
 }
+
 void FadeEffect::Init()
 {
 	SetMaterial("FadeShader_Black");

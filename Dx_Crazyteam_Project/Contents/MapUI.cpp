@@ -201,13 +201,13 @@ void AMapUI::Tick(float _DeltaTime)
 			{
 			case EGameResult::None:
 				return;
-			case EGameResult::ATeamWin:
+			case EGameResult::Win:
 				GameEndUI->SetActive(true);
 				GameEndUI->SetSprite("ui_coplayui_KCW.png", 2);
 				break;
-			case EGameResult::BTeamWin:
+			case EGameResult::Loss:
 				GameEndUI->SetActive(true);
-				GameEndUI->SetSprite("ui_coplayui_KCW.png", 2);
+				GameEndUI->SetSprite("ui_coplayui_KCW.png", 1);
 				break;
 			case EGameResult::Draw:
 				GameEndUI->SetActive(true);
