@@ -329,6 +329,9 @@
     <ClInclude Include="FadeEffectLongVer.h">
       <Filter>Effect</Filter>
     </ClInclude>
+    <ClInclude Include="MouseUI.h">
+      <Filter>Level\UItestLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -553,6 +556,9 @@
     </ClCompile>
     <ClCompile Include="FadeEffectLongVer.cpp">
       <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseUI.cpp">
+      <Filter>Level\UItestLevel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

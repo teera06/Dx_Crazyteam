@@ -1,7 +1,7 @@
 #pragma once
 #include <EngineCore/Actor.h>
 #include <EngineBase/NetObject.h>
-
+#include"MouseUI.h"
 
 class UImage;
 class ACAObject;
@@ -71,8 +71,8 @@ private:
 	void MapSelectButtonBegin();
 	void MapSelectBegin();
 
-	UTextWidget* ShowText;
-	UTextWidget* InsertText;
+	UTextWidget* ShowText = nullptr;
+	UTextWidget* InsertText = nullptr;
 	std::vector<UTextWidget*> HistoryText;
 	std::vector< UTextWidget*> ChatName;
 
@@ -145,6 +145,7 @@ private:
 
 	ACAGameMode* Teamtyp = nullptr;
 
+	std::shared_ptr<MouseUI> Mouse = nullptr;
 
 	bool SwitchON = false;
 	bool TeamSwitchON = false;

@@ -8,7 +8,7 @@
 #include "SendPacketManager.h"
 #include "Game_Core.h"
 #include "stringHelper.h"
-
+#include "MouseUI.h"
 
 #include <EngineCore/TextWidget.h>
 #include <EnginePlatform/TextimeInput.h>
@@ -39,6 +39,8 @@ void APlayLobby::BeginPlay()
 	ChatName.resize(6);
 
 	UTextimeInput::On();
+
+	Mouse = GetWorld()->SpawnActor<MouseUI>("MouseUIActor");
 
 	InsertChat("ChatBox");
 

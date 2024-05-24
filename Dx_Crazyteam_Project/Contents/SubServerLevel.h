@@ -29,20 +29,20 @@ public:
 	ASubServerLevel& operator=(const ASubServerLevel& _Other) = delete; // 디폴트 대입 연산자
 	ASubServerLevel& operator=(ASubServerLevel&& _Other) noexcept = delete;
 
-	void ServerPacketInit(UEngineDispatcher& Dis);
-	void ClientPacketInit(UEngineDispatcher& Dis);
+	//void ServerPacketInit(UEngineDispatcher& Dis);
+	//void ClientPacketInit(UEngineDispatcher& Dis);
 
 protected:
-	void BeginPlay() override;
-	void Tick(float _DeltaTime) override;
-	void LevelStart(ULevel* _DeltaTime) override;
-	void LevelEnd(ULevel* _DeltaTime) override;
+	//void BeginPlay() override;
+	//void Tick(float _DeltaTime) override;
+	//void LevelStart(ULevel* _DeltaTime) override;
+	//void LevelEnd(ULevel* _DeltaTime) override;
 	
 private:
-	std::shared_ptr<UEngineNetWindow> subNetWindow;
-	std::shared_ptr<AVillage> Village = nullptr;
-	std::shared_ptr<APlayer> MainPlayer = nullptr;
-	//std::shared_ptr<AServerTestPlayer> MainPlayer = nullptr;
-	std::shared_ptr<AMapUI> MapUI = nullptr;
+	//std::shared_ptr<UEngineNetWindow> subNetWindow;
+	//std::shared_ptr<AVillage> Village = nullptr;
+	//std::shared_ptr<APlayer> MainPlayer = nullptr;
+	////std::shared_ptr<AServerTestPlayer> MainPlayer = nullptr;
+	//std::shared_ptr<AMapUI> MapUI = nullptr;
 };
 

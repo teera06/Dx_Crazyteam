@@ -18,12 +18,14 @@ void ACAGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	GetWorld()->GetMainCamera()->DepthOn();
+	Mouse = GetWorld()->SpawnActor<MouseUI>("MouseUIActor");
 
 	ChangeLevelTime = 0.0f;
 #ifdef _DEBUG
 	InputOn();
 #endif
 }
+
 
 void ACAGameMode::Tick(float _DeltaTime)
 {

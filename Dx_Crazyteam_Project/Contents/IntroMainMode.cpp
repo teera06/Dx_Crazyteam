@@ -20,6 +20,7 @@ void AIntroMainMode::BeginPlay()
 	Super::BeginPlay();
 
 	Intro = GetWorld()->SpawnActor<AIntro>("Intro");
+	Mouse = GetWorld()->SpawnActor<MouseUI>("MouseUIActor");
 }
 
 void AIntroMainMode::Tick(float _DeltaTime)

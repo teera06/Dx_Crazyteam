@@ -4,6 +4,8 @@
 #include <EngineBase/EngineNetHeader.h>
 #include <EngineCore/EngineNetWindow.h>
 #include <EngineBase/EngineDispatcher.h>
+#include "MouseUI.h"
+
 
 class AOtherPlayer;
 class APlayer;
@@ -52,6 +54,7 @@ private:
 	bool IsSpawnBlocks = false;
 
 	UEngineSoundPlayer MainBGM;
+
 
 private:
 	void CreateVillageBlocks();
