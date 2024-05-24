@@ -1674,7 +1674,7 @@ void APlayLobby::MapUIChange(int _MapNumber)
 
 void APlayLobby::SettingChat(std::string_view _Name, std::string_view _chat)
 {
-	if (7 >= count)
+	if (7 <= count)
 	{
 		count = 0;
 	}

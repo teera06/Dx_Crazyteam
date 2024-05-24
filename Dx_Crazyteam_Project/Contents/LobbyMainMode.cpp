@@ -76,17 +76,21 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 				std::shared_ptr<UChattingUpdatePacket> ChatInfo = std::make_shared<UChattingUpdatePacket>();
 				std::vector<UImage*>& PlayerUIImages = _Lobby->LobbyPlayer;
 				PlayLobby->SettingChat(_Name, _Chat);
-				for (size_t i = 0; i < PlayerUIImages.size(); i++)
-				{
-					if (nullptr == PlayerUIImages[i])
-					{
-						continue;
-					}
-					ChatInfo->UserName = _Name.data();
-					ChatInfo->Chat = _Chat.data();
-					ChatInfo->Chat_On = true;
-					UGame_Core::Net->Send(ChatInfo);
-				}
+				ChatInfo->UserName = _Name.data();
+				ChatInfo->Chat = _Chat.data();
+				ChatInfo->Chat_On = true;
+				UGame_Core::Net->Send(ChatInfo);
+				//for (size_t i = 0; i < PlayerUIImages.size()-1; i++)
+				//{
+				//	if (nullptr == PlayerUIImages[i])
+				//	{
+				//		continue;
+				//	}
+				//	ChatInfo->UserName = _Name.data();
+				//	ChatInfo->Chat = _Chat.data();
+				//	ChatInfo->Chat_On = true;
+				//	UGame_Core::Net->Send(ChatInfo);
+				//}
 			};
 		
 		PlayLobby->MapUILogic = [=](APlayLobby* _Lobby, int _MapChoiceNumber)
@@ -360,18 +364,22 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 						std::shared_ptr<UChattingUpdatePacket> ChatInfo = std::make_shared<UChattingUpdatePacket>();
 						std::vector<UImage*>& PlayerUIImages = PlayLobby->LobbyPlayer;
 						PlayLobby->SettingChat(_Packet->UserName, _Packet->Chat);
+						ChatInfo->UserName = _Packet->UserName;
+						ChatInfo->Chat = _Packet->Chat;
+						ChatInfo->Chat_On = true;
+						UGame_Core::Net->Send(ChatInfo);
 
-						for (size_t i = 0; i < PlayerUIImages.size(); i++)
-						{
-							if (nullptr == PlayerUIImages[i])
-							{
-								continue;
-							}
-							ChatInfo->UserName = _Packet->UserName;
-							ChatInfo->Chat = _Packet->Chat;
-							ChatInfo->Chat_On = true;
-							UGame_Core::Net->Send(ChatInfo);
-						}
+						//for (size_t i = 0; i < PlayerUIImages.size(); i++)
+						//{
+						//	if (nullptr == PlayerUIImages[i])
+						//	{
+						//		continue;
+						//	}
+						//	ChatInfo->UserName = _Packet->UserName;
+						//	ChatInfo->Chat = _Packet->Chat;
+						//	ChatInfo->Chat_On = true;
+						//	UGame_Core::Net->Send(ChatInfo);
+						//}
 						return;
 					}
 				});
