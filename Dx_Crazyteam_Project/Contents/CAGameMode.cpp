@@ -126,7 +126,7 @@ void ACAGameMode::WinCheck(float _DeltaTime)
 
 
 		// °ÔÀÓ °á°ú
-		if (true == BattleStart && 0 != PlayerCount && true == IsRefereeStart && false == IsTimeOut)
+		if (true == BattleStart && 0 != PlayerCount && true == IsRefereeStart /*&& false == IsTimeOut*/)
 		{
 			if (ATeamCount == 0 && BTeamCount == 0)
 			{
@@ -168,13 +168,47 @@ void ACAGameMode::WinCheck(float _DeltaTime)
 	// Time Out
 	if (nullptr != GamePlayUI)
 	{
-		GamePlayUI->GameEndTimeLogic = [&](bool _TimeOut)
+		GamePlayUI->GameEndTimeLogic = [=](bool _TimeOut)
 			{
 				if (true == _TimeOut)
 				{
-					GMToUICallBack(EGameResult::Draw);
-					GMToPlayerCallBack(EGameResult::Draw);
-					IsTimeOut = true;
+					//GMToUICallBack(EGameResult::Draw);
+					//GMToPlayerCallBack(EGameResult::Draw);
+					//IsTimeOut = true;
+					if (ATeamCount == BTeamCount)
+					{
+						GMToUICallBack(EGameResult::Draw);
+						GMToPlayerCallBack(EGameResult::Draw);
+						IsBattleEnd = true;
+					}
+					else if (BTeamCount < ATeamCount) // A ½Â
+					{
+						if (ETeamType::ATeam == MainPlayer->GetTeamType())
+						{
+							GMToUICallBack(EGameResult::Win);
+							GMToPlayerCallBack(EGameResult::Win);
+						}
+						else if (ETeamType::BTeam == MainPlayer->GetTeamType())
+						{
+							GMToUICallBack(EGameResult::Loss);
+							GMToPlayerCallBack(EGameResult::Loss);
+						}
+						IsBattleEnd = true;
+					}
+					else if (BTeamCount > ATeamCount) // B ½Â
+					{
+						if (ETeamType::ATeam == MainPlayer->GetTeamType())
+						{
+							GMToUICallBack(EGameResult::Loss);
+							GMToPlayerCallBack(EGameResult::Loss);
+						}
+						else if (ETeamType::BTeam == MainPlayer->GetTeamType())
+						{
+							GMToUICallBack(EGameResult::Win);
+							GMToPlayerCallBack(EGameResult::Win);
+						}
+						IsBattleEnd = true;
+					}
 				}
 				else
 				{

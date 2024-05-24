@@ -83,7 +83,7 @@ private:
 	int BTeamCount = 0;
 	bool IsBattleEnd = false;
 	bool IsRefereeStart = false;
-	bool IsTimeOut = false;
+	//bool IsTimeOut = false;
 	float ChangeLevelTime = 0.0f;
 };
 
