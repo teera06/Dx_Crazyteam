@@ -12,6 +12,7 @@
 #include "OtherPlayer.h"
 #include "stringHelper.h"
 #include <EngineCore/TextWidget.h>
+#include <EngineCore/Image.h>
 
 int APlayer::WaterBomb_Token = 0;
 int APlayer::WaterCourse_Token = 0;
@@ -58,6 +59,15 @@ void APlayer::BeginPlay()
 	//PlayerNameUI->SetColor(Color8Bit::Black);
 	//PlayerNameUI->SetOrder(1);
 	//PlayerNameUI->AddToViewPort(11);
+	PlayerListUI = CreateWidget<UImage>(GetWorld(), "PlayerUIList");
+	PlayerListUI->AddToViewPort(15);
+	PlayerListUI->SetSprite("Play_Portrait_Bazzi_Normal_R.png");
+	PlayerListUI->SetAutoSize(1.0f, true);
+	PlayerListUI->SetPosition({ 0, 0 });
+	PlayerListUI->CreateAnimation("Bazzi_Nor", "Play_Portrait_Bazzi_Normal_R.png", 0.2f, true, 0, 1);
+	PlayerListUI->CreateAnimation("Bazzi_Cry", "Play_Portrait_Bazzi_Lose.png", 0.1f, true, 0, 3);
+	PlayerListUI->ChangeAnimation("Bazzi_Nor");
+	PlayerListUI->SetActive(true);
 
 	MainPlayerSetting();
 	StateInit();
@@ -91,6 +101,16 @@ void APlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	SettingZValue();
+
+	if(SessionToken == -1)
+	{
+		if (nullptr != UGame_Core::Net)
+		{
+			SessionToken = UGame_Core::Net->GetSessionToken();
+		}
+	}
+	FVector Pos = FVector(280.0f, 180 - static_cast<float>((SessionToken * 43)), 100.0f);
+	PlayerListUI->SetPosition(Pos);
 
 	//static bool PlayerCanMove = false;
 	//static float InitTime = 2.0f;

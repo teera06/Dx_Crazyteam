@@ -9,6 +9,7 @@
 class UTextWidget;
 class AOtherPlayer;
 class APlayer;
+class UImage;
 class PlayerInfo
 {
 	friend APlayer;
@@ -236,6 +237,8 @@ private:
 
 	bool IsPlayerTrap = false;
 
+	UImage* PlayerListUI = nullptr;
+	int SessionToken = -1;
 };
 
 
