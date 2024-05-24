@@ -12,6 +12,7 @@ enum class EObjectType
 
 enum EContentPacket
 {
+	ChatPacket = 96,
 	Lobby_Player_Select= 97,
 	UIPacket = 98,
 	ActorUpdatePacket = 99,
@@ -223,11 +224,11 @@ public:
 class UChattingUpdatePacket : public UEngineProtocol
 {
 public:
-	static const EContentPacket Type = EContentPacket::UIPacket;
+	static const EContentPacket Type = EContentPacket::ChatPacket;
 public:
 	UChattingUpdatePacket()
 	{
-		SetType(EContentPacket::UIPacket);
+		SetType(EContentPacket::ChatPacket);
 	}
 
 	void Serialize(UEngineSerializer& _Ser) override
