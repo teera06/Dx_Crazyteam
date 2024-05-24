@@ -111,6 +111,8 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 		std::shared_ptr<AVillage> Village = GetWorld()->SpawnActor<AVillage>("Village");
 		SetCurMap(Village);
 		Village->SetCurGameMode(this);
+		MainBGM = UEngineSound::SoundPlay("VillageBGM.mp3");
+		MainBGM.Loop();
 		break;
 
 	}
@@ -119,6 +121,8 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 		std::shared_ptr<ACamp> Camp = GetWorld()->SpawnActor<ACamp>("Camp");
 		SetCurMap(Camp);
 		Camp->SetCurGameMode(this);
+		MainBGM = UEngineSound::SoundPlay("CampBGM.mp3");
+		MainBGM.Loop();
 		break;
 	}
 	default:
@@ -161,6 +165,7 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
 				MapUI->SetCurGameMode(this);
 				MapUI->SetObjectToken(UNetObject::GetNewObjectToken());
+				SetUI(MapUI);
 
 				//¹°ÆøÅº
 				MainPlayer->WaterBomb_Token = UGame_Core::Net->GetSessionToken() * 1000 + 2;
@@ -218,6 +223,7 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
 				MapUI->SetCurGameMode(this);
 				MapUI->SetObjectToken(UGame_Core::Net->GetSessionToken() * 1000 + 1);
+				SetUI(MapUI);
 	
 				//¹°ÆøÅº
 				MainPlayer->WaterBomb_Token = UGame_Core::Net->GetSessionToken() * 1000 + 2;
@@ -241,6 +247,8 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 void AMainGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+
+	MainBGM.Off();
 
 	InfoRelease();
 }

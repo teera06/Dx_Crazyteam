@@ -33,6 +33,7 @@ void APlayLobby::BeginPlay()
 	LobbyPlayer.resize(8);
 	Rank.resize(8);
 	PlayerName.resize(8);
+	HistoryText.resize(6);
 
 	UTextimeInput::On();
 
@@ -555,18 +556,26 @@ void APlayLobby::InsertChat(std::string_view _Chats)
 	ShowText->SetFlag(FW1_LEFT);
 	ShowText->AddToViewPort(12);
 
+	InsertText = CreateWidget<UTextWidget>(GetWorld(), _Chats);
+	InsertText->SetFont("±¼¸²");
+	InsertText->SetScale(12.0f);
+	InsertText->SetColor(Color8Bit::White);
+	//InsertText->SetPosition({ -208.0f ,-226.0f });
+	InsertText->SetFlag(FW1_LEFT);
+	InsertText->AddToViewPort(12);
+
 	{
-		InsertText = CreateWidget<UTextWidget>(GetWorld(), "ddd");
-
-		InsertText->SetText(" ");
-
-		InsertText->SetFont("±¼¸²");
-		InsertText->SetScale(12.0f);
-		InsertText->SetColor(Color8Bit::White);
-		InsertText->SetPosition({ -328.0f ,-198.0f });
-		InsertText->SetFlag(FW1_LEFT);
-		InsertText->AddToViewPort(12);
-
+		for (size_t i = 0; i < HistoryText.size(); ++i)
+		{
+			HistoryText[i] = CreateWidget<UTextWidget>(GetWorld(), "HistoryText");
+			HistoryText[i]->SetText(" ");
+			HistoryText[i]->SetFont("±¼¸²");
+			HistoryText[i]->SetScale(12.0f);
+			HistoryText[i]->SetColor(Color8Bit::Yellow);
+			HistoryText[i]->SetPosition({ -328.0f ,  (-198.0f + (15 * i))});
+			HistoryText[i]->SetFlag(FW1_LEFT);
+			HistoryText[i]->AddToViewPort(12);
+		}
 	}
 
 }
@@ -643,7 +652,19 @@ void APlayLobby::Tick(float _DeltaTime)
 
 		if (true == UEngineInput::IsDown(VK_RETURN) && Chat.size() > 0)
 		{
-			InsertText->SetText(Chat);
+			if (nullptr != ChatLogic)
+			{
+				ChatLogic(this, stringHelper::GetPlayerName(), Chat);
+			}
+
+			if (count >= 6)
+			{
+				count = 0;
+			}
+
+			HistoryText[count]->SetText(Chat);
+			++count;
+
 			UTextimeInput::Off();
 			UTextimeInput::On();
 		}

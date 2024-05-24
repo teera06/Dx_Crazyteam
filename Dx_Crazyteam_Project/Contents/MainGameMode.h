@@ -51,6 +51,8 @@ private:
 	std::shared_ptr<APlayer_Name> PlayerName = nullptr;
 	bool IsSpawnBlocks = false;
 
+	UEngineSoundPlayer MainBGM;
+
 private:
 	void CreateVillageBlocks();
 	void CreateCampBlocks();

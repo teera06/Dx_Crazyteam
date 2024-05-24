@@ -48,6 +48,7 @@ public:
 	std::function<void(APlayLobby*, int, std::string_view)> ChracterChangeLogic = nullptr;
 	std::function<void(APlayLobby*, std::string_view, int )> MapChangeLogic = nullptr;
 	std::function<void(APlayLobby*, int, std::string_view)> TeamChangeLogic = nullptr;
+	std::function<void(APlayLobby*, std::string_view, std::string_view)> ChatLogic = nullptr;
 	std::function<void(APlayLobby*, int)> MapUILogic = nullptr;
 	void MapChange(std::string_view _MapName, int _MapNumber);
 	void MapUIChange(int _MapNumber);
@@ -71,6 +72,7 @@ private:
 
 	UTextWidget* ShowText;
 	UTextWidget* InsertText;
+	std::vector<UTextWidget*> HistoryText;
 
 
 	UImage* PlayLobbyUI = nullptr;
@@ -163,6 +165,7 @@ private:
 	bool RoomO7 = true;
 	bool RoomX7 = false;
 	
+	int count = 0;
 
 	bool RoomSwitch= false;
 	int  PlayerCount = 0;
