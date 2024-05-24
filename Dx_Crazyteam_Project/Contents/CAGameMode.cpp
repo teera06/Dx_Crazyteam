@@ -21,6 +21,7 @@ void ACAGameMode::BeginPlay()
 	Mouse = GetWorld()->SpawnActor<MouseUI>("MouseUIActor");
 
 	ChangeLevelTime = 0.0f;
+	DelayTime = 0.0f;
 #ifdef _DEBUG
 	InputOn();
 #endif
@@ -30,6 +31,11 @@ void ACAGameMode::BeginPlay()
 void ACAGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+	DelayTime += _DeltaTime;
+	if (2.0f >= DelayTime)
+	{
+		return;
+	}
 
 	if (false == IsBattleEnd)
 	{
