@@ -857,6 +857,7 @@ void APlayLobby::RoomBegin()
 				}
 				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO1)
 				{
+					UEngineSound::SoundPlay("Click_01.wav");
 					Room1->ChangeAnimation("Down");
 
 				}
@@ -918,6 +919,7 @@ void APlayLobby::RoomBegin()
 				}
 				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO2)
 				{
+					UEngineSound::SoundPlay("Click_01.wav");
 					Room2->ChangeAnimation("Down");
 
 				}
@@ -978,6 +980,7 @@ void APlayLobby::RoomBegin()
 				}
 				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO3)
 				{
+					UEngineSound::SoundPlay("Click_01.wav");
 					Room3->ChangeAnimation("Down");
 
 				}
@@ -1038,6 +1041,7 @@ void APlayLobby::RoomBegin()
 				}
 				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO4)
 				{
+					UEngineSound::SoundPlay("Click_01.wav");
 					Room4->ChangeAnimation("Down");
 
 				}
@@ -1097,6 +1101,7 @@ void APlayLobby::RoomBegin()
 				}
 				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO5)
 				{
+					UEngineSound::SoundPlay("Click_01.wav");
 					Room5->ChangeAnimation("Down");
 
 				}
@@ -1156,6 +1161,7 @@ void APlayLobby::RoomBegin()
 				}
 				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO6)
 				{
+					UEngineSound::SoundPlay("Click_01.wav");
 					Room6->ChangeAnimation("Down");
 
 				}
@@ -1215,6 +1221,7 @@ void APlayLobby::RoomBegin()
 				}
 				else if (IsDown(VK_LBUTTON) && true == RoomSwitch && true == RoomO7)
 				{
+					UEngineSound::SoundPlay("Click_01.wav");
 					Room7->ChangeAnimation("Down");
 
 				}
@@ -1269,6 +1276,7 @@ void APlayLobby::CharacterBegin()
 				}
 				else if (IsDown(VK_LBUTTON) && true == SwitchON)
 				{
+					UEngineSound::SoundPlay("Click_01.wav");
 					RandomBT->ChangeAnimation("Down");
 				}
 				else if (IsUp(VK_LBUTTON))
@@ -1325,6 +1333,7 @@ void APlayLobby::CharacterBegin()
 				}
 				else if (IsDown(VK_LBUTTON) && true == SwitchON)
 				{
+					UEngineSound::SoundPlay("Click_01.wav");
 					DaoBT->ChangeAnimation("Down");
 				}
 				else if (IsUp(VK_LBUTTON))
@@ -1384,6 +1393,7 @@ void APlayLobby::CharacterBegin()
 				}
 				else if (IsDown(VK_LBUTTON) && true == SwitchON)
 				{
+					UEngineSound::SoundPlay("Click_01.wav");
 					MaridBT->ChangeAnimation("Down");
 
 				}
@@ -1443,6 +1453,7 @@ void APlayLobby::CharacterBegin()
 				}
 				else if (IsDown(VK_LBUTTON) && true == SwitchON)
 				{
+					UEngineSound::SoundPlay("Click_01.wav");
 					BazziBT->ChangeAnimation("Down");
 
 				}
@@ -1535,6 +1546,7 @@ void APlayLobby::MapSelectButtonBegin()
 			}
 			else if (true == IsDown(VK_LBUTTON) && "Hover" == SelectMap->GetUiAniName())
 			{
+				UEngineSound::SoundPlay("Click_01.wav");
 				SelectMap->ChangeAnimation("Down");
 			}
 			else if (true == IsUp(VK_LBUTTON))
@@ -1611,6 +1623,8 @@ void APlayLobby::MapSelectBegin()
 			MapSelectCTitle->SetActive(false);
 			MapSelectCPick->SetActive(false);
 
+			UEngineSound::SoundPlay("Click_01.wav");
+
 			if (true == VillagePick)
 			{
 				MapType = EMapType::Village;
@@ -1649,6 +1663,8 @@ void APlayLobby::MapSelectBegin()
 			MapSelectCMinimap->SetActive(false);
 			MapSelectCTitle->SetActive(false);
 			MapSelectCPick->SetActive(false);
+
+			UEngineSound::SoundPlay("Click_01.wav");
 
 			if (true == VillagePick)
 			{
