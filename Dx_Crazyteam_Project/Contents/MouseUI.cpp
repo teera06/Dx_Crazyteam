@@ -33,7 +33,7 @@ void MouseUI::SetMousePos()
 	FVector CamPos = GetWorld()->GetMainCamera()->GetActorLocation();
 	FVector MPos = GEngine->EngineWindow.GetScreenMousePos();
 	FVector WindowScale = GEngine->EngineWindow.GetWindowScale();
-	FVector TargetPos = FVector(CamPos.X, CamPos.Y, 0.0f) + FVector(MPos.X + 10 - WindowScale.hX(), -(MPos.Y - WindowScale.hY() + 14), 0.0f);
+	FVector TargetPos = FVector(CamPos.X, CamPos.Y, 0.0f) + FVector(MPos.X + 15 - WindowScale.hX(), -(MPos.Y - WindowScale.hY() + 20), 0.0f);
 
 
 	ACAGameMode* PlayLevel = dynamic_cast<ACAGameMode*>(GetWorld()->GetGameMode().get());
