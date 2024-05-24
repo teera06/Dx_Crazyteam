@@ -3,6 +3,7 @@
 #include "OtherPlayer.h"
 #include "Player.h"
 #include "FadeEffect.h"
+#include "MapUI.h"
 
 ACAGameMode::ACAGameMode() 
 {
@@ -18,7 +19,7 @@ void ACAGameMode::BeginPlay()
 
 	GetWorld()->GetMainCamera()->DepthOn();
 
-
+	ChangeLevelTime = 0.0f;
 #ifdef _DEBUG
 	InputOn();
 #endif
@@ -30,8 +31,16 @@ void ACAGameMode::Tick(float _DeltaTime)
 
 	if (false == IsBattleEnd)
 	{
+		WinCheck(_DeltaTime);
 	}
-	WinCheck(_DeltaTime);
+	else
+	{
+		ChangeLevelTime += _DeltaTime;
+		if (7.0f <= ChangeLevelTime)
+		{
+			GEngine->ChangeLevel("EndingLevel");
+		}
+	}
 }
 
 void ACAGameMode::LevelStart(ULevel* _PrevLevel)
@@ -117,11 +126,12 @@ void ACAGameMode::WinCheck(float _DeltaTime)
 
 
 		// °ÔÀÓ °á°ú
-		if (/*true == BattleStart &&*/ 0 != PlayerCount && true == IsRefereeStart)
+		if (true == BattleStart && 0 != PlayerCount && true == IsRefereeStart /*&& false == IsTimeOut*/)
 		{
 			if (ATeamCount == 0 && BTeamCount == 0)
 			{
 				GMToUICallBack(EGameResult::Draw);
+				GMToPlayerCallBack(EGameResult::Draw);
 				IsBattleEnd = true;
 			}
 			else if (BTeamCount == 0) // A ½Â
@@ -153,5 +163,61 @@ void ACAGameMode::WinCheck(float _DeltaTime)
 				IsBattleEnd = true;
 			}
 		}
+	}
+
+	// Time Out
+	if (nullptr != GamePlayUI)
+	{
+		GamePlayUI->GameEndTimeLogic = [=](bool _TimeOut)
+			{
+				if (true == _TimeOut)
+				{
+					//GMToUICallBack(EGameResult::Draw);
+					//GMToPlayerCallBack(EGameResult::Draw);
+					//IsTimeOut = true;
+					if (ATeamCount == BTeamCount)
+					{
+						GMToUICallBack(EGameResult::Draw);
+						GMToPlayerCallBack(EGameResult::Draw);
+						IsBattleEnd = true;
+					}
+					else if (BTeamCount < ATeamCount) // A ½Â
+					{
+						if (ETeamType::ATeam == MainPlayer->GetTeamType())
+						{
+							GMToUICallBack(EGameResult::Win);
+							GMToPlayerCallBack(EGameResult::Win);
+						}
+						else if (ETeamType::BTeam == MainPlayer->GetTeamType())
+						{
+							GMToUICallBack(EGameResult::Loss);
+							GMToPlayerCallBack(EGameResult::Loss);
+						}
+						IsBattleEnd = true;
+					}
+					else if (BTeamCount > ATeamCount) // B ½Â
+					{
+						if (ETeamType::ATeam == MainPlayer->GetTeamType())
+						{
+							GMToUICallBack(EGameResult::Loss);
+							GMToPlayerCallBack(EGameResult::Loss);
+						}
+						else if (ETeamType::BTeam == MainPlayer->GetTeamType())
+						{
+							GMToUICallBack(EGameResult::Win);
+							GMToPlayerCallBack(EGameResult::Win);
+						}
+						IsBattleEnd = true;
+					}
+				}
+				else
+				{
+					int a = 0;
+				}
+			};
+	}
+	else
+	{
+		int a = 0;
 	}
 }
