@@ -167,13 +167,13 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				}
 
 				// 여기에서 메인 플레이어한테 번호를 하나 줄겁니다.
-				MainPlayer->SetObjectToken(UNetObject::GetNewObjectToken());
+				MainPlayer->SetObjectToken(1000000 + UNetObject::GetNewObjectToken());
 
 
 				// 타임 유아이
 				MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
 				MapUI->SetCurGameMode(this);
-				MapUI->SetObjectToken(UNetObject::GetNewObjectToken());
+				MapUI->SetObjectToken(1000000 + UNetObject::GetNewObjectToken());
 				SetUI(MapUI);
 
 				//물폭탄

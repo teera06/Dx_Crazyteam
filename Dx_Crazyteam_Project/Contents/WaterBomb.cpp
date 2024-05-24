@@ -346,7 +346,7 @@ void AWaterBomb::BombBegin()
 	if (false == IsBombed)
 	{
 		IsBombed = true;
-		USendPacketManager::SendMapObjectReleasePacket(this, GetCurPos());
+		//USendPacketManager::SendMapObjectReleasePacket(this, GetCurPos());
 		//UNetObject::ReleaseObjectToken(this->GetObjectToken());
 	}
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
