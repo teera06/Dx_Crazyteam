@@ -248,6 +248,13 @@ void AWaterBomb::KickBegin()
 			MapObj->Destroy();
 			GetGameMode()->GetCurMap()->ConnectObject(shared_from_this(), TargetPoint.y, TargetPoint.x);
 		}
+		if (MapObj->GetType() == EMapObjectType::Water)
+		{
+			MapObj->Destroy();
+			GetGameMode()->GetCurMap()->ConnectObject(shared_from_this(), TargetPoint.y, TargetPoint.x);
+		}
+
+
 	}
 	else
 	{
