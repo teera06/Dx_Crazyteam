@@ -61,6 +61,7 @@ void UGame_Core::Initialize()
 	ServerGameMode->MainGame = MainGameMode;
 	ServerGameMode->MainLobby = LobbyMainMode;
 
+	GEngine->CreateLevel<AEndingGameMode>("EndingLevel");
 	////////////
 	/*GEngine->CreateLevel<ATestGameMode>("testGameMode");
 	GEngine->CreateLevel<APlayerTestMode>("PlayertestMode");
