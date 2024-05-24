@@ -347,7 +347,7 @@ void AWaterBomb::BombBegin()
 	{
 		IsBombed = true;
 		USendPacketManager::SendMapObjectReleasePacket(this, GetCurPos());
-		UNetObject::ReleaseObjectToken(this->GetObjectToken());
+		//UNetObject::ReleaseObjectToken(this->GetObjectToken());
 	}
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 	GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water, EItemType::None, GetPower);
