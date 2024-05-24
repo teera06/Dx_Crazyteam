@@ -17,19 +17,19 @@ HIMC UTextimeInput::himc;
 
 std::string UTextimeInput::GetReadText()
 {
+	char Text1[255];
+	memset(Text1, 0, 255);
 
 	if (true == FontLen)
 	{
-		char Text1[255];
-		memset(Text1, 0, 255);
-
-		strcpy(Text1, Text);
-
-		if (strlen(Text1) == 254)
+		if (strlen(Text) >= 254)
 		{
 			FontOnOff = false;
-			return Text1;
+			return Text;
 		}
+
+		strcpy(Text1, Text);
+		
 
 		if (Cstr[0] != 0)
 		{
@@ -40,21 +40,20 @@ std::string UTextimeInput::GetReadText()
 	}
 	else
 	{
-		char Text1[15];
-		memset(Text1, 0, 15);
-
-		strcpy(Text1, Text);
-
-		if (strlen(Text1) == 14)
+		if (strlen(Text) >= 14)
 		{
 			FontOnOff = false;
-			return Text1;
+			return Text;
 		}
+
+
+		strcpy(Text1, Text);
 
 		if (Cstr[0] != 0)
 		{
 			strcpy(Text1 + strlen(Text), Cstr);
 		}
+
 
 		return Text1;
 	}
@@ -92,7 +91,7 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 	case WM_IME_COMPOSITION:
 		if (false == FontOnOff)
 		{
-			return;
+			break;
 		}
 
 		if (_lParam & GCS_COMPSTR) // 조합중 글자 
@@ -154,7 +153,7 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 
 			if (false == FontOnOff)
 			{
-				return;
+				break;
 			}
 
 			if (_wparam == VK_RETURN)
@@ -167,8 +166,16 @@ void UTextimeInput::SetIme(HWND _hWnd,UINT _msg, WPARAM _wparam, LPARAM _lParam)
 		}
 		break;
 	case WM_KEYDOWN:
+		if (false == FontOnOff)
+		{
+			break;
+		}
 		break;
 	default:
+		if (false == FontOnOff)
+		{
+			break;
+		}
 		break;
 	}
 }
