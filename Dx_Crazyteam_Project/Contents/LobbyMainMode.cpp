@@ -10,6 +10,7 @@
 #include "ContentsValue.h"
 #include "stringHelper.h"
 #include <EngineCore/TextWidget.h>
+#include <EnginePlatform/TextimeInput.h>
 
 
 ALobbyMainMode::ALobbyMainMode()
@@ -40,6 +41,7 @@ void ALobbyMainMode::Tick(float _DeltaTime)
 void ALobbyMainMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+	UTextimeInput::Off();
 	GEngine->DestroyLevel("LobbyMainMode");
 }
 
