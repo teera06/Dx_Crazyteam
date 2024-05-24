@@ -24,8 +24,6 @@ std::string UTextimeInput::GetReadText()
 		strcpy(Text1 + strlen(Text), Cstr);
 	}
 
-	strcpy(Text1 + strlen(Text1), "_");
-
 	return Text1;
 }
 
