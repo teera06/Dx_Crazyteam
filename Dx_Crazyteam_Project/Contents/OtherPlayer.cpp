@@ -7,7 +7,7 @@
 #include "Packets.h"
 #include <EngineCore/TextWidget.h>
 #include "stringHelper.h"
-
+#include <EngineCore/Image.h>
 
 AOtherPlayer::AOtherPlayer() 
 {
@@ -29,25 +29,31 @@ void AOtherPlayer::BeginPlay()
 {
 	AActor::BeginPlay();
 
-	PlayerNameUI = CreateWidget<UTextWidget>(GetWorld(), "PlayerName");
+	PlayerNameUI = CreateWidget<UTextWidget>(GetWorld(), "PlayerNameTag");
 	PlayerNameUI->SetFont("굴림");
 	PlayerNameUI->SetText("");
 	//PlayerNameUI->SetText(stringHelper::GetPlayerName());
 	PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
 	PlayerNameUI->SetScale(15.0f);
-	
 	PlayerNameUI->SetColor(Color8Bit::Black);
-	//if (GetTeamType() == ETeamType::ATeam)
-	//{
-	//	PlayerNameUI->SetColor(Color8Bit::Red);
-	//}
-	//else if (GetTeamType() == ETeamType::BTeam)
-	//{
-	//	PlayerNameUI->SetColor(Color8Bit::Blue);
-	//}
-
 	PlayerNameUI->SetOrder(1);
 	PlayerNameUI->AddToViewPort(11);
+
+	NameListUI = CreateWidget<UTextWidget>(GetWorld(), "PlayerNameList");
+	NameListUI->SetFont("굴림");
+	NameListUI->SetText("");
+	NameListUI->SetPosition(FVector::Zero);
+	NameListUI->SetScale(15.0f);
+	NameListUI->SetColor(Color8Bit::Black);
+	NameListUI->SetOrder(1);
+	NameListUI->AddToViewPort(11);
+
+	PlayerListUI = CreateWidget<UImage>(GetWorld(), "PlayerUIList");
+	PlayerListUI->AddToViewPort(11);
+	//PlayerListUI->SetSprite(""); << 이거대신 애니메이션 해야함
+	//PlayerListUI->SetScale({ 281.f, 80.f });
+	//PlayerListUI->SetPosition({ 230.0f,237.0f });
+	PlayerListUI->SetActive(true);
 }
 
 void AOtherPlayer::Tick(float _DeltaTime)
@@ -96,8 +102,8 @@ void AOtherPlayer::Tick(float _DeltaTime)
 			CharacterType = static_cast<ECharacterType>(ActorUpdatePacket->CharacterType);
 
 			std::string SpriteNames = ActorUpdatePacket->SpriteName;
-			std::string UserNames = ActorUpdatePacket->UserName;
-
+			std::string UserName = ActorUpdatePacket->UserName;
+			NameListUI->SetText(UserName);
 			int AnimationInFO = ActorUpdatePacket->AnimationInfo;
 
 			if (SpriteNames != "")
@@ -115,7 +121,7 @@ void AOtherPlayer::Tick(float _DeltaTime)
 			}
 			else
 			{
-				PlayerNameUI->SetText(UserNames);
+				PlayerNameUI->SetText(UserName);
 				PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
 			}
 
