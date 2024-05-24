@@ -1,7 +1,7 @@
 #pragma once
 #include <EngineCore/Actor.h>
 #include <EngineBase/NetObject.h>
-
+#include"MouseUI.h"
 
 class UImage;
 class ACAObject;
@@ -145,6 +145,7 @@ private:
 
 	ACAGameMode* Teamtyp = nullptr;
 
+	std::shared_ptr<MouseUI> Mouse = nullptr;
 
 	bool SwitchON = false;
 	bool TeamSwitchON = false;

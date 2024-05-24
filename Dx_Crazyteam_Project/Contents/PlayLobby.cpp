@@ -8,7 +8,7 @@
 #include "SendPacketManager.h"
 #include "Game_Core.h"
 #include "stringHelper.h"
-
+#include "MouseUI.h"
 
 #include <EngineCore/TextWidget.h>
 #include <EnginePlatform/TextimeInput.h>
@@ -39,6 +39,8 @@ void APlayLobby::BeginPlay()
 	ChatName.resize(6);
 
 	UTextimeInput::On();
+
+	Mouse = GetWorld()->SpawnActor<MouseUI>("MouseUIActor");
 
 	InsertChat("ChatBox");
 
@@ -1714,15 +1716,133 @@ void APlayLobby::MapUIChange(int _MapNumber)
 
 void APlayLobby::SettingChat(std::string_view _Name, std::string_view _chat)
 {
-	if (7 <= count)
+	if (6 <= count)
 	{
 		count = 0;
 	}
 
-	ChatName[count]->SetText(std::string(_Name));
-	ChatName[count]->SetColor(Color8Bit::White);
-	HistoryText[count]->SetColor(Color8Bit::White);
-	HistoryText[count]->SetText(std::string(_chat));
+	switch (count)
+	{
+	case 0:
+		ChatName[0]->SetText(std::string(_Name));
+		ChatName[0]->SetColor(Color8Bit::White);
+		HistoryText[0]->SetColor(Color8Bit::White);
+		HistoryText[0]->SetText(std::string(_chat));
+		break;
+	case 1:
+		ChatName[count]->SetText(ChatName[0]->GetText());
+		ChatName[count]->SetColor(Color8Bit::White);
+		HistoryText[count]->SetColor(Color8Bit::White);
+		HistoryText[count]->SetText(HistoryText[0]->GetText());
+
+		ChatName[0]->SetText(std::string(_Name));
+		ChatName[0]->SetColor(Color8Bit::White);
+		HistoryText[0]->SetColor(Color8Bit::White);
+		HistoryText[0]->SetText(std::string(_chat));
+		break;
+	case 2:
+		ChatName[count]->SetText(ChatName[1]->GetText());
+		ChatName[count]->SetColor(Color8Bit::White);
+		HistoryText[count]->SetColor(Color8Bit::White);
+		HistoryText[count]->SetText(HistoryText[1]->GetText());
+
+		ChatName[1]->SetText(ChatName[0]->GetText());
+		ChatName[1]->SetColor(Color8Bit::White);
+		HistoryText[1]->SetColor(Color8Bit::White);
+		HistoryText[1]->SetText(HistoryText[0]->GetText());
+
+
+		ChatName[0]->SetText(std::string(_Name));
+		ChatName[0]->SetColor(Color8Bit::White);
+		HistoryText[0]->SetColor(Color8Bit::White);
+		HistoryText[0]->SetText(std::string(_chat));
+		break;
+	case 3:
+		ChatName[count]->SetText(ChatName[2]->GetText());
+		ChatName[count]->SetColor(Color8Bit::White);
+		HistoryText[count]->SetColor(Color8Bit::White);
+		HistoryText[count]->SetText(HistoryText[2]->GetText());
+
+		ChatName[2]->SetText(ChatName[1]->GetText());
+		ChatName[2]->SetColor(Color8Bit::White);
+		HistoryText[2]->SetColor(Color8Bit::White);
+		HistoryText[2]->SetText(HistoryText[1]->GetText());
+
+		ChatName[1]->SetText(ChatName[0]->GetText());
+		ChatName[1]->SetColor(Color8Bit::White);
+		HistoryText[1]->SetColor(Color8Bit::White);
+		HistoryText[1]->SetText(HistoryText[0]->GetText());
+
+		ChatName[0]->SetText(std::string(_Name));
+		ChatName[0]->SetColor(Color8Bit::White);
+		HistoryText[0]->SetColor(Color8Bit::White);
+		HistoryText[0]->SetText(std::string(_chat));
+		break;
+	case 4:
+		ChatName[count]->SetText(ChatName[3]->GetText());
+		ChatName[count]->SetColor(Color8Bit::White);
+		HistoryText[count]->SetColor(Color8Bit::White);
+		HistoryText[count]->SetText(HistoryText[3]->GetText());
+
+		ChatName[3]->SetText(ChatName[2]->GetText());
+		ChatName[3]->SetColor(Color8Bit::White);
+		HistoryText[3]->SetColor(Color8Bit::White);
+		HistoryText[3]->SetText(HistoryText[2]->GetText());
+
+		ChatName[2]->SetText(ChatName[1]->GetText());
+		ChatName[2]->SetColor(Color8Bit::White);
+		HistoryText[2]->SetColor(Color8Bit::White);
+		HistoryText[2]->SetText(HistoryText[1]->GetText());
+
+		ChatName[1]->SetText(ChatName[0]->GetText());
+		ChatName[1]->SetColor(Color8Bit::White);
+		HistoryText[1]->SetColor(Color8Bit::White);
+		HistoryText[1]->SetText(HistoryText[0]->GetText());
+
+		ChatName[0]->SetText(std::string(_Name));
+		ChatName[0]->SetColor(Color8Bit::White);
+		HistoryText[0]->SetColor(Color8Bit::White);
+		HistoryText[0]->SetText(std::string(_chat));
+		break;
+	case 5:
+		ChatName[count]->SetText(ChatName[4]->GetText());
+		ChatName[count]->SetColor(Color8Bit::White);
+		HistoryText[count]->SetColor(Color8Bit::White);
+		HistoryText[count]->SetText(HistoryText[4]->GetText());
+
+		ChatName[4]->SetText(ChatName[3]->GetText());
+		ChatName[4]->SetColor(Color8Bit::White);
+		HistoryText[4]->SetColor(Color8Bit::White);
+		HistoryText[4]->SetText(HistoryText[3]->GetText());
+
+		ChatName[3]->SetText(ChatName[2]->GetText());
+		ChatName[3]->SetColor(Color8Bit::White);
+		HistoryText[3]->SetColor(Color8Bit::White);
+		HistoryText[3]->SetText(HistoryText[2]->GetText());
+
+		ChatName[2]->SetText(ChatName[1]->GetText());
+		ChatName[2]->SetColor(Color8Bit::White);
+		HistoryText[2]->SetColor(Color8Bit::White);
+		HistoryText[2]->SetText(HistoryText[1]->GetText());
+
+		ChatName[1]->SetText(ChatName[0]->GetText());
+		ChatName[1]->SetColor(Color8Bit::White);
+		HistoryText[1]->SetColor(Color8Bit::White);
+		HistoryText[1]->SetText(HistoryText[0]->GetText());
+
+		ChatName[0]->SetText(std::string(_Name));
+		ChatName[0]->SetColor(Color8Bit::White);
+		HistoryText[0]->SetColor(Color8Bit::White);
+		HistoryText[0]->SetText(std::string(_chat));
+		break;
+	default:
+		break;
+	}
+
+	//ChatName[count]->SetText(std::string(_Name));
+	//ChatName[count]->SetColor(Color8Bit::White);
+	//HistoryText[count]->SetColor(Color8Bit::White);
+	//HistoryText[count]->SetText(std::string(_chat));
 
 	count++;
 }

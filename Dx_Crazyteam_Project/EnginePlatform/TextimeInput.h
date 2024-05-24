@@ -27,7 +27,8 @@ private:
 	static HWND hwnd;
 	static HIMC himc;
 
-	static char Text[255];
+	static char Text1[50];
+	static char Text[50];
 	static char Cstr[10]; 
 
 	static bool OnOff;

@@ -5,8 +5,9 @@
 
 #pragma warning(disable:4996) 
 
-char UTextimeInput::Text[255]="";
+char UTextimeInput::Text[50]="";
 char UTextimeInput::Cstr[10]="";
+char UTextimeInput::Text1[50]="";
 bool UTextimeInput::OnOff = false;
 bool UTextimeInput::FontLen = false;
 bool UTextimeInput::FontOnOff = true;
@@ -17,12 +18,12 @@ HIMC UTextimeInput::himc;
 
 std::string UTextimeInput::GetReadText()
 {
-	char Text1[255];
-	memset(Text1, 0, 255);
+	//char Text1[50];
+	memset(Text1, 0, 50);
 
 	if (true == FontLen)
 	{
-		if (strlen(Text) >= 254)
+		if (strlen(Text) >= 49)
 		{
 			FontOnOff = false;
 			return Text;
@@ -36,11 +37,14 @@ std::string UTextimeInput::GetReadText()
 			strcpy(Text1 + strlen(Text), Cstr);
 		}
 
-		return Text1;
+		if (FontOnOff == true)
+		{
+			return Text1;
+		}
 	}
 	else
 	{
-		if (strlen(Text) >= 14)
+		if (strlen(Text) >= 15)
 		{
 			FontOnOff = false;
 			return Text;
@@ -55,21 +59,28 @@ std::string UTextimeInput::GetReadText()
 		}
 
 
-		return Text1;
+		if (FontOnOff == true)
+		{
+			return Text1;
+		}
+
 	}
+	return 0;
 }
 
 void UTextimeInput::On()
 {
 	OnOff = true;
+	FontOnOff = true;
 }
 
 void UTextimeInput::Off()
 {
-	FontOnOff = true;
 	OnOff = false;
-	memset(Text, 0, 255);
+	FontOnOff = false;
+	memset(Text, 0, 50);
 	memset(Cstr, 0, 10);
+	memset(Text1, 0, 50);
 }
 
 
