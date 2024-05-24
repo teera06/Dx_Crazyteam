@@ -518,6 +518,8 @@ void APlayer::RealDieStart()
 	ConstValue::MainPlayerIsDie = true;
 	Renderer->SetActive(false);
 	SoloArrowRenderer->SetActive(false);
+
+	SetActorLocation(FVector(0.0f, 10000.0f));
 }
 
 void APlayer::RealDie(float _DeltaTime)
