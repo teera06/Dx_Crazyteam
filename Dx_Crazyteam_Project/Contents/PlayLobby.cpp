@@ -547,15 +547,30 @@ void APlayLobby::InsertChat(std::string_view _Chats)
 {
 
 	//ShowText
-	InsertText = CreateWidget<UTextWidget>(GetWorld(), _Chats);
-	InsertText->SetFont("±¼¸²");
-	InsertText->SetScale(12.0f);
-	InsertText->SetColor(Color8Bit::White);
-	InsertText->SetPosition({ -208.0f ,-226.0f });
-	InsertText->SetFlag(FW1_LEFT);
-	InsertText->AddToViewPort(12);
+	ShowText = CreateWidget<UTextWidget>(GetWorld(), _Chats);
+	ShowText->SetFont("±¼¸²");
+	ShowText->SetScale(12.0f);
+	ShowText->SetColor(Color8Bit::White);
+	ShowText->SetPosition({ -208.0f ,-226.0f });
+	ShowText->SetFlag(FW1_LEFT);
+	ShowText->AddToViewPort(12);
+
+	{
+		InsertText = CreateWidget<UTextWidget>(GetWorld(), "ddd");
+
+		InsertText->SetText(" ");
+
+		InsertText->SetFont("±¼¸²");
+		InsertText->SetScale(12.0f);
+		InsertText->SetColor(Color8Bit::White);
+		InsertText->SetPosition({ -328.0f ,-198.0f });
+		InsertText->SetFlag(FW1_LEFT);
+		InsertText->AddToViewPort(12);
+
+	}
 
 }
+
 
 void APlayLobby::UpperChat(UTextWidget* _InsertChat)
 {
@@ -603,6 +618,8 @@ void APlayLobby::NewPlayer()
 	Create_Count++;
 }
 
+
+
 void APlayLobby::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
@@ -617,16 +634,24 @@ void APlayLobby::Tick(float _DeltaTime)
 		std::string Chat = UTextimeInput::GetReadText();
 		if (Chat.size() > 0)
 		{
-			InsertText->SetText(Chat);
+			ShowText->SetText(Chat);
 		}
 		else
 		{
-			InsertText->SetText(" ");
+			ShowText->SetText(" ");
+		}
+
+		if (true == UEngineInput::IsDown(VK_RETURN) && Chat.size() > 0)
+		{
+			InsertText->SetText(Chat);
+			UTextimeInput::Off();
+			UTextimeInput::On();
 		}
 	}
 	else
 	{
-		InsertText->SetText(" ");
+		ShowText->SetText(" ");
+		UTextimeInput::On();
 	}
 
 }
