@@ -99,6 +99,8 @@ private :
 	POINT PrevPoint = { -99,-99 };
 	bool IsKick = false;
 
+	std::function<void(AWaterBomb*, int)> SendTime;
+
 
 };
 

@@ -144,6 +144,12 @@ void AWaterBomb::CreateBegin()
 	{
 		LifeTime = 0.0f;
 	}
+	GetCreateTime();
+
+	if (nullptr != this)
+	{
+		SendTime(this, Bomb_Second);
+	}
 }
 
 void AWaterBomb::CreateTick(float _DeltaTime)
