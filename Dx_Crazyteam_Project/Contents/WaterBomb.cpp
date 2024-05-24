@@ -54,6 +54,18 @@ void AWaterBomb::BeginPlay()
 				FVector PlayerDir = GetGameMode()->GetPlayer()->GetDir();
 				MoveVector = PlayerDir;
 
+				POINT NextPoint = { GetCurPos().x, GetCurPos().y};
+				NextPoint.x += static_cast<int>(MoveVector.X);
+				NextPoint.y -= static_cast<int>(MoveVector.Y);
+
+				std::shared_ptr<AMapObject> MapObj = GetGameMode()->GetCurMap()->GetMapObject(NextPoint.y, NextPoint.x);
+
+				if (MapObj != nullptr && MapObj->GetType() == EMapObjectType::Block)
+				{
+					return;
+				}
+
+
 				State.ChangeState("Kick");
 				IsKick = true;
 			}
@@ -144,12 +156,13 @@ void AWaterBomb::CreateBegin()
 	{
 		LifeTime = 0.0f;
 	}
-	GetCreateTime();
 
-	if (nullptr != this)
-	{
-		SendTime(this, Bomb_Second);
-	}
+	//GetCreateTime();
+
+	//if (nullptr != this)
+	//{
+	//	SendTime(this, Bomb_Second);
+	//}
 }
 
 void AWaterBomb::CreateTick(float _DeltaTime)
@@ -219,6 +232,7 @@ void AWaterBomb::KickBegin()
 }
 void AWaterBomb::KickTick(float _DeltaTime)
 {
+	Renderer->SetActive(true);
 	AddActorLocation(MoveVector * KickSpeed * _DeltaTime);
 
 
