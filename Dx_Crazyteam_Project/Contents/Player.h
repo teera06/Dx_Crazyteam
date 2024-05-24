@@ -205,6 +205,7 @@ private:
 	float GameOnTime = 1.5f;
 
 	std::string GetAnimationName(std::string_view _StateName);
+	std::string GetUIAnimationName(std::string_view _name);
 	void SettingZValue();
 	void WaterBombUpdate();
 	void MoveUpdate(float _DeltaTime);	// 움직일 양 계산하는 함수
@@ -239,6 +240,7 @@ private:
 
 	UImage* PlayerListUI = nullptr;
 	int SessionToken = -1;
+	bool UITempBool = false;
 };
 
 

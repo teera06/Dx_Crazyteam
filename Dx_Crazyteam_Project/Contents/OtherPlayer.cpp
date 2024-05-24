@@ -53,10 +53,60 @@ void AOtherPlayer::BeginPlay()
 	PlayerListUI->SetSprite("Play_Portrait_Bazzi_Normal_R.png");
 	PlayerListUI->SetAutoSize(1.0f, true);
 	PlayerListUI->SetPosition({ 0, 0 });
-	PlayerListUI->CreateAnimation("Bazzi_Nor", "Play_Portrait_Bazzi_Normal_R.png", 0.2f, true, 0, 1);
-	PlayerListUI->CreateAnimation("Bazzi_Cry", "Play_Portrait_Bazzi_Lose.png", 0.1f, true, 0, 3);
-	PlayerListUI->ChangeAnimation("Bazzi_Nor");
+	PlayerListUI->CreateAnimation("Bazzi_R_Nor", "Play_Portrait_Bazzi_Normal_R.png", 0.2f, true, 0, 1);
+	PlayerListUI->CreateAnimation("Bazzi_B_Nor", "Play_Portrait_Bazzi_Normal_B.png", 0.2f, true, 0, 1);
+	PlayerListUI->CreateAnimation("Bazzi_R_Cry", "Play_Portrait_Bazzi_Lose_R.png", 0.1f, true, 0, 3);
+	PlayerListUI->CreateAnimation("Bazzi_B_Cry", "Play_Portrait_Bazzi_Lose_B.png", 0.1f, true, 0, 3);
+
+	PlayerListUI->CreateAnimation("Dao_R_Nor", "Play_Portrait_Dao_Normal_R.png", 0.2f, true, 0, 1);
+	PlayerListUI->CreateAnimation("Dao_B_Nor", "Play_Portrait_Dao_Normal_B.png", 0.2f, true, 0, 1);
+	PlayerListUI->CreateAnimation("Dao_R_Cry", "Play_Portrait_Dao_Lose_R.png", 0.1f, true, 0, 3);
+	PlayerListUI->CreateAnimation("Dao_B_Cry", "Play_Portrait_Dao_Lose_B.png", 0.1f, true, 0, 3);
+
+	PlayerListUI->CreateAnimation("Marid_R_Nor", "Play_Portrait_Marid_Normal_R.png", 0.2f, true, 0, 1);
+	PlayerListUI->CreateAnimation("Marid_B_Nor", "Play_Portrait_Marid_Normal_B.png", 0.2f, true, 0, 1);
+	PlayerListUI->CreateAnimation("Marid_R_Cry", "Play_Portrait_Marid_Lose_R.png", 0.1f, true, 0, 3);
+	PlayerListUI->CreateAnimation("Marid_B_Cry", "Play_Portrait_Marid_Lose_B.png", 0.1f, true, 0, 3);
+	PlayerListUI->ChangeAnimation("Bazzi_R_Nor");
 	PlayerListUI->SetActive(true);
+}
+
+std::string AOtherPlayer::GetAnimationName(std::string_view _name)
+{
+	std::string AniName = "";
+
+	switch (CharacterType)
+	{
+	case ECharacterType::Bazzi:
+		AniName = "Bazzi_";
+		break;
+	case ECharacterType::Dao:
+		AniName = "Dao_";
+		break;
+	case ECharacterType::Marid:
+		AniName = "Marid_";
+		break;
+	default:
+		break;
+	}
+
+	switch (TeamType)
+	{
+	case ETeamType::None:
+		break;
+	case ETeamType::ATeam:
+		AniName += "R_";
+		break;
+	case ETeamType::BTeam:
+		AniName += "B_";
+		break;
+	default:
+		break;
+	}
+
+	AniName += _name.data();
+
+	return AniName;
 }
 
 void AOtherPlayer::Tick(float _DeltaTime)
@@ -104,6 +154,12 @@ void AOtherPlayer::Tick(float _DeltaTime)
 			}
 
 			CharacterType = static_cast<ECharacterType>(ActorUpdatePacket->CharacterType);
+			if(false == TempBool2)
+			{
+				PlayerListUI->ChangeAnimation(GetAnimationName("Nor"));
+				TempBool2 = true;
+			}
+
 
 			std::string SpriteNames = ActorUpdatePacket->SpriteName;
 			std::string UserName = ActorUpdatePacket->UserName;
@@ -146,7 +202,7 @@ void AOtherPlayer::Tick(float _DeltaTime)
 	if (TempBool != IsOPDestroy)
 	{
 		TempBool = IsOPDestroy;
-		PlayerListUI->ChangeAnimation("Bazzi_Cry");
+		PlayerListUI->ChangeAnimation(GetAnimationName("Cry"));
 	}
 	
 }

@@ -526,7 +526,7 @@ void APlayer::RealDieStart()
 
 	SetActorLocation(FVector(0.0f, 10000.0f));
 
-	PlayerListUI->ChangeAnimation("Bazzi_Cry");
+	PlayerListUI->ChangeAnimation(GetUIAnimationName("Cry"));
 }
 
 void APlayer::RealDie(float _DeltaTime)
