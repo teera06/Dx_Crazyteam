@@ -28,6 +28,7 @@ std::string UTextimeInput::GetReadText()
 		if (strlen(Text1) == 254)
 		{
 			FontOnOff = false;
+			return Text1;
 		}
 
 		if (Cstr[0] != 0)
@@ -47,6 +48,7 @@ std::string UTextimeInput::GetReadText()
 		if (strlen(Text1) == 14)
 		{
 			FontOnOff = false;
+			return Text1;
 		}
 
 		if (Cstr[0] != 0)
