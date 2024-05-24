@@ -222,6 +222,10 @@ void UGame_Core::CuttingAni()
 		UEngineSprite::CreateCutting("GameTimer.png", 10, 1);
 		UEngineSprite::CreateCutting("START.png", 6, 1);
 		UEngineSprite::CreateCutting("ui_coplayui_KCW.png", 1, 4);
+
+		UEngineSprite::CreateCutting("Play_Portrait_Bazzi_Normal_R.png", 1, 2);
+		UEngineSprite::CreateCutting("Play_Portrait_Bazzi_Lose.png", 1, 4);
+		
 	}
 }
 

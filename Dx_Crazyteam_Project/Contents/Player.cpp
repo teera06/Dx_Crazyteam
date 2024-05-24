@@ -196,19 +196,19 @@ void APlayer::Tick(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsDown(VK_TAB))
-	{
-		switch (Info->Team)
-		{
-		case ETeamType::None:
-		case ETeamType::ATeam:
-			SetTeamType(ETeamType::BTeam);
-			break;
-		case ETeamType::BTeam:
-			SetTeamType(ETeamType::ATeam);
-			break;
-		}
-	}
+	//if (true == IsDown(VK_TAB))
+	//{
+	//	switch (Info->Team)
+	//	{
+	//	case ETeamType::None:
+	//	case ETeamType::ATeam:
+	//		SetTeamType(ETeamType::BTeam);
+	//		break;
+	//	case ETeamType::BTeam:
+	//		SetTeamType(ETeamType::ATeam);
+	//		break;
+	//	}
+	//}
 
 	if (true == GetIsSendPacket())
 	{

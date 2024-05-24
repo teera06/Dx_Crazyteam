@@ -44,21 +44,25 @@ void AOtherPlayer::BeginPlay()
 	NameListUI->SetText("");
 	NameListUI->SetPosition(FVector::Zero);
 	NameListUI->SetScale(15.0f);
-	NameListUI->SetColor(Color8Bit::Black);
+	NameListUI->SetColor(Color8Bit::White);
 	NameListUI->SetOrder(1);
 	NameListUI->AddToViewPort(11);
 
 	PlayerListUI = CreateWidget<UImage>(GetWorld(), "PlayerUIList");
-	PlayerListUI->AddToViewPort(11);
-	//PlayerListUI->SetSprite(""); << 이거대신 애니메이션 해야함
-	//PlayerListUI->SetScale({ 281.f, 80.f });
-	//PlayerListUI->SetPosition({ 230.0f,237.0f });
+	PlayerListUI->AddToViewPort(15);
+	PlayerListUI->SetSprite("Play_Portrait_Bazzi_Normal_R.png");
+	PlayerListUI->SetAutoSize(1.0f, true);
+	PlayerListUI->SetPosition({ 0, 0 });
+	PlayerListUI->CreateAnimation("Bazzi_Nor", "Play_Portrait_Bazzi_Normal_R.png", 0.2f, true, 0, 1);
+	PlayerListUI->CreateAnimation("Bazzi_Cry", "Play_Portrait_Bazzi_Lose.png", 0.2f, true, 0, 3);
+	PlayerListUI->ChangeAnimation("Bazzi_Nor");
 	PlayerListUI->SetActive(true);
 }
 
 void AOtherPlayer::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
+
 	if (nullptr == UGame_Core::Net)
 	{
 		MsgBoxAssert("네트워크 연결이 안된상태에서 아더플레어를 만들었습니다.");
@@ -125,6 +129,10 @@ void AOtherPlayer::Tick(float _DeltaTime)
 				PlayerNameUI->SetPosition(GetActorLocation() - ConstValue::CameraPos + FVector(0, 70));
 			}
 
+			{
+				SessionToken = ActorUpdatePacket->GetSessionToken();
+			}
+
 			break;
 		}
 		default:
@@ -132,6 +140,14 @@ void AOtherPlayer::Tick(float _DeltaTime)
 		}
 	} while (nullptr != Protocol);
 
+	FVector Pos = FVector(280.0f, 180 - static_cast<float>((SessionToken * 43)), 100.0f);
+	PlayerListUI->SetPosition(Pos);
+	NameListUI->SetPosition(Pos + FVector(30,0,0));
+	if (true == IsOPDestroy)
+	{
+		PlayerListUI->ChangeAnimation("Bazzi_Cry");
+	}
+	
 }
 
 void AOtherPlayer::IdleStart()

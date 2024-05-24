@@ -49,11 +49,14 @@ private:
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
 	UTextWidget* PlayerNameUI = nullptr;
+
 	UTextWidget* NameListUI = nullptr;
 	UImage* PlayerListUI = nullptr;
 
 	bool IsOPDestroy = false;
 	ETeamType TeamType = ETeamType::None;
 	ECharacterType CharacterType = ECharacterType::None;
+
+	int SessionToken = -1;
 };
 

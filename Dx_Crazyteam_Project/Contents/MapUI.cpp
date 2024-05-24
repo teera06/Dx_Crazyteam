@@ -101,17 +101,17 @@ void AMapUI::BeginPlay()
 	GameTimeerUI[3]->SetSprite("GameTimer.png", 9);
 
 
-	for (size_t i = 0; i < PlayerUI.size(); ++i)
-	{
-		for (size_t i = 0; i < PlayerUI.size(); ++i)
-		{
-			PlayerUI[i] = CreateWidget<UImage>(GetWorld(), "PlayerUI");
-			PlayerUI[i]->SetSprite("CharatorSelect_Button_Bazzi_Click.bmp");
-			PlayerUI[i]->AddToViewPort(20);
-			PlayerUI[i]->SetAutoSize(0.7f, true);
-			PlayerUI[i]->AddPosition(FVector(280.0f, 180 - static_cast<float>((i * 43)), 100.0f));
-		}
-	}
+	//for (size_t i = 0; i < PlayerUI.size(); ++i)
+	//{
+	//	for (size_t i = 0; i < PlayerUI.size(); ++i)
+	//	{
+	//		PlayerUI[i] = CreateWidget<UImage>(GetWorld(), "PlayerUI");
+	//		PlayerUI[i]->SetSprite("CharatorSelect_Button_Bazzi_Click.bmp");
+	//		PlayerUI[i]->AddToViewPort(20);
+	//		PlayerUI[i]->SetAutoSize(0.7f, true);
+	//		PlayerUI[i]->AddPosition(FVector(280.0f, 180 - static_cast<float>((i * 43)), 100.0f));
+	//	}
+	//}
 
 }
 
