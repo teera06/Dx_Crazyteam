@@ -238,9 +238,11 @@ private:
 
 	bool IsPlayerTrap = false;
 
+	UTextWidget* NameListUI = nullptr;
 	UImage* PlayerListUI = nullptr;
 	int SessionToken = -1000;
 	bool UITempBool = false;
+	FVector UIPos = FVector(-1000, 0, 0);
 };
 
 

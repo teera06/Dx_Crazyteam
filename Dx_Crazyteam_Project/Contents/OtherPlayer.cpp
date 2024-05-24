@@ -199,7 +199,7 @@ void AOtherPlayer::Tick(float _DeltaTime)
 
 	FVector Pos = FVector(280.0f, 180 - static_cast<float>((SessionToken * 43)), 100.0f);
 	PlayerListUI->SetPosition(Pos);
-	NameListUI->SetPosition(Pos + FVector(21,0,0));
+	NameListUI->SetPosition(Pos + FVector(24,0,0));
 	if (TempBool != IsOPDestroy)
 	{
 		TempBool = IsOPDestroy;
