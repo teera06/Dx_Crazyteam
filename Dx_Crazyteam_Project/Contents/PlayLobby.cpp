@@ -34,6 +34,7 @@ void APlayLobby::BeginPlay()
 	Rank.resize(8);
 	PlayerName.resize(8);
 	HistoryText.resize(6);
+	ChatName.resize(6);
 
 	UTextimeInput::On();
 
@@ -564,6 +565,7 @@ void APlayLobby::InsertChat(std::string_view _Chats)
 	InsertText->SetFlag(FW1_LEFT);
 	InsertText->AddToViewPort(12);
 
+	UTextimeInput::SetFontLen(true);
 	{
 		for (size_t i = 0; i < HistoryText.size(); ++i)
 		{
@@ -572,9 +574,23 @@ void APlayLobby::InsertChat(std::string_view _Chats)
 			HistoryText[i]->SetFont("±¼¸²");
 			HistoryText[i]->SetScale(12.0f);
 			HistoryText[i]->SetColor(Color8Bit::Yellow);
-			HistoryText[i]->SetPosition({ -328.0f ,  (-198.0f + (15 * i))});
+			HistoryText[i]->SetPosition({ -300.0f ,  (-198.0f + (15 * i))});
 			HistoryText[i]->SetFlag(FW1_LEFT);
 			HistoryText[i]->AddToViewPort(12);
+		}
+	}
+
+	{
+		for (size_t i = 0; i < ChatName.size(); ++i)
+		{
+			ChatName[i] = CreateWidget<UTextWidget>(GetWorld(), "HistoryText");
+			ChatName[i]->SetText(" ");
+			ChatName[i]->SetFont("±¼¸²");
+			ChatName[i]->SetScale(12.0f);
+			ChatName[i]->SetColor(Color8Bit::Yellow);
+			ChatName[i]->SetPosition({ -360.0f ,  (-198.0f + (15 * i)) });
+			ChatName[i]->SetFlag(FW1_LEFT);
+			ChatName[i]->AddToViewPort(12);
 		}
 	}
 
@@ -612,18 +628,7 @@ void APlayLobby::NewPlayer()
 		LobbyPlayer[Create_Count]->SetPosition(FVector(static_cast<float>(-755 + Create_Count * 105), 10.0f, 100.0f));
 		PlayerName[Create_Count]->SetPosition({ -748.0f + Create_Count * 105, -50.0f });
 	}
-	
-//	//ShowText->SetPosition({ -348.0f ,106.0f });
-//	//ShowText->SetPosition({ -248.0f ,106.0f });
-//	//ShowText->SetPosition({ -144.0f ,106.0f });
-//	//ShowText->SetPosition({ -37.0f ,106.0f });
-
-//	//ShowText->SetPosition({ -348.0f ,-40.0f });
-//	//ShowText->SetPosition({ -248.0f ,-40.0f });
-//	//ShowText->SetPosition({ -144.0f ,-40.0f });
-//	//ShowText->SetPosition({ -37.0f ,-40.0f });
-	
-	
+		
 	Create_Count++;
 }
 
@@ -662,8 +667,11 @@ void APlayLobby::Tick(float _DeltaTime)
 				count = 0;
 			}
 
+			ChatName[count]->SetText(stringHelper::GetPlayerName());
 			HistoryText[count]->SetText(Chat);
 			++count;
+
+
 
 			UTextimeInput::Off();
 			UTextimeInput::On();
@@ -1664,6 +1672,21 @@ void APlayLobby::MapUIChange(int _MapNumber)
 	default:
 		break;
 	}
+}
+
+void APlayLobby::SettingChat(std::string_view _Name, std::string_view _chat)
+{
+	if (7 >= count)
+	{
+		count = 0;
+	}
+
+	ChatName[count]->SetText(std::string(_Name));
+	ChatName[count]->SetColor(Color8Bit::White);
+	HistoryText[count]->SetColor(Color8Bit::White);
+	HistoryText[count]->SetText(std::string(_chat));
+
+	count++;
 }
 
 void APlayLobby::MapChange(std::string_view _MapName, int _MapNumber)
