@@ -312,9 +312,9 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 	if (MapStatus[_Y][_X] != nullptr && MapStatus[_Y][_X]->GetType() != EMapObjectType::Bush)
 	{
 		int Random = UEngineRandom::MainRandom.RandomInt(1, 100);
-		if (Random <= 100)
+		if (Random <= 50)
 		{
-			int Min = static_cast<int>(EItemType::ItemShoes);
+			int Min = static_cast<int>(EItemType::ItemBubble);
 			int Max = static_cast<int>(EItemType::ItemShoes);
 
 			int ItemRandom = UEngineRandom::MainRandom.RandomInt(Min, Max);

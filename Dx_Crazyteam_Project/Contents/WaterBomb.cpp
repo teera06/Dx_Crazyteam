@@ -80,7 +80,6 @@ void AWaterBomb::BeginPlay()
 
 
 				State.ChangeState("Kick");
-				IsKick = true;
 			}
 		};
 }
@@ -163,11 +162,18 @@ void AWaterBomb::CreateBegin()
 		float MiliSecound = static_cast<float>(Sub_MilliSecond);
 		MiliSecound /= 10000;
 		ServerBombTime = BombTime - (Secound + MiliSecound); // 차이나는 만큼 빨리 터져라.
-		LifeTime = 0.0f;
+
+		if (false == IsKick)
+		{
+			LifeTime = 0.0f;
+		}
 	}
 	else
 	{
-		LifeTime = 0.0f;
+		if (false == IsKick)
+		{
+			LifeTime = 0.0f;
+		}
 	}
 
 	//GetCreateTime();
@@ -209,7 +215,7 @@ void AWaterBomb::CreateTick(float _DeltaTime)
 
 void AWaterBomb::CreateExit()
 {
-	LifeTime = 0.0f;
+	//LifeTime = 0.0f;
 	//Renderer->SetActive(false);
 	ACAGameMode* CulGameModexx = GetGameMode();
 	CulGameMode = CulGameModexx;
@@ -222,6 +228,7 @@ void AWaterBomb::CreateExit()
 
 void AWaterBomb::KickBegin()
 {
+	IsKick = true;
 	TargetPoint = SearchLogic(GetCurPos(), MoveVector);
 	PrevPoint = GetCurPos();
 
@@ -235,6 +242,11 @@ void AWaterBomb::KickBegin()
 			ABush* Bush = dynamic_cast<ABush*>(MapObj.get());
 			Bush->SetPossessBlock(shared_from_this());
 		}
+		if (MapObj->GetType() == EMapObjectType::Item)
+		{
+			MapObj->Destroy();
+			GetGameMode()->GetCurMap()->ConnectObject(shared_from_this(), TargetPoint.y, TargetPoint.x);
+		}
 	}
 	else
 	{
@@ -245,6 +257,7 @@ void AWaterBomb::KickBegin()
 }
 void AWaterBomb::KickTick(float _DeltaTime)
 {
+	LifeTime += _DeltaTime;
 	Renderer->SetActive(true);
 	AddActorLocation(MoveVector * KickSpeed * _DeltaTime);
 
