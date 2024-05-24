@@ -33,6 +33,8 @@ public:
 
 	void SettingUIPlayerSpriteName(std::vector<std::string> _Names);
 	void SettingUIPlayerName(std::vector<std::string> _Names);
+	void InsertChat(std::string_view _Chats);
+	void UpperChat(UTextWidget* _InsertChat);
 
 	void SetMaster()
 	{
@@ -67,6 +69,8 @@ private:
 	void MapSelectButtonBegin();
 	void MapSelectBegin();
 
+	UTextWidget* ShowText;
+	UTextWidget* InsertText;
 
 
 	UImage* PlayLobbyUI = nullptr;

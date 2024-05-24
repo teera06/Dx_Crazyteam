@@ -32,10 +32,10 @@ void UContentsDebugWindow::OnGui(ULevel* Level, float _Delta)
 		GEngine->ChangeLevel("SubServerLevel");
 	}
 	
-	//if (true == ImGui::Button("UitestMode"))
-	//{
-	//	GEngine->ChangeLevel("UitestMonde");
-	//}
+	if (true == ImGui::Button("UitestMode"))
+	{
+		GEngine->ChangeLevel("UitestMonde");
+	}
 
 	//if (true == ImGui::Button("PlaytestMode"))
 	//{
