@@ -52,6 +52,7 @@ public:
 	std::function<void(APlayLobby*, int)> MapUILogic = nullptr;
 	void MapChange(std::string_view _MapName, int _MapNumber);
 	void MapUIChange(int _MapNumber);
+	void SettingChat(std::string_view _Name, std::string_view _chat);
 	////////////////////////////////////////////////////////////////////////////////////////////
 
 protected:
@@ -73,6 +74,7 @@ private:
 	UTextWidget* ShowText;
 	UTextWidget* InsertText;
 	std::vector<UTextWidget*> HistoryText;
+	std::vector< UTextWidget*> ChatName;
 
 
 	UImage* PlayLobbyUI = nullptr;
