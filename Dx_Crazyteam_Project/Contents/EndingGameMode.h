@@ -23,5 +23,7 @@ protected:
 private:
 	UImage* Img = nullptr;
 	std::shared_ptr<FadeEffectLongVer> BlackFade = nullptr;
+
+	float GameOffTime = 5.f;
 };
 

@@ -27,13 +27,20 @@ void AEndingGameMode::BeginPlay()
 
 void AEndingGameMode::Tick(float _DeltaTime)
 {
+	GameOffTime -= _DeltaTime;
 
+	if (GameOffTime < 0.f)
+	{
+		GEngine->EngineWindow.Off();
+	}
 }
 
 void AEndingGameMode::LevelStart(ULevel* _DeltaTime)
 {
 	BlackFade = GetWorld()->GetLastTarget()->AddEffect<FadeEffectLongVer>();
 	BlackFade.get()->EffectON();
+
+	GameOffTime = 5.f;
 }
 
 void AEndingGameMode::LevelEnd(ULevel* _DeltaTime)

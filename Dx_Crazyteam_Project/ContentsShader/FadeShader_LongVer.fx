@@ -29,7 +29,7 @@ ImagePSOutPut FadeInOut_PS(ImageVSOutPut _Input)
     Out.COLOR.rgba = Image.Sample(Image_Sampler, _Input.TEXCOORD.xy);
 
 
-    Out.COLOR.rgb -= Image.Sample(Image_Sampler, _Input.TEXCOORD.xy) * AccTime * 0.5f;
+    Out.COLOR.rgb -= Image.Sample(Image_Sampler, _Input.TEXCOORD.xy) * AccTime * 0.3f;
     if (Out.COLOR.r < float(0.f) || Out.COLOR.g < float(0.f) || Out.COLOR.b < float(0.f))
     {
          Out.COLOR.rgba = float4(0.f, 0.f, 0.f, 1.f);
