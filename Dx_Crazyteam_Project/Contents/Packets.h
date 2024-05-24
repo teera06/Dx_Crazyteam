@@ -42,6 +42,7 @@ public:
 		_Ser << RendererIsActive;
 		_Ser << RendererPos;
 		_Ser << TeamType;
+		_Ser << CharacterType;
 	}
 
 	void DeSerialize(UEngineSerializer& _Ser) override
@@ -57,6 +58,7 @@ public:
 		_Ser >> RendererIsActive;
 		_Ser >> RendererPos;
 		_Ser >> TeamType;
+		_Ser >> CharacterType;
 	}
 
 public:
@@ -70,6 +72,7 @@ public:
 	bool RendererIsActive = true;
 	float4 RendererPos = float4::Zero;
 	int TeamType = 0;
+	int CharacterType = 0;
 };
 
 class UUIUpdatePacket : public UEngineProtocol
