@@ -54,7 +54,7 @@ void AOtherPlayer::BeginPlay()
 	PlayerListUI->SetAutoSize(1.0f, true);
 	PlayerListUI->SetPosition({ 0, 0 });
 	PlayerListUI->CreateAnimation("Bazzi_Nor", "Play_Portrait_Bazzi_Normal_R.png", 0.2f, true, 0, 1);
-	PlayerListUI->CreateAnimation("Bazzi_Cry", "Play_Portrait_Bazzi_Lose.png", 0.2f, true, 0, 3);
+	PlayerListUI->CreateAnimation("Bazzi_Cry", "Play_Portrait_Bazzi_Lose.png", 0.1f, true, 0, 3);
 	PlayerListUI->ChangeAnimation("Bazzi_Nor");
 	PlayerListUI->SetActive(true);
 }
@@ -142,9 +142,10 @@ void AOtherPlayer::Tick(float _DeltaTime)
 
 	FVector Pos = FVector(280.0f, 180 - static_cast<float>((SessionToken * 43)), 100.0f);
 	PlayerListUI->SetPosition(Pos);
-	NameListUI->SetPosition(Pos + FVector(30,0,0));
-	if (true == IsOPDestroy)
+	NameListUI->SetPosition(Pos + FVector(45,-10,0));
+	if (TempBool != IsOPDestroy)
 	{
+		TempBool = IsOPDestroy;
 		PlayerListUI->ChangeAnimation("Bazzi_Cry");
 	}
 	
