@@ -23,7 +23,9 @@ private:
 	static char Cstr[10]; 
 
 	static bool OnOff;
-	
+	static bool FontLen;
+	static bool FontOnOff;
+
 	static void SetIme(HWND _hWnd, UINT _msg, WPARAM _wparam, LPARAM _lParam);
 	
 };
