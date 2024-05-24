@@ -30,6 +30,7 @@ AWaterBomb::AWaterBomb()
 
 AWaterBomb::~AWaterBomb()
 {
+	
 }
 
 void AWaterBomb::BeginPlay()
@@ -247,6 +248,13 @@ void AWaterBomb::KickBegin()
 			MapObj->Destroy();
 			GetGameMode()->GetCurMap()->ConnectObject(shared_from_this(), TargetPoint.y, TargetPoint.x);
 		}
+		if (MapObj->GetType() == EMapObjectType::Water)
+		{
+			MapObj->Destroy();
+			GetGameMode()->GetCurMap()->ConnectObject(shared_from_this(), TargetPoint.y, TargetPoint.x);
+		}
+
+
 	}
 	else
 	{
@@ -335,6 +343,12 @@ POINT AWaterBomb::SearchLogic(POINT _CurPoint, FVector _MoveVector)
 
 void AWaterBomb::BombBegin()
 {
+	if (false == IsBombed)
+	{
+		IsBombed = true;
+		USendPacketManager::SendMapObjectReleasePacket(this, GetCurPos());
+		UNetObject::ReleaseObjectToken(this->GetObjectToken());
+	}
 	GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 	GetGameMode()->GetCurMap()->AddMapObject(GetCurPos().y, GetCurPos().x, EMapObject::Water, EItemType::None, GetPower);
 
@@ -351,6 +365,7 @@ void AWaterBomb::BombTick(float _DeltaTime)
 {
 	//GetGameMode()->GetCurMap()->DestroyMapObject(GetCurPos().y, GetCurPos().x);
 	Renderer->SetActive(false);
+
 	Destroy();
 }
 

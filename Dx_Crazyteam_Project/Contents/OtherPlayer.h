@@ -5,6 +5,7 @@
 
 // Ό³Έν :
 class UTextWidget;
+class UImage;
 class AOtherPlayer : public AActor, public UNetObject
 {
 public:
@@ -48,8 +49,15 @@ private:
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
 	UTextWidget* PlayerNameUI = nullptr;
+
+	UTextWidget* NameListUI = nullptr;
+	UImage* PlayerListUI = nullptr;
+
 	bool IsOPDestroy = false;
+	bool TempBool = false;
 	ETeamType TeamType = ETeamType::None;
 	ECharacterType CharacterType = ECharacterType::None;
+
+	int SessionToken = -1;
 };
 

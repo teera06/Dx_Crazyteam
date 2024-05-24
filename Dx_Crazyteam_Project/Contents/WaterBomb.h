@@ -62,6 +62,7 @@ protected:
 	bool BombServer = false;
 
 	bool OtherCreate = false;
+	bool IsBombed = false;
 	
 	float GetCreateTime();
 

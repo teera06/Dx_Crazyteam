@@ -57,7 +57,7 @@ void AMainGameMode::Tick(float _DeltaTime)
 
 	int PlayerNum = static_cast<int>(UContentsValue::PlayerIDs.size());
 	
-		
+	UNetObject::AllNetObject;
 
 	if (false == IsSpawnBlocks
 		&& AServerGameMode::NetType == ENetType::Server
@@ -103,7 +103,7 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 
 	// Packet 처리 등록을 보장하기 위한 변수
 	UEngineDispatcher::IsPacketInit = false;
-
+	UEngineSound::SoundPlay("GameStart.wav");
 	switch (GetWorld()->GetMapType())
 	{
 	case EMapType::Village:
@@ -111,6 +111,8 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 		std::shared_ptr<AVillage> Village = GetWorld()->SpawnActor<AVillage>("Village");
 		SetCurMap(Village);
 		Village->SetCurGameMode(this);
+		MainBGM = UEngineSound::SoundPlay("VillageBGM.mp3");
+		MainBGM.Loop();
 		break;
 
 	}
@@ -119,6 +121,8 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 		std::shared_ptr<ACamp> Camp = GetWorld()->SpawnActor<ACamp>("Camp");
 		SetCurMap(Camp);
 		Camp->SetCurGameMode(this);
+		MainBGM = UEngineSound::SoundPlay("CampBGM.mp3");
+		MainBGM.Loop();
 		break;
 	}
 	default:
@@ -244,6 +248,8 @@ void AMainGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
 
+	MainBGM.Off();
+
 	InfoRelease();
 }
 
@@ -280,11 +286,17 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 				// Other 오브젝트 릴리즈
 				if (true == _Packet->IsDestroy)
 				{
+					if (false == UNetObject::IsNetObject(_Packet->GetObjectToken()))
+					{
+						return;
+					}
+
 					AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 					if (nullptr != OtherItem)
 					{
 						POINT Pos = _Packet->Pos;
 						GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
+						UNetObject::ReleaseObjectToken(_Packet->GetObjectToken());
 					}
 					return;
 				}
@@ -292,6 +304,11 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 				// Other 오브젝트 이동
 				if (true == _Packet->IsMove)
 				{
+					if (false == UNetObject::IsNetObject(_Packet->GetObjectToken()))
+					{
+						return;
+					}
+
 					AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 					if (nullptr != OtherBlock)
 					{
@@ -303,6 +320,11 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 				// Other 오브젝트 이동 종료
 				if (true == _Packet->IsMoveEnd)
 				{
+					if (false == UNetObject::IsNetObject(_Packet->GetObjectToken()))
+					{
+						return;
+					}
+
 					AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 					if (nullptr != OtherBlock)
 					{
@@ -395,11 +417,17 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 					// Other 오브젝트 소멸 관련
 					if (true == _Packet->IsDestroy)
 					{
+						if (false == UNetObject::IsNetObject(_Packet->GetObjectToken()))
+						{
+							return;
+						}
+
 						AMapObject* OtherItem = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 						if (nullptr != OtherItem)
 						{
 							POINT Pos = _Packet->Pos;
 							GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
+							UNetObject::ReleaseObjectToken(_Packet->GetObjectToken());
 						}
 						return;
 					}
@@ -407,6 +435,11 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 					// Other 오브젝트 이동
 					if (true == _Packet->IsMove)
 					{
+						if (false == UNetObject::IsNetObject(_Packet->GetObjectToken()))
+						{
+							return;
+						}
+
 						AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 						if (nullptr != OtherBlock)
 						{
@@ -418,6 +451,11 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 					// Other 오브젝트 이동 종료
 					if (true == _Packet->IsMoveEnd)
 					{
+						if (false == UNetObject::IsNetObject(_Packet->GetObjectToken()))
+						{
+							return;
+						}
+
 						AMapObject* OtherBlock = UNetObject::GetNetObject<AMapObject>(_Packet->GetObjectToken());
 						if (nullptr != OtherBlock)
 						{

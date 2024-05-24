@@ -71,6 +71,28 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 		PlayLobby->SetMaster();
 
 		// ¹æÀå 0¹ø
+		PlayLobby->ChatLogic = [=](APlayLobby* _Lobby, std::string_view _Name, std::string_view _Chat)
+			{
+				std::shared_ptr<UChattingUpdatePacket> ChatInfo = std::make_shared<UChattingUpdatePacket>();
+				std::vector<UImage*>& PlayerUIImages = _Lobby->LobbyPlayer;
+				PlayLobby->SettingChat(_Name, _Chat);
+				ChatInfo->UserName = _Name.data();
+				ChatInfo->Chat = _Chat.data();
+				ChatInfo->Chat_On = true;
+				UGame_Core::Net->Send(ChatInfo);
+				//for (size_t i = 0; i < PlayerUIImages.size()-1; i++)
+				//{
+				//	if (nullptr == PlayerUIImages[i])
+				//	{
+				//		continue;
+				//	}
+				//	ChatInfo->UserName = _Name.data();
+				//	ChatInfo->Chat = _Chat.data();
+				//	ChatInfo->Chat_On = true;
+				//	UGame_Core::Net->Send(ChatInfo);
+				//}
+			};
+		
 		PlayLobby->MapUILogic = [=](APlayLobby* _Lobby, int _MapChoiceNumber)
 			{
 				std::shared_ptr<ULobbyPlayerUpdatePacket> MapInfo = std::make_shared<ULobbyPlayerUpdatePacket>();
@@ -166,8 +188,23 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 	}
 	else if (AServerGameMode::NetType == ENetType::Client)
 	{
+		PlayLobby->ChatLogic = [=](APlayLobby* _Lobby, std::string_view _Name, std::string_view _Chat)
+			{
+				std::shared_ptr<UChattingUpdatePacket> ChatInfo = std::make_shared<UChattingUpdatePacket>();
 
-
+				ChatInfo->UserName = _Name.data();
+				ChatInfo->Chat = _Chat.data();
+				ChatInfo->Chat_On = true;
+				UGame_Core::Net->Send(ChatInfo);
+				//std::vector<UImage*>& PlayerUIImages = _Lobby->LobbyPlayer;
+				//for (size_t i = 0; i < PlayerUIImages.size(); i++)
+				//{
+				//	if (nullptr == PlayerUIImages[i])
+				//	{
+				//		continue;
+				//	}			
+				//}
+			};
 
 		PlayLobby->TeamChangeLogic = [=](APlayLobby* _Lobby, int _Index, std::string_view _SpriteName)
 			{
@@ -201,7 +238,6 @@ void ALobbyMainMode::LevelStart(ULevel* _PrevLevel)
 				std::shared_ptr<ULobbyPlayerUpdatePacket> NewPlayer = std::make_shared<ULobbyPlayerUpdatePacket>();
 				//NewPlayer->NewPlayer = true;
 				std::vector<std::string> SetSpriteNames = NewPlayer->SpriteNames;
-
 
 				std::vector<UImage*>& PlayerUIImages = _Lobby->LobbyPlayer;
 				for (size_t i = 0; i < PlayerUIImages.size(); i++)
@@ -325,7 +361,25 @@ void ALobbyMainMode::ServerPacketInit(UEngineDispatcher& Dis)
 				{
 					if (_Packet->Chat_On == true)
 					{
-						//PlayLobby->MapChange(_Packet->MapName, _Packet->MapChoiceIndex);
+						std::shared_ptr<UChattingUpdatePacket> ChatInfo = std::make_shared<UChattingUpdatePacket>();
+						std::vector<UImage*>& PlayerUIImages = PlayLobby->LobbyPlayer;
+						PlayLobby->SettingChat(_Packet->UserName, _Packet->Chat);
+						ChatInfo->UserName = _Packet->UserName;
+						ChatInfo->Chat = _Packet->Chat;
+						ChatInfo->Chat_On = true;
+						UGame_Core::Net->Send(ChatInfo);
+
+						//for (size_t i = 0; i < PlayerUIImages.size(); i++)
+						//{
+						//	if (nullptr == PlayerUIImages[i])
+						//	{
+						//		continue;
+						//	}
+						//	ChatInfo->UserName = _Packet->UserName;
+						//	ChatInfo->Chat = _Packet->Chat;
+						//	ChatInfo->Chat_On = true;
+						//	UGame_Core::Net->Send(ChatInfo);
+						//}
 						return;
 					}
 				});
@@ -360,6 +414,7 @@ void ALobbyMainMode::ClientPacketInit(UEngineDispatcher& Dis)
 				{
 					if (_Packet->Chat_On == true)
 					{
+						PlayLobby->SettingChat(_Packet->UserName, _Packet->Chat);
 						//PlayLobby->MapChange(_Packet->MapName, _Packet->MapChoiceIndex);
 						return;
 					}

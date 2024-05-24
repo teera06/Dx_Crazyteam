@@ -52,6 +52,17 @@ public:
 		return dynamic_cast<ConvertType*>(AllNetObject[_ObjectToken]);;
 	}
 
+	static bool ReleaseObjectToken(int _ObjectToken)
+	{
+		if (false == AllNetObject.contains(_ObjectToken))
+		{
+			return false;
+		}
+
+		AllNetObject.erase(_ObjectToken);
+		return true;
+	}
+
 	// Net오브젝트가 만들어지면 딱 1번만 되어야 한다.
 	void SetObjectToken(int _ObjectToken)
 	{

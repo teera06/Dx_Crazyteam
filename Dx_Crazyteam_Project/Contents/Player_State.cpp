@@ -8,6 +8,7 @@
 #include "SendPacketManager.h"
 #include <EngineCore/EngineDebugMsgWindow.h>
 #include "OtherPlayer.h"
+#include <EngineCore/Image.h>
 
 void APlayer::StateInit()
 {
@@ -524,6 +525,8 @@ void APlayer::RealDieStart()
 	SoloArrowRenderer->SetActive(false);
 
 	SetActorLocation(FVector(0.0f, 10000.0f));
+
+	PlayerListUI->ChangeAnimation("Bazzi_Cry");
 }
 
 void APlayer::RealDie(float _DeltaTime)

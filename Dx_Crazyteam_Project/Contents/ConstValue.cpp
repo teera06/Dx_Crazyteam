@@ -9,8 +9,8 @@ const int ConstValue::TileX = 15;
 const int ConstValue::dy[] = { -1,0,1,0 };
 const int ConstValue::dx[] = { 0,1,0,-1 };
 
-ETeamType ConstValue::MainPlayerTeamType = ETeamType::None;
-ECharacterType ConstValue::MainPlayerCharacterType = ECharacterType::None;
+ETeamType ConstValue::MainPlayerTeamType = ETeamType::ATeam;
+ECharacterType ConstValue::MainPlayerCharacterType = ECharacterType::Bazzi;
 bool ConstValue::MainPlayerIsDie = false;
 
 EMapType ConstValue::SelectedMap = EMapType::Village;

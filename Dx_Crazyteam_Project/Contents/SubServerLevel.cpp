@@ -53,8 +53,8 @@ void ASubServerLevel::BeginPlay()
 	Camp->SetCurGameMode(this);
 
 
-	//MainPlayer = GetWorld()->SpawnActor<APlayer>("Player");
-	MainPlayer = GetWorld()->SpawnActor<AServerTestPlayer>("Player");
+	MainPlayer = GetWorld()->SpawnActor<APlayer>("Player");
+	//MainPlayer = GetWorld()->SpawnActor<AServerTestPlayer>("Player");
 	MainPlayer->SetCurGameMode(this);
 	SetMainPlayer(MainPlayer);
 
