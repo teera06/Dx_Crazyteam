@@ -82,6 +82,14 @@ void AMainGameMode::Tick(float _DeltaTime)
 		}
 		IsSpawnBlocks = true;
 	}
+	else if (false == IsSpawnBlocks
+		&& AServerGameMode::NetType == ENetType::Client
+		&& PlayerNum == UContentsValue::LobbyPlayerNum)
+	{
+		ACAGameMode::BattleStart = true;
+
+		IsSpawnBlocks = true;
+	}
 
 
 	//UTextimeInput::IMEInput();
@@ -296,7 +304,7 @@ void AMainGameMode::ServerPacketInit(UEngineDispatcher& Dis)
 					{
 						POINT Pos = _Packet->Pos;
 						GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
-						UNetObject::ReleaseObjectToken(_Packet->GetObjectToken());
+						//UNetObject::ReleaseObjectToken(_Packet->GetObjectToken());
 					}
 					return;
 				}
@@ -427,7 +435,7 @@ void AMainGameMode::ClientPacketInit(UEngineDispatcher& Dis)
 						{
 							POINT Pos = _Packet->Pos;
 							GetCurMap()->DestroyMapObject(Pos.y, Pos.x);
-							UNetObject::ReleaseObjectToken(_Packet->GetObjectToken());
+							//UNetObject::ReleaseObjectToken(_Packet->GetObjectToken());
 						}
 						return;
 					}
