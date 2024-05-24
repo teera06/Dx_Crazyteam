@@ -1514,11 +1514,13 @@ void APlayLobby::StartBegin()
 				if (false == SoundCheck)
 				{
 					UEngineSound::SoundPlay("pt_in_rect.mp3");
+					
 					SoundCheck = true;
 				}
 			}
 			});
 		GameStart->SetDown([=] {
+			UEngineSound::SoundPlay("Start_Effect.wav");
 			GameStart->ChangeAnimation("Down");
 			if (nullptr != MapChangeLogic)
 			{
