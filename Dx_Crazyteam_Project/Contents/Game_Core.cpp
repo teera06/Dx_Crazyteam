@@ -9,6 +9,7 @@
 #include "SubServerLevel.h"
 #include "IntroMainMode.h"
 #include "LobbyMainMode.h"
+#include "EndingGameMode.h"
 
 #include "ContentsDebugWindow.h"
 #include "ContentsMainDebugWin.h"
@@ -49,6 +50,9 @@ void UGame_Core::Initialize()
 	std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("FadeShader_Black");
 	Mat->SetPixelShader("FadeShader_Black.fx");
 	Mat->SetVertexShader("FadeShader_Black.fx");
+	std::shared_ptr<UEngineMaterial> LongVer = UEngineMaterial::Create("FadeShader_LongVer");
+	LongVer->SetPixelShader("FadeShader_LongVer.fx");
+	LongVer->SetVertexShader("FadeShader_LongVer.fx");
 
 	std::shared_ptr<AIntroMainMode> IntroMainMode = GEngine->CreateLevel<AIntroMainMode>("IntroMainMode",0);
 	std::shared_ptr<ALobbyMainMode> LobbyMainMode = GEngine->CreateLevel<ALobbyMainMode>("LobbyMainMode",0);
@@ -62,6 +66,7 @@ void UGame_Core::Initialize()
 	GEngine->CreateLevel<APlayerTestMode>("PlayertestMode");
 	GEngine->CreateLevel<ASubServerLevel>("SubServerLevel");
 	GEngine->CreateLevel<AUitestMonde>("UitestMonde");
+	GEngine->CreateLevel<AEndingGameMode>("EndingLevel");
 	GEngine->ChangeLevel("MainGameMode");
 
 	UEngineEditorGUI::CreateEditorWindow<UContentsDebugWindow>("contentsHelpMe");

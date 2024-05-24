@@ -14,5 +14,8 @@
     <FxCompile Include="FadeShader_Black.fx">
       <Filter>Fade</Filter>
     </FxCompile>
+    <FxCompile Include="FadeShader_LongVer.fx">
+      <Filter>Fade</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
