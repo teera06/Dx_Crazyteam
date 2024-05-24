@@ -48,12 +48,12 @@ public:
 
 	void SetUI(std::shared_ptr<AMapUI> _UI)
 	{
-		UI = _UI;
+		GamePlayUI = _UI;
 	}
 
 	std::shared_ptr<AMapUI> GetUI()
 	{
-		return UI;
+		return GamePlayUI;
 	}
 
 	std::vector<AOtherPlayer*>& GetOtherPlayers()
@@ -77,12 +77,14 @@ private:
 
 	std::shared_ptr<ABaseMap> CurMap = nullptr;
 	std::shared_ptr<APlayer> MainPlayer = nullptr;
-	std::shared_ptr<AMapUI> UI = nullptr;
+	std::shared_ptr<AMapUI> GamePlayUI = nullptr;
 	std::shared_ptr<FadeEffect> BlackFade = nullptr;
 	int ATeamCount = 0;
 	int BTeamCount = 0;
 	bool IsBattleEnd = false;
 	bool IsRefereeStart = false;
+	bool IsTimeOut = false;
+	float ChangeLevelTime = 0.0f;
 };
 
 // UI에 팀의 승리 여부를 보내야함.(승리 조건에 따라 Win, Loss, Draw UI가 다르기 때문)

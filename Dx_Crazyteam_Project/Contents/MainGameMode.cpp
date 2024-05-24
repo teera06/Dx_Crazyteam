@@ -161,6 +161,7 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
 				MapUI->SetCurGameMode(this);
 				MapUI->SetObjectToken(UNetObject::GetNewObjectToken());
+				SetUI(MapUI);
 
 				//¹°ÆøÅº
 				MainPlayer->WaterBomb_Token = UGame_Core::Net->GetSessionToken() * 1000 + 2;
@@ -218,6 +219,7 @@ void AMainGameMode::LevelStart(ULevel* _PrevLevel)
 				MapUI = GetWorld()->SpawnActor<AMapUI>("MapUI");
 				MapUI->SetCurGameMode(this);
 				MapUI->SetObjectToken(UGame_Core::Net->GetSessionToken() * 1000 + 1);
+				SetUI(MapUI);
 	
 				//¹°ÆøÅº
 				MainPlayer->WaterBomb_Token = UGame_Core::Net->GetSessionToken() * 1000 + 2;
