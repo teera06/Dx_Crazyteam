@@ -676,6 +676,9 @@ void APlayLobby::Tick(float _DeltaTime)
 			//++count;
 
 			UTextimeInput::Off();
+		}
+		else if (true == UEngineInput::IsDown(VK_RETURN) && Chat.size() == 0)
+		{
 			UTextimeInput::On();
 		}
 	}
