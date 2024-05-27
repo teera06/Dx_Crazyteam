@@ -315,7 +315,7 @@ std::shared_ptr<AMapObject> ABaseMap::AddMapObject(int _Y, int _X, EMapObject _M
 		if (Random <= 50)
 		{
 			int Min = static_cast<int>(EItemType::ItemBubble);
-			int Max = static_cast<int>(EItemType::ItemNiddle);
+			int Max = static_cast<int>(EItemType::ItemShoes);
 
 			int ItemRandom = UEngineRandom::MainRandom.RandomInt(Min, Max);
 

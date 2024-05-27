@@ -19,7 +19,6 @@ void UMoveObject::MoveSetOwner(ABlock* _Owner)
 	MoveOwner = _Owner;
 	MoveOwner->PlayerInteract = [&]() {
 
-		return;
 
 		if (GetOwner()->GetIsPush()) return;
 		if (GetOwner()->GetIsBreak()) return;
